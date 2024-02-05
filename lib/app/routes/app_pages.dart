@@ -128,10 +128,6 @@ class AppPages {
       page: () => DatosProfesionalWidget(),
     ),
     GetPage(
-      name: '/registroUsuario',
-      page: () => RegistroUsuarioWidget(),
-    ),
-    GetPage(
       name: '/registroProfesional',
       page: () => RegistroProfesionalWidget(),
     ),
@@ -241,20 +237,20 @@ class AppPages {
       binding: MisPistasBinding(),
       transition: Transition.noTransition,
     ),
-     GetPage(
-         name: Routes.RESERVA_TU_PISTA,
-         page: () => ReservaTuPistaPage(),
-         binding: ReservaTuPistaBinding(),
-      ), 
-      GetPage(
-         name: Routes.DATOS_USUARIO,
-         page: () => DatosUsuarioPage(),
-         binding: DatosUsuarioBinding(),
-      ), 
-      GetPage(
-         name: Routes.OLVIDE_CONTRASENA,
-         page: () => OlvideContrasenaPage(),
-         binding: OlvideContrasenaBinding(),
-      ), 
-   ];
+    GetPage(
+      name: Routes.RESERVA_TU_PISTA,
+      page: () => ReservaTuPistaPage(),
+      binding: ReservaTuPistaBinding(),
+    ),
+    GetPage(
+      name: Routes.DATOS_USUARIO,
+      page: () => DatosUsuarioPage(),
+      binding: DatosUsuarioBinding(),
+    ),
+    GetPage(
+      name: Routes.OLVIDE_CONTRASENA,
+      page: () => OlvideContrasenaPage(),
+      binding: OlvideContrasenaBinding(),
+    ),
+  ];
 }

@@ -10,17 +10,13 @@ import 'app/routes/database.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-
   await FFLocalizations.initialize();
-
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
-  await GetStorage.init();
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
@@ -41,8 +37,7 @@ class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
   ThemeMode _themeMode = ThemeMode.system;
 
-  late AppStateNotifier _appStateNotifier;
-  late GoRouter _router;
+  // late AppStateNotifier _appStateNotifier;
 
   bool displaySplashImage = true;
 
@@ -50,11 +45,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    _appStateNotifier = AppStateNotifier.instance;
-    _router = createRouter(_appStateNotifier);
+    // _appStateNotifier = AppStateNotifier.instance;
 
-    Future.delayed(Duration(milliseconds: 5),
-        () => setState(() => _appStateNotifier.stopShowingSplashImage()));
+    // Future.delayed(Duration(milliseconds: 5),
+    //     () => setState(() => _appStateNotifier.stopShowingSplashImage()));
   }
 
   void setLocale(String language) {

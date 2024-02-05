@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import '../../../app/routes/database.dart';
 import '../../../app/widgets/terminos_condiciones.dart';
 import '../../../backend/schema/enums/enums.dart';
@@ -72,43 +71,45 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         width: 100.w - 138,
         child: Builder(
           builder: (BuildContext context) {
-            final storage = GetStorage().read(
-              'dataUser',
-            );
-            if (storage == null) {
-              return AutoSizeText(
-                _model.subtitle,
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).headlineSmall,
-              );
-            }
+            // final storage = GetStorage().read(
+            //   'dataUser',
+            // );
+            // if (storage == null) {
+            //   return AutoSizeText(
+            //     _model.subtitle,
+            //     textAlign: TextAlign.center,
+            //     style: FlutterFlowTheme.of(context).headlineSmall,
+            //   );
+            // }
             return AutoSizeText(
-              storage['Nombre'] + ' ' + storage['Apellidos'],
+              // storage['Nombre'] + ' ' + storage['Apellidos'],
+              'Nombre Apellidos',
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).headlineSmall,
             );
           },
         ));
-    final nick = GetStorage().read(
-              'dataUser',
-            ) !=
-            null
-        ? GetStorage().read(
-            'dataUser',
-          )['Nick']
-        : FFLocalizations.of(context).getText(
-            'eofqyfrj' /* juliofresno59 */,
-          );
-    final nivel = GetStorage().read(
-              'dataUser',
-            ) !=
-            null
-        ? FormatNumber.formatNumberWithTwoDecimals(
-            double.parse(GetStorage().read(
-            'dataUser',
-          )['Nivel']))
-        : '1.00';
-
+    // final nick = GetStorage().read(
+    //           'dataUser',
+    //         ) !=
+    //         null
+    //     ? GetStorage().read(
+    //         'dataUser',
+    //       )['Nick']
+    //     : FFLocalizations.of(context).getText(
+    //         'eofqyfrj' /* juliofresno59 */,
+    //       );
+    // final nivel = GetStorage().read(
+    //           'dataUser',
+    //         ) !=
+    //         null
+    //     ? FormatNumber.formatNumberWithTwoDecimals(
+    //         double.parse(GetStorage().read(
+    //         'dataUser',
+    //       )['Nivel']))
+    //     : '1.00';
+    final nivel = 'nivel';
+    final nick = 'nick';
     const sizeLogo = 122;
     const sizeBtns = 72 * 6;
     const sizeAppbar = 55;
@@ -272,16 +273,17 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   Widget buildColumnResponsive() {
     const EdgeInsetsGeometry padding =
         EdgeInsets.symmetric(horizontal: 8, vertical: 2);
-    final nameFoto = getImage(GetStorage().read(
-      'pathPhoto',
-    ));
+    // final nameFoto = getImage(GetStorage().read(
+    //   'pathPhoto',
+    // ));
     final title = SizedBox(
         width: 100.w - 138,
         child: Builder(
           builder: (BuildContext context) {
-            final storage = GetStorage().read(
-              'dataUser',
-            );
+            // final storage = GetStorage().read(
+            //   'dataUser',
+            // );
+            final storage = ' ';
             if (storage == null) {
               return AutoSizeText(
                 _model.subtitle,
@@ -290,32 +292,34 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               );
             }
             return AutoSizeText(
-              storage['Nombre'] + ' ' + storage['Apellidos'],
+              // storage['Nombre'] + ' ' + storage['Apellidos'],
+              'NOmbre apellidos',
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).headlineSmall,
             );
           },
         ));
-    final nick = GetStorage().read(
-              'dataUser',
-            ) !=
-            null
-        ? GetStorage().read(
-            'dataUser',
-          )['Nick']
-        : FFLocalizations.of(context).getText(
-            'eofqyfrj' /* juliofresno59 */,
-          );
-    final nivel = GetStorage().read(
-              'dataUser',
-            ) !=
-            null
-        ? FormatNumber.formatNumberWithTwoDecimals(
-            double.parse(GetStorage().read(
-            'dataUser',
-          )['Nivel']))
-        : '1.00';
-
+    // final nick = GetStorage().read(
+    //           'dataUser',
+    //         ) !=
+    //         null
+    //     ? GetStorage().read(
+    //         'dataUser',
+    //       )['Nick']
+    //     : FFLocalizations.of(context).getText(
+    //         'eofqyfrj' /* juliofresno59 */,
+    //       );
+    // final nivel = GetStorage().read(
+    //           'dataUser',
+    //         ) !=
+    //         null
+    //     ? FormatNumber.formatNumberWithTwoDecimals(
+    //         double.parse(GetStorage().read(
+    //         'dataUser',
+    //       )['Nivel']))
+    //     : '1.00';
+    final nick = 'nick';
+    final nivel = 'nivel';
     const sizeLogo = 86;
     const sizeBtns = 60 * 6;
     const sizeAppbar = 55;
@@ -365,7 +369,8 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                     padding: EdgeInsets.all(2),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(40),
-                        child: nameFoto),
+                        // child: nameFoto),
+                        child: Text('dkjbfkj')),
                   ),
                 ),
                 Padding(

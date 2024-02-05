@@ -1,4 +1,3 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:reservatu_pista/utils/animations/get_image.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '../../../utils/server/image_server.dart';

@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
 import '../../utils/btn_icon.dart';
 import '../routes/app_pages.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -165,20 +160,22 @@ class AppbarGeneral extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: (GetStorage().read(
-                                'photoUser',
-                              )) !=
-                              null
-                          ? Image.file(
-                              File(GetStorage().read(
-                                'photoUser',
-                              )),
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset(
-                              'assets/images/foto_avatar.png',
-                              fit: BoxFit.cover,
-                            ),
+                      child:
+                          // (GetStorage().read(
+                          //           'photoUser',
+                          //         )) !=
+                          //         null
+                          //     ? Image.file(
+                          //         File(GetStorage().read(
+                          //           'photoUser',
+                          //         )),
+                          //         fit: BoxFit.cover,
+                          //       )
+                          //     :
+                          Image.asset(
+                        'assets/images/foto_avatar.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     onPressed: () async {
                       Get.toNamed(Routes.DATOS);

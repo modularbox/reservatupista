@@ -1,5 +1,4 @@
 // Export pages
-export '/pages/usuario/login/login_widget.dart' show LoginWidget;
 export '/pages/usuario/perfil/perfil_widget.dart' show PerfilWidget;
 export '/pages/profesional/login_profesional/login_profesional_widget.dart'
     show LoginProfesionalWidget;
@@ -10,8 +9,6 @@ export '/pages/usuario/mis_reservas/mis_reservas_widget.dart'
 export '/pages/usuario/datos/datos_widget.dart' show DatosWidget;
 export '/pages/profesional/datos_profesional/datos_profesional_widget.dart'
     show DatosProfesionalWidget;
-export '/pages/usuario/registro_usuario/registro_usuario_widget.dart'
-    show RegistroUsuarioWidget;
 export '/pages/profesional/registro_profesional/registro_profesional_widget.dart'
     show RegistroProfesionalWidget;
 export '/pages/profesional/perfil_profesional/perfil_profesional_widget.dart'

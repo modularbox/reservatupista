@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -310,17 +309,18 @@ class DatosController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   void llenadoInputsAutomatico() async {
-    if (GetStorage().read(
-          'pathPhoto',
-        ) !=
-        null) {
-      imageFile.value = GetStorage().read(
-        'pathPhoto',
-      );
-    }
-    final readData = GetStorage().read(
-      'dataUser',
-    );
+    // if (GetStorage().read(
+    //       'pathPhoto',
+    //     ) !=
+    //     null) {
+    //   imageFile.value = GetStorage().read(
+    //     'pathPhoto',
+    //   );
+    // }
+    // final readData = GetStorage().read(
+    //   'dataUser',
+    // );
+    final readData = {};
     if (readData is Map<String, String>) {
       nombreController.text = readData['Nombre']!;
       apellidosController.text = readData['Apellidos']!;
@@ -417,10 +417,10 @@ class DatosController extends GetxController with SingleGetTickerProviderMixin {
     isFocusNode = false;
     if (formKey.currentState!.validate()) {
       try {
-        await GetStorage().write('dataUser', saveData);
-        if (imageFile.value != null) {
-          await GetStorage().write('pathPhoto', imageFile.value!);
-        }
+        // await GetStorage().write('dataUser', saveData);
+        // if (imageFile.value != null) {
+        //   await GetStorage().write('pathPhoto', imageFile.value!);
+        // }
         await Get.dialog(RichAlertDialog(
           //uses the custom alert dialog
           alertTitle: richTitle("Datos modificados"),
