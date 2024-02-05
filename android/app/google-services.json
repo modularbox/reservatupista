@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46634301566",
+    "project_id": "tutorial-multi-language-9ef0wv",
+    "storage_bucket": "tutorial-multi-language-9ef0wv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46634301566:android:457d9195838b9ba949c02f",
+        "android_client_info": {
+          "package_name": "com.modularbox.reservatupista"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkj08wHIC-VR7iocBhbnRtGfV2B3wVteg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
