@@ -40,6 +40,8 @@ import '../pages/usuario/datos_usuario/datos_usuario.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena_b.dart';
+import '../pages/profesional/tarifas_pista/tarifas_pista.dart';
+import '../pages/profesional/tarifas_pista/tarifas_pista_b.dart';
 // End imports
 
 /// Names Routes
@@ -78,6 +80,7 @@ abstract class Routes {
   static const RESERVA_TU_PISTA = '/reserva_tu_pista';
   static const DATOS_USUARIO = '/datos_usuario';
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
+  static const TARIFAS_PISTA = '/tarifas_pista';
 }
 
 /// Get Routes
@@ -252,5 +255,10 @@ class AppPages {
       page: () => OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
     ),
-  ];
+     GetPage(
+         name: Routes.TARIFAS_PISTA,
+         page: () => TarifasPistaPage(),
+         binding: TarifasPistaBinding(),
+      ), 
+   ];
 }

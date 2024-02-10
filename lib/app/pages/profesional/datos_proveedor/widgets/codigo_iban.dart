@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../flutter_flow/flutter_flow_theme.dart';
+import '../../../../../utils/colores.dart';
 import '../datos_proveedor_c.dart';
 
 class InputField {
@@ -11,6 +12,8 @@ class InputField {
 }
 
 class CodigoIban extends GetView<DatosProveedorController> {
+  const CodigoIban({super.key});
+
   DatosProveedorController get self => controller;
 
   @override
@@ -89,14 +92,7 @@ class CodigoIban extends GetView<DatosProveedorController> {
                           // Cuando el usuario ingresa dos dígitos, cambiamos el enfoque al campo del año
                           focusNodeCodigo[1].requestFocus();
                         }
-
-                        // if (value.isEmpty) {
-                        //   // Cuando el usuario borra el campo del año, cambiamos el enfoque al campo del mes
-                        //   _monthFocus.requestFocus();
-                        // }
                       },
-                      //                 },
-                      // nextFocusNode: focusNodeCodigo[1],
                       keyboardType: index > 0 ? TextInputType.number : null);
                 }
                 if (index == 5) {
@@ -105,14 +101,8 @@ class CodigoIban extends GetView<DatosProveedorController> {
                     maxLength: lengthTextField[index],
                     textController: controllersCodigo[index],
                     focusNode: focusNodeCodigo[index],
-                    // backFocusNode: focusNodeCodigo[4],
                     keyboardType: index > 0 ? TextInputType.number : null,
                     onChanged: (value) {
-                      // if (value.length >= 2) {
-                      //   // Cuando el usuario ingresa dos dígitos, cambiamos el enfoque al campo del año
-                      //   focusNodeCodigo[1].requestFocus();
-                      // }
-
                       if (value.isEmpty) {
                         // Cuando el usuario borra el campo del año, cambiamos el enfoque al campo del mes
                         focusNodeCodigo[4].requestFocus();
@@ -167,24 +157,28 @@ class CodigoIban extends GetView<DatosProveedorController> {
       required TextEditingController textController,
       void Function(String)? onChanged}) {
     return TextFormField(
-      // controller: controllersCodigo[index],
       controller: textController,
       focusNode: focusNode,
-      // keyboardType: index > 0 ? TextInputType.number : null,
       keyboardType: keyboardType,
       maxLength: maxLength,
-      // maxLength: lengthTextField[index],
       onChanged: onChanged,
       decoration: InputDecoration(
         labelStyle: FlutterFlowTheme.of(context).labelMedium,
         hintStyle: FlutterFlowTheme.of(context).labelMedium,
         counterText: '',
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color.fromARGB(160, 70, 239, 152),
+          borderSide: BorderSide(
+            color: Colores().proveedor.primary,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(8),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colores().proveedor.primary69,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -207,12 +201,13 @@ class CodigoIban extends GetView<DatosProveedorController> {
           ),
           borderRadius: BorderRadius.circular(8),
         ),
-        contentPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        contentPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
       ),
       style: FlutterFlowTheme.of(context).bodyMedium.override(
             fontFamily: 'Readex Pro',
             color: FlutterFlowTheme.of(context).primaryText,
           ),
+      enabled: false,
       textAlign: TextAlign.center,
     );
   }

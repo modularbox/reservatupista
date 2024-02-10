@@ -4,13 +4,13 @@ import '../../app/routes/models/proveedor_model.dart';
 import 'datos_server.dart';
 
 String getImageProveedorNode(String fotoName) {
-  return '${DatosServer().urlServer}/images_proveedor/$fotoName.png?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+  return '${DatosServer().urlServer}/images_proveedor/$fotoName.png';
 }
 
 Future<void> anadirProveedorNode(List proveedor) async {
   try {
     final url = Uri.parse('${DatosServer().urlServer}/proveedor');
-    print(proveedor.toString());
+
     var request = http.post(url,
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({

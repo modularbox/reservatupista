@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
+import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../backend/server_node.dart/subir_image_node.dart';
 import '../../../../backend/server_node.dart/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/database.dart';
@@ -17,7 +17,7 @@ import '../../../routes/models/usuario_model.dart';
 import '../../../widgets/terminos_condiciones.dart';
 import 'package:image/image.dart' as img;
 
-enum ImagenType { network, file }
+enum ImagenType { network, file, asset }
 
 class TiposImagenes {
   String pathOrUrl;
@@ -411,10 +411,6 @@ class DatosUsuarioController extends GetxController
                 usuarioModel!.juegosSemana != juegoPorSemanaController.text,
             "valorModificado": juegoPorSemanaController.text
           },
-          "foto": {
-            "seModifico": usuarioModel!.foto != imageFile.value!.pathOrUrl,
-            "valorModificado": imageFile.value!.pathOrUrl
-          },
         };
 
         List listModificaciones = verModificaciones.keys.toList();
@@ -454,40 +450,6 @@ class DatosUsuarioController extends GetxController
     }
   }
 
-  /// Reducir imagen
-  Future<File> imageResize() async {
-    // Imagen decoded
-    img.Image image =
-        img.decodeImage(File(imageFile.value!.pathOrUrl).readAsBytesSync())!;
-    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
-    img.Image compressedImage = img.copyResize(
-      image,
-      width: 150,
-      height: 300,
-    );
-    // Regresar la imagen comprimida
-    return File(imageFile.value!.pathOrUrl)
-      ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 60));
-  }
-
-  Future<File> copiarAssetAFile(String path) async {
-    try {
-      // Especifica el path relativo del activo
-      String pathAsset = 'assets/images/$path.png';
-      // Obtiene el contenido del activo como bytes
-      List<int> bytes = await rootBundle
-          .load(pathAsset)
-          .then((byteData) => byteData.buffer.asUint8List());
-      // Obtiene el directorio temporal del sistema
-      Directory tempDir = await getTemporaryDirectory();
-      // Crea un archivo temporal con el contenido del activo
-      File tempFile = File('${tempDir.path}/image_asset.png');
-      return await tempFile.writeAsBytes(bytes);
-    } catch (error) {
-      throw ('Error al copiar el activo a un archivo: $error');
-    }
-  }
-
   String? validateTextField(BuildContext context, String? text,
       AnimationController anim, FocusNode focusNode, String nameData) {
     if (text == null || text.isEmpty) {
@@ -505,71 +467,66 @@ class DatosUsuarioController extends GetxController
     }
   }
 
-  Future<void> pickImage(ImageSource source, {String? path}) async {
-    if (path != null) {
-      imageFile.value = TiposImagenes('@$path', ImagenType.file);
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        imageFile.value = TiposImagenes(pickedFile.path, ImagenType.file);
-        fotoController.text = 'IMG';
+  void selectImage(String? pathImage, TipoImagen tipoImagen) async {
+    if (pathImage != null) {
+      try {
+        // Es una imagen local
+        if (tipoImagen == TipoImagen.asset) {
+          // Subir Imagen en nodejs y copiarAssetLocal
+          await subirImageNode(await copiarAssetAFile(pathImage),
+              destination: 'usuarios', nameFoto: usuarioModel!.foto);
+        } else {
+          // Subir Imagen en nodejs y ajustar tamano
+          await subirImageNode(await imageResize(pathImage),
+              destination: 'usuarios', nameFoto: usuarioModel!.foto);
+        }
+        print("Actualizar Imagen");
+
+        /// Actualizar Image
+        db.imageServer.value =
+            '${getImageUsuarioNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+        print(db.imageServer);
+        print('Seactualizo');
+      } catch (e) {
+        print(e);
+      } finally {
+        refresh();
+        Get.back();
+        Get.back();
       }
     }
   }
 
-  Future<void> subirImage() async {
-    try {
-      // Es una imagen local
-      if (imageFile.value!.pathOrUrl[0] == '@') {
-        // Subir Imagen en nodejs y copiarAssetLocal
-        await subirImageNode(
-            await copiarAssetAFile(imageFile.value!.pathOrUrl.substring(1)),
-            destination: 'usuarios',
-            nameFoto: usuarioModel!.foto);
-      } else {
-        // Subir Imagen en nodejs y ajustar tamano
-        await subirImageNode(await imageResize(),
-            destination: 'usuarios', nameFoto: usuarioModel!.foto);
-      }
-
-      /// Actualizar Image
-      db.imageServer =
-          '${db.imageServer}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
-    } catch (e) {
-      print(e);
-    }
+  /// Reducir imagen
+  Future<File> imageResize(String path) async {
+    // Imagen decoded
+    img.Image image = img.decodeImage(File(path).readAsBytesSync())!;
+    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
+    img.Image compressedImage = img.copyResize(
+      image,
+      width: 150,
+      height: 300,
+    );
+    // Regresar la imagen comprimida
+    return File(path)
+      ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 70));
   }
 
-  camera() async {
+  Future<File> copiarAssetAFile(String path) async {
     try {
-      await pickImage(ImageSource.camera);
-      await subirImage();
-    } catch (e) {
-      print(e);
-    } finally {
-      Get.back();
-    }
-  }
-
-  galeria() async {
-    try {
-      await pickImage(ImageSource.gallery);
-      await subirImage();
-    } catch (e) {
-      print(e);
-    } finally {
-      Get.back();
-    }
-  }
-
-  imageLocal(String path) async {
-    try {
-      await pickImage(ImageSource.camera, path: path);
-      await subirImage();
-    } catch (e) {
-      print(e);
-    } finally {
-      Get.back();
+      // Especifica el path relativo del activo
+      String pathAsset = 'assets/images/$path.png';
+      // Obtiene el contenido del activo como bytes
+      List<int> bytes = await rootBundle
+          .load(pathAsset)
+          .then((byteData) => byteData.buffer.asUint8List());
+      // Obtiene el directorio temporal del sistema
+      Directory tempDir = await getTemporaryDirectory();
+      // Crea un archivo temporal con el contenido del activo
+      File tempFile = File('${tempDir.path}/image_asset.png');
+      return await tempFile.writeAsBytes(bytes);
+    } catch (error) {
+      throw ('Error al copiar el activo a un archivo: $error');
     }
   }
 

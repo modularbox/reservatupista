@@ -136,7 +136,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
             children: [
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.toNamed(Routes.INICIOPROFESIONAL);
+                  Get.offNamed(Routes.INICIOPROFESIONAL);
                 },
                 isPage: widget.tipoDePagina == TypePage.Inicio,
                 icon: Icons.home_rounded,
@@ -154,7 +154,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
               ),
               buildIconCenter(
                 onPressed: () async {
-                  Get.offNamed(Routes.ANADIRPISTA);
+                  Get.offAllNamed(Routes.ANADIRPISTA);
                 },
                 isPage: widget.tipoDePagina == TypePage.ReservarPista,
                 icon: Icons.add,

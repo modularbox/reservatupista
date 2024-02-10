@@ -134,7 +134,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
             children: [
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.toNamed(Routes.INICIO);
+                  Get.offNamed(Routes.INICIO);
                 },
                 isPage: widget.tipoDePagina == TypePage.Inicio,
                 icon: Icons.home_rounded,

@@ -1,29 +1,26 @@
-import 'dart:io';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../../utils/colores.dart';
-import '../../../../routes/app_pages.dart';
-import '../../../../../backend/server_node.dart/subir_image_node.dart';
+import '../../../../../utils/loader/color_loader.dart';
 import '../../../../../utils/btn_icon.dart';
+import '../../../../widgets/seleccion_imagen_widget.dart';
+import '../../../../widgets/terminos_condiciones.dart';
 import '../anadir_pista_c.dart';
 import '../anadir_pista_model.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'list_inputs.dart';
 import 'input_pista.dart';
 
 class ListInputs extends StatefulWidget {
-  const ListInputs({super.key, required this.anims, required this.formKey});
-
-  final AnimationControllerInputs anims;
-
-  final GlobalKey<FormState> formKey;
+  const ListInputs({
+    super.key,
+  });
 
   @override
   State<ListInputs> createState() => _ListInputsState();
@@ -31,8 +28,6 @@ class ListInputs extends StatefulWidget {
 
 class _ListInputsState extends State<ListInputs> {
   AnadirPistaController self = Get.find();
-  List<String> listaHorarios = [];
-  List<String> listHorariosFinal = [];
   @override
   void initState() {
     super.initState();
@@ -49,41 +44,50 @@ class _ListInputsState extends State<ListInputs> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: InputPista(
-                  controller: self.deporteController,
-                  focusNode: self.deporteFocusNode,
-                  context: context,
-                  labelText: 'Deporte',
-                  itemsDD: const [
-                    '🎾 Padel',
-                    '🎾 Tenis',
-                    '🏸 Badminton',
-                    '🏊‍♀️ P. climatizada',
-                    '🏊‍♀️ Piscina',
-                    '🏀 Baloncesto',
-                    '⚽ Futbol sala',
-                    '⚽ Futbol 7',
-                    '⚽ Futbol 11',
-                    '🥍 Pickleball',
-                    '🏸 Squash',
-                    '🏓 Tenis de mesa',
-                    '🏓 Fronton',
-                    '⚽ Balomano',
-                    '🏉 Rugby',
-                    '🥅 Multideporte',
-                  ],
-                  onChanged: (val) {
-                    if (val.isNotEmpty) {
-                      self.nPistaController!.text = '1';
-                    }
-                  },
+                child: VibratingWidget(
+                  controller: self.deporte.anim,
+                  child: Obx(() => InputPista(
+                      key: self.deporte.key,
+                      controller: self.deporte.controller,
+                      focusNode: self.deporte.focus,
+                      context: context,
+                      labelText: 'Deporte',
+                      itemsDD: const [
+                        '🎾 Padel',
+                        '🎾 Tenis',
+                        '🏸 Badminton',
+                        '🏊‍♀️ P. climatizada',
+                        '🏊‍♀️ Piscina',
+                        '🏀 Baloncesto',
+                        '⚽ Futbol sala',
+                        '⚽ Futbol 7',
+                        '⚽ Futbol 11',
+                        '🥍 Pickleball',
+                        '🏸 Squash',
+                        '🏓 Tenis de mesa',
+                        '🏓 Fronton',
+                        '⚽ Balomano',
+                        '🏉 Rugby',
+                        '🥅 Multideporte',
+                      ],
+                      isValidate: self.deporte.isValidate.value,
+                      onChanged: (val) {
+                        self.deporte.isValidate.value = false;
+                        if (val.isNotEmpty) {
+                          self.nPistaController.text = '1';
+                        }
+                      },
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.deporte.isValidate,
+                          self.deporte.anim,
+                          self.deporte.key))),
                 ),
               ),
               4.0.sw,
               Flexible(
                 child: TextFormField(
                   controller: self.nPistaController,
-                  focusNode: self.nPistaFocusNode,
                   enabled: false,
                   autofocus: true,
                   obscureText: false,
@@ -138,22 +142,99 @@ class _ListInputsState extends State<ListInputs> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: InputPista(
-                  controller: self.techadaController,
-                  focusNode: self.techadaFocusNode,
-                  context: context,
-                  labelText: 'Techada',
-                  itemsDD: const ['Si', 'No'],
+                child: VibratingWidget(
+                  controller: self.techada.anim,
+                  child: Obx(() => InputPista(
+                      key: self.techada.key,
+                      controller: self.techada.controller,
+                      focusNode: self.techada.focus,
+                      context: context,
+                      labelText: 'Techada',
+                      itemsDD: const ['Si', 'No'],
+                      onChanged: (val) => self.techada.isValidate.value = false,
+                      isValidate: self.techada.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.techada.isValidate,
+                          self.techada.anim,
+                          self.techada.key))),
                 ),
               ),
               4.0.sw,
               Expanded(
-                child: InputPista(
-                  controller: self.iluminacionController,
-                  focusNode: self.iluminacionFocusNode,
-                  context: context,
-                  labelText: 'Iluminación',
-                  itemsDD: const ['Leds', 'Halogeno'],
+                child: VibratingWidget(
+                  controller: self.iluminacion.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.iluminacion.key,
+                      controller: self.iluminacion.controller,
+                      focusNode: self.iluminacion.focus,
+                      context: context,
+                      labelText: 'Iluminación',
+                      itemsDD: const ['Leds', 'Halogeno'],
+                      onChanged: (val) =>
+                          self.iluminacion.isValidate.value = false,
+                      isValidate: self.iluminacion.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.iluminacion.isValidate,
+                          self.iluminacion.anim,
+                          self.iluminacion.key),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: VibratingWidget(
+                  controller: self.tipo.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.tipo.key,
+                      controller: self.tipo.controller,
+                      focusNode: self.tipo.focus,
+                      context: context,
+                      labelText: 'Tipo',
+                      itemsDD: const ['Cristal', 'Hormigo'],
+                      onChanged: (val) => self.tipo.isValidate.value = false,
+                      isValidate: self.tipo.isValidate.value,
+                      onValidator: (val) => self.validarInputController(val,
+                          self.tipo.isValidate, self.tipo.anim, self.tipo.key),
+                    ),
+                  ),
+                ),
+              ),
+              4.0.sw,
+              Expanded(
+                child: VibratingWidget(
+                  controller: self.cesped.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.cesped.key,
+                      controller: self.cesped.controller,
+                      focusNode: self.cesped.focus,
+                      context: context,
+                      labelText: 'Cesped',
+                      itemsDD: const [
+                        'Verde',
+                        'Azul',
+                        'Negro',
+                        'Marron',
+                        'Rojo'
+                      ],
+                      onChanged: (val) => self.cesped.isValidate.value = false,
+                      isValidate: self.cesped.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.cesped.isValidate,
+                          self.cesped.anim,
+                          self.cesped.key),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -162,36 +243,26 @@ class _ListInputsState extends State<ListInputs> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: InputPista(
-                  controller: self.tipoController,
-                  focusNode: self.tipoFocusNode,
-                  context: context,
-                  labelText: 'Tipo',
-                  itemsDD: const ['Cristal', 'Hormigo'],
-                ),
-              ),
-              4.0.sw,
-              Expanded(
-                child: InputPista(
-                  controller: self.cespedController,
-                  focusNode: self.cespedFocusNode,
-                  context: context,
-                  labelText: 'Cesped',
-                  itemsDD: const ['Verde', 'Azul'],
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: InputPista(
-                  controller: self.automatizadaController,
-                  focusNode: self.automatizadaFocusNode,
-                  context: context,
-                  labelText: 'Automatizada',
-                  itemsDD: const ['Si', 'No'],
+                child: VibratingWidget(
+                  controller: self.automatizada.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.automatizada.key,
+                      controller: self.automatizada.controller,
+                      focusNode: self.automatizada.focus,
+                      context: context,
+                      labelText: 'Automatizada',
+                      itemsDD: const ['Si', 'No'],
+                      onChanged: (val) =>
+                          self.automatizada.isValidate.value = false,
+                      isValidate: self.automatizada.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.automatizada.isValidate,
+                          self.automatizada.anim,
+                          self.automatizada.key),
+                    ),
+                  ),
                 ),
               ),
               Container(
@@ -199,14 +270,29 @@ class _ListInputsState extends State<ListInputs> {
                 decoration: const BoxDecoration(),
               ),
               Expanded(
-                child: InputPista(
-                  controller: self.duracionPartidaController,
-                  focusNode: self.duracionPartidaFocusNode,
-                  context: context,
-                  labelText: 'Duración partida',
-                  onChanged: (val) =>
-                      {setDuration(val), self.isValidBtnTarifas.refresh()},
-                  itemsDD: const ['60 Minutos', '90 Minutos'],
+                child: VibratingWidget(
+                  controller: self.duracionPartida.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.duracionPartida.key,
+                      controller: self.duracionPartida.controller,
+                      focusNode: self.duracionPartida.focus,
+                      context: context,
+                      labelText: 'Duración partida',
+                      onChanged: (val) => {
+                        self.setDuration(val),
+                        self.isValidBtnTarifas.refresh(),
+                        self.duracionPartida.isValidate.value = false
+                      },
+                      itemsDD: const ['60 Minutos', '90 Minutos'],
+                      isValidate: self.duracionPartida.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.duracionPartida.isValidate,
+                          self.duracionPartida.anim,
+                          self.duracionPartida.key),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -215,75 +301,91 @@ class _ListInputsState extends State<ListInputs> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
+                child: VibratingWidget(
+                  controller: self.horaInicio.anim,
                   child: Obx(
-                () => InputPista(
-                  controller: self.horaInicioController,
-                  focusNode: self.horaInicioFocusNode,
-                  context: context,
-                  labelText: 'Hora de inicio',
-                  onChanged: (val) {
-                    setState(() {
-                      self.horaFinController.text =
-                          listaHorarios[listaHorarios.length - 1];
-                    });
-                    self.isValidBtnTarifas.refresh();
-                  },
-                  enableInput: self.isValidBtnTarifas.value ||
-                      self.duracionPartidaController.text != '',
-                  itemsDD: listaHorarios,
+                    () => InputPista(
+                      key: self.horaInicio.key,
+                      controller: self.horaInicio.controller,
+                      focusNode: self.horaInicio.focus,
+                      context: context,
+                      labelText: 'Hora de inicio',
+                      onChanged: (val) {
+                        self.horaFin.controller.text = self.listaHorarios
+                            .value[self.listaHorarios.value.length - 1];
+                        self.isValidBtnTarifas.refresh();
+                        self.horaInicio.isValidate.value = false;
+                        self.horaFin.isValidate.value = false;
+                      },
+                      enableInput: self.isValidBtnTarifas.value ||
+                          self.duracionPartida.controller.text != '',
+                      itemsDD: self.listaHorarios.value,
+                      isValidate: self.horaInicio.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.horaInicio.isValidate,
+                          self.horaInicio.anim,
+                          self.horaInicio.key),
+                    ),
+                  ),
                 ),
-              )),
+              ),
               4.0.sw,
               Expanded(
-                child: Obx(
-                  () => InputPista(
-                      controller: self.horaFinController,
-                      focusNode: self.horaFinFocusNode,
+                child: VibratingWidget(
+                  controller: self.horaFin.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.horaFin.key,
+                      controller: self.horaFin.controller,
+                      focusNode: self.horaFin.focus,
                       context: context,
                       labelText: 'Hora de fin',
-                      onChanged: (val) => self.isValidBtnTarifas.refresh(),
                       enableInput: self.isValidBtnTarifas.value ||
-                          self.duracionPartidaController.text != '',
-                      itemsDD: generarHoraFinal(listaHorarios)),
+                          self.duracionPartida.controller.text != '',
+                      itemsDD: self.generarHoraFinal(self.listaHorarios.value),
+                      onChanged: (val) => {
+                        self.horaFin.isValidate.value = false,
+                        self.isValidBtnTarifas.refresh()
+                      },
+                      isValidate: self.horaFin.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.horaFin.isValidate,
+                          self.horaFin.anim,
+                          self.horaFin.key),
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
-          buildContainerSocio(
+          buildContainerSocioNew(
             context: context,
             title: 'Socio',
-            tiempoReservaController: self.tiempoReservaSocioController!,
-            tiempoReservaFocusNode: self.tiempoReservaSocioFocusNode!,
-            tiempoCancelacionController: self.tiempoCancelacionSocioController!,
-            tiempoCancelacionFocusNode: self.tiempoCancelacionSocioFocusNode!,
-            precioConLuzController: self.precioConLuzSocioController!,
-            precioConLuzFocusNode: self.precioConLuzSocioFocusNode!,
-            precioSinLuzController: self.precioSinLuzSocioController!,
-            precioSinLuzFocusNode: self.precioSinLuzSocioFocusNode!,
+            tiempoReserva: self.socioTiempoReserva,
+            tiempoCancelacion: self.socioTiempoCancelacion,
+            precioConLuz: self.socioPrecioConLuz,
+            precioSinLuz: self.socioPrecioSinLuz,
           ),
-          buildContainerSocio(
+          buildContainerSocioNew(
             context: context,
             title: 'No Socio',
-            tiempoReservaController: self.tiempoReservaNoSocioController!,
-            tiempoReservaFocusNode: self.tiempoReservaNoSocioFocusNode!,
-            tiempoCancelacionController:
-                self.tiempoCancelacionNoSocioController!,
-            tiempoCancelacionFocusNode: self.tiempoCancelacionNoSocioFocusNode!,
-            precioConLuzController: self.precioConLuzNoSocioController!,
-            precioConLuzFocusNode: self.precioConLuzNoSocioFocusNode!,
-            precioSinLuzController: self.precioSinLuzNoSocioController!,
-            precioSinLuzFocusNode: self.precioSinLuzNoSocioFocusNode!,
+            tiempoReserva: self.noSocioTiempoReserva,
+            tiempoCancelacion: self.noSocioTiempoCancelacion,
+            precioConLuz: self.noSocioPrecioConLuz,
+            precioSinLuz: self.noSocioPrecioSinLuz,
           ),
+          buildContainerMetodoPago(context: context),
           Obx(() => FFButtonWidget(
                 onPressed: !self.isValidBtnTarifas.value
                     ? null
                     : () async {
-                        generarListaTarifas();
-                        // Get.toNamed(Routes.'Tarifas');
+                        self.generarListaTarifas();
                       },
-                text: FFLocalizations.of(context).getText(
-                  '78hdleaa' /* Crear Tarifas */,
-                ),
+                text: self.selfTarifas.datosGuardados.value
+                    ? 'Modificar Tarifas'
+                    : 'Crear Tarifas',
                 options: FFButtonOptions(
                   height: 40.0,
                   padding: const EdgeInsetsDirectional.fromSTEB(
@@ -299,175 +401,288 @@ class _ListInputsState extends State<ListInputs> {
                             ? Colors.black
                             : Colors.white,
                       ),
+                  borderSide: self.validarTarifas.value &&
+                          !self.selfTarifas.datosGuardados.value
+                      ? const BorderSide(color: Colors.red, width: 2)
+                      : null,
                   elevation: 3.0,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               )),
-          TextFormField(
-            controller: self.descripcionController,
-            focusNode: self.descripcionFocusNode,
-            obscureText: false,
-            decoration: InputDecoration(
-              counterText: '',
-              labelText: FFLocalizations.of(context).getText(
-                'wj02p7dq' /* Descripción */,
-              ),
-              labelStyle: FlutterFlowTheme.of(context).labelMedium,
-              hintStyle: FlutterFlowTheme.of(context).labelMedium,
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colores().proveedor.primary,
-                  width: 2.0,
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: VibratingWidget(
+                  controller: self.nombrePatrocinador.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.nombrePatrocinador.key,
+                      controller: self.nombrePatrocinador.controller,
+                      focusNode: self.nombrePatrocinador.focus,
+                      typeInputPista: TypeInputPista.input,
+                      context: context,
+                      labelText: 'Nombre patrocinador',
+                      itemsDD: const [],
+                      readOnly: false,
+                      isValidate: self.nombrePatrocinador.isValidate.value,
+                      onChanged: (val) =>
+                          self.nombrePatrocinador.isValidate.value = false,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.nombrePatrocinador.isValidate,
+                          self.nombrePatrocinador.anim,
+                          self.nombrePatrocinador.key),
+                    ),
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(12.0),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colores().proveedor.primary,
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.circular(12.0),
+              4.0.sw,
+              Expanded(
+                child: buildUploadImage(context: context),
               ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).error,
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).error,
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              contentPadding:
-                  const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 12.0),
-            ),
-            style: FlutterFlowTheme.of(context).bodyMedium,
-            cursorColor: FlutterFlowTheme.of(context).primary,
-            maxLines: 4,
-            inputFormatters: [MaxLinesTextInputFormatter(4)],
+            ],
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: InputPista(
-                  typeInputPista: TypeInputPista.input,
-                  controller: self.nombrePatrocinadorController,
-                  focusNode: self.nombrePatrocinadorFocusNode,
-                  context: context,
-                  labelText: 'Nombre patrocinador',
-                  itemsDD: [],
-                  readOnly: false,
+                child: VibratingWidget(
+                  controller: self.vestuario.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.vestuario.key,
+                      controller: self.vestuario.controller,
+                      focusNode: self.vestuario.focus,
+                      context: context,
+                      labelText: 'Vestuario',
+                      itemsDD: const ['Si', 'No'],
+                      isValidate: self.vestuario.isValidate.value,
+                      onChanged: (val) =>
+                          self.vestuario.isValidate.value = false,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.vestuario.isValidate,
+                          self.vestuario.anim,
+                          self.vestuario.key),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(
-                width: 4.0,
-              ),
+              4.0.sw,
               Expanded(
-                  child: BtnIcon(
-                borderRadius: 12,
-                borderColor: Colores().proveedor.primary,
-                hoverColor: Colores().proveedor.primary69,
-                buttonSize: 45,
-                borderWidth: 2,
-                padding: const EdgeInsets.all(8.0),
-                onPressed: () async {
-                  try {
-                    File? filePick = await pickImage(ImageSource.camera);
-                    if (filePick != null) {
-                      subirImageNode(filePick);
-                    }
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-                icon: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(
-                      Icons.add_a_photo_rounded,
-                      color: Colores().proveedor.primary,
-                      size: 25.0,
+                child: VibratingWidget(
+                  controller: self.duchas.anim,
+                  child: Obx(
+                    () => InputPista(
+                      key: self.duchas.key,
+                      controller: self.duchas.controller,
+                      focusNode: self.duchas.focus,
+                      context: context,
+                      labelText: 'Duchas',
+                      itemsDD: const ['Si', 'No'],
+                      onChanged: (val) => self.duchas.isValidate.value = false,
+                      isValidate: self.duchas.isValidate.value,
+                      onValidator: (val) => self.validarInputController(
+                          val,
+                          self.duchas.isValidate,
+                          self.duchas.anim,
+                          self.duchas.key),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'dgg2lyy5' /* Patrocinador */,
-                        ),
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).labelMedium,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          VibratingWidget(
+            controller: self.imagenesPistaAnim,
+            child: self.imagesPista.obx(
+                (state) => BtnIcon(
+                      borderRadius: 12,
+                      borderColor: self.imagesPista.action == 'validate'
+                          ? FlutterFlowTheme.of(context).error
+                          : state!.isEmpty
+                              ? Colores().proveedor.primary
+                              : Colores().proveedor.primary160,
+                      hoverColor: Colores().proveedor.primary69,
+                      borderWidth: 2,
+                      height: 45,
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      onPressed: self.pickImagesPista,
+                      icon: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(
+                                Icons.add_a_photo_rounded,
+                                color: self.imagesPista.action == 'validate'
+                                    ? FlutterFlowTheme.of(context).error
+                                    : Colores().proveedor.primary,
+                                size: 25.0,
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  state!.isEmpty
+                                      ? 'Subir imagenes de la pista'
+                                      : 'Fotos',
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                ),
+                              ),
+                            ],
+                          ),
+                          state.isEmpty
+                              ? const SizedBox.shrink()
+                              : Row(
+                                  children: state
+                                      .map((e) => BtnIcon(
+                                          onPressed: () {
+                                            Get.dialog(
+                                              GestureDetector(
+                                                onTap: () => Get.back(),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 10),
+                                                  child: Image.file(
+                                                    e,
+                                                    width: 300.0,
+                                                    fit: BoxFit.fitWidth,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          borderRadius: 30,
+                                          padding: const EdgeInsets.all(0),
+                                          fillColor: Colors.transparent,
+                                          hoverColor: const Color.fromARGB(
+                                              68, 255, 255, 255),
+                                          icon: CircleAvatar(
+                                            radius: 20,
+                                            backgroundImage: FileImage(
+                                              e,
+                                            ),
+                                          )))
+                                      .toList()),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )),
-            ],
+                onLoading: BtnIcon(
+                    borderRadius: 12,
+                    borderColor: Colores().proveedor.primary,
+                    hoverColor: Colores().proveedor.primary69,
+                    borderWidth: 2,
+                    height: 45,
+                    padding: const EdgeInsets.all(8.0),
+                    icon: ColorLoader())),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: InputPista(
-                  controller: self.vestuarioController,
-                  focusNode: self.vestuarioFocusNode,
-                  context: context,
-                  labelText: 'Vestuario',
-                  itemsDD: const ['Si', 'No'],
+          VibratingWidget(
+            controller: self.descripcion.anim,
+            child: Obx(
+              () => TextFormField(
+                key: self.descripcion.key,
+                controller: self.descripcion.controller,
+                focusNode: self.descripcion.focus,
+                obscureText: false,
+                decoration: InputDecoration(
+                  counterText: '',
+                  labelText: 'Descripción',
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: self.descripcion.isValidate.value
+                          ? FlutterFlowTheme.of(context).error
+                          : Colores().proveedor.primary160,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: self.descripcion.isValidate.value
+                          ? FlutterFlowTheme.of(context).error
+                          : Colores().proveedor.primary,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 24.0, 16.0, 12.0),
                 ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                cursorColor: FlutterFlowTheme.of(context).primary,
+                maxLines: 4,
+                inputFormatters: [MaxLinesTextInputFormatter(4)],
+                onChanged: (val) => self.descripcion.isValidate.value = false,
+                validator: (val) => self.validarInputController(
+                    val,
+                    self.descripcion.isValidate,
+                    self.descripcion.anim,
+                    self.descripcion.key),
               ),
-              Container(
-                width: 4.0,
-                decoration: BoxDecoration(),
-              ),
-              Expanded(
-                child: InputPista(
-                  controller: self.duchasController,
-                  focusNode: self.duchasFocusNode,
-                  context: context,
-                  labelText: 'Duchas',
-                  itemsDD: const ['Si', 'No'],
-                ),
-              ),
-            ],
+            ),
           ),
-          BtnIcon(
-            borderRadius: 12,
-            borderColor: Colores().proveedor.primary,
-            hoverColor: Colores().proveedor.primary69,
-            borderWidth: 2,
-            height: 45,
-            padding: const EdgeInsets.all(8.0),
-            onPressed: () async {
-              try {
-                List<File> fileImages = await pickImages();
-                for (var element in fileImages) {
-                  await subirImageNode(element);
-                }
-              } catch (e) {
-                print(e);
-              }
-            },
-            icon: Row(
+          VibratingWidget(
+            controller: self.animTerminos,
+            child: Row(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.add_a_photo_rounded,
-                  color: Colores().proveedor.primary,
-                  size: 25.0,
+                Theme(
+                  data: ThemeData(
+                    checkboxTheme: CheckboxThemeData(
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    unselectedWidgetColor:
+                        FlutterFlowTheme.of(context).secondaryText,
+                  ),
+                  child: Obx(() => Checkbox(
+                        value: self.checkboxTerminos.value,
+                        onChanged: (newValue) async {
+                          self.checkboxTerminos.value = newValue!;
+                        },
+                        activeColor: Colores().proveedor.primary,
+                        checkColor: FlutterFlowTheme.of(context).primaryText,
+                        side: self.validateCheckbox.value
+                            ? const BorderSide(color: Colors.red)
+                            : null,
+                      )),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                  child: Text(
-                    'Subir imagenes de la pista',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).labelMedium,
+                BtnIcon(
+                  onPressed: () => Get.dialog(const TermConditions()),
+                  borderRadius: 12,
+                  padding: const EdgeInsets.all(0),
+                  icon: Text(
+                    'He leído y acepto los\nTérminos y Condiciones de Servicio.',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: FlutterFlowTheme.of(context).info,
+                        ),
                   ),
                 ),
               ],
@@ -478,104 +693,121 @@ class _ListInputsState extends State<ListInputs> {
     );
   }
 
-  void generarListaTarifas() {
-    final newListString = [];
-    bool startList = false;
-    for (var element in listaHorarios) {
-      if (element == self.horaInicioController.text) {
-        startList = true;
-      }
-      if (startList) {
-        newListString.add(element);
-        if (element == self.horaFinController.text) {
-          break;
-        }
-      }
-    }
-    setState(() {
-      FFAppState().listaTarifas = List<List<Tarifa>>.generate(
-          7,
-          (index) => List.generate(
-              newListString.length,
-              (index) => Tarifa(
-                  horaInicio: newListString[index],
-                  precioConLuzSocio: self.precioConLuzSocioController.text.pc,
-                  precioSinLuzSocio: self.precioSinLuzSocioController.text.pc,
-                  precioConLuzNoSocio:
-                      self.precioConLuzNoSocioController.text.pc,
-                  precioSinLuzNoSocio:
-                      self.precioSinLuzNoSocioController.text.pc)));
-      FFAppState().preciosinluzController = self.precioSinLuzSocioController!;
-      FFAppState().precioconluzController = self.precioConLuzSocioController!;
-      FFAppState().preciosinluzNoSocioController =
-          self.precioSinLuzNoSocioController!;
-      FFAppState().precioconluzNoSocioController =
-          self.precioConLuzNoSocioController!;
-    });
-    Get.toNamed(Routes.TARIFAS);
+// Construir para crear imagen
+  Widget buildUploadImage({
+    required BuildContext context,
+  }) {
+    return VibratingWidget(
+        controller: self.foto.anim,
+        child: Obx(() => TextFormField(
+              controller: self.foto.controller,
+              focusNode: self.foto.focus,
+              decoration: InputDecoration(
+                counterText: '',
+                errorStyle: const TextStyle(fontSize: 0),
+                labelText: 'Foto',
+                hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: const Color(0xFF95A1AC),
+                    ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: self.foto.isValidate.value
+                        ? FlutterFlowTheme.of(context).error
+                        : Colores().proveedor.primary160,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: self.foto.isValidate.value
+                        ? FlutterFlowTheme.of(context).error
+                        : Colores().proveedor.primary,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Icon(
+                    Icons.add_a_photo_rounded,
+                    color: self.foto.isValidate.value
+                        ? FlutterFlowTheme.of(context).error
+                        : Colores().proveedor.primary,
+                    size: 25.0,
+                  ),
+                ),
+                suffixIcon: Obx(() => self.imagePatrocinador.value != null
+                    ? BtnIcon(
+                        onPressed: () {
+                          Get.dialog(
+                            GestureDetector(
+                              onTap: () => Get.back(),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Image.file(
+                                  self.imagePatrocinador.value!,
+                                  width: 300.0,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        borderRadius: 30,
+                        padding: const EdgeInsets.all(0),
+                        fillColor: Colors.transparent,
+                        hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                        icon: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: FileImage(
+                            self.imagePatrocinador.value!,
+                          ),
+                        ))
+                    : const SizedBox.shrink()),
+                filled: true,
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                    16.0, 12.0, 16.0, 12.0),
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium,
+              readOnly: true,
+              onTap: () {
+                Get.dialog(SeleccionImagenWidget(
+                  onPressed: self.pickImagePatrocinador,
+                  isProveedor: true,
+                ));
+              },
+              enableInteractiveSelection: false,
+              validator: (val) => self.validarInputController(
+                  val, self.foto.isValidate, self.foto.anim, self.foto.key),
+            )));
   }
 
-  void setDuration(String value) {
-    if (value == '60 Minutos') {
-      generarListaHorarios(true);
-    } else {
-      generarListaHorarios(false);
-    }
-  }
-
-  void generarListaHorarios(isSesena) {
-    List<String> newListHorarios = [];
-    DateTime initialTime = DateTime(2023, 1, 1, 0, 0);
-    DateTime endTime = DateTime(2023, 1, 2, 0, 0);
-    DateTime currentTime = initialTime;
-    Duration duration = const Duration();
-    if (isSesena) {
-      duration = const Duration(minutes: 60);
-    } else {
-      duration = const Duration(minutes: 90);
-    }
-    String horaDia = DateFormat('HH:mm').format(currentTime);
-    newListHorarios.add(horaDia);
-    while (currentTime.isBefore(endTime)) {
-      currentTime = currentTime.add(duration);
-      String horaDia = DateFormat('HH:mm').format(currentTime);
-      newListHorarios.add(horaDia);
-    }
-    newListHorarios.removeLast();
-    setState(() {
-      listaHorarios = newListHorarios;
-    });
-  }
-
-  List<String> generarHoraFinal(List<String> lista) {
-    final List<String> horariosFinal = [];
-    bool startList = false;
-    for (var i = 0; i < lista.length; i++) {
-      if (startList) {
-        horariosFinal.add(lista[i]);
-      } else {
-        if (lista[i] == self.horaInicioController.text) {
-          if (i == lista.length - 1) {
-            horariosFinal.add(lista[i]);
-          }
-          startList = true;
-        }
-      }
-    }
-    return horariosFinal;
-  }
-
-  Widget buildContainerSocio({
+// Build inputs del socio o no socio
+  Widget buildContainerSocioNew({
     required BuildContext context,
     required String title,
-    required TextEditingController tiempoReservaController,
-    required FocusNode tiempoReservaFocusNode,
-    required TextEditingController tiempoCancelacionController,
-    required FocusNode tiempoCancelacionFocusNode,
-    required TextEditingController precioConLuzController,
-    required FocusNode precioConLuzFocusNode,
-    required TextEditingController precioSinLuzController,
-    required FocusNode precioSinLuzFocusNode,
+    required InputController tiempoReserva,
+    required InputController tiempoCancelacion,
+    required InputController precioConLuz,
+    required InputController precioSinLuz,
   }) {
     return Container(
       width: MediaQuery.sizeOf(context).width,
@@ -610,38 +842,66 @@ class _ListInputsState extends State<ListInputs> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: InputPista(
-                      controller: tiempoReservaController,
-                      focusNode: tiempoReservaFocusNode,
-                      context: context,
-                      labelText: 'Tiempo reserva',
-                      itemsDD: const [
-                        '1 Día',
-                        '2 Día',
-                        '3 Día',
-                        '4 Día',
-                        '5 Día',
-                        '6 Día',
-                        '7 Día',
-                        '8 Día',
-                        '9 Día',
-                        '10 Día',
-                      ],
+                    child: VibratingWidget(
+                      controller: tiempoReserva.anim,
+                      child: Obx(
+                        () => InputPista(
+                          key: tiempoReserva.key,
+                          controller: tiempoReserva.controller,
+                          focusNode: tiempoReserva.focus,
+                          context: context,
+                          labelText: 'Tiempo reserva',
+                          itemsDD: const [
+                            '1 Día',
+                            '2 Día',
+                            '3 Día',
+                            '4 Día',
+                            '5 Día',
+                            '6 Día',
+                            '7 Día',
+                            '8 Día',
+                            '9 Día',
+                            '10 Día',
+                          ],
+                          onChanged: (val) =>
+                              tiempoReserva.isValidate.value = false,
+                          isValidate: tiempoReserva.isValidate.value,
+                          onValidator: (val) => self.validarInputController(
+                              val,
+                              tiempoReserva.isValidate,
+                              tiempoReserva.anim,
+                              tiempoReserva.key),
+                        ),
+                      ),
                     ),
                   ),
                   4.0.sw,
                   Expanded(
-                    child: InputPista(
-                      controller: tiempoCancelacionController,
-                      focusNode: tiempoCancelacionFocusNode,
-                      context: context,
-                      labelText: 'Tiempo cancelación',
-                      itemsDD: const [
-                        '12 Horas',
-                        '24 Horas',
-                        '48 Horas',
-                        '72 Horas'
-                      ],
+                    child: VibratingWidget(
+                      controller: tiempoCancelacion.anim,
+                      child: Obx(
+                        () => InputPista(
+                          key: tiempoCancelacion.key,
+                          controller: tiempoCancelacion.controller,
+                          focusNode: tiempoCancelacion.focus,
+                          context: context,
+                          labelText: 'Tiempo cancelación',
+                          itemsDD: const [
+                            '12 Horas',
+                            '24 Horas',
+                            '48 Horas',
+                            '72 Horas'
+                          ],
+                          onChanged: (val) =>
+                              tiempoCancelacion.isValidate.value = false,
+                          isValidate: tiempoCancelacion.isValidate.value,
+                          onValidator: (val) => self.validarInputController(
+                              val,
+                              tiempoCancelacion.isValidate,
+                              tiempoCancelacion.anim,
+                              tiempoCancelacion.key),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -650,40 +910,196 @@ class _ListInputsState extends State<ListInputs> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: InputPista(
-                      typeInputPista: TypeInputPista.input,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      controller: precioConLuzController,
-                      focusNode: precioConLuzFocusNode,
-                      context: context,
-                      labelText: 'Precio con luz',
-                      maxLength: 7,
-                      onChanged: (val) => self.isValidBtnTarifas.refresh(),
-                      inputFormatters: [PrecioInputFormatter()],
-                      readOnly: false,
+                    child: VibratingWidget(
+                      controller: precioConLuz.anim,
+                      child: Obx(
+                        () => InputPista(
+                          key: precioConLuz.key,
+                          controller: precioConLuz.controller,
+                          focusNode: precioConLuz.focus,
+                          typeInputPista: TypeInputPista.input,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                          context: context,
+                          labelText: 'Precio con luz',
+                          maxLength: 7,
+                          inputFormatters: [PrecioInputFormatter()],
+                          readOnly: false,
+                          onChanged: (val) => {
+                            self.isValidBtnTarifas.refresh(),
+                            precioConLuz.isValidate.value = false
+                          },
+                          isValidate: precioConLuz.isValidate.value,
+                          onValidator: (val) => self.validarInputController(
+                              val,
+                              precioConLuz.isValidate,
+                              precioConLuz.anim,
+                              precioConLuz.key),
+                        ),
+                      ),
                     ),
                   ),
                   4.0.sw,
                   Expanded(
-                    child: InputPista(
-                      typeInputPista: TypeInputPista.input,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      controller: precioSinLuzController,
-                      focusNode: precioSinLuzFocusNode,
-                      context: context,
-                      maxLength: 7,
-                      onChanged: (val) => self.isValidBtnTarifas.refresh(),
-                      labelText: 'Precio sin luz',
-                      inputFormatters: [PrecioInputFormatter()],
-                      readOnly: false,
+                    child: VibratingWidget(
+                      controller: precioSinLuz.anim,
+                      child: Obx(
+                        () => InputPista(
+                          key: precioSinLuz.key,
+                          controller: precioSinLuz.controller,
+                          focusNode: precioSinLuz.focus,
+                          typeInputPista: TypeInputPista.input,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                          context: context,
+                          maxLength: 7,
+                          labelText: 'Precio sin luz',
+                          inputFormatters: [PrecioInputFormatter()],
+                          readOnly: false,
+                          onChanged: (val) => {
+                            self.isValidBtnTarifas.refresh(),
+                            precioSinLuz.isValidate.value = false
+                          },
+                          isValidate: precioSinLuz.isValidate.value,
+                          onValidator: (val) => self.validarInputController(
+                              val,
+                              precioSinLuz.isValidate,
+                              precioSinLuz.anim,
+                              precioSinLuz.key),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-              4.0.sw,
+              0.0.empty,
             ].divide(10.0.sh)),
+      ),
+    );
+  }
+
+// Build inputs de metodo de pago
+  Widget buildContainerMetodoPago({
+    required BuildContext context,
+  }) {
+    return Container(
+      width: MediaQuery.sizeOf(context).width,
+      decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          border: Border.all(
+            color: const Color.fromRGBO(43, 120, 220, 1),
+          ),
+          boxShadow: const [
+            BoxShadow(
+                blurRadius: 1,
+                offset: Offset(0, 1),
+                blurStyle: BlurStyle.normal)
+          ]),
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
+        child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                'Metodos de Pago',
+                style: FlutterFlowTheme.of(context).labelLarge.override(
+                      fontFamily: 'Readex Pro',
+                      color: FlutterFlowTheme.of(context).primaryText,
+                    ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'En Club',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            fontFamily: 'Readex Pro',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                          ),
+                    ),
+                  ),
+                  4.0.sw,
+                  Expanded(
+                    child: Text(
+                      'Monedero Virtual',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            fontFamily: 'Readex Pro',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: buildInputSiONo('Efectivo', self.efectivo),
+                  ),
+                  4.0.sw,
+                  Expanded(
+                    child:
+                        buildInputSiONo('ReservaTuPista', self.reservatupista),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: buildInputSiONo('Tarjeta', self.tarjeta),
+                  ),
+                  4.0.sw,
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: buildInputSiONo('Bono', self.bono),
+                  ),
+                  4.0.sw,
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+              0.0.empty,
+            ].divide(10.0.sh)),
+      ),
+    );
+  }
+
+// Build input si o no
+  Widget buildInputSiONo(String title, InputController inputController) {
+    return VibratingWidget(
+      controller: inputController.anim,
+      child: Obx(
+        () => InputPista(
+          key: inputController.key,
+          controller: inputController.controller,
+          focusNode: inputController.focus,
+          context: context,
+          labelText: title,
+          itemsDD: const [
+            'Si',
+            'No',
+          ],
+          onChanged: (val) => inputController.isValidate.value = false,
+          isValidate: inputController.isValidate.value,
+          onValidator: (val) => self.validarInputController(
+              val,
+              inputController.isValidate,
+              inputController.anim,
+              inputController.key),
+        ),
       ),
     );
   }

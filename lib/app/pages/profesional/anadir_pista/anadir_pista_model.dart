@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 class AnadirPistaModel extends FlutterFlowModel<AnadirPistaWidget> {
   final unfocusNode = FocusNode();
-  final formKey = GlobalKey<FormState>();
   String? Function(BuildContext, String?)? duchasControllerValidator;
   // Model for NavBarProfesional component.
   late NavBarProfesionalModel navBarProfesionalModel;

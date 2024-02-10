@@ -1,26 +1,20 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../../../utils/animations/add_animation_widget.dart';
+import '../../backend/schema/enums/tipo_imagen.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../utils/sizer.dart';
 
-class SeleccionarImagenWidget extends StatelessWidget {
-  const SeleccionarImagenWidget(
-      {super.key,
-      this.camera,
-      this.galeria,
-      this.imageLocal,
-      this.isProveedor = false});
-  final void Function()? camera;
-  final void Function()? galeria;
-  final void Function(String)? imageLocal;
+class SeleccionImagenWidget extends StatelessWidget {
+  const SeleccionImagenWidget(
+      {super.key, required this.onPressed, this.isProveedor = false});
+  final void Function(String?, TipoImagen) onPressed;
   final bool isProveedor;
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
     final listaIcons = [
       [
         'icon_sport_padel',
@@ -57,7 +51,8 @@ class SeleccionarImagenWidget extends StatelessWidget {
                   (j) => listaIcons[i][j] == ''
                       ? const SizedBox()
                       : BtnIcon(
-                          onPressed: () => imageLocal!(listaIcons[i][j]),
+                          onPressed: () =>
+                              onPressed(listaIcons[i][j], TipoImagen.asset),
                           padding: const EdgeInsets.all(0),
                           borderColor: const Color.fromARGB(255, 226, 6, 255),
                           borderWidth: 3,
@@ -127,6 +122,19 @@ class SeleccionarImagenWidget extends StatelessWidget {
     );
   }
 
+  Future<String?> cargarImagen(ImageSource source) async {
+    try {
+      final pickedFile = await ImagePicker().pickImage(source: source);
+      if (pickedFile != null) {
+        return pickedFile.path;
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Widget buildBtnsImage(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -135,7 +143,8 @@ class SeleccionarImagenWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: camera,
+              onPressed: () async => onPressed(
+                  await cargarImagen(ImageSource.camera), TipoImagen.file),
               text: 'Camara',
               icon: const Icon(
                 Icons.camera_alt,
@@ -160,7 +169,8 @@ class SeleccionarImagenWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: galeria,
+              onPressed: () async => onPressed(
+                  await cargarImagen(ImageSource.gallery), TipoImagen.file),
               text: 'Galería',
               icon: const Icon(
                 Icons.collections,

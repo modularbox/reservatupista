@@ -13,8 +13,10 @@ import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 
+import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
+import '../../../routes/app_pages.dart';
 import '../../../routes/database.dart';
 import '../../../widgets/terminos_condiciones.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
@@ -476,18 +478,18 @@ class RegistroProveedorController extends GetxController
         ];
         await anadirProveedorNode(datosSQL);
 
-        // /// Regresar al inicio y enviar el email.
-        // await Get.dialog(RichAlertDialog(
-        //   //uses the custom alert dialog
-        //   alertTitle: richTitle("Registro proveedor"),
-        //   alertSubtitle:
-        //       richSubtitle("Compruebe su correo para finalizar el registro."),
-        //   textButton: "Ir a Login",
-        //   alertType: RichAlertType.SUCCESS,
-        //   onPressed: () {
-        //     Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
-        //   },
-        // ));
+        /// Regresar al inicio y enviar el email.
+        await Get.dialog(RichAlertDialog(
+          //uses the custom alert dialog
+          alertTitle: richTitle("Registro proveedor"),
+          alertSubtitle:
+              richSubtitle("Compruebe su correo para finalizar el registro."),
+          textButton: "Ir a Login",
+          alertType: RichAlertType.SUCCESS,
+          onPressed: () {
+            Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
+          },
+        ));
       } catch (e) {
         print(e);
       }

@@ -17,8 +17,8 @@ class DatabaseBinding implements Bindings {
 class DatabaseController extends GetxController {
   String version = '1.2.29';
   String nombre = 'Nutri';
-  String imageServer = '';
-  String? imageProveedor;
+  // String imageServer = '';
+  Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
   ProveedorModel? datosProveedor;
@@ -39,7 +39,7 @@ class DatabaseController extends GetxController {
     try {
       final result = await getUsuarioNode('1');
       if (result is UsuarioModel) {
-        imageServer = getImageUsuarioNode(result.foto);
+        imageServer.value = getImageUsuarioNode(result.foto);
         datosUsuario = result;
 
         return true;
@@ -54,6 +54,7 @@ class DatabaseController extends GetxController {
     try {
       final result = await getProveedorNode('1');
       if (result is ProveedorModel) {
+        imageServer.value = getImageProveedorNode(result.foto);
         datosProveedor = result;
         return true;
       }

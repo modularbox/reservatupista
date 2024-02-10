@@ -57,7 +57,6 @@ Future<File?> pickImage(ImageSource source) async {
 
 Future<List<File>> pickImages() async {
   List<XFile> images = await ImagePicker().pickMultiImage();
-
   if (images.isNotEmpty) {
     return images.map((image) => File(image.path)).toList();
   }

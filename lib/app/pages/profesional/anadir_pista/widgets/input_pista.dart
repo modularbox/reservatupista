@@ -34,7 +34,7 @@ class InputPista extends FormField<String> {
     this.dropdownColor,
     this.elevation = 8,
     this.enableInput,
-    this.isError = false,
+    this.isValidate = false,
     this.isDense = false,
     this.readOnly = true,
     this.enableInteractiveSelection = false,
@@ -88,24 +88,20 @@ class InputPista extends FormField<String> {
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    enabledBorder: isError
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          )
-                        : OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colores().proveedor.primary,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: isValidate
+                            ? FlutterFlowTheme.of(context).error
+                            : Colores().proveedor.primary160,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colores().proveedor.primary,
+                        color: isValidate
+                            ? FlutterFlowTheme.of(context).error
+                            : Colores().proveedor.primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -145,7 +141,7 @@ class InputPista extends FormField<String> {
             if (typeInputPista == TypeInputPista.input) {
               return buildField(null);
             } else {
-              return buildField(state._handleTap);
+              return buildField(itemsDD!.isEmpty ? null : state._handleTap);
             }
           },
         );
@@ -159,7 +155,7 @@ class InputPista extends FormField<String> {
   final Widget? icon;
 
   final bool changeIcon;
-  final bool isError;
+  final bool isValidate;
   final bool readOnly;
   final bool enableInteractiveSelection;
 
@@ -451,8 +447,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       opacity: _fadeOpacity,
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-                color: FlutterFlowTheme.of(context).alternate, width: 2),
+            border: Border.all(color: Colores().proveedor.primary, width: 2),
             borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(
@@ -468,14 +463,20 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             child: widget.isScroll
                 ? SizedBox(
                     height: 200,
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: children,
+                    child: ScrollbarTheme(
+                        data: ScrollbarThemeData(
+                          thumbColor: MaterialStateProperty.all(Colores()
+                              .proveedor
+                              .primary), // Color del thumb del scrollbar
                         ),
-                      ),
-                    ))
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: children,
+                            ),
+                          ),
+                        )))
                 : ListView(
                     padding: kMaterialListPadding,
                     itemExtent: _kMenuItemHeight,

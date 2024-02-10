@@ -1,23 +1,18 @@
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:crypto/crypto.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '../../../../backend/apis/direccion_nominatim.dart';
+import 'package:path_provider/path_provider.dart';
+import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../backend/server_node.dart/proveedor_node.dart';
 import '../../../../backend/server_node.dart/subir_image_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
-
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/proveedor_model.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class DatosProveedorController extends GetxController
@@ -60,6 +55,7 @@ class DatosProveedorController extends GetxController
   TextEditingController fechaRegistroController = TextEditingController();
   // El texto se guarda en un array en codigo Iban, de acuerdo al Widget
   List<String> listCodigoIban = ['', '', '', '', '', ''];
+  DatabaseController db = Get.find();
 
   /// Initialization and disposal methods.
   @override
@@ -75,14 +71,14 @@ class DatosProveedorController extends GetxController
     try {
       final result = await getProveedorNode('1');
       if (result is ProveedorModel) {
-        final List<String> ListLada = [
+        final List<String> listLada = [
           '🇪🇸 +34',
           '🇵🇹 +351',
           '🇲🇫 +33',
           '🇲🇽 +52'
         ];
         String lada = '';
-        for (var element in ListLada) {
+        for (var element in listLada) {
           if (result.lada == element.split(' ')[1]) {
             lada = element;
           }
@@ -298,24 +294,45 @@ class DatosProveedorController extends GetxController
         ),
       ).listProperty();
 
-  Future<void> pickImage(ImageSource source, {String? path}) async {
-    if (path != null) {
-      imageFile.value = '@$path';
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        imageFile.value = pickedFile.path;
+  void selectImage(String? pathImage, TipoImagen tipoImagen) async {
+    if (pathImage != null) {
+      try {
+        // Subir Imagen en nodejs y ajustar tamano
+        await subirImageNode(await imageResize(pathImage),
+            destination: 'proveedores', nameFoto: db.datosProveedor!.foto);
+        print("Actualizar ImagenProveedor");
+
+        /// Actualizar Image
+        db.imageServer.value =
+            '${getImageProveedorNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+        print(db.imageServer);
+        print('Seactualizo');
+      } catch (e) {
+        print(e);
+      } finally {
+        refresh();
+        Get.back();
+        Get.back();
       }
     }
   }
 
-  Future<void> pickImageCertificado(ImageSource source, {String? path}) async {
-    if (path != null) {
-      imageFileCertificado.value = '@$path';
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        imageFileCertificado.value = pickedFile.path;
+  void selectCertificadoImage(String? pathImage, TipoImagen tipoImagen) async {
+    if (pathImage != null) {
+      try {
+        print("Actualizar ImagenProveedor");
+
+        /// Actualizar Image
+        imageFileCertificado.value =
+            '${getImageProveedorNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+
+        print('Seactualizo');
+      } catch (e) {
+        print(e);
+      } finally {
+        refresh();
+        Get.back();
+        Get.back();
       }
     }
   }
@@ -335,6 +352,24 @@ class DatosProveedorController extends GetxController
       ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 60));
   }
 
+  Future<File> copiarAssetAFile(String path) async {
+    try {
+      // Especifica el path relativo del activo
+      String pathAsset = 'assets/images/$path.png';
+      // Obtiene el contenido del activo como bytes
+      List<int> bytes = await rootBundle
+          .load(pathAsset)
+          .then((byteData) => byteData.buffer.asUint8List());
+      // Obtiene el directorio temporal del sistema
+      Directory tempDir = await getTemporaryDirectory();
+      // Crea un archivo temporal con el contenido del activo
+      File tempFile = File('${tempDir.path}/image_asset.png');
+      return await tempFile.writeAsBytes(bytes);
+    } catch (error) {
+      throw ('Error al copiar el activo a un archivo: $error');
+    }
+  }
+
   String? validateTextField(BuildContext context, String? text,
       AnimationController anim, FocusNode focusNode, String nameData) {
     if (text == null || text.isEmpty) {
@@ -349,40 +384,35 @@ class DatosProveedorController extends GetxController
 class ButtonsPage {
   late DatosProveedorController controller;
   ButtonsPage({required this.controller});
-  camera() {
-    controller.pickImage(ImageSource.camera);
-    Get.back();
-  }
+  // camera() {
+  //   controller.pickImage(ImageSource.camera);
+  //   Get.back();
+  // }
 
-  galeria() {
-    controller.pickImage(ImageSource.gallery);
-    Get.back();
-  }
+  // galeria() {
+  //   controller.pickImage(ImageSource.gallery);
+  //   Get.back();
+  // }
 
-  imageLocal(String path) {
-    controller.pickImage(ImageSource.camera, path: path);
-    Get.back();
-  }
+  // imageLocal(String path) {
+  //   controller.pickImage(ImageSource.camera, path: path);
+  //   Get.back();
+  // }
 
-  cameraCertificado() {
-    controller.pickImageCertificado(ImageSource.camera);
-    Get.back();
-  }
+  // cameraCertificado() {
+  //   controller.pickImageCertificado(ImageSource.camera);
+  //   Get.back();
+  // }
 
-  galeriaCertificado() {
-    controller.pickImageCertificado(ImageSource.gallery);
-    Get.back();
-  }
+  // galeriaCertificado() {
+  //   controller.pickImageCertificado(ImageSource.gallery);
+  //   Get.back();
+  // }
 
-  imageLocalCertificado(String path) {
-    controller.pickImageCertificado(ImageSource.camera, path: path);
-    Get.back();
-  }
-
-  ButtonsPage.termsAndConditions() {
-    Get.dialog(const TermConditions());
-  }
-  cancel() {}
+  // imageLocalCertificado(String path) {
+  //   controller.pickImageCertificado(ImageSource.camera, path: path);
+  //   Get.back();
+  // }
 }
 
 class PropertiesTextField {

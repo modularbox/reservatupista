@@ -15,8 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class LoginUsuarioPage extends GetView<LoginUsuarioController> {
+  const LoginUsuarioPage({super.key});
   LoginUsuarioController get self => controller;
-
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = const Color(0xFF2B78DC);
 
@@ -30,9 +30,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
         ),
       );
     }
-    final lineColorUsuario = Color.fromARGB(160, 43, 120, 220);
+    const lineColorUsuario = Color.fromARGB(160, 43, 120, 220);
     final focusedColorUsuario = FlutterFlowTheme.of(context).primary;
-    final lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
+    const lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
     final focusedColorProfesional = FlutterFlowTheme.of(context).btnGeneral;
     context.watch<FFAppState>();
     return Scaffold(
@@ -49,9 +49,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 FlutterFlowTheme.of(context).tertiary,
                 FlutterFlowTheme.of(context).accent4
               ],
-              stops: [0, 1],
-              begin: AlignmentDirectional(0, -1),
-              end: AlignmentDirectional(0, 1),
+              stops: const [0, 1],
+              begin: const AlignmentDirectional(0, -1),
+              end: const AlignmentDirectional(0, 1),
             ),
           ),
           child: Stack(

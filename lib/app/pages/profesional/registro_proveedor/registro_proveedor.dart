@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +18,8 @@ import 'widgets/codigo_iban.dart';
 import 'widgets/input_registrar.dart';
 
 class RegistroProveedorPage extends GetView<RegistroProveedorController> {
+  RegistroProveedorPage({super.key});
+
   RegistroProveedorController get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -116,7 +117,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                                           borderSide: BorderSide(
                                                               width: 3,
                                                               color: Colores()
-                                                                  .usuario
+                                                                  .proveedor
                                                                   .primary),
                                                           borderRadius:
                                                               BorderRadius
@@ -172,6 +173,9 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                                             60),
                                                     child: getImage(
                                                         self.imageFile.value,
+                                                        color: Colores()
+                                                            .proveedor
+                                                            .primary,
                                                         isRegristro: true),
                                                   )),
                                             ),
@@ -674,14 +678,14 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: Colores().proveedor.primary160,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: Colores().proveedor.primary,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
@@ -704,7 +708,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                 prefixIcon: Icon(
                   visibility.value ? Icons.lock_open : Icons.lock,
                 ),
-                prefixIconColor: FlutterFlowTheme.of(context).primary,
+                prefixIconColor: Colores().proveedor.primary,
                 suffixIcon: InkWell(
                   onTap: () => visibility.value = !visibility.value,
                   focusNode: FocusNode(skipTraversal: true),
@@ -712,7 +716,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                     visibility.value
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
-                    color: Colores().usuario.primary,
+                    color: Colores().proveedor.primary,
                     size: 22,
                   ),
                 ),

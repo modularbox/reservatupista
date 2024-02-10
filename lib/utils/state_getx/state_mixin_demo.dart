@@ -30,17 +30,27 @@ extension StateRxExt<T> on StateRx<T> {
 class StateRx<T> {
   Rx<T> rx;
   RxStatusDemo status = RxStatusDemo.empty();
+  String action;
   StateRx(
-    this.rx,
-  );
+    this.rx, {
+    this.action = '',
+  });
 
-  void change(T newValue, RxStatusDemo rxStatusDemo) {
+  void change(T newValue, RxStatusDemo rxStatusDemo, {String? newAction}) {
+    if (newAction != null) {
+      action = newAction;
+    }
     status = rxStatusDemo;
     if (rx.value == newValue) {
       rx.refresh();
     } else {
       rx.value = newValue;
     }
+  }
+
+  void changeActions(String newAction) {
+    action = newAction;
+    rx.refresh();
   }
 
   void changeStatus(RxStatusDemo rxStatusDemo) {

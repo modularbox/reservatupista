@@ -127,7 +127,6 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                                     color: FlutterFlowTheme.of(context)
                                         .secondary)),
                             child: ImageServer(
-                              tipo: Tipo.usuario,
                               height: 32,
                               width: 32,
                             )),
@@ -147,7 +146,6 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
         fecha = '30/01/2024 18:00 - 19:30';
         final listaDeImagenesPath = [
           ImageServer(
-            tipo: Tipo.usuario,
             height: 32,
             width: 32,
           ),

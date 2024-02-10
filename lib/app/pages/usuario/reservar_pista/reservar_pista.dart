@@ -956,17 +956,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(30.0)),
                           child: ImageServer(
-                            tipo: Tipo.usuario,
                             height: 50,
                             width: 50,
                           ),
                         ),
-                  // getImage(
-                  //     (GetStorage().read(
-                  //       'pathPhoto',
-                  //     )),
-                  //     height: 50,
-                  //     width: 50),
                   BtnIcon(
                       onPressed: index == 0 &&
                               self.selectHorario.value!.typeEstadoHorario ==
