@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../utils/btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-// import '../../../../utils/sizer.dart';
 
 /// A Page view sliding indicator.
 class PageViewSlidingIndicator extends StatefulWidget {
@@ -42,14 +42,14 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
     _currentColor = FlutterFlowTheme.of(context).primary;
     _currentColorTextUsuario = Colors.white;
     _currentColorTextProveedor = Colors.black;
-    _getBorder = BorderRadius.only(
+    _getBorder = const BorderRadius.only(
         topLeft: Radius.circular(10), bottomLeft: Radius.circular(10));
     if (widget.controller.initialPage == 1) {
       _leftPosition = widget.widthButtons;
       _currentColor = FlutterFlowTheme.of(context).btnGeneral;
       _currentColorTextUsuario = Colors.black;
       _currentColorTextProveedor = Colors.white;
-      _getBorder = BorderRadius.only(
+      _getBorder = const BorderRadius.only(
           topRight: Radius.circular(10), bottomRight: Radius.circular(10));
     }
     widget.controller.addListener(() {
@@ -79,12 +79,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
             _currentColor = FlutterFlowTheme.of(context).btnGeneral;
             _currentColorTextUsuario = Colors.black;
             _currentColorTextProveedor = Colors.white;
-            _getBorder = BorderRadius.only(
+            _getBorder = const BorderRadius.only(
                 topRight: Radius.circular(10),
                 bottomRight: Radius.circular(10));
           }
           if (widget.controller.page! == 0) {
-            _getBorder = BorderRadius.only(
+            _getBorder = const BorderRadius.only(
                 topLeft: Radius.circular(10), bottomLeft: Radius.circular(10));
           }
         });
@@ -100,10 +100,10 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
         width: widget.widthButtons * 2,
         height: 50,
         decoration: BoxDecoration(
-          color: Color(0xFFF1F4F8),
+          color: const Color(0xFFF1F4F8),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: Color(0xFFB2B4B7),
+            color: const Color(0xFFB2B4B7),
             width: 1,
           ),
         ),
@@ -124,18 +124,19 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: widget.widthButtons - 2,
-                  height: 80,
+                  height: 50,
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
                       widget.controller.previousPage(
-                          duration: Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.linear);
                     },
+                    padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -145,7 +146,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                           color: _currentColorTextUsuario,
                           size: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Text(
@@ -165,18 +166,19 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                 Container(
                   height: 80,
                   width: 2,
-                  color: Color(0xFFB2B4B7),
+                  color: const Color(0xFFB2B4B7),
                 ),
-                Container(
+                SizedBox(
                   width: widget.widthButtons - 2,
                   height: 80,
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
                       widget.controller.nextPage(
-                          duration: Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.linear);
                     },
+                    padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +188,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                           color: _currentColorTextProveedor,
                           size: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Text(

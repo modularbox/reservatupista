@@ -137,7 +137,7 @@ class NavBarLogin extends StatelessWidget {
                             await showDialog(
                               context: context,
                               builder: (dialogContext) {
-                                return Material(
+                                return const Material(
                                   color: Colors.transparent,
                                   child: AlertVersionsWidget(),
                                 );
@@ -220,6 +220,7 @@ class NavBarLogin extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Readex Pro',
+                        fontSize: 12,
                         fontWeight: FontWeight.w900,
                       ),
                 ),
