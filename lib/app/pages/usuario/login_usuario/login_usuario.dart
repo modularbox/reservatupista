@@ -166,7 +166,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           minFontSize: 10,
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
           child: VibratingWidget(
             controller: self.animUsuario,
             child: TextFormField(
@@ -182,7 +182,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 hintText: 'Ingresa tu email aquí...',
                 hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',
-                      color: Color(0xFF95A1AC),
+                      color: const Color(0xFF95A1AC),
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -230,7 +230,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
           child: Obx(() => VibratingWidget(
                 controller: self.animContrasena,
                 child: TextFormField(
@@ -244,7 +244,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     hintText: 'Ingresa tu contraseña aqui...',
                     hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Readex Pro',
-                          color: Color(0xFF95A1AC),
+                          color: const Color(0xFF95A1AC),
                         ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -277,7 +277,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     filled: true,
                     fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                        const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
                     prefixIcon: Icon(
                       passwordVisibility.value ? Icons.lock_open : Icons.lock,
                     ),
@@ -290,7 +290,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                         passwordVisibility.value
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
-                        color: Color(0xFF95A1AC),
+                        color: const Color(0xFF95A1AC),
                         size: 22,
                       ),
                     ),
@@ -303,7 +303,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
               )),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 16),
+          padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 16),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -356,7 +356,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -367,39 +367,31 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 options: FFButtonOptions(
                   width: MediaQuery.sizeOf(context).width * 0.4,
                   height: 40,
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   color: focusedColor,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Readex Pro',
                         color: FlutterFlowTheme.of(context).tertiary,
                       ),
                   elevation: 2,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
-                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
               FFButtonWidget(
                 onPressed: () => ButtonsPage.registrarte(registroPage),
-                text: 'Registrarte',
+                text: 'Registrate',
                 options: FFButtonOptions(
                   width: MediaQuery.sizeOf(context).width * 0.4,
                   height: 40,
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   color: focusedColor,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Readex Pro',
                         color: FlutterFlowTheme.of(context).tertiary,
                       ),
                   elevation: 2,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
-                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),

@@ -1,11 +1,8 @@
-import 'package:get/route_manager.dart';
-
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'alert_versions_model.dart';
@@ -117,6 +114,33 @@ class _AlertVersionsWidgetState extends State<AlertVersionsWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        buildVersion(
+                            version: '1.2.35',
+                            descripcion:
+                                '''
+Anadir pistas validar todos los campos.
+Agregar nuevos colores en cesped.
+Agregar metodos de pago.
+Poner todos los campos obligatorios.
+Hacer que los dias se clonen y que se modifiquen por separado.
+Boton para una vez que se guarde aparezca que se modifiquen las tarifas.
+Botones para la imagen del patrocinador y subir imagenes de la pista.
+Arreglar lo de las versiones.
+                '''),
+                        buildVersion(
+                            version: '1.2.34',
+                            descripcion:
+                                '''
+Arreglar que los botones de inicio no se vean junto al boton de iphone.
+Crear la base de datos para las pistas.
+Arreglar los errores que hay al anadir pistas.
+                '''),
+                        buildVersion(
+                            version: '1.2.33',
+                            descripcion:
+                                '''
+Subir la aplicacion al tester de app store.
+                '''),
                         buildVersion(
                             version: '1.2.32',
                             descripcion:

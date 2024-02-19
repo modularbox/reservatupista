@@ -1,9 +1,9 @@
 import 'package:get/route_manager.dart';
 
-import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
+// import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../utils/buttons_sounds.dart';
-import '../../utils/dialog/rich_alert_flutterflow.dart';
+// import '../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../utils/format_number.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -343,9 +343,9 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                 FFButtonWidget(
                   onPressed: () {
                     if (_model.money > 0) {
-                      Get.dialog(PagosTarjetaPage(
-                        precio: _model.money,
-                      ));
+                      // Get.dialog(PagosTarjetaPage(
+                      //   precio: _model.money,
+                      // ));
                     }
                   },
                   text: 'Confirmar',

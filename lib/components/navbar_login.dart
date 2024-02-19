@@ -137,7 +137,7 @@ class NavBarLogin extends StatelessWidget {
                             await showDialog(
                               context: context,
                               builder: (dialogContext) {
-                                return Material(
+                                return const Material(
                                   color: Colors.transparent,
                                   child: AlertVersionsWidget(),
                                 );
@@ -145,7 +145,7 @@ class NavBarLogin extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            'Version 1.2.20',
+                            'Version 1.2.35',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium

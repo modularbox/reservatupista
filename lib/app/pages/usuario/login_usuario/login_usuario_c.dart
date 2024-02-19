@@ -80,6 +80,7 @@ class LoginUsuarioController extends GetxController
   }
 
   void onPressedProveedor() async {
+    // Get.offAllNamed(Routes.INICIOPROFESIONAL);
     if (!checkboxValueTerminosProveedor.value) {
       validateTerminosProveedor.value = true;
       animTerminosProveedor.forward();

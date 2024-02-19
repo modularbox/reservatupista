@@ -1,22 +1,15 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-
 import '../../../components/alert_recargar/alert_recargar_widget.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
-import '../../../utils/dialog/answer_d.dart';
-import '../../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../../utils/format_number.dart';
 import '/backend/schema/enums/enums.dart';
-import '/components/nav_bar_usuario/nav_bar_usuario_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
