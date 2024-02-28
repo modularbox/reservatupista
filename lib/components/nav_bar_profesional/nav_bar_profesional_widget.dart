@@ -85,9 +85,10 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return SizedBox(
+    return Container(
       width: double.infinity,
       height: 65.0,
+      margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
       child: Stack(
         children: [
           Column(

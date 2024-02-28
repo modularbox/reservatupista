@@ -561,7 +561,7 @@ la contraseña? */
                     ],
                   ),
                 ),
-                const NavBarLogin()
+                NavBarLogin()
               ],
             ),
           ),

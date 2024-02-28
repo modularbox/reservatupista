@@ -1,4 +1,4 @@
 class DatosServer {
-  String urlServer = 'http://192.168.1.134:3000';
-  // String urlServer = 'https://app.reservatupista.com';
+  // String urlServer = 'http://192.168.1.136:3000';
+  String urlServer = 'https://app.reservatupista.com';
 }

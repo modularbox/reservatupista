@@ -1,6 +1,7 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
+import '../../../app/routes/database.dart';
 import '../../../components/alert_recargar/alert_recargar_widget.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '../../../utils/format_number.dart';
@@ -26,7 +27,7 @@ class MonederoVirtualWidget extends StatefulWidget {
 class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
     with TickerProviderStateMixin {
   late MonederoVirtualModel _model;
-
+  DatabaseController db = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
@@ -44,8 +45,8 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 50.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -63,8 +64,8 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(40.0, 0.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(40.0, 0.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -103,6 +104,25 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
 
     context.watch<FFAppState>();
 
+    Widget buildBtnOption(String title, TypeHistorial typeHistorial) {
+      bool isTypeHistorial = _model.type != typeHistorial;
+      return FFButtonWidget(
+          text: title,
+          onPressed: () {
+            setState(() {
+              _model.type = typeHistorial;
+            });
+          },
+          options: FFButtonOptions(
+              textStyle: TextStyle(
+                  color: isTypeHistorial ? Colors.black : Colors.white),
+              borderSide: isTypeHistorial
+                  ? const BorderSide(color: Colors.black, width: 2)
+                  : null,
+              color: isTypeHistorial ? Colors.white : Colors.green,
+              borderRadius: BorderRadius.circular(30)));
+    }
+
     return NavbarYAppbarUsuario(
       title: 'Monedero Virtual',
       page: TypePage.MonederoVirtual,
@@ -112,13 +132,14 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 120.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondary,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 2.0,
                       color: Color(0x33000000),
@@ -131,7 +152,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, -1.0),
+                      alignment: const AlignmentDirectional(0.0, -1.0),
                       child: Container(
                         width: 250,
                         height: 65.0,
@@ -158,25 +179,27 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 8.0, 0.0, 0.0),
-                            child: Text(
-                              '${FormatNumber.formatNumberWithTwoDecimals(FFAppState().moneyMonederoVirtual).toString()} €',
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineLarge
-                                  .override(
-                                    fontFamily: 'Outfit',
-                                    color: Color(0xFF14181B),
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          Obx(
+                            () => Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 8.0, 0.0, 0.0),
+                              child: Text(
+                                '${FormatNumber.formatNumberWithTwoDecimals(db.money.value).toString()} €',
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      color: const Color(0xFF14181B),
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
                             ),
                           ),
                           FFButtonWidget(
@@ -188,20 +211,18 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                                 avoidOverflow: false,
                                 builder: (dialogContext) {
                                   return Material(
-                                    color: Color.fromARGB(0, 163, 0, 0),
+                                    color: const Color.fromARGB(0, 163, 0, 0),
                                     child: (AlertRecargarWidget()),
                                   );
                                 },
                               ).then((value) => setState(() {}));
                             },
-                            text: FFLocalizations.of(context).getText(
-                              'etd8s02j' /* Recargar */,
-                            ),
+                            text: 'Recargar',
                             options: FFButtonOptions(
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).btnGeneral,
                               textStyle: FlutterFlowTheme.of(context)
@@ -212,7 +233,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                                         .primaryText,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -229,7 +250,8 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                   animationsMap['containerOnPageLoadAnimation']!),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -243,17 +265,17 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                     text: FFLocalizations.of(context).getText(
                       'wm531z5p' /* Filtrar */,
                     ),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.line_weight_rounded,
                       size: 20.0,
                     ),
                     options: FFButtonOptions(
                       width: 106.0,
                       height: 25.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).btnGeneral,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -262,7 +284,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                                 fontSize: 14.0,
                               ),
                       elevation: 3.0,
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
@@ -279,7 +301,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                       tipoText,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: Color(0xFF808080),
+                            color: Color.fromARGB(255, 0, 0, 0),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w600,
                             fontStyle: FontStyle.italic,
@@ -292,61 +314,76 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
             _model.isFiltrar
                 ? Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
-                      FFButtonWidget(
-                          text: 'Reservas',
-                          onPressed: () {
-                            setState(() {
-                              _model.type = TypeHistorial.reserva;
-                            });
-                          },
-                          options: FFButtonOptions(
-                              color: _model.type != TypeHistorial.reserva
-                                  ? Color.fromARGB(255, 50, 50, 50)
-                                  : Colors.green,
-                              borderRadius: BorderRadius.circular(30))),
-                      FFButtonWidget(
-                          text: 'Recargas',
-                          onPressed: () {
-                            setState(() {
-                              _model.type = TypeHistorial.tranferencia;
-                            });
-                          },
-                          options: FFButtonOptions(
-                              color: _model.type != TypeHistorial.tranferencia
-                                  ? Color.fromARGB(255, 50, 50, 50)
-                                  : Colors.green,
-                              borderRadius: BorderRadius.circular(30))),
-                      FFButtonWidget(
-                          text: 'Todo',
-                          onPressed: () {
-                            setState(() {
-                              _model.type = TypeHistorial.all;
-                            });
-                          },
-                          options: FFButtonOptions(
-                              color: _model.type != TypeHistorial.all
-                                  ? Color.fromARGB(255, 50, 50, 50)
-                                  : Colors.green,
-                              borderRadius: BorderRadius.circular(30))),
-                    ].divide(SizedBox(width: 5.0)),
+                      buildBtnOption('Reservas', TypeHistorial.reserva),
+                      buildBtnOption('Recargas', TypeHistorial.tranferencia),
+                      buildBtnOption('Todo', TypeHistorial.all),
+                      // buildBtnOption('Reservas', TypeHistorial.reserva),
+                      // FFButtonWidget(
+                      //     text: 'Reservas',
+                      //     onPressed: () {
+                      //       setState(() {
+                      //         _model.type = TypeHistorial.reserva;
+                      //       });
+                      //     },
+                      //     options: FFButtonOptions(
+                      //         textStyle: TextStyle(
+                      //             color: _model.type != TypeHistorial.reserva
+                      //                 ? Colors.black
+                      //                 : Colors.white),
+                      //         borderSide: _model.type != TypeHistorial.reserva
+                      //             ? const BorderSide(
+                      //                 color: Colors.black, width: 2)
+                      //             : null,
+                      //         color: _model.type != TypeHistorial.reserva
+                      //             ? Colors.white
+                      //             : Colors.green,
+                      //         borderRadius: BorderRadius.circular(30))),
+                      // FFButtonWidget(
+                      //     text: 'Recargas',
+                      //     onPressed: () {
+                      //       setState(() {
+                      //         _model.type = TypeHistorial.tranferencia;
+                      //       });
+                      //     },
+                      //     options: FFButtonOptions(
+                      //         textStyle: TextStyle(color: Colors.white),
+                      //         color: _model.type != TypeHistorial.tranferencia
+                      //             ? const Color.fromARGB(255, 50, 50, 50)
+                      //             : Colors.green,
+                      //         borderRadius: BorderRadius.circular(30))),
+                      // FFButtonWidget(
+                      // text: 'Todo',
+                      // onPressed: () {
+                      //   setState(() {
+                      //     _model.type = TypeHistorial.all;
+                      //   });
+                      // },
+                      // options: FFButtonOptions(
+                      //     textStyle: TextStyle(color: Colors.white),
+                      //     color: _model.type != TypeHistorial.all
+                      //         ? const Color.fromARGB(255, 50, 50, 50)
+                      //         : Colors.green,
+                      //     borderRadius: BorderRadius.circular(30))),
+                    ].divide(const SizedBox(width: 5.0)),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       _model.type != TypeHistorial.reserva
                           ? buildReserva(context)
-                          : SizedBox(),
+                          : const SizedBox(),
                       _model.type != TypeHistorial.tranferencia
                           ? buildTransferencia(context)
-                          : SizedBox(),
+                          : const SizedBox(),
                       // buildTransferencia(),
                     ],
                   ),
@@ -362,22 +399,22 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
 
 Widget buildTransferencia(BuildContext context) {
   return Padding(
-    padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
     child: Container(
       width: double.infinity,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 570.0,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: Color(0xFFE74C3C),
+          color: const Color(0xFFE74C3C),
           width: 2.0,
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -391,8 +428,8 @@ Widget buildTransferencia(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          2.0, 0.0, 2.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
@@ -418,7 +455,7 @@ Widget buildTransferencia(BuildContext context) {
                             text: FFLocalizations.of(context).getText(
                               '3vndv0eb' /* Reserva de pista */,
                             ),
-                            style: TextStyle(),
+                            style: const TextStyle(),
                           ),
                           TextSpan(
                             text: '',
@@ -467,7 +504,7 @@ Widget buildTransferencia(BuildContext context) {
                   textAlign: TextAlign.end,
                   style: FlutterFlowTheme.of(context).headlineSmall.override(
                         fontFamily: 'Outfit',
-                        color: Color(0xFFE74C3C),
+                        color: const Color(0xFFE74C3C),
                         fontSize: 18.0,
                       ),
                 ),
@@ -500,22 +537,22 @@ Widget buildTransferencia(BuildContext context) {
 
 Widget buildReserva(BuildContext context) {
   return Padding(
-    padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
     child: Container(
       width: double.infinity,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 570.0,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: Color(0xFF00BC13),
+          color: const Color(0xFF00BC13),
           width: 2.0,
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -529,8 +566,8 @@ Widget buildReserva(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          2.0, 0.0, 2.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
@@ -556,7 +593,7 @@ Widget buildReserva(BuildContext context) {
                             text: FFLocalizations.of(context).getText(
                               'g0yapamj' /* Recarga */,
                             ),
-                            style: TextStyle(),
+                            style: const TextStyle(),
                           ),
                           TextSpan(
                             text: '',
@@ -593,7 +630,8 @@ Widget buildReserva(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                   child: Text(
                     FFLocalizations.of(context).getText(
                       '7fb17ptw' /* + 100,00 € */,
@@ -601,13 +639,13 @@ Widget buildReserva(BuildContext context) {
                     textAlign: TextAlign.end,
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
                           fontFamily: 'Outfit',
-                          color: Color(0xFF00BC13),
+                          color: const Color(0xFF00BC13),
                           fontSize: 18.0,
                         ),
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Text(
                     FFLocalizations.of(context).getText(
                       'ms78u1cd' /* Tarjeta */,

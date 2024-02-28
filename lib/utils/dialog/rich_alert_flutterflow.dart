@@ -104,10 +104,10 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
     return Material(
         color: Colors.transparent,
         child: Align(
-          alignment: AlignmentDirectional(0, 0),
+          alignment: const AlignmentDirectional(0, 0),
           child: Container(
             height: MediaQuery.sizeOf(context).height * 1,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Stack(
               children: [
                 InkWell(
@@ -128,7 +128,7 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                       child: Container(
                         width: MediaQuery.sizeOf(context).width,
                         height: MediaQuery.sizeOf(context).height * 1,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0x6B090F13),
                         ),
                       ),
@@ -136,24 +136,24 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0, 0),
+                  alignment: const AlignmentDirectional(0, 0),
                   child: Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Stack(
                       children: [
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(16, 85, 16, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16, 85, 16, 0),
                           child: Container(
                             width: double.infinity,
                             height: 300,
-                            constraints: BoxConstraints(
+                            constraints: const BoxConstraints(
                               maxWidth: 530,
                             ),
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 3,
                                   color: Color(0x33000000),
@@ -173,46 +173,38 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24, 45, 24, 16),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        widget.alertTitle,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              fontSize: 23,
-                                            ),
-                                      ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 12, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 0),
                                         child: Text(
                                           widget.alertSubtitle,
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
-                                              .copyWith(fontSize: 18),
+                                              .copyWith(fontSize: 22),
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 12, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 0),
                                         child: widget.precio == null
-                                            ? SizedBox()
+                                            ? const SizedBox()
                                             : Text(
                                                 widget.precio!,
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .headlineMedium
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily: 'Outfit',
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                           fontSize: 23,
                                                         ),
                                               ),
@@ -221,43 +213,38 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 24, 12),
+                                  padding: const EdgeInsets.only(bottom: 15.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 12, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            Navigator.pop(context);
-                                          },
-                                          text: 'Cancelar',
-                                          options: FFButtonOptions(
-                                            height: 40,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20, 0, 20, 0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 0),
-                                            color: const Color.fromARGB(
-                                                255, 255, 107, 97),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                    ),
-                                            elevation: 0,
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                          ),
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                        },
+                                        text: 'Cancelar',
+                                        options: FFButtonOptions(
+                                          height: 40,
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(20, 0, 20, 0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
+                                          color: const Color.fromARGB(
+                                              255, 255, 107, 97),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                              ),
+                                          elevation: 0,
+                                          borderRadius:
+                                              BorderRadius.circular(40),
                                         ),
                                       ),
                                       FFButtonWidget(
@@ -265,12 +252,11 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                                         text: widget.textButton,
                                         options: FFButtonOptions(
                                           height: 40,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  20, 0, 20, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(20, 0, 20, 0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           textStyle: FlutterFlowTheme.of(
@@ -283,7 +269,7 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                                                         .primaryBackground,
                                               ),
                                           elevation: 0,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                           ),
                                           borderRadius:
@@ -298,9 +284,9 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                           ),
                         ),
                         widget.alertType == 3
-                            ? SizedBox()
+                            ? const SizedBox()
                             : Align(
-                                alignment: AlignmentDirectional(0, -1),
+                                alignment: const AlignmentDirectional(0, -1),
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: _defaultIcon()),
@@ -322,7 +308,7 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
         width: 100,
         height: 100,
         fit: BoxFit.cover,
-        alignment: Alignment(0, 0),
+        alignment: const Alignment(0, 0),
       );
     } else {
       throw Exception("Invalid alertType");

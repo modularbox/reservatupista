@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
 import '../../../../utils/btn_icon.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/smoth_page/page_view_sliding_indicator.dart';
 import '../../../routes/app_pages.dart';
 import './login_usuario_c.dart';
@@ -34,7 +35,6 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     final focusedColorUsuario = FlutterFlowTheme.of(context).primary;
     const lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
     final focusedColorProfesional = FlutterFlowTheme.of(context).btnGeneral;
-    context.watch<FFAppState>();
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryText,
       resizeToAvoidBottomInset: false,
@@ -93,6 +93,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             self.validateTerminosUsuario,
                             lineColor: lineColorUsuario,
                             focusedColor: focusedColorUsuario,
+                            typeUser: 0,
+                            palomita: Colors.white,
                             onPressed: self.onPressedUsuario),
                         buildInputsLogin(
                             context,
@@ -111,13 +113,15 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             self.validateTerminosProveedor,
                             lineColor: lineColorProfesional,
                             focusedColor: focusedColorProfesional,
+                            typeUser: 1,
+                            palomita: Colors.black,
                             onPressed: self.onPressedProveedor),
                       ],
                     ),
                   ),
                 ],
               ),
-              const NavBarLogin()
+              NavBarLogin()
             ],
           ),
         ),
@@ -142,31 +146,36 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     RxBool validateTerminos, {
     required Color lineColor,
     required Color focusedColor,
+    required Color palomita,
+    required int typeUser,
     required dynamic Function()? onPressed,
   }) {
     return Column(
       children: [
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Readex Pro',
-                fontSize:
-                    MediaQuery.sizeOf(context).width < 300.0 ? 10.0 : 30.0,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-        AutoSizeText(
-          subtitle,
-          textAlign: TextAlign.center,
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Readex Pro',
-                fontSize: 10,
-              ),
-          minFontSize: 10,
+        // Text(
+        //   title,
+        //   textAlign: TextAlign.center,
+        //   style: FlutterFlowTheme.of(context).bodyMedium.override(
+        //         fontFamily: 'Readex Pro',
+        //         fontSize:
+        //             MediaQuery.sizeOf(context).width < 300.0 ? 10.0 : 30.0,
+        //         fontWeight: FontWeight.bold,
+        //       ),
+        // ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: AutoSizeText(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  fontSize: 10,
+                ),
+            minFontSize: 10,
+          ),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
           child: VibratingWidget(
             controller: self.animUsuario,
             child: TextFormField(
@@ -303,7 +312,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
               )),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 16),
+          padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 10),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -329,27 +338,30 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             checkboxRecordar.value = newValue!;
                           },
                           activeColor: focusedColor,
-                          checkColor: FlutterFlowTheme.of(context).primaryText,
+                          checkColor: palomita,
                         )),
                   ),
+                  10.0.sw,
                   Text(
                     'Recordar\ncontraseña',
                     style: FlutterFlowTheme.of(context).bodyMedium,
                   ),
                 ],
               ),
-              BtnIcon(
-                onPressed: () async {
-                  Get.toNamed(Routes.OLVIDE_CONTRASENA);
-                },
-                borderRadius: 12,
-                padding: const EdgeInsets.all(0),
-                icon: Text(
-                  '¿Has olvidado\nla contraseña?',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        color: FlutterFlowTheme.of(context).info,
-                      ),
+              Padding(
+                padding: EdgeInsets.only(right: 10.0),
+                child: BtnIcon(
+                  onPressed: () async {
+                    Get.toNamed(Routes.OLVIDE_CONTRASENA, arguments: typeUser);
+                  },
+                  borderRadius: 12,
+                  icon: Text(
+                    '¿Has olvidado\nla contraseña?',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: FlutterFlowTheme.of(context).primary,
+                        ),
+                  ),
                 ),
               ),
             ],
@@ -398,51 +410,13 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             ],
           ),
         ),
-        VibratingWidget(
-          controller: animTerminos,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Theme(
-                data: ThemeData(
-                  checkboxTheme: CheckboxThemeData(
-                    visualDensity: VisualDensity.compact,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  unselectedWidgetColor:
-                      FlutterFlowTheme.of(context).secondaryText,
-                ),
-                child: Obx(() => Checkbox(
-                      value: checkboxTerminos.value,
-                      onChanged: (newValue) async {
-                        checkboxTerminos.value = newValue!;
-                      },
-                      activeColor: focusedColor,
-                      side: validateTerminos.value
-                          ? BorderSide(
-                              color: FlutterFlowTheme.of(context).error)
-                          : null,
-                      checkColor: FlutterFlowTheme.of(context).primaryText,
-                    )),
-              ),
-              BtnIcon(
-                onPressed: ButtonsPage.termsAndConditions,
-                borderRadius: 12,
-                padding: const EdgeInsets.all(0),
-                icon: Text(
-                  'He leído y acepto los\nTérminos y Condiciones de Servicio.',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        color: FlutterFlowTheme.of(context).info,
-                      ),
-                ),
-              ),
-            ],
-          ),
+        TerminosCondicionesDialog(
+          animTerminos,
+          checkboxTerminos,
+          focusedColor,
+          validateTerminos,
+          palomita,
+          paddingTop: 20,
         ),
         Divider(
           height: 2,

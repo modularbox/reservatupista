@@ -1,9 +1,12 @@
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/app/routes/database.dart';
 
 // import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../utils/buttons_sounds.dart';
 // import '../../utils/dialog/rich_alert_flutterflow.dart';
+import '../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../utils/format_number.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -333,7 +336,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
                     elevation: 3,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
@@ -343,9 +346,20 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                 FFButtonWidget(
                   onPressed: () {
                     if (_model.money > 0) {
-                      // Get.dialog(PagosTarjetaPage(
-                      //   precio: _model.money,
-                      // ));
+                      Get.dialog(RichAlertFlutterFlow(
+                        alertType: RichAlertType.NONE,
+                        alertTitle: title,
+                        alertSubtitle:
+                            '¿Estás seguro de recargar el Monedero Virtual?',
+                        textButton: title,
+                        precio: '${_model.money.twoDecimals} €',
+                        onPressed: () {
+                          DatabaseController db = Get.find();
+                          db.money.value += _model.money;
+                          Get.back();
+                          Get.back();
+                        },
+                      ));
                     }
                   },
                   text: 'Confirmar',

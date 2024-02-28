@@ -15,13 +15,14 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '1.2.29';
+  String version = '2.1.1';
   String nombre = 'Nutri';
   // String imageServer = '';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
   ProveedorModel? datosProveedor;
+  RxDouble money = 0.0.obs;
 
   @override
   void onInit() async {

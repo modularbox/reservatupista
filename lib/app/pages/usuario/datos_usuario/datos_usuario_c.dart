@@ -578,9 +578,6 @@ class ButtonsPage {
   //   Get.back();
   // }
 
-  ButtonsPage.termsAndConditions() {
-    Get.dialog(const TermConditions());
-  }
   cancel() {}
 }
 

@@ -3,6 +3,7 @@ import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../../utils/colores.dart';
+import '../../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../../utils/loader/color_loader.dart';
 import '../../../../../utils/btn_icon.dart';
 import '../../../../widgets/seleccion_imagen_widget.dart';
@@ -547,7 +548,7 @@ class _ListInputsState extends State<ListInputs> {
                                                 onTap: () => Get.back(),
                                                 child: Padding(
                                                   padding: const EdgeInsets
-                                                          .symmetric(
+                                                      .symmetric(
                                                       horizontal: 10),
                                                   child: Image.file(
                                                     e,
@@ -643,51 +644,12 @@ class _ListInputsState extends State<ListInputs> {
               ),
             ),
           ),
-          VibratingWidget(
-            controller: self.animTerminos,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Theme(
-                  data: ThemeData(
-                    checkboxTheme: CheckboxThemeData(
-                      visualDensity: VisualDensity.compact,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    unselectedWidgetColor:
-                        FlutterFlowTheme.of(context).secondaryText,
-                  ),
-                  child: Obx(() => Checkbox(
-                        value: self.checkboxTerminos.value,
-                        onChanged: (newValue) async {
-                          self.checkboxTerminos.value = newValue!;
-                        },
-                        activeColor: Colores().proveedor.primary,
-                        checkColor: FlutterFlowTheme.of(context).primaryText,
-                        side: self.validateCheckbox.value
-                            ? const BorderSide(color: Colors.red)
-                            : null,
-                      )),
-                ),
-                BtnIcon(
-                  onPressed: () => Get.dialog(const TermConditions()),
-                  borderRadius: 12,
-                  padding: const EdgeInsets.all(0),
-                  icon: Text(
-                    'He leído y acepto los\nTérminos y Condiciones de Servicio.',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).info,
-                        ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          TerminosCondicionesDialog(
+              self.animTerminos,
+              self.checkboxTerminos,
+              Colores().proveedor.primary,
+              self.checkboxTerminos,
+              FlutterFlowTheme.of(Get.context!).primaryText),
         ].divide(const SizedBox(height: 10.0)),
       ),
     );

@@ -289,8 +289,8 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                               alertType: RichAlertType.NONE,
                               alertTitle: title,
                               alertSubtitle: widget.isTransferir
-                                  ? '¿Estas seguro de transferir del banco virtual?'
-                                  : '¿Estas seguro de recargar el monedero virtual?',
+                                  ? '¿Estás seguro de transferir del banco virtual?'
+                                  : '¿Estás seguro de recargar el monedero virtual?',
                               textButton: title,
                               precio:
                                   '${FormatNumber.formatNumberWithTwoDecimals(widget.precio)} €',

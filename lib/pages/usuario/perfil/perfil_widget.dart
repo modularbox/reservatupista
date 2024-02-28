@@ -355,7 +355,7 @@ class PerfilWidget extends StatelessWidget {
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.dialog(const TermConditions());
+          Get.dialog(const TerminosCondiciones());
         },
       ),
       ButtonPerfil(
@@ -370,7 +370,11 @@ class PerfilWidget extends StatelessWidget {
           );
         },
       ),
-      space,
+      isiOS
+          ? const SizedBox(
+              height: 25,
+            )
+          : space,
       buildBtnCerrar()
     ];
   }

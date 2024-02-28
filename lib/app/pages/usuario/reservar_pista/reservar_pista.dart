@@ -9,6 +9,7 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/buttons_sounds.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/dialog/rich_alert_flutterflow.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/format_number.dart';
 import '../../../../utils/search_droptown/dropdown_search.dart';
 import '../../../../utils/server/image_server.dart';
@@ -196,7 +197,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               ),
                             ),
                             onChanged: (val) {
-                              print(val);
                               for (var i = 0; i < listLocalidades.length; i++) {
                                 final condition = listLocalidades[i] == val;
                                 if (condition) {
@@ -206,7 +206,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               }
                               self.clubController.text = '';
                               self.deporteController.text = '';
-                              // self.selectedItemDeporte.value = null;
                               self.selectClub.value = null;
                               self.selectDeporte.value = null;
                               self.selectDay.value = null;
@@ -841,7 +840,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         backgroundColor:
             MaterialStateProperty.all<Color>(Color.fromARGB(192, 0, 255, 123)),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(30.w, 20), // Ajusta el ancho y alto según tus necesidades
+          Size(130, 20), // Ajusta el ancho y alto según tus necesidades
         ),
       ),
       child: const Center(
@@ -870,7 +869,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         backgroundColor: MaterialStateProperty.all<Color>(
             const Color.fromARGB(211, 255, 48, 48)),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(30.w, 20), // Ajusta el ancho y alto según tus necesidades
+          Size(130, 20), // Ajusta el ancho y alto según tus necesidades
         ),
       ),
       child: const Center(
@@ -911,7 +910,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         "${FormatDate.dateToString(controller.selectDateDay.value!)} ${selectHorario.inicio}";
     final finaliza =
         "${FormatDate.dateToString(controller.selectDateDay.value!)} ${selectHorario.termino}";
-    const double fontSize = 15;
+    const double fontSize = 13;
     final stringLOcalidad = (self.selectLocalidad.value != null
         ? self.db.datosReserva.reservas[self.selectLocalidad.value!].localidad
         : (self.selectedItemDeporte.value ?? ''));
@@ -942,16 +941,25 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   index == 0 &&
                           self.selectHorario.value!.typeEstadoHorario ==
                               TypeEstadoHorario.abierta
-                      ? ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30.0)),
-                          child: Image.asset(
-                            'assets/images/icon_user2.jpg',
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.fill,
-                          ),
-                        )
+                      ? self.cancelarReserva.value
+                          ? ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30.0)),
+                              child: ImageServer(
+                                height: 50,
+                                width: 50,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30.0)),
+                              child: Image.asset(
+                                'assets/images/icon_user2.jpg',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.fill,
+                              ),
+                            )
                       : ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(30.0)),
@@ -998,19 +1006,30 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               ),
             ).divide(4.0.sw),
           ),
-          BtnIcon(
-              onPressed: () {
-                self.listReservas.value =
-                    self.listReservas.map((e) => e = true).toList();
-              },
-              fillColor: Colores().usuario.primary,
-              borderRadius: 10,
-              icon: Text(
-                'Reservar todo',
-                style: FlutterFlowTheme.of(Get.context!)
-                    .bodyMedium
-                    .copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
+          Obx(() => BtnIcon(
+                onPressed: () {
+                  if (self.cancelarReserva.value) {
+                    self.listReservas.value =
+                        self.listReservas.map((e) => e = false).toList();
+                    self.cancelarReserva.value = false;
+                  } else {
+                    self.listReservas.value =
+                        self.listReservas.map((e) => e = true).toList();
+                    self.cancelarReserva.value = true;
+                  }
+                },
+                fillColor: self.cancelarReserva.value
+                    ? Colores().rojo
+                    : Colores().usuario.primary,
+                borderRadius: 10,
+                size: const Size(130, 40),
+                icon: Text(
+                  self.cancelarReserva.value ? 'Cancelar' : 'Reservar todo',
+                  style: FlutterFlowTheme.of(Get.context!)
+                      .bodyMedium
+                      .copyWith(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
               ))
         ]),
       ),
@@ -1118,49 +1137,12 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       height: 5,
     ));
     list.add(
-      Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Theme(
-            data: ThemeData(
-              checkboxTheme: CheckboxThemeData(
-                visualDensity: VisualDensity.compact,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-              unselectedWidgetColor:
-                  FlutterFlowTheme.of(Get.context!).secondaryText,
-            ),
-            child: Obx(() => Checkbox(
-                  value: self.terms.value,
-                  onChanged: (newValue) async {
-                    self.terms.value = newValue!;
-                  },
-                  activeColor: Colores().proveedor.primary,
-                  //  side: validateTerminos.value
-                  //      ? BorderSide(
-                  //          color: FlutterFlowTheme.of(Get.context!).error)
-                  //      : null,
-                  checkColor: FlutterFlowTheme.of(Get.context!).primaryText,
-                )),
-          ),
-          BtnIcon(
-            onPressed: () => Get.dialog(const TermConditions()),
-            borderRadius: 12,
-            padding: const EdgeInsets.all(0),
-            icon: Text(
-              'He leído y acepto los\nTérminos y Condiciones de Servicio.',
-              style: FlutterFlowTheme.of(Get.context!).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
-                    color: FlutterFlowTheme.of(Get.context!).info,
-                  ),
-            ),
-          ),
-        ],
-      ),
+      TerminosCondicionesDialog(
+          AnimationController(vsync: self),
+          self.terms,
+          Colores().proveedor.primary,
+          self.terms,
+          FlutterFlowTheme.of(Get.context!).primaryText),
     );
     list.add(SizedBox(
       height: 5,

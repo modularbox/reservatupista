@@ -481,7 +481,7 @@ class LoginProfesionalPage extends GetView<LoginProfesionalController> {
                                       )),
                                 ),
                                 BtnIcon(
-                                  onPressed: ButtonsPage.termsAndConditions,
+                                  // onPressed: ButtonsPage.termsAndConditions,
                                   borderRadius: 12,
                                   padding: const EdgeInsets.all(0),
                                   icon: Text(
@@ -543,7 +543,7 @@ class LoginProfesionalPage extends GetView<LoginProfesionalController> {
                   ),
                 ),
               ),
-              const NavBarLogin()
+              NavBarLogin()
             ],
           ),
         ),

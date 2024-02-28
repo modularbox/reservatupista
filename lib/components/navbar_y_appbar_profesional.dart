@@ -58,7 +58,7 @@ class NavbarYAppbarProfesional extends StatelessWidget {
                 await Get.dialog(RichAlertDialog(
                   alertTitle: richTitle("Cerrar Sesión"),
                   alertSubtitle:
-                      richSubtitle("¿Estas seguro de cerrar la sesión?"),
+                      richSubtitle("¿Estás seguro de cerrar la sesión?"),
                   textButton: "Aceptar",
                   actions: [
                     defaultAction(Colors.red, () => Get.back(), 'Cancelar'),

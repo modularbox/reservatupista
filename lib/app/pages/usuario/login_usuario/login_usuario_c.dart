@@ -141,6 +141,6 @@ class ButtonsPage {
     Get.toNamed(Routes.LOGIN_PROFESIONAL);
   }
   ButtonsPage.termsAndConditions() {
-    Get.dialog(TermConditions());
+    Get.dialog(TerminosCondiciones());
   }
 }
