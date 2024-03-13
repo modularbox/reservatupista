@@ -56,13 +56,10 @@ class NavBarLogin extends StatelessWidget {
           left: 75,
           child: SizedBox(
             width: MediaQuery.of(context).size.width - (155),
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Text(
-                'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelSmall,
-              ),
+            child: Text(
+              'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).labelSmall,
             ),
           ),
         ),
