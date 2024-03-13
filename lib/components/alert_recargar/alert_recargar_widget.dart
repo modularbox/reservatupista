@@ -347,7 +347,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                   onPressed: () {
                     if (_model.money > 0) {
                       Get.dialog(RichAlertFlutterFlow(
-                        alertType: RichAlertType.NONE,
+                        alertType: TypeAlert.NONE,
                         alertTitle: title,
                         alertSubtitle:
                             '¿Estás seguro de recargar el Monedero Virtual?',

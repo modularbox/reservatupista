@@ -286,7 +286,7 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                         child: FFButtonWidget(
                           onPressed: () {
                             Get.dialog(RichAlertFlutterFlow(
-                              alertType: RichAlertType.NONE,
+                              alertType: TypeAlert.NONE,
                               alertTitle: title,
                               alertSubtitle: widget.isTransferir
                                   ? '¿Estás seguro de transferir del banco virtual?'

@@ -18,16 +18,38 @@ class Versions extends GetView<DatabaseController> {
   Versions({super.key, required this.getWidth, required this.onPressed});
   final List<DatosVersion> arrayVersion2 = [
     DatosVersion(
+        v: '2.1.4',
+        info: '''Acceso con usuario de prueba.''',
+        fecha: '13/03/2024'),
+    DatosVersion(
+        v: '2.1.3',
+        info: '''Corrección de botones.
+Tokens Autenticacion login proveedor.
+Login con acceso de tokens proveedor.
+Email mas largo.
+Registro de proveedor ajuste en certificado.
+Obtencion de los datos mediante tokens.''',
+        fecha: '13/03/2024'),
+    DatosVersion(
+        v: '2.1.2',
+        info: '''Corrección de botones.
+Tokens Autenticacion login.
+Login con acceso de tokens.
+Email mas largo.
+Registro quitar datos establecidos.
+Obtencion de los datos mediante tokens.''',
+        fecha: '12/03/2024'),
+    DatosVersion(
         v: '2.1.1',
         info: '''Corrección de botones.
 Recargar Monedero Virtual.
 Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
-        fecha: '20/02/2024'),
+        fecha: '22/02/2024'),
     DatosVersion(
         v: '2.1.0',
         info:
             '''Corrección de ver términos y condiciones y inicio de sesión.''',
-        fecha: '20/02/2024'),
+        fecha: '21/02/2024'),
     DatosVersion(
         v: '2.0.0',
         info: '''Correcciòn de botones mal cuadrados y eliminaciòn de datos.''',

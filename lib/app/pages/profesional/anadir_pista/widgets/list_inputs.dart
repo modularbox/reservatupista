@@ -8,6 +8,7 @@ import '../../../../../utils/loader/color_loader.dart';
 import '../../../../../utils/btn_icon.dart';
 import '../../../../widgets/seleccion_imagen_widget.dart';
 import '../../../../widgets/terminos_condiciones.dart';
+import '../../../../widgets/text_inputters/inputter_registro.dart';
 import '../anadir_pista_c.dart';
 import '../anadir_pista_model.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -885,7 +886,10 @@ class _ListInputsState extends State<ListInputs> {
                           context: context,
                           labelText: 'Precio con luz',
                           maxLength: 7,
-                          inputFormatters: [PrecioInputFormatter()],
+                          inputFormatters: [
+                            SinEspaciosInputFormatter(),
+                            PrecioInputFormatter(),
+                          ],
                           readOnly: false,
                           onChanged: (val) => {
                             self.isValidBtnTarifas.refresh(),
@@ -916,7 +920,10 @@ class _ListInputsState extends State<ListInputs> {
                           context: context,
                           maxLength: 7,
                           labelText: 'Precio sin luz',
-                          inputFormatters: [PrecioInputFormatter()],
+                          inputFormatters: [
+                            SinEspaciosInputFormatter(),
+                            PrecioInputFormatter(),
+                          ],
                           readOnly: false,
                           onChanged: (val) => {
                             self.isValidBtnTarifas.refresh(),
@@ -1095,28 +1102,19 @@ class PrecioInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     String newText = newValue.text.replaceAll('.', ''); // Eliminar puntos
-    int newTextLength = newText.length;
-
+    newText = newText.replaceAll('€', ''); // Eliminar Euro
+    int newTextLength = newText.length; // Tamano del texto
     if (newTextLength == 0) {
       // Si no hay ningún número ingresado, devolver un valor vacío
       return const TextEditingValue();
     }
     if (double.tryParse(newText) == null) {
-      double amount = double.parse(newText.substring(0, newText.length - 2)) /
-          100; // Convertir a número y dividir por 100
-      String formattedText =
-          amount.toStringAsFixed(2); // Formatear con dos decimales
-
-      return TextEditingValue(
-        text: '$formattedText €',
-        selection: TextSelection.collapsed(offset: formattedText.length),
-      );
+      return oldValue;
     } else {
       double amount =
           double.parse(newText) / 100; // Convertir a número y dividir por 100
       String formattedText =
           amount.toStringAsFixed(2); // Formatear con dos decimales
-
       return TextEditingValue(
         text: '$formattedText €',
         selection: TextSelection.collapsed(offset: formattedText.length),

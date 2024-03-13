@@ -15,9 +15,7 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.1.1';
-  String nombre = 'Nutri';
-  // String imageServer = '';
+  String version = '2.1.4';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
@@ -38,11 +36,10 @@ class DatabaseController extends GetxController {
 
   Future<bool> getDatosUsuario() async {
     try {
-      final result = await getUsuarioNode('1');
+      final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
-        imageServer.value = getImageUsuarioNode(result.foto);
+        imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
         datosUsuario = result;
-
         return true;
       }
     } catch (e) {
@@ -51,11 +48,21 @@ class DatabaseController extends GetxController {
     return false;
   }
 
+  void setDatosUsuario(UsuarioModel result) {
+    imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
+    datosUsuario = result;
+  }
+
+  void setDatosProveedor(ProveedorModel result) {
+    imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
+    datosProveedor = result;
+  }
+
   Future<bool> getDatosProveedor() async {
     try {
-      final result = await getProveedorNode('1');
+      final result = await ProveedorNode().getProveedorNode('1');
       if (result is ProveedorModel) {
-        imageServer.value = getImageProveedorNode(result.foto);
+        imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
         datosProveedor = result;
         return true;
       }

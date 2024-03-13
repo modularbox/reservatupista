@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class RichAlertType {
+class TypeAlert {
   /// Indicates an error dialog by providing an error icon.
   static const int ERROR = 0;
 
@@ -77,9 +77,9 @@ class RichAlertFlutterFlow extends StatefulWidget {
 
 class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
   final Map<int, String> typeAsset = {
-    RichAlertType.ERROR: "assets/images/error.png",
-    RichAlertType.SUCCESS: "assets/images/success.png",
-    RichAlertType.WARNING: "assets/images/warning.png",
+    TypeAlert.ERROR: "assets/images/error.png",
+    TypeAlert.SUCCESS: "assets/images/success.png",
+    TypeAlert.WARNING: "assets/images/warning.png",
   };
 
   @override

@@ -13,6 +13,8 @@ import '../pages/usuario/login_usuario/login_usuario.dart';
 import '../pages/usuario/login_usuario/login_usuario_b.dart';
 import '../pages/usuario/registrar_usuario/registrar_usuario.dart';
 import '../pages/usuario/registrar_usuario/registrar_usuario_b.dart';
+import '../ui/pages/pagotpv_page/pagotpv_b.dart';
+import '../ui/pages/pagotpv_page/pagotpv_p.dart';
 import './index.dart';
 import '../pages/profesional/login_profesional/login_profesional.dart';
 import '../pages/profesional/login_profesional/login_profesional_b.dart';
@@ -81,6 +83,7 @@ abstract class Routes {
   static const DATOS_USUARIO = '/datos_usuario';
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
   static const TARIFAS_PISTA = '/tarifas_pista';
+  static const PAGO_TPV = '/pago_tpv';
 }
 
 /// Get Routes
@@ -255,10 +258,15 @@ class AppPages {
       page: () => OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
     ),
-     GetPage(
-         name: Routes.TARIFAS_PISTA,
-         page: () => TarifasPistaPage(),
-         binding: TarifasPistaBinding(),
-      ), 
-   ];
+    GetPage(
+      name: Routes.TARIFAS_PISTA,
+      page: () => TarifasPistaPage(),
+      binding: TarifasPistaBinding(),
+    ),
+    GetPage(
+      name: Routes.PAGO_TPV,
+      page: () => PagoTpvPage(),
+      binding: PagoTpvBinding(),
+    ),
+  ];
 }

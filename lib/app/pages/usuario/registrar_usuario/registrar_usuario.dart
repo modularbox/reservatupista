@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/loader/color_loader.dart';
-import '../../../../utils/loader/color_loader_2.dart';
-import '../../../../utils/loader/color_loader_3.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../widgets/appbar_general.dart';
 import '../../../widgets/seleccionar_imagen/seleccionar_imagen_widget.dart';
@@ -48,8 +45,6 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
             top: true,
             child: Column(
               children: [
-                // Generated code for this RiveAnimation Widget...
-
                 const AppbarGeneral(
                   isTitleBack: true,
                   title: 'Registro Usuario',

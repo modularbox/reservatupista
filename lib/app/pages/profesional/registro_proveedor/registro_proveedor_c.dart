@@ -74,8 +74,32 @@ class RegistroProveedorController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    // onInitForm();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
+  }
+
+  void onInitForm() {
+    tipoController.text = 'Club';
+    cifNifController.text = 'N1234567N';
+    direccionFiscalController.text = 'Direccion';
+    codigoPostalFiscalController.text = '123456';
+    localidadFiscalController.text = 'Localidad';
+    provinciaFiscalController.text = 'Provincia';
+    comunidadFiscalController.text = 'Comunidad';
+    nombreController.text = 'Nombre Ficticio';
+    apellidosController.text = 'Apellido Ficticio';
+    fijoController.text = '123456789';
+    emailController.text = 'ficticio@hotamil.com';
+    telefonoController.text = '123456789';
+    nombreComercialController.text = 'Nombre Comercio';
+    direccionController.text = 'Direccion';
+    codigoPostalController.text = '123456';
+    localidadController.text = 'Localidad';
+    provinciaController.text = 'Provincia';
+    comunidadController.text = 'Comunidad';
+    contrasenaController.text = '55r452df#';
+    contrasenaComprobarController.text = '55r452df#';
   }
 
   /// Existe el Codigo Postal
@@ -402,10 +426,12 @@ class RegistroProveedorController extends GetxController
 
   Future<void> pickImageCertificado(ImageSource source, {String? path}) async {
     if (path != null) {
+      certificadoCuentaController.text = 'foto';
       imageFileCertificado.value = '@$path';
     } else {
       final pickedFile = await ImagePicker().pickImage(source: source);
       if (pickedFile != null) {
+        certificadoCuentaController.text = 'foto';
         imageFileCertificado.value = pickedFile.path;
       }
     }
@@ -476,7 +502,7 @@ class RegistroProveedorController extends GetxController
           nameFoto,
           formattedDate,
         ];
-        await anadirProveedorNode(datosSQL);
+        await ProveedorNode().anadirProveedorNode(datosSQL);
 
         /// Regresar al inicio y enviar el email.
         await Get.dialog(RichAlertDialog(

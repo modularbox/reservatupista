@@ -58,7 +58,7 @@ class PerfilWidget extends StatelessWidget {
     final nombre = db.datosUsuario!.nombre;
     final apellidos = db.datosUsuario!.apellidos;
     final nick = db.datosUsuario!.nick;
-    final nivel = db.datosUsuario!.nivel;
+    final nivel = db.datosUsuario!.nivel == '' ? '0.0' : db.datosUsuario!.nivel;
     if (responsive) {
       return Container(
         width: double.infinity,
@@ -397,7 +397,7 @@ class PerfilWidget extends StatelessWidget {
       ),
       child: BtnIcon(
         onPressed: () async {
-          Get.toNamed(Routes.LOGIN_USUARIO);
+          Get.offAllNamed(Routes.LOGIN_USUARIO);
         },
         hoverColor: Colores().usuario.primary69,
         borderRadius: 12,

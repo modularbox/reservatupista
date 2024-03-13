@@ -106,7 +106,7 @@ class DatosUsuarioController extends GetxController
 
   getDatosUsuario() async {
     try {
-      final result = await getUsuarioNode('1');
+      final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -425,7 +425,7 @@ class DatosUsuarioController extends GetxController
         }
 
         if (datosModificados.isNotEmpty) {
-          await modificarUsuarioNode(
+          await UsuarioNode().modificarUsuarioNode(
               usuarioModel!.idUsuario, datosSQL, datosModificados);
         }
 
@@ -484,7 +484,7 @@ class DatosUsuarioController extends GetxController
 
         /// Actualizar Image
         db.imageServer.value =
-            '${getImageUsuarioNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${UsuarioNode().getImageUsuarioNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
         print(db.imageServer);
         print('Seactualizo');
       } catch (e) {

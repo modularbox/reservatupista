@@ -7,7 +7,6 @@ import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../backend/server_node.dart/proveedor_node.dart';
 import '../../../../backend/server_node.dart/subir_image_node.dart';
 import '../../../../utils/animations/list_animations.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
@@ -69,7 +68,7 @@ class DatosProveedorController extends GetxController
   getDatosProveedor() async {
     apiDatosProveedor.initStatus(RxStatusDemo.loading());
     try {
-      final result = await getProveedorNode('1');
+      final result = await ProveedorNode().getProveedorNode('1');
       if (result is ProveedorModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -304,7 +303,7 @@ class DatosProveedorController extends GetxController
 
         /// Actualizar Image
         db.imageServer.value =
-            '${getImageProveedorNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${ProveedorNode().getImageProveedorNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
         print(db.imageServer);
         print('Seactualizo');
       } catch (e) {
@@ -324,7 +323,7 @@ class DatosProveedorController extends GetxController
 
         /// Actualizar Image
         imageFileCertificado.value =
-            '${getImageProveedorNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${ProveedorNode().getImageProveedorNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
 
         print('Seactualizo');
       } catch (e) {

@@ -92,7 +92,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    llenadoAutomatico();
+    // llenadoAutomatico();
     change(null, status: RxStatus.empty());
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
@@ -106,18 +106,36 @@ class RegistrarUsuarioController extends GetxController
     }, time: const Duration(seconds: 1));
   }
 
+  // llenadoAutomatico() {
+  //   nombreController.text = 'Miguel Angel';
+  //   apellidosController.text = 'Hernandez Martinez';
+  //   sexoController.text = 'Hombre';
+  //   dniController.text = '12345678D';
+  //   ladaController.text = '🇪🇸 +34';
+  //   telefonoController.text = '999999999';
+  //   emailController.text = 'xhmigue@hotamil.com';
+  //   direccionController.text = 'Peraleda';
+  //   nickController.text = 'Miguel1';
+  //   contrasenaComprobarController.text = '123456';
+  //   contrasenaController.text = '123456';
+  // }
+
   llenadoAutomatico() {
-    nombreController.text = 'Miguel Angel';
-    apellidosController.text = 'Hernandez Martinez';
+    nombreController.text = 'Nombre Fiticio';
+    apellidosController.text = 'Apellido Fiticio';
     sexoController.text = 'Hombre';
     dniController.text = '12345678D';
     ladaController.text = '🇪🇸 +34';
     telefonoController.text = '999999999';
-    emailController.text = 'xhmigue@hotamil.com';
-    direccionController.text = 'Peraleda';
-    nickController.text = 'Miguel1';
-    contrasenaComprobarController.text = '123456';
-    contrasenaController.text = '123456';
+    emailController.text = 'ficticio@hotamil.com';
+    direccionController.text = 'Direccion';
+    codigoPostalController.text = '21233';
+    localidadController.text = 'Localidad';
+    provinciaController.text = 'Provincia';
+    comunidadController.text = 'Comunidad';
+    nickController.text = 'ficticio1';
+    contrasenaComprobarController.text = '55r452df#';
+    contrasenaController.text = '55r452df#';
   }
 
   /// Loading Codigo Postal
@@ -356,6 +374,7 @@ class RegistrarUsuarioController extends GetxController
             maxLength: 2,
             isRequired: false),
       );
+
   DatosContrasenaTextField datosContrasena() => DatosContrasenaTextField.init(
       tick: this,
       contrasenaController2: contrasenaComprobarController,
@@ -439,7 +458,7 @@ class RegistrarUsuarioController extends GetxController
           foto,
           fecha_registro
         ];
-        await anadirUsuarioNode(datosSQL);
+        await UsuarioNode().anadirUsuarioNode(datosSQL);
 
         /// Regresar al inicio y enviar el email.
         await Get.dialog(RichAlertDialog(

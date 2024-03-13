@@ -801,7 +801,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 final precio = (FFAppState().moneyMonederoVirtual - 4.0);
                 if (precio < 0) {
                   Get.dialog(RichAlertFlutterFlow(
-                    alertType: RichAlertType.NONE,
+                    alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',
                     alertSubtitle: 'No tienes saldo suficiente',
                     textButton: 'Aceptar',
@@ -813,7 +813,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   ));
                 } else {
                   Get.dialog(RichAlertFlutterFlow(
-                    alertType: RichAlertType.NONE,
+                    alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',
                     alertSubtitle: '',
                     textButton: 'Aceptar',

@@ -336,7 +336,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
       ),
       child: BtnIcon(
         onPressed: () async {
-          Get.toNamed(Routes.LOGIN_USUARIO, arguments: 1);
+          Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
         },
         hoverColor: Colores().usuario.primary69,
         borderRadius: 12,

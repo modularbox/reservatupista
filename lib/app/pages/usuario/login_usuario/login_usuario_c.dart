@@ -1,33 +1,45 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/routes/models/message_error.dart';
+import 'package:reservatu_pista/backend/server_node.dart/usuario_node.dart';
+import 'package:reservatu_pista/utils/dialog/general_dialog.dart';
+import '../../../../backend/server_node.dart/proveedor_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/database.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto/crypto.dart';
+import '../../../routes/models/proveedor_model.dart';
+import '../../../routes/models/usuario_model.dart';
 
 class LoginUsuarioController extends GetxController
     with SingleGetTickerProviderMixin {
   int? initialPage = Get.arguments;
+
   PageController pageViewController = PageController(
       initialPage: Get.arguments == null ? 0 : Get.arguments as int);
   final unfocusNode = FocusNode();
-  // State field(s) for emailAddress widget.
-  FocusNode emailAddressFocusNode = FocusNode();
-  TextEditingController emailAddressController = TextEditingController();
+  // State field(s) for email widget.
+  FocusNode emailUsuarioFocusNode = FocusNode();
+  TextEditingController emailUsuarioController = TextEditingController();
   // State field(s) for password widget.
-  FocusNode passwordFocusNode = FocusNode();
-  TextEditingController passwordController = TextEditingController();
-  // State field(s) for emailAddress widget.
-  FocusNode emailProfesionalAddressFocusNode = FocusNode();
-  TextEditingController emailProfesionalAddressController =
-      TextEditingController();
+  FocusNode passwordUsuarioFocusNode = FocusNode();
+  TextEditingController passwordUsuarioController = TextEditingController();
+  // State field(s) for email widget.
+  FocusNode emailProveedorFocusNode = FocusNode();
+  TextEditingController emailProveedorController = TextEditingController();
   // State field(s) for password widget.
-  FocusNode passwordProfesionalFocusNode = FocusNode();
-  TextEditingController passwordProfesionalController = TextEditingController();
-  RxBool passwordProfesionalVisibility = false.obs;
+  FocusNode passwordProveedorFocusNode = FocusNode();
+  TextEditingController passwordProveedorController = TextEditingController();
+  // Keys para el formulario de usuario y de proveedor
+  GlobalKey<FormState> formUsuarioKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formProveedorKey = GlobalKey<FormState>();
+
+  // Controlador para ver el password
+  RxBool passwordProveedorVisibility = false.obs;
   RxBool passwordVisibility = false.obs;
-  String? Function(BuildContext, String?)?
-      passwordProfesionalControllerValidator;
+  String? Function(BuildContext, String?)? passwordProveedorControllerValidator;
   // State field(s) for Checkbox widget.
   RxBool checkboxValueRecordarUsuario = false.obs;
   // State field(s) for Checkbox widget.
@@ -37,6 +49,7 @@ class LoginUsuarioController extends GetxController
   // State field(s) for Checkbox widget.
   RxBool checkboxValueTerminosProveedor = false.obs;
 
+  // Validar los terminos y condiciones.
   RxBool validateTerminosUsuario = false.obs;
   RxBool validateTerminosProveedor = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -48,11 +61,13 @@ class LoginUsuarioController extends GetxController
   late AnimationController animTerminosUsuario;
   late AnimationController animTerminosProveedor;
 
+  // Controller datos locales
   DatabaseController db = Get.find();
 
   @override
   void onInit() {
     super.onInit();
+    // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
@@ -61,37 +76,98 @@ class LoginUsuarioController extends GetxController
         time: const Duration(seconds: 3, milliseconds: 30));
   }
 
+  void onInitForm() {
+    emailUsuarioController.text = 'email@ficticio.com';
+    emailProveedorController.text = 'email@ficticio.com';
+    passwordProveedorController.text = '55r452df#';
+    passwordUsuarioController.text = '55r452df#';
+  }
+
+  // Iniciar Sesion Usuario
   void onPressedUsuario() async {
-    if (!checkboxValueTerminosUsuario.value) {
-      validateTerminosUsuario.value = true;
-      animTerminosUsuario.forward();
-    } else {
-      if (await db.getDatosUsuario()) {
-        Get.offAllNamed(Routes.INICIO);
+    if (formUsuarioKey.currentState!.validate()) {
+      bool isUserPrueba = emailUsuarioController.text == 'email@ficticio.com' &&
+          passwordUsuarioController.text == '55r452df#';
+      if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
+        validateTerminosUsuario.value = true;
+        animTerminosUsuario.forward();
       } else {
-        print("No se puede iniciar Usuario");
+        List<int> bytes = utf8.encode(passwordUsuarioController.text);
+        String hashConstrasena = sha1.convert(bytes).toString();
+        final result = await UsuarioNode().iniciarSesion([
+          emailUsuarioController.text,
+          emailUsuarioController.text,
+          hashConstrasena
+        ]);
+        if (result is UsuarioModel) {
+          db.setDatosUsuario(result);
+          Get.toNamed(Routes.INICIO);
+        } else if (result is MessageError) {
+          Get.dialog(GeneralDialog(
+            alertTitle: richTitle("Login Usuario"),
+            alertSubtitle: richSubtitle(result.messageError()),
+            textButton: "Cerrar",
+            alertType: TypeGeneralDialog.WARNING,
+            onPressed: () => Get.back(),
+          ));
+        }
       }
+      isValidateForms = true;
     }
-    isValidateForms = true;
-    // chec
-    // !formKey.currentState!.validate();
-    // Get.offAllNamed(Routes.INICIO);
-    // ButtonsPage.acceder();
   }
 
   void onPressedProveedor() async {
-    // Get.offAllNamed(Routes.INICIOPROFESIONAL);
-    if (!checkboxValueTerminosProveedor.value) {
-      validateTerminosProveedor.value = true;
-      animTerminosProveedor.forward();
-    } else {
-      if (await db.getDatosProveedor()) {
-        Get.offAllNamed(Routes.INICIOPROFESIONAL);
+    if (formProveedorKey.currentState!.validate()) {
+      bool isUserPrueba =
+          emailProveedorController.text == 'email@ficticio.com' &&
+              passwordProveedorController.text == '55r452df#';
+      if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
+        validateTerminosProveedor.value = true;
+        animTerminosProveedor.forward();
       } else {
-        print("No se puede iniciar Proveedor");
+        List<int> bytes = utf8.encode(passwordProveedorController.text);
+        String hashConstrasena = sha1.convert(bytes).toString();
+        final result = await ProveedorNode()
+            .iniciarSesion([emailProveedorController.text, hashConstrasena]);
+        if (result is ProveedorModel) {
+          db.setDatosProveedor(result);
+          Get.toNamed(Routes.INICIOPROFESIONAL);
+        } else if (result is MessageError) {
+          Get.dialog(GeneralDialog(
+            alertTitle: richTitle("Login Proveedor"),
+            alertSubtitle: richSubtitle(result.messageError()),
+            textButton: "Cerrar",
+            alertType: TypeGeneralDialog.WARNING,
+            onPressed: () => Get.back(),
+          ));
+        }
       }
+      isValidateForms = true;
     }
-    isValidateForms = true;
+    // Get.offAllNamed(Routes.INICIOProveedor);
+    // if (formProveedorKey.currentState!.validate()) {
+    //   print("Si esta validado");
+    //   return;
+    // }
+    // if (emailUsuarioController.text == "prueba@modularbox.com" &&
+    //     passwordProfesionalController.text == "2424mb9021") {
+    //   if (await db.getDatosProveedor()) {
+    //     Get.offAllNamed(Routes.INICIOPROFESIONAL);
+    //   } else {
+    //     print("No se puede iniciar Proveedor");
+    //   }
+    // }
+    // if (!checkboxValueTerminosProveedor.value) {
+    //   validateTerminosProveedor.value = true;
+    //   animTerminosProveedor.forward();
+    // } else {
+    //   if (await db.getDatosProveedor()) {
+    //     Get.offAllNamed(Routes.INICIOPROFESIONAL);
+    //   } else {
+    //     print("No se puede iniciar Proveedor");
+    //   }
+    // }
+    // isValidateForms = true;
     // chec
     // !formKey.currentState!.validate();
     // Get.offAllNamed(Routes.INICIO);
@@ -117,30 +193,14 @@ class LoginUsuarioController extends GetxController
   void dispose() {
     // Limpiar y liberar recursos
     unfocusNode.dispose();
-    emailAddressFocusNode.dispose();
-    emailAddressController.dispose();
-    passwordFocusNode.dispose();
-    passwordController.dispose();
-    emailProfesionalAddressFocusNode.dispose();
-    emailProfesionalAddressController.dispose();
-    passwordProfesionalFocusNode.dispose();
-    passwordProfesionalController.dispose();
+    emailUsuarioFocusNode.dispose();
+    emailUsuarioController.dispose();
+    passwordUsuarioFocusNode.dispose();
+    passwordUsuarioController.dispose();
+    emailProveedorFocusNode.dispose();
+    emailProveedorController.dispose();
+    passwordProveedorFocusNode.dispose();
+    passwordProveedorController.dispose();
     super.dispose();
-  }
-}
-
-class ButtonsPage {
-  ButtonsPage.acceder() {
-    Get.offAllNamed(Routes.INICIO);
-  }
-  ButtonsPage.registrarte(String namePage) {
-    Get.toNamed(namePage);
-  }
-
-  ButtonsPage.profesional() {
-    Get.toNamed(Routes.LOGIN_PROFESIONAL);
-  }
-  ButtonsPage.termsAndConditions() {
-    Get.dialog(TerminosCondiciones());
   }
 }

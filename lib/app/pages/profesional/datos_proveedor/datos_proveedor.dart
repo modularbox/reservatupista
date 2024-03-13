@@ -478,7 +478,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Image.network(
-                          getImageProveedorNode(
+                          ProveedorNode().getImageProveedorNode(
                               self.imageFileCertificado.value!),
                           width: 250.0,
                           fit: BoxFit.fitWidth,
@@ -494,7 +494,8 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                 icon: CircleAvatar(
                   radius: 20,
                   backgroundImage: NetworkImage(
-                    getImageProveedorNode(self.imageFileCertificado.value!),
+                    ProveedorNode().getImageProveedorNode(
+                        self.imageFileCertificado.value!),
                   ),
                 ))
             : const SizedBox.shrink()),
