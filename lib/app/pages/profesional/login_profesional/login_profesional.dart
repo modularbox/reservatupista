@@ -485,7 +485,7 @@ class LoginProfesionalPage extends GetView<LoginProfesionalController> {
                                   borderRadius: 12,
                                   padding: const EdgeInsets.all(0),
                                   icon: Text(
-                                    'He leído y acepto los\nTérminos y Condiciones de Servicio.',
+                                    'He leído y acepto los Términos y Condiciones de Servicio.',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

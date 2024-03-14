@@ -405,7 +405,7 @@ la contraseña? */
                                       Get.toNamed(Routes.INICIOPROFESIONAL);
                                     },
                                     text: FFLocalizations.of(context).getText(
-                                      'ee' /* Acceder */,
+                                      '5lvqf3l0' /* Acceder */,
                                     ),
                                     options: FFButtonOptions(
                                       width: MediaQuery.sizeOf(context).width *

@@ -134,7 +134,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         child: SingleChildScrollView(
           controller: controller.scrollController,
           child: SizedBox(
-            width: MediaQuery.sizeOf(context).width * kWidthPercentage,
+            width: MediaQuery.sizeOf(context).width * 0.2,
             child: Column(
               children: [
                 Column(

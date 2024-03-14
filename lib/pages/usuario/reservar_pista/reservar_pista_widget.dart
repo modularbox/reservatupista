@@ -451,7 +451,7 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
               children: [
                 TextSpan(
                     text:
-                        "la política de privacidad\ny las condiciones generales.",
+                        "la política de privacidad y las condiciones generales.",
                     style: TextStyle(color: Colors.blue))
               ]),
         )

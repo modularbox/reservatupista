@@ -11,6 +11,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './widgets/list_inputs.dart';
+import '../../../../constants.dart';
+
 import 'anadir_pista_c.dart';
 export 'anadir_pista_model.dart';
 
@@ -40,12 +42,24 @@ class AnadirPistaWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Form(
-                key: self.formKey,
-                autovalidateMode: AutovalidateMode.disabled,
-                child: const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: SingleChildScrollView(child: ListInputs()),
+              Center(
+                child: Container(
+                  width: (MediaQuery.sizeOf(context).width >= 640 &&
+                          MediaQuery.sizeOf(context).width <= 740)
+                      ? MediaQuery.sizeOf(context).width * 0.9
+                      : (MediaQuery.sizeOf(context).width >= 741 &&
+                              MediaQuery.sizeOf(context).width <= 1140)
+                          ? MediaQuery.sizeOf(context).width * 0.75
+                          : MediaQuery.sizeOf(context).width * kWidthPercentage,
+                  child: Form(
+                    key: self.formKey,
+                    autovalidateMode: AutovalidateMode.disabled,
+                    child: const Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: SingleChildScrollView(child: ListInputs()),
+                    ),
+                  ),
                 ),
               ),
               10.0.sh,
