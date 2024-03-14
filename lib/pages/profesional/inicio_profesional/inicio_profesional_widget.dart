@@ -91,7 +91,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
-                            'Noticias',
+                            '',
                             style: FlutterFlowTheme.of(context).headlineMedium,
                           ),
                         ),
