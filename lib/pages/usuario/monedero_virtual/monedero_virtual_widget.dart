@@ -105,6 +105,11 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
     context.watch<FFAppState>();
 
     Widget buildBtnOption(String title, TypeHistorial typeHistorial) {
+      Color isType = (title == 'Recargas')
+          ? Colors.green
+          : (title == 'Reservas')
+              ? Colors.red
+              : Colors.blue;
       bool isTypeHistorial = _model.type != typeHistorial;
       return FFButtonWidget(
           text: title,
@@ -115,11 +120,11 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
           },
           options: FFButtonOptions(
               textStyle: TextStyle(
-                  color: isTypeHistorial ? Colors.black : Colors.white),
+                  color: isTypeHistorial ? Colors.blue : Colors.white),
               borderSide: isTypeHistorial
-                  ? const BorderSide(color: Colors.black, width: 2)
+                  ? const BorderSide(color: Colors.blue, width: 2)
                   : null,
-              color: isTypeHistorial ? Colors.white : Colors.green,
+              color: isTypeHistorial ? Colors.white : isType,
               borderRadius: BorderRadius.circular(30)));
     }
 
@@ -129,13 +134,14 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
       child: Expanded(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding:
                   const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
               child: Container(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width * 0.5,
+                constraints: BoxConstraints(minWidth: 600),
                 height: 120.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondary,
@@ -217,7 +223,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                                 },
                               ).then((value) => setState(() {}));
                             },
-                            text: 'Recargar',
+                            text: 'Recargar', //alvaro
                             options: FFButtonOptions(
                               height: 40.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -250,127 +256,69 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                   animationsMap['containerOnPageLoadAnimation']!),
             ),
             Padding(
-              padding:
-                  const EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(8, 25, 8, 10),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FFButtonWidget(
-                    onPressed: () {
-                      setState(() {
-                        _model.isFiltrar = !_model.isFiltrar;
-                      });
-                    },
-                    text: FFLocalizations.of(context).getText(
-                      'wm531z5p' /* Filtrar */,
-                    ),
-                    icon: const Icon(
-                      Icons.line_weight_rounded,
-                      size: 20.0,
-                    ),
-                    options: FFButtonOptions(
-                      width: 106.0,
-                      height: 25.0,
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 0.0, 0.0, 0.0),
-                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).btnGeneral,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 14.0,
-                              ),
-                      elevation: 3.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                  const SizedBox(
+                    width: 10,
                   ),
-                  Builder(builder: (context) {
-                    final tipoText = (_model.type == TypeHistorial.reserva)
-                        ? 'Reservas'
-                        : (_model.type == TypeHistorial.tranferencia
-                            ? 'Recargas'
-                            : 'Todo');
-                    return Text(
-                      tipoText,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.italic,
-                          ),
-                    );
-                  }),
-                ],
+                  buildBtnOption('Reservas', TypeHistorial.reserva),
+                  buildBtnOption('Recargas', TypeHistorial.tranferencia),
+                  buildBtnOption('Todo', TypeHistorial.all),
+                  // buildBtnOption('Reservas', TypeHistorial.reserva),
+                  // FFButtonWidget(
+                  //     text: 'Reservas',
+                  //     onPressed: () {
+                  //       setState(() {
+                  //         _model.type = TypeHistorial.reserva;
+                  //       });
+                  //     },
+                  //     options: FFButtonOptions(
+                  //         textStyle: TextStyle(
+                  //             color: _model.type != TypeHistorial.reserva
+                  //                 ? Colors.black
+                  //                 : Colors.white),
+                  //         borderSide: _model.type != TypeHistorial.reserva
+                  //             ? const BorderSide(
+                  //                 color: Colors.black, width: 2)
+                  //             : null,
+                  //         color: _model.type != TypeHistorial.reserva
+                  //             ? Colors.white
+                  //             : Colors.green,
+                  //         borderRadius: BorderRadius.circular(30))),
+                  // FFButtonWidget(
+                  //     text: 'Recargas',
+                  //     onPressed: () {
+                  //       setState(() {
+                  //         _model.type = TypeHistorial.tranferencia;
+                  //       });
+                  //     },
+                  //     options: FFButtonOptions(
+                  //         textStyle: TextStyle(color: Colors.white),
+                  //         color: _model.type != TypeHistorial.tranferencia
+                  //             ? const Color.fromARGB(255, 50, 50, 50)
+                  //             : Colors.green,
+                  //         borderRadius: BorderRadius.circular(30))),
+                  // FFButtonWidget(
+                  // text: 'Todo',
+                  // onPressed: () {
+                  //   setState(() {
+                  //     _model.type = TypeHistorial.all;
+                  //   });
+                  // },
+                  // options: FFButtonOptions(
+                  //     textStyle: TextStyle(color: Colors.white),
+                  //     color: _model.type != TypeHistorial.all
+                  //         ? const Color.fromARGB(255, 50, 50, 50)
+                  //         : Colors.green,
+                  //     borderRadius: BorderRadius.circular(30))),
+                ].divide(const SizedBox(width: 10.0)),
               ),
             ),
-            _model.isFiltrar
-                ? Row(
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      buildBtnOption('Reservas', TypeHistorial.reserva),
-                      buildBtnOption('Recargas', TypeHistorial.tranferencia),
-                      buildBtnOption('Todo', TypeHistorial.all),
-                      // buildBtnOption('Reservas', TypeHistorial.reserva),
-                      // FFButtonWidget(
-                      //     text: 'Reservas',
-                      //     onPressed: () {
-                      //       setState(() {
-                      //         _model.type = TypeHistorial.reserva;
-                      //       });
-                      //     },
-                      //     options: FFButtonOptions(
-                      //         textStyle: TextStyle(
-                      //             color: _model.type != TypeHistorial.reserva
-                      //                 ? Colors.black
-                      //                 : Colors.white),
-                      //         borderSide: _model.type != TypeHistorial.reserva
-                      //             ? const BorderSide(
-                      //                 color: Colors.black, width: 2)
-                      //             : null,
-                      //         color: _model.type != TypeHistorial.reserva
-                      //             ? Colors.white
-                      //             : Colors.green,
-                      //         borderRadius: BorderRadius.circular(30))),
-                      // FFButtonWidget(
-                      //     text: 'Recargas',
-                      //     onPressed: () {
-                      //       setState(() {
-                      //         _model.type = TypeHistorial.tranferencia;
-                      //       });
-                      //     },
-                      //     options: FFButtonOptions(
-                      //         textStyle: TextStyle(color: Colors.white),
-                      //         color: _model.type != TypeHistorial.tranferencia
-                      //             ? const Color.fromARGB(255, 50, 50, 50)
-                      //             : Colors.green,
-                      //         borderRadius: BorderRadius.circular(30))),
-                      // FFButtonWidget(
-                      // text: 'Todo',
-                      // onPressed: () {
-                      //   setState(() {
-                      //     _model.type = TypeHistorial.all;
-                      //   });
-                      // },
-                      // options: FFButtonOptions(
-                      //     textStyle: TextStyle(color: Colors.white),
-                      //     color: _model.type != TypeHistorial.all
-                      //         ? const Color.fromARGB(255, 50, 50, 50)
-                      //         : Colors.green,
-                      //     borderRadius: BorderRadius.circular(30))),
-                    ].divide(const SizedBox(width: 5.0)),
-                  )
-                : const SizedBox(),
             Expanded(
+                child: Align(
+              alignment: Alignment.topCenter,
               child: Padding(
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
@@ -389,7 +337,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                   ),
                 ),
               ),
-            ),
+            )),
           ],
         ),
       ),
@@ -540,6 +488,7 @@ Widget buildReserva(BuildContext context) {
     padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
     child: Container(
       width: double.infinity,
+      alignment: Alignment.center,
       constraints: const BoxConstraints(
         maxWidth: 570.0,
       ),
