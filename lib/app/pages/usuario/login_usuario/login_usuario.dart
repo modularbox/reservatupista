@@ -14,6 +14,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
+import '../../../../constants.dart';
 
 class LoginUsuarioPage extends GetView<LoginUsuarioController> {
   const LoginUsuarioPage({super.key});
@@ -79,15 +80,19 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.sizeOf(context).width * 0.4,
+                    width: MediaQuery.sizeOf(context).width * kWidthPercentage,
                     constraints: BoxConstraints(
-                      minWidth: 400, // Ajusta este valor según tus necesidades
+                      minWidth: 500, // Ajusta este valor según tus necesidades
                     ),
                     child: Column(
                       children: [
                         PageViewSlidingIndicator(
-                          widthButtons:
-                              (MediaQuery.of(context).size.width * 0.4) * 0.5,
+                          widthButtons: (MediaQuery.of(context).size.width >=
+                                      640 &&
+                                  MediaQuery.of(context).size.width < 740)
+                              ? (MediaQuery.of(context).size.width * 0.51) * 0.5
+                              : (MediaQuery.of(context).size.width * 0.5) *
+                                  0.45,
                           pageCount: self.initialPage,
                           controller: self.pageViewController,
                         ),
