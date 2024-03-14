@@ -407,10 +407,28 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     return response;
   }
 
+  Future<http.Response> guardarUsuarioOperacion(String num_operacion) async {
+    http.Response response = await http.post(
+        Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'id_usuario': '1',
+          'num_operacion': num_operacion
+        }));
+    return response;
+  }
+
   Future<void> realizarPago(String dinero) async {
-    if (!await launchURL(
-        'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}')) {
-      throw Exception('No se ha podido realizar el pago correctamente');
+    try {
+      String num_operacion = generarNumeroOperacionUnico();
+      if (!await launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}')) {
+        throw Exception('No se ha podido realizar el pago correctamente');
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
