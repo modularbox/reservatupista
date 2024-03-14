@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:reservatu_pista/app/routes/database.dart';
+import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 
 // import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
@@ -18,6 +19,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/sizer.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:math';
 
 import 'alert_recargar_model.dart';
 export 'alert_recargar_model.dart';
@@ -353,12 +357,13 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                             '¿Estás seguro de recargar el Monedero Virtual?',
                         textButton: title,
                         precio: '${_model.money.twoDecimals} €',
-                        onPressed: () {
+                        onPressed: () => realizarPago(_model.money.toString()),
+                        /*() {
                           DatabaseController db = Get.find();
                           db.money.value += _model.money;
                           Get.back();
                           Get.back();
-                        },
+                        }, */
                       ));
                     }
                   },
@@ -388,6 +393,41 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
         ],
       ),
     );
+  }
+
+  //alvaro
+  Future<http.Response> guardarDinero(String dinero) async {
+    http.Response response = await http.post(
+        Uri.parse('${DatosServer().urlServer}/usuario/pago_tpv'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body:
+            jsonEncode(<String, String>{'id_usuario': '1', 'dinero': dinero}));
+    return response;
+  }
+
+  Future<void> realizarPago(String dinero) async {
+    if (!await launchURL(
+        'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}')) {
+      throw Exception('No se ha podido realizar el pago correctamente');
+    }
+  }
+
+  String generarNumeroOperacionUnico() {
+    DateTime now = DateTime.now();
+    int timestamp = now.microsecondsSinceEpoch;
+    Random random = Random();
+    int aleatorio = random.nextInt(999999);
+
+    String formattedString =
+        '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
+
+    return formattedString;
+  }
+
+  String _padNumber(int number) {
+    return number.toString().padLeft(2, '0');
   }
 
   Widget buildBtnBillete(int number) {

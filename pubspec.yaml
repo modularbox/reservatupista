@@ -49,7 +49,7 @@ dependencies:
   flutter_launcher_icons:
   image_picker: ^1.0.4
   iban: ^1.0.1
-  http: ^0.13.3
+  http: ^0.13.6
   http_parser: ^4.0.0
   crypto: ^3.0.3
   carousel_slider: 4.2.1
