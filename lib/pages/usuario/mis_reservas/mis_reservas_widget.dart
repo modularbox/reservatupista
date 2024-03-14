@@ -1,3 +1,4 @@
+import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/utils/animations/get_image.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '../../../utils/server/image_server.dart';
@@ -239,7 +240,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 12.0, 0.0),
                 child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width * 0.5,
+                  width: MediaQuery.sizeOf(context).width * kWidthPercentage,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,

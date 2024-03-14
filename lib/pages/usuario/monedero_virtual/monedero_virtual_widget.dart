@@ -14,6 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants.dart';
+
 import 'monedero_virtual_model.dart';
 export 'monedero_virtual_model.dart';
 
@@ -140,7 +143,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
               padding:
                   const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * kWidthPercentage,
                 constraints: BoxConstraints(minWidth: 600),
                 height: 120.0,
                 decoration: BoxDecoration(

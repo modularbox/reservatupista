@@ -397,12 +397,17 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () => onTap(number),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(0),
-        child: Image.asset(
-          'assets/images/${number.toString()}.jpg',
-          width: MediaQuery.sizeOf(context).width * 0.4,
-          fit: BoxFit.cover,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width * 0.12,
+        constraints: BoxConstraints(minWidth: 200),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: Image.asset(
+            'assets/images/${number.toString()}.jpg',
+            width: double.infinity,
+            //height: 100,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     ).animateOnActionTrigger(animationsMap['anim${number.toString()}']!,

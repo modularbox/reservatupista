@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../../constants.dart';
+
 import 'inicio_model.dart';
 export 'inicio_model.dart';
 
@@ -296,7 +298,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
                   child: Center(
                     child: Container(
-                      width: MediaQuery.sizeOf(context).width * 0.5,
+                      width:
+                          MediaQuery.sizeOf(context).width * kWidthPercentage,
                       constraints: BoxConstraints(minWidth: 300),
                       height: 50,
                       decoration: BoxDecoration(

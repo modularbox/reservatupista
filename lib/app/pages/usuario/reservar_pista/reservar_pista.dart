@@ -25,6 +25,7 @@ import '../../../../utils/format_date.dart';
 import '/backend/schema/enums/enums.dart';
 import 'widgets/input_club_favoritos.dart';
 import 'widgets/input_select.dart';
+import '../../../../constants.dart';
 
 class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaController get self => controller;
@@ -133,7 +134,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         child: SingleChildScrollView(
           controller: controller.scrollController,
           child: SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.5,
+            width: MediaQuery.sizeOf(context).width * kWidthPercentage,
             child: Column(
               children: [
                 Column(
