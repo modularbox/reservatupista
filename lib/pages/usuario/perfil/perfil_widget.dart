@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/loader/color_loader.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/routes/database.dart';
 import '../../../app/widgets/terminos_condiciones.dart';
@@ -16,13 +20,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
-// ignore: must_be_immutable
-class PerfilWidget extends StatelessWidget {
+class PerfilWidget extends StatefulWidget {
+  const PerfilWidget({super.key});
+
+  @override
+  State<PerfilWidget> createState() => _PerfilWidgetState();
+}
+
+class _PerfilWidgetState extends State<PerfilWidget> {
   DatabaseController db = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
 
-  PerfilWidget({super.key});
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    db.getDatosUsuarioId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +54,27 @@ class PerfilWidget extends StatelessWidget {
         title: 'Perfil',
         page: TypePage.Perfil,
         isTitle: true,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: 100.h <= 745
-                ? datosPerfil(
-                    space: spaceSizedBoxBtnCerrarRes(),
-                    subAppBar: subAppBar(true),
-                    height: 50,
-                    top: 10,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2))
-                : datosPerfil(
-                    space: spaceSizedBoxBtnCerrar(),
-                    subAppBar: subAppBar(false))));
+        child: db.datosPerfilUsuario.obx(
+            (state) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: 100.h <= 745
+                    ? datosPerfil(
+                        space: spaceSizedBoxBtnCerrarRes(),
+                        subAppBar: subAppBar(true),
+                        height: 50,
+                        top: 10,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2))
+                    : datosPerfil(
+                        space: spaceSizedBoxBtnCerrar(),
+                        subAppBar: subAppBar(false))),
+            onLoading: SizedBox(
+                width: 20,
+                child: ColorLoader(
+                  radius: 8,
+                  padding: const EdgeInsets.only(right: 1),
+                )),
+            onEmpty: const SizedBox.shrink()));
   }
 
   Widget subAppBar(bool responsive) {
@@ -139,14 +162,12 @@ class PerfilWidget extends StatelessWidget {
                           children: [
                             Text(
                               'Nick: $nick',
-                              style:
-                                  FlutterFlowTheme.of(Get.context!).labelMedium,
+                              style: LightModeTheme().bodyMedium,
                             ),
                             5.0.sw,
                             Text(
                               'Nivel: $nivel',
-                              style:
-                                  FlutterFlowTheme.of(Get.context!).labelMedium,
+                              style: LightModeTheme().bodyMedium,
                             ),
                           ],
                         ),
