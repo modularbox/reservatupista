@@ -18,6 +18,19 @@ class Versions extends GetView<DatabaseController> {
   Versions({super.key, required this.getWidth, required this.onPressed});
   final List<DatosVersion> arrayVersion2 = [
     DatosVersion(
+        v: '2.1.6',
+        info:
+            '''Ajustes en la aplicacion al subiar la imagen, y distintos cambios de funcionalidad.
+Registro datos no obligatorios.''',
+        fecha: '15/03/2024'),
+    DatosVersion(
+        v: '2.1.5',
+        info: '''Cambio en datos de usuario de prueba.
+Recordar contrasena, y guardar localmente.
+Cambio en los permisos para acceder a la camara de ios.
+Cambio en los datos algunos no son obligatorios.''',
+        fecha: '14/03/2024'),
+    DatosVersion(
         v: '2.1.4',
         info: '''Acceso con usuario de prueba.''',
         fecha: '13/03/2024'),

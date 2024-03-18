@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ void main() async {
   await FFLocalizations.initialize();
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
+  await GetStorage.init(); // Inicializa GetStorage
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,

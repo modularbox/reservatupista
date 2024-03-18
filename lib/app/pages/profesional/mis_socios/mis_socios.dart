@@ -26,8 +26,6 @@ class MisSociosPage extends GetView<MisSociosController> {
       );
     }
 
-    context.watch<FFAppState>();
-
     return NavbarYAppbarProfesional(
       title: 'Mis Socios',
       page: TypePage.MonederoVirtual,

@@ -89,6 +89,90 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                          child: Text(
+                            'Partidas Abiertas',
+                            style: FlutterFlowTheme.of(context).headlineSmall,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                          child: Text(
+                            'Martes, Enero 18th  ||  12:30pm',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
+                          child: Text(
+                            'Partido de Padel',
+                            style: FlutterFlowTheme.of(context).labelMedium,
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                          child: Text(
+                            'Ofertas',
+                            style: FlutterFlowTheme.of(context).headlineMedium,
+                          ),
+                        ),
+                        // Generated code for this Carousel Widget...
+                        Container(
+                          width: double.infinity,
+                          height: 180,
+                          child: CarouselSlider(
+                            items: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  'https://i8.amplience.net/i/jpl/desktop-mobile-site-offer-spot-408x408-22-3e16bb7a28bf44e339d2c29691b882a5?qlt=800&fmt=auto',
+                                  width: 400,
+                                  height: 400,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  'https://www.padeladdict.com/wp-content/uploads/2019/07/ofertas-de-palas-de-padel-por-menos-de-130-euros.jpg',
+                                  width: 300,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  'https://www.cmdsport.com/app/uploads/2018/11/black-friday-duet-sports.jpg',
+                                  width: 300,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ],
+                            carouselController:
+                                _model.carouselOfertasController,
+                            options: CarouselOptions(
+                              initialPage: 1,
+                              viewportFraction: 0.8,
+                              disableCenter: true,
+                              enlargeCenterPage: true,
+                              enlargeFactor: 0.25,
+                              enableInfiniteScroll: true,
+                              scrollDirection: Axis.horizontal,
+                              autoPlay: false,
+                              onPageChanged: (index, _) =>
+                                  _model.carouselCurrentIndex = index,
+                            ),
+                          ),
+                        ),
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Noticias',
@@ -139,89 +223,6 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                               ),
                             ],
                             carouselController: _model.carouselController,
-                            options: CarouselOptions(
-                              initialPage: 1,
-                              viewportFraction: 0.8,
-                              disableCenter: true,
-                              enlargeCenterPage: true,
-                              enlargeFactor: 0.25,
-                              enableInfiniteScroll: true,
-                              scrollDirection: Axis.horizontal,
-                              autoPlay: false,
-                              onPageChanged: (index, _) =>
-                                  _model.carouselCurrentIndex = index,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                          child: Text(
-                            'Padel',
-                            style: FlutterFlowTheme.of(context).headlineSmall,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                          child: Text(
-                            'Martes, Enero 18th  ||  12:30pm',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
-                          child: Text(
-                            'Partido de Basketball',
-                            style: FlutterFlowTheme.of(context).labelMedium,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-                          child: Text(
-                            'Ofertas',
-                            style: FlutterFlowTheme.of(context).headlineMedium,
-                          ),
-                        ),
-                        // Generated code for this Carousel Widget...
-                        Container(
-                          width: double.infinity,
-                          height: 180,
-                          child: CarouselSlider(
-                            items: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  'https://i8.amplience.net/i/jpl/desktop-mobile-site-offer-spot-408x408-22-3e16bb7a28bf44e339d2c29691b882a5?qlt=800&fmt=auto',
-                                  width: 400,
-                                  height: 400,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  'https://www.padeladdict.com/wp-content/uploads/2019/07/ofertas-de-palas-de-padel-por-menos-de-130-euros.jpg',
-                                  width: 300,
-                                  height: 200,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  'https://www.cmdsport.com/app/uploads/2018/11/black-friday-duet-sports.jpg',
-                                  width: 300,
-                                  height: 200,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                            carouselController:
-                                _model.carouselOfertasController,
                             options: CarouselOptions(
                               initialPage: 1,
                               viewportFraction: 0.8,

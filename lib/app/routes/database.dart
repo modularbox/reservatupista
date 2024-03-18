@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../backend/server_node.dart/proveedor_node.dart';
 import '../../backend/server_node.dart/usuario_node.dart';
 import 'models/datos_reservas_pista.dart';
@@ -15,12 +18,16 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.1.4';
+  String version = '2.1.6';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
   ProveedorModel? datosProveedor;
   RxDouble money = 0.0.obs;
+  late Storage storageIdUsuario;
+  late Storage storageIdProveedor;
+  late Storage storageTokenUsuario;
+  late Storage storageTokenProveedor;
 
   @override
   void onInit() async {
@@ -28,15 +35,50 @@ class DatabaseController extends GetxController {
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
+
+      // final getStorage = await SharedPreferences.getInstance();
+      // // Guardar archivos temporales
+      // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+      getVariablesGuardadas();
     } catch (e) {
       print(e);
     }
     print("sd");
   }
 
+  void getVariablesGuardadas() async {
+    final getStorage = await SharedPreferences.getInstance();
+    storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+    storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
+    storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
+    storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
+  }
+
   Future<bool> getDatosUsuario() async {
     try {
       final result = await UsuarioNode().getUsuarioNode('1');
+      if (result is UsuarioModel) {
+        imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
+        datosUsuario = result;
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
+  Future<bool> getDatosUsuarioId() async {
+    try {
+      final List<TypeDatosServer> listTypes = [
+        TypeDatosServer.apellidos,
+        TypeDatosServer.nombre,
+        TypeDatosServer.nick,
+        TypeDatosServer.nivel,
+        TypeDatosServer.foto
+      ];
+      final result = await UsuarioNode().getUsuario(
+          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
         datosUsuario = result;

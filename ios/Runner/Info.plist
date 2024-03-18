@@ -29,7 +29,11 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Necesitamos acceder a el microfono para permitirte el audio de la aplicación.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Necesitamos acceder a tus fotos para permitirte seleccionar y compartir imágenes en la aplicación.</string>
+	<string>Descripción de por qué tu aplicación necesita acceso a la biblioteca de fotos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Descripción de por qué tu aplicación necesita acceso a la cámara.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Descripción de por qué tu aplicación necesita acceso al micrófono.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

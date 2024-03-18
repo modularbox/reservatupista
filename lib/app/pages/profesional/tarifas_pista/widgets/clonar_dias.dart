@@ -12,8 +12,6 @@ class ClonarDias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> diasSelect = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-    // diasSelect.removeAt(indexDias);
-    // context.watch<FFAppState>();
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -49,11 +47,11 @@ class ClonarDias extends StatelessWidget {
                                               height: 40.0,
                                               padding:
                                                   const EdgeInsetsDirectional
-                                                          .fromSTEB(
+                                                      .fromSTEB(
                                                       0.0, 0.0, 0.0, 0.0),
                                               iconPadding:
                                                   const EdgeInsetsDirectional
-                                                          .fromSTEB(
+                                                      .fromSTEB(
                                                       0.0, 0.0, 0.0, 0.0),
                                               color: self
                                                       .selectedDias.value[index]
@@ -106,59 +104,6 @@ class ClonarDias extends StatelessWidget {
                         ),
                       ),
                     )),
-                //   Positioned(
-                //       bottom: 0,
-                //       left: 50,
-                //       child: Container(
-                //           child: Row(
-                //         children: List.generate(
-                //           diasSelect.length,
-                //           (index) => widget.indexDias == index
-                //               ? SizedBox.shrink()
-                //               : Padding(
-                //                   padding: const EdgeInsets.all(2.0),
-                //                   child: FFButtonWidget(
-                //                     onPressed: () => setState(
-                //                       () {
-                //                         // FFAppState().listaTarifas[index] =
-                //                         //     FFAppState()
-                //                         //         .listaTarifas[widget.indexDias];
-                //                         setState(() {
-                //                           selectedDias[index] =
-                //                               !selectedDias[index];
-                //                         });
-                //                         // Navigator.pop(context);
-                //                       },
-                //                     ),
-                //                     text: diasSelect[index],
-                //                     options: FFButtonOptions(
-                //                       width: 40.0,
-                //                       height: 40.0,
-                //                       padding: EdgeInsetsDirectional.fromSTEB(
-                //                           0.0, 0.0, 0.0, 0.0),
-                //                       iconPadding: EdgeInsetsDirectional.fromSTEB(
-                //                           0.0, 0.0, 0.0, 0.0),
-                //                       color: selectedDias[index]
-                //                           ? Color(0xFF46EF98)
-                //                           : FlutterFlowTheme.of(context).primary,
-                //                       textStyle: FlutterFlowTheme.of(context)
-                //                           .titleSmall
-                //                           .override(
-                //                             fontFamily: 'Readex Pro',
-                //                             color: Colors.white,
-                //                             fontSize: 12.0,
-                //                           ),
-                //                       elevation: 3.0,
-                //                       borderSide: BorderSide(
-                //                         color: Colors.transparent,
-                //                         width: 1.0,
-                //                       ),
-                //                       borderRadius: BorderRadius.circular(24.0),
-                //                     ),
-                //                   ),
-                //                 ),
-                //         ),
-                //       )))
               ],
             )),
       ),

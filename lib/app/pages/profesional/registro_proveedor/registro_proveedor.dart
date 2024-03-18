@@ -36,7 +36,6 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
       );
     }
 
-    context.watch<FFAppState>();
     final datosFacturacion = self.datosFacturacion().listProperty();
     final datosPago = self.datosPago().listProperty();
     final datosContacto = self.datosContacto();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class UsuarioModel {
+  String token;
   int idUsuario;
   String nombre;
   String apellidos;
@@ -12,7 +13,7 @@ class UsuarioModel {
   String empadronamiento;
   String comunidadDeVecinos;
   String direccion;
-  int codigoPostal;
+  String codigoPostal;
   String localidad;
   String provincia;
   String comunidad;
@@ -23,32 +24,33 @@ class UsuarioModel {
   String modeloPala;
   String juegosSemana;
   String foto;
-  DateTime fechaRegistro;
+  DateTime? fechaRegistro;
 
   UsuarioModel({
-    required this.idUsuario,
-    required this.nombre,
-    required this.apellidos,
-    required this.sexo,
-    required this.dni,
-    required this.lada,
-    required this.telefono,
-    required this.email,
-    required this.empadronamiento,
-    required this.comunidadDeVecinos,
-    required this.direccion,
-    required this.codigoPostal,
-    required this.localidad,
-    required this.provincia,
-    required this.comunidad,
-    required this.nick,
-    required this.nivel,
-    required this.posicion,
-    required this.marcaPala,
-    required this.modeloPala,
-    required this.juegosSemana,
-    required this.foto,
-    required this.fechaRegistro,
+    this.token = '',
+    this.idUsuario = 0,
+    this.nombre = '',
+    this.apellidos = '',
+    this.sexo = '',
+    this.dni = '',
+    this.lada = '',
+    this.telefono = '',
+    this.email = '',
+    this.empadronamiento = '',
+    this.comunidadDeVecinos = '',
+    this.direccion = '',
+    this.codigoPostal = '',
+    this.localidad = '',
+    this.provincia = '',
+    this.comunidad = '',
+    this.nick = '',
+    this.nivel = '',
+    this.posicion = '',
+    this.marcaPala = '',
+    this.modeloPala = '',
+    this.juegosSemana = '',
+    this.foto = '',
+    this.fechaRegistro,
   });
 
   factory UsuarioModel.fromRawJson(String str) =>
@@ -57,32 +59,36 @@ class UsuarioModel {
   String toRawJson() => json.encode(toJson());
 
   factory UsuarioModel.fromJson(Map<String, dynamic> json) => UsuarioModel(
-        idUsuario: json["id_usuario"],
-        nombre: json["nombre"],
-        apellidos: json["apellidos"],
-        sexo: json["sexo"],
-        dni: json["DNI"],
-        lada: json["lada"],
-        telefono: json["telefono"],
-        email: json["email"],
-        empadronamiento: json["empadronamiento"],
-        comunidadDeVecinos: json["comunidad_de_vecinos"],
-        direccion: json["direccion"],
-        codigoPostal: json["codigo_postal"],
-        localidad: json["localidad"],
-        provincia: json["provincia"],
-        comunidad: json["comunidad"],
-        nick: json["nick"],
-        nivel: json["nivel"],
-        posicion: json["posicion"],
-        marcaPala: json["marca_pala"],
-        modeloPala: json["modelo_pala"],
-        juegosSemana: json["juegos_semana"],
-        foto: json["foto"],
-        fechaRegistro: DateTime.parse(json["fecha_registro"]),
+        token: json["token"] ?? '',
+        idUsuario: json["id_usuario"] ?? 0,
+        nombre: json["nombre"] ?? '',
+        apellidos: json["apellidos"] ?? '',
+        sexo: json["sexo"] ?? '',
+        dni: json["DNI"] ?? '',
+        lada: json["lada"] ?? '',
+        telefono: json["telefono"] ?? '',
+        email: json["email"] ?? '',
+        empadronamiento: json["empadronamiento"] ?? '',
+        comunidadDeVecinos: json["comunidad_de_vecinos"] ?? '',
+        direccion: json["direccion"] ?? '',
+        codigoPostal: json["codigo_postal"] ?? '',
+        localidad: json["localidad"] ?? '',
+        provincia: json["provincia"] ?? '',
+        comunidad: json["comunidad"] ?? '',
+        nick: json["nick"] ?? '',
+        nivel: json["nivel"] ?? '',
+        posicion: json["posicion"] ?? '',
+        marcaPala: json["marca_pala"] ?? '',
+        modeloPala: json["modelo_pala"] ?? '',
+        juegosSemana: json["juegos_semana"] ?? '',
+        foto: json["foto"] ?? '',
+        fechaRegistro: json["fecha_registro"] != null
+            ? DateTime.parse(json["fecha_registro"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
+        "token": token,
         "id_usuario": idUsuario,
         "nombre": nombre,
         "apellidos": apellidos,
@@ -104,6 +110,7 @@ class UsuarioModel {
         "modelo_pala": modeloPala,
         "juegos_semana": juegosSemana,
         "foto": foto,
-        "fecha_registro": fechaRegistro.toIso8601String(),
+        "fecha_registro":
+            fechaRegistro == null ? '' : fechaRegistro!.toIso8601String(),
       };
 }

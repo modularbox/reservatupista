@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/routes/database.dart';
 import '../../../app/widgets/terminos_condiciones.dart';
@@ -16,13 +18,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
-// ignore: must_be_immutable
-class PerfilWidget extends StatelessWidget {
+class PerfilWidget extends StatefulWidget {
+  const PerfilWidget({super.key});
+
+  @override
+  State<PerfilWidget> createState() => _PerfilWidgetState();
+}
+
+class _PerfilWidgetState extends State<PerfilWidget> {
   DatabaseController db = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
 
-  PerfilWidget({super.key});
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    db.getDatosUsuarioId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,14 +152,12 @@ class PerfilWidget extends StatelessWidget {
                           children: [
                             Text(
                               'Nick: $nick',
-                              style:
-                                  FlutterFlowTheme.of(Get.context!).labelMedium,
+                              style: LightModeTheme().bodyMedium,
                             ),
                             5.0.sw,
                             Text(
                               'Nivel: $nivel',
-                              style:
-                                  FlutterFlowTheme.of(Get.context!).labelMedium,
+                              style: LightModeTheme().bodyMedium,
                             ),
                           ],
                         ),

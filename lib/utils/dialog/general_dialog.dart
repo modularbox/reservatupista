@@ -172,10 +172,11 @@ Container defaultAction(Color? color, void Function()? onPressed, String text) {
   );
 }
 
-Text richTitle(String title) {
+Text richTitle(String title, {double fontSize = 24.0}) {
   return Text(
     title,
-    style: const TextStyle(fontSize: 24.0),
+    textAlign: TextAlign.center,
+    style: TextStyle(fontSize: fontSize),
   );
 }
 

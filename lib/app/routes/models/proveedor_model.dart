@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 class ProveedorModel {
+  String token;
+  int idProveedor;
   String tipo;
   String cifNif;
   String direccionFiscal;
@@ -27,6 +29,8 @@ class ProveedorModel {
   DateTime fechaRegistro;
 
   ProveedorModel({
+    this.token = '',
+    required this.idProveedor,
     required this.tipo,
     required this.cifNif,
     required this.direccionFiscal,
@@ -59,6 +63,7 @@ class ProveedorModel {
   String toRawJson() => json.encode(toJson());
 
   factory ProveedorModel.fromJson(Map<String, dynamic> json) => ProveedorModel(
+        idProveedor: json["id_proveedor"],
         tipo: json["tipo"],
         cifNif: json["cif_nif"],
         direccionFiscal: json["direccion_fiscal"],
@@ -86,6 +91,7 @@ class ProveedorModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "id_proveedor": idProveedor,
         "tipo": tipo,
         "cif_nif": cifNif,
         "direccion_fiscal": direccionFiscal,

@@ -25,7 +25,6 @@ class LoginProfesionalPage extends GetView<LoginProfesionalController> {
       );
     }
 
-    context.watch<FFAppState>();
     final Color colorAll = FlutterFlowTheme.of(context).btnGeneral;
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryText,

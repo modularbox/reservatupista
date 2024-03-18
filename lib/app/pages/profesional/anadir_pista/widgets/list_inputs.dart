@@ -1012,7 +1012,7 @@ class _ListInputsState extends State<ListInputs> {
                   4.0.sw,
                   Expanded(
                     child:
-                        buildInputSiONo('ReservaTuPista', self.reservatupista),
+                        buildInputSiONo('ReservatuPista', self.reservatupista),
                   ),
                 ],
               ),

@@ -26,17 +26,18 @@ class UsuarioNode {
           }));
 
       // Enviar la solicitud
-      print("jkbsdjkbdkj");
       var response = await request;
       print(response.body);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         return UsuarioModel.fromRawJson(response.body);
       } else {
         return MessageError.fromRawJson(response.body);
       }
     } catch (error, stack) {
-      print('Error al usuario anadida: $error');
+      print('Error al iniciar Sesion: $error');
       print(stack);
+      return MessageError(message: 'Error al Iniciar Sesion', code: 501);
     }
   }
 
@@ -137,6 +138,36 @@ class UsuarioNode {
         // Manejar el caso en el que la carga no fue exitosa
         print(
             'Error al usuario hgvh. Código de estado: ${response.statusCode}');
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+    }
+    return null;
+  }
+
+  Future<UsuarioModel?> getUsuario(
+      int id, String token, List<TypeDatosServer> listTypes) async {
+    try {
+      final url = Uri.parse('${DatosServer().urlServer}/usuario');
+      print(token);
+      // Crear una solicitud multipart
+      final response = await http.get(url, headers: {
+        "Authorization": "Bearer $token",
+        "idusuario": id.toString(),
+        "datos": DatosServer().datos(listTypes)
+      });
+      print(response.body);
+      if (response.statusCode == 200) {
+        print(response.body == '{}');
+        print('get datos usuario correctamente');
+        return UsuarioModel.fromRawJson(response.body);
+      } else {
+        final messageError = MessageError.fromRawJson(response.body);
+        print(messageError.message);
+        // Manejar el caso en el que la carga no fue exitosa
+        print(
+            'Error al obtener datos del usuario. Código: ${messageError.code}');
       }
     } catch (error, stack) {
       print(stack);

@@ -33,8 +33,6 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
         ),
       );
     }
-
-    context.watch<FFAppState>();
     final datosPersonales = self.datosPersonales();
     final datosUbicacion = self.datosUbicacion();
     final datosJuego = self.datosJuego();

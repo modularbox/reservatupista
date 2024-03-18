@@ -1,10 +1,11 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
 import 'package:reservatu_pista/backend/server_node.dart/usuario_node.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/server_node.dart/proveedor_node.dart';
+import '../../../../backend/storage/storage.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/database.dart';
@@ -15,8 +16,8 @@ import '../../../routes/models/usuario_model.dart';
 
 class LoginUsuarioController extends GetxController
     with SingleGetTickerProviderMixin {
+  /// Obtener la pagina 0 Usuario, 1 Proveedor
   int? initialPage = Get.arguments;
-
   PageController pageViewController = PageController(
       initialPage: Get.arguments == null ? 0 : Get.arguments as int);
   final unfocusNode = FocusNode();
@@ -45,7 +46,7 @@ class LoginUsuarioController extends GetxController
   // State field(s) for Checkbox widget.
   RxBool checkboxValueTerminosUsuario = false.obs;
   // State field(s) for Checkbox widget.
-  RxBool checkboxValueProveedor = false.obs;
+  RxBool checkboxValueRecordarProveedor = false.obs;
   // State field(s) for Checkbox widget.
   RxBool checkboxValueTerminosProveedor = false.obs;
 
@@ -64,42 +65,94 @@ class LoginUsuarioController extends GetxController
   // Controller datos locales
   DatabaseController db = Get.find();
 
+  /// Obtener los datos si el usuario guardo la contrasena
+  late Storage storagePasswordUsuario;
+  late Storage storagePasswordProveedor;
+  late Storage storageIdUsuario;
+  late Storage storageIdProveedor;
+  late Storage storageTokenUsuario;
+  late Storage storageTokenProveedor;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    // onInitForm();
+    onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
     animTerminosProveedor = animVibrate(vsync: this);
+    recordarContrasena();
     debounce(passwordVisibility, (_) => passwordVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
   }
 
+  /// Verificar si el usuario o proveedor a solicitado recordar la contrasena
+  void recordarContrasena() async {
+    try {
+      final getStorage = await SharedPreferences.getInstance();
+      // Guardar archivos temporales
+      storagePasswordUsuario = Storage(TypeStorage.passwordUsuario, getStorage);
+      storagePasswordProveedor =
+          Storage(TypeStorage.passwordProveedor, getStorage);
+      storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+      storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
+      storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
+      storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
+
+      // Usuario
+      final passwordUsuario = storagePasswordUsuario.read();
+      if (storagePasswordUsuario.exitsValue()) {
+        passwordUsuarioController.text = passwordUsuario;
+        checkboxValueRecordarUsuario.value = true;
+      }
+      // Proveedor
+      final passwordProveedor = storagePasswordProveedor.read();
+      if (storagePasswordProveedor.exitsValue()) {
+        passwordProveedorController.text = passwordProveedor;
+        checkboxValueRecordarProveedor.value = true;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // Pruebas para la app
   void onInitForm() {
     emailUsuarioController.text = 'email@ficticio.com';
     emailProveedorController.text = 'email@ficticio.com';
-    passwordProveedorController.text = '55r452df#';
-    passwordUsuarioController.text = '55r452df#';
+    // passwordProveedorController.text = '55r452df#';
+    // passwordUsuarioController.text = '12345678';
   }
 
   // Iniciar Sesion Usuario
   void onPressedUsuario() async {
     if (formUsuarioKey.currentState!.validate()) {
       bool isUserPrueba = emailUsuarioController.text == 'email@ficticio.com' &&
-          passwordUsuarioController.text == '55r452df#';
+          passwordUsuarioController.text == '12345678';
       if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
         validateTerminosUsuario.value = true;
         animTerminosUsuario.forward();
       } else {
+        // Encriptar contrasena
         List<int> bytes = utf8.encode(passwordUsuarioController.text);
         String hashConstrasena = sha1.convert(bytes).toString();
+        // Llamar a la api de reservatupista
         final result = await UsuarioNode().iniciarSesion([
           emailUsuarioController.text,
           emailUsuarioController.text,
           hashConstrasena
         ]);
         if (result is UsuarioModel) {
+          // Si el usuario existe guardamos el id para futuras peticiones
+          storageIdUsuario.write(result.idUsuario);
+          // Guardar el token
+          storageTokenUsuario.write(result.token);
+          // Si es recordar contrasena
+          if (checkboxValueRecordarUsuario.value) {
+            await storagePasswordUsuario.write(passwordUsuarioController.text);
+          } else {
+            storagePasswordUsuario.remove();
+          }
           db.setDatosUsuario(result);
           Get.toNamed(Routes.INICIO);
         } else if (result is MessageError) {
@@ -116,11 +169,12 @@ class LoginUsuarioController extends GetxController
     }
   }
 
+  // Iniciar sesion P
   void onPressedProveedor() async {
     if (formProveedorKey.currentState!.validate()) {
       bool isUserPrueba =
           emailProveedorController.text == 'email@ficticio.com' &&
-              passwordProveedorController.text == '55r452df#';
+              passwordProveedorController.text == '12345678';
       if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
         validateTerminosProveedor.value = true;
         animTerminosProveedor.forward();
@@ -130,6 +184,16 @@ class LoginUsuarioController extends GetxController
         final result = await ProveedorNode()
             .iniciarSesion([emailProveedorController.text, hashConstrasena]);
         if (result is ProveedorModel) {
+          // Si el usuario existe guardamos el id para futuras peticiones
+          storageIdProveedor.write(result.idProveedor);
+          // Guardar el token
+          storageTokenProveedor.write(result.token);
+          // Si es recordar contrasena
+          if (checkboxValueRecordarProveedor.value) {
+            storagePasswordProveedor.write(passwordProveedorController.text);
+          } else {
+            storagePasswordProveedor.remove();
+          }
           db.setDatosProveedor(result);
           Get.toNamed(Routes.INICIOPROFESIONAL);
         } else if (result is MessageError) {
@@ -144,34 +208,6 @@ class LoginUsuarioController extends GetxController
       }
       isValidateForms = true;
     }
-    // Get.offAllNamed(Routes.INICIOProveedor);
-    // if (formProveedorKey.currentState!.validate()) {
-    //   print("Si esta validado");
-    //   return;
-    // }
-    // if (emailUsuarioController.text == "prueba@modularbox.com" &&
-    //     passwordProfesionalController.text == "2424mb9021") {
-    //   if (await db.getDatosProveedor()) {
-    //     Get.offAllNamed(Routes.INICIOPROFESIONAL);
-    //   } else {
-    //     print("No se puede iniciar Proveedor");
-    //   }
-    // }
-    // if (!checkboxValueTerminosProveedor.value) {
-    //   validateTerminosProveedor.value = true;
-    //   animTerminosProveedor.forward();
-    // } else {
-    //   if (await db.getDatosProveedor()) {
-    //     Get.offAllNamed(Routes.INICIOPROFESIONAL);
-    //   } else {
-    //     print("No se puede iniciar Proveedor");
-    //   }
-    // }
-    // isValidateForms = true;
-    // chec
-    // !formKey.currentState!.validate();
-    // Get.offAllNamed(Routes.INICIO);
-    // ButtonsPage.acceder();
   }
 
   String? validateTextField(String? text, AnimationController anim) {
@@ -185,7 +221,7 @@ class LoginUsuarioController extends GetxController
   void onChangeTextField(String text) {
     if (isValidateForms && text.isNotEmpty) {
       isValidateForms = false;
-      !formKey.currentState!.validate();
+      // !formKey.currentState!.validate();
     }
   }
 

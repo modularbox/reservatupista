@@ -66,18 +66,18 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     alignment: AlignmentDirectional(0, 0),
                     child: AppBarLoginWidget(),
                   ),
-                  MaterialButton(
-                    color: Colors.blue,
-                    onPressed: () => Get.toNamed(Routes.PAGO_TPV),
-                    splashColor: Colors.blueGrey,
-                    child: const Text(
-                      'Ir al pago tpv',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  // MaterialButton(
+                  //   color: Colors.blue,
+                  //   onPressed: () => Get.toNamed(Routes.PAGO_TPV),
+                  //   splashColor: Colors.blueGrey,
+                  //   child: const Text(
+                  //     'Ir al pago tpv',
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontSize: 16,
+                  //     ),
+                  //   ),
+                  // ),
                   PageViewSlidingIndicator(
                     widthButtons: MediaQuery.of(context).size.width * 0.45,
                     pageCount: self.initialPage,
@@ -120,7 +120,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             self.passwordProveedorVisibility,
                             'Proveedor',
                             'Clubs, Ayuntamiento, \nComunidad, Asociación.',
-                            self.checkboxValueProveedor,
+                            self.checkboxValueRecordarProveedor,
                             self.checkboxValueTerminosProveedor,
                             Routes.INICIOPROFESIONAL,
                             Routes.REGISTRO_PROVEEDOR,
@@ -239,7 +239,6 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   prefixIconColor: focusedColor,
                 ),
                 inputFormatters: [
-                  // FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9@.]'))
                   FilterEmailTextInputFormatter(),
                   FilteringTextInputFormatter.deny(RegExp('[^a-zA-Z0-9@.]')),
                 ],

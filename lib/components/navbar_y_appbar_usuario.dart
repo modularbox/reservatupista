@@ -33,7 +33,6 @@ class NavbarYAppbarUsuario extends StatelessWidget {
       );
     }
 
-    context.watch<FFAppState>();
     return Scaffold(
         body: SafeArea(
           child: Column(
