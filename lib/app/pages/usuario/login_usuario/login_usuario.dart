@@ -133,7 +133,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                                   self.passwordProveedorVisibility,
                                   'Proveedor',
                                   'Clubs, Ayuntamiento, \nComunidad, Asociación.',
-                                  self.checkboxValueProveedor,
+                                  self.checkboxValueRecordarProveedor,
                                   self.checkboxValueTerminosProveedor,
                                   Routes.INICIOPROFESIONAL,
                                   Routes.REGISTRO_PROVEEDOR,
