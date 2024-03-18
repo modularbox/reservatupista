@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:reservatu_pista/app/routes/database.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
@@ -408,13 +410,17 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
   }
 
   Future<http.Response> guardarUsuarioOperacion(String num_operacion) async {
+    final getStorage = await SharedPreferences.getInstance();
+
+    final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+
     http.Response response = await http.post(
         Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'id_usuario': '1',
+          'id_usuario': storageIdUsuario.toString(),
           'num_operacion': num_operacion
         }));
     return response;
