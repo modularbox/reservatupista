@@ -121,7 +121,7 @@ class RegistrarUsuarioController extends GetxController
   // }
 
   llenadoAutomatico() {
-    nombreController.text = 'Nombre Fiticio';
+    nombreController.text = 'Alvaro';
     apellidosController.text = 'Apellido Fiticio';
     sexoController.text = 'Hombre';
     dniController.text = '12345678D';
@@ -133,9 +133,9 @@ class RegistrarUsuarioController extends GetxController
     localidadController.text = 'Localidad';
     provinciaController.text = 'Provincia';
     comunidadController.text = 'Comunidad';
-    nickController.text = 'ficticio1';
-    contrasenaComprobarController.text = '55r452df#';
-    contrasenaController.text = '55r452df#';
+    nickController.text = 'alvaro1';
+    contrasenaComprobarController.text = '12345678';
+    contrasenaController.text = '12345678';
   }
 
   /// Loading Codigo Postal

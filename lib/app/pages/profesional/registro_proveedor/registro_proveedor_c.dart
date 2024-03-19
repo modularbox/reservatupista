@@ -98,8 +98,8 @@ class RegistroProveedorController extends GetxController
     localidadController.text = 'Localidad';
     provinciaController.text = 'Provincia';
     comunidadController.text = 'Comunidad';
-    contrasenaController.text = '55r452df#';
-    contrasenaComprobarController.text = '55r452df#';
+    contrasenaController.text = '12345678';
+    contrasenaComprobarController.text = '12345678';
   }
 
   /// Existe el Codigo Postal
