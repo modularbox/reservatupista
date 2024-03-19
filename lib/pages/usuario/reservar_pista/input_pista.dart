@@ -440,7 +440,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             textStyle: route.style,
             child: widget.isScroll
                 ? Container(
-                    height: 200,
+                    height: 100,
                     child: Scrollbar(
                       thumbVisibility: true,
                       child: SingleChildScrollView(

@@ -359,7 +359,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                             '¿Estás seguro de recargar el Monedero Virtual?',
                         textButton: title,
                         precio: '${_model.money.twoDecimals} €',
-                        onPressed: () => realizarPago(_model.money.toString()),
+                        onPressed: () => guardarDinero(_model.money.toString()),
                         /*() {
                           DatabaseController db = Get.find();
                           db.money.value += _model.money;
@@ -398,6 +398,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
   }
 
   //alvaro
+
   Future<http.Response> guardarDinero(String dinero) async {
     http.Response response = await http.post(
         Uri.parse('${DatosServer().urlServer}/usuario/pago_tpv'),
@@ -409,30 +410,31 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     return response;
   }
 
-  Future<http.Response> guardarUsuarioOperacion(String num_operacion) async {
+  Future<http.Response> guardarUsuarioOperacion(
+      String num_operacion, String cantidad) async {
     final getStorage = await SharedPreferences.getInstance();
-
     final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-
+    print('responseeeeeeeeeeeeeeeeeeee ');
     http.Response response = await http.post(
         Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'id_usuario': storageIdUsuario.toString(),
-          'num_operacion': num_operacion
+          'id_usuario': storageIdUsuario.read().toString(),
+          'num_operacion': num_operacion,
+          'cantidad': cantidad
         }));
+    print('responseeeeeeeeeeeeeeeeeeee ${response}');
     return response;
   }
 
   Future<void> realizarPago(String dinero) async {
     try {
       String num_operacion = generarNumeroOperacionUnico();
-      if (!await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}')) {
-        throw Exception('No se ha podido realizar el pago correctamente');
-      }
+      guardarUsuarioOperacion(num_operacion, dinero);
+      await launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
     } catch (e) {
       rethrow;
     }
