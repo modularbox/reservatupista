@@ -76,7 +76,7 @@ class LoginUsuarioController extends GetxController
   @override
   void onInit() async {
     super.onInit();
-    onInitForm();
+    // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);

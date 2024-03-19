@@ -21,7 +21,7 @@ class ProveedorNode {
           }));
 
       // Enviar la solicitud
-      print("jkbsdjkbdkj");
+      print("-eo-eo-");
       var response = await request;
       print(response.body);
       if (response.statusCode == 200) {
@@ -112,4 +112,38 @@ class ProveedorNode {
     }
     return null;
   }
+
+  Future<ProveedorModel?> getProveedor(
+      int id, String token, List<TypeDatosServerProveedor> listTypes) async {
+    try {
+      final url = Uri.parse('${DatosServer().urlServer}/proveedor/datos');
+      // Crear una solicitud multipart
+      final response = await http.get(url, headers: {
+        "authorization": "Bearer $token",
+        "idproveedor": id.toString(),
+        "datos": DatosServer().datosProveedor(listTypes)
+      });
+
+      if (response.statusCode == 200) {
+        print(response.body == '{}');
+        print('get datos proveedor correctamente');
+        return ProveedorModel.fromRawJson(response.body);
+      } else {
+        final messageError = MessageError.fromRawJson(response.body);
+        print(messageError.message);
+        // Manejar el caso en el que la carga no fue exitosa
+        print(
+            'Error al obtener datos del proveedor. Código: ${messageError.code}');
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al proveedor kjj: $error');
+      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFByb3ZlZWRvciI6MiwiaWF0IjoxNzEwNzkzMTUyLCJleHAiOjE3MTA3OTY3NTJ9.Sxez-AcFfsXFotgspjCkVL93yL3pGUeMwCHxXdxMynY
+      // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFByb3ZlZWRvciI6MiwiaWF0IjoxNzEwNzkzMTUyLCJleHAiOjE3MTA3OTY3NTJ9.Sxez-AcFfsXFotgspjCkVL93yL3pGUeMwCHxXdxMynY
+    }
+    return null;
+  }
 }
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFByb3ZlZWRvciI6MiwiaWF0IjoxNzEwODAwMzA3LCJleHAiOjE3MTA4MDM5MDd9.24G0RW4UF5CCZOrOU9NAODyv3BHHIxEyFzRXpf4hUFk
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFByb3ZlZWRvciI6MiwiaWF0IjoxNzEwODAwMzA3LCJleHAiOjE3MTA4MDM5MDd9.24G0RW4UF5CCZOrOU9NAODyv3BHHIxEyFzRXpf4hUFk

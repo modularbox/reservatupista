@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/loader/color_loader.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../app/routes/app_pages.dart';
@@ -17,12 +19,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
-class PerfilProfesionalWidget extends StatelessWidget {
-  PerfilProfesionalWidget({super.key});
+class PerfilProfesionalWidget extends StatefulWidget {
+  const PerfilProfesionalWidget({super.key});
+
+  @override
+  State<PerfilProfesionalWidget> createState() =>
+      _PerfilProfesionalWidgetState();
+}
+
+class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
   final btnSize = GlobalKey<ScaffoldState>();
   final keyLogo = GlobalKey<ScaffoldState>();
   final DatabaseController db = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    db.getDatosProveedorId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +53,27 @@ class PerfilProfesionalWidget extends StatelessWidget {
         title: 'Perfil Proveedor',
         page: TypePage.Perfil,
         isTitle: true,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: 100.h <= 745
-                ? datosPerfil(
-                    space: spaceSizedBoxBtnCerrarRes(),
-                    subAppBar: subAppBar(true),
-                    height: 50,
-                    top: 10,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2))
-                : datosPerfil(
-                    space: spaceSizedBoxBtnCerrar(),
-                    subAppBar: subAppBar(false))));
+        child: db.datosPerfilProveedor.obx(
+            (state) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: 100.h <= 745
+                    ? datosPerfil(
+                        space: spaceSizedBoxBtnCerrarRes(),
+                        subAppBar: subAppBar(true),
+                        height: 50,
+                        top: 10,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2))
+                    : datosPerfil(
+                        space: spaceSizedBoxBtnCerrar(),
+                        subAppBar: subAppBar(false))),
+            onLoading: SizedBox(
+                width: 20,
+                child: ColorLoader(
+                  radius: 8,
+                  padding: const EdgeInsets.only(right: 1),
+                )),
+            onEmpty: const SizedBox.shrink()));
   }
 
   Widget subAppBar(bool responsive) {

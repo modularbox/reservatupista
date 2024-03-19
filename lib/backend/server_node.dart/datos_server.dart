@@ -9,6 +9,15 @@ class DatosServer {
     }
     return newList.join(', ');
   }
+
+  String datosProveedor(List<TypeDatosServerProveedor> listTypes) {
+    List<String> newList = [];
+    for (var element in listTypes) {
+      newList.add(
+          element.toString().substring('TypeDatosServerProveedor.'.length));
+    }
+    return newList.join(', ');
+  }
 }
 
 enum TypeDatosServer {
@@ -38,4 +47,33 @@ enum TypeDatosServer {
   fecha_registro,
   validate_email,
   dinero_total,
+}
+
+enum TypeDatosServerProveedor {
+  id_proveedor,
+  tipo,
+  cif_nif,
+  direccion_fiscal,
+  localidad_fiscal,
+  provincia_fiscal,
+  comunidad_fiscal,
+  codigo_iban,
+  certificado_cuenta,
+  nombre,
+  apellidos,
+  fijo,
+  email,
+  lada,
+  telefono,
+  nombre_comercial,
+  direccion,
+  localidad,
+  provincia,
+  comunidad,
+  contrasena,
+  foto,
+  fecha_registro,
+  codigo_postal_fiscal,
+  validate_email,
+  codigo_postal,
 }

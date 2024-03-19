@@ -149,7 +149,7 @@ class UsuarioNode {
   Future<UsuarioModel?> getUsuario(
       int id, String token, List<TypeDatosServer> listTypes) async {
     try {
-      final url = Uri.parse('${DatosServer().urlServer}/usuario');
+      final url = Uri.parse('${DatosServer().urlServer}/usuario/datos');
       print(token);
       // Crear una solicitud multipart
       final response = await http.get(url, headers: {

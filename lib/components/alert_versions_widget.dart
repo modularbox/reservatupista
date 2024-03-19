@@ -18,6 +18,11 @@ class Versions extends GetView<DatabaseController> {
   Versions({super.key, required this.getWidth, required this.onPressed});
   final List<DatosVersion> arrayVersion2 = [
     DatosVersion(
+        v: '2.1.7',
+        info:
+            '''Solucinar errores para subir la app en play console y en app store.''',
+        fecha: '19/03/2024'),
+    DatosVersion(
         v: '2.1.6',
         info:
             '''Ajustes en la aplicacion al subiar la imagen, y distintos cambios de funcionalidad.

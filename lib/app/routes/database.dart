@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../backend/server_node.dart/proveedor_node.dart';
 import '../../backend/server_node.dart/usuario_node.dart';
@@ -18,20 +19,24 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.1.6';
+  String version = '2.1.7';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
   ProveedorModel? datosProveedor;
   RxDouble money = 0.0.obs;
-  late Storage storageIdUsuario;
-  late Storage storageIdProveedor;
-  late Storage storageTokenUsuario;
-  late Storage storageTokenProveedor;
+  // Datos para cargar los datos de perfil
+  StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
+  StateRx<ProveedorModel?> datosPerfilProveedor =
+      StateRx(Rx<ProveedorModel?>(null));
 
   @override
   void onInit() async {
     super.onInit();
+    // Muestra el estado de carga
+    datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
+    // Muestra el estado de carga
+    datosPerfilProveedor.changeStatus(RxStatusDemo.loading());
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
@@ -39,20 +44,20 @@ class DatabaseController extends GetxController {
       // final getStorage = await SharedPreferences.getInstance();
       // // Guardar archivos temporales
       // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      getVariablesGuardadas();
+      // getVariablesGuardadas();
     } catch (e) {
       print(e);
     }
     print("sd");
   }
 
-  void getVariablesGuardadas() async {
-    final getStorage = await SharedPreferences.getInstance();
-    storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-    storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-    storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
-    storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
-  }
+  // void getVariablesGuardadas() async {
+  //   final getStorage = await SharedPreferences.getInstance();
+  //   storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+  //   storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
+  //   storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
+  //   storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
+  // }
 
   Future<bool> getDatosUsuario() async {
     try {
@@ -70,6 +75,9 @@ class DatabaseController extends GetxController {
 
   Future<bool> getDatosUsuarioId() async {
     try {
+      final getStorage = await SharedPreferences.getInstance();
+      final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+      final storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
       final List<TypeDatosServer> listTypes = [
         TypeDatosServer.apellidos,
         TypeDatosServer.nombre,
@@ -82,6 +90,31 @@ class DatabaseController extends GetxController {
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
         datosUsuario = result;
+        datosPerfilUsuario.change(result, RxStatusDemo.success());
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
+  Future<bool> getDatosProveedorId() async {
+    try {
+      final getStorage = await SharedPreferences.getInstance();
+      final storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
+      final storageTokenProveedor =
+          Storage(TypeStorage.tokenProveedor, getStorage);
+      final List<TypeDatosServerProveedor> listTypes = [
+        TypeDatosServerProveedor.nombre_comercial,
+        TypeDatosServerProveedor.foto
+      ];
+      final result = await ProveedorNode().getProveedor(
+          storageIdProveedor.read(), storageTokenProveedor.read(), listTypes);
+      if (result is ProveedorModel) {
+        imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
+        datosProveedor = result;
+        datosPerfilProveedor.change(result, RxStatusDemo.success());
         return true;
       }
     } catch (e) {
@@ -6639,4 +6672,3 @@ final localidades = {
 //     }
 //   ]
 // }
-
