@@ -359,7 +359,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                             '¿Estás seguro de recargar el Monedero Virtual?',
                         textButton: title,
                         precio: '${_model.money.twoDecimals} €',
-                        onPressed: () => guardarDinero(_model.money.toString()),
+                        onPressed: () => realizarPago(
+                            int.parse(_model.money.toString()) * 100),
                         /*() {
                           DatabaseController db = Get.find();
                           db.money.value += _model.money;
@@ -399,7 +400,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
 
   //alvaro
 
-  Future<http.Response> guardarDinero(String dinero) async {
+  /*Future<http.Response> guardarDinero(String dinero) async {
     http.Response response = await http.post(
         Uri.parse('${DatosServer().urlServer}/usuario/pago_tpv'),
         headers: <String, String>{
@@ -408,13 +409,20 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
         body:
             jsonEncode(<String, String>{'id_usuario': '1', 'dinero': dinero}));
     return response;
-  }
+  }*/
 
   Future<http.Response> guardarUsuarioOperacion(
-      String num_operacion, String cantidad) async {
+      String num_operacion, int cantidad) async {
     final getStorage = await SharedPreferences.getInstance();
     final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-    print('responseeeeeeeeeeeeeeeeeeee ');
+    print(
+      'responseeeeeeeeeeeeeeeeeeee ',
+    );
+    print(jsonEncode(<String, String>{
+      'id_usuario': storageIdUsuario.read().toString(),
+      'num_operacion': num_operacion,
+      'cantidad': cantidad.toString()
+    }));
     http.Response response = await http.post(
         Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
         headers: <String, String>{
@@ -423,13 +431,14 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
         body: jsonEncode(<String, String>{
           'id_usuario': storageIdUsuario.read().toString(),
           'num_operacion': num_operacion,
-          'cantidad': cantidad
+          'cantidad': cantidad.toString(),
+          //estado es null al principio
         }));
     print('responseeeeeeeeeeeeeeeeeeee ${response}');
     return response;
   }
 
-  Future<void> realizarPago(String dinero) async {
+  Future<void> realizarPago(int dinero) async {
     try {
       String num_operacion = generarNumeroOperacionUnico();
       guardarUsuarioOperacion(num_operacion, dinero);
