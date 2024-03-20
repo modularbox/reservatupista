@@ -415,14 +415,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
       String num_operacion, int cantidad) async {
     final getStorage = await SharedPreferences.getInstance();
     final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-    print(
-      'responseeeeeeeeeeeeeeeeeeee ',
-    );
-    print(jsonEncode(<String, String>{
-      'id_usuario': storageIdUsuario.read().toString(),
-      'num_operacion': num_operacion,
-      'cantidad': cantidad.toString()
-    }));
+
     http.Response response = await http.post(
         Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
         headers: <String, String>{
