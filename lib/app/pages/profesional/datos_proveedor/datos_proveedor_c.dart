@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../backend/server_node.dart/proveedor_node.dart';
 import '../../../../backend/server_node.dart/subir_image_node.dart';
@@ -68,7 +71,37 @@ class DatosProveedorController extends GetxController
   getDatosProveedor() async {
     apiDatosProveedor.initStatus(RxStatusDemo.loading());
     try {
-      final result = await ProveedorNode().getProveedorNode('1');
+      final getStorage = await SharedPreferences.getInstance();
+      final storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
+      final storageTokenProveedor =
+          Storage(TypeStorage.tokenProveedor, getStorage);
+      final List<TypeDatosServerProveedor> listTypes = [
+        TypeDatosServerProveedor.tipo,
+        TypeDatosServerProveedor.cif_nif,
+        TypeDatosServerProveedor.direccion_fiscal,
+        TypeDatosServerProveedor.codigo_postal_fiscal,
+        TypeDatosServerProveedor.localidad_fiscal,
+        TypeDatosServerProveedor.provincia_fiscal,
+        TypeDatosServerProveedor.comunidad_fiscal,
+        TypeDatosServerProveedor.codigo_iban,
+        TypeDatosServerProveedor.certificado_cuenta,
+        TypeDatosServerProveedor.nombre,
+        TypeDatosServerProveedor.apellidos,
+        TypeDatosServerProveedor.fijo,
+        TypeDatosServerProveedor.email,
+        TypeDatosServerProveedor.lada,
+        TypeDatosServerProveedor.telefono,
+        TypeDatosServerProveedor.nombre_comercial,
+        TypeDatosServerProveedor.direccion,
+        TypeDatosServerProveedor.codigo_postal,
+        TypeDatosServerProveedor.localidad,
+        TypeDatosServerProveedor.provincia,
+        TypeDatosServerProveedor.comunidad,
+        TypeDatosServerProveedor.foto,
+        TypeDatosServerProveedor.certificado_cuenta
+      ];
+      final result = await ProveedorNode().getProveedor(
+          storageIdProveedor.read(), storageTokenProveedor.read(), listTypes);
       if (result is ProveedorModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -100,7 +133,7 @@ class DatosProveedorController extends GetxController
         telefonoController.text = result.telefono;
         nombreComercialController.text = result.nombreComercial;
         direccionController.text = result.direccion;
-        codigoPostalController.text = result.codigoPostal.toString();
+        codigoPostalController.text = result.codigoPostal;
         localidadController.text = result.localidad;
         provinciaController.text = result.provincia;
         comunidadController.text = result.comunidad;

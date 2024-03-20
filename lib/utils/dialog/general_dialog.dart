@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../sizer.dart';
 
 class GeneralDialog extends StatefulWidget {
@@ -108,7 +109,12 @@ class _GeneralDialogState extends State<GeneralDialog> {
                               SizedBox(height: dialogHeight / 4),
                               widget.alertTitle,
                               SizedBox(height: dialogHeight / 10),
-                              widget.alertSubtitle,
+                              Expanded(
+                                child: SingleChildScrollView(
+                                    child: Column(
+                                        children: [widget.alertSubtitle])),
+                              ),
+                              // widget.alertSubtitle,
                               SizedBox(height: dialogHeight / 10),
                               widget.actions.isNotEmpty
                                   ? _buildActions()

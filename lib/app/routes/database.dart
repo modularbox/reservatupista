@@ -19,10 +19,11 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.1.7';
+  String version = '2.1.9';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
+  UsuarioModel? datosUsuarioPerfil;
   ProveedorModel? datosProveedor;
   RxDouble money = 0.0.obs;
   // Datos para cargar los datos de perfil
@@ -89,7 +90,7 @@ class DatabaseController extends GetxController {
           storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
-        datosUsuario = result;
+        datosUsuarioPerfil = result;
         datosPerfilUsuario.change(result, RxStatusDemo.success());
         return true;
       }

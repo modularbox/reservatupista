@@ -33,10 +33,6 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
         ),
       );
     }
-    final datosPersonales = self.datosPersonales();
-    final datosUbicacion = self.datosUbicacion();
-    final datosJuego = self.datosJuego();
-
     return Scaffold(
         key: scaffoldKey,
         body: SafeArea(
@@ -47,195 +43,162 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                   isTitleBack: true,
                   title: 'Datos Usuario',
                 ),
-                self.apidatosUsuario.obx(
-                    (state) => Form(
-                          key: self.formKey,
-                          child: Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  seleccionarImage(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Datos Personales',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
-                                  ),
-                                  Builder(builder: (BuildContext context) {
-                                    final listTopProperty = List.generate(
-                                        datosPersonales
-                                            .listTopProperty()
-                                            .length,
-                                        (index) => buildInput(
-                                            context: context,
-                                            propertiesTextField: datosPersonales
-                                                .listTopProperty()[index]));
-                                    return Column(
-                                      children: [
-                                        ...listTopProperty,
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(5.0, 12.0, 5.0, 0.0),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                  child: buildInput(
-                                                      context: context,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              0),
-                                                      propertiesTextField:
-                                                          datosPersonales
-                                                              .sexo!)),
-                                              4.0.sw,
-                                              Flexible(
-                                                  child: buildInput(
-                                                      context: context,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              0),
-                                                      propertiesTextField:
-                                                          datosPersonales.dni!))
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(5.0, 12.0, 5.0, 0.0),
-                                          child: Row(
-                                            children: [
-                                              SizedBox(
-                                                  width: 80,
-                                                  child: buildInput(
-                                                      context: context,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              0),
-                                                      propertiesTextField:
-                                                          datosPersonales
-                                                              .lada!)),
-                                              4.0.sw,
-                                              Flexible(
-                                                  child: buildInput(
-                                                      context: context,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              0),
-                                                      propertiesTextField:
-                                                          datosPersonales
-                                                              .telefono!))
-                                            ],
-                                          ),
-                                        ),
-                                        buildInput(
-                                            context: context,
-                                            propertiesTextField:
-                                                datosPersonales.email!),
-                                      ],
-                                    );
-                                  }),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'azrws2b9' /* Datos Ubicacion */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
-                                  ),
-                                  ...List<Widget>.generate(
-                                      datosUbicacion.length,
-                                      (index) => buildInput(
-                                          context: context,
-                                          propertiesTextField:
-                                              datosUbicacion[index])),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'h6ok3a23' /* Datos de Juego */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
-                                  ),
-                                  buildNick(
-                                      context: context,
-                                      propertiesTextField: datosJuego.nick!),
-                                  ...List<Widget>.generate(
-                                      datosJuego.listProperty().length,
-                                      (index) => buildInput(
-                                          context: context,
-                                          propertiesTextField: datosJuego
-                                              .listProperty()[index])),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () {
-                                        if (self.modificarDatos) {
-                                          self.onPressedGuardarCambios();
-                                        }
-                                        self.modificarDatos =
-                                            !self.modificarDatos;
-                                        self.apidatosUsuario.rx.refresh();
-                                      },
-                                      text: self.modificarDatos
-                                          ? 'Guardar Cambios'
-                                          : 'Modificar Datos',
-                                      options: FFButtonOptions(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.4,
-                                        height: 40,
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 0, 0),
-                                        iconPadding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 0, 0, 0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                            ),
-                                        elevation: 2,
-                                        borderSide: const BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                self.apidatosUsuario.obx((state) => getFomData(),
                     onLoading: Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ColorLoader3(),
                     )),
               ],
             )));
+  }
+
+  Widget getFomData() {
+    final datosPersonales = self.datosPersonales();
+    final datosUbicacion = self.datosUbicacion();
+    final datosJuego = self.datosJuego();
+
+    return Form(
+      key: self.formKey,
+      child: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              seleccionarImage(),
+              Padding(
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                child: Text(
+                  'Datos Personales',
+                  style:
+                      LightModeTheme().labelLarge.copyWith(color: Colors.black),
+                ),
+              ),
+              Builder(builder: (BuildContext context) {
+                final listTopProperty = List.generate(
+                    datosPersonales.listTopProperty().length,
+                    (index) => buildInput(
+                        context: context,
+                        propertiesTextField:
+                            datosPersonales.listTopProperty()[index]));
+                return Column(
+                  children: [
+                    ...listTopProperty,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          5.0, 12.0, 5.0, 0.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: buildInput(
+                                  context: context,
+                                  padding: const EdgeInsets.all(0),
+                                  propertiesTextField: datosPersonales.sexo!)),
+                          4.0.sw,
+                          Flexible(
+                              child: buildInput(
+                                  context: context,
+                                  padding: const EdgeInsets.all(0),
+                                  propertiesTextField: datosPersonales.dni!))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          5.0, 12.0, 5.0, 0.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                              width: 80,
+                              child: buildInput(
+                                  context: context,
+                                  padding: const EdgeInsets.all(0),
+                                  propertiesTextField: datosPersonales.lada!)),
+                          4.0.sw,
+                          Flexible(
+                              child: buildInput(
+                                  context: context,
+                                  padding: const EdgeInsets.all(0),
+                                  propertiesTextField:
+                                      datosPersonales.telefono!))
+                        ],
+                      ),
+                    ),
+                    buildInput(
+                        context: context,
+                        propertiesTextField: datosPersonales.email!),
+                  ],
+                );
+              }),
+              Padding(
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                child: Text(
+                  'Datos Ubicacion',
+                  style:
+                      LightModeTheme().labelLarge.copyWith(color: Colors.black),
+                ),
+              ),
+              ...List<Widget>.generate(
+                  datosUbicacion.length,
+                  (index) => buildInput(
+                      context: Get.context!,
+                      propertiesTextField: datosUbicacion[index])),
+              Padding(
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                child: Text(
+                  'Datos de Juego',
+                  style:
+                      LightModeTheme().labelLarge.copyWith(color: Colors.black),
+                ),
+              ),
+              buildNick(
+                  context: Get.context!, propertiesTextField: datosJuego.nick!),
+              ...List<Widget>.generate(
+                  datosJuego.listProperty().length,
+                  (index) => buildInput(
+                      context: Get.context!,
+                      propertiesTextField: datosJuego.listProperty()[index])),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: FFButtonWidget(
+                  onPressed: () {
+                    if (self.modificarDatos) {
+                      self.onPressedGuardarCambios();
+                    }
+                    self.modificarDatos = !self.modificarDatos;
+                    self.apidatosUsuario.rx.refresh();
+                  },
+                  text: self.modificarDatos
+                      ? 'Guardar Cambios'
+                      : 'Modificar Datos',
+                  options: FFButtonOptions(
+                    width: 40.0.w,
+                    height: 40,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: LightModeTheme().primary,
+                    textStyle: LightModeTheme().bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: LightModeTheme().tertiary,
+                        ),
+                    elevation: 2,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget seleccionarImage() {
@@ -368,14 +331,13 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                       counterText: '',
                       errorStyle: const TextStyle(fontSize: 0),
                       labelText: propertiesTextField.labelText,
-                      hintStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: const Color(0xFF95A1AC),
-                              ),
+                      hintStyle: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: const Color(0xFF95A1AC),
+                          ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: LightModeTheme().primary,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
@@ -389,33 +351,32 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: LightModeTheme().primary,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
+                          color: LightModeTheme().error,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
+                          color: LightModeTheme().error,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
+                      fillColor: LightModeTheme().secondaryBackground,
                       contentPadding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 12.0, 16.0, 12.0),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
-                    cursorColor: FlutterFlowTheme.of(context).primary,
+                    style: LightModeTheme().bodyMedium,
+                    cursorColor: LightModeTheme().primary,
                     readOnly: true,
                     enabled:
                         self.modificarDatos ? isRequired : self.modificarDatos,
@@ -441,13 +402,13 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                     counterText: '',
                     errorStyle: const TextStyle(fontSize: 0),
                     labelText: propertiesTextField.labelText,
-                    hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                    hintStyle: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           color: const Color(0xFF95A1AC),
                         ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
@@ -461,21 +422,21 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
@@ -502,11 +463,11 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                                 )),
                             onEmpty: const SizedBox.shrink())
                         : null,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    fillColor: LightModeTheme().secondaryBackground,
                     contentPadding: const EdgeInsetsDirectional.fromSTEB(
                         16.0, 12.0, 16.0, 12.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: LightModeTheme().bodyMedium,
                   onChanged: (val) async {
                     if (propertiesTextField.labelText == 'Código Postal') {
                       self.existeCodigoPostal(val);
@@ -535,13 +496,13 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
               counterText: '',
               errorStyle: const TextStyle(fontSize: 0),
               labelText: propertiesTextField.labelText,
-              hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+              hintStyle: LightModeTheme().bodyMedium.override(
                     fontFamily: 'Readex Pro',
                     color: const Color(0xFF95A1AC),
                   ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: LightModeTheme().primary,
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(8.0),
@@ -555,32 +516,32 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: LightModeTheme().primary,
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).error,
+                  color: LightModeTheme().error,
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: FlutterFlowTheme.of(context).error,
+                  color: LightModeTheme().error,
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               filled: true,
-              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+              fillColor: LightModeTheme().secondaryBackground,
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
             ),
             enabled: false,
-            style: FlutterFlowTheme.of(context).bodyMedium,
+            style: LightModeTheme().bodyMedium,
           )),
     );
   }

@@ -84,6 +84,9 @@ class LoginUsuarioController extends GetxController
     recordarContrasena();
     debounce(passwordVisibility, (_) => passwordVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
+    debounce(passwordProveedorVisibility,
+        (_) => passwordProveedorVisibility.value = false,
+        time: const Duration(seconds: 3, milliseconds: 30));
   }
 
   /// Verificar si el usuario o proveedor a solicitado recordar la contrasena

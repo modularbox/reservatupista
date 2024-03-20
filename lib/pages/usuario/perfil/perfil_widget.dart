@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/routes/app_pages.dart';
@@ -68,20 +69,20 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                     : datosPerfil(
                         space: spaceSizedBoxBtnCerrar(),
                         subAppBar: subAppBar(false))),
-            onLoading: SizedBox(
-                width: 20,
-                child: ColorLoader(
-                  radius: 8,
-                  padding: const EdgeInsets.only(right: 1),
-                )),
+            onLoading: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ColorLoader3(),
+            ),
             onEmpty: const SizedBox.shrink()));
   }
 
   Widget subAppBar(bool responsive) {
-    final nombre = db.datosUsuario!.nombre;
-    final apellidos = db.datosUsuario!.apellidos;
-    final nick = db.datosUsuario!.nick;
-    final nivel = db.datosUsuario!.nivel == '' ? '0.0' : db.datosUsuario!.nivel;
+    final nombre = db.datosUsuarioPerfil!.nombre;
+    final apellidos = db.datosUsuarioPerfil!.apellidos;
+    final nick = db.datosUsuarioPerfil!.nick;
+    final nivel = db.datosUsuarioPerfil!.nivel == ''
+        ? '0.0'
+        : db.datosUsuarioPerfil!.nivel;
     if (responsive) {
       return Container(
         width: double.infinity,

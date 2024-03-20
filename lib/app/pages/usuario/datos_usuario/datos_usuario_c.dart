@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../backend/server_node.dart/subir_image_node.dart';
@@ -106,7 +109,39 @@ class DatosUsuarioController extends GetxController
 
   getDatosUsuario() async {
     try {
-      final result = await UsuarioNode().getUsuarioNode('1');
+      final getStorage = await SharedPreferences.getInstance();
+      final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+      final storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
+      final List<TypeDatosServer> listTypes = [
+        TypeDatosServer.apellidos,
+        TypeDatosServer.nombre,
+        TypeDatosServer.nick,
+        TypeDatosServer.nivel,
+        TypeDatosServer.nombre,
+        TypeDatosServer.apellidos,
+        TypeDatosServer.sexo,
+        TypeDatosServer.DNI,
+        TypeDatosServer.lada,
+        TypeDatosServer.telefono,
+        TypeDatosServer.email,
+        TypeDatosServer.empadronamiento,
+        TypeDatosServer.comunidad_de_vecinos,
+        TypeDatosServer.direccion,
+        TypeDatosServer.codigo_postal,
+        TypeDatosServer.localidad,
+        TypeDatosServer.provincia,
+        TypeDatosServer.comunidad,
+        TypeDatosServer.nick,
+        TypeDatosServer.nivel,
+        TypeDatosServer.posicion,
+        TypeDatosServer.marca_pala,
+        TypeDatosServer.modelo_pala,
+        TypeDatosServer.juegos_semana,
+        TypeDatosServer.foto,
+      ];
+      final result = await UsuarioNode().getUsuario(
+          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
+      // final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -130,7 +165,7 @@ class DatosUsuarioController extends GetxController
         empadronamientoController.text = result.empadronamiento;
         comunidadVecinosController.text = result.comunidadDeVecinos;
         direccionController.text = result.direccion;
-        codigoPostalController.text = result.codigoPostal.toString();
+        codigoPostalController.text = result.codigoPostal;
         localidadController.text = result.localidad;
         provinciaController.text = result.provincia;
         comunidadController.text = result.comunidad;

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -67,12 +68,10 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
                     : datosPerfil(
                         space: spaceSizedBoxBtnCerrar(),
                         subAppBar: subAppBar(false))),
-            onLoading: SizedBox(
-                width: 20,
-                child: ColorLoader(
-                  radius: 8,
-                  padding: const EdgeInsets.only(right: 1),
-                )),
+            onLoading: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ColorLoader3(),
+            ),
             onEmpty: const SizedBox.shrink()));
   }
 
