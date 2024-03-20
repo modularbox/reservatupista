@@ -30,6 +30,7 @@ class DatabaseController extends GetxController {
   late Storage storageTokenUsuario;
   late Storage storageTokenProveedor;
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
+  // StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
 
   @override
   void onInit() async {
@@ -82,6 +83,29 @@ class DatabaseController extends GetxController {
         TypeDatosServer.nick,
         TypeDatosServer.nivel,
         TypeDatosServer.foto
+      ];
+
+      final result = await UsuarioNode().getUsuario(
+          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
+      if (result is UsuarioModel) {
+        imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
+        datosPerfilUsuario.change(result, RxStatusDemo.success());
+        datosUsuario = result;
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
+  Future<bool> getDatosUsuarioMoney() async {
+    final getStorage = await SharedPreferences.getInstance();
+    final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+    try {
+      final List<TypeDatosServer> listTypes = [
+        TypeDatosServer.dinero_total,
+        TypeDatosServer.nombre
       ];
 
       final result = await UsuarioNode().getUsuario(
@@ -246,37 +270,3 @@ Map getSemana(int index) {
   }
   return {'pistas': listacom};
 }
-
-/*
-
-
-    '🎾 Padel',
-    '🎾 Tenis',
-    '🏸 Badminton',
-    '🏊‍♀️ Piscina climatizada',
-    '🏊‍♀️ Piscina',
-    '🏀 Baloncesto',
-    '⚽ Futbol sala',
-    '⚽ Futbol 7',
-    '⚽ Futbol 11',
-    '🥍 Pickleball',
-    '🏸 Squash',
-    '🏓 Tenis de mesa',
-    '🏓 Fronton',
-    '⚽ Balomano',
-    '🏉 Rugby',
-    '🥅 Pista multideporte',
-    
-INSERT INTO Horarios (estado, fecha, hora_inicio, hora_fin) VALUES
-('reservada', '2024-21-01', '07:30', '09:00'),
-('ocupada', '2024-21-01', '09:00', '10:30'),
-('desocupada', '2024-21-01', '10:30', '12:00');
-('desocupada', '2024-21-01', '12:00', '13:30');
-('reservada', '2024-21-01', '13:30', '15:00'),
-('ocupada', '2024-21-01', '15:00', '16:30'),
-('desocupada', '2024-21-01', '16:30', '18:00');
-('desocupada', '2024-21-01', '18:00', '19:30');
-('reservada', '2024-21-01', '19:30', '21:00'),
-('ocupada', '2024-21-01', '21:00', '22:30'),
-('desocupada', '2024-21-01', '22:30', '00:00');
-*/

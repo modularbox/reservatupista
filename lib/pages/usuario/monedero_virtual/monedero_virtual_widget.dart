@@ -1,6 +1,9 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_2.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../app/routes/database.dart';
 import '../../../components/alert_recargar/alert_recargar_widget.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
@@ -78,7 +81,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => MonederoVirtualModel());
-
+    db.getDatosUsuarioMoney();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -194,23 +197,44 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Obx(
-                            () => Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: Text(
-                                '${FormatNumber.formatNumberWithTwoDecimals(db.money.value).toString()} €',
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineLarge
-                                    .override(
-                                      fontFamily: 'Outfit',
-                                      color: const Color(0xFF14181B),
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.w600,
+                          db.datosPerfilUsuario.obx(
+                              (state) => Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 0.0, 0.0),
+                                    child: Text(
+                                      '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineLarge
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            color: const Color(0xFF14181B),
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                              ),
-                            ),
-                          ),
+                                  ),
+                              onLoading: Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: ColorLoader2(),
+                              )),
+                          // Obx(
+                          //   () => Padding(
+                          //     padding: const EdgeInsetsDirectional.fromSTEB(
+                          //         0.0, 8.0, 0.0, 0.0),
+                          //     child: Text(
+                          //       '${FormatNumber.formatNumberWithTwoDecimals(db.money.value).toString()} €',
+                          //       style: FlutterFlowTheme.of(context)
+                          //           .headlineLarge
+                          //           .override(
+                          //             fontFamily: 'Outfit',
+                          //             color: const Color(0xFF14181B),
+                          //             fontSize: 30.0,
+                          //             fontWeight: FontWeight.w600,
+                          //           ),
+                          //     ),
+                          //   ),
+                          // ),
                           FFButtonWidget(
                             onPressed: () async {
                               await showAlignedDialog(
