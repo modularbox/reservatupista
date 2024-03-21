@@ -57,13 +57,16 @@ class RichAlertFlutterFlow extends StatefulWidget {
   final void Function()? onPressed;
   final String textButton;
   final String? precio;
-
+  final Widget? cancelButton;
+  final Widget? acceptButton;
   RichAlertFlutterFlow({
     Key? key,
     required this.alertTitle,
     required this.alertSubtitle,
     required this.alertType,
     required this.textButton,
+    this.cancelButton,
+    this.acceptButton,
     this.actions = const [],
     this.precio,
     this.onPressed,
@@ -219,63 +222,72 @@ class _RichAlertFlutterFlowState extends State<RichAlertFlutterFlow> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      FFButtonWidget(
-                                        onPressed: () async {
-                                          Navigator.pop(context);
-                                        },
-                                        text: 'Cancelar',
-                                        options: FFButtonOptions(
-                                          height: 40,
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(20, 0, 20, 0),
-                                          iconPadding:
-                                              const EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                          color: const Color.fromARGB(
-                                              255, 255, 107, 97),
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Readex Pro',
+                                      widget.cancelButton != null
+                                          ? widget.cancelButton!
+                                          : FFButtonWidget(
+                                              onPressed: () async {
+                                                Navigator.pop(context);
+                                              },
+                                              text: 'Cancelar',
+                                              options: FFButtonOptions(
+                                                height: 40,
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(20, 0, 20, 0),
+                                                iconPadding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 0, 0),
+                                                color: const Color.fromARGB(
+                                                    255, 255, 107, 97),
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                        ),
+                                                elevation: 0,
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                              ),
+                                            ),
+                                      widget.acceptButton != null
+                                          ? widget.acceptButton!
+                                          : FFButtonWidget(
+                                              onPressed: widget.onPressed,
+                                              text: widget.textButton,
+                                              options: FFButtonOptions(
+                                                height: 40,
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(20, 0, 20, 0),
+                                                iconPadding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 0, 0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                              ),
-                                          elevation: 0,
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      FFButtonWidget(
-                                        onPressed: widget.onPressed,
-                                        text: widget.textButton,
-                                        options: FFButtonOptions(
-                                          height: 40,
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(20, 0, 20, 0),
-                                          iconPadding:
-                                              const EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                color:
+                                                        .primary,
+                                                textStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                        ),
+                                                elevation: 0,
+                                                borderSide: const BorderSide(
+                                                  color: Colors.transparent,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
                                               ),
-                                          elevation: 0,
-                                          borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
+                                            ),
                                     ],
                                   ),
                                 ),

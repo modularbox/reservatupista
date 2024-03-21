@@ -41,7 +41,6 @@ class DatabaseController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    print('dsfjkfbjsdbfjisbdfjibsdkjfbskjdfbkjdsfbkj');
     // Muestra el estado de carga
     datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
     getMoney();

@@ -194,17 +194,17 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
-                            child: Obx(() => Text(
-                                  '${FormatNumber.formatNumberWithTwoDecimals(double.parse(db.dineroTotal.toString()) / 100)} €',
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineLarge
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        color: const Color(0xFF14181B),
-                                        fontSize: 30.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                )),
+                            child: Text(
+                              '${FormatNumber.formatNumberWithTwoDecimals(double.parse(db.dineroTotal.toString()) / 100)} €',
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineLarge
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: const Color(0xFF14181B),
+                                    fontSize: 30.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
                           ),
                           // Obx(
                           //   () => Padding(
