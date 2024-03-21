@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:reservatu_pista/app/routes/database.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_2.dart';
@@ -29,12 +30,9 @@ import 'widgets/input_club_favoritos.dart';
 import 'widgets/input_select.dart';
 import '../../../../constants.dart';
 
-import '../../../routes/database.dart';
-
 class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaController get self => controller;
   final SelectionController controller2 = SelectionController();
-  final DatabaseController db = Get.find();
 
   List<String> generateListClubs() {
     final clubs = self.selectLocalidad.value == null
@@ -817,7 +815,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildButton() {
-    db.getDatosUsuarioMoney();
     return ElevatedButton(
       onPressed: self.selectHorario.value == null
           ? null
@@ -825,7 +822,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                final precio = (db.getDatosUsuarioMoney() - 4.0);
+                final precio = (FFAppState().moneyMonederoVirtual - 4.0);
                 if (precio < 0) {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,
@@ -1147,7 +1144,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               label: 'Monedero Virtual',
               value: 'monedero',
               controller: controller2,
-              db: db,
             ),
             const SizedBox(
               width: 16,
@@ -1156,7 +1152,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               label: 'Tarjeta',
               value: 'tarjeta',
               controller: controller2,
-              db: db,
             ),
           ],
         ),
@@ -1200,12 +1195,12 @@ class SelectionWidget extends StatelessWidget {
   final String label;
   final String value;
   final SelectionController controller;
-  final DatabaseController db;
-  SelectionWidget(
-      {required this.label,
-      required this.value,
-      required this.controller,
-      required this.db});
+  final DatabaseController db = Get.find();
+  SelectionWidget({
+    required this.label,
+    required this.value,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1267,7 +1262,7 @@ class SelectionWidget extends StatelessWidget {
                 value == 'monedero'
                     ? db.datosPerfilUsuario.obx(
                         (state) => Text(
-                              '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
+                              '${FormatNumber.formatNumberWithTwoDecimals(FFAppState().moneyMonederoVirtual).toString()} €',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: isSelected ? Colors.white : Colors.black,
@@ -1286,3 +1281,28 @@ class SelectionWidget extends StatelessWidget {
     );
   }
 }
+/*class SelectionWidget extends StatefulWidget {
+  const SelectionWidget({super.key});
+
+  @override
+  State<SelectionWidget> createState() => _SelectionWidgetState();
+}
+
+class _SelectionWidgetState extends State<SelectionWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class SelectionWidget extends StatelessWidget {
+  final String label;
+  final String value;
+  final SelectionController controller;
+  final DatabaseController db = Get.find();
+  SelectionWidget({
+    required this.label,
+    required this.value,
+    required this.controller,
+  });
+*/
