@@ -10,6 +10,7 @@ import '../../utils/state_getx/state_mixin_demo.dart';
 import 'models/datos_reservas_pista.dart';
 import 'models/proveedor_model.dart';
 import 'models/usuario_model.dart';
+import 'package:http/http.dart' as http;
 
 class DatabaseBinding implements Bindings {
   @override
@@ -161,11 +162,16 @@ class DatabaseController extends GetxController {
   }
 
   //alvaro
-  Future<bool> updateUserMoney() async {
-    try {} catch (error) {
+  Future<bool> updateUserMoney(int money) async {
+    try {
+      http.post(
+          Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({"cantidad": money}));
+      return true;
+    } catch (error) {
       rethrow;
     } finally {}
-    return true;
   }
 }
 
