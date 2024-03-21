@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
           Locale('en'),
         ],
         initialBinding: DatabaseBinding(),
-        initialRoute: Routes.LOGIN_USUARIO,
+        initialRoute: Get.currentRoute, //Routes.LOGIN_USUARIO,
         getPages: AppPages.routes,
       );
     });
