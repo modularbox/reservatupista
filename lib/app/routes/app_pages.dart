@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -84,6 +86,7 @@ abstract class Routes {
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
   static const TARIFAS_PISTA = '/tarifas_pista';
   static const PAGO_TPV = '/pago_tpv';
+  static const ELIMINAR_CUENTA = '/eliminar_cuenta';
 }
 
 /// Get Routes
@@ -267,6 +270,11 @@ class AppPages {
       name: Routes.PAGO_TPV,
       page: () => PagoTpvPage(),
       binding: PagoTpvBinding(),
+    ),
+    GetPage(
+      name: Routes.ELIMINAR_CUENTA,
+      page: () => EliminarCuentaPage(),
+      binding: EliminarCuentaBinding(),
     ),
   ];
 }

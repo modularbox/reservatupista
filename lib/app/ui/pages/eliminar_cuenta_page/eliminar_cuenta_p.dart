@@ -13,18 +13,11 @@ import 'package:provider/provider.dart';
 class EliminarCuentaPage extends GetView<EliminarCuentaController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('EliminarcuentaPage'),
-      ),
-      body: SafeArea(
-        child: Text('EliminarcuentaController'),
-      ),
-    );
+    return HomePageWidget();
   }
 }
 
-class HomePageWidget extends StatelessWidget {
+class HomePageWidget extends GetView<EliminarCuentaController> {
   HomePageWidget({super.key});
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
