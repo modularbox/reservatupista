@@ -825,7 +825,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                final precio = (db.getDatosUsuarioMoney() - 4.0);
+                final precio = (0 - 4.0);
                 if (precio < 0) {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,

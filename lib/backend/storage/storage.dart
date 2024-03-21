@@ -6,7 +6,8 @@ enum TypeStorage {
   idUsuario,
   idProveedor,
   tokenUsuario,
-  tokenProveedor
+  tokenProveedor,
+  dineroTotal
 }
 
 class Storage {

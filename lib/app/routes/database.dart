@@ -29,14 +29,22 @@ class DatabaseController extends GetxController {
   late Storage storageIdProveedor;
   late Storage storageTokenUsuario;
   late Storage storageTokenProveedor;
+  // int dineroTotal = 0;
+
+  final _dineroTotal = 0.obs;
+  get dineroTotal => _dineroTotal.value;
+  set dineroTotal(value) => _dineroTotal.value = value;
+
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
   // StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
 
   @override
   void onInit() async {
     super.onInit();
+    print('dsfjkfbjsdbfjisbdfjibsdkjfbskjdfbkjdsfbkj');
     // Muestra el estado de carga
     datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
+    getMoney();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
@@ -120,6 +128,12 @@ class DatabaseController extends GetxController {
       print(e);
     }
     return false;
+  }
+
+  void getMoney() async {
+    final getStorage = await SharedPreferences.getInstance();
+    print(Storage(TypeStorage.dineroTotal, getStorage).read());
+    dineroTotal = Storage(TypeStorage.dineroTotal, getStorage).read();
   }
 
   void setDatosUsuario(UsuarioModel result) {

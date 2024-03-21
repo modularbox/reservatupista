@@ -68,6 +68,7 @@ class LoginUsuarioController extends GetxController
   /// Obtener los datos si el usuario guardo la contrasena
   late Storage storagePasswordUsuario;
   late Storage storagePasswordProveedor;
+  late Storage storageDineroTotalUsuario;
   late Storage storageIdUsuario;
   late Storage storageIdProveedor;
   late Storage storageTokenUsuario;
@@ -98,6 +99,7 @@ class LoginUsuarioController extends GetxController
       storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
       storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
       storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
+      storageDineroTotalUsuario = Storage(TypeStorage.dineroTotal, getStorage);
 
       // Usuario
       final passwordUsuario = storagePasswordUsuario.read();
@@ -147,6 +149,8 @@ class LoginUsuarioController extends GetxController
           storageIdUsuario.write(result.idUsuario);
           // Guardar el token
           storageTokenUsuario.write(result.token);
+          // Guardar el token
+          storageDineroTotalUsuario.write(result.dineroTotal);
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
             await storagePasswordUsuario.write(passwordUsuarioController.text);
