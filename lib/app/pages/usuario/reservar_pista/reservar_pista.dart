@@ -860,25 +860,25 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     alertSubtitle: '¿Desea reservar la pista?',
                     textButton: '',
                     acceptButton: MaterialButton(
-                      color: Colors.blue,
+                      color: Colors.green,
                       onPressed: () => '',
-                      splashColor: Colors.blueGrey,
+                      splashColor: Colors.lightGreen,
                       child: Text(
                         'Aceptar',
                         style: TextStyle(
-                          color: Colors.green,
+                          color: Colors.white,
                           fontSize: 16,
                         ),
                       ),
                     ),
                     cancelButton: MaterialButton(
-                      color: Colors.blue,
-                      onPressed: () => 'this.controller.function()',
-                      splashColor: Colors.blueGrey,
+                      color: Colors.red,
+                      onPressed: () => Get.back(),
+                      splashColor: Colors.redAccent,
                       child: Text(
                         'Cancelar',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 16,
                         ),
                       ),
