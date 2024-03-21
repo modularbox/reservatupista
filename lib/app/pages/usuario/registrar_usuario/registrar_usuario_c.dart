@@ -15,7 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:image/image.dart' as img;

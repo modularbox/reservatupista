@@ -17,7 +17,6 @@ import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/usuario_model.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import 'package:image/image.dart' as img;
 
 enum ImagenType { network, file, asset }

@@ -18,7 +18,6 @@ import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/database.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class RegistroProveedorController extends GetxController

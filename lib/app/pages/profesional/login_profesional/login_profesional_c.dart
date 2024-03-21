@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../routes/app_pages.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import 'package:flutter/material.dart';
 
 extension getInputName on Name {

@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
-import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
-import '../../../../utils/btn_icon.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './widgets/list_inputs.dart';
 import 'anadir_pista_c.dart';
-export 'anadir_pista_model.dart';
 
 // ignore: must_be_immutable
 class AnadirPistaWidget extends StatelessWidget {

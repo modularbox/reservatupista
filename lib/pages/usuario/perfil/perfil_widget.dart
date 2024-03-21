@@ -1,14 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/storage/storage.dart';
-import 'package:reservatu_pista/utils/loader/color_loader.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/routes/database.dart';
-import '../../../app/widgets/terminos_condiciones.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '../../../utils/btn_icon.dart';
@@ -377,7 +374,12 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.dialog(const TerminosCondiciones());
+          Get.dialog(LinkDialog(
+            alertTitle:
+                richTitle('¿Deseas ir al enlace externo?', fontSize: 20.0),
+            alertSubtitle: richSubtitle(
+                'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
+          ));
         },
       ),
       ButtonPerfil(
