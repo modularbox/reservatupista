@@ -24,6 +24,7 @@ import '../../../utils/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
+import 'dart:html' as html;
 
 import 'alert_recargar_model.dart';
 export 'alert_recargar_model.dart';
@@ -436,8 +437,12 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     try {
       String num_operacion = generarNumeroOperacionUnico();
       guardarUsuarioOperacion(num_operacion, dinero);
-      await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+      html.window.open(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}',
+          '_self');
+      'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}';
+      /*await launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');*/
       Get.back();
       Get.back();
     } catch (e) {
