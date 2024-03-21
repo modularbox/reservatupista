@@ -361,6 +361,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                         precio: '${_model.money.twoDecimals} €',
                         onPressed: () => realizarPago(
                             int.parse(_model.money.toString()) * 100),
+
                         /*() {
                           DatabaseController db = Get.find();
                           db.money.value += _model.money;
@@ -437,6 +438,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
       guardarUsuarioOperacion(num_operacion, dinero);
       await launchURL(
           'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+      Get.back();
+      Get.back();
     } catch (e) {
       rethrow;
     }
