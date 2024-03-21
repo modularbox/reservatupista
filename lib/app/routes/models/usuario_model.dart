@@ -24,6 +24,7 @@ class UsuarioModel {
   String modeloPala;
   String juegosSemana;
   String foto;
+  int dineroTotal;
   DateTime? fechaRegistro;
 
   UsuarioModel({
@@ -50,6 +51,7 @@ class UsuarioModel {
     this.modeloPala = '',
     this.juegosSemana = '',
     this.foto = '',
+    this.dineroTotal = 0,
     this.fechaRegistro,
   });
 
@@ -82,6 +84,7 @@ class UsuarioModel {
         modeloPala: json["modelo_pala"] ?? '',
         juegosSemana: json["juegos_semana"] ?? '',
         foto: json["foto"] ?? '',
+        dineroTotal: json["dinero_total"] ?? 0,
         fechaRegistro: json["fecha_registro"] != null
             ? DateTime.parse(json["fecha_registro"])
             : null,
@@ -110,6 +113,7 @@ class UsuarioModel {
         "modelo_pala": modeloPala,
         "juegos_semana": juegosSemana,
         "foto": foto,
+        "dinero_total": dineroTotal,
         "fecha_registro":
             fechaRegistro == null ? '' : fechaRegistro!.toIso8601String(),
       };
