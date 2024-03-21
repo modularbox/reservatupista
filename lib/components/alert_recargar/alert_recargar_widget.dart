@@ -437,14 +437,16 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     try {
       String num_operacion = generarNumeroOperacionUnico();
       guardarUsuarioOperacion(num_operacion, dinero);
-      html.window.open(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}',
-          '_self');
-      'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}';
-      /*await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');*/
-      Get.back();
-      Get.back();
+      if (isWeb) {
+        html.window.open(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}',
+            '_self');
+      } else {
+        await launchURL(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+        Get.back();
+        Get.back();
+      }
     } catch (e) {
       rethrow;
     }
