@@ -158,6 +158,16 @@ class DatabaseController extends GetxController {
     }
     return false;
   }
+
+  //alvaro
+  Future<bool> updateUserMoney() async {
+    try {
+
+    } catch (error) {
+      rethrow error;
+    } finally {}
+    return true;
+  }
 }
 
 List generate() {
