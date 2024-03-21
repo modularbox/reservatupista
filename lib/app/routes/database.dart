@@ -151,6 +151,7 @@ class DatabaseController extends GetxController {
       if (result is ProveedorModel) {
         imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
         datosProveedor = result;
+
         return true;
       }
     } catch (e) {
@@ -161,10 +162,8 @@ class DatabaseController extends GetxController {
 
   //alvaro
   Future<bool> updateUserMoney() async {
-    try {
-
-    } catch (error) {
-      rethrow error;
+    try {} catch (error) {
+      rethrow;
     } finally {}
     return true;
   }
