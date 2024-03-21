@@ -48,7 +48,7 @@ import '../pages/profesional/tarifas_pista/tarifas_pista_b.dart';
 
 /// Names Routes
 abstract class Routes {
-  static const LOGIN_USUARIO = '/login_usuario';
+  static const LOGIN_USUARIO = '/';
   static const REGISTRAR_USUARIO = '/registrar_usuario';
   static const PERFIL = '/perfil';
   static const LOGINPROFESIONAL = '/loginProfesional';
