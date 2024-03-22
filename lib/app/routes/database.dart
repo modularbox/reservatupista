@@ -170,10 +170,11 @@ class DatabaseController extends GetxController {
           body: jsonEncode({"cantidad": 333}));
       print('responseeeeeeeeeeeee ${response.body}');
       print('responseeeeeeeeeeeee ${response.statusCode}');
-      return true;
     } catch (error) {
       rethrow;
-    } finally {}
+    } finally {
+      return true;
+    }
   }
 }
 
