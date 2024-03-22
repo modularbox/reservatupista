@@ -818,6 +818,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
 
   Widget buildButton() {
     db.getDatosUsuarioMoney();
+    db.getUserId();
     return ElevatedButton(
       onPressed: self.selectHorario.value == null
           ? null
@@ -825,6 +826,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
+                print('db.idUsuario ${db.idUsuario}');
                 final precio = db.dineroTotal -
                     4; /*int.parse(db.datosPerfilUsuario
                         .obx(

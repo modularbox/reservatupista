@@ -145,10 +145,9 @@ class DatabaseController extends GetxController {
 
   void getUserId() async {
     final getStorage = await SharedPreferences.getInstance();
-    print(
-        'iddddddddddddddddddddd ${Storage(TypeStorage.idUsuario, getStorage).read()}');
 
     idUsuario = Storage(TypeStorage.idUsuario, getStorage).read();
+    print('iddddddddddddddddddddd ${idUsuario}');
   }
 
   void setDatosUsuario(UsuarioModel result) {
@@ -182,7 +181,7 @@ class DatabaseController extends GetxController {
       var response = await http.post(
           Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
           headers: {"Content-Type": "application/json"},
-          body: jsonEncode({'': 1, 'cantidad': 333}));
+          body: jsonEncode({'id_usuario': id_usuario, 'cantidad': money}));
       print('responseeeeeeeeeeeee ${response.body}');
       print('responseeeeeeeeeeeee ${response.statusCode}');
       return true;
