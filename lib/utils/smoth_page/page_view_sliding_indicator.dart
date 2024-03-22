@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../utils/btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-// import '../../../../utils/sizer.dart';
 
 /// A Page view sliding indicator.
 class PageViewSlidingIndicator extends StatefulWidget {
@@ -124,11 +124,11 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: widget.widthButtons - 2,
-                  height: 80,
+                  height: 50,
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
@@ -139,6 +139,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                             curve: Curves.linear);
                       }
                     },
+                    padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +171,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                   width: 2,
                   color: const Color(0xFFB2B4B7),
                 ),
-                Container(
+                SizedBox(
                   width: widget.widthButtons - 2,
                   height: 80,
                   child: BtnIcon(
@@ -183,6 +184,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                             curve: Curves.linear);
                       }
                     },
+                    padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

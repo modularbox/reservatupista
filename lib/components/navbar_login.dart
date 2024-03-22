@@ -222,6 +222,7 @@ class NavBarLogin extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Readex Pro',
+                        fontSize: 12,
                         fontWeight: FontWeight.w900,
                       ),
                 ),

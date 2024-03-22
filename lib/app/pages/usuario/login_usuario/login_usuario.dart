@@ -147,6 +147,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             ],
                           ),
                         ),
+                       
                       ],
                     ),
                   ),
@@ -176,6 +177,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     AnimationController animTerminos,
     RxBool validateTerminos, {
     required Color lineColor,
+    required int typeUser,
     required Color focusedColor,
     required Color palomita,
     required int typeUser,
