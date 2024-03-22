@@ -36,20 +36,23 @@ class DatabaseController extends GetxController {
   get dineroTotal => _dineroTotal.value;
   set dineroTotal(value) => _dineroTotal.value = value;
 
+  final _dineroTotalEuros = '0'.obs;
+  get dineroTotalEuros => _dineroTotalEuros.value;
+  set dineroTotalEuros(value) => _dineroTotalEuros.value = value;
+
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
   // StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
 
   //alvaro
-  final _idUsuario = 0.obs;
+  final _idUsuario = 0.0.obs;
   get idUsuario => _idUsuario.value;
   set idUsuario(value) => _idUsuario.value = value;
-
+  //void setIdUsuario(int value) => _idUsuario.value = value;
   @override
   void onInit() async {
     super.onInit();
     // Muestra el estado de carga
     datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
-    getMoney();
     getUserId();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
@@ -58,16 +61,18 @@ class DatabaseController extends GetxController {
       // final getStorage = await SharedPreferences.getInstance();
       // // Guardar archivos temporales
       // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      getVariablesGuardadas();
+      await getVariablesGuardadas();
+      await getMoney();
     } catch (e) {
       print(e);
     }
     print("sd");
   }
 
-  void getVariablesGuardadas() async {
+  Future<void> getVariablesGuardadas() async {
     final getStorage = await SharedPreferences.getInstance();
     storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+    idUsuario = storageIdUsuario.read();
     storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
     storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
     storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
@@ -113,9 +118,10 @@ class DatabaseController extends GetxController {
     return false;
   }
 
-  Future<bool> getDatosUsuarioMoney() async {
+  /*Future<bool> getDatosUsuarioMoney() async {
     final getStorage = await SharedPreferences.getInstance();
     final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+
     try {
       final List<TypeDatosServer> listTypes = [
         TypeDatosServer.dinero_total,
@@ -124,30 +130,49 @@ class DatabaseController extends GetxController {
 
       final result = await UsuarioNode().getUsuario(
           storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
+      print('result: ${result!.dineroTotal}');
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
         datosPerfilUsuario.change(result, RxStatusDemo.success());
         datosUsuario = result;
+        dineroTotal = result.dineroTotal;
+        dineroTotalEuros = 2;
         return true;
       }
     } catch (e) {
       print(e);
     }
     return false;
-  }
+  }*/
 
-  void getMoney() async {
-    final getStorage = await SharedPreferences.getInstance();
-    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    print(Storage(TypeStorage.dineroTotal, getStorage).read());
-    dineroTotal = Storage(TypeStorage.dineroTotal, getStorage).read();
+  Future<void> getMoney() async {
+    try {
+      final List<TypeDatosServer> listTypes = [
+        TypeDatosServer.dinero_total,
+      ];
+
+      final result = await UsuarioNode().getUsuario(
+          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
+
+      if (result is UsuarioModel) {
+        dineroTotal = result.dineroTotal;
+        dineroTotalEuros = ((dineroTotal) / 100).toStringAsFixed(2);
+
+        print('eeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+      } else {
+        print('ooooooooooooooooooooooo');
+      }
+    } catch (e) {
+      print('eeeeeeeeeeeeeeeeeeeee $e');
+    }
   }
 
   void getUserId() async {
     final getStorage = await SharedPreferences.getInstance();
 
     idUsuario = Storage(TypeStorage.idUsuario, getStorage).read();
-    print('iddddddddddddddddddddd ${idUsuario}');
+    print('iddddddddddddddddddddd');
+    print('${idUsuario} ');
   }
 
   void setDatosUsuario(UsuarioModel result) {

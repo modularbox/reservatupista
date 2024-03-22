@@ -817,17 +817,19 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildButton() {
-    db.getDatosUsuarioMoney();
-    db.getUserId();
+    print('db.dineroTotal ${db.dineroTotal}');
     return ElevatedButton(
       onPressed: self.selectHorario.value == null
           ? null
           : () {
+              const precio_reserva = 4; //euros
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
+                print('dinero_total ${db.dineroTotal}');
                 final precio = db.dineroTotal -
-                    4; /*int.parse(db.datosPerfilUsuario
+                    precio_reserva *
+                        100; /*int.parse(db.datosPerfilUsuario
                         .obx(
                             (state) => Text(
                                   '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
@@ -846,10 +848,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',
-                    alertSubtitle: 'No tienes saldo suficiente',
+                    alertSubtitle:
+                        'No tienes saldo suficiente, debes recargar para poder reservar.',
                     textButton: 'Aceptar',
-                    precio:
-                        '${FormatNumber.formatNumberWithTwoDecimals(4.0)} €',
+                    precio: '${precio_reserva.toStringAsFixed(2)} €',
                     onPressed: () {
                       Get.back();
                     },
@@ -1305,18 +1307,13 @@ class SelectionWidget extends StatelessWidget {
                   ],
                 ),
                 value == 'monedero'
-                    ? db.datosPerfilUsuario.obx(
-                        (state) => Text(
-                              '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: isSelected ? Colors.white : Colors.black,
-                              ),
-                            ),
-                        onLoading: Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: ColorLoader2(),
-                        ))
+                    ? Text(
+                        '${(double.parse(db.dineroTotal.toString()) / 100).toStringAsFixed(2)} €',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? Colors.white : Colors.black,
+                        ),
+                      )
                     : SizedBox()
               ],
             ),

@@ -37,5 +37,5 @@ enum TypeDatosServer {
   foto,
   fecha_registro,
   validate_email,
-  dinero_total,
+  dinero_total
 }
