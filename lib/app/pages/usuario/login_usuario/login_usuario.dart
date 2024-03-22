@@ -147,7 +147,6 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             ],
                           ),
                         ),
-                       
                       ],
                     ),
                   ),
@@ -180,7 +179,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     required int typeUser,
     required Color focusedColor,
     required Color palomita,
-    required int typeUser,
+    //required int typeUser,
     required dynamic Function()? onPressed,
     required Key formKey,
   }) {
