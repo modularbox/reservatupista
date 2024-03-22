@@ -88,6 +88,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   void reservarPistaF() async {
     bool response = await db.subtractUserMoney(db.idUsuario, 4);
     if (response == true) {
+      db.getMoney();
       Get.back();
       Get.defaultDialog(
         title: "Reserva exitosa",
@@ -95,8 +96,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         actions: [
           TextButton(
             onPressed: () {
-              Get.back();
-              Get.toNamed('monederoVirtual');
+              Get.toNamed('/monederoVirtual');
             },
             child: Text('Aceptar'),
           ),

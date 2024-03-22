@@ -195,7 +195,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: Obx(() => Text(
-                                  '${db.dineroTotal} €',
+                                  '${db.dineroTotalEuros} €',
                                   style: FlutterFlowTheme.of(context)
                                       .headlineLarge
                                       .override(
