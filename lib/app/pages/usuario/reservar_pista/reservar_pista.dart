@@ -826,7 +826,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                print('db.idUsuario ${db.idUsuario}');
                 final precio = db.dineroTotal -
                     4; /*int.parse(db.datosPerfilUsuario
                         .obx(
@@ -863,8 +862,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     textButton: '',
                     acceptButton: MaterialButton(
                       color: Colors.green,
-                      onPressed: () =>
-                          db.subtractUserMoney(db.idUsuario, db.dineroTotal),
+                      onPressed: () => db.subtractUserMoney(db.idUsuario, 4),
                       splashColor: Colors.lightGreen,
                       child: Text(
                         'Aceptar',

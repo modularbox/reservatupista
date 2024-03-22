@@ -181,7 +181,8 @@ class DatabaseController extends GetxController {
       var response = await http.post(
           Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
           headers: {"Content-Type": "application/json"},
-          body: jsonEncode({'id_usuario': id_usuario, 'cantidad': money}));
+          body:
+              jsonEncode({'id_usuario': id_usuario, 'cantidad': money * 100}));
       print('responseeeeeeeeeeeee ${response.body}');
       print('responseeeeeeeeeeeee ${response.statusCode}');
       return true;
