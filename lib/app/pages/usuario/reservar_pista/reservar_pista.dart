@@ -861,7 +861,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     textButton: '',
                     acceptButton: MaterialButton(
                       color: Colors.green,
-                      onPressed: () => db.subtractUserMoney(db.dineroTotal),
+                      onPressed: () =>
+                          db.subtractUserMoney(db.idUsuario, db.dineroTotal),
                       splashColor: Colors.lightGreen,
                       child: Text(
                         'Aceptar',

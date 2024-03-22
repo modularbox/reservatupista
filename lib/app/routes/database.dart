@@ -39,12 +39,18 @@ class DatabaseController extends GetxController {
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
   // StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
 
+  //alvaro
+  final _idUsuario = 0.obs;
+  get idUsuario => _idUsuario.value;
+  set idUsuario(value) => _idUsuario.value = value;
+
   @override
   void onInit() async {
     super.onInit();
     // Muestra el estado de carga
     datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
     getMoney();
+    getUserId();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
@@ -132,8 +138,17 @@ class DatabaseController extends GetxController {
 
   void getMoney() async {
     final getStorage = await SharedPreferences.getInstance();
+    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     print(Storage(TypeStorage.dineroTotal, getStorage).read());
     dineroTotal = Storage(TypeStorage.dineroTotal, getStorage).read();
+  }
+
+  void getUserId() async {
+    final getStorage = await SharedPreferences.getInstance();
+    print(
+        'iddddddddddddddddddddd ${Storage(TypeStorage.idUsuario, getStorage).read()}');
+
+    idUsuario = Storage(TypeStorage.idUsuario, getStorage).read();
   }
 
   void setDatosUsuario(UsuarioModel result) {
@@ -162,12 +177,12 @@ class DatabaseController extends GetxController {
   }
 
   //alvaro
-  Future<bool> subtractUserMoney(int money) async {
+  Future<bool> subtractUserMoney(int id_usuario, int money) async {
     try {
       var response = await http.post(
           Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
           headers: {"Content-Type": "application/json"},
-          body: jsonEncode({"cantidad": 333}));
+          body: jsonEncode({'': 1, 'cantidad': 333}));
       print('responseeeeeeeeeeeee ${response.body}');
       print('responseeeeeeeeeeeee ${response.statusCode}');
       return true;
