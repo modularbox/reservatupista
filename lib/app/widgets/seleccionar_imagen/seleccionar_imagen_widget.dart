@@ -1,5 +1,4 @@
 import 'package:reservatu_pista/utils/btn_icon.dart';
-
 import '../../../utils/animations/add_animation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,17 +6,14 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/sizer.dart';
-import 'seleccionar_imagen_model.dart';
-export 'seleccionar_imagen_model.dart';
 
 class SeleccionarImagenWidget extends StatelessWidget {
-  SeleccionarImagenWidget(
-      {Key? key,
+  const SeleccionarImagenWidget(
+      {super.key,
       this.camera,
       this.galeria,
       this.imageLocal,
-      this.isProveedor = false})
-      : super(key: key);
+      this.isProveedor = false});
   final void Function()? camera;
   final void Function()? galeria;
   final void Function(String)? imageLocal;
@@ -25,8 +21,6 @@ class SeleccionarImagenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    SeleccionarImagenModel _model =
-        createModel(context, () => SeleccionarImagenModel());
     final listaIcons = [
       [
         'icon_sport_padel',
@@ -61,14 +55,14 @@ class SeleccionarImagenWidget extends StatelessWidget {
                 children: List.generate(
                   3,
                   (j) => listaIcons[i][j] == ''
-                      ? SizedBox()
+                      ? const SizedBox()
                       : BtnIcon(
                           onPressed: () => imageLocal!(listaIcons[i][j]),
-                          padding: EdgeInsets.all(0),
-                          borderColor: Color.fromARGB(255, 226, 6, 255),
+                          padding: const EdgeInsets.all(0),
+                          borderColor: const Color.fromARGB(255, 226, 6, 255),
                           borderWidth: 3,
                           borderRadius: 30,
-                          hoverColor: Color.fromARGB(255, 226, 6, 255),
+                          hoverColor: const Color.fromARGB(255, 226, 6, 255),
                           icon: Image.asset(
                               'assets/images/${listaIcons[i][j]}.png',
                               height: 30.w,
@@ -109,7 +103,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -181,7 +175,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
                 textStyle: FlutterFlowTheme.of(context).bodyLarge,
                 elevation: 2,
                 splashColor: const Color.fromARGB(65, 0, 0, 0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1,
                 ),
@@ -189,7 +183,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
                 Navigator.pop(context);
@@ -198,8 +192,8 @@ class SeleccionarImagenWidget extends StatelessWidget {
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 60,
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 color: FlutterFlowTheme.of(context).redAccend1,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Lexend Deca',
@@ -208,10 +202,6 @@ class SeleccionarImagenWidget extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                     ),
                 elevation: 0,
-                borderSide: BorderSide(
-                  color: Colors.transparent,
-                  width: 0,
-                ),
               ),
             ),
           ),

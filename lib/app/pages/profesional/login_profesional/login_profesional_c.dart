@@ -98,7 +98,4 @@ class ButtonsPage {
   ButtonsPage.usuario() {
     Get.offAllNamed(Routes.LOGIN_USUARIO);
   }
-  ButtonsPage.termsAndConditions() {
-    Get.dialog(TermConditions());
-  }
 }

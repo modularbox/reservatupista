@@ -87,9 +87,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                FFLocalizations.of(context).getText(
-                                  'r7pe5dlp' /* Reserva de Pisa */,
-                                ),
+                                'Reserva de Pista',
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context).bodyLarge,
                               ),
@@ -156,9 +154,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                FFLocalizations.of(context).getText(
-                                  'zcndx959' /* Reserva de Pisa */,
-                                ),
+                                'Reserva de Pista',
                                 style: FlutterFlowTheme.of(context).labelLarge,
                               ),
                             ),

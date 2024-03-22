@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/loader/color_loader.dart';
-import '../../../../utils/loader/color_loader_2.dart';
-import '../../../../utils/loader/color_loader_3.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../widgets/appbar_general.dart';
 import '../../../widgets/seleccionar_imagen/seleccionar_imagen_widget.dart';
@@ -47,8 +45,6 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
             top: true,
             child: Column(
               children: [
-                // Generated code for this RiveAnimation Widget...
-
                 const AppbarGeneral(
                   isTitleBack: true,
                   title: 'Registro Usuario',
@@ -132,7 +128,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                                                               50)),
                                                   contentPadding:
                                                       const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           vertical: 34)),
                                               enableInteractiveSelection: false,
                                               readOnly: true,
@@ -325,70 +321,12 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                                           .comprobarContrasena.focusNode,
                                       datosContrasena
                                           .comprobarContrasena.labelText)),
-                          VibratingWidget(
-                            controller: self.animTerminos,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Theme(
-                                    data: ThemeData(
-                                      checkboxTheme: CheckboxThemeData(
-                                        visualDensity: VisualDensity.compact,
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                      ),
-                                      unselectedWidgetColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                    ),
-                                    child: Obx(() => Checkbox(
-                                          value: self.checkboxTerminos.value,
-                                          onChanged: (newValue) async {
-                                            self.checkboxTerminos.value =
-                                                newValue!;
-                                          },
-                                          activeColor:
-                                              Colores().proveedor.primary,
-                                          checkColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          side: !self.checkboxTerminos.value
-                                              ? const BorderSide(
-                                                  color: Colors.red)
-                                              : null,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: BtnIcon(
-                                      onPressed: ButtonsPage.termsAndConditions,
-                                      borderRadius: 12,
-                                      padding: const EdgeInsets.all(0),
-                                      icon: Text(
-                                        'He leído y acepto los\nTérminos y Condiciones de Servicio.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          TerminosCondicionesDialog(
+                              self.animTerminos,
+                              self.checkboxTerminos,
+                              Colores().proveedor.primary,
+                              self.checkboxTerminos,
+                              FlutterFlowTheme.of(Get.context!).primaryText),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: FFButtonWidget(

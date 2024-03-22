@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import '../../../../constants.dart';
 
 class MisSociosPage extends GetView<MisSociosController> {
   MisSociosController get self => controller;
@@ -39,6 +40,7 @@ class MisSociosPage extends GetView<MisSociosController> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(7.0, 12.0, 7.0, 12.0),
                 child: Container(
+                  width: MediaQuery.sizeOf(context).width * kWidthPercentage,
                   height: 100.0,
                   decoration: BoxDecoration(
                     color: Colors.white,

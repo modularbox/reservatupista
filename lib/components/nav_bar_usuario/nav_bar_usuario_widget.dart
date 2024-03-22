@@ -44,8 +44,8 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
           curve: Curves.bounceOut,
           delay: 0.ms,
           duration: 550.ms,
-          begin: Offset(0.0, -17.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, -17.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -82,7 +82,8 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
     context.watch<FFAppState>();
     return Container(
       width: double.infinity,
-      height: 65.0,
+      height: 70.0,
+      margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
       decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
@@ -134,7 +135,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
             children: [
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.toNamed(Routes.INICIO);
+                  Get.offNamed(Routes.INICIO);
                 },
                 isPage: widget.tipoDePagina == TypePage.Inicio,
                 icon: Icons.home_rounded,
@@ -187,7 +188,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(bottom: 5),
       child: Column(
         children: [
           isPage
@@ -197,7 +198,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   borderWidth: 1.0,
                   buttonSize: 45.0,
                   fillColor: FlutterFlowTheme.of(context).primary,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.add,
                     color: Colors.white,
                     size: 30.0,
@@ -210,8 +211,8 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   borderRadius: 25.0,
                   borderWidth: 1.0,
                   buttonSize: 45.0,
-                  fillColor: Color(0xFF9299A1),
-                  icon: Icon(
+                  fillColor: const Color(0xFF9299A1),
+                  icon: const Icon(
                     Icons.add,
                     color: Colors.white,
                     size: 30.0,
@@ -240,10 +241,10 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(top: 10),
+      padding: const EdgeInsetsDirectional.only(top: 10),
       child: BtnIcon(
         onPressed: onPressed,
-        hoverColor: Color.fromARGB(69, 43, 120, 220),
+        hoverColor: const Color.fromARGB(69, 43, 120, 220),
         borderRadius: 12,
         icon: Column(
           mainAxisSize: MainAxisSize.min,
@@ -257,7 +258,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                     animationsMap['iconButtonOnPageLoadAnimation1']!)
                 : Icon(
                     icon,
-                    color: Color(0xFF9299A1),
+                    color: const Color(0xFF9299A1),
                     size: 24.0,
                   ),
             Text(

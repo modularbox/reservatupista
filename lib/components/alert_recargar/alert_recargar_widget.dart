@@ -1,8 +1,14 @@
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/app/routes/database.dart';
+import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
+// import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../utils/buttons_sounds.dart';
+// import '../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../utils/format_number.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -15,6 +21,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/sizer.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:math';
+import 'dart:html' as html;
 
 import 'alert_recargar_model.dart';
 export 'alert_recargar_model.dart';
@@ -333,7 +343,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
                     elevation: 3,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
@@ -343,8 +353,22 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                 FFButtonWidget(
                   onPressed: () {
                     if (_model.money > 0) {
-                      Get.dialog(PagosTarjetaPage(
-                        precio: _model.money,
+                      Get.dialog(RichAlertFlutterFlow(
+                        alertType: TypeAlert.NONE,
+                        alertTitle: title,
+                        alertSubtitle:
+                            '¿Estás seguro de recargar el Monedero Virtual?',
+                        textButton: title,
+                        precio: '${_model.money.twoDecimals} €',
+                        onPressed: () => realizarPago(
+                            int.parse(_model.money.toString()) * 100),
+
+                        /*() {
+                          DatabaseController db = Get.find();
+                          db.money.value += _model.money;
+                          Get.back();
+                          Get.back();
+                        }, */
                       ));
                     }
                   },
@@ -376,6 +400,74 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     );
   }
 
+  //alvaro
+
+  /*Future<http.Response> guardarDinero(String dinero) async {
+    http.Response response = await http.post(
+        Uri.parse('${DatosServer().urlServer}/usuario/pago_tpv'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body:
+            jsonEncode(<String, String>{'id_usuario': '1', 'dinero': dinero}));
+    return response;
+  }*/
+
+  Future<http.Response> guardarUsuarioOperacion(
+      String num_operacion, int cantidad) async {
+    final getStorage = await SharedPreferences.getInstance();
+    final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+
+    http.Response response = await http.post(
+        Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'id_usuario': storageIdUsuario.read().toString(),
+          'num_operacion': num_operacion,
+          'cantidad': cantidad.toString(),
+          //estado es null al principio
+        }));
+    print('responseeeeeeeeeeeeeeeeeeee ${response}');
+    return response;
+  }
+
+  Future<void> realizarPago(int dinero) async {
+    try {
+      String num_operacion = generarNumeroOperacionUnico();
+      guardarUsuarioOperacion(num_operacion, dinero);
+      if (isWeb) {
+        html.window.open(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}',
+            '_self');
+      } else {
+        await launchURL(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+        Get.back();
+        Get.back();
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  String generarNumeroOperacionUnico() {
+    DateTime now = DateTime.now();
+    int timestamp = now.microsecondsSinceEpoch;
+    Random random = Random();
+    int aleatorio = random.nextInt(999999);
+
+    String formattedString =
+        '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
+
+    return formattedString;
+  }
+
+  String _padNumber(int number) {
+    return number.toString().padLeft(2, '0');
+  }
+
   Widget buildBtnBillete(int number) {
     return InkWell(
       splashColor: Colors.transparent,
@@ -383,12 +475,17 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () => onTap(number),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(0),
-        child: Image.asset(
-          'assets/images/${number.toString()}.jpg',
-          width: MediaQuery.sizeOf(context).width * 0.4,
-          fit: BoxFit.cover,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width * 0.12,
+        constraints: BoxConstraints(minWidth: 200),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: Image.asset(
+            'assets/images/${number.toString()}.jpg',
+            width: double.infinity,
+            //height: 100,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     ).animateOnActionTrigger(animationsMap['anim${number.toString()}']!,

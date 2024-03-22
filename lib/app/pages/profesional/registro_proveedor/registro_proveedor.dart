@@ -1,9 +1,8 @@
 import 'dart:io';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import './registro_proveedor_c.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/animations/get_image.dart';
@@ -19,6 +18,8 @@ import 'widgets/codigo_iban.dart';
 import 'widgets/input_registrar.dart';
 
 class RegistroProveedorPage extends GetView<RegistroProveedorController> {
+  RegistroProveedorPage({super.key});
+
   RegistroProveedorController get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -116,7 +117,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                                           borderSide: BorderSide(
                                                               width: 3,
                                                               color: Colores()
-                                                                  .usuario
+                                                                  .proveedor
                                                                   .primary),
                                                           borderRadius:
                                                               BorderRadius
@@ -131,7 +132,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                                               50)),
                                                   contentPadding:
                                                       const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           vertical: 34)),
                                               enableInteractiveSelection: false,
                                               readOnly: true,
@@ -172,6 +173,9 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                                             60),
                                                     child: getImage(
                                                         self.imageFile.value,
+                                                        color: Colores()
+                                                            .proveedor
+                                                            .primary,
                                                         isRegristro: true),
                                                   )),
                                             ),
@@ -299,69 +303,12 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                           .comprobarContrasena.focusNode,
                                       datosContrasena
                                           .comprobarContrasena.labelText)),
-                          VibratingWidget(
-                            controller: self.animTerminos,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Theme(
-                                    data: ThemeData(
-                                      checkboxTheme: CheckboxThemeData(
-                                        visualDensity: VisualDensity.compact,
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                      ),
-                                      unselectedWidgetColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                    ),
-                                    child: Obx(() => Checkbox(
-                                          value: self.checkboxTerminos.value,
-                                          onChanged: (newValue) async {
-                                            self.checkboxTerminos.value =
-                                                newValue!;
-                                          },
-                                          activeColor: focusedColor,
-                                          checkColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          side: self.validateCheckbox.value
-                                              ? const BorderSide(
-                                                  color: Colors.red)
-                                              : null,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: BtnIcon(
-                                      onPressed: ButtonsPage.termsAndConditions,
-                                      borderRadius: 12,
-                                      padding: const EdgeInsets.all(0),
-                                      icon: AutoSizeText(
-                                        'He leído y acepto los\nTérminos y Condiciones de Servicio.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          TerminosCondicionesDialog(
+                              self.animTerminos,
+                              self.checkboxTerminos,
+                              Colores().proveedor.primary,
+                              self.checkboxTerminos,
+                              FlutterFlowTheme.of(Get.context!).primaryText),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: FFButtonWidget(
@@ -674,14 +621,14 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: Colores().proveedor.primary160,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: Colores().proveedor.primary,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
@@ -704,7 +651,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                 prefixIcon: Icon(
                   visibility.value ? Icons.lock_open : Icons.lock,
                 ),
-                prefixIconColor: FlutterFlowTheme.of(context).primary,
+                prefixIconColor: Colores().proveedor.primary,
                 suffixIcon: InkWell(
                   onTap: () => visibility.value = !visibility.value,
                   focusNode: FocusNode(skipTraversal: true),
@@ -712,7 +659,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                     visibility.value
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
-                    color: Colores().usuario.primary,
+                    color: Colores().proveedor.primary,
                     size: 22,
                   ),
                 ),

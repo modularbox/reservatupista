@@ -16,6 +16,20 @@ class SinEspaciosInputFormatter extends TextInputFormatter {
   }
 }
 
+class FilterEmailTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final isPositionOne = newValue.text.length == 1;
+    if (isPositionOne) {
+      if (newValue.text == '@' || newValue.text == '.') {
+        return oldValue;
+      }
+    }
+    return newValue;
+  }
+}
+
 class SoloNumeros extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(

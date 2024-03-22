@@ -1,3 +1,4 @@
+import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/utils/animations/get_image.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '../../../utils/server/image_server.dart';
@@ -120,17 +121,19 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                       ClipRRect(
                         borderRadius: BorderRadius.circular(35.0),
                         child: Container(
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondary)),
-                            child: ImageServer(
-                              tipo: Tipo.usuario,
-                              height: 32,
-                              width: 32,
-                            )),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color:
+                                      FlutterFlowTheme.of(context).secondary)),
+                          width: 32.0,
+                          height: 32.0,
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            radius: 32,
+                          ),
+                        ),
                       ),
                       Text(
                         '4.00 €',
@@ -147,7 +150,6 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
         fecha = '30/01/2024 18:00 - 19:30';
         final listaDeImagenesPath = [
           ImageServer(
-            tipo: Tipo.usuario,
             height: 32,
             width: 32,
           ),
@@ -237,53 +239,97 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
               Padding(
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 12.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 60.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Padel Bel',
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Color(0xFF14181B),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                          ),
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              'wv5tlwap' /* # 1 */,
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width * kWidthPercentage,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 60.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Padel Bel',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Color(0xFF14181B),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
+                            Text(
+                              FFLocalizations.of(context).getText(
+                                'wv5tlwap' /* # 1 */,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Color(0xFF14181B),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 60.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 4.0),
+                              child: Text(
+                                fecha,
+                                style: FlutterFlowTheme.of(context)
+                                    .labelSmall
+                                    .override(
                                       fontFamily: 'Readex Pro',
-                                      color: Color(0xFF14181B),
-                                      fontSize: 16.0,
+                                      color: Color(0xFF57636C),
+                                      fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
                                     ),
-                          ),
-                        ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 4.0),
+                              child: Text(
+                                '16.00 €',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelSmall
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 60.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 4.0, 0.0, 4.0),
-                            child: Text(
-                              fecha,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(children: listaImagenes),
+                            ),
+                            Text(
+                              'Tarjeta',
                               style: FlutterFlowTheme.of(context)
                                   .labelSmall
                                   .override(
@@ -293,50 +339,11 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 4.0, 0.0, 4.0),
-                            child: Text(
-                              '16.00 €',
-                              style: FlutterFlowTheme.of(context)
-                                  .labelSmall
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Color(0xFF57636C),
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(children: listaImagenes),
-                          ),
-                          Text(
-                            'Tarjeta',
-                            style: FlutterFlowTheme.of(context)
-                                .labelSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Color(0xFF57636C),
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

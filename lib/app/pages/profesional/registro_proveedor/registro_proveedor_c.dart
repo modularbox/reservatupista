@@ -13,8 +13,10 @@ import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 
+import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
+import '../../../routes/app_pages.dart';
 import '../../../routes/database.dart';
 import '../../../widgets/terminos_condiciones.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
@@ -72,8 +74,32 @@ class RegistroProveedorController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    // onInitForm();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
+  }
+
+  void onInitForm() {
+    tipoController.text = 'Club';
+    cifNifController.text = 'N1234567N';
+    direccionFiscalController.text = 'Direccion';
+    codigoPostalFiscalController.text = '123456';
+    localidadFiscalController.text = 'Localidad';
+    provinciaFiscalController.text = 'Provincia';
+    comunidadFiscalController.text = 'Comunidad';
+    nombreController.text = 'Nombre Ficticio';
+    apellidosController.text = 'Apellido Ficticio';
+    fijoController.text = '123456789';
+    emailController.text = 'ficticio@hotamil.com';
+    telefonoController.text = '123456789';
+    nombreComercialController.text = 'Nombre Comercio';
+    direccionController.text = 'Direccion';
+    codigoPostalController.text = '123456';
+    localidadController.text = 'Localidad';
+    provinciaController.text = 'Provincia';
+    comunidadController.text = 'Comunidad';
+    contrasenaController.text = '55r452df#';
+    contrasenaComprobarController.text = '55r452df#';
   }
 
   /// Existe el Codigo Postal
@@ -400,10 +426,12 @@ class RegistroProveedorController extends GetxController
 
   Future<void> pickImageCertificado(ImageSource source, {String? path}) async {
     if (path != null) {
+      certificadoCuentaController.text = 'foto';
       imageFileCertificado.value = '@$path';
     } else {
       final pickedFile = await ImagePicker().pickImage(source: source);
       if (pickedFile != null) {
+        certificadoCuentaController.text = 'foto';
         imageFileCertificado.value = pickedFile.path;
       }
     }
@@ -474,20 +502,20 @@ class RegistroProveedorController extends GetxController
           nameFoto,
           formattedDate,
         ];
-        await anadirProveedorNode(datosSQL);
+        await ProveedorNode().anadirProveedorNode(datosSQL);
 
-        // /// Regresar al inicio y enviar el email.
-        // await Get.dialog(RichAlertDialog(
-        //   //uses the custom alert dialog
-        //   alertTitle: richTitle("Registro proveedor"),
-        //   alertSubtitle:
-        //       richSubtitle("Compruebe su correo para finalizar el registro."),
-        //   textButton: "Ir a Login",
-        //   alertType: RichAlertType.SUCCESS,
-        //   onPressed: () {
-        //     Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
-        //   },
-        // ));
+        /// Regresar al inicio y enviar el email.
+        await Get.dialog(RichAlertDialog(
+          //uses the custom alert dialog
+          alertTitle: richTitle("Registro proveedor"),
+          alertSubtitle:
+              richSubtitle("Compruebe su correo para finalizar el registro."),
+          textButton: "Ir a Login",
+          alertType: RichAlertType.SUCCESS,
+          onPressed: () {
+            Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
+          },
+        ));
       } catch (e) {
         print(e);
       }
@@ -543,9 +571,9 @@ class ButtonsPage {
     Get.back();
   }
 
-  ButtonsPage.termsAndConditions() {
-    Get.dialog(const TermConditions());
-  }
+  // ButtonsPage.termsAndConditions() {
+  //   Get.dialog(const TermConditions());
+  // }
   cancel() {}
 }
 

@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../../constants.dart';
+
 import 'inicio_model.dart';
 export 'inicio_model.dart';
 
@@ -75,8 +77,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                 child: Container(
                   width: double.infinity,
                   constraints: BoxConstraints(
-                    maxWidth: 570,
-                  ),
+                      //maxWidth: MediaQuery.of(context).size.width * 0.8, //alvaro
+                      ),
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(12),
@@ -97,7 +99,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                         // Generated code for this Carousel Widget...
                         Container(
                           width: double.infinity,
-                          height: 180,
+                          height: MediaQuery.of(context).size.height * 0.5,
                           child: CarouselSlider(
                             items: [
                               ClipRRect(
@@ -189,34 +191,34 @@ class _InicioWidgetState extends State<InicioWidget> {
                         // Generated code for this Carousel Widget...
                         Container(
                           width: double.infinity,
-                          height: 180,
+                          height: MediaQuery.of(context).size.height * 0.5,
                           child: CarouselSlider(
                             items: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
                                   'https://i8.amplience.net/i/jpl/desktop-mobile-site-offer-spot-408x408-22-3e16bb7a28bf44e339d2c29691b882a5?qlt=800&fmt=auto',
-                                  width: 50,
-                                  height: 50,
-                                  fit: BoxFit.fill,
+                                  //width: 300,
+                                  //height: 50,
+                                  //alvaro fit: BoxFit.fill,
                                 ),
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
-                                  'https://www.padeladdict.com/wp-content/uploads/2019/07/ofertas-de-palas-de-padel-por-menos-de-130-euros.jpg',
-                                  width: 300,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                                  'https://i8.amplience.net/i/jpl/desktop-mobile-site-offer-spot-408x408-22-3e16bb7a28bf44e339d2c29691b882a5?qlt=800&fmt=auto', //'https://www.padeladdict.com/wp-content/uploads/2019/07/ofertas-de-palas-de-padel-por-menos-de-130-euros.jpg',
+                                  //width: 300,
+                                  //height: 200,
+                                  //fit: BoxFit.cover,
                                 ),
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
-                                  'https://www.cmdsport.com/app/uploads/2018/11/black-friday-duet-sports.jpg',
-                                  width: 300,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                                  'https://i8.amplience.net/i/jpl/desktop-mobile-site-offer-spot-408x408-22-3e16bb7a28bf44e339d2c29691b882a5?qlt=800&fmt=auto', //'https://www.cmdsport.com/app/uploads/2018/11/black-friday-duet-sports.jpg',
+                                  //width: 300,
+                                  //height: 200,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ],
@@ -293,32 +295,35 @@ class _InicioWidgetState extends State<InicioWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4,
-                        color: Color(0x33000000),
-                        offset: Offset(0, 2),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: FlutterFlowTheme.of(context).accent1,
-                      width: 2,
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
+                  child: Center(
+                    child: Container(
+                      width:
+                          MediaQuery.sizeOf(context).width * kWidthPercentage,
+                      constraints: BoxConstraints(minWidth: 300),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primary,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4,
+                            color: Color(0x33000000),
+                            offset: Offset(0, 2),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).accent1,
+                          width: 2,
+                        ),
+                      ),
+                      alignment: AlignmentDirectional(0, 0),
+                      child: Text(
+                        'Reservar',
+                        style: FlutterFlowTheme.of(context).titleSmall,
+                      ),
                     ),
-                  ),
-                  alignment: AlignmentDirectional(0, 0),
-                  child: Text(
-                    'Reservar',
-                    style: FlutterFlowTheme.of(context).titleSmall,
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
         ),

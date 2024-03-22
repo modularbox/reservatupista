@@ -114,7 +114,7 @@ class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
                   )
                 ],
               ),
-              const NavBarLogin()
+              NavBarLogin()
             ],
           ),
         ),

@@ -112,7 +112,8 @@ class _RichAlertDialogState extends State<RichAlertDialog> {
                               SizedBox(height: dialogHeight / 10),
                               widget.actions.isNotEmpty
                                   ? _buildActions()
-                                  : _defaultAction(context),
+                                  : defaultAction(_typeColor[widget.alertType],
+                                      widget.onPressed, widget.textButton),
                             ],
                           ),
                         ),
@@ -152,23 +153,23 @@ class _RichAlertDialogState extends State<RichAlertDialog> {
       throw Exception("Invalid alertType");
     }
   }
+}
 
-  Container _defaultAction(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 2.0,
-          backgroundColor: _typeColor[widget.alertType],
-        ),
-        child: Text(
-          widget.textButton,
-          style: TextStyle(color: Colors.white),
-        ),
-        onPressed: widget.onPressed,
+Container defaultAction(Color? color, void Function()? onPressed, String text) {
+  return Container(
+    alignment: Alignment.center,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 2.0,
+        backgroundColor: color,
       ),
-    );
-  }
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white),
+      ),
+    ),
+  );
 }
 
 Text richTitle(String title) {

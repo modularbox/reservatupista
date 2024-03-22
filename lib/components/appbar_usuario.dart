@@ -165,9 +165,7 @@ class AppbarUsuario extends StatelessWidget {
                           shape: BoxShape.circle,
                           border: Border.all(
                               color: FlutterFlowTheme.of(context).secondary)),
-                      child: ImageServer(
-                        tipo: Tipo.usuario,
-                      )),
+                      child: ImageServer()),
                   onPressed: () async {
                     Get.toNamed(Routes.PERFIL);
                   },

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
+import '../app/routes/database.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,7 +13,9 @@ extension SizedBoxExt on double {
 }
 
 class NavBarLogin extends StatelessWidget {
-  const NavBarLogin({super.key});
+  NavBarLogin({super.key});
+
+  DatabaseController db = Get.find();
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -52,13 +56,10 @@ class NavBarLogin extends StatelessWidget {
           left: 75,
           child: SizedBox(
             width: MediaQuery.of(context).size.width - (155),
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Text(
-                'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelSmall,
-              ),
+            child: Text(
+              'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).labelSmall,
             ),
           ),
         ),
@@ -127,35 +128,36 @@ class NavBarLogin extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Builder(
-                        builder: (context) => InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return const Material(
-                                  color: Colors.transparent,
-                                  child: AlertVersionsWidget(),
-                                );
-                              },
-                            );
-                          },
-                          child: Text(
-                            'Version 1.2.20',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).tertiary,
-                                  fontSize: 10,
-                                  fontStyle: FontStyle.italic,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: Versions(
+                                  getWidth: Get.width,
+                                  onPressed: Get.back,
                                 ),
-                          ),
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          'Version ${db.version}',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Readex Pro',
+                                color: FlutterFlowTheme.of(context).tertiary,
+                                fontSize: 10,
+                                fontStyle: FontStyle.italic,
+                              ),
                         ),
                       ),
                       BtnIcon(

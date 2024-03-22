@@ -2,10 +2,10 @@ name: reservatu_pista
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 2.0.0+2
+version: 2.1.4+7
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -49,14 +49,15 @@ dependencies:
   flutter_launcher_icons:
   image_picker: ^1.0.4
   iban: ^1.0.1
-  http: ^0.13.3
+  http: ^0.13.6
   http_parser: ^4.0.0
   crypto: ^3.0.3
   carousel_slider: 4.2.1
   just_audio: 0.9.35
-  get: ^4.6.5
+  get: ^4.6.6
   file_picker: ^6.1.1
   image: ^4.0.17
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

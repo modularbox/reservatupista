@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/datos_usuario/widgets/select_datos.dart';
+import 'package:reservatu_pista/app/widgets/seleccion_imagen_widget.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
-import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../widgets/appbar_general.dart';
-import '../../../widgets/seleccionar_imagen/seleccionar_imagen_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -21,9 +20,7 @@ import 'datos_usuario_c.dart';
 
 class DatosUsuarioPage extends GetView<DatosUsuarioController> {
   DatosUsuarioPage({super.key});
-
   DatosUsuarioController get self => controller;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -61,88 +58,7 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 1.0, 0.0, 0.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            blurRadius: 3.0,
-                                            color: Color(0x33000000),
-                                            offset: Offset(0.0, 1.0),
-                                          )
-                                        ],
-                                      ),
-                                      child: Align(
-                                        alignment: const AlignmentDirectional(
-                                            0.0, 0.0),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Selecciona tu foto de perfil',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .copyWith(
-                                                            color:
-                                                                Colors.black),
-                                              ),
-                                              Container(
-                                                width: 90.0,
-                                                height: 90.0,
-                                                decoration: BoxDecoration(
-                                                  border: Border.fromBorderSide(
-                                                      BorderSide(
-                                                          color: Colores()
-                                                              .usuario
-                                                              .primary69)),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: BtnIcon(
-                                                  onPressed: mostrarImagen,
-                                                  borderRadius: 50,
-                                                  padding:
-                                                      const EdgeInsets.all(0),
-                                                  fillColor: Colors.transparent,
-                                                  hoverColor:
-                                                      const Color.fromARGB(
-                                                          68, 255, 255, 255),
-                                                  icon: Obx(() => ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(60),
-                                                        child: self
-                                                                    .imageFile
-                                                                    .value!
-                                                                    .type ==
-                                                                ImagenType.file
-                                                            ? getImage(
-                                                                self
-                                                                    .imageFile
-                                                                    .value!
-                                                                    .pathOrUrl,
-                                                                isRegristro:
-                                                                    true)
-                                                            : ImageServer(
-                                                                tipo: Tipo
-                                                                    .usuario),
-                                                      )),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  seleccionarImage(),
                                   Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
@@ -324,48 +240,53 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
             )));
   }
 
-  void mostrarImagen() {
-    if (!self.modificarDatos) {
-      if (self.imageFile.value!.type == ImagenType.network) {
-        Get.dialog(
-          GestureDetector(
-            onTap: () => Get.back(),
+  Widget seleccionarImage() {
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 3.0,
+              color: Color(0x33000000),
+              offset: Offset(0.0, 1.0),
+            )
+          ],
+        ),
+        child: Align(
+          alignment: const AlignmentDirectional(0.0, 0.0),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ImageServer(
-                  tipo: Tipo.usuario,
-                  width: 200,
-                  height: 400,
+                Text(
+                  'Selecciona tu foto de perfil',
+                  style: FlutterFlowTheme.of(Get.context!)
+                      .labelLarge
+                      .copyWith(color: Colors.black),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10),
-                  child: FFButtonWidget(
-                    onPressed: () => Get.dialog(SeleccionarImagenWidget(
-                        camera: self.camera,
-                        galeria: self.galeria,
-                        imageLocal: self.imageLocal)),
-                    text: 'Editar foto',
-                    icon: const Icon(
-                      Icons.edit,
-                      size: 25,
-                    ),
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 60,
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      color:
-                          FlutterFlowTheme.of(Get.context!).primaryBackground,
-                      textStyle: FlutterFlowTheme.of(Get.context!).bodyLarge,
-                      elevation: 2,
-                      splashColor: const Color.fromARGB(65, 0, 0, 0),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
+                Container(
+                  width: 90.0,
+                  height: 90.0,
+                  decoration: BoxDecoration(
+                    border: Border.fromBorderSide(
+                        BorderSide(color: Colores().usuario.primary69)),
+                    shape: BoxShape.circle,
+                  ),
+                  child: BtnIcon(
+                    onPressed: mostrarImagen,
+                    borderRadius: 50,
+                    padding: const EdgeInsets.all(0),
+                    fillColor: Colors.transparent,
+                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                    icon: ClipRRect(
+                      borderRadius: BorderRadius.circular(60),
+                      child: SizedBox(
+                        width: 200,
+                        child: ImageServer(),
                       ),
                     ),
                   ),
@@ -373,9 +294,58 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
               ],
             ),
           ),
-        );
-      }
-    }
+        ),
+      ),
+    );
+  }
+
+  void mostrarImagen() {
+    Get.dialog(
+      GestureDetector(
+        onTap: () => Get.back(),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ImageServer(
+              width: null,
+              height: null,
+              fit: BoxFit.fitWidth,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              child: FFButtonWidget(
+                onPressed: () => {
+                  Get.dialog(SeleccionImagenWidget(
+                    onPressed: self.selectImage,
+                  )),
+                },
+                text: 'Editar foto',
+                icon: const Icon(
+                  Icons.edit,
+                  size: 25,
+                ),
+                options: FFButtonOptions(
+                  width: double.infinity,
+                  height: 60,
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  color: FlutterFlowTheme.of(Get.context!).primaryBackground,
+                  textStyle: FlutterFlowTheme.of(Get.context!).bodyLarge,
+                  elevation: 2,
+                  splashColor: const Color.fromARGB(65, 0, 0, 0),
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget buildInput(

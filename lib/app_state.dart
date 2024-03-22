@@ -64,10 +64,10 @@ class Tarifa {
   bool luz;
   bool clases;
   String? horaInicio;
-  double precioConLuzSocio;
-  double precioSinLuzSocio;
-  double precioConLuzNoSocio;
-  double precioSinLuzNoSocio;
+  String precioConLuzSocio;
+  String precioSinLuzSocio;
+  String precioConLuzNoSocio;
+  String precioSinLuzNoSocio;
   String fecha;
 
   Tarifa(
@@ -75,10 +75,10 @@ class Tarifa {
       this.luz = false,
       this.clases = false,
       this.horaInicio,
-      this.precioConLuzSocio = 0,
-      this.precioSinLuzSocio = 0,
-      this.precioConLuzNoSocio = 0,
-      this.precioSinLuzNoSocio = 0,
+      this.precioConLuzSocio = '',
+      this.precioSinLuzSocio = '',
+      this.precioConLuzNoSocio = '',
+      this.precioSinLuzNoSocio = '',
       this.fecha = ''});
 
   Map<String, dynamic> toJson() {

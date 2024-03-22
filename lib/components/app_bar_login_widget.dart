@@ -1,12 +1,6 @@
-import '/components/alert_versions_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'app_bar_login_model.dart';
 export 'app_bar_login_model.dart';
 
@@ -41,15 +35,13 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Container(
         height: 100.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 1.0,
               color: Color(0x33000000),
@@ -63,92 +55,22 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  RichText(
-                    textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: FFLocalizations.of(context).getText(
-                            'ivccwesy' /* R */,
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).titleLogo,
-                                fontSize: 35.0,
-                                fontWeight: FontWeight.w900,
-                              ),
-                        ),
-                        TextSpan(
-                          text: FFLocalizations.of(context).getText(
-                            'hetjr87d' /* eserva */,
-                          ),
-                          style: TextStyle(
-                              color: FlutterFlowTheme.of(context).titleLogo,
-                              fontWeight: FontWeight.w100,
-                              fontSize: 25),
-                        ),
-                        TextSpan(
-                          text: FFLocalizations.of(context).getText(
-                            'aobyf1mm' /* t */,
-                          ),
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).titleLogo,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        TextSpan(
-                          text: FFLocalizations.of(context).getText(
-                            '6vubu86k' /* u */,
-                          ),
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).titleLogo,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                        TextSpan(
-                          text: FFLocalizations.of(context).getText(
-                            'w1h8bwbh' /* p */,
-                          ),
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).titleLogo,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        TextSpan(
-                          text: FFLocalizations.of(context).getText(
-                            'ehytz4x3' /* ista */,
-                          ),
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).titleLogo,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        )
-                      ],
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            fontSize: 25.0,
-                          ),
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
+                  generateTitle(),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Text(
-                      FFLocalizations.of(context).getText(
-                        'jy9xgxwv' /* .com */,
-                      ),
+                      '.com',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).titleLogo,
                             fontSize: 25.0,
+                            color: const Color(0xFF000088),
                             fontWeight: FontWeight.w300,
                           ),
                     ),
@@ -157,13 +79,14 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 10.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 10.0),
                 child: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
@@ -181,5 +104,41 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
         ),
       ),
     );
+  }
+
+  Widget generateTitle() {
+    final title1 = ['R', 'eserva', 't', 'u', 'p', 'ista'];
+    final generateTitle1 = List.generate(
+      title1.length,
+      (index) => index == 0
+          ? TextSpan(
+              text: title1[index],
+              style: const TextStyle(
+                fontFamily: 'Readex Pro',
+                fontSize: 35.0,
+                fontWeight: FontWeight.w900,
+              ),
+            )
+          : index % 2 != 0
+              ? TextSpan(
+                  text: title1[index],
+                )
+              : TextSpan(
+                  text: title1[index],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+    );
+    return RichText(
+        text: TextSpan(
+          children: generateTitle1,
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Readex Pro',
+                color: const Color(0xFF000088),
+                fontSize: 25.0,
+              ),
+        ),
+        textScaler: TextScaler.linear(MediaQuery.of(context).textScaleFactor));
   }
 }

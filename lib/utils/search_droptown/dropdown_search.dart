@@ -468,6 +468,10 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
 
   ///function that manage Trailing icons(close, dropDown)
   Widget _manageSuffixIcons() {
+    return Icon(
+      Icons.arrow_drop_down,
+      size: 30,
+    );
     final clearButtonPressed = () => clear();
     final dropdownButtonPressed = () => _selectSearchMode();
 

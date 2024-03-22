@@ -132,9 +132,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
-                      widget.controller.previousPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.linear);
+                      final isPageOne = widget.controller.page == 1;
+                      if (isPageOne) {
+                        widget.controller.previousPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.linear);
+                      }
                     },
                     padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
@@ -174,9 +177,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
-                      widget.controller.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.linear);
+                      final isPageZero = widget.controller.page == 0;
+                      if (isPageZero) {
+                        widget.controller.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.linear);
+                      }
                     },
                     padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(

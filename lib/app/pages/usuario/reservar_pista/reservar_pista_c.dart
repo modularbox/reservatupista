@@ -30,6 +30,8 @@ class ReservarPistaController extends GetxController
   Rx<int?> selectPista = Rx<int?>(null);
   Rx<int?> selectDay = Rx<int?>(null);
   Rx<String?> selectedItemDeporte = Rx<String?>(null);
+  // Cancelar la reserva
+  RxBool cancelarReserva = false.obs;
 
   Rx<HorarioFinInicio?> selectHorario = Rx<HorarioFinInicio?>(null);
   final ScrollController scrollController = ScrollController();
@@ -164,8 +166,8 @@ class ReservarPistaController extends GetxController
       height: 5,
       width: 5,
       fit: BoxFit.fill,
-      colorFilter: ColorFilter.mode(
-          const Color.fromARGB(255, 145, 145, 145), BlendMode.srcIn),
+      colorFilter: const ColorFilter.mode(
+          Color.fromARGB(255, 145, 145, 145), BlendMode.srcIn),
     );
   }
 }

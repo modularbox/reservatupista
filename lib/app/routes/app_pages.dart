@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -13,6 +15,8 @@ import '../pages/usuario/login_usuario/login_usuario.dart';
 import '../pages/usuario/login_usuario/login_usuario_b.dart';
 import '../pages/usuario/registrar_usuario/registrar_usuario.dart';
 import '../pages/usuario/registrar_usuario/registrar_usuario_b.dart';
+import '../ui/pages/pagotpv_page/pagotpv_b.dart';
+import '../ui/pages/pagotpv_page/pagotpv_p.dart';
 import './index.dart';
 import '../pages/profesional/login_profesional/login_profesional.dart';
 import '../pages/profesional/login_profesional/login_profesional_b.dart';
@@ -40,11 +44,13 @@ import '../pages/usuario/datos_usuario/datos_usuario.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena_b.dart';
+import '../pages/profesional/tarifas_pista/tarifas_pista.dart';
+import '../pages/profesional/tarifas_pista/tarifas_pista_b.dart';
 // End imports
 
 /// Names Routes
 abstract class Routes {
-  static const LOGIN_USUARIO = '/login_usuario';
+  static const LOGIN_USUARIO = '/';
   static const REGISTRAR_USUARIO = '/registrar_usuario';
   static const PERFIL = '/perfil';
   static const LOGINPROFESIONAL = '/loginProfesional';
@@ -78,6 +84,9 @@ abstract class Routes {
   static const RESERVA_TU_PISTA = '/reserva_tu_pista';
   static const DATOS_USUARIO = '/datos_usuario';
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
+  static const TARIFAS_PISTA = '/tarifas_pista';
+  static const PAGO_TPV = '/pago_tpv';
+  static const ELIMINAR_CUENTA = '/eliminar_cuenta';
 }
 
 /// Get Routes
@@ -251,6 +260,21 @@ class AppPages {
       name: Routes.OLVIDE_CONTRASENA,
       page: () => OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
+    ),
+    GetPage(
+      name: Routes.TARIFAS_PISTA,
+      page: () => TarifasPistaPage(),
+      binding: TarifasPistaBinding(),
+    ),
+    GetPage(
+      name: Routes.PAGO_TPV,
+      page: () => PagoTpvPage(),
+      binding: PagoTpvBinding(),
+    ),
+    GetPage(
+      name: Routes.ELIMINAR_CUENTA,
+      page: () => EliminarCuentaPage(),
+      binding: EliminarCuentaBinding(),
     ),
   ];
 }

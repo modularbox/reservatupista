@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_2.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/buttons_sounds.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/dialog/rich_alert_flutterflow.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/format_number.dart';
 import '../../../../utils/search_droptown/dropdown_search.dart';
 import '../../../../utils/server/image_server.dart';
@@ -24,10 +27,14 @@ import '../../../../utils/format_date.dart';
 import '/backend/schema/enums/enums.dart';
 import 'widgets/input_club_favoritos.dart';
 import 'widgets/input_select.dart';
+import '../../../../constants.dart';
+
+import '../../../routes/database.dart';
 
 class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaController get self => controller;
   final SelectionController controller2 = SelectionController();
+  final DatabaseController db = Get.find();
 
   List<String> generateListClubs() {
     final clubs = self.selectLocalidad.value == null
@@ -131,448 +138,466 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       child: Expanded(
         child: SingleChildScrollView(
           controller: controller.scrollController,
-          child: Column(
-            children: [
-              Column(
-                key: controller.keyInputs,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        10, 10.0, 10.0, 5.0),
-                    child: SizedBox(
-                      height: 45,
-                      child: Obx(() => DropdownSearch<String>(
-                            popupProps: PopupProps.menu(
-                              emptyBuilder: (context, searchEntry) =>
-                                  const Center(
-                                      child:
-                                          Text('No se encontraron resultados')),
-                              showSelectedItems: true,
-                              showSearchBox: true,
-                              disabledItemFn: (String s) => s.startsWith('I'),
-                            ),
-                            selectedItem: self.selectedItemDeporte.value,
-                            items: listLocalidades,
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                                labelText: 'Localidad',
-                                hintText: "Selecciona la localidad.",
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                contentPadding:
-                                    const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 12.0),
+          child: Container(
+            constraints: BoxConstraints(minWidth: 300),
+            width: MediaQuery.sizeOf(context).width * 0.3,
+            child: Column(
+              children: [
+                Column(
+                  key: controller.keyInputs,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          10, 10.0, 10.0, 5.0),
+                      child: SizedBox(
+                        height: 45,
+                        child: Obx(() => DropdownSearch<String>(
+                              popupProps: PopupProps.menu(
+                                emptyBuilder: (context, searchEntry) =>
+                                    const Center(
+                                        child: Text(
+                                            'No se encontraron resultados')),
+                                showSelectedItems: true,
+                                showSearchBox: true,
+                                disabledItemFn: (String s) => s.startsWith('I'),
                               ),
-                            ),
-                            onChanged: (val) {
-                              print(val);
-                              for (var i = 0; i < listLocalidades.length; i++) {
-                                final condition = listLocalidades[i] == val;
-                                if (condition) {
-                                  self.selectLocalidad.value = i;
-                                  break;
+                              selectedItem: self.selectedItemDeporte.value,
+                              items: listLocalidades,
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                dropdownSearchDecoration: InputDecoration(
+                                  labelText: 'Localidad',
+                                  hintText: "Selecciona la localidad.",
+                                  labelStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  hintStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  contentPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 12.0, 16.0, 12.0),
+                                ),
+                              ),
+                              onChanged: (val) {
+                                for (var i = 0;
+                                    i < listLocalidades.length;
+                                    i++) {
+                                  final condition = listLocalidades[i] == val;
+                                  if (condition) {
+                                    self.selectLocalidad.value = i;
+                                    break;
+                                  }
                                 }
-                              }
-                              self.clubController.text = '';
-                              self.deporteController.text = '';
-                              // self.selectedItemDeporte.value = null;
-                              self.selectClub.value = null;
-                              self.selectDeporte.value = null;
-                              self.selectDay.value = null;
-                              self.selectPista.value = null;
-                              self.selectHorario.value = null;
-                            },
-                          )),
+                                self.clubController.text = '';
+                                self.deporteController.text = '';
+                                self.selectClub.value = null;
+                                self.selectDeporte.value = null;
+                                self.selectDay.value = null;
+                                self.selectPista.value = null;
+                                self.selectHorario.value = null;
+                              },
+                            )),
+                      ),
                     ),
-                  ),
-                  Obx(() {
-                    final List<bool> listaFavoritosBool = self
-                        .db.datosReserva.clubsFavoritos
-                        .map<bool>((e) => self
-                            .db
-                            .datosReserva
-                            .reservas[e.indexLocalidad]
-                            .clubs[e.indexClub]
-                            .favorito)
-                        .toList();
-                    if (self.selectLocalidad.value == null) {
-                      final clubsFavoritos =
-                          self.db.datosReserva.clubsFavoritos;
-                      return Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            10, 10.0, 10.0, 5.0),
-                        child: InputClubFavorito(
-                          controller: self.clubController,
-                          focusNode: self.clubFocusNode,
-                          context: context,
-                          labelText: 'Club',
-                          onChanged: (val, favorito) {
-                            if (val != null) {
-                              for (var i = 0; i < clubsFavoritos.length; i++) {
-                                final condition = self
+                    Obx(() {
+                      final List<bool> listaFavoritosBool = self
+                          .db.datosReserva.clubsFavoritos
+                          .map<bool>((e) => self
+                              .db
+                              .datosReserva
+                              .reservas[e.indexLocalidad]
+                              .clubs[e.indexClub]
+                              .favorito)
+                          .toList();
+                      if (self.selectLocalidad.value == null) {
+                        final clubsFavoritos =
+                            self.db.datosReserva.clubsFavoritos;
+                        return Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 10.0, 10.0, 5.0),
+                          child: InputClubFavorito(
+                            controller: self.clubController,
+                            focusNode: self.clubFocusNode,
+                            context: context,
+                            labelText: 'Club',
+                            onChanged: (val, favorito) {
+                              if (val != null) {
+                                for (var i = 0;
+                                    i < clubsFavoritos.length;
+                                    i++) {
+                                  final condition = self
+                                          .db
+                                          .datosReserva
+                                          .reservas[
+                                              clubsFavoritos[i].indexLocalidad]
+                                          .clubs[clubsFavoritos[i].indexClub]
+                                          .name ==
+                                      val;
+                                  if (condition) {
+                                    self.selectLocalidad.value =
+                                        clubsFavoritos[i].indexLocalidad;
+                                    self.selectClub.value =
+                                        clubsFavoritos[i].indexClub;
+                                    self.selectedItemDeporte.value = self
+                                        .db
+                                        .datosReserva
+                                        .reservas[
+                                            clubsFavoritos[i].indexLocalidad]
+                                        .localidad;
+                                    break;
+                                  }
+                                }
+                                self.selectDay.value = null;
+                                self.selectDateDay.value = null;
+                                self.selectPista.value = null;
+                                self.selectHorario.value = null;
+                              } else {
+                                final List<ClubsFavorito> newLista = [];
+                                for (var i = 0; i < favorito.length; i++) {
+                                  bool actualizarListClubs = self
+                                          .db
+                                          .datosReserva
+                                          .reservas[
+                                              clubsFavoritos[i].indexLocalidad]
+                                          .clubs[clubsFavoritos[i].indexClub]
+                                          .favorito !=
+                                      favorito[i];
+                                  if (actualizarListClubs) {
+                                    self
                                         .db
                                         .datosReserva
                                         .reservas[
                                             clubsFavoritos[i].indexLocalidad]
                                         .clubs[clubsFavoritos[i].indexClub]
-                                        .name ==
-                                    val;
-                                if (condition) {
-                                  self.selectLocalidad.value =
-                                      clubsFavoritos[i].indexLocalidad;
-                                  self.selectClub.value =
-                                      clubsFavoritos[i].indexClub;
-                                  self.selectedItemDeporte.value = self
-                                      .db
-                                      .datosReserva
-                                      .reservas[
-                                          clubsFavoritos[i].indexLocalidad]
-                                      .localidad;
-                                  break;
+                                        .favorito = favorito[i];
+                                  }
+                                  if (favorito[i]) {
+                                    newLista.add(ClubsFavorito(
+                                        indexClub: clubsFavoritos[i].indexClub,
+                                        indexLocalidad:
+                                            clubsFavoritos[i].indexLocalidad));
+                                  }
                                 }
+                                self.db.datosReserva.clubsFavoritos = newLista;
                               }
-                              self.selectDay.value = null;
-                              self.selectDateDay.value = null;
-                              self.selectPista.value = null;
-                              self.selectHorario.value = null;
-                            } else {
-                              final List<ClubsFavorito> newLista = [];
-                              for (var i = 0; i < favorito.length; i++) {
-                                bool actualizarListClubs = self
-                                        .db
-                                        .datosReserva
-                                        .reservas[
-                                            clubsFavoritos[i].indexLocalidad]
-                                        .clubs[clubsFavoritos[i].indexClub]
-                                        .favorito !=
-                                    favorito[i];
-                                if (actualizarListClubs) {
-                                  self
-                                      .db
-                                      .datosReserva
-                                      .reservas[
-                                          clubsFavoritos[i].indexLocalidad]
-                                      .clubs[clubsFavoritos[i].indexClub]
-                                      .favorito = favorito[i];
+                            },
+                            clubsFavoritos: listaFavoritosBool,
+                            itemsDD: generateListClubsFavoritos(),
+                          ),
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 10.0, 10.0, 5.0),
+                          child: InputClubFavorito(
+                            controller: self.clubController,
+                            focusNode: self.clubFocusNode,
+                            context: context,
+                            labelText: 'Club',
+                            onChanged: (val, favorito) {
+                              if (val != null) {
+                                for (var i = 0;
+                                    i < generateListClubs().length;
+                                    i++) {
+                                  final condition =
+                                      generateListClubs()[i] == val;
+                                  if (condition) {
+                                    self.selectClub.value = i;
+                                    break;
+                                  }
                                 }
-                                if (favorito[i]) {
-                                  newLista.add(ClubsFavorito(
-                                      indexClub: clubsFavoritos[i].indexClub,
-                                      indexLocalidad:
-                                          clubsFavoritos[i].indexLocalidad));
-                                }
-                              }
-                              self.db.datosReserva.clubsFavoritos = newLista;
-                            }
-                          },
-                          clubsFavoritos: listaFavoritosBool,
-                          itemsDD: generateListClubsFavoritos(),
-                        ),
-                      );
-                    } else {
-                      return Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            10, 10.0, 10.0, 5.0),
-                        child: InputClubFavorito(
-                          controller: self.clubController,
-                          focusNode: self.clubFocusNode,
-                          context: context,
-                          labelText: 'Club',
-                          onChanged: (val, favorito) {
-                            if (val != null) {
-                              for (var i = 0;
-                                  i < generateListClubs().length;
-                                  i++) {
-                                final condition = generateListClubs()[i] == val;
-                                if (condition) {
-                                  self.selectClub.value = i;
-                                  break;
-                                }
-                              }
-                              self.selectDay.value = null;
-                              self.selectDateDay.value = null;
-                              self.selectPista.value = null;
-                              self.selectHorario.value = null;
-                            } else {
-                              final clubsFavorito =
-                                  self.db.datosReserva.clubsFavoritos;
-                              for (var i = 0; i < favorito.length; i++) {
-                                bool existeClubFavorito = false;
-                                bool actualizarListClubs = self
+                                self.selectDay.value = null;
+                                self.selectDateDay.value = null;
+                                self.selectPista.value = null;
+                                self.selectHorario.value = null;
+                              } else {
+                                final clubsFavorito =
+                                    self.db.datosReserva.clubsFavoritos;
+                                for (var i = 0; i < favorito.length; i++) {
+                                  bool existeClubFavorito = false;
+                                  bool actualizarListClubs = self
+                                          .db
+                                          .datosReserva
+                                          .reservas[self.selectLocalidad.value!]
+                                          .clubs[i]
+                                          .favorito !=
+                                      favorito[i];
+                                  if (actualizarListClubs) {
+                                    self
                                         .db
                                         .datosReserva
                                         .reservas[self.selectLocalidad.value!]
                                         .clubs[i]
-                                        .favorito !=
-                                    favorito[i];
-                                if (actualizarListClubs) {
-                                  self
-                                      .db
-                                      .datosReserva
-                                      .reservas[self.selectLocalidad.value!]
-                                      .clubs[i]
-                                      .favorito = favorito[i];
-                                }
-                                for (var j = 0; j < clubsFavorito.length; j++) {
-                                  final condition =
-                                      (clubsFavorito[j].indexLocalidad ==
-                                              self.selectLocalidad.value &&
-                                          clubsFavorito[j].indexClub == i);
-                                  if (condition) {
-                                    existeClubFavorito = true;
+                                        .favorito = favorito[i];
                                   }
-                                }
+                                  for (var j = 0;
+                                      j < clubsFavorito.length;
+                                      j++) {
+                                    final condition =
+                                        (clubsFavorito[j].indexLocalidad ==
+                                                self.selectLocalidad.value &&
+                                            clubsFavorito[j].indexClub == i);
+                                    if (condition) {
+                                      existeClubFavorito = true;
+                                    }
+                                  }
 
-                                if (existeClubFavorito) {
-                                  if (!favorito[i]) {
-                                    self.db.datosReserva.clubsFavoritos
-                                        .removeAt(i);
-                                  }
-                                } else {
-                                  if (favorito[i]) {
-                                    self.db.datosReserva.clubsFavoritos.add(
-                                        ClubsFavorito(
-                                            indexClub: i,
-                                            indexLocalidad:
-                                                self.selectLocalidad.value!));
+                                  if (existeClubFavorito) {
+                                    if (!favorito[i]) {
+                                      self.db.datosReserva.clubsFavoritos
+                                          .removeAt(i);
+                                    }
+                                  } else {
+                                    if (favorito[i]) {
+                                      self.db.datosReserva.clubsFavoritos.add(
+                                          ClubsFavorito(
+                                              indexClub: i,
+                                              indexLocalidad:
+                                                  self.selectLocalidad.value!));
+                                    }
                                   }
                                 }
                               }
+                            },
+                            clubsFavoritos: generateListClubsBool(),
+                            itemsDD: generateListClubs(),
+                          ),
+                        );
+                      }
+                    }),
+                    Obx(() {
+                      final exitsClub =
+                          self.selectClub.value == null ? false : true;
+
+                      return Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            10, 10.0, 10.0, 5.0),
+                        child: InputSelect(
+                          controller: self.deporteController,
+                          focusNode: self.deporteFocusNode,
+                          context: context,
+                          labelText: 'Deporte',
+                          onChanged: (val) {
+                            for (var i = 0;
+                                i < generateListDeporte().length;
+                                i++) {
+                              final condition = generateListDeporte()[i] == val;
+                              if (condition) {
+                                self.selectDeporte.value = i;
+                                break;
+                              }
                             }
+                            self.selectDay.value = null;
+                            self.selectDateDay.value = null;
+                            self.selectPista.value = null;
+                            self.selectHorario.value = null;
                           },
-                          clubsFavoritos: generateListClubsBool(),
-                          itemsDD: generateListClubs(),
+                          itemsDD: exitsClub ? generateListDeporte() : [],
                         ),
                       );
-                    }
-                  }),
-                  Obx(() {
-                    final exitsClub =
-                        self.selectClub.value == null ? false : true;
-
-                    return Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          10, 10.0, 10.0, 5.0),
-                      child: InputSelect(
-                        controller: self.deporteController,
-                        focusNode: self.deporteFocusNode,
-                        context: context,
-                        labelText: 'Deporte',
-                        onChanged: (val) {
-                          for (var i = 0;
-                              i < generateListDeporte().length;
-                              i++) {
-                            final condition = generateListDeporte()[i] == val;
-                            if (condition) {
-                              self.selectDeporte.value = i;
-                              break;
-                            }
-                          }
-                          self.selectDay.value = null;
-                          self.selectDateDay.value = null;
-                          self.selectPista.value = null;
+                    }),
+                    5.0.sh
+                  ],
+                ),
+                Obx(() => self.selectDeporte.value == null
+                    ? 0.0.empty
+                    : Calendar(
+                        key: self.keyCalendar,
+                        config: CalendarConfig(
+                            dayBorderRadius:
+                                const BorderRadius.all(Radius.zero),
+                            currentDate: self.fechaActual,
+                            selectDayConfig: self.selectDateDay.value,
+                            controlsTextStyle: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .copyWith(color: Colors.white)),
+                        value: self.singleDatePickerValueWithDefaultValue,
+                        onValueChanged: (position, dayDate) {
                           self.selectHorario.value = null;
+                          self.selectDateDay.value = dayDate;
+                          self.selectDay.value = position;
+                          if (self.selectPista.value == 0) {
+                            self.selectPista.refresh();
+                          } else {
+                            self.selectPista.value = 0;
+                          }
                         },
-                        itemsDD: exitsClub ? generateListDeporte() : [],
+                      )),
+                Obx(
+                  () => self.selectDay.value == null
+                      ? 0.0.empty
+                      : Builder(builder: (BuildContext context) {
+                          final generateLista = generateListPistas();
+                          return SizedBox(
+                              key: self.keyPistas,
+                              height: 100,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: List.generate(
+                                      generateLista.length,
+                                      (index) => buildChip(
+                                          context,
+                                          generateLista[index],
+                                          index)).divide(3.0.sw).around(4.0.sw),
+                                ),
+                              ));
+                        }),
+                ),
+                Container(
+                  key: self.keyHorarios,
+                  child: Obx(() {
+                    if (self.selectDay.value == null) {
+                      return 0.0.empty;
+                    }
+                    final List<Widget> buildFechaHorarios = List.generate(
+                        self.tiempoReservaListaCalendar.length,
+                        (index) => Column(
+                              children: [
+                                Container(
+                                  width: 100.w,
+                                  color: Colors.green,
+                                  child: Row(
+                                    children: [
+                                      index == 0
+                                          ? const SizedBox(
+                                              width: 25,
+                                            )
+                                          : BtnIcon(
+                                              onPressed: () {
+                                                self.pageViewController
+                                                    .previousPage(
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        curve: Curves.linear);
+                                              },
+                                              hoverColor:
+                                                  Colores().usuario.primary69,
+                                              borderRadius: 25,
+                                              icon: const Icon(
+                                                  Icons.arrow_back_ios,
+                                                  color: Colors.white,
+                                                  size: 25),
+                                            ),
+                                      Expanded(
+                                        child: Text(
+                                          FormatDate.dateToString(
+                                              self.tiempoReservaListaCalendar[
+                                                  index]),
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  fontSize: 18),
+                                        ),
+                                      ),
+                                      index ==
+                                              self.tiempoReservaListaCalendar
+                                                      .length -
+                                                  1
+                                          ? const SizedBox(
+                                              width: 25,
+                                            )
+                                          : BtnIcon(
+                                              onPressed: () {
+                                                self.pageViewController
+                                                    .nextPage(
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        curve: Curves.linear);
+                                              },
+                                              hoverColor:
+                                                  Colores().usuario.primary69,
+                                              borderRadius: 28,
+                                              icon: const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: Colors.white,
+                                                  size: 28),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                                buildHorarios(
+                                    self
+                                        .db
+                                        .datosReserva
+                                        .reservas[self.selectLocalidad.value!]
+                                        .clubs[self.selectClub.value!]
+                                        .deportes[self.selectDeporte.value!]
+                                        .semana[index]
+                                        .pistas[self.selectPista.value!]
+                                        .horarios,
+                                    self.selectPista.value!),
+                              ],
+                            ));
+                    return SizedBox(
+                      width: 100.w,
+                      height: 170,
+                      child: PageView(
+                        controller: self.pageViewController,
+                        scrollDirection: Axis.horizontal,
+                        children: buildFechaHorarios,
                       ),
                     );
                   }),
-                  5.0.sh
-                ],
-              ),
-              Obx(() => self.selectDeporte.value == null
-                  ? 0.0.empty
-                  : Calendar(
-                      key: self.keyCalendar,
-                      config: CalendarConfig(
-                          dayBorderRadius: const BorderRadius.all(Radius.zero),
-                          currentDate: self.fechaActual,
-                          selectDayConfig: self.selectDateDay.value,
-                          controlsTextStyle: FlutterFlowTheme.of(context)
-                              .titleLarge
-                              .copyWith(color: Colors.white)),
-                      value: self.singleDatePickerValueWithDefaultValue,
-                      onValueChanged: (position, dayDate) {
-                        self.selectHorario.value = null;
-                        self.selectDateDay.value = dayDate;
-                        self.selectDay.value = position;
-                        if (self.selectPista.value == 0) {
-                          self.selectPista.refresh();
-                        } else {
-                          self.selectPista.value = 0;
-                        }
-                      },
-                    )),
-              Obx(
-                () => self.selectDay.value == null
-                    ? 0.0.empty
-                    : Builder(builder: (BuildContext context) {
-                        final generateLista = generateListPistas();
-                        return SizedBox(
-                            key: self.keyPistas,
-                            height: 100,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: List.generate(
-                                    generateLista.length,
-                                    (index) => buildChip(
-                                        context,
-                                        generateLista[index],
-                                        index)).divide(3.0.sw).around(4.0.sw),
-                              ),
-                            ));
-                      }),
-              ),
-              Container(
-                key: self.keyHorarios,
-                child: Obx(() {
-                  if (self.selectDay.value == null) {
-                    return 0.0.empty;
-                  }
-                  final List<Widget> buildFechaHorarios = List.generate(
-                      self.tiempoReservaListaCalendar.length,
-                      (index) => Column(
-                            children: [
-                              Container(
-                                width: 100.w,
-                                color: Colors.green,
-                                child: Row(
-                                  children: [
-                                    index == 0
-                                        ? const SizedBox(
-                                            width: 25,
-                                          )
-                                        : BtnIcon(
-                                            onPressed: () {
-                                              self.pageViewController
-                                                  .previousPage(
-                                                      duration: const Duration(
-                                                          milliseconds: 300),
-                                                      curve: Curves.linear);
-                                            },
-                                            hoverColor:
-                                                Colores().usuario.primary69,
-                                            borderRadius: 25,
-                                            icon: const Icon(
-                                                Icons.arrow_back_ios,
-                                                color: Colors.white,
-                                                size: 25),
-                                          ),
-                                    Expanded(
-                                      child: Text(
-                                        FormatDate.dateToString(self
-                                            .tiempoReservaListaCalendar[index]),
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                fontSize: 18),
-                                      ),
-                                    ),
-                                    index ==
-                                            self.tiempoReservaListaCalendar
-                                                    .length -
-                                                1
-                                        ? const SizedBox(
-                                            width: 25,
-                                          )
-                                        : BtnIcon(
-                                            onPressed: () {
-                                              self.pageViewController.nextPage(
-                                                  duration: const Duration(
-                                                      milliseconds: 300),
-                                                  curve: Curves.linear);
-                                            },
-                                            hoverColor:
-                                                Colores().usuario.primary69,
-                                            borderRadius: 28,
-                                            icon: const Icon(
-                                                Icons.arrow_forward_ios,
-                                                color: Colors.white,
-                                                size: 28),
-                                          ),
-                                  ],
-                                ),
-                              ),
-                              buildHorarios(
-                                  self
-                                      .db
-                                      .datosReserva
-                                      .reservas[self.selectLocalidad.value!]
-                                      .clubs[self.selectClub.value!]
-                                      .deportes[self.selectDeporte.value!]
-                                      .semana[index]
-                                      .pistas[self.selectPista.value!]
-                                      .horarios,
-                                  self.selectPista.value!),
-                            ],
-                          ));
-                  return SizedBox(
-                    width: 100.w,
-                    height: 170,
-                    child: PageView(
-                      controller: self.pageViewController,
-                      scrollDirection: Axis.horizontal,
-                      children: buildFechaHorarios,
-                    ),
-                  );
-                }),
-              ),
-              SizedBox(
-                key: controller.keyDatos,
-                child: Obx(
-                  () => self.selectHorario.value == null
-                      ? 0.0.empty
-                      : Opacity(
-                          opacity: self.selectHorario.value == null ? 0.0 : 1.0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 1, color: Colors.black)),
-                            child: Column(children: [
-                              ..._buildDatos(),
-                            ]),
-                          ),
-                        ),
                 ),
-              ),
-              Obx(() => self.sizedBoxHeight.value.sh),
-            ],
+                SizedBox(
+                  key: controller.keyDatos,
+                  child: Obx(
+                    () => self.selectHorario.value == null
+                        ? 0.0.empty
+                        : Opacity(
+                            opacity:
+                                self.selectHorario.value == null ? 0.0 : 1.0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 1, color: Colors.black)),
+                              child: Column(children: [
+                                ..._buildDatos(),
+                              ]),
+                            ),
+                          ),
+                  ),
+                ),
+                Obx(() => self.sizedBoxHeight.value.sh),
+              ],
+            ),
           ),
         ),
       ),
@@ -792,6 +817,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildButton() {
+    db.getDatosUsuarioMoney();
     return ElevatedButton(
       onPressed: self.selectHorario.value == null
           ? null
@@ -799,10 +825,25 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                final precio = (FFAppState().moneyMonederoVirtual - 4.0);
+                final precio = db.dineroTotal -
+                    4; /*int.parse(db.datosPerfilUsuario
+                        .obx(
+                            (state) => Text(
+                                  '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                            onLoading: const Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: ColorLoader2(),
+                            ))
+                        .toString())*/
+
+                print('preciooooooooooo ${precio}'); //(0 - 4.0);
                 if (precio < 0) {
                   Get.dialog(RichAlertFlutterFlow(
-                    alertType: RichAlertType.NONE,
+                    alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',
                     alertSubtitle: 'No tienes saldo suficiente',
                     textButton: 'Aceptar',
@@ -814,10 +855,34 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   ));
                 } else {
                   Get.dialog(RichAlertFlutterFlow(
-                    alertType: RichAlertType.NONE,
+                    alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',
-                    alertSubtitle: '',
-                    textButton: 'Aceptar',
+                    alertSubtitle: '¿Desea reservar la pista?',
+                    textButton: '',
+                    acceptButton: MaterialButton(
+                      color: Colors.green,
+                      onPressed: () => db.subtractUserMoney(db.dineroTotal),
+                      splashColor: Colors.lightGreen,
+                      child: Text(
+                        'Aceptar',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    cancelButton: MaterialButton(
+                      color: Colors.red,
+                      onPressed: () => Get.back(),
+                      splashColor: Colors.redAccent,
+                      child: Text(
+                        'Cancelar',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                     precio:
                         '${FormatNumber.formatNumberWithTwoDecimals(4.0)} €',
                     onPressed: () {
@@ -841,7 +906,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         backgroundColor:
             MaterialStateProperty.all<Color>(Color.fromARGB(192, 0, 255, 123)),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(30.w, 20), // Ajusta el ancho y alto según tus necesidades
+          Size(130, 20), // Ajusta el ancho y alto según tus necesidades
         ),
       ),
       child: const Center(
@@ -870,7 +935,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         backgroundColor: MaterialStateProperty.all<Color>(
             const Color.fromARGB(211, 255, 48, 48)),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(30.w, 20), // Ajusta el ancho y alto según tus necesidades
+          Size(130, 20), // Ajusta el ancho y alto según tus necesidades
         ),
       ),
       child: const Center(
@@ -911,7 +976,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         "${FormatDate.dateToString(controller.selectDateDay.value!)} ${selectHorario.inicio}";
     final finaliza =
         "${FormatDate.dateToString(controller.selectDateDay.value!)} ${selectHorario.termino}";
-    const double fontSize = 15;
+    const double fontSize = 13;
     final stringLOcalidad = (self.selectLocalidad.value != null
         ? self.db.datosReserva.reservas[self.selectLocalidad.value!].localidad
         : (self.selectedItemDeporte.value ?? ''));
@@ -942,31 +1007,33 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   index == 0 &&
                           self.selectHorario.value!.typeEstadoHorario ==
                               TypeEstadoHorario.abierta
-                      ? ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30.0)),
-                          child: Image.asset(
-                            'assets/images/icon_user2.jpg',
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.fill,
-                          ),
-                        )
+                      ? self.cancelarReserva.value
+                          ? ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30.0)),
+                              child: ImageServer(
+                                height: 50,
+                                width: 50,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30.0)),
+                              child: Image.asset(
+                                'assets/images/icon_user2.jpg',
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.fill,
+                              ),
+                            )
                       : ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(30.0)),
                           child: ImageServer(
-                            tipo: Tipo.usuario,
                             height: 50,
                             width: 50,
                           ),
                         ),
-                  // getImage(
-                  //     (GetStorage().read(
-                  //       'pathPhoto',
-                  //     )),
-                  //     height: 50,
-                  //     width: 50),
                   BtnIcon(
                       onPressed: index == 0 &&
                               self.selectHorario.value!.typeEstadoHorario ==
@@ -1005,19 +1072,30 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               ),
             ).divide(4.0.sw),
           ),
-          BtnIcon(
-              onPressed: () {
-                self.listReservas.value =
-                    self.listReservas.map((e) => e = true).toList();
-              },
-              fillColor: Colores().usuario.primary,
-              borderRadius: 10,
-              icon: Text(
-                'Reservar todo',
-                style: FlutterFlowTheme.of(Get.context!)
-                    .bodyMedium
-                    .copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
+          Obx(() => BtnIcon(
+                onPressed: () {
+                  if (self.cancelarReserva.value) {
+                    self.listReservas.value =
+                        self.listReservas.map((e) => e = false).toList();
+                    self.cancelarReserva.value = false;
+                  } else {
+                    self.listReservas.value =
+                        self.listReservas.map((e) => e = true).toList();
+                    self.cancelarReserva.value = true;
+                  }
+                },
+                fillColor: self.cancelarReserva.value
+                    ? Colores().rojo
+                    : Colores().usuario.primary,
+                borderRadius: 10,
+                size: const Size(130, 40),
+                icon: Text(
+                  self.cancelarReserva.value ? 'Cancelar' : 'Reservar todo',
+                  style: FlutterFlowTheme.of(Get.context!)
+                      .bodyMedium
+                      .copyWith(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
               ))
         ]),
       ),
@@ -1108,6 +1186,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               label: 'Monedero Virtual',
               value: 'monedero',
               controller: controller2,
+              db: db,
             ),
             const SizedBox(
               width: 16,
@@ -1116,6 +1195,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               label: 'Tarjeta',
               value: 'tarjeta',
               controller: controller2,
+              db: db,
             ),
           ],
         ),
@@ -1125,49 +1205,12 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       height: 5,
     ));
     list.add(
-      Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Theme(
-            data: ThemeData(
-              checkboxTheme: CheckboxThemeData(
-                visualDensity: VisualDensity.compact,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-              unselectedWidgetColor:
-                  FlutterFlowTheme.of(Get.context!).secondaryText,
-            ),
-            child: Obx(() => Checkbox(
-                  value: self.terms.value,
-                  onChanged: (newValue) async {
-                    self.terms.value = newValue!;
-                  },
-                  activeColor: Colores().proveedor.primary,
-                  //  side: validateTerminos.value
-                  //      ? BorderSide(
-                  //          color: FlutterFlowTheme.of(Get.context!).error)
-                  //      : null,
-                  checkColor: FlutterFlowTheme.of(Get.context!).primaryText,
-                )),
-          ),
-          BtnIcon(
-            onPressed: () => Get.dialog(const TermConditions()),
-            borderRadius: 12,
-            padding: const EdgeInsets.all(0),
-            icon: Text(
-              'He leído y acepto los\nTérminos y Condiciones de Servicio.',
-              style: FlutterFlowTheme.of(Get.context!).bodyMedium.override(
-                    fontFamily: 'Readex Pro',
-                    color: FlutterFlowTheme.of(Get.context!).info,
-                  ),
-            ),
-          ),
-        ],
-      ),
+      TerminosCondicionesDialog(
+          AnimationController(vsync: self),
+          self.terms,
+          Colores().proveedor.primary,
+          self.terms,
+          FlutterFlowTheme.of(Get.context!).primaryText),
     );
     list.add(SizedBox(
       height: 5,
@@ -1196,12 +1239,12 @@ class SelectionWidget extends StatelessWidget {
   final String label;
   final String value;
   final SelectionController controller;
-
-  SelectionWidget({
-    required this.label,
-    required this.value,
-    required this.controller,
-  });
+  final DatabaseController db;
+  SelectionWidget(
+      {required this.label,
+      required this.value,
+      required this.controller,
+      required this.db});
 
   @override
   Widget build(BuildContext context) {
@@ -1261,13 +1304,18 @@ class SelectionWidget extends StatelessWidget {
                   ],
                 ),
                 value == 'monedero'
-                    ? Text(
-                        '${FormatNumber.formatNumberWithTwoDecimals(FFAppState().moneyMonederoVirtual).toString()} €',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
-                      )
+                    ? db.datosPerfilUsuario.obx(
+                        (state) => Text(
+                              '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: isSelected ? Colors.white : Colors.black,
+                              ),
+                            ),
+                        onLoading: Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: ColorLoader2(),
+                        ))
                     : SizedBox()
               ],
             ),

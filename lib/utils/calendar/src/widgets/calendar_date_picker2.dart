@@ -10,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 
+import '../../../colores.dart';
 import '../../../format_date.dart';
 import '../models/calendar_config.dart';
 import '../utils/date_util.dart';

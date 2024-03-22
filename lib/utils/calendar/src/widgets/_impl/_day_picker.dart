@@ -130,7 +130,7 @@ class _DayPickerState extends State<_DayPicker> {
     final TextStyle dayStyle = textTheme.bodySmall!;
     final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
-    final Color selectedDayColor = colorScheme.onPrimary;
+    final Color selectedDayColor = Colores().usuario.primary;
     final Color selectedDayBackground = colorScheme.primary;
 
     final int year = widget.displayedMonth.year;
@@ -180,8 +180,7 @@ class _DayPickerState extends State<_DayPicker> {
               dayColor = selectedDayColor;
               decoration = BoxDecoration(
                 borderRadius: widget.config.dayBorderRadius,
-                color: widget.config.selectedDayHighlightColor ??
-                    selectedDayBackground,
+                color: selectedDayColor,
                 shape: widget.config.dayBorderRadius != null
                     ? BoxShape.rectangle
                     : BoxShape.circle,

@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import '../../utils/sizer.dart';
+import 'package:get/get.dart';
 
-class TermConditions extends StatelessWidget {
-  const TermConditions({super.key});
+class TerminosCondiciones extends StatelessWidget {
+  const TerminosCondiciones({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             children: [
               Container(
-                width: 20.w,
-                child: Icon(
-                  Icons.book,
-                  size: 80,
-                  color: Color(0xff4285d0),
+                width: Get.width * 0.2,
+                child: Image.asset(
+                  "assets/images/icon_terms_conditions.png",
+                  height: 80,
+                  width: 80,
                 ),
               ),
               Container(
                 height: 180,
-                width: 80.w,
-                child: Column(
+                width: Get.width * .8,
+                child: const Column(
                   children: [
                     Center(
                       child: Text(
@@ -123,63 +123,36 @@ class TermConditions extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            children: [
-              Container(
-                width: 50.w,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromARGB(255, 255, 255, 255)),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          side: BorderSide(width: 3, color: Color(0xff4285d0)),
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Ajusta el radio de los bordes según tus necesidades
-                        ),
+          Center(
+            child: Container(
+              width: Get.width * 0.7,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: ElevatedButton(
+                  onPressed: () => Get.back(),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff4285d0)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        side: const BorderSide(
+                            width: 3, color: Color(0xff4285d0)),
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Ajusta el radio de los bordes según tus necesidades
                       ),
                     ),
-                    child: Text(
-                      "Cancelar",
-                      style: TextStyle(
-                          fontSize: 22,
-                          color: Color(0xff04285d0),
-                          fontFamily: 'Roboto'),
-                    ),
+                  ),
+                  child: const Text(
+                    "Aceptar",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(239, 255, 255, 255),
+                        fontFamily: 'Roboto'),
                   ),
                 ),
               ),
-              Container(
-                width: 50.w,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xff4285d0)),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          side: BorderSide(width: 3, color: Color(0xff4285d0)),
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Ajusta el radio de los bordes según tus necesidades
-                        ),
-                      ),
-                    ),
-                    child: const Text(
-                      "Aceptar",
-                      style: TextStyle(
-                          fontSize: 22,
-                          color: Color.fromARGB(239, 255, 255, 255),
-                          fontFamily: 'Roboto'),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

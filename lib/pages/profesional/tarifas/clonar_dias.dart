@@ -1,11 +1,9 @@
 import 'package:reservatu_pista/utils/sizer.dart';
-
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-export 'tarifas_model.dart';
 
 class ClonarDias extends StatefulWidget {
   const ClonarDias({super.key, required this.indexDias});

@@ -2,6 +2,7 @@ import 'package:get/route_manager.dart';
 import '../app/routes/app_pages.dart';
 import '../utils/btn_icon.dart';
 import '../utils/colores.dart';
+import '../utils/server/image_server.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
@@ -156,20 +157,17 @@ class AppbarProfesional extends StatelessWidget {
                   borderRadius: 30,
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
-                  hoverColor: Colores().proveedor.primary69,
                   iconSize: 24,
+                  hoverColor: Colores().usuario.primary69,
                   icon: Container(
-                    width: 40,
-                    height: 40,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      fotoName,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      width: 40,
+                      height: 40,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: FlutterFlowTheme.of(context).secondary)),
+                      child: ImageServer()),
                   onPressed: () async {
                     Get.toNamed(Routes.PERFILPROFESIONAL);
                   },

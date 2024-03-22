@@ -55,6 +55,16 @@ class InputClubFavorito extends FormField<String> {
             //   onChanged(value);
             //   field.didChange(value);
             // }
+            bool searchStar() {
+              for (var i = 0; i < itemsDD!.length; i++) {
+                if (itemsDD[i] == controller.text && clubsFavoritos[i]) {
+                  print("Si es igual");
+
+                  return true;
+                }
+              }
+              return false;
+            }
 
             Widget buildField(lfOnTap) {
               return Container(
@@ -104,8 +114,30 @@ class InputClubFavorito extends FormField<String> {
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+                    suffixIcon: SizedBox(
+                      width: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          searchStar()
+                              ? Icon(
+                                  Icons.star,
+                                  color: Colors.yellow.shade400,
+                                  size: 30,
+                                )
+                              : const SizedBox(),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              size: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 12.0, 16.0, 12.0),
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium,
                   cursorColor: FlutterFlowTheme.of(context).primary,
@@ -258,7 +290,7 @@ class _InputClubFavoritoState extends FormFieldState<String> {
       selectedIndex: -1,
       elevation: widget.elevation,
       dropdownColor: widget.dropdownColor,
-      style: widget.itemTextstyle ?? TextStyle(),
+      style: widget.itemTextstyle ?? const TextStyle(),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
 
@@ -384,13 +416,13 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     star = widget.clubsFavoritos;
     _fadeOpacity = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.0, 0.25),
-      reverseCurve: Interval(0.75, 1.0),
+      curve: const Interval(0.0, 0.25),
+      reverseCurve: const Interval(0.75, 1.0),
     );
     _resize = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.25, 0.5),
-      reverseCurve: Threshold(0.0),
+      curve: const Interval(0.25, 0.5),
+      reverseCurve: const Threshold(0.0),
     );
   }
 
@@ -402,8 +434,8 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     for (int itemIndex = 0; itemIndex < route.items!.length; ++itemIndex) {
       CurvedAnimation opacity;
       if (itemIndex == route.selectedIndex) {
-        opacity =
-            CurvedAnimation(parent: route.animation!, curve: Threshold(0.0));
+        opacity = CurvedAnimation(
+            parent: route.animation!, curve: const Threshold(0.0));
       } else {
         final double start = (0.5 + (itemIndex + 1) * unit).clamp(0.0, 1.0);
         final double end = (start + 1.5 * unit).clamp(0.0, 1.0);
@@ -460,10 +492,11 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
         decoration: BoxDecoration(
             border: Border.all(
                 color: FlutterFlowTheme.of(context).alternate, width: 2),
-            borderRadius: BorderRadius.all(Radius.circular(5))),
+            borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(
-            color: widget.dropdownColor ?? Color.fromARGB(255, 255, 255, 255),
+            color: widget.dropdownColor ??
+                const Color.fromARGB(255, 255, 255, 255),
             elevation: 2,
             selectedIndex: route.selectedIndex,
             resize: _resize,
