@@ -201,19 +201,17 @@ class DatabaseController extends GetxController {
   }
 
   //alvaro
-  Future<bool> subtractUserMoney(int id_usuario, int money) async {
+  Future<bool> subtractUserMoney(int idUsuario, int money) async {
     try {
+      print('3333333333333333333');
       var response = await http.post(
           Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
           headers: {"Content-Type": "application/json"},
-          body:
-              jsonEncode({'id_usuario': id_usuario, 'cantidad': money * 100}));
-      print('responseeeeeeeeeeeee ${response.body}');
-      print('responseeeeeeeeeeeee ${response.statusCode}');
+          body: jsonEncode({'id_usuario': idUsuario, 'cantidad': money * 100}));
       return true;
     } catch (error) {
-      rethrow;
-    } finally {}
+      return false;
+    }
   }
 }
 

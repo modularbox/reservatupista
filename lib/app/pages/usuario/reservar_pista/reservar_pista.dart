@@ -85,6 +85,39 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     return list;
   }
 
+  void reservarPistaF() async {
+    bool response = await db.subtractUserMoney(db.idUsuario, 4);
+    if (response == true) {
+      Get.back();
+      Get.defaultDialog(
+        title: "Reserva exitosa",
+        middleText: "La pista se ha reservado correctamente.",
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back();
+              Get.toNamed('monederoVirtual');
+            },
+            child: Text('Aceptar'),
+          ),
+        ],
+      );
+    } else {
+      Get.defaultDialog(
+        title: "Error al reservar pista",
+        middleText: "La pista no se ha podido reservar.",
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back(); // Cierra la alerta
+            },
+            child: Text('Aceptar'),
+          ),
+        ],
+      );
+    }
+  }
+
   List<String> generateListDeporte() {
     List<String> list = self
         .db
@@ -864,7 +897,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     textButton: '',
                     acceptButton: MaterialButton(
                       color: Colors.green,
-                      onPressed: () => db.subtractUserMoney(db.idUsuario, 4),
+                      onPressed: () => reservarPistaF(),
                       splashColor: Colors.lightGreen,
                       child: Text(
                         'Aceptar',
@@ -886,8 +919,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         ),
                       ),
                     ),
-                    precio:
-                        '${FormatNumber.formatNumberWithTwoDecimals(4.0)} €',
+                    precio: '${precio_reserva.toStringAsFixed(2)} €',
                     onPressed: () {
                       Get.back();
                     },
