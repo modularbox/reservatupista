@@ -817,7 +817,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildButton() {
-    db.getDatosUsuarioMoney();
     return ElevatedButton(
       onPressed: self.selectHorario.value == null
           ? null
@@ -825,22 +824,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                final precio = db.dineroTotal -
-                    4; /*int.parse(db.datosPerfilUsuario
-                        .obx(
-                            (state) => Text(
-                                  '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                            onLoading: const Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: ColorLoader2(),
-                            ))
-                        .toString())*/
-
-                print('preciooooooooooo ${precio}'); //(0 - 4.0);
+                final precio = (0 - 4.0);
                 if (precio < 0) {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,
@@ -857,32 +841,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',
-                    alertSubtitle: '¿Desea reservar la pista?',
-                    textButton: '',
-                    acceptButton: MaterialButton(
-                      color: Colors.green,
-                      onPressed: () => db.subtractUserMoney(db.dineroTotal),
-                      splashColor: Colors.lightGreen,
-                      child: Text(
-                        'Aceptar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    cancelButton: MaterialButton(
-                      color: Colors.red,
-                      onPressed: () => Get.back(),
-                      splashColor: Colors.redAccent,
-                      child: Text(
-                        'Cancelar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
+                    alertSubtitle: '',
+                    textButton: 'Aceptar',
                     precio:
                         '${FormatNumber.formatNumberWithTwoDecimals(4.0)} €',
                     onPressed: () {

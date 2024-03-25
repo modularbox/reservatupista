@@ -3,10 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-
-import '../../app/widgets/terminos_condiciones.dart';
 import '../../flutter_flow/flutter_flow_animations.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
+import 'link_dialog.dart';
 
 // ignore: must_be_immutable
 class TerminosCondicionesDialog extends StatelessWidget {
@@ -56,11 +55,16 @@ class TerminosCondicionesDialog extends StatelessWidget {
             ),
             10.0.sw,
             BtnIcon(
-              onPressed: () => Get.dialog(const TerminosCondiciones()),
+              onPressed: () => Get.dialog(LinkDialog(
+                alertTitle:
+                    richTitle('¿Deseas ir al enlace externo?', fontSize: 20.0),
+                alertSubtitle: richSubtitle(
+                    'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
+              )),
               borderRadius: 12,
               padding: const EdgeInsets.all(0),
               icon: Text(
-                'He leído y acepto los Términos y Condiciones de Servicio.',
+                'He leído y acepto los\nTérminos y Condiciones de Servicio.',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',

@@ -77,7 +77,7 @@ class LoginUsuarioController extends GetxController
   @override
   void onInit() async {
     super.onInit();
-    onInitForm();
+    // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
@@ -120,8 +120,8 @@ class LoginUsuarioController extends GetxController
 
   // Pruebas para la app
   void onInitForm() {
-    emailUsuarioController.text = 'email@ficticio.com';
-    emailProveedorController.text = 'email@ficticio.com';
+    emailUsuarioController.text = 'app@reservatupista.com';
+    emailProveedorController.text = 'app@reservatupista.com';
     // passwordProveedorController.text = '55r452df#';
     // passwordUsuarioController.text = '12345678';
   }
@@ -129,8 +129,9 @@ class LoginUsuarioController extends GetxController
   // Iniciar Sesion Usuario
   void onPressedUsuario() async {
     if (formUsuarioKey.currentState!.validate()) {
-      bool isUserPrueba = emailUsuarioController.text == 'email@ficticio.com' &&
-          passwordUsuarioController.text == '12345678';
+      bool isUserPrueba =
+          emailUsuarioController.text == 'app@reservatupista.com' &&
+              passwordUsuarioController.text == '12345678';
       if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
         validateTerminosUsuario.value = true;
         animTerminosUsuario.forward();
@@ -177,7 +178,7 @@ class LoginUsuarioController extends GetxController
   void onPressedProveedor() async {
     if (formProveedorKey.currentState!.validate()) {
       bool isUserPrueba =
-          emailProveedorController.text == 'email@ficticio.com' &&
+          emailProveedorController.text == 'app@reservatupista.com' &&
               passwordProveedorController.text == '12345678';
       if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
         validateTerminosProveedor.value = true;

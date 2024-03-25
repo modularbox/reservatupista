@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -95,7 +95,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.LOGIN_USUARIO,
-      page: () => LoginUsuarioPage(),
+      page: () => const LoginUsuarioPage(),
       binding: LoginUsuarioBinding(),
     ),
     GetPage(
@@ -110,7 +110,7 @@ class AppPages {
     ),
     GetPage(
       name: '/perfil',
-      page: () => PerfilWidget(),
+      page: () => const PerfilWidget(),
       transition: Transition.noTransition,
     ),
     // GetPage(
@@ -119,12 +119,12 @@ class AppPages {
     // ),
     GetPage(
       name: '/reservarPista',
-      page: () => ReservarPistaWidget(),
+      page: () => const ReservarPistaWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
       name: '/misReservas',
-      page: () => MisReservasWidget(),
+      page: () => const MisReservasWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
@@ -134,11 +134,11 @@ class AppPages {
     ),
     GetPage(
       name: '/datosProfesional',
-      page: () => DatosProfesionalWidget(),
+      page: () => const DatosProfesionalWidget(),
     ),
     GetPage(
       name: '/registroProfesional',
-      page: () => RegistroProfesionalWidget(),
+      page: () => const RegistroProfesionalWidget(),
     ),
     GetPage(
       name: '/perfilProfesional',
@@ -147,12 +147,12 @@ class AppPages {
     ),
     GetPage(
       name: '/monederoVirtual',
-      page: () => MonederoVirtualWidget(),
+      page: () => const MonederoVirtualWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
       name: '/bancoVirtual',
-      page: () => BancoVirtualWidget(),
+      page: () => const BancoVirtualWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
@@ -163,29 +163,29 @@ class AppPages {
     ),
     GetPage(
       name: '/tarifas',
-      page: () => TarifasWidget(),
+      page: () => const TarifasWidget(),
     ),
     GetPage(
       name: '/misPistas',
-      page: () => MisPistasWidget(),
+      page: () => const MisPistasWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
       name: '/notificaciones',
-      page: () => NotificacionesWidget(),
+      page: () => const NotificacionesWidget(),
     ),
     GetPage(
       name: '/notificacionesProfesional',
-      page: () => NotificacionesProfesionalWidget(),
+      page: () => const NotificacionesProfesionalWidget(),
     ),
     GetPage(
       name: '/inicioProfesional',
-      page: () => InicioProfesionalWidget(),
+      page: () => const InicioProfesionalWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
       name: '/inicio',
-      page: () => InicioWidget(),
+      page: () => const InicioWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
@@ -242,7 +242,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.MIS_PISTAS,
-      page: () => MisPistasPage(),
+      page: () => const MisPistasPage(),
       binding: MisPistasBinding(),
       transition: Transition.noTransition,
     ),
@@ -263,7 +263,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.TARIFAS_PISTA,
-      page: () => TarifasPistaPage(),
+      page: () => const TarifasPistaPage(),
       binding: TarifasPistaBinding(),
     ),
     GetPage(

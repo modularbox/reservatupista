@@ -92,7 +92,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    // llenadoAutomatico();
+    llenadoAutomatico();
     change(null, status: RxStatus.empty());
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
@@ -105,20 +105,6 @@ class RegistrarUsuarioController extends GetxController
       existeNick(value);
     }, time: const Duration(seconds: 1));
   }
-
-  // llenadoAutomatico() {
-  //   nombreController.text = 'Miguel Angel';
-  //   apellidosController.text = 'Hernandez Martinez';
-  //   sexoController.text = 'Hombre';
-  //   dniController.text = '12345678D';
-  //   ladaController.text = '🇪🇸 +34';
-  //   telefonoController.text = '999999999';
-  //   emailController.text = 'xhmigue@hotamil.com';
-  //   direccionController.text = 'Peraleda';
-  //   nickController.text = 'Miguel1';
-  //   contrasenaComprobarController.text = '123456';
-  //   contrasenaController.text = '123456';
-  // }
 
   llenadoAutomatico() {
     nombreController.text = 'Nombre Fiticio';
@@ -472,8 +458,9 @@ class RegistrarUsuarioController extends GetxController
             Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
           },
         ));
-      } catch (e) {
+      } catch (e, stack) {
         print(e);
+        print(stack);
       }
     } else {
       if (!checkboxTerminos.value) {
@@ -526,6 +513,10 @@ class RegistrarUsuarioController extends GetxController
     return null;
   }
 
+/*
+
+nombre, apellidos, sexo, DNI, lada, telefono, email, empadronamiento, comunidad_de_vecinos, direccion, localidad, provincia, comunidad, nick, nivel, posicion, marca_pala, modelo_pala, juegos_semana, contrasena, foto, fecha_registro, validate_email, dinero_total, codigo_postal
+*/
   String? validateTextFieldContrasena(
       AnimationController anim, FocusNode focusNode, String nameData) {
     if (contrasenaController.text.isEmpty) {

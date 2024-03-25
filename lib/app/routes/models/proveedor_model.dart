@@ -6,7 +6,7 @@ class ProveedorModel {
   String tipo;
   String cifNif;
   String direccionFiscal;
-  int codigoPostalFiscal;
+  String codigoPostalFiscal;
   String localidadFiscal;
   String provinciaFiscal;
   String comunidadFiscal;
@@ -20,7 +20,7 @@ class ProveedorModel {
   String telefono;
   String nombreComercial;
   String direccion;
-  int codigoPostal;
+  String codigoPostal;
   String localidad;
   String provincia;
   String comunidad;
@@ -63,6 +63,7 @@ class ProveedorModel {
   String toRawJson() => json.encode(toJson());
 
   factory ProveedorModel.fromJson(Map<String, dynamic> json) => ProveedorModel(
+        token: json["token"],
         idProveedor: json["id_proveedor"],
         tipo: json["tipo"],
         cifNif: json["cif_nif"],
@@ -91,6 +92,7 @@ class ProveedorModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "token": token,
         "id_proveedor": idProveedor,
         "tipo": tipo,
         "cif_nif": cifNif,

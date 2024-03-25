@@ -17,12 +17,22 @@ void main() async {
   await FFLocalizations.initialize();
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
+  // Inicializa tu servicio que obtiene datos de la API
+  // await initServices();
 
+  // Inicializa tu servicio que obtiene datos de la API
+  // await initServices();
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
     child: MyApp(),
   ));
 }
+
+// Método para inicializar los servicios de tu aplicación
+// Future<void> initServices() async {
+//   // Inicializa tu servicio ApiService
+//   await Get.putAsync(() => ApiService().fetchData());
+// }
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.

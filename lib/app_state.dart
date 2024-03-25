@@ -15,7 +15,9 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    version = 'dsjndjksndk';
+  }
 
   void update(VoidCallback callback) {
     callback();

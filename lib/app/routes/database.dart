@@ -10,12 +10,24 @@ import '../../utils/state_getx/state_mixin_demo.dart';
 import 'models/datos_reservas_pista.dart';
 import 'models/proveedor_model.dart';
 import 'models/usuario_model.dart';
-import 'package:http/http.dart' as http;
 
 class DatabaseBinding implements Bindings {
   @override
-  void dependencies() {
+  void dependencies() async {
     Get.put<DatabaseController>(DatabaseController());
+  }
+}
+
+// Define tu servicio que obtiene datos de la API
+class ApiService extends GetxService {
+  late String data;
+
+  Future<void> fetchData() async {
+    // Simulación de obtención de datos de una API
+    await Future.delayed(Duration(seconds: 2));
+    // Asigna los datos obtenidos a la variable data
+    data = 'Datos de la API';
+    print('Datos de la API cargados: $data');
   }
 }
 
@@ -42,13 +54,14 @@ class DatabaseController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    print('dsfjkfbjsdbfjisbdfjibsdkjfbskjdfbkjdsfbkj');
     // Muestra el estado de carga
     datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
-    getMoney();
+
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
-
+      await getMoney();
       // final getStorage = await SharedPreferences.getInstance();
       // // Guardar archivos temporales
       // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
@@ -107,33 +120,31 @@ class DatabaseController extends GetxController {
     return false;
   }
 
-  Future<bool> getDatosUsuarioMoney() async {
-    final getStorage = await SharedPreferences.getInstance();
-    final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
+  Future<void> getMoney() async {
     try {
       final List<TypeDatosServer> listTypes = [
         TypeDatosServer.dinero_total,
-        TypeDatosServer.nombre
       ];
-
       final result = await UsuarioNode().getUsuario(
           storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
       if (result is UsuarioModel) {
-        imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
-        datosPerfilUsuario.change(result, RxStatusDemo.success());
-        datosUsuario = result;
-        return true;
+        dineroTotal = result.dineroTotal;
       }
     } catch (e) {
       print(e);
     }
-    return false;
   }
 
-  void getMoney() async {
+  // Future<void> getMoney() async {
+  //   final getStorage = await SharedPreferences.getInstance();
+  //   print(Storage(TypeStorage.dineroTotal, getStorage).read());
+  //   dineroTotal = Storage(TypeStorage.dineroTotal, getStorage).read();
+  // }
+
+  Future<void> setMoney(int money) async {
+    dineroTotal = dineroTotal + 1;
     final getStorage = await SharedPreferences.getInstance();
-    print(Storage(TypeStorage.dineroTotal, getStorage).read());
-    dineroTotal = Storage(TypeStorage.dineroTotal, getStorage).read();
+    print(Storage(TypeStorage.dineroTotal, getStorage).write(money));
   }
 
   void setDatosUsuario(UsuarioModel result) {
@@ -152,29 +163,12 @@ class DatabaseController extends GetxController {
       if (result is ProveedorModel) {
         imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
         datosProveedor = result;
-
         return true;
       }
     } catch (e) {
       print(e);
     }
     return false;
-  }
-
-  //alvaro
-  Future<bool> subtractUserMoney(int money) async {
-    try {
-      var response = await http.post(
-          Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({"cantidad": 333}));
-      print('responseeeeeeeeeeeee ${response.body}');
-      print('responseeeeeeeeeeeee ${response.statusCode}');
-    } catch (error) {
-      rethrow;
-    } finally {
-      return true;
-    }
   }
 }
 
