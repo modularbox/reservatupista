@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
+import 'package:reservatu_pista/app/ui/pages/monederovirtual_page/monederovirtual_b.dart';
+import 'package:reservatu_pista/app/ui/pages/monederovirtual_page/monederovirtual_p.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -61,7 +63,7 @@ abstract class Routes {
   static const REGISTROUSUARIO = '/registroUsuario';
   static const REGISTROPROFESIONAL = '/registroProfesional';
   static const PERFILPROFESIONAL = '/perfilProfesional';
-  static const MONEDEROVIRTUAL = '/monederoVirtual';
+  static const MONEDEROVIRTUAL = '/monedero_virtual';
   static const BANCOVIRTUAL = '/bancoVirtual';
   static const ANADIRPISTA = '/anadirPista';
   static const TARIFAS = '/tarifas';
@@ -146,8 +148,9 @@ class AppPages {
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: '/monederoVirtual',
-      page: () => MonederoVirtualWidget(),
+      name: Routes.MONEDEROVIRTUAL,
+      page: () => MonederoVirtualPage(),
+      binding: MonederoVirtualBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(
