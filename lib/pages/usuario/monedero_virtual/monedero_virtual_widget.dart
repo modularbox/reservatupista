@@ -29,7 +29,7 @@ class MonederoVirtualWidget extends StatefulWidget {
 class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
     with TickerProviderStateMixin {
   late MonederoVirtualModel _model;
-  DatabaseController db = Get.find();
+  late DatabaseController db;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
@@ -76,6 +76,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => MonederoVirtualModel());
+    db = Get.find();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -101,7 +102,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
         ),
       );
     }
-
+    // print("dsjkabdjkbasjkdbjkasbdkjasbdjkbaskj");
     context.watch<FFAppState>();
 
     Widget buildBtnOption(String title, TypeHistorial typeHistorial) {
