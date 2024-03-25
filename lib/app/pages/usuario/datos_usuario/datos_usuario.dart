@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/datos_usuario/widgets/select_datos.dart';
 import 'package:reservatu_pista/app/widgets/seleccion_imagen_widget.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
@@ -15,7 +16,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'datos_usuario_c.dart';
 
 class DatosUsuarioPage extends GetView<DatosUsuarioController> {
@@ -181,6 +181,37 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                     iconPadding:
                         const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     color: LightModeTheme().primary,
+                    textStyle: LightModeTheme().bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: LightModeTheme().tertiary,
+                        ),
+                    elevation: 2,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: FFButtonWidget(
+                  onPressed: () => Get.dialog(LinkDialog(
+                    alertTitle: richTitle('¿Deseas ir al enlace externo?',
+                        fontSize: 20.0),
+                    alertSubtitle: richSubtitle(
+                        'https://app.reservatupista.com/eliminar_cuenta/'),
+                    urlLink: 'https://app.reservatupista.com/eliminar_cuenta/',
+                  )),
+                  text: 'Eliminar Cuenta',
+                  options: FFButtonOptions(
+                    width: 40.0.w,
+                    height: 40,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: Colores().rojo,
                     textStyle: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           color: LightModeTheme().tertiary,

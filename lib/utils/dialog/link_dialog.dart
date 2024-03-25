@@ -26,6 +26,8 @@ class LinkDialog extends StatefulWidget {
   /// Typically a [List<Widget>] widget.
   final List<Widget> actions;
 
+  final String urlLink;
+
   /// Specifies how blur the screen overlay effect should be.
   /// Higher values mean more blurred overlays.
   final double blurValue;
@@ -37,6 +39,8 @@ class LinkDialog extends StatefulWidget {
     Key? key,
     required this.alertTitle,
     required this.alertSubtitle,
+    this.urlLink =
+        'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies',
     this.actions = const [],
     this.blurValue = 3.0,
     this.backgroundOpacity = 0.2,
@@ -139,8 +143,7 @@ class _LinkDialogState extends State<LinkDialog> {
           backgroundColor: Colores().usuario.primary,
         ),
         onPressed: () async {
-          final urlPoliticaPrivacidad = Uri.parse(
-              'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+          final urlPoliticaPrivacidad = Uri.parse(widget.urlLink);
           final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
           if (canLaunch) {
             launchUrl(urlPoliticaPrivacidad);
