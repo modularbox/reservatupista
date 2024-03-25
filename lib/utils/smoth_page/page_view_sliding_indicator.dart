@@ -128,7 +128,6 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
               children: [
                 Container(
                   width: widget.widthButtons - 2,
-                  height: 80,
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {

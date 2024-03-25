@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-
-import '../../app/widgets/terminos_condiciones.dart';
 import '../../flutter_flow/flutter_flow_animations.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import 'link_dialog.dart';
