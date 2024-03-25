@@ -743,6 +743,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   borderWidth: isSelect ? 2 : 0.5,
                   hoverColor: Colores().usuario.primary69,
                   onPressed: () {
+                    print(2222222222222222);
                     bool isEqual = false;
                     if (self.selectHorario.value != null) {
                       isEqual = self.selectHorario.value!.isEquals(
