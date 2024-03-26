@@ -35,6 +35,9 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
   bool exitsDatos = false;
   bool terms = false;
 
+  String id_pista = '';
+  DateTime dia_seleccionado = DateTime.now();
+
   List<List<double>> horarios = [
     [7.3, 9, 10.3, 12, 13.3, 15, 16.3, 18, 19.3, 21, 22.30],
     [7.3, 9, 10.3, 12, 13.3, 15, 16.3, 18, 19.3, 21, 22.30],
@@ -189,6 +192,15 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
                         fontFamily: "Roboto",
                         fontSize: 20)),
                 value: singleDatePickerValueWithDefaultValue,
+                onValueChanged: (position, date) {
+                  setState(() {
+                    // Almacena el día seleccionado
+                    dia_seleccionado =
+                        date; // Asegúrate de que selectedDay sea una variable de tu clase
+                  });
+                  print('Día seleccionado: $date');
+                },
+
                 // onValueChanged: (dates) {
                 //   // setState(() {
                 //   //   selectDay = dates[0];

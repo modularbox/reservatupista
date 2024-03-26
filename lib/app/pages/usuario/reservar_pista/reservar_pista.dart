@@ -231,6 +231,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 ),
                               ),
                               onChanged: (val) {
+                                print('cambia localidad');
                                 for (var i = 0;
                                     i < listLocalidades.length;
                                     i++) {
@@ -273,6 +274,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                             context: context,
                             labelText: 'Club',
                             onChanged: (val, favorito) {
+                              print('cambia club');
                               if (val != null) {
                                 for (var i = 0;
                                     i < clubsFavoritos.length;
@@ -347,6 +349,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                             context: context,
                             labelText: 'Club',
                             onChanged: (val, favorito) {
+                              print('cambia club');
                               if (val != null) {
                                 for (var i = 0;
                                     i < generateListClubs().length;
@@ -430,6 +433,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           context: context,
                           labelText: 'Deporte',
                           onChanged: (val) {
+                            print("cambia deporte");
                             for (var i = 0;
                                 i < generateListDeporte().length;
                                 i++) {
@@ -473,6 +477,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           } else {
                             self.selectPista.value = 0;
                           }
+
+                          print(
+                              'cambia self.selectDateDay.value ${self.selectDateDay.value}');
+                          print(
+                              'cambia self.selectDay.value ${self.selectDay.value}');
                         },
                       )),
                 Obx(
