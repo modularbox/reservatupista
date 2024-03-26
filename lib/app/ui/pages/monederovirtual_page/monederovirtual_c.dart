@@ -59,9 +59,10 @@ class MonederoVirtualController extends GetxController
     ),
   };
   @override
-  void onInit() {
+  void onInit() async {
     // TODO: implement onInit
     super.onInit();
+    await db.getMoney();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||

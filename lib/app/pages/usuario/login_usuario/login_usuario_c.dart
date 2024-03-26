@@ -146,12 +146,14 @@ class LoginUsuarioController extends GetxController
           hashConstrasena
         ]);
         if (result is UsuarioModel) {
+          final storage = await SharedPreferences.getInstance();
           // Si el usuario existe guardamos el id para futuras peticiones
           storageIdUsuario.write(result.idUsuario);
           // Guardar el token
           storageTokenUsuario.write(result.token);
           // Guardar el token
           storageDineroTotalUsuario.write(result.dineroTotal);
+          storage.fotoUsuario.write(result.foto);
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
             await storagePasswordUsuario.write(passwordUsuarioController.text);

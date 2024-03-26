@@ -12,10 +12,11 @@ class ImageServer extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit? fit;
-  final DatabaseController db = DatabaseController(routeName: 'image_server');
+  final DatabaseController db = DatabaseController();
 
   @override
   Widget build(BuildContext context) {
+    db.getImageUsuario();
     return Obx(() => Image.network(
           db.imageServer.value,
           width: width,
