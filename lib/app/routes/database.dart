@@ -128,11 +128,6 @@ class DatabaseController extends GetxController {
     return false;
   }
 
-  Future<String> obtenerPrecioPista(
-      String dia, String hora, String id_pista) async {
-    return '';
-  }
-
   /*Future<bool> getDatosUsuarioMoney() async {
     final getStorage = await SharedPreferences.getInstance();
     final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
@@ -239,6 +234,20 @@ Future<String> obtenerPrecioPista(
     return 'true';
   } catch (error) {
     return 'false';
+  }
+}
+
+Future<String> obtenerHorariosPista(String dia, String id_pista) async {
+  try {
+    print('3333333333333333333');
+    var response = await http.post(
+        Uri.parse(
+            'https://api.reservatupista.com/usuario/obtener_horarios_pista'),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({'dia': dia, 'id_pista': id_pista}));
+    return '';
+  } catch (error) {
+    return '';
   }
 }
 

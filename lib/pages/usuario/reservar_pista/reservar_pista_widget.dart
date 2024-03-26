@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '../../../utils/auto_size_text/src/auto_fontsize_text.dart';
@@ -251,6 +252,7 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
 
   Widget buildHorarios() {
     final int positionDate = selectDay!.day - (diaHoy);
+    print('diaaaaaaa');
     return Column(
         children: List.generate(1, (col) {
       final List<Widget> rows = [];
@@ -261,6 +263,7 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
             if (horariosbool[positionDate][row + i]) {
               return InkWell(
                 onTap: () {
+                  print('diaaaaaaa');
                   setState(() {
                     horario = (horarios[positionDate][row + i]);
                     exitsDatos = true;
@@ -355,7 +358,7 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
       "4.00€",
       "code"
     ];
-    print(datos);
+    print('datos , $datos');
     for (var i = 0; i < datos.length; i++) {
       if (datosList[i] == "code") {
         list.add(
