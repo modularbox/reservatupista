@@ -488,6 +488,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   () => self.selectDay.value == null
                       ? 0.0.empty
                       : Builder(builder: (BuildContext context) {
+                          var dia = self.selectDay.value;
+                          print('diaaaaa : $dia');
                           final generateLista = generateListPistas();
                           return SizedBox(
                               key: self.keyPistas,
@@ -743,7 +745,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   borderWidth: isSelect ? 2 : 0.5,
                   hoverColor: Colores().usuario.primary69,
                   onPressed: () {
-                    print(2222222222222222);
+                    db.obtenerPrecioPista(dia, hora, id_pista)
                     bool isEqual = false;
                     if (self.selectHorario.value != null) {
                       isEqual = self.selectHorario.value!.isEquals(

@@ -141,7 +141,7 @@ class DatabaseController extends GetxController {
           body: jsonEncode({'id_pista': id_pista, 'dia': dia, 'hora': hora}));
       print('55555555555555555555555');
       print(response.body.toString());
-      return '222'; //response.body.toString();
+      return '22'; //response.body.toString();
     } catch (error) {
       rethrow;
     }
