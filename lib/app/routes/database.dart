@@ -171,12 +171,9 @@ class DatabaseController extends GetxController {
         dineroTotalEuros = ((dineroTotal) / 100).toStringAsFixed(2);
 
         print('eeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-      } else {
-        print('ooooooooooooooooooooooo');
       }
     } catch (e, stack) {
-      print(stack);
-      print('eeeeeeeeeeeeeeeeeeeee $e');
+      print('e  $e');
     }
   }
 
@@ -184,8 +181,6 @@ class DatabaseController extends GetxController {
     final getStorage = await SharedPreferences.getInstance();
 
     idUsuario = Storage(TypeStorage.idUsuario, getStorage).read();
-    print('iddddddddddddddddddddd');
-    print('${idUsuario} ');
   }
 
   void setDatosUsuario(UsuarioModel result) {
@@ -216,7 +211,6 @@ class DatabaseController extends GetxController {
   //alvaro
   Future<bool> subtractUserMoney(int idUsuario, int money) async {
     try {
-      print('3333333333333333333');
       var response = await http.post(
           Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
           headers: {"Content-Type": "application/json"},
@@ -242,12 +236,51 @@ Future<String> obtenerPrecioPista(
 
 Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {
-    print('88888888888');
     var response = await http.post(
         Uri.parse(
             'https://api.reservatupista.com/usuario/obtener_horarios_pista'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({'dia': dia, 'id_pista': id_pista}));
+    return response.body.toString();
+  } catch (error) {
+    return '';
+  }
+}
+
+Future<String> obtenerLocalidades() async {
+  try {
+    var response = await http.get(Uri.parse(
+        'https://api.reservatupista.com/usuario/obtener_localidades'));
+    return response.body.toString();
+  } catch (error) {
+    return '';
+  }
+}
+
+Future<String> obtenerClubes(String id_localidad) async {
+  try {
+    var response = await http.get(Uri.parse(
+        'https://api.reservatupista.com/usuario/obtener_clubes?id_localidad=$id_localidad'));
+    return response.body.toString();
+  } catch (error) {
+    return '';
+  }
+}
+
+Future<String> obtenerDeportes(String id_club) async {
+  try {
+    var response = await http.get(Uri.parse(
+        'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club'));
+    return response.body.toString();
+  } catch (error) {
+    return '';
+  }
+}
+
+Future<String> obtenerPistas(String id_club, String id_deporte) async {
+  try {
+    var response = await http.get(Uri.parse(
+        'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club&id_deporte=$id_deporte'));
     return response.body.toString();
   } catch (error) {
     return '';
