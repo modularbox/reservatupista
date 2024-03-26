@@ -22,8 +22,6 @@ class DatabaseBinding implements Bindings {
 class DatabaseController extends GetxController {
   // Iniciarlizar la db
   // late SharedPreferences storage;
-  String routeName;
-  DatabaseController({this.routeName = 'all'});
   String version = '2.1.6';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
@@ -35,6 +33,10 @@ class DatabaseController extends GetxController {
   // late Storage storageTokenUsuario;
   // late Storage storageTokenProveedor;
   // int dineroTotal = 0;
+
+  final _imageUsuario = ''.obs;
+  String get imageUsuario => _imageUsuario.value;
+  set imageUsuario(String value) => _imageUsuario.value = value;
 
   final _dineroTotal = 0.obs;
   get dineroTotal => _dineroTotal.value;
@@ -59,8 +61,8 @@ class DatabaseController extends GetxController {
     // datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
     // getUserId();
     try {
-      // datosReserva = datosReservaPistaFromJson(jsonEncode(
-      //     {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
+      datosReserva = datosReservaPistaFromJson(jsonEncode(
+          {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
 
       // // final getStorage = await SharedPreferences.getInstance();
       // // // Guardar archivos temporales
@@ -71,14 +73,6 @@ class DatabaseController extends GetxController {
       print(e);
     }
     print("sd");
-
-    try {
-      if (routeName == 'image_server') {
-        print("dsjskbfkjbsdjkfbkjdsbg-------------===========");
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   Future<void> getVariablesGuardadas() async {
@@ -87,6 +81,12 @@ class DatabaseController extends GetxController {
     // storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
     // storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
     // storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
+  }
+  Future<void> getImageUsuario() async {
+    try {
+      final storage = await SharedPreferences.getInstance();
+      imageUsuario = storage.fotoUsuario.read();
+    } catch (e) {}
   }
 
   Future<bool> getDatosUsuario() async {
