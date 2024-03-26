@@ -118,6 +118,18 @@ class DatabaseController extends GetxController {
     return false;
   }
 
+/*Future<String> obtenerPrecioPista(
+    String dia, String hora_inicio, String id_pista) async {
+  try {
+    var response = await http.get(Uri.parse(
+        'https://api.reservatupista.com/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista'));
+    print(response.body);
+    return 'true';
+  } catch (error) {
+    return 'false';
+  }
+}
+*/
   Future<String> obtenerPrecioPista(
       String dia, String hora, String id_pista) async {
     try {
@@ -128,7 +140,8 @@ class DatabaseController extends GetxController {
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({'id_pista': id_pista, 'dia': dia, 'hora': hora}));
       print('55555555555555555555555');
-      return 'de';
+      print(response.body.toString());
+      return '222'; //response.body.toString();
     } catch (error) {
       rethrow;
     }
@@ -228,18 +241,6 @@ class DatabaseController extends GetxController {
     } catch (error) {
       return false;
     }
-  }
-}
-
-Future<String> obtenerPrecioPista(
-    String dia, String hora_inicio, String id_pista) async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista'));
-    print(response.body);
-    return 'true';
-  } catch (error) {
-    return 'false';
   }
 }
 
