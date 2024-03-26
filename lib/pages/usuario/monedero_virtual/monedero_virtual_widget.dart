@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../app/routes/database.dart';
 import '../../../components/alert_recargar/alert_recargar_widget.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
-import '../../../utils/format_number.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -29,7 +28,6 @@ class MonederoVirtualWidget extends StatefulWidget {
 class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
     with TickerProviderStateMixin {
   late MonederoVirtualModel _model;
-  late DatabaseController db;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
@@ -76,7 +74,6 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => MonederoVirtualModel());
-    db = Get.find();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -94,6 +91,8 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
 
   @override
   Widget build(BuildContext context) {
+    DatabaseController db = Get.find();
+
     if (isiOS) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(

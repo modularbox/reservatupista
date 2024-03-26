@@ -120,7 +120,18 @@ class DatabaseController extends GetxController {
 
   Future<String> obtenerPrecioPista(
       String dia, String hora, String id_pista) async {
-    return '';
+    try {
+      print('3333333333333333333');
+      var response = await http.post(
+          Uri.parse(
+              'https://api.reservatupista.com/usuario/obtener_precio_pista'),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({'id_pista': id_pista, 'dia': dia, 'hora': hora}));
+      print('55555555555555555555555');
+      return 'de';
+    } catch (error) {
+      rethrow;
+    }
   }
 
   /*Future<bool> getDatosUsuarioMoney() async {
