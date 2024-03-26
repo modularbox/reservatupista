@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
@@ -22,6 +23,8 @@ class DatabaseBinding implements Bindings {
 class DatabaseController extends GetxController {
   // Iniciarlizar la db
   // late SharedPreferences storage;
+  String routeName;
+  DatabaseController({this.routeName = 'all'});
   String version = '2.1.6';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
@@ -33,10 +36,6 @@ class DatabaseController extends GetxController {
   // late Storage storageTokenUsuario;
   // late Storage storageTokenProveedor;
   // int dineroTotal = 0;
-
-  final _imageUsuario = ''.obs;
-  String get imageUsuario => _imageUsuario.value;
-  set imageUsuario(String value) => _imageUsuario.value = value;
 
   final _dineroTotal = 0.obs;
   get dineroTotal => _dineroTotal.value;
@@ -73,6 +72,14 @@ class DatabaseController extends GetxController {
       print(e);
     }
     print("sd");
+
+    try {
+      if (routeName == 'image_server') {
+        print("dsjskbfkjbsdjkfbkjdsbg-------------===========");
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getVariablesGuardadas() async {
@@ -81,12 +88,6 @@ class DatabaseController extends GetxController {
     // storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
     // storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
     // storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
-  }
-  Future<void> getImageUsuario() async {
-    try {
-      final storage = await SharedPreferences.getInstance();
-      imageUsuario = storage.fotoUsuario.read();
-    } catch (e) {}
   }
 
   Future<bool> getDatosUsuario() async {
@@ -244,7 +245,7 @@ Future<String> obtenerPrecioPista(
 Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {
     print('88888888888');
-    var response = await http.post(
+    http.Response response = await http.post(
         Uri.parse(
             'https://api.reservatupista.com/usuario/obtener_horarios_pista'),
         headers: {"Content-Type": "application/json"},
@@ -257,17 +258,28 @@ Future<String> obtenerHorariosPista(String dia, String id_pista) async {
 
 Future<String> obtenerLocalidades() async {
   try {
-    var response = await http.get(
+    http.Response response = await http.get(
       Uri.parse('https://api.reservatupista.com/usuario/obtener_localidades'),
-      headers: {"Content-Type": "application/json"},
     );
     return response.body.toString();
   } catch (error) {
-    return '';
+    rethrow;
   }
 }
 
-Future<String> obtenerHorariosPista(String dia, String id_pista) async {
+Future<String> obtenerClubs(String id_localidad) async {
+  try {
+    var response = await http.get(
+      Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_clubs&id_localidad=$id_localidad'),
+    );
+    return response.body.toString();
+  } catch (error) {
+    rethrow;
+  }
+}
+
+/*Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {
     print('88888888888');
     var response = await http.post(
@@ -280,7 +292,7 @@ Future<String> obtenerHorariosPista(String dia, String id_pista) async {
     return '';
   }
 }
-
+*/
 List generate() {
   final localidades = [
     'Belvis de Monroy',

@@ -16,7 +16,7 @@ class ImageServer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    db.getImageUsuario();
+    //db.getImageUsuario();
     return Obx(() => Image.network(
           db.imageServer.value,
           width: width,
