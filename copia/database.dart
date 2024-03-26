@@ -244,13 +244,13 @@ Future<String> obtenerPrecioPista(
 
 Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {
-    print('88888888888');
+    print('3333333333333333333');
     var response = await http.post(
         Uri.parse(
             'https://api.reservatupista.com/usuario/obtener_horarios_pista'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({'dia': dia, 'id_pista': id_pista}));
-    return response.body.toString();
+    return '';
   } catch (error) {
     return '';
   }
