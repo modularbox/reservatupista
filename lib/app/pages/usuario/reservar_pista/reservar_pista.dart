@@ -489,6 +489,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       ? 0.0.empty
                       : Builder(builder: (BuildContext context) {
                           final generateLista = generateListPistas();
+
                           return SizedBox(
                               key: self.keyPistas,
                               height: 100,
@@ -512,6 +513,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     if (self.selectDay.value == null) {
                       return 0.0.empty;
                     }
+
                     final List<Widget> buildFechaHorarios = List.generate(
                         self.tiempoReservaListaCalendar.length,
                         (index) => Column(
