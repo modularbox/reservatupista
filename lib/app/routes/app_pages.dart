@@ -22,7 +22,7 @@ import '../ui/pages/pagotpv_page/pagotpv_p.dart';
 import './index.dart';
 import '../pages/profesional/login_profesional/login_profesional.dart';
 import '../pages/profesional/login_profesional/login_profesional_b.dart';
-import '../pages/usuario/reservar_pista/reservar_pista.dart';
+import '../pages/usuario/reservar_pista/reservar_pista_p.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
 import '../pages/profesional/registro_proveedor/registro_proveedor.dart';
 import '../pages/profesional/registro_proveedor/registro_proveedor_b.dart';
@@ -40,8 +40,7 @@ import '../pages/profesional/chat_proveedor/chat_proveedor.dart';
 import '../pages/profesional/chat_proveedor/chat_proveedor_b.dart';
 import '../pages/profesional/mis_pistas/mis_pistas.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_b.dart';
-import '../pages/profesional/reserva_tu_pista/reserva_tu_pista.dart';
-import '../pages/profesional/reserva_tu_pista/reserva_tu_pista_b.dart';
+
 import '../pages/usuario/datos_usuario/datos_usuario.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
@@ -119,11 +118,7 @@ class AppPages {
     //   name: '/loginProfesional',
     //   page: () => LoginProfesionalWidget(),
     // ),
-    GetPage(
-      name: '/reservarPista',
-      page: () => ReservarPistaWidget(),
-      transition: Transition.noTransition,
-    ),
+
     GetPage(
       name: '/misReservas',
       page: () => MisReservasWidget(),
@@ -249,11 +244,7 @@ class AppPages {
       binding: MisPistasBinding(),
       transition: Transition.noTransition,
     ),
-    GetPage(
-      name: Routes.RESERVA_TU_PISTA,
-      page: () => ReservaTuPistaPage(),
-      binding: ReservaTuPistaBinding(),
-    ),
+
     GetPage(
       name: Routes.DATOS_USUARIO,
       page: () => DatosUsuarioPage(),

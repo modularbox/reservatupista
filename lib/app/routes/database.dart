@@ -220,69 +220,68 @@ class DatabaseController extends GetxController {
       return false;
     }
   }
-}
 
-Future<String> obtenerPrecioPista(
-    String dia, String hora_inicio, String id_pista) async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista'));
-    print(response.body);
-    return 'true';
-  } catch (error) {
-    return 'false';
+  Future<String> obtenerPrecioPista(
+      String dia, String hora_inicio, String id_pista) async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista'));
+      print(response.body);
+      return 'true';
+    } catch (error) {
+      return 'false';
+    }
   }
-}
 
-Future<String> obtenerLocalidades() async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_localidades'));
-    return response.body.toString();
-  } catch (error) {
-    return '';
+  Future<String> obtenerLocalidades() async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_localidades'));
+      return response.body.toString();
+    } catch (error) {
+      rethrow;
+    }
   }
-}
 
-Future<String> obtenerClubes(String id_localidad) async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_clubes?id_localidad=$id_localidad'));
-    return response.body.toString();
-  } catch (error) {
-    return '';
+  Future<String> obtenerClubes(String cod_postal) async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_clubes?cod_postal=$cod_postal'));
+      return response.body.toString();
+    } catch (error) {
+      rethrow;
+    }
   }
-}
 
-Future<String> obtenerDeportes(String id_club) async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club'));
-    return response.body.toString();
-  } catch (error) {
-    return '';
+  Future<String> obtenerDeportes(String id_club) async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club'));
+      return response.body.toString();
+    } catch (error) {
+      return '';
+    }
   }
-}
 
-Future<String> obtenerPistas(String id_club, String id_deporte) async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&id_deporte=$id_deporte'));
-    return response.body.toString();
-  } catch (error) {
-    return '';
+  Future<String> obtenerPistas(String id_club, String id_deporte) async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&id_deporte=$id_deporte'));
+      return response.body.toString();
+    } catch (error) {
+      return '';
+    }
   }
-}
 
-Future<String> obtenerHorariosPistas(String id_pista) async {
-  try {
-    var response = await http.get(Uri.parse(
-        'https://api.reservatupista.com/usuario/obtener_horarios_pistas?id_pista=$id_pista'));
-    return response.body.toString();
-  } catch (error) {
-    return '';
+  Future<String> obtenerHorariosPistas(String id_pista) async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_horarios_pistas?id_pista=$id_pista'));
+      return response.body.toString();
+    } catch (error) {
+      return '';
+    }
   }
-}
 /*
 Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {
@@ -297,126 +296,130 @@ Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   }
 }*/
 
-List generate() {
-  final localidades = [
-    'Belvis de Monroy',
-    'Riolobos',
-    'Casar de Palomaro',
-    'Cheles',
-    'Helechosa de los Montes',
-    'Orellana La Vieja',
-    'Aldea del Cano',
-    'Tayuela',
-    'Tayuela Club',
-  ];
+  List generate() {
+    final localidades = [
+      'Belvis de Monroy',
+      'Riolobos',
+      'Casar de Palomaro',
+      'Cheles',
+      'Helechosa de los Montes',
+      'Orellana La Vieja',
+      'Aldea del Cano',
+      'Tayuela',
+      'Tayuela Club',
+    ];
 
-  final clubs = [
-    'Club 1',
-    'Club 2',
-    'Club 3',
-    'Club 4',
-    'Club 5',
-    'Club 6',
-    'Club 7',
-    'Club 8',
-    'Club 9',
-  ];
+    final clubs = [
+      'Club 1',
+      'Club 2',
+      'Club 3',
+      'Club 4',
+      'Club 5',
+      'Club 6',
+      'Club 7',
+      'Club 8',
+      'Club 9',
+    ];
 
-  List<Map> mapa = [];
-  for (var l = 0; l < 9; l++) {
-    final mapj = {};
-    mapj['localidad'] = localidades[l];
-    // List listCompleta = [];
-    // for (var i = 0; i < clubs.length; i++) {
-    List listaClubs = [];
-    for (var j = 0; j < l + 1; j++) {
-      listaClubs.add({
-        'name': clubs[j] + ' ${localidades[l]}',
-        'favorito': false,
-        'deportes': getDeportes(l + 1)
+    List<Map> mapa = [];
+    for (var l = 0; l < 9; l++) {
+      final mapj = {};
+      mapj['localidad'] = localidades[l];
+      // List listCompleta = [];
+      // for (var i = 0; i < clubs.length; i++) {
+      List listaClubs = [];
+      for (var j = 0; j < l + 1; j++) {
+        listaClubs.add({
+          'name': clubs[j] + ' ${localidades[l]}',
+          'favorito': false,
+          'deportes': getDeportes(l + 1)
+        });
+      }
+      mapj['clubs'] = listaClubs;
+      mapa.add(mapj);
+      // }
+    }
+    return mapa;
+    // printInfo(info: jsonEncode(mapa).toString());
+  }
+
+  List getDeportes(int index) {
+    final deportes = [
+      '🎾 Padel',
+      '🎾 Tenis',
+      '🏸 Badminton',
+      '🏊‍♀️ P. Climatizada',
+      '🏊‍♀️ Piscina',
+      '🏀 Baloncesto',
+      '⚽ Futbol sala',
+      '⚽ Futbol 7',
+      '⚽ Futbol 11',
+      '🥍 Pickleball',
+      '🏸 Squash',
+      '🏓 Tenis de mesa',
+      '🏓 Fronton',
+      '⚽ Balomano',
+      '🏉 Rugby',
+      '🥅 Multideporte',
+    ];
+    final newLista = [];
+    final RAD = Random();
+    final id = RAD.nextInt(16);
+    for (var i = 0; i < index; i++) {
+      newLista.add({
+        'name': deportes[i],
+        'semana': List.generate(7, (index) => getSemana(index))
       });
     }
-    mapj['clubs'] = listaClubs;
-    mapa.add(mapj);
-    // }
+    return newLista;
   }
-  return mapa;
-  // printInfo(info: jsonEncode(mapa).toString());
-}
 
-List getDeportes(int index) {
-  final deportes = [
-    '🎾 Padel',
-    '🎾 Tenis',
-    '🏸 Badminton',
-    '🏊‍♀️ P. Climatizada',
-    '🏊‍♀️ Piscina',
-    '🏀 Baloncesto',
-    '⚽ Futbol sala',
-    '⚽ Futbol 7',
-    '⚽ Futbol 11',
-    '🥍 Pickleball',
-    '🏸 Squash',
-    '🏓 Tenis de mesa',
-    '🏓 Fronton',
-    '⚽ Balomano',
-    '🏉 Rugby',
-    '🥅 Multideporte',
-  ];
-  final newLista = [];
-  final RAD = Random();
-  final id = RAD.nextInt(16);
-  for (var i = 0; i < index; i++) {
-    newLista.add({
-      'name': deportes[i],
-      'semana': List.generate(7, (index) => getSemana(index))
-    });
-  }
-  return newLista;
-}
-
-Map getSemana(int index) {
-  final pistas = [
-    'Reservatupista',
-    'Modularbox',
-    'Miragredos',
-    'Fibrabox',
-  ];
-  // const image = 'logo_reservatupista.png';
-  final images = [
-    'logo_reservatupista_title.jpg',
-    'logo_modularbox.jpg',
-    'logo_miragredos.jpg',
-    'logo_fibrabox.jpg'
-  ];
-  List listacom = [];
-  for (var j = 0; j < pistas.length; j++) {
-    // pistas[j]
-    final random = Random();
-    final horariosAleatorio = [
-      {"horario": "07:30", "estatus": "reservada"},
-      {"horario": "09:00", "estatus": "reservada"},
-      {"horario": "10:30", "estatus": "reservada"},
-      {"horario": "12:00", "estatus": "reservada"},
-      {"horario": "13:30", "estatus": "ocupada"},
-      {"horario": "15:00", "estatus": "ocupada"},
-      {"horario": "16:30", "estatus": "reservada"},
-      {"horario": "18:00", "estatus": "reservada"},
-      {"horario": "19:30", "estatus": "reservada"},
-      {"horario": "21:00", "estatus": "reservada"},
-      {"horario": "22:30", "estatus": "reservada"}
+  Map getSemana(int index) {
+    final pistas = [
+      'Reservatupista',
+      'Modularbox',
+      'Miragredos',
+      'Fibrabox',
     ];
-    final estatus = ['desocupada', 'reservada', 'ocupada', 'abierta'];
-    for (var i = 0; i < horariosAleatorio.length; i++) {
-      int indiceAleatorio = random.nextInt(4);
-      if (index == 0 && pistas[j] == "Modularbox") {
-        horariosAleatorio[i]['estatus'] = 'reservada';
-      } else {
-        horariosAleatorio[i]['estatus'] = estatus[indiceAleatorio];
+    // const image = 'logo_reservatupista.png';
+    final images = [
+      'logo_reservatupista_title.jpg',
+      'logo_modularbox.jpg',
+      'logo_miragredos.jpg',
+      'logo_fibrabox.jpg'
+    ];
+    List listacom = [];
+    for (var j = 0; j < pistas.length; j++) {
+      // pistas[j]
+      final random = Random();
+      final horariosAleatorio = [
+        {"horario": "07:30", "estatus": "reservada"},
+        {"horario": "09:00", "estatus": "reservada"},
+        {"horario": "10:30", "estatus": "reservada"},
+        {"horario": "12:00", "estatus": "reservada"},
+        {"horario": "13:30", "estatus": "ocupada"},
+        {"horario": "15:00", "estatus": "ocupada"},
+        {"horario": "16:30", "estatus": "reservada"},
+        {"horario": "18:00", "estatus": "reservada"},
+        {"horario": "19:30", "estatus": "reservada"},
+        {"horario": "21:00", "estatus": "reservada"},
+        {"horario": "22:30", "estatus": "reservada"}
+      ];
+      final estatus = ['desocupada', 'reservada', 'ocupada', 'abierta'];
+      for (var i = 0; i < horariosAleatorio.length; i++) {
+        int indiceAleatorio = random.nextInt(4);
+        if (index == 0 && pistas[j] == "Modularbox") {
+          horariosAleatorio[i]['estatus'] = 'reservada';
+        } else {
+          horariosAleatorio[i]['estatus'] = estatus[indiceAleatorio];
+        }
       }
+      listacom.add({
+        'name': pistas[j],
+        'image': images[j],
+        'horarios': horariosAleatorio
+      });
     }
-    listacom.add(
-        {'name': pistas[j], 'image': images[j], 'horarios': horariosAleatorio});
+    return {'pistas': listacom};
   }
-  return {'pistas': listacom};
 }

@@ -4,12 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
+import 'dart:convert';
 
 class HorarioFinInicio {
   HorarioFinInicio(
       {required this.inicio,
       required this.termino,
       required this.typeEstadoHorario});
+
   final String inicio;
   final String termino;
   final TypeEstadoHorario typeEstadoHorario;
@@ -23,6 +25,13 @@ class HorarioFinInicio {
 class ReservarPistaController extends GetxController
     with SingleGetTickerProviderMixin {
   DatabaseController db = Get.find();
+  //variable que almacena todas las localidades existentes.
+  Rx<List<String>> localidades = Rx<List<String>>([]);
+  Map<String, String> mapLocalidades = {};
+  Rx<String> cod_postal = Rx<String>('');
+  Rx<List<String>> clubes = Rx<List<String>>([]);
+  Map<String, String> mapClubes = {};
+
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);
   Rx<int?> selectDeporte = Rx<int?>(null);
@@ -67,6 +76,7 @@ class ReservarPistaController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    generarListaLocalidades();
     fechaActual = DateTime.now();
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
@@ -137,6 +147,45 @@ class ReservarPistaController extends GetxController
     singleDatePickerValueWithDefaultValue = [fechaActual];
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
     tiempoReservaListaCalendar = getListaHorarios();
+  }
+
+  //funcion para obtener localidades
+  Future<String> getLocalidades() async {
+    print('localidadess');
+    String result = await db.obtenerLocalidades();
+    print('result $result');
+    return result;
+  }
+
+  //funcion para obtener los clubes que hay en cada localidad
+  Future<List<String>> generarListaClubes(String cod_postal) async {
+    try {
+      String clubesJson = await db.obtenerClubes(cod_postal);
+      List<dynamic> clubesData = json.decode(clubesJson);
+      mapClubes = Map.fromEntries(clubesData
+          .map((e) => MapEntry<String, String>(e['club'], e['id_club'])));
+      List<String> listaClubes =
+          clubesData.map<String>((club) => club['club'] as String).toList();
+      clubes.value = listaClubes;
+      print('clubesss');
+      return listaClubes;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<String>> generarListaLocalidades() async {
+    String localidadesJson = await getLocalidades();
+    // Convertir la cadena JSON en una lista de mapas
+    List<dynamic> localidadesData = json.decode(localidadesJson);
+    mapLocalidades = Map.fromEntries(localidadesData
+        .map((e) => MapEntry<String, String>(e['localidad'], e['cod_postal'])));
+
+    List<String> listaLocalidades = localidadesData
+        .map<String>((localidad) => localidad['localidad'] as String)
+        .toList();
+    localidades.value = listaLocalidades;
+    return listaLocalidades;
   }
 
   List<DateTime> getListaHorarios() {

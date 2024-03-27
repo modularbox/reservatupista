@@ -27,6 +27,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   final SelectionController controller2 = SelectionController();
   final DatabaseController db = Get.find();
 
+  //final listaLocalidades
   List<String> generateListClubs() {
     final clubs = self.selectLocalidad.value == null
         ? []
@@ -152,9 +153,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
 
   @override
   Widget build(BuildContext context) {
-    final listLocalidades = List.generate(self.db.datosReserva.reservas.length,
-        ((index) => self.db.datosReserva.reservas[index].localidad));
-
     context.watch<FFAppState>();
     return NavbarYAppbarUsuario(
       title: 'Reservar Pista',
@@ -176,6 +174,16 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       child: SizedBox(
                         height: 45,
                         child: Obx(() => DropdownSearch<String>(
+                              onChanged: (value) {
+                                if (value != null) {
+                                  self.cod_postal.value = self
+                                          .mapLocalidades[value] ??
+                                      ''; // Usar .value para asignar un valor a un Rx<String>
+                                  print('value ${self.mapLocalidades[value]}');
+                                  self.generarListaClubes('00000');
+                                  //self.generarListaClubes(self.cod_postal.value);
+                                }
+                              },
                               popupProps: PopupProps.menu(
                                 emptyBuilder: (context, searchEntry) =>
                                     const Center(
@@ -186,7 +194,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 disabledItemFn: (String s) => s.startsWith('I'),
                               ),
                               selectedItem: self.selectedItemDeporte.value,
-                              items: listLocalidades,
+                              items: self.localidades.value,
                               dropdownDecoratorProps: DropDownDecoratorProps(
                                 dropdownSearchDecoration: InputDecoration(
                                   labelText: 'Localidad',
@@ -230,25 +238,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                           16.0, 12.0, 16.0, 12.0),
                                 ),
                               ),
-                              onChanged: (val) {
-                                print('cambia localidad');
-                                for (var i = 0;
-                                    i < listLocalidades.length;
-                                    i++) {
-                                  final condition = listLocalidades[i] == val;
-                                  if (condition) {
-                                    self.selectLocalidad.value = i;
-                                    break;
-                                  }
-                                }
-                                self.clubController.text = '';
-                                self.deporteController.text = '';
-                                self.selectClub.value = null;
-                                self.selectDeporte.value = null;
-                                self.selectDay.value = null;
-                                self.selectPista.value = null;
-                                self.selectHorario.value = null;
-                              },
                             )),
                       ),
                     ),
@@ -336,7 +325,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               }
                             },
                             clubsFavoritos: listaFavoritosBool,
-                            itemsDD: generateListClubsFavoritos(),
+                            itemsDD: self.clubes.value,
                           ),
                         );
                       } else {
