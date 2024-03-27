@@ -259,7 +259,7 @@ class DatabaseController extends GetxController {
           'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club'));
       return response.body.toString();
     } catch (error) {
-      return '';
+      rethrow;
     }
   }
 

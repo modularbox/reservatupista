@@ -180,7 +180,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                           .mapLocalidades[value] ??
                                       ''; // Usar .value para asignar un valor a un Rx<String>
                                   print('value ${self.mapLocalidades[value]}');
-                                  self.generarListaClubes('00000');
+                                  self.generarListaClubes(
+                                      self.cod_postal.value);
+                                  print(
+                                      'self.clubes.value ${self.clubes.value}');
                                   //self.generarListaClubes(self.cod_postal.value);
                                 }
                               },
@@ -257,162 +260,25 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         return Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10, 10.0, 10.0, 5.0),
-                          child: InputClubFavorito(
-                            controller: self.clubController,
-                            focusNode: self.clubFocusNode,
-                            context: context,
-                            labelText: 'Club',
-                            onChanged: (val, favorito) {
-                              print('cambia club');
-                              if (val != null) {
-                                for (var i = 0;
-                                    i < clubsFavoritos.length;
-                                    i++) {
-                                  final condition = self
-                                          .db
-                                          .datosReserva
-                                          .reservas[
-                                              clubsFavoritos[i].indexLocalidad]
-                                          .clubs[clubsFavoritos[i].indexClub]
-                                          .name ==
-                                      val;
-                                  if (condition) {
-                                    self.selectLocalidad.value =
-                                        clubsFavoritos[i].indexLocalidad;
-                                    self.selectClub.value =
-                                        clubsFavoritos[i].indexClub;
-                                    self.selectedItemDeporte.value = self
-                                        .db
-                                        .datosReserva
-                                        .reservas[
-                                            clubsFavoritos[i].indexLocalidad]
-                                        .localidad;
-                                    break;
-                                  }
-                                }
-                                self.selectDay.value = null;
-                                self.selectDateDay.value = null;
-                                self.selectPista.value = null;
-                                self.selectHorario.value = null;
-                              } else {
-                                final List<ClubsFavorito> newLista = [];
-                                for (var i = 0; i < favorito.length; i++) {
-                                  bool actualizarListClubs = self
-                                          .db
-                                          .datosReserva
-                                          .reservas[
-                                              clubsFavoritos[i].indexLocalidad]
-                                          .clubs[clubsFavoritos[i].indexClub]
-                                          .favorito !=
-                                      favorito[i];
-                                  if (actualizarListClubs) {
-                                    self
-                                        .db
-                                        .datosReserva
-                                        .reservas[
-                                            clubsFavoritos[i].indexLocalidad]
-                                        .clubs[clubsFavoritos[i].indexClub]
-                                        .favorito = favorito[i];
-                                  }
-                                  if (favorito[i]) {
-                                    newLista.add(ClubsFavorito(
-                                        indexClub: clubsFavoritos[i].indexClub,
-                                        indexLocalidad:
-                                            clubsFavoritos[i].indexLocalidad));
-                                  }
-                                }
-                                self.db.datosReserva.clubsFavoritos = newLista;
-                              }
-                            },
-                            clubsFavoritos: listaFavoritosBool,
-                            itemsDD: self.clubes.value,
-                          ),
+                          child: Obx(() => InputClubFavorito(
+                                controller: self.clubController,
+                                focusNode: self.clubFocusNode,
+                                context: context,
+                                labelText: 'Club',
+                                onChanged: (val, favorito) {
+                                  print('cambia club');
+                                  String id_club = self.mapClubes[val] ?? '';
+                                  self.generarListaDeportes(id_club);
+                                },
+                                clubsFavoritos: [false, false],
+                                itemsDD: self.clubes.value,
+                              )),
                         );
                       } else {
-                        return Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10, 10.0, 10.0, 5.0),
-                          child: InputClubFavorito(
-                            controller: self.clubController,
-                            focusNode: self.clubFocusNode,
-                            context: context,
-                            labelText: 'Club',
-                            onChanged: (val, favorito) {
-                              print('cambia club');
-                              if (val != null) {
-                                for (var i = 0;
-                                    i < generateListClubs().length;
-                                    i++) {
-                                  final condition =
-                                      generateListClubs()[i] == val;
-                                  if (condition) {
-                                    self.selectClub.value = i;
-                                    break;
-                                  }
-                                }
-                                self.selectDay.value = null;
-                                self.selectDateDay.value = null;
-                                self.selectPista.value = null;
-                                self.selectHorario.value = null;
-                              } else {
-                                final clubsFavorito =
-                                    self.db.datosReserva.clubsFavoritos;
-                                for (var i = 0; i < favorito.length; i++) {
-                                  bool existeClubFavorito = false;
-                                  bool actualizarListClubs = self
-                                          .db
-                                          .datosReserva
-                                          .reservas[self.selectLocalidad.value!]
-                                          .clubs[i]
-                                          .favorito !=
-                                      favorito[i];
-                                  if (actualizarListClubs) {
-                                    self
-                                        .db
-                                        .datosReserva
-                                        .reservas[self.selectLocalidad.value!]
-                                        .clubs[i]
-                                        .favorito = favorito[i];
-                                  }
-                                  for (var j = 0;
-                                      j < clubsFavorito.length;
-                                      j++) {
-                                    final condition =
-                                        (clubsFavorito[j].indexLocalidad ==
-                                                self.selectLocalidad.value &&
-                                            clubsFavorito[j].indexClub == i);
-                                    if (condition) {
-                                      existeClubFavorito = true;
-                                    }
-                                  }
-
-                                  if (existeClubFavorito) {
-                                    if (!favorito[i]) {
-                                      self.db.datosReserva.clubsFavoritos
-                                          .removeAt(i);
-                                    }
-                                  } else {
-                                    if (favorito[i]) {
-                                      self.db.datosReserva.clubsFavoritos.add(
-                                          ClubsFavorito(
-                                              indexClub: i,
-                                              indexLocalidad:
-                                                  self.selectLocalidad.value!));
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            clubsFavoritos: generateListClubsBool(),
-                            itemsDD: generateListClubs(),
-                          ),
-                        );
+                        return SizedBox();
                       }
                     }),
                     Obx(() {
-                      final exitsClub =
-                          self.selectClub.value == null ? false : true;
-
                       return Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             10, 10.0, 10.0, 5.0),
@@ -423,21 +289,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           labelText: 'Deporte',
                           onChanged: (val) {
                             print("cambia deporte");
-                            for (var i = 0;
-                                i < generateListDeporte().length;
-                                i++) {
-                              final condition = generateListDeporte()[i] == val;
-                              if (condition) {
-                                self.selectDeporte.value = i;
-                                break;
-                              }
-                            }
-                            self.selectDay.value = null;
-                            self.selectDateDay.value = null;
-                            self.selectPista.value = null;
-                            self.selectHorario.value = null;
                           },
-                          itemsDD: exitsClub ? generateListDeporte() : [],
+                          itemsDD: self.deportes.value,
                         ),
                       );
                     }),

@@ -31,6 +31,8 @@ class ReservarPistaController extends GetxController
   Rx<String> cod_postal = Rx<String>('');
   Rx<List<String>> clubes = Rx<List<String>>([]);
   Map<String, String> mapClubes = {};
+  Rx<List<String>> deportes = Rx<List<String>>([]);
+  Map<String, String> mapDeportes = {};
 
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);
@@ -148,44 +150,84 @@ class ReservarPistaController extends GetxController
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
     tiempoReservaListaCalendar = getListaHorarios();
   }
+  //funcion para obtener lista con todas las localidades
 
-  //funcion para obtener localidades
-  Future<String> getLocalidades() async {
-    print('localidadess');
-    String result = await db.obtenerLocalidades();
-    print('result $result');
-    return result;
-  }
-
-  //funcion para obtener los clubes que hay en cada localidad
-  Future<List<String>> generarListaClubes(String cod_postal) async {
+  Future<void> generarListaLocalidades() async {
     try {
-      String clubesJson = await db.obtenerClubes(cod_postal);
-      List<dynamic> clubesData = json.decode(clubesJson);
-      mapClubes = Map.fromEntries(clubesData
-          .map((e) => MapEntry<String, String>(e['club'], e['id_club'])));
-      List<String> listaClubes =
-          clubesData.map<String>((club) => club['club'] as String).toList();
-      clubes.value = listaClubes;
-      print('clubesss');
-      return listaClubes;
+      String localidadesJson = await db.obtenerLocalidades();
+      // Convertir la cadena JSON en una lista de mapas
+      List<dynamic> localidadesData = json.decode(localidadesJson);
+      mapLocalidades = Map.fromEntries(localidadesData.map(
+          (e) => MapEntry<String, String>(e['localidad'], e['cod_postal'])));
+
+      List<String> listaLocalidades = localidadesData
+          .map<String>((localidad) => localidad['localidad'] as String)
+          .toList();
+      localidades.value = listaLocalidades;
+      return;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<List<String>> generarListaLocalidades() async {
-    String localidadesJson = await getLocalidades();
-    // Convertir la cadena JSON en una lista de mapas
-    List<dynamic> localidadesData = json.decode(localidadesJson);
-    mapLocalidades = Map.fromEntries(localidadesData
-        .map((e) => MapEntry<String, String>(e['localidad'], e['cod_postal'])));
+  //funcion para obtener los clubes que hay en cada localidad
+  Future<void> generarListaClubes(String cod_postal) async {
+    try {
+      //resets
+      clubController.text = '';
+      deporteController.text = '';
+      clubes.value = [];
+      deportes.value = [];
+      String clubesJson = await db.obtenerClubes(cod_postal);
+      print('clubesJson $clubesJson');
+      print('clubesJson lenght ${clubesJson.length}');
+      if (clubesJson == '{}') {
+        return;
+      }
+      List<dynamic> clubesData = json.decode(clubesJson);
 
-    List<String> listaLocalidades = localidadesData
-        .map<String>((localidad) => localidad['localidad'] as String)
-        .toList();
-    localidades.value = listaLocalidades;
-    return listaLocalidades;
+      for (var i = 0; i < clubesData.length; i++) {
+        mapClubes[clubesData[i]['nombre']] =
+            clubesData[i]['id_club'].toString();
+      }
+
+      List<String> listaClubes =
+          clubesData.map<String>((club) => club['nombre'] as String).toList();
+      clubes.value = listaClubes;
+      return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorrrrr $error');
+      rethrow;
+    }
+  }
+
+  //funcion para obtener los deportes que hay en cada pista de los clubes
+  Future<void> generarListaDeportes(String id_club) async {
+    deporteController.text = '';
+    try {
+      String deportesJson = await db.obtenerDeportes(id_club);
+      print('deportesJson $deportesJson');
+      if (deportesJson == '{}') {
+        deportes.value = [];
+        return;
+      }
+      List<dynamic> deportesData = json.decode(deportesJson);
+
+      print('deportesData $deportesData');
+      print('deportesData[0] ${deportesData[0]['deporte']}');
+
+      List<String> listaDeportes = deportesData
+          .map<String>((deporte) => deporte['deporte'] as String)
+          .toList();
+      print('listaDeportes $listaDeportes');
+      deportes.value = listaDeportes;
+      return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorrrrr $error');
+      rethrow;
+    }
   }
 
   List<DateTime> getListaHorarios() {
