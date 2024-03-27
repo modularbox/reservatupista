@@ -33,6 +33,7 @@ class ReservarPistaController extends GetxController
   Map<String, String> mapClubes = {};
   Rx<List<String>> deportes = Rx<List<String>>([]);
   Map<String, String> mapDeportes = {};
+  Rx<String> deporte_seleccionado = Rx<String>('');
 
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);

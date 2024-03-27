@@ -288,7 +288,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           context: context,
                           labelText: 'Deporte',
                           onChanged: (val) {
-                            print("cambia deporte");
+                            self.deporte_seleccionado.value = val;
                           },
                           itemsDD: self.deportes.value,
                         ),
@@ -297,34 +297,21 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     5.0.sh
                   ],
                 ),
-                Obx(() => self.selectDeporte.value == null
+                Obx(() => self.deporte_seleccionado.value == ''
                     ? 0.0.empty
                     : Calendar(
                         key: self.keyCalendar,
                         config: CalendarConfig(
                             dayBorderRadius:
                                 const BorderRadius.all(Radius.zero),
-                            currentDate: self.fechaActual,
-                            selectDayConfig: self.selectDateDay.value,
+                            currentDate: DateTime.now(), //self.fechaActual,
+                            selectDayConfig:
+                                DateTime.now(), //self.selectDateDay.value,
                             controlsTextStyle: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .copyWith(color: Colors.white)),
                         value: self.singleDatePickerValueWithDefaultValue,
-                        onValueChanged: (position, dayDate) {
-                          self.selectHorario.value = null;
-                          self.selectDateDay.value = dayDate;
-                          self.selectDay.value = position;
-                          if (self.selectPista.value == 0) {
-                            self.selectPista.refresh();
-                          } else {
-                            self.selectPista.value = 0;
-                          }
-
-                          print(
-                              'cambia self.selectDateDay.value ${self.selectDateDay.value}');
-                          print(
-                              'cambia self.selectDay.value ${self.selectDay.value}');
-                        },
+                        onValueChanged: (position, dayDate) {},
                       )),
                 Obx(
                   () => self.selectDay.value == null
