@@ -256,8 +256,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 ),
                 inputFormatters: [
                   // FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9@.]'))
-                  FilterEmailTextInputFormatter(),
-                  FilteringTextInputFormatter.deny(RegExp('[^a-zA-Z0-9@.]')),
+                  // FilterEmailTextInputFormatter(),
+                  // FilteringTextInputFormatter.deny(RegExp('[^a-zA-Z0-9@.]')),
                 ],
                 style: FlutterFlowTheme.of(context).bodyMedium,
                 onChanged: self.onChangeTextField,
