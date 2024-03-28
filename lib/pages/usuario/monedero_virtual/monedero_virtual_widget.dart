@@ -1,6 +1,5 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../app/routes/database.dart';
 import '../../../components/alert_recargar/alert_recargar_widget.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';

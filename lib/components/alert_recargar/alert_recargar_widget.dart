@@ -1,26 +1,17 @@
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
-import 'package:reservatu_pista/app/routes/database.dart';
-
-// import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
-import '../../flutter_flow/flutter_flow_icon_button.dart';
-import '../../utils/buttons_sounds.dart';
-// import '../../utils/dialog/rich_alert_flutterflow.dart';
-import '../../utils/dialog/rich_alert_flutterflow.dart';
+import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_c.dart';
+import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../../utils/format_number.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '../../flutter_flow/flutter_flow_animations.dart';
+import '../../flutter_flow/flutter_flow_theme.dart';
+import '../../flutter_flow/flutter_flow_util.dart';
+import '../../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
-import '../../../utils/sizer.dart';
-
+import '../../utils/sizer.dart';
 import 'alert_recargar_model.dart';
-export 'alert_recargar_model.dart';
 
 class AlertRecargarWidget extends StatefulWidget {
   AlertRecargarWidget({Key? key, this.isTransferir = false}) : super(key: key);
@@ -34,7 +25,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     with TickerProviderStateMixin {
   late AlertRecargarModel _model;
   late String title;
-
+  MonederoController self = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool hasImageTriggered = false;
   bool anim5 = false;
@@ -51,8 +42,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 180.ms,
-          begin: Offset(-10, 0),
-          end: Offset(0, 0),
+          begin: const Offset(-10, 0),
+          end: const Offset(0, 0),
         ),
       ],
     ),
@@ -64,8 +55,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 130.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1, 1),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
         ),
       ],
     ),
@@ -77,8 +68,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 130.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1, 1),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
         ),
       ],
     ),
@@ -90,8 +81,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 130.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1, 1),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
         ),
       ],
     ),
@@ -103,8 +94,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 130.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1, 1),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
         ),
       ],
     ),
@@ -116,8 +107,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 130.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1, 1),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
         ),
       ],
     ),
@@ -129,8 +120,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 130.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1, 1),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1, 1),
         ),
       ],
     ),
@@ -168,7 +159,6 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
       );
     }
 
-    context.watch<FFAppState>();
     return GestureDetector(
       onTap: () => {},
       child: Column(
@@ -177,13 +167,13 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
         children: [
           Expanded(
             child: Container(
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                     child: Container(
                       width: double.infinity,
                       height: 503,
@@ -214,12 +204,13 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.9, 0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor: Color.fromARGB(255, 0, 0, 0),
+                                  alignment: const AlignmentDirectional(0.9, 0),
+                                  child: BtnIcon(
+                                    borderColor:
+                                        const Color.fromARGB(255, 0, 0, 0),
                                     borderRadius: 12,
                                     borderWidth: 3,
-                                    fillColor: Color(0xFFF77066),
+                                    fillColor: const Color(0xFFF77066),
                                     buttonSize: 45,
                                     icon: const Icon(
                                       Icons.close_rounded,
@@ -227,6 +218,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                       size: 30,
                                     ),
                                     onPressed: () async {
+                                      self.clickButton.playButton();
                                       Navigator.pop(context);
                                     },
                                   ),
@@ -264,11 +256,11 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                   buildBtnBillete(200),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 5)),
+                            ].divide(const SizedBox(height: 5)),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 10),
                             child: Column(
                               children: [
                                 Text(
@@ -276,17 +268,79 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                   style:
                                       FlutterFlowTheme.of(context).displaySmall,
                                 ),
-                                // Text(
-                                //   'Máximo',
-                                //   style: FlutterFlowTheme.of(context)
-                                //       .labelSmall
-                                //       .copyWith(
-                                //         color: Color(0xFFF77066),
-                                //       ),
-                                // ).animateOnPageLoad(
-                                //     animationsMap['textOnPageLoadAnimation']!)
                               ],
                             ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              FFButtonWidget(
+                                onPressed: () {
+                                  self.clickButton.playButton();
+                                  setState(() => _model.money = 0.0);
+                                },
+                                text: 'Borrar',
+                                options: FFButtonOptions(
+                                  width: 140,
+                                  height: 40,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 24, 0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 0),
+                                  color: FlutterFlowTheme.of(context).error,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                  elevation: 3,
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              FFButtonWidget(
+                                onPressed: () {
+                                  self.clickButton.playButton();
+                                  if (_model.money > 0) {
+                                    self.moneyMonederoVirtual.value +=
+                                        _model.money;
+                                  }
+                                  Get.back();
+                                },
+                                text: 'Confirmar',
+                                options: FFButtonOptions(
+                                  width: 140,
+                                  height: 40,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      24, 0, 24, 0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 0),
+                                  color:
+                                      FlutterFlowTheme.of(context).btnGeneral,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                  elevation: 3,
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -294,95 +348,6 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                   ),
                 ],
               ),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            height: 90,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).primary,
-              boxShadow: const [
-                BoxShadow(
-                  blurRadius: 4,
-                  color: Color(0x320E151B),
-                  offset: Offset(0, -2),
-                )
-              ],
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(0),
-                bottomRight: Radius.circular(0),
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-            ),
-            alignment: AlignmentDirectional(0, -0.35),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FFButtonWidget(
-                  onPressed: () {
-                    setState(() => _model.money = 0.0);
-                  },
-                  text: 'Borrar',
-                  options: FFButtonOptions(
-                    width: 140,
-                    height: 40,
-                    padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                    iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: FlutterFlowTheme.of(context).error,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                    elevation: 3,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                FFButtonWidget(
-                  onPressed: () {
-                    if (_model.money > 0) {
-                      Get.dialog(RichAlertFlutterFlow(
-                        alertType: TypeAlert.NONE,
-                        alertTitle: title,
-                        alertSubtitle:
-                            '¿Estás seguro de recargar el Monedero Virtual?',
-                        textButton: title,
-                        precio: '${_model.money.twoDecimals} €',
-                        onPressed: () {
-                          DatabaseController db = Get.find();
-                          db.money.value += _model.money;
-                          Get.back();
-                          Get.back();
-                        },
-                      ));
-                    }
-                  },
-                  text: 'Confirmar',
-                  options: FFButtonOptions(
-                    width: 140,
-                    height: 40,
-                    padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: FlutterFlowTheme.of(context).btnGeneral,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                    elevation: 3,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ],
             ),
           ),
         ],
@@ -429,12 +394,12 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
   }
 
   void onTap(int number) async {
-    ButtonsSounds.playSound(sound: "assets/audios/money.wav");
+    self.clickButton.playBell();
     if (animationsMap['anim${number.toString()}'] != null) {
       double newNumber = _model.money += number;
       if (widget.isTransferir) {
-        if (newNumber > FFAppState().moneyBancoVirtual) {
-          newNumber = FFAppState().moneyBancoVirtual;
+        if (newNumber > self.moneyMonederoVirtual.value) {
+          newNumber = self.moneyMonederoVirtual.value;
         } else {}
       } else {
         if (newNumber < 1000.0) {

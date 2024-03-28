@@ -44,7 +44,6 @@ class AppbarProfesional extends StatelessWidget {
   }
 
   List<Widget> buildRow(BuildContext context) {
-    const String fotoName = 'assets/images/logo_reservatupista.png';
     const String notify = Routes.NOTIFICACIONESPROFESIONAL;
 
     if (isTitleBack) {

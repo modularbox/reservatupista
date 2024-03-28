@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
-import '../../../../backend/server_node.dart/usuario_node.dart';
+import '../../../../backend/server_node/subir_image_node.dart';
+import '../../../../backend/server_node/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
@@ -108,9 +108,7 @@ class DatosUsuarioController extends GetxController
 
   getDatosUsuario() async {
     try {
-      final getStorage = await SharedPreferences.getInstance();
-      final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      final storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
+      final storage = await SharedPreferences.getInstance();
       final List<TypeDatosServer> listTypes = [
         TypeDatosServer.apellidos,
         TypeDatosServer.nombre,
@@ -138,8 +136,8 @@ class DatosUsuarioController extends GetxController
         TypeDatosServer.juegos_semana,
         TypeDatosServer.foto,
       ];
-      final result = await UsuarioNode().getUsuario(
-          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
+      final result =
+          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
       // final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
         final List<String> listLada = [
@@ -518,7 +516,7 @@ class DatosUsuarioController extends GetxController
 
         /// Actualizar Image
         db.imageServer.value =
-            '${UsuarioNode().getImageUsuarioNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${UsuarioNode().getImageNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
         print(db.imageServer);
         print('Seactualizo');
       } catch (e) {

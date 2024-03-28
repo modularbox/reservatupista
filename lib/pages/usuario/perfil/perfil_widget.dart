@@ -53,24 +53,42 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         page: TypePage.Perfil,
         isTitle: true,
         child: db.datosPerfilUsuario.obx(
-            (state) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: 100.h <= 745
-                    ? datosPerfil(
-                        space: spaceSizedBoxBtnCerrarRes(),
-                        subAppBar: subAppBar(true),
-                        height: 50,
-                        top: 10,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2))
-                    : datosPerfil(
-                        space: spaceSizedBoxBtnCerrar(),
-                        subAppBar: subAppBar(false))),
+            (state) => Expanded(
+                  child: scrollPerfil(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: 100.h <= 745
+                                ? datosPerfil(
+                                    space: spaceSizedBoxBtnCerrarRes(),
+                                    subAppBar: subAppBar(true),
+                                    height: 50,
+                                    top: 10,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 2))
+                                : datosPerfil(
+                                    space: spaceSizedBoxBtnCerrar(),
+                                    subAppBar: subAppBar(false))),
+                        buildBtnCerrar()
+                      ],
+                    ),
+                  ),
+                ),
             onLoading: Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: ColorLoader3(),
             ),
             onEmpty: const SizedBox.shrink()));
+  }
+
+  Widget scrollPerfil({required Widget child}) {
+    if (isWeb) {
+      return SingleChildScrollView(child: child);
+    } else {
+      return child;
+    }
   }
 
   Widget subAppBar(bool responsive) {
@@ -394,12 +412,6 @@ class _PerfilWidgetState extends State<PerfilWidget> {
           );
         },
       ),
-      isiOS
-          ? const SizedBox(
-              height: 25,
-            )
-          : space,
-      buildBtnCerrar()
     ];
   }
 
@@ -407,6 +419,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
     return Container(
       width: 200,
       height: 45,
+      margin: const EdgeInsets.only(bottom: 5),
       decoration: BoxDecoration(
         color: const Color(0xFFF77066),
         boxShadow: const [

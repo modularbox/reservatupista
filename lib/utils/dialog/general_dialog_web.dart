@@ -1,9 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import '../sizer.dart';
 
-class GeneralDialog extends StatefulWidget {
+class GeneralDialogWeb extends StatefulWidget {
   /// The title of the dialog is displayed in a large font at the top
   /// of the dialog.
   ///
@@ -39,7 +40,7 @@ class GeneralDialog extends StatefulWidget {
   final void Function()? onPressed;
   final String textButton;
 
-  GeneralDialog({
+  GeneralDialogWeb({
     Key? key,
     required this.alertTitle,
     required this.alertSubtitle,
@@ -52,10 +53,10 @@ class GeneralDialog extends StatefulWidget {
     this.dialogIcon,
   }) : super(key: key);
 
-  createState() => _GeneralDialogState();
+  createState() => _GeneralDialogWebState();
 }
 
-class _GeneralDialogState extends State<GeneralDialog> {
+class _GeneralDialogWebState extends State<GeneralDialogWeb> {
   final Map<int, AssetImage> _typeAsset = {
     TypeGeneralDialog.ERROR: const AssetImage("assets/images/error.png"),
     TypeGeneralDialog.SUCCESS: const AssetImage("assets/images/success.png"),
@@ -68,7 +69,7 @@ class _GeneralDialogState extends State<GeneralDialog> {
     TypeGeneralDialog.WARNING: Colors.blue,
   };
 
-  final double dialogHeight = 100.h * (2 / 5);
+  final double dialogHeight = 100.h * (2 / 6);
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +90,9 @@ class _GeneralDialogState extends State<GeneralDialog> {
             children: <Widget>[
               Expanded(
                 child: Stack(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.center,
                   children: <Widget>[
                     Positioned(
-                      bottom: (100.h / 2) - (dialogHeight / 2),
                       child: SizedBox(
                         height: dialogHeight,
                         width: 90.w,
@@ -109,12 +109,7 @@ class _GeneralDialogState extends State<GeneralDialog> {
                               SizedBox(height: dialogHeight / 4),
                               widget.alertTitle,
                               SizedBox(height: dialogHeight / 10),
-                              Expanded(
-                                child: SingleChildScrollView(
-                                    child: Column(
-                                        children: [widget.alertSubtitle])),
-                              ),
-                              // widget.alertSubtitle,
+                              widget.alertSubtitle,
                               SizedBox(height: dialogHeight / 10),
                               widget.actions.isNotEmpty
                                   ? _buildActions()
@@ -126,7 +121,7 @@ class _GeneralDialogState extends State<GeneralDialog> {
                       ),
                     ),
                     Positioned(
-                      top: dialogHeight - 20.h,
+                      top: (Get.height / 2) - (dialogHeight / 2 + 50),
                       child: widget.dialogIcon ?? _defaultIcon(),
                     ),
                   ],
@@ -152,8 +147,8 @@ class _GeneralDialogState extends State<GeneralDialog> {
     if (_typeAsset.containsKey(widget.alertType)) {
       return Image(
         image: _typeAsset[widget.alertType]!,
-        width: 100.h / 7,
-        height: 100.h / 7,
+        width: 100.h / 10,
+        height: 100.h / 10,
       );
     } else {
       throw Exception("Invalid alertType");
@@ -178,11 +173,10 @@ Container defaultAction(Color? color, void Function()? onPressed, String text) {
   );
 }
 
-Text richTitle(String title, {double fontSize = 24.0}) {
+Text richTitle(String title) {
   return Text(
     title,
-    textAlign: TextAlign.center,
-    style: TextStyle(fontSize: fontSize),
+    style: const TextStyle(fontSize: 24.0),
   );
 }
 
@@ -194,15 +188,4 @@ Text richSubtitle(String subtitle) {
       color: Colors.grey,
     ),
   );
-}
-
-class TypeGeneralDialog {
-  /// Indicates an error dialog by providing an error icon.
-  static const int ERROR = 0;
-
-  /// Indicates a success dialog by providing a success icon.
-  static const int SUCCESS = 1;
-
-  /// Indicates a warning dialog by providing a warning icon.
-  static const int WARNING = 2;
 }

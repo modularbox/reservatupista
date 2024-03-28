@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../backend/server_node.dart/proveedor_node.dart';
-import '../../backend/server_node.dart/usuario_node.dart';
+import '../../backend/server_node/proveedor_node.dart';
+import '../../backend/server_node/usuario_node.dart';
+import 'models/club_model.dart';
 import 'models/datos_reservas_pista.dart';
 import 'models/proveedor_model.dart';
 import 'models/usuario_model.dart';
@@ -19,7 +20,7 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.1.10';
+  String version = '2.2.2';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
@@ -28,8 +29,9 @@ class DatabaseController extends GetxController {
   RxDouble money = 0.0.obs;
   // Datos para cargar los datos de perfil
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
-  StateRx<ProveedorModel?> datosPerfilProveedor =
-      StateRx(Rx<ProveedorModel?>(null));
+  // StateRx<ProveedorModel?> datosPerfilProveedor =
+  //     StateRx(Rx<ProveedorModel?>(null));
+  StateRx<ClubModel?> datosPerfilClub = StateRx(Rx<ClubModel?>(null));
 
   @override
   void onInit() async {
@@ -37,7 +39,9 @@ class DatabaseController extends GetxController {
     // Muestra el estado de carga
     datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
     // Muestra el estado de carga
-    datosPerfilProveedor.changeStatus(RxStatusDemo.loading());
+    // datosPerfilProveedor.changeStatus(RxStatusDemo.loading());
+    // Muestra el estado de carga
+    datosPerfilClub.changeStatus(RxStatusDemo.loading());
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
@@ -64,7 +68,7 @@ class DatabaseController extends GetxController {
     try {
       final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
-        imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
+        imageServer.value = UsuarioNode().getImageNode(result.foto);
         datosUsuario = result;
         return true;
       }
@@ -74,11 +78,18 @@ class DatabaseController extends GetxController {
     return false;
   }
 
+  Future<void> getImageServer() async {
+    try {
+      final storage = await SharedPreferences.getInstance();
+      imageServer.value = storage.foto.read();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<bool> getDatosUsuarioId() async {
     try {
-      final getStorage = await SharedPreferences.getInstance();
-      final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      final storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
+      final storage = await SharedPreferences.getInstance();
       final List<TypeDatosServer> listTypes = [
         TypeDatosServer.apellidos,
         TypeDatosServer.nombre,
@@ -86,10 +97,10 @@ class DatabaseController extends GetxController {
         TypeDatosServer.nivel,
         TypeDatosServer.foto
       ];
-      final result = await UsuarioNode().getUsuario(
-          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
+      final result =
+          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
       if (result is UsuarioModel) {
-        imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
+        imageServer.value = UsuarioNode().getImageNode(result.foto);
         datosUsuarioPerfil = result;
         datosPerfilUsuario.change(result, RxStatusDemo.success());
         return true;
@@ -100,37 +111,29 @@ class DatabaseController extends GetxController {
     return false;
   }
 
-  Future<bool> getDatosProveedorId() async {
+  Future<void> getDatosClubId() async {
     try {
-      final getStorage = await SharedPreferences.getInstance();
-      final storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-      final storageTokenProveedor =
-          Storage(TypeStorage.tokenProveedor, getStorage);
-      final List<TypeDatosServerProveedor> listTypes = [
-        TypeDatosServerProveedor.nombre_comercial,
-        TypeDatosServerProveedor.foto
+      final storage = await SharedPreferences.getInstance();
+      final List<TypeDatosServerClub> listTypes = [
+        TypeDatosServerClub.nombre,
       ];
-      final result = await ProveedorNode().getProveedor(
-          storageIdProveedor.read(), storageTokenProveedor.read(), listTypes);
-      if (result is ProveedorModel) {
-        imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
-        datosProveedor = result;
-        datosPerfilProveedor.change(result, RxStatusDemo.success());
-        return true;
+      final result =
+          await ProveedorNode().getClub(storage.idClub.read(), listTypes);
+      if (result is ClubModel) {
+        datosPerfilClub.change(result, RxStatusDemo.success());
       }
     } catch (e) {
       print(e);
     }
-    return false;
   }
 
   void setDatosUsuario(UsuarioModel result) {
-    imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
+    imageServer.value = UsuarioNode().getImageNode(result.foto);
     datosUsuario = result;
   }
 
   void setDatosProveedor(ProveedorModel result) {
-    imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
+    imageServer.value = ProveedorNode().getImageNode(result.foto);
     datosProveedor = result;
   }
 
@@ -138,7 +141,7 @@ class DatabaseController extends GetxController {
     try {
       final result = await ProveedorNode().getProveedorNode('1');
       if (result is ProveedorModel) {
-        imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
+        imageServer.value = ProveedorNode().getImageNode(result.foto);
         datosProveedor = result;
         return true;
       }

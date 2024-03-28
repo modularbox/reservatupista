@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import '../../../../backend/server_node.dart/get_pistas_node.dart';
+import '../../../../backend/server_node/get_pistas_node.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../routes/models/pistas_model.dart';
 

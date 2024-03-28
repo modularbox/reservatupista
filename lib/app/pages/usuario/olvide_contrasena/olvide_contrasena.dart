@@ -48,7 +48,7 @@ class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Align(
+                  Align(
                     alignment: AlignmentDirectional(0, 0),
                     child: AppBarLoginWidget(),
                   ),

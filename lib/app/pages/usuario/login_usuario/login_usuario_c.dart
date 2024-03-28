@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
-import 'package:reservatu_pista/backend/server_node.dart/usuario_node.dart';
-import 'package:reservatu_pista/utils/dialog/general_dialog.dart';
+import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
+import 'package:reservatu_pista/utils/dialog/general_dialog_movil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
 import '../../../../backend/storage/storage.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../routes/app_pages.dart';
@@ -65,13 +66,8 @@ class LoginUsuarioController extends GetxController
   // Controller datos locales
   DatabaseController db = Get.find();
 
-  /// Obtener los datos si el usuario guardo la contrasena
-  late Storage storagePasswordUsuario;
-  late Storage storagePasswordProveedor;
-  late Storage storageIdUsuario;
-  late Storage storageIdProveedor;
-  late Storage storageTokenUsuario;
-  late Storage storageTokenProveedor;
+  // Iniciar Los datos guardados
+  late SharedPreferences storage;
 
   @override
   void onInit() async {
@@ -81,6 +77,7 @@ class LoginUsuarioController extends GetxController
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
     animTerminosProveedor = animVibrate(vsync: this);
+    storage = await SharedPreferences.getInstance();
     recordarContrasena();
     debounce(passwordVisibility, (_) => passwordVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
@@ -92,26 +89,22 @@ class LoginUsuarioController extends GetxController
   /// Verificar si el usuario o proveedor a solicitado recordar la contrasena
   void recordarContrasena() async {
     try {
-      final getStorage = await SharedPreferences.getInstance();
-      // Guardar archivos temporales
-      storagePasswordUsuario = Storage(TypeStorage.passwordUsuario, getStorage);
-      storagePasswordProveedor =
-          Storage(TypeStorage.passwordProveedor, getStorage);
-      storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-      storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
-      storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
-
       // Usuario
-      final passwordUsuario = storagePasswordUsuario.read();
-      if (storagePasswordUsuario.exitsValue()) {
-        passwordUsuarioController.text = passwordUsuario;
+      if (storage.passwordUsuario.exitsValue()) {
+        passwordUsuarioController.text = storage.passwordUsuario.read();
+        checkboxValueRecordarUsuario.value = true;
+      }
+      if (storage.emailUsuario.exitsValue()) {
+        emailUsuarioController.text = storage.emailUsuario.read();
         checkboxValueRecordarUsuario.value = true;
       }
       // Proveedor
-      final passwordProveedor = storagePasswordProveedor.read();
-      if (storagePasswordProveedor.exitsValue()) {
-        passwordProveedorController.text = passwordProveedor;
+      if (storage.passwordProveedor.exitsValue()) {
+        passwordProveedorController.text = storage.passwordProveedor.read();
+        checkboxValueRecordarProveedor.value = true;
+      }
+      if (storage.emailProveedor.exitsValue()) {
+        emailProveedorController.text = storage.emailProveedor.read();
         checkboxValueRecordarProveedor.value = true;
       }
     } catch (e) {
@@ -123,8 +116,8 @@ class LoginUsuarioController extends GetxController
   void onInitForm() {
     emailUsuarioController.text = 'app@reservatupista.com';
     emailProveedorController.text = 'app@reservatupista.com';
-    // passwordProveedorController.text = '55r452df#';
-    // passwordUsuarioController.text = '12345678';
+    passwordProveedorController.text = '12345678';
+    passwordUsuarioController.text = '12345678';
   }
 
   // Iniciar Sesion Usuario
@@ -148,19 +141,23 @@ class LoginUsuarioController extends GetxController
         ]);
         if (result is UsuarioModel) {
           // Si el usuario existe guardamos el id para futuras peticiones
-          storageIdUsuario.write(result.idUsuario);
+          storage.idUsuario.write(result.idUsuario);
           // Guardar el token
-          storageTokenUsuario.write(result.token);
+          storage.token.write(result.token);
+          // Guardar el foto
+          storage.foto.write(UsuarioNode().getImageNode(result.foto));
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
-            await storagePasswordUsuario.write(passwordUsuarioController.text);
+            await storage.passwordUsuario.write(passwordUsuarioController.text);
+            await storage.emailUsuario.write(emailUsuarioController.text);
           } else {
-            storagePasswordUsuario.remove();
+            storage.passwordUsuario.remove();
+            storage.emailUsuario.remove();
           }
           db.setDatosUsuario(result);
           Get.toNamed(Routes.INICIO);
         } else if (result is MessageError) {
-          Get.dialog(GeneralDialog(
+          Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Usuario"),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Cerrar",
@@ -189,19 +186,25 @@ class LoginUsuarioController extends GetxController
             .iniciarSesion([emailProveedorController.text, hashConstrasena]);
         if (result is ProveedorModel) {
           // Si el usuario existe guardamos el id para futuras peticiones
-          storageIdProveedor.write(result.idProveedor);
+          storage.idProveedor.write(result.idProveedor);
           // Guardar el token
-          storageTokenProveedor.write(result.token);
+          storage.token.write(result.token);
+          // Guardar el token
+          storage.idClub.write(result.idClub);
+          // Guardar el foto
+          storage.foto.write(ProveedorNode().getImageNode(result.foto));
           // Si es recordar contrasena
           if (checkboxValueRecordarProveedor.value) {
-            storagePasswordProveedor.write(passwordProveedorController.text);
+            storage.passwordProveedor.write(passwordProveedorController.text);
+            storage.emailProveedor.write(emailProveedorController.text);
           } else {
-            storagePasswordProveedor.remove();
+            storage.passwordProveedor.remove();
+            storage.emailProveedor.remove();
           }
           db.setDatosProveedor(result);
           Get.toNamed(Routes.INICIOPROFESIONAL);
         } else if (result is MessageError) {
-          Get.dialog(GeneralDialog(
+          Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Proveedor"),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Cerrar",

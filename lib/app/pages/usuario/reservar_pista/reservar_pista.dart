@@ -26,6 +26,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaController get self => controller;
   final SelectionController controller2 = SelectionController();
 
+  /// Reproducir sonido de click al presionar un boton
+  ClickButton clickButton = ClickButton();
   List<String> generateListClubs() {
     final clubs = self.selectLocalidad.value == null
         ? []
@@ -830,7 +832,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 //   titleButton: "Pagar",
                 // ));
               }
-              ButtonsSounds.playSound();
+              clickButton.playButton();
             },
       style: ButtonStyle(
         backgroundColor:
@@ -859,7 +861,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           ? null
           : () {
               self.selectHorario.value = null;
-              ButtonsSounds.playSound();
+              clickButton.playButton();
             },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(

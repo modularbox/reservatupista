@@ -4,19 +4,27 @@ class DatosServer {
   // String urlServer = 'http://192.168.1.134:3000';
   String urlServer = 'https://api.reservatupista.com';
 
-  String datos(List<TypeDatosServer> listTypes) {
-    List<String> newList = [];
-    for (var element in listTypes) {
-      newList.add(element.toString().substring('TypeDatosServer.'.length));
-    }
-    return newList.join(', ');
-  }
+  // String datos(List<TypeDatosServer> listTypes) {
+  //   List<String> newList = [];
+  //   for (var element in listTypes) {
+  //     newList.add(element.toString().substring('TypeDatosServer.'.length));
+  //   }
+  //   return newList.join(', ');
+  // }
 
-  String datosProveedor(List<TypeDatosServerProveedor> listTypes) {
+  // String datosProveedor(List<TypeDatosServerProveedor> listTypes) {
+  //   List<String> newList = [];
+  //   for (var element in listTypes) {
+  //     newList.add(
+  //         element.toString().substring('TypeDatosServerProveedor.'.length));
+  //   }
+  //   return newList.join(', ');
+  // }
+
+  String datosParseados(List<dynamic> listTypes) {
     List<String> newList = [];
     for (var element in listTypes) {
-      newList.add(
-          element.toString().substring('TypeDatosServerProveedor.'.length));
+      newList.add(element.toString().split('.')[1]);
     }
     return newList.join(', ');
   }
@@ -55,10 +63,6 @@ enum TypeDatosServerProveedor {
   id_proveedor,
   tipo,
   cif_nif,
-  direccion_fiscal,
-  localidad_fiscal,
-  provincia_fiscal,
-  comunidad_fiscal,
   codigo_iban,
   certificado_cuenta,
   nombre,
@@ -67,15 +71,23 @@ enum TypeDatosServerProveedor {
   email,
   lada,
   telefono,
-  nombre_comercial,
-  direccion,
-  localidad,
-  provincia,
-  comunidad,
+  direccion_fiscal,
+  localidad_fiscal,
+  provincia_fiscal,
+  comunidad_fiscal,
   contrasena,
   foto,
   fecha_registro,
-  codigo_postal_fiscal,
   validate_email,
+  codigo_postal_fiscal
+}
+
+enum TypeDatosServerClub {
+  id_club,
+  nombre,
   codigo_postal,
+  direccion,
+  localidad,
+  provincia,
+  comunidad
 }

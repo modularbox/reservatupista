@@ -1,4 +1,3 @@
-// import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum TypeStorage {
@@ -6,8 +5,25 @@ enum TypeStorage {
   passwordProveedor,
   idUsuario,
   idProveedor,
-  tokenUsuario,
-  tokenProveedor
+  token,
+  dineroTotal,
+  emailUsuario,
+  emailProveedor,
+  foto,
+  idClub
+}
+
+extension ExtSharedPreferences on SharedPreferences {
+  Storage get passwordUsuario => Storage(TypeStorage.passwordUsuario, this);
+  Storage get passwordProveedor => Storage(TypeStorage.passwordProveedor, this);
+  Storage get idUsuario => Storage(TypeStorage.idUsuario, this);
+  Storage get idProveedor => Storage(TypeStorage.idProveedor, this);
+  Storage get token => Storage(TypeStorage.token, this);
+  Storage get dineroTotal => Storage(TypeStorage.dineroTotal, this);
+  Storage get foto => Storage(TypeStorage.foto, this);
+  Storage get emailProveedor => Storage(TypeStorage.emailProveedor, this);
+  Storage get emailUsuario => Storage(TypeStorage.emailUsuario, this);
+  Storage get idClub => Storage(TypeStorage.idClub, this);
 }
 
 class Storage {
@@ -23,13 +39,6 @@ class Storage {
     getStorage = newGetStorage;
   }
 
-// // Función de inicialización asíncrona
-//   Future<Storage> init(TypeStorage newType) async {
-//     type = newType;
-//     getStorage = await SharedPreferences.getInstance();
-//     return this;
-//   }
-
   dynamic read() {
     return getStorage.get(type.toString());
   }
@@ -39,6 +48,8 @@ class Storage {
   }
 
   Future<bool> write(dynamic value) async {
+    print('write');
+    print(value);
     if (value is String) {
       return await getStorage.setString(type.toString(), value);
     } else if (value is int) {
@@ -59,34 +70,3 @@ class Storage {
     }
   }
 }
-// class Storage {
-//   late GetStorage getStorage;
-//   late TypeStorage type;
-
-//   factory Storage(TypeStorage newType) {
-//     return Storage._internal(newType);
-//   }
-
-//   Storage._internal(TypeStorage newType) {
-//     type = newType;
-//     getStorage = GetStorage();
-//   }
-
-//   dynamic read() {
-//     return getStorage.read(type.toString());
-//   }
-
-//   bool exitsValue() {
-//     return getStorage.read(type.toString()) != null;
-//   }
-
-//   void write(dynamic value) {
-//     getStorage.write(type.toString(), value);
-//   }
-
-//   void remove() {
-//     if (exitsValue()) {
-//       getStorage.remove(type.toString());
-//     }
-//   }
-// }

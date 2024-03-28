@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/backend/server_node.dart/usuario_existe_nick.dart';
+import 'package:reservatu_pista/app/routes/models/geonames_model.dart';
+import 'package:reservatu_pista/backend/server_node/geonames_node.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
-import '../../../../backend/apis/direccion_nominatim.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
-import '../../../../backend/server_node.dart/usuario_node.dart';
+import '../../../../backend/server_node/subir_image_node.dart';
+import '../../../../backend/server_node/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dialog/rich_alert.dart';
@@ -82,7 +82,10 @@ class RegistrarUsuarioController extends GetxController
   // RxBool validateCheckbox = false.obs;
   RxBool validateExisteNick = false.obs;
 
+  // Verificar si existe nick
   RxString nick = ''.obs;
+  // Verificar si existe email
+  RxString email = ''.obs;
   late AnimationController animTerminos;
   Rx<String?> imageFile = Rx<String?>(null);
   late ButtonsPage btns;
@@ -91,7 +94,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    // llenadoAutomatico();
+    llenadoAutomatico();
     change(null, status: RxStatus.empty());
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
@@ -137,10 +140,14 @@ class RegistrarUsuarioController extends GetxController
     contrasenaController.text = '12345678';
   }
 
-  /// Loading Codigo Postal
+  /// Loading Nick
   void loadingNick(String val) {
-    change(null, status: RxStatus.loading());
-    nick.value = val;
+    if (val.isEmpty) {
+      change(null, status: RxStatus.empty());
+    } else {
+      change(null, status: RxStatus.loading());
+      nick.value = val;
+    }
   }
 
   /// Existe el Nick
@@ -148,7 +155,7 @@ class RegistrarUsuarioController extends GetxController
     // Muestra el estado de carga
     change(null, status: RxStatus.loading());
     try {
-      final existe = await getUsuarioExisteNick(nick);
+      final existe = await UsuarioNode().getUsuarioExisteNick(nick);
       change(existe, status: RxStatus.success());
     } catch (error) {
       // En caso de error, muestra el mensaje de error
@@ -162,8 +169,8 @@ class RegistrarUsuarioController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await getDireccionNominatim(codigoPostal);
-        if (direccion is DireccionNominatim) {
+        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        if (direccion is GeoNamesModel) {
           localidadController.text = direccion.localidad;
           comunidadController.text = direccion.comunidad;
           provinciaController.text = direccion.provincia;
@@ -176,6 +183,9 @@ class RegistrarUsuarioController extends GetxController
         apiCodigoPostal.change(false, RxStatusDemo.success());
       }
     } else {
+      localidadController.text = '';
+      comunidadController.text = '';
+      provinciaController.text = '';
       apiCodigoPostal.changeStatus(RxStatusDemo.empty());
     }
   }

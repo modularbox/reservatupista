@@ -568,25 +568,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    suffixIcon: propertiesTextField.labelText == 'Código Postal'
-                        ? self.apiCodigoPostal.obx(
-                            (state) => state!
-                                ? const Icon(
-                                    Icons.check_circle,
-                                    color: Colors.green,
-                                  )
-                                : const Icon(
-                                    Icons.cancel,
-                                    color: Colors.red,
-                                  ),
-                            onLoading: SizedBox(
-                                width: 20,
-                                child: ColorLoader(
-                                  radius: 8,
-                                  padding: const EdgeInsets.only(right: 1),
-                                )),
-                            onEmpty: const SizedBox.shrink())
-                        : null,
+                    suffixIcon: getApis(propertiesTextField),
                     filled: true,
                     fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                     contentPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -603,6 +585,28 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                       isRequired ? propertiesTextField.validateTextField : null,
                 )),
     );
+  }
+
+  Widget? getApis(PropertiesTextField propertiesTextField) {
+    return propertiesTextField.labelText == 'Código Postal'
+        ? self.apiCodigoPostal.obx(
+            (state) => state!
+                ? const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.cancel,
+                    color: Colors.red,
+                  ),
+            onLoading: SizedBox(
+                width: 20,
+                child: ColorLoader(
+                  radius: 8,
+                  padding: const EdgeInsets.only(right: 1),
+                )),
+            onEmpty: const SizedBox.shrink())
+        : null;
   }
 
   Widget buildNick(

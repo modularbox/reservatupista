@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
+import 'package:reservatu_pista/utils/dialog/answer/general_dialog_answer.dart';
 import '../../../utils/animations/add_animation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -103,7 +105,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: isiOS ? 40 : 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -135,7 +137,13 @@ class SeleccionarImagenWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: camera,
+              onPressed: () => Get.dialog(GeneralDialogAnswer(
+                visibilityButton1: false,
+                title: 'Permisos',
+                descripcion:
+                    '¿Podría permitir el acceso a tu cámara para tomar fotos y videos dentro de la aplicación?',
+                onPressedButton2: camera,
+              )),
               text: 'Camara',
               icon: const Icon(
                 Icons.camera_alt,
@@ -160,7 +168,13 @@ class SeleccionarImagenWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: galeria,
+              onPressed: () => Get.dialog(GeneralDialogAnswer(
+                visibilityButton1: false,
+                title: 'Permisos',
+                descripcion:
+                    '¿Puedo acceder a tu galería de imágenes para cargar fotos y videos en la aplicación?',
+                onPressedButton2: galeria,
+              )),
               text: 'Galería',
               icon: const Icon(
                 Icons.collections,

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -16,8 +17,6 @@ import '../pages/usuario/registrar_usuario/registrar_usuario_b.dart';
 import '../ui/pages/pagotpv_page/pagotpv_b.dart';
 import '../ui/pages/pagotpv_page/pagotpv_p.dart';
 import './index.dart';
-import '../pages/profesional/login_profesional/login_profesional.dart';
-import '../pages/profesional/login_profesional/login_profesional_b.dart';
 import '../pages/usuario/reservar_pista/reservar_pista.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
 import '../pages/profesional/registro_proveedor/registro_proveedor.dart';
@@ -36,8 +35,6 @@ import '../pages/profesional/chat_proveedor/chat_proveedor.dart';
 import '../pages/profesional/chat_proveedor/chat_proveedor_b.dart';
 import '../pages/profesional/mis_pistas/mis_pistas.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_b.dart';
-import '../pages/profesional/reserva_tu_pista/reserva_tu_pista.dart';
-import '../pages/profesional/reserva_tu_pista/reserva_tu_pista_b.dart';
 import '../pages/usuario/datos_usuario/datos_usuario.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
@@ -145,6 +142,7 @@ class AppPages {
     GetPage(
       name: '/monederoVirtual',
       page: () => MonederoVirtualWidget(),
+      binding: MonederoBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(
@@ -184,11 +182,6 @@ class AppPages {
       name: '/inicio',
       page: () => InicioWidget(),
       transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: Routes.LOGIN_PROFESIONAL,
-      page: () => LoginProfesionalPage(),
-      binding: LoginProfesionalBinding(),
     ),
     GetPage(
       name: Routes.RESERVAR_PISTA,
@@ -242,11 +235,6 @@ class AppPages {
       page: () => MisPistasPage(),
       binding: MisPistasBinding(),
       transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: Routes.RESERVA_TU_PISTA,
-      page: () => ReservaTuPistaPage(),
-      binding: ReservaTuPistaBinding(),
     ),
     GetPage(
       name: Routes.DATOS_USUARIO,

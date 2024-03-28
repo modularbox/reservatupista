@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+import 'package:reservatu_pista/utils/dialog/answer/general_dialog_answer.dart';
 
 import '../../../backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

@@ -18,6 +18,16 @@ class Versions extends GetView<DatabaseController> {
   Versions({super.key, required this.getWidth, required this.onPressed});
   final List<DatosVersion> arrayVersion2 = [
     DatosVersion(
+        v: '2.2.2', info: '''Mensajes para el usuario.''', fecha: '28/03/2024'),
+    DatosVersion(
+        v: '2.2.1',
+        info: '''Registro visualización interactiva.''',
+        fecha: '27/03/2024'),
+    DatosVersion(
+        v: '2.2.0', info: '''Aplicación adactiva.''', fecha: '26/03/2024'),
+  ];
+  final List<DatosVersion> arrayVersionCambios = [
+    DatosVersion(
         v: '2.1.10',
         info: '''Eliminar Cuenta en la web.
 Cambiar usuario de pruebas, por app@reservatupista.com .

@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:crypto/crypto.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../../backend/apis/direccion_nominatim.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
+import 'package:reservatu_pista/app/routes/models/geonames_model.dart';
+import 'package:reservatu_pista/backend/server_node/geonames_node.dart';
+// import '../../../../backend/apis/direccion_nominatim.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
+import '../../../../backend/server_node/subir_image_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
-
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
@@ -107,8 +107,8 @@ class RegistroProveedorController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostalFiscal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await getDireccionNominatim(codigoPostal);
-        if (direccion is DireccionNominatim) {
+        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        if (direccion is GeoNamesModel) {
           localidadFiscalController.text = direccion.localidad;
           comunidadFiscalController.text = direccion.comunidad;
           provinciaFiscalController.text = direccion.provincia;
@@ -121,6 +121,9 @@ class RegistroProveedorController extends GetxController
         apiCodigoPostalFiscal.change(false, RxStatusDemo.success());
       }
     } else {
+      localidadController.text = '';
+      comunidadController.text = '';
+      provinciaController.text = '';
       apiCodigoPostalFiscal.changeStatus(RxStatusDemo.empty());
     }
   }
@@ -131,8 +134,8 @@ class RegistroProveedorController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await getDireccionNominatim(codigoPostal);
-        if (direccion is DireccionNominatim) {
+        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        if (direccion is GeoNamesModel) {
           localidadController.text = direccion.localidad;
           comunidadController.text = direccion.comunidad;
           provinciaController.text = direccion.provincia;
@@ -145,6 +148,9 @@ class RegistroProveedorController extends GetxController
         apiCodigoPostal.change(false, RxStatusDemo.success());
       }
     } else {
+      localidadController.text = '';
+      comunidadController.text = '';
+      provinciaController.text = '';
       apiCodigoPostal.changeStatus(RxStatusDemo.empty());
     }
   }
@@ -475,14 +481,9 @@ class RegistroProveedorController extends GetxController
         List<int> bytes = utf8.encode(contrasenaController.text);
         String hashConstrasena = sha1.convert(bytes).toString();
 
-        final datosSQL = [
+        final datosSQLProveedor = [
           tipoController.text,
           cifNifController.text,
-          direccionFiscalController.text,
-          codigoPostalFiscalController.text,
-          localidadFiscalController.text,
-          provinciaFiscalController.text,
-          comunidadFiscalController.text,
           listCodigoIban.join(),
           '${nameFoto}_CC',
           nombreController.text,
@@ -491,30 +492,52 @@ class RegistroProveedorController extends GetxController
           emailController.text,
           ladaController.text.split(" ")[1],
           telefonoController.text,
-          nombreComercialController.text,
-          direccionController.text,
-          codigoPostalController.text,
-          localidadController.text,
-          provinciaController.text,
-          comunidadController.text,
+          direccionFiscalController.text,
+          localidadFiscalController.text,
+          provinciaFiscalController.text,
+          comunidadFiscalController.text,
           hashConstrasena,
           nameFoto,
           formattedDate,
+          codigoPostalFiscalController.text,
         ];
-        await ProveedorNode().anadirProveedorNode(datosSQL);
 
-        /// Regresar al inicio y enviar el email.
-        await Get.dialog(RichAlertDialog(
-          //uses the custom alert dialog
-          alertTitle: richTitle("Registro proveedor"),
-          alertSubtitle:
-              richSubtitle("Compruebe su correo para finalizar el registro."),
-          textButton: "Ir a Login",
-          alertType: RichAlertType.SUCCESS,
-          onPressed: () {
-            Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
-          },
-        ));
+        final datosSQLClub = [
+          nombreComercialController.text,
+          codigoPostalController.text,
+          direccionController.text,
+          localidadController.text,
+          provinciaController.text,
+          comunidadController.text,
+        ];
+
+        final result = await ProveedorNode()
+            .anadirProveedorNode(datosSQLProveedor, datosSQLClub);
+        if (result.code == 2000) {
+          /// Regresar al inicio y enviar el email.
+          await Get.dialog(RichAlertDialog(
+            //uses the custom alert dialog
+            alertTitle: richTitle("Registro proveedor"),
+            alertSubtitle: richSubtitle(result.message),
+            textButton: "Ir a Login",
+            alertType: RichAlertType.SUCCESS,
+            onPressed: () {
+              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
+            },
+          ));
+        } else {
+          /// Regresar al inicio y enviar el email.
+          await Get.dialog(RichAlertDialog(
+            //uses the custom alert dialog
+            alertTitle: richTitle("Registro proveedor"),
+            alertSubtitle: richSubtitle(result.messageError()),
+            textButton: "Aceptar",
+            alertType: RichAlertType.WARNING,
+            onPressed: () {
+              Get.back();
+            },
+          ));
+        }
       } catch (e) {
         print(e);
       }

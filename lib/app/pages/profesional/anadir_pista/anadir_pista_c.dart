@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../../app_state.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node.dart/anadir_pista_node.dart';
 import 'package:image/image.dart' as img;
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';

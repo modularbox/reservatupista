@@ -5,6 +5,7 @@ import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/routes/database.dart';
+import '../../../app/routes/models/club_model.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_profesional.dart';
 import '../../../utils/auto_size_text/auto_size_text.dart';
@@ -35,7 +36,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    db.getDatosProveedorId();
+    db.getDatosClubId();
   }
 
   @override
@@ -52,20 +53,30 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         title: 'Perfil Proveedor',
         page: TypePage.Perfil,
         isTitle: true,
-        child: db.datosPerfilProveedor.obx(
-            (state) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: 100.h <= 745
-                    ? datosPerfil(
-                        space: spaceSizedBoxBtnCerrarRes(),
-                        subAppBar: subAppBar(true),
-                        height: 50,
-                        top: 10,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2))
-                    : datosPerfil(
-                        space: spaceSizedBoxBtnCerrar(),
-                        subAppBar: subAppBar(false))),
+        child: db.datosPerfilClub.obx(
+            (state) => Expanded(
+                  child: scrollPerfil(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: 100.h <= 745
+                                ? datosPerfil(
+                                    space: spaceSizedBoxBtnCerrarRes(),
+                                    subAppBar: subAppBar(true, state),
+                                    height: 50,
+                                    top: 10,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 2))
+                                : datosPerfil(
+                                    space: spaceSizedBoxBtnCerrar(),
+                                    subAppBar: subAppBar(false, state))),
+                        buildBtnCerrar()
+                      ],
+                    ),
+                  ),
+                ),
             onLoading: Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: ColorLoader3(),
@@ -73,7 +84,15 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
             onEmpty: const SizedBox.shrink()));
   }
 
-  Widget subAppBar(bool responsive) {
+  Widget scrollPerfil({required Widget child}) {
+    if (isWeb) {
+      return SingleChildScrollView(child: child);
+    } else {
+      return child;
+    }
+  }
+
+  Widget subAppBar(bool responsive, ClubModel? state) {
     if (responsive) {
       return Container(
         width: double.infinity,
@@ -136,7 +155,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
                   child: SizedBox(
                       width: 100.w - 138,
                       child: AutoSizeText(
-                        db.datosProveedor!.nombreComercial,
+                        state == null ? '' : state.nombre,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(Get.context!).headlineSmall,
                       )),
@@ -212,7 +231,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
                   child: SizedBox(
                       width: 100.w - 138,
                       child: AutoSizeText(
-                        db.datosProveedor!.nombreComercial,
+                        state!.nombre,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(Get.context!).headlineSmall,
                       )),
@@ -334,12 +353,6 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
           );
         },
       ),
-      isiOS
-          ? const SizedBox(
-              height: 25,
-            )
-          : space,
-      buildBtnCerrar()
     ];
   }
 
@@ -347,6 +360,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
     return Container(
       width: 200,
       height: 45,
+      margin: const EdgeInsets.only(bottom: 5),
       decoration: BoxDecoration(
         color: const Color(0xFFF77066),
         boxShadow: const [

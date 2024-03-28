@@ -3,12 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/app/routes/models/club_model.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
+import '../../../../backend/server_node/subir_image_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image/image.dart' as img;
 import '../../../../utils/loader/color_loader.dart';
@@ -71,10 +72,7 @@ class DatosProveedorController extends GetxController
   getDatosProveedor() async {
     apiDatosProveedor.initStatus(RxStatusDemo.loading());
     try {
-      final getStorage = await SharedPreferences.getInstance();
-      final storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-      final storageTokenProveedor =
-          Storage(TypeStorage.tokenProveedor, getStorage);
+      final storage = await SharedPreferences.getInstance();
       final List<TypeDatosServerProveedor> listTypes = [
         TypeDatosServerProveedor.tipo,
         TypeDatosServerProveedor.cif_nif,
@@ -91,17 +89,11 @@ class DatosProveedorController extends GetxController
         TypeDatosServerProveedor.email,
         TypeDatosServerProveedor.lada,
         TypeDatosServerProveedor.telefono,
-        TypeDatosServerProveedor.nombre_comercial,
-        TypeDatosServerProveedor.direccion,
-        TypeDatosServerProveedor.codigo_postal,
-        TypeDatosServerProveedor.localidad,
-        TypeDatosServerProveedor.provincia,
-        TypeDatosServerProveedor.comunidad,
         TypeDatosServerProveedor.foto,
         TypeDatosServerProveedor.certificado_cuenta
       ];
-      final result = await ProveedorNode().getProveedor(
-          storageIdProveedor.read(), storageTokenProveedor.read(), listTypes);
+      final result = await ProveedorNode()
+          .getProveedor(storage.idProveedor.read(), listTypes);
       if (result is ProveedorModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -131,15 +123,30 @@ class DatosProveedorController extends GetxController
         emailController.text = result.email;
         ladaController.text = lada;
         telefonoController.text = result.telefono;
-        nombreComercialController.text = result.nombreComercial;
-        direccionController.text = result.direccion;
-        codigoPostalController.text = result.codigoPostal;
-        localidadController.text = result.localidad;
-        provinciaController.text = result.provincia;
-        comunidadController.text = result.comunidad;
         fotoController.text = result.foto;
         imageFile.value = result.foto;
         imageFileCertificado.value = result.certificadoCuenta;
+
+        /// Obtener los datos del club
+
+        final List<TypeDatosServerClub> listTypes = [
+          TypeDatosServerClub.nombre,
+          TypeDatosServerClub.codigo_postal,
+          TypeDatosServerClub.direccion,
+          TypeDatosServerClub.localidad,
+          TypeDatosServerClub.provincia,
+          TypeDatosServerClub.comunidad
+        ];
+        final resultClub =
+            await ProveedorNode().getClub(storage.idClub.read(), listTypes);
+        if (resultClub is ClubModel) {
+          nombreComercialController.text = resultClub.nombre;
+          direccionController.text = resultClub.direccion;
+          codigoPostalController.text = resultClub.codigoPostal;
+          localidadController.text = resultClub.localidad;
+          provinciaController.text = resultClub.provincia;
+          comunidadController.text = resultClub.comunidad;
+        }
         apiDatosProveedor.change(true, RxStatusDemo.success());
       }
     } catch (e) {
@@ -336,7 +343,7 @@ class DatosProveedorController extends GetxController
 
         /// Actualizar Image
         db.imageServer.value =
-            '${ProveedorNode().getImageProveedorNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${ProveedorNode().getImageNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
         print(db.imageServer);
         print('Seactualizo');
       } catch (e) {
@@ -356,7 +363,7 @@ class DatosProveedorController extends GetxController
 
         /// Actualizar Image
         imageFileCertificado.value =
-            '${ProveedorNode().getImageProveedorNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${ProveedorNode().getImageNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
 
         print('Seactualizo');
       } catch (e) {

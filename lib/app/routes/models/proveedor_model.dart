@@ -3,6 +3,7 @@ import 'dart:convert';
 class ProveedorModel {
   String token;
   int idProveedor;
+  int idClub;
   String tipo;
   String cifNif;
   String direccionFiscal;
@@ -18,12 +19,6 @@ class ProveedorModel {
   String email;
   String lada;
   String telefono;
-  String nombreComercial;
-  String direccion;
-  String codigoPostal;
-  String localidad;
-  String provincia;
-  String comunidad;
   String contrasena;
   String foto;
   DateTime? fechaRegistro;
@@ -31,6 +26,7 @@ class ProveedorModel {
   ProveedorModel({
     this.token = '',
     this.idProveedor = 0,
+    this.idClub = 0,
     this.tipo = '',
     this.cifNif = '',
     this.direccionFiscal = '',
@@ -46,12 +42,6 @@ class ProveedorModel {
     this.email = '',
     this.lada = '',
     this.telefono = '',
-    this.nombreComercial = '',
-    this.direccion = '',
-    this.codigoPostal = '',
-    this.localidad = '',
-    this.provincia = '',
-    this.comunidad = '',
     this.contrasena = '',
     this.foto = '',
     this.fechaRegistro,
@@ -65,6 +55,7 @@ class ProveedorModel {
   factory ProveedorModel.fromJson(Map<String, dynamic> json) => ProveedorModel(
         token: json["token"] ?? '',
         idProveedor: json["id_proveedor"] ?? 0,
+        idClub: json["id_club"] ?? 0,
         tipo: json["tipo"] ?? '',
         cifNif: json["cif_nif"] ?? '',
         direccionFiscal: json["direccion_fiscal"] ?? '',
@@ -80,12 +71,6 @@ class ProveedorModel {
         email: json["email"] ?? '',
         lada: json["lada"] ?? '',
         telefono: json["telefono"] ?? '',
-        nombreComercial: json["nombre_comercial"] ?? '',
-        direccion: json["direccion"] ?? '',
-        codigoPostal: json["codigo_postal"] ?? '',
-        localidad: json["localidad"] ?? '',
-        provincia: json["provincia"] ?? '',
-        comunidad: json["comunidad"] ?? '',
         contrasena: json["contrasena"] ?? '',
         foto: json["foto"] ?? '',
         fechaRegistro: json["fecha_registro"] != null
@@ -96,6 +81,7 @@ class ProveedorModel {
   Map<String, dynamic> toJson() => {
         "token": token,
         "id_proveedor": idProveedor,
+        "id_club": idClub,
         "tipo": tipo,
         "cif_nif": cifNif,
         "direccion_fiscal": direccionFiscal,
@@ -111,12 +97,6 @@ class ProveedorModel {
         "email": email,
         "lada": lada,
         "telefono": telefono,
-        "nombre_comercial": nombreComercial,
-        "direccion": direccion,
-        "codigo_postal": codigoPostal,
-        "localidad": localidad,
-        "provincia": provincia,
-        "comunidad": comunidad,
         "contrasena": contrasena,
         "foto": foto,
         "fecha_registro": fechaRegistro?.toIso8601String(),

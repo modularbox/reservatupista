@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import '../../app/routes/database.dart';
 
 class ImageServer extends StatelessWidget {
@@ -16,6 +17,9 @@ class ImageServer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isWeb) {
+      db.getImageServer();
+    }
     return Obx(() => Image.network(
           db.imageServer.value,
           width: width,

@@ -56,7 +56,7 @@ class NavBarLogin extends StatelessWidget {
           left: 75,
           child: Container(
             width: MediaQuery.of(context).size.width - (155),
-            constraints: BoxConstraints(maxWidth: 300),
+            constraints: const BoxConstraints(maxWidth: 300),
             child: FittedBox(
               fit: BoxFit.cover,
               child: Text(

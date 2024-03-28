@@ -34,22 +34,92 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
       );
     }
     return Scaffold(
-        key: scaffoldKey,
-        body: SafeArea(
-            top: true,
-            child: Column(
-              children: [
-                const AppbarGeneral(
-                  isTitleBack: true,
-                  title: 'Datos Usuario',
+      key: scaffoldKey,
+      body: SafeArea(
+          top: true,
+          child: Column(
+            children: [
+              const AppbarGeneral(
+                isTitleBack: true,
+                title: 'Datos Usuario',
+              ),
+              self.apidatosUsuario.obx((state) => getFomData(),
+                  onLoading: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: ColorLoader3(),
+                  )),
+            ],
+          )),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(bottom: isiOS ? 20.0 : 0.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: FFButtonWidget(
+                onPressed: () {
+                  if (self.modificarDatos) {
+                    self.onPressedGuardarCambios();
+                  }
+                  self.modificarDatos = !self.modificarDatos;
+                  self.apidatosUsuario.rx.refresh();
+                },
+                text:
+                    self.modificarDatos ? 'Guardar Cambios' : 'Modificar Datos',
+                options: FFButtonOptions(
+                  width: 45.0.w,
+                  height: 40,
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  color: LightModeTheme().primary,
+                  textStyle: LightModeTheme().bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        color: LightModeTheme().tertiary,
+                      ),
+                  elevation: 2,
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                self.apidatosUsuario.obx((state) => getFomData(),
-                    onLoading: Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: ColorLoader3(),
-                    )),
-              ],
-            )));
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: FFButtonWidget(
+                onPressed: () => Get.dialog(LinkDialog(
+                  alertTitle: richTitle('¿Deseas ir al enlace externo?',
+                      fontSize: 20.0),
+                  alertSubtitle: richSubtitle(
+                      'https://app.reservatupista.com/eliminar_cuenta/'),
+                  urlLink: 'https://app.reservatupista.com/eliminar_cuenta/',
+                )),
+                text: 'Eliminar Cuenta',
+                options: FFButtonOptions(
+                  width: 45.0.w,
+                  height: 40,
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  color: Colores().rojo,
+                  textStyle: LightModeTheme().bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        color: LightModeTheme().tertiary,
+                      ),
+                  elevation: 2,
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget getFomData() {
@@ -161,70 +231,6 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                   (index) => buildInput(
                       context: Get.context!,
                       propertiesTextField: datosJuego.listProperty()[index])),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: FFButtonWidget(
-                  onPressed: () {
-                    if (self.modificarDatos) {
-                      self.onPressedGuardarCambios();
-                    }
-                    self.modificarDatos = !self.modificarDatos;
-                    self.apidatosUsuario.rx.refresh();
-                  },
-                  text: self.modificarDatos
-                      ? 'Guardar Cambios'
-                      : 'Modificar Datos',
-                  options: FFButtonOptions(
-                    width: 40.0.w,
-                    height: 40,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: LightModeTheme().primary,
-                    textStyle: LightModeTheme().bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: LightModeTheme().tertiary,
-                        ),
-                    elevation: 2,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: FFButtonWidget(
-                  onPressed: () => Get.dialog(LinkDialog(
-                    alertTitle: richTitle('¿Deseas ir al enlace externo?',
-                        fontSize: 20.0),
-                    alertSubtitle: richSubtitle(
-                        'https://app.reservatupista.com/eliminar_cuenta/'),
-                    urlLink: 'https://app.reservatupista.com/eliminar_cuenta/',
-                  )),
-                  text: 'Eliminar Cuenta',
-                  options: FFButtonOptions(
-                    width: 40.0.w,
-                    height: 40,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: Colores().rojo,
-                    textStyle: LightModeTheme().bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: LightModeTheme().tertiary,
-                        ),
-                    elevation: 2,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

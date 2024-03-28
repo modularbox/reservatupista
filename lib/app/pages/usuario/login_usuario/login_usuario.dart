@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
@@ -16,10 +17,11 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
 
 class LoginUsuarioPage extends GetView<LoginUsuarioController> {
-  const LoginUsuarioPage({super.key});
+  LoginUsuarioPage({super.key});
   LoginUsuarioController get self => controller;
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = const Color(0xFF2B78DC);
+  bool movilPequeno = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     final focusedColorUsuario = FlutterFlowTheme.of(context).primary;
     const lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
     final focusedColorProfesional = FlutterFlowTheme.of(context).btnGeneral;
+    // Declarar si el movil es pequeno
+    final height = MediaQuery.sizeOf(context).height;
+    movilPequeno = height <= 688;
 
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryText,
@@ -43,7 +48,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
         top: true,
         child: Container(
           width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
+          height: height,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -62,9 +67,11 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Align(
+                  Align(
                     alignment: AlignmentDirectional(0, 0),
-                    child: AppBarLoginWidget(),
+                    child: AppBarLoginWidget(
+                      movilPequeno: movilPequeno,
+                    ),
                   ),
                   // MaterialButton(
                   //   color: Colors.blue,
@@ -171,7 +178,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: movilPequeno ? 0 : 10),
             child: AutoSizeText(
               subtitle,
               textAlign: TextAlign.center,
@@ -183,7 +190,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(
+                20, movilPequeno ? 5 : 10, 20, 0),
             child: VibratingWidget(
               controller: self.animUsuario,
               child: TextFormField(
@@ -239,8 +247,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   prefixIconColor: focusedColor,
                 ),
                 inputFormatters: [
-                  FilterEmailTextInputFormatter(),
-                  FilteringTextInputFormatter.deny(RegExp('[^a-zA-Z0-9@.]')),
+                  // FilterEmailTextInputFormatter(),
+                  // FilteringTextInputFormatter.deny(RegExp('[^a-zA-Z0-9@.]')),
                 ],
                 style: FlutterFlowTheme.of(context).bodyMedium,
                 onChanged: self.onChangeTextField,
@@ -251,7 +259,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(
+                20, movilPequeno ? 10 : 16, 20, 0),
             child: Obx(() => VibratingWidget(
                   controller: self.animContrasena,
                   child: TextFormField(
@@ -326,7 +335,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 )),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 10),
+            padding: EdgeInsetsDirectional.fromSTEB(
+                5, movilPequeno ? 0 : 5, movilPequeno ? 0 : 5, 10),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -358,7 +368,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     ),
                     10.0.sw,
                     Text(
-                      'Recordar\ncontraseña',
+                      'Recordar\nclaves',
                       style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                   ],
@@ -434,7 +444,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             focusedColor,
             validateTerminos,
             palomita,
-            paddingTop: 20,
+            paddingTop: movilPequeno ? 10 : 20,
           ),
           Divider(
             height: 2,
