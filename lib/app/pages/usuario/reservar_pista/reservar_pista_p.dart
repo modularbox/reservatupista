@@ -278,10 +278,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 labelText: 'Club',
                                 onChanged: (val, favorito) {
                                   print('cambia clubbbbbbbb');
-
+                                  self.deporteController.text = '';
                                   String id_club = self.mapClubes[val] ?? '';
                                   self.generarListaDeportes(id_club);
                                   self.id_club_seleccionado.value = id_club;
+                                  self.selectDay.value = null;
                                 },
                                 clubsFavoritos: [false, false],
                                 itemsDD: self.clubes.value,
@@ -301,11 +302,12 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           context: context,
                           labelText: 'Deporte',
                           onChanged: (val) {
-                            print('valllll $val');
                             self.deporte_seleccionado.value = val;
                             self.generarListaPistas(
                                 self.id_club_seleccionado.value,
                                 self.deporte_seleccionado.value);
+                            self.selectDay.value = null;
+                            self.selectDay.refresh();
                           },
                           itemsDD: self.deportes.value,
                         ),
@@ -468,7 +470,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                     ],
                                   ),
                                 ),
-                                /* buildHorarios(
+                                /*buildHorarios(
                                     self
                                         .db
                                         .datosReserva

@@ -185,12 +185,10 @@ class ReservarPistaController extends GetxController
       deporteController.text = '';
       clubes.value = [];
       deportes.value = [];
-      //seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
-      selectDay.value = null;
-      deporte_seleccionado.value = '';
+      /*//seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
+      selectDay.value = null;*/
+      //deporte_seleccionado.value = '';
       String clubesJson = await db.obtenerClubes(cod_postal);
-      print('clubesJson $clubesJson');
-      print('clubesJson lenght ${clubesJson.length}');
       if (clubesJson == '{}') {
         return;
       }
@@ -207,14 +205,15 @@ class ReservarPistaController extends GetxController
       return;
     } catch (error, stack) {
       print('stack: ${stack}');
-      print('errorrrrr $error');
+      print('errorr $error');
       rethrow;
     }
   }
 
   //funcion para obtener los deportes que hay en cada pista de los clubes
   Future<void> generarListaDeportes(String id_club) async {
-    deporteController.text = '';
+    //deporteController.text = '';
+    deporte_seleccionado.value = '';
     try {
       String deportesJson = await db.obtenerDeportes(id_club);
       print('deportesJson $deportesJson');
@@ -242,6 +241,7 @@ class ReservarPistaController extends GetxController
 
 //funcion para obtener las pistas que hay en cada club
   Future<void> generarListaPistas(String id_club, String deporte) async {
+    //deporteController.text = '';
     try {
       String pistasJson = await db.obtenerPistas(id_club, deporte);
       print('pistasJson $pistasJson');

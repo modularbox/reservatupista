@@ -277,7 +277,7 @@ class DatabaseController extends GetxController {
       String id_pista, String dia_semana) async {
     try {
       var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_horarios_pistas?id_pista=$id_pista&dia_semana=$dia_semana'));
+          'https://api.reservatupista.com/usuario/obtener_horarios_pista?id_pista=$id_pista&dia_semana=$dia_semana'));
       return response.body.toString();
     } catch (error) {
       rethrow;
