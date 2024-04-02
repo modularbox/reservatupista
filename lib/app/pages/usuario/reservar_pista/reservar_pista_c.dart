@@ -30,10 +30,14 @@ class ReservarPistaController extends GetxController
   Map<String, String> mapLocalidades = {};
   Rx<String> cod_postal = Rx<String>('');
   Rx<List<String>> clubes = Rx<List<String>>([]);
+  Rx<String> id_club_seleccionado = Rx<String>('');
   Map<String, String> mapClubes = {};
   Rx<List<String>> deportes = Rx<List<String>>([]);
   Map<String, String> mapDeportes = {};
   Rx<String> deporte_seleccionado = Rx<String>('');
+
+  Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
+  Rx<String> id_pista_seleccionada = Rx<String>('');
 
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);
@@ -54,6 +58,8 @@ class ReservarPistaController extends GetxController
   FocusNode localidadFocusNode = FocusNode();
   TextEditingController deporteController = TextEditingController();
   FocusNode deporteFocusNode = FocusNode();
+  TextEditingController PistaController = TextEditingController();
+  FocusNode PistaFocusNode = FocusNode();
   TextEditingController nPistaController = TextEditingController();
   FocusNode nPistaFocusNode = FocusNode();
   TextEditingController clubController = TextEditingController();
@@ -114,8 +120,8 @@ class ReservarPistaController extends GetxController
             sizedBoxHeight.value = newSize;
           }
         }
-        pageViewController.animateToPage(callback,
-            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+        /*pageViewController.animateToPage(callback,
+            duration: const Duration(milliseconds: 300), curve: Curves.linear);*/
       }
     }, time: const Duration(milliseconds: 50));
     debounce(selectHorario, (callback) async {
@@ -179,6 +185,9 @@ class ReservarPistaController extends GetxController
       deporteController.text = '';
       clubes.value = [];
       deportes.value = [];
+      //seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
+      selectDay.value = null;
+      deporte_seleccionado.value = '';
       String clubesJson = await db.obtenerClubes(cod_postal);
       print('clubesJson $clubesJson');
       print('clubesJson lenght ${clubesJson.length}');
@@ -223,6 +232,31 @@ class ReservarPistaController extends GetxController
           .toList();
       print('listaDeportes $listaDeportes');
       deportes.value = listaDeportes;
+      return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorrrrr $error');
+      rethrow;
+    }
+  }
+
+//funcion para obtener las pistas que hay en cada club
+  Future<void> generarListaPistas(String id_club, String deporte) async {
+    try {
+      String pistasJson = await db.obtenerPistas(id_club, deporte);
+      print('pistasJson $pistasJson');
+      if (pistasJson == '{}') {
+        pistas.value = [];
+        return;
+      }
+      List<dynamic> pistasData = json.decode(pistasJson);
+      pistas.value = json.decode(pistasJson);
+      print('pistassssss $pistas');
+      print('pistasData[0] ${pistas.value[0]['id_pista']}');
+
+      /* List<String> listaPistas = pistasData
+          .map<String>((pista) => pista['id_pista'].toString())
+          .toList();*/
       return;
     } catch (error, stack) {
       print('stack: ${stack}');

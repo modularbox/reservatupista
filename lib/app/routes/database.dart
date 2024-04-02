@@ -263,23 +263,24 @@ class DatabaseController extends GetxController {
     }
   }
 
-  Future<String> obtenerPistas(String id_club, String id_deporte) async {
+  Future<String> obtenerPistas(String id_club, String deporte) async {
     try {
       var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&id_deporte=$id_deporte'));
+          'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&deporte=$deporte'));
       return response.body.toString();
     } catch (error) {
-      return '';
+      rethrow;
     }
   }
 
-  Future<String> obtenerHorariosPistas(String id_pista) async {
+  Future<String> obtenerHorariosPistas(
+      String id_pista, String dia_semana) async {
     try {
       var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_horarios_pistas?id_pista=$id_pista'));
+          'https://api.reservatupista.com/usuario/obtener_horarios_pistas?id_pista=$id_pista&dia_semana=$dia_semana'));
       return response.body.toString();
     } catch (error) {
-      return '';
+      rethrow;
     }
   }
 /*

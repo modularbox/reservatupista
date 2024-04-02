@@ -123,16 +123,27 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   List<Pista> generateListPistas() {
+    print('listaaaa');
     List<Pista> list = self.selectDay.value == null
         ? []
-        : self
+        : [
+            Pista(name: 'name', image: 'image', horarios: [
+              Horario(horario: 'horario', estatus: TypeEstadoHorario.abierta)
+            ]),
+            Pista(name: 'name', image: 'image', horarios: [
+              Horario(horario: 'horario', estatus: TypeEstadoHorario.abierta)
+            ])
+          ];
+    print('listaaaa222');
+    /*self
             .db
             .datosReserva
             .reservas[self.selectLocalidad.value!]
             .clubs[self.selectClub.value!]
             .deportes[self.selectDeporte.value!]
             .semana[self.selectDay.value!]
-            .pistas;
+            .pistas;*/
+
     return list;
   }
 
@@ -266,9 +277,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 context: context,
                                 labelText: 'Club',
                                 onChanged: (val, favorito) {
-                                  print('cambia club');
+                                  print('cambia clubbbbbbbb');
+
                                   String id_club = self.mapClubes[val] ?? '';
                                   self.generarListaDeportes(id_club);
+                                  self.id_club_seleccionado.value = id_club;
                                 },
                                 clubsFavoritos: [false, false],
                                 itemsDD: self.clubes.value,
@@ -288,7 +301,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           context: context,
                           labelText: 'Deporte',
                           onChanged: (val) {
+                            print('valllll $val');
                             self.deporte_seleccionado.value = val;
+                            self.generarListaPistas(
+                                self.id_club_seleccionado.value,
+                                self.deporte_seleccionado.value);
                           },
                           itemsDD: self.deportes.value,
                         ),
@@ -310,15 +327,35 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                             controlsTextStyle: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .copyWith(color: Colors.white)),
-                        value: self.singleDatePickerValueWithDefaultValue,
-                        onValueChanged: (position, dayDate) {},
+                        value: [
+                          DateTime.now()
+                        ], //self.singleDatePickerValueWithDefaultValue,
+                        onValueChanged: (position, dayDate) {
+                          print('onvaluechanged');
+
+                          self.selectHorario.value = null;
+                          self.selectDateDay.value = dayDate;
+                          self.selectDay.value = position;
+                          if (self.selectPista.value == 0) {
+                            self.selectPista.refresh();
+                          } else {
+                            self.selectPista.value = 0;
+                          }
+
+                          print(
+                              'cambia self.selectDateDay.value ${self.selectDateDay.value}');
+                          print(
+                              'cambia self.selectDay.value ${self.selectDay.value}');
+                        },
                       )),
                 Obx(
                   () => self.selectDay.value == null
                       ? 0.0.empty
                       : Builder(builder: (BuildContext context) {
                           final generateLista = generateListPistas();
-
+                          final generateLista2 = self.generarListaPistas(
+                              self.id_club_seleccionado.value,
+                              self.deporte_seleccionado.value);
                           return SizedBox(
                               key: self.keyPistas,
                               height: 100,
@@ -327,10 +364,14 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: List.generate(
-                                      generateLista.length,
+                                      self.pistas.value.length,
+                                      //generateLista.length,
                                       (index) => buildChip(
                                           context,
-                                          generateLista[index],
+                                          self.pistas.value[index]['id_pista']
+                                              .toString(),
+                                          self.pistas.value[index][
+                                              'imagen_patrocinador'], //generateLista[index],
                                           index)).divide(3.0.sw).around(4.0.sw),
                                 ),
                               ));
@@ -342,7 +383,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     if (self.selectDay.value == null) {
                       return 0.0.empty;
                     }
-
+                    print('self.selectDay.value ${self.selectDay.value}');
                     final List<Widget> buildFechaHorarios = List.generate(
                         self.tiempoReservaListaCalendar.length,
                         (index) => Column(
@@ -376,9 +417,20 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                             ),
                                       Expanded(
                                         child: Text(
-                                          FormatDate.dateToString(
-                                              self.tiempoReservaListaCalendar[
-                                                  index]),
+                                          self.selectDateDay.value != null
+                                              ? FormatDate.dateToString(
+                                                  DateTime(
+                                                      self.selectDateDay.value!
+                                                          .year,
+                                                      self.selectDateDay.value!
+                                                          .month,
+                                                      self.selectDateDay.value!
+                                                          .day))
+                                              : FormatDate.dateToString(
+                                                  DateTime(
+                                                      DateTime.now().year,
+                                                      DateTime.now().month,
+                                                      DateTime.now().day)),
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodySmall
@@ -416,7 +468,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                     ],
                                   ),
                                 ),
-                                buildHorarios(
+                                /* buildHorarios(
                                     self
                                         .db
                                         .datosReserva
@@ -426,7 +478,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                         .semana[index]
                                         .pistas[self.selectPista.value!]
                                         .horarios,
-                                    self.selectPista.value!),
+                                    self.selectPista.value!),*/
                               ],
                             ));
                     return SizedBox(
@@ -479,7 +531,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     return todoOcupadoHorario;
   }
 
-  Widget buildChip(
+/*Widget buildChip(
     BuildContext context,
     Pista pista,
     int index,
@@ -545,6 +597,82 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         ],
       );
     });
+  } */
+  Widget buildChip(
+    BuildContext context,
+    String id_pista,
+    String foto_pista,
+    int index,
+  ) {
+    print('id_pista $id_pista');
+    print('foto_pista $foto_pista');
+    try {
+      return Obx(() {
+        final bool isSelect = index == self.selectPista.value;
+        print('foto_pista $foto_pista');
+        return Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 108,
+                  height: 20,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Pista ${(index + 1)}',
+                      textAlign: TextAlign.center,
+                      style: LightModeTheme().bodyMedium.copyWith(
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 108,
+                  height: 65,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/${foto_pista}',
+                    ),
+                    fit: BoxFit.fill,
+                  )),
+                ),
+              ],
+            ),
+            BtnIcon(
+                onPressed: () async {
+                  self.selectHorario.value = null;
+                  self.selectPista.value = index;
+                  self.selectDay.refresh();
+                },
+                hoverColor: Colores().usuario.primary69,
+                padding: const EdgeInsets.all(0),
+                fillColor: Colors.transparent,
+                borderWidth: isSelect ? 2 : 1,
+                borderColor: isSelect
+                    ? Colores().usuario.primary
+                    : const Color.fromARGB(255, 0, 0, 0),
+                borderRadius: 5,
+                width: 108,
+                height: 85,
+                icon: 0.0.empty),
+          ],
+        );
+      });
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      rethrow;
+    }
   }
 
   Widget buildHorarios(List<Horario> horarios, int index) {
