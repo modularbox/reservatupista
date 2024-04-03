@@ -470,6 +470,31 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                     ],
                                   ),
                                 ),
+                                FutureBuilder<Widget>(
+                                  future: enviarHorarios(
+                                      self.id_pista_seleccionada.value,
+                                      DateTime(
+                                          2022)), // Aquí debes pasar el id de la pista correcto
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      // Mientras se carga la lista de widgets
+                                      return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
+                                    } else if (snapshot.hasError) {
+                                      // Si hay un error al cargar la lista de widgets
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      // Cuando la lista de widgets está lista
+                                      return snapshot.data!;
+                                    }
+                                  },
+                                ),
+                                /*buildHorarios([
+                                  Horario(
+                                      horario: '09:00-10:00',
+                                      estatus: TypeEstadoHorario.cerrada),
+                                ], 0)
+                                */
                                 /*buildHorarios(
                                     self
                                         .db
@@ -525,7 +550,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   bool todoOcupado(List<Horario> list) {
     bool todoOcupadoHorario = true;
     for (var i = 0; i < list.length; i++) {
-      if (list[i].estatus == TypeEstadoHorario.desocupada) {
+      if (list[i].estatus == TypeEstadoHorario.cerrada) {
         todoOcupadoHorario = false;
         break;
       }
@@ -651,7 +676,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               ],
             ),
             BtnIcon(
-                onPressed: () async {
+                onPressed: () {
+                  //alvaro
+                  self.id_pista_seleccionada.value = int.parse(id_pista);
                   self.selectHorario.value = null;
                   self.selectPista.value = index;
                   self.selectDay.refresh();
@@ -677,10 +704,31 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     }
   }
 
-  Widget buildHorarios(List<Horario> horarios, int index) {
+  Future<Widget> enviarHorarios(int idPista, DateTime dia_actual) async {
+    List<dynamic> datosPistaJson =
+        await self.generarListaHorarios(idPista, dia_actual);
+    print('datosPistaJson $datosPistaJson');
+    List<Horario> array_horarios = [];
+    for (var i = 0; i < datosPistaJson.length; i++) {
+      array_horarios.add(
+        Horario(horario: datosPistaJson[i], estatus: TypeEstadoHorario.cerrada),
+      );
+    }
+    print('array_horarios $array_horarios');
+    return buildHorarios(array_horarios);
+    /* [
+      buildHorarios([
+        Horario(horario: '09:00-10:00', estatus: TypeEstadoHorario.cerrada),
+      ], 0)
+    ];*/
+  }
+
+  Widget buildHorarios(List<Horario> horarios) {
+    print('horarios.length ${horarios.length}');
     return Column(
         children: List.generate(1, (col) {
       final List<Widget> rows = [];
+
       for (var i = 0; i < horarios.length; i = i + 4) {
         rows.add(Row(
             children: List<Widget>.generate(4, (row) {
@@ -692,7 +740,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             final isSelect = self.selectHorario.value == null
                 ? false
                 : (self.selectHorario.value!.inicio == textHorario);
-            if (horarios[row + i].estatus == TypeEstadoHorario.desocupada) {
+            if (horarios[row + i].estatus == TypeEstadoHorario.cerrada) {
               return BtnIcon(
                   padding: const EdgeInsets.all(0),
                   height: 40,
@@ -711,7 +759,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           HorarioFinInicio(
                               inicio: textHorario,
                               termino: termino,
-                              typeEstadoHorario: TypeEstadoHorario.desocupada));
+                              typeEstadoHorario: TypeEstadoHorario.cerrada));
                     }
                     self.listReservas.value =
                         self.listReservas.map((e) => e = false).toList();
@@ -721,7 +769,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       self.selectHorario.value = HorarioFinInicio(
                           inicio: textHorario,
                           termino: termino,
-                          typeEstadoHorario: TypeEstadoHorario.desocupada);
+                          typeEstadoHorario: TypeEstadoHorario.cerrada);
                     }
                   },
                   icon: Center(

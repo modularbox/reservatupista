@@ -37,7 +37,12 @@ class ReservarPistaController extends GetxController
   Rx<String> deporte_seleccionado = Rx<String>('');
 
   Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
-  Rx<String> id_pista_seleccionada = Rx<String>('');
+  Rx<int> id_pista_seleccionada = Rx<int>(0);
+  Rx<String> hora_apertura_pista = Rx<String>('');
+  Rx<String> hora_cierre_pista = Rx<String>('');
+  Rx<String> duracion_partida = Rx<String>('');
+  Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
 
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);
@@ -251,13 +256,52 @@ class ReservarPistaController extends GetxController
       }
       List<dynamic> pistasData = json.decode(pistasJson);
       pistas.value = json.decode(pistasJson);
-      print('pistassssss $pistas');
+      id_pista_seleccionada.value = pistas.value[0]['id_pista'];
+      print('id_pista_seleccionada $id_pista_seleccionada');
       print('pistasData[0] ${pistas.value[0]['id_pista']}');
-
       /* List<String> listaPistas = pistasData
           .map<String>((pista) => pista['id_pista'].toString())
           .toList();*/
       return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorrrrr $error');
+      rethrow;
+    }
+  }
+
+  Future<List<dynamic>> generarListaHorarios(
+      int idPista, DateTime dia_actual) async {
+    try {
+      String datosPistaString2 =
+          await db.obtenerHorariosPistas(idPista, '03-04-2024');
+      List<dynamic> datosPista2 = json.decode(datosPistaString2);
+      print('datosPista2[0] ${datosPista2[0]}');
+      return datosPista2;
+      /*String datosPistaString = await db.obtenerDatosPista(idPista);
+      List<dynamic> datosPista = json.decode(datosPistaString);
+      hora_apertura_pista.value = datosPista[0]['hora_inicio'].toString();
+      hora_cierre_pista.value = datosPista[0]['hora_fin'].toString();
+      duracion_partida.value = datosPista[0]['duracion_partida'].toString();
+      List<String> partesHoraInicio = hora_apertura_pista.value.split(":");
+      TimeOfDay horaInicio = TimeOfDay(
+        hour: int.parse(partesHoraInicio[0]), // hora
+        minute: int.parse(partesHoraInicio[1]), // minutos
+      );
+      DateTime hora_apertura = DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+          horaInicio.hour,
+          horaInicio.minute);
+      DateTime prueba = hora_apertura.add(Duration(minutes: 30));
+      DateTime hora_cierre = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      );
+
+      return datosPista; */
     } catch (error, stack) {
       print('stack: ${stack}');
       print('errorrrrr $error');
