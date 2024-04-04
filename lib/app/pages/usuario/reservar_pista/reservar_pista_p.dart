@@ -333,8 +333,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           DateTime.now()
                         ], //self.singleDatePickerValueWithDefaultValue,
                         onValueChanged: (position, dayDate) {
-                          print('onvaluechanged');
-
+                          self.fecha_seleccionada.value = DateTime(
+                              dayDate.year, dayDate.month, dayDate.day);
+                          print(
+                              'self.fecha_seleccionada.value ${self.fecha_seleccionada.value}');
                           self.selectHorario.value = null;
                           self.selectDateDay.value = dayDate;
                           self.selectDay.value = position;
@@ -343,7 +345,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           } else {
                             self.selectPista.value = 0;
                           }
-
                           print(
                               'cambia self.selectDateDay.value ${self.selectDateDay.value}');
                           print(
@@ -386,8 +387,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       return 0.0.empty;
                     }
                     print('self.selectDay.value ${self.selectDay.value}');
+                    print(
+                        'self.tiempoReservaListaCalendar ${self.tiempoReservaListaCalendar}');
+
                     final List<Widget> buildFechaHorarios = List.generate(
-                        self.tiempoReservaListaCalendar.length,
+                        1,
                         (index) => Column(
                               children: [
                                 Container(
@@ -474,17 +478,22 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                   future: enviarHorarios(
                                       self.id_pista_seleccionada.value,
                                       DateTime(
-                                          2022)), // Aquí debes pasar el id de la pista correcto
+                                          self.fecha_seleccionada.value.year,
+                                          self.fecha_seleccionada.value.month,
+                                          self.fecha_seleccionada.value
+                                              .day)), // Aquí debes pasar el id de la pista correcto
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
+                                      print(111111);
                                       // Mientras se carga la lista de widgets
                                       return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
                                     } else if (snapshot.hasError) {
+                                      print(11111111);
                                       // Si hay un error al cargar la lista de widgets
                                       return Text('Error: ${snapshot.error}');
                                     } else {
-                                      // Cuando la lista de widgets está lista
+                                      print(11111111111);
                                       return snapshot.data!;
                                     }
                                   },
@@ -677,11 +686,13 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             ),
             BtnIcon(
                 onPressed: () {
-                  //alvaro
-                  self.id_pista_seleccionada.value = int.parse(id_pista);
                   self.selectHorario.value = null;
                   self.selectPista.value = index;
                   self.selectDay.refresh();
+                  //alvaro
+                  self.id_pista_seleccionada.value = int.parse(id_pista);
+                  enviarHorarios(self.id_pista_seleccionada.value,
+                      self.fecha_seleccionada.value);
                 },
                 hoverColor: Colores().usuario.primary69,
                 padding: const EdgeInsets.all(0),
@@ -733,6 +744,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         rows.add(Row(
             children: List<Widget>.generate(4, (row) {
           if ((row + i) < horarios.length) {
+            print(66666666);
             final String textHorario = horarios[row + i].horario;
             final String termino = (row + i + 1) == horarios.length
                 ? "00:00"
@@ -740,6 +752,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             final isSelect = self.selectHorario.value == null
                 ? false
                 : (self.selectHorario.value!.inicio == textHorario);
+            print(6666666666);
             if (horarios[row + i].estatus == TypeEstadoHorario.cerrada) {
               return BtnIcon(
                   padding: const EdgeInsets.all(0),

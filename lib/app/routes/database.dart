@@ -11,6 +11,7 @@ import 'models/datos_reservas_pista.dart';
 import 'models/proveedor_model.dart';
 import 'models/usuario_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class DatabaseBinding implements Bindings {
   @override
@@ -264,6 +265,8 @@ class DatabaseController extends GetxController {
 
   Future<String> obtenerPistas(String id_club, String deporte) async {
     try {
+      print('id_club $id_club');
+      print('deporte $deporte');
       var response = await http.get(Uri.parse(
           'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&deporte=$deporte'));
       return response.body.toString();
@@ -283,10 +286,12 @@ class DatabaseController extends GetxController {
     }
   }
 
-  Future<String> obtenerHorariosPistas(int id_pista, String dia) async {
+  Future<String> obtenerHorariosPistas(int id_pista, DateTime dia) async {
     try {
+      String nuevaFecha = DateFormat('yyyy-MM-dd').format(dia);
+      print('nuevaFecha $nuevaFecha');
       var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_horarios_pista?id_pista=$id_pista&dia=$dia'));
+          'https://api.reservatupista.com/usuario/obtener_horarios_pista?id_pista=$id_pista&fecha=$nuevaFecha'));
       print('response.body.toString() ${response.body.toString()}');
       return response.body.toString();
     } catch (error) {

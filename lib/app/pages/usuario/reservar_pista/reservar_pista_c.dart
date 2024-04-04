@@ -239,7 +239,7 @@ class ReservarPistaController extends GetxController
       return;
     } catch (error, stack) {
       print('stack: ${stack}');
-      print('errorrrrr $error');
+      print('errorrrrrrrr $error');
       rethrow;
     }
   }
@@ -250,7 +250,7 @@ class ReservarPistaController extends GetxController
     try {
       String pistasJson = await db.obtenerPistas(id_club, deporte);
       print('pistasJson $pistasJson');
-      if (pistasJson == '{}') {
+      if (pistasJson.isEmpty) {
         pistas.value = [];
         return;
       }
@@ -265,18 +265,19 @@ class ReservarPistaController extends GetxController
       return;
     } catch (error, stack) {
       print('stack: ${stack}');
-      print('errorrrrr $error');
+      print('errorrrrrrrrrrrrrrrrr $error');
       rethrow;
     }
   }
 
   Future<List<dynamic>> generarListaHorarios(
-      int idPista, DateTime dia_actual) async {
+      int idPista, DateTime dia_seleccionado) async {
     try {
       String datosPistaString2 =
-          await db.obtenerHorariosPistas(idPista, '03-04-2024');
+          await db.obtenerHorariosPistas(idPista, dia_seleccionado);
+      print('datosPistaString2 ${datosPistaString2}');
       List<dynamic> datosPista2 = json.decode(datosPistaString2);
-      print('datosPista2[0] ${datosPista2[0]}');
+
       return datosPista2;
       /*String datosPistaString = await db.obtenerDatosPista(idPista);
       List<dynamic> datosPista = json.decode(datosPistaString);
