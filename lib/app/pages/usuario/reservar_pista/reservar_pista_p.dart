@@ -355,7 +355,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   () => self.selectDay.value == null
                       ? 0.0.empty
                       : Builder(builder: (BuildContext context) {
-                          final generateLista = generateListPistas();
+                          //final generateLista = generateListPistas();
                           final generateLista2 = self.generarListaPistas(
                               self.id_club_seleccionado.value,
                               self.deporte_seleccionado.value);
@@ -721,8 +721,29 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     print('datosPistaJson $datosPistaJson');
     List<Horario> array_horarios = [];
     for (var i = 0; i < datosPistaJson.length; i++) {
+      TypeEstadoHorario status;
+      switch (datosPistaJson[i]['estado']) {
+        /*case 'ABIERTA':
+          status = TypeEstadoHorario.abierta;
+          break;*/
+        case 'CERRADA':
+          status = TypeEstadoHorario.cerrada;
+          break;
+        case 'RESERVADA_CLASE':
+          status = TypeEstadoHorario.reservadaClase;
+          break;
+        case 'RESERVADA':
+          status = TypeEstadoHorario.reservada;
+          break;
+        case 'RESERVADA_PARCIAL':
+          status = TypeEstadoHorario.reservadaParcial;
+          break;
+        default:
+          status = TypeEstadoHorario.abierta;
+          break;
+      }
       array_horarios.add(
-        Horario(horario: datosPistaJson[i], estatus: TypeEstadoHorario.cerrada),
+        Horario(horario: datosPistaJson[i]['hora'], estatus: status),
       );
     }
     print('array_horarios $array_horarios');
@@ -758,13 +779,115 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   padding: const EdgeInsets.all(0),
                   height: 40,
                   width: 100.w / 4,
-                  fillColor: Colores().proveedor.primary,
+                  fillColor: Colors.grey, //Colores().proveedor.primary,
+                  borderRadius: isSelect ? 30 : null,
+                  borderColor:
+                      isSelect ? Colores().usuario.primary : Colors.white,
+                  borderWidth: isSelect ? 2 : 0.5,
+                  hoverColor: Colores().usuario.primary69,
+                  onPressed: null,
+                  /*() {
+                    print(2222222222222222);
+                    bool isEqual = false;
+                    if (self.selectHorario.value != null) {
+                      isEqual = self.selectHorario.value!.isEquals(
+                          HorarioFinInicio(
+                              inicio: textHorario,
+                              termino: termino,
+                              typeEstadoHorario: TypeEstadoHorario.cerrada));
+                    }
+                    self.listReservas.value =
+                        self.listReservas.map((e) => e = false).toList();
+                    if (isEqual) {
+                      self.selectHorario.refresh();
+                    } else {
+                      self.selectHorario.value = HorarioFinInicio(
+                          inicio: textHorario,
+                          termino: termino,
+                          typeEstadoHorario: TypeEstadoHorario.cerrada);
+                    
+
+                  }}*/
+                  icon: Center(
+                      child: Text(
+                    textHorario,
+                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 16),
+                  )));
+            } else if (horarios[row + i].estatus == TypeEstadoHorario.abierta) {
+              return BtnIcon(
+                  padding: const EdgeInsets.all(0),
+                  height: 40,
+                  width: 100.w / 4,
+                  fillColor: Colors.greenAccent,
                   borderRadius: isSelect ? 30 : null,
                   borderColor:
                       isSelect ? Colores().usuario.primary : Colors.white,
                   borderWidth: isSelect ? 2 : 0.5,
                   hoverColor: Colores().usuario.primary69,
                   onPressed: () {
+                    self.selectHorario.value = HorarioFinInicio(
+                        inicio: textHorario,
+                        termino: termino,
+                        typeEstadoHorario: TypeEstadoHorario.abierta);
+                    /*self.selectHorario
+                        .refresh();
+                    self.listReservas.value = [true, false, false, false];
+                    bool isEqual = false;
+                    if (self.selectHorario.value != null) {
+                      isEqual = self.selectHorario.value!.isEquals(
+                          HorarioFinInicio(
+                              inicio: textHorario,
+                              termino: termino,
+                              typeEstadoHorario: TypeEstadoHorario.abierta));
+                    }
+                    if (isEqual) {
+                      self.selectHorario.refresh();
+                    } else {
+                      self.selectHorario.value = HorarioFinInicio(
+                          inicio: textHorario,
+                          termino: termino,
+                          typeEstadoHorario: TypeEstadoHorario.abierta);
+                    }*/
+                  },
+                  icon: Center(
+                      child: Text(
+                    textHorario,
+                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 16),
+                  )));
+            } else if (horarios[row + i].estatus ==
+                TypeEstadoHorario.reservada) {
+              return Container(
+                  height: 40,
+                  width: 100.w / 4,
+                  decoration: BoxDecoration(
+                      color: Colores().rojo,
+                      border: Border.all(width: 0.5, color: Colors.white)),
+                  child: Center(
+                      child: Text(
+                    textHorario,
+                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 16),
+                  )));
+              //alvaro
+            } else if (horarios[row + i].estatus ==
+                TypeEstadoHorario.reservadaClase) {
+              return BtnIcon(
+                  padding: const EdgeInsets.all(0),
+                  height: 40,
+                  width: 100.w / 4,
+                  fillColor: Colors.purpleAccent, //Colores().proveedor.primary,
+                  borderRadius: isSelect ? 30 : null,
+                  borderColor:
+                      isSelect ? Colores().usuario.primary : Colors.white,
+                  borderWidth: isSelect ? 2 : 0.5,
+                  hoverColor: Colores().usuario.primary69,
+                  onPressed: null,
+                  /*() {
                     print(2222222222222222);
                     bool isEqual = false;
                     if (self.selectHorario.value != null) {
@@ -784,61 +907,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           termino: termino,
                           typeEstadoHorario: TypeEstadoHorario.cerrada);
                     }
-                  },
+                  }*/
                   icon: Center(
-                      child: Text(
-                    textHorario,
-                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 16),
-                  )));
-            }
-            if (horarios[row + i].estatus == TypeEstadoHorario.abierta) {
-              return BtnIcon(
-                  padding: const EdgeInsets.all(0),
-                  height: 40,
-                  width: 100.w / 4,
-                  fillColor: Colores().orange,
-                  borderRadius: isSelect ? 30 : null,
-                  borderColor:
-                      isSelect ? Colores().usuario.primary : Colors.white,
-                  borderWidth: isSelect ? 2 : 0.5,
-                  hoverColor: Colores().usuario.primary69,
-                  onPressed: () {
-                    self.listReservas.value = [true, false, false, false];
-                    bool isEqual = false;
-                    if (self.selectHorario.value != null) {
-                      isEqual = self.selectHorario.value!.isEquals(
-                          HorarioFinInicio(
-                              inicio: textHorario,
-                              termino: termino,
-                              typeEstadoHorario: TypeEstadoHorario.abierta));
-                    }
-                    if (isEqual) {
-                      self.selectHorario.refresh();
-                    } else {
-                      self.selectHorario.value = HorarioFinInicio(
-                          inicio: textHorario,
-                          termino: termino,
-                          typeEstadoHorario: TypeEstadoHorario.abierta);
-                    }
-                  },
-                  icon: Center(
-                      child: Text(
-                    textHorario,
-                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 16),
-                  )));
-            }
-            if (horarios[row + i].estatus == TypeEstadoHorario.reservada) {
-              return Container(
-                  height: 40,
-                  width: 100.w / 4,
-                  decoration: BoxDecoration(
-                      color: Colores().rojo,
-                      border: Border.all(width: 0.5, color: Colors.white)),
-                  child: Center(
                       child: Text(
                     textHorario,
                     style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(

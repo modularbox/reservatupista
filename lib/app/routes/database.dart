@@ -290,9 +290,12 @@ class DatabaseController extends GetxController {
     try {
       String nuevaFecha = DateFormat('yyyy-MM-dd').format(dia);
       print('nuevaFecha $nuevaFecha');
+      print('idd_pista $id_pista');
       var response = await http.get(Uri.parse(
           'https://api.reservatupista.com/usuario/obtener_horarios_pista?id_pista=$id_pista&fecha=$nuevaFecha'));
       print('response.body.toString() ${response.body.toString()}');
+      print('response.body ${response.body}');
+      print('lleeeeeeeeeega');
       return response.body.toString();
     } catch (error) {
       rethrow;
