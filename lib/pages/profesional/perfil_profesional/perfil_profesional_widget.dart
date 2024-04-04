@@ -287,13 +287,13 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
     return [
       subAppBar,
       ButtonPerfil(
-        title: 'Banco Virtual',
+        title: 'Caja',
         icon: Icons.credit_card,
         top: top,
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.toNamed(Routes.BANCOVIRTUAL);
+          Get.toNamed(Routes.CAJA);
         },
       ),
       ButtonPerfil(
@@ -317,13 +317,13 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         },
       ),
       ButtonPerfil(
-        title: 'Notificaciones',
-        icon: Icons.notifications_none,
+        title: 'Mi Club',
+        icon: Icons.people,
         top: top,
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.toNamed(Routes.NOTIFICACIONESPROFESIONAL);
+          Get.toNamed(Routes.NOTIFICACIONES_PROVEEDOR);
         },
       ),
       ButtonPerfil(
@@ -360,7 +360,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
     return Container(
       width: 200,
       height: 45,
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
       decoration: BoxDecoration(
         color: const Color(0xFFF77066),
         boxShadow: const [

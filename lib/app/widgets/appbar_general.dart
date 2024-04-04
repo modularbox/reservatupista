@@ -13,10 +13,12 @@ class AppbarGeneral extends StatelessWidget {
       this.isTitle = false,
       this.isTitleBack = false,
       this.isTitleInfo = false,
+      this.onBack,
       this.imagePath});
   final String title;
   final bool isTitle;
   final bool isTitleBack;
+  final void Function()? onBack;
   final bool isTitleInfo;
   final String? imagePath;
   @override
@@ -79,9 +81,7 @@ class AppbarGeneral extends StatelessWidget {
             color: FlutterFlowTheme.of(context).primaryText,
             size: 30.0,
           ),
-          onPressed: () async {
-            Navigator.pop(context);
-          },
+          onPressed: onBack ?? Get.back,
         ),
         SizedBox(
           height: 55,
@@ -131,7 +131,7 @@ class AppbarGeneral extends StatelessWidget {
                       shape: badges.BadgeShape.circle,
                       badgeColor: FlutterFlowTheme.of(context).primary,
                       elevation: 4,
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       position: badges.BadgePosition.topEnd(),
                       animationType: badges.BadgeAnimationType.scale,
                       toAnimate: true,
@@ -151,28 +151,11 @@ class AppbarGeneral extends StatelessWidget {
                     icon: Container(
                       width: 40,
                       height: 40,
-                      // radius: 40,
-
-                      // backgroundImage: self.imageFile.value != null
-                      //     ? FileImage(self.imageFile.value!)
-                      //     : null,
                       clipBehavior: Clip.antiAlias,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child:
-                          // (GetStorage().read(
-                          //           'photoUser',
-                          //         )) !=
-                          //         null
-                          //     ? Image.file(
-                          //         File(GetStorage().read(
-                          //           'photoUser',
-                          //         )),
-                          //         fit: BoxFit.cover,
-                          //       )
-                          //     :
-                          Image.asset(
+                      child: Image.asset(
                         'assets/images/foto_avatar.png',
                         fit: BoxFit.cover,
                       ),

@@ -140,7 +140,7 @@ class _LinkDialogState extends State<LinkDialog> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 2.0,
-          backgroundColor: Colores().usuario.primary,
+          backgroundColor: Colores().sucessGeneral,
         ),
         onPressed: () async {
           final urlPoliticaPrivacidad = Uri.parse(widget.urlLink);
@@ -150,8 +150,8 @@ class _LinkDialogState extends State<LinkDialog> {
           }
         },
         child: const Text(
-          'Ir al link',
-          style: TextStyle(color: Colors.white),
+          'Aceptar',
+          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         ),
       ),
     );

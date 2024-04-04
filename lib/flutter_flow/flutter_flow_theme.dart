@@ -30,14 +30,14 @@ abstract class FlutterFlowTheme {
   late Color success;
   late Color warning;
   late Color error;
-  late Color redAccend1;
+  late Color errorGeneral;
   late Color info;
 
   late Color lineColor;
   late Color loginLogo;
   late Color titleLogo;
   late Color bottomBarLoginText;
-  late Color btnGeneral;
+  late Color successGeneral;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -127,12 +127,12 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color warning = const Color(0xFFFFC107);
   late Color error = const Color(0xFFF44336);
   late Color info = const Color(0xFF2196F3);
-  late Color redAccend1 = Color(0xFFF77066);
-  late Color lineColor = Color(0xFFDBE2E7);
-  late Color loginLogo = Color(0xFFFFFFFF);
-  late Color titleLogo = Color(0xFF000088);
-  late Color bottomBarLoginText = Color(0xFFFFFFFF);
-  late Color btnGeneral = Color(0xFF46EF98);
+  late Color lineColor = const Color(0xFFDBE2E7);
+  late Color loginLogo = const Color(0xFFFFFFFF);
+  late Color titleLogo = const Color(0xFF000088);
+  late Color bottomBarLoginText = const Color(0xFFFFFFFF);
+  late Color errorGeneral = const Color(0xFFF77066);
+  late Color successGeneral = const Color(0xFF46EF98);
 }
 
 abstract class Typography {

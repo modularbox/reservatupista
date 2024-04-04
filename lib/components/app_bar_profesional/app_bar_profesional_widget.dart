@@ -66,7 +66,7 @@ class _AppBarProfesionalWidgetState extends State<AppBarProfesionalWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    Get.toNamed(Routes.NOTIFICACIONESPROFESIONAL);
+                    Get.toNamed(Routes.NOTIFICACIONES_PROVEEDOR);
                   },
                   child: badges.Badge(
                     badgeContent: Text(
@@ -104,7 +104,7 @@ class _AppBarProfesionalWidgetState extends State<AppBarProfesionalWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  Get.toNamed(Routes.PERFILPROFESIONAL);
+                  Get.toNamed(Routes.PERFIL_PROVEEDOR);
                 },
                 child: Container(
                   width: 40.0,

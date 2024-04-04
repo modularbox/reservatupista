@@ -4,31 +4,34 @@ import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../app/routes/models/mis_pistas_model.dart';
 import '../../app/routes/models/usuario_model.dart';
 import 'datos_server.dart';
 
-class UsuarioProvider extends GetConnect {
+class PistaProvider extends GetConnect {
   late String token;
-  late int idUser;
-  final url = DatosServer().urlServer;
+  late int idClub;
+  final url = '${DatosServer().urlServer}/pista';
 
   Future<void> initialize() async {
     final storage = await SharedPreferences.getInstance();
     token = storage.token.read();
-    idUser = storage.idUsuario.read();
+    idClub = storage.idClub.read();
+    print(idClub);
   }
 
   // Get request
-  Future<Response> getUser(int id, List<TypeDatosServer> listTypes) =>
-      get('$url/usuario/datos', headers: {
-        "Authorization": "Bearer $token",
-        "idusuario": id.toString(),
-        "datos": DatosServer().datosParseados(listTypes)
-      });
+  Future<Response> getCountPistas(String deporte) =>
+      get('$url/$idClub/total_pistas/?deporte=$deporte',
+          headers: {"Authorization": "Bearer $token"});
 
   // Get Verificar si existe el nick
-  Future<Response> getUsuarioExisteNick(String nick) =>
-      get('$url/usuario/existe_nick', headers: {'nick': nick});
+  Future<Response> crearPista(Map<String, dynamic> body) => post(
+        '$url/$idClub',
+        body,
+        headers: {"Authorization": "Bearer $token"},
+        contentType: 'application/json',
+      );
 
   // Get Verificar si existe el email
   Future<Response> getUsuarioExisteEmail(String email) =>
@@ -46,7 +49,7 @@ class UsuarioProvider extends GetConnect {
   Future<Response> modificarUser(int id, List datos, List<String> idsDatos) =>
       put(
         '$url/usuario',
-        {"id": idUser.toString(), "datos": datos, "ids_datos": idsDatos},
+        {"id": 1.toString(), "datos": datos, "ids_datos": idsDatos},
         headers: {
           "Authorization": "Bearer $token",
         },
@@ -56,23 +59,30 @@ class UsuarioProvider extends GetConnect {
   Future<Response> deleteUser(String id, String token, String user) =>
       delete('$url/$user',
           headers: {"Authorization": "Bearer $token", 'id$user': id});
+
+  // Get Mis Pistas
+  Future<Response> getMisPista(String deporte, String diaSemana) =>
+      get('$url/$idClub/?deporte=$deporte&dia_semana=$diaSemana',
+          headers: {"Authorization": "Bearer $token"});
 }
 
-class UsuarioNode {
-  final provider = UsuarioProvider();
+class PistaNode {
+  final provider = PistaProvider();
 
-  Future<bool> getUsuarioExisteNick(String nick) async {
+  Future<MessageError> crearPista(Map<String, dynamic> body) async {
     try {
-      final response = await provider.getUsuarioExisteNick(nick);
+      await provider.initialize();
+      final response = await provider.crearPista(body);
+      print(response.body);
       if (response.statusCode == 200) {
-        return response.body == false;
+        return MessageError.fromJson(response.body);
       } else {
-        return false;
+        return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
       print('Error al saber si el usuario existe: $error');
       print(stack);
-      return false;
+      return MessageError(message: 'Error al Agregar la Pista', code: 501);
     }
   }
 
@@ -91,27 +101,40 @@ class UsuarioNode {
     }
   }
 
-  Future<UsuarioModel?> getUsuario(
-      int id, List<TypeDatosServer> listTypes) async {
+  /// Obtener el total de pistas
+  Future<int?> getCountPistas(String deporte) async {
+    print("ENTEJBFJ");
+    print(deporte);
     try {
       await provider.initialize();
-      final response = await provider.getUser(id, listTypes);
+      final response = await provider.getCountPistas(deporte);
+      print(response.body);
       if (response.statusCode == 200) {
-        return UsuarioModel.fromJson(response.body);
-      } else {
-        final messageError = MessageError(
-            code: response.body.code,
-            message: 'Ocurrio un error al actualizar el Usuario');
-        print(messageError.message);
-        // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al obtener datos del ---ausuario. Código: ${messageError.code}');
+        return response.body['total'];
       }
     } catch (error, stack) {
       print(stack);
       print('Error al usuario kjj: $error');
     }
     return null;
+  }
+
+  /// Obtener el total de pistas
+  Future<dynamic> getMisPista(String deporte, String diaSemana) async {
+    print("Entro en get mis pistas");
+    try {
+      await provider.initialize();
+      final response = await provider.getMisPista(deporte, diaSemana);
+      if (response.statusCode == 200) {
+        return MisPistas.fromList(response.body['datos']);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+      return MessageError(message: 'Error al obtener mis pistas', code: 501);
+    }
   }
 
   Future<dynamic> delete(String id, String token, String user) async {
@@ -131,10 +154,8 @@ class UsuarioNode {
     try {
       final response = await provider.iniciarSesionUser(datos);
       if (response.statusCode == 200) {
-        print(response.body);
         return UsuarioModel.fromJson(response.body);
       } else {
-        print(response.body);
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {

@@ -140,8 +140,24 @@ class SeleccionarImagenWidget extends StatelessWidget {
               onPressed: () => Get.dialog(GeneralDialogAnswer(
                 visibilityButton1: false,
                 title: 'Permisos',
-                descripcion:
-                    '¿Podría permitir el acceso a tu cámara para tomar fotos y videos dentro de la aplicación?',
+                descripcionWidget: Column(
+                  children: [
+                    Text(
+                      '¿Podría permitir el acceso a tu cámara para tomar fotos y videos dentro de la aplicación?',
+                      textAlign: TextAlign.center,
+                      style: LightModeTheme().bodyLarge.copyWith(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none),
+                    ),
+                    10.0.sh,
+                    Text(
+                      'La aplicación requiere acceso a la cámara y a la galería de fotos para permitir a los usuarios capturar imágenes y videos dentro de la aplicación, así como seleccionar imágenes existentes para su uso en diversas funciones, como la creación de perfiles, la publicación de contenido y la personalización de experiencias. Por ejemplo, al permitir el acceso a la cámara, los usuarios pueden tomar y compartir fotos de sus experiencias utilizando nuestra aplicación. Al acceder a la galería de fotos, los usuarios pueden seleccionar imágenes previamente capturadas para utilizarlas como contenido en sus publicaciones o para personalizar su perfil.',
+                      style: LightModeTheme()
+                          .bodyLarge
+                          .copyWith(decoration: TextDecoration.none),
+                    ),
+                  ],
+                ),
                 onPressedButton2: camera,
               )),
               text: 'Camara',
@@ -171,8 +187,24 @@ class SeleccionarImagenWidget extends StatelessWidget {
               onPressed: () => Get.dialog(GeneralDialogAnswer(
                 visibilityButton1: false,
                 title: 'Permisos',
-                descripcion:
-                    '¿Puedo acceder a tu galería de imágenes para cargar fotos y videos en la aplicación?',
+                descripcionWidget: Column(
+                  children: [
+                    Text(
+                      '¿Podría permitir el acceso a tu cámara para tomar fotos y videos dentro de la aplicación?',
+                      textAlign: TextAlign.center,
+                      style: LightModeTheme().bodyLarge.copyWith(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none),
+                    ),
+                    10.0.sh,
+                    Text(
+                      'La aplicación requiere acceso a la cámara y a la galería de fotos para permitir a los usuarios capturar imágenes y videos dentro de la aplicación, así como seleccionar imágenes existentes para su uso en diversas funciones, como la creación de perfiles, la publicación de contenido y la personalización de experiencias. Por ejemplo, al permitir el acceso a la cámara, los usuarios pueden tomar y compartir fotos de sus experiencias utilizando nuestra aplicación. Al acceder a la galería de fotos, los usuarios pueden seleccionar imágenes previamente capturadas para utilizarlas como contenido en sus publicaciones o para personalizar su perfil.',
+                      style: LightModeTheme()
+                          .bodyLarge
+                          .copyWith(decoration: TextDecoration.none),
+                    ),
+                  ],
+                ),
                 onPressedButton2: galeria,
               )),
               text: 'Galería',
@@ -208,7 +240,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
                 height: 60,
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                color: FlutterFlowTheme.of(context).redAccend1,
+                color: FlutterFlowTheme.of(context).errorGeneral,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Lexend Deca',
                       color: FlutterFlowTheme.of(context).primaryText,

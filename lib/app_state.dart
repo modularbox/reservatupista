@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'app/routes/models/tarifas_model.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -57,40 +58,4 @@ Future _safeInitAsync(Function() initializeField) async {
   try {
     await initializeField();
   } catch (_) {}
-}
-
-class Tarifa {
-  bool disponible;
-  bool luz;
-  bool clases;
-  String? horaInicio;
-  String precioConLuzSocio;
-  String precioSinLuzSocio;
-  String precioConLuzNoSocio;
-  String precioSinLuzNoSocio;
-  String fecha;
-
-  Tarifa(
-      {this.disponible = false,
-      this.luz = false,
-      this.clases = false,
-      this.horaInicio,
-      this.precioConLuzSocio = '',
-      this.precioSinLuzSocio = '',
-      this.precioConLuzNoSocio = '',
-      this.precioSinLuzNoSocio = '',
-      this.fecha = ''});
-
-  Map<String, dynamic> toJson() {
-    return {
-      'disponible': disponible,
-      'luz': luz,
-      'clases': clases,
-      'horaInicio': horaInicio,
-      'precioConLuzSocio': precioConLuzSocio,
-      'precioSinLuzSocio': precioSinLuzSocio,
-      'precioConLuzNoSocio': precioConLuzNoSocio,
-      'precioSinLuzNoSocio': precioSinLuzNoSocio,
-    };
-  }
 }

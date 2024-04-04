@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// Example para llamar al Widget
+/* nombrerx.obx(
+  (state) => state!
+      ? const Icon(
+          Icons.check_circle,
+          color: Colors.green,
+        )
+      : const Icon(
+          Icons.cancel,
+          color: Colors.red,
+        ),
+  onLoading: SizedBox(
+      width: 20,
+      child: ColorLoader(
+        radius: 8,
+        padding: const EdgeInsets.only(right: 1),
+      )),
+    onEmpty: const SizedBox.shrink()),
+*/
 extension StateRxExt<T> on StateRx<T> {
   Widget obx(
     NotifierBuilder<T?> widget, {

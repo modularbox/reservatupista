@@ -123,8 +123,8 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
     }
 
     return NavbarYAppbarUsuario(
-      title: 'Monedero Virtual',
-      page: TypePage.MonederoVirtual,
+      title: 'Monedero',
+      page: TypePage.Monedero,
       child: Expanded(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -137,7 +137,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                 width: double.infinity,
                 height: 120.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondary,
+                  color: LightModeTheme().secondary,
                   boxShadow: const [
                     BoxShadow(
                       blurRadius: 2.0,
@@ -156,8 +156,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                         width: 250,
                         height: 65.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: LightModeTheme().secondaryBackground,
                           boxShadow: const [
                             BoxShadow(
                               blurRadius: 4.0,
@@ -173,7 +172,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 28.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
@@ -190,9 +189,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                                   0.0, 8.0, 0.0, 0.0),
                               child: Text(
                                 '${FormatNumber.formatNumberWithTwoDecimals(db.money.value).toString()} €',
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineLarge
-                                    .override(
+                                style: LightModeTheme().headlineLarge.override(
                                       fontFamily: 'Outfit',
                                       color: const Color(0xFF14181B),
                                       fontSize: 30.0,
@@ -223,13 +220,10 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).btnGeneral,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
+                              color: LightModeTheme().successGeneral,
+                              textStyle: LightModeTheme().titleSmall.override(
                                     fontFamily: 'Readex Pro',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                   ),
                               elevation: 3.0,
                               borderSide: const BorderSide(
@@ -275,13 +269,12 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                           0.0, 0.0, 0.0, 0.0),
                       iconPadding: const EdgeInsetsDirectional.fromSTEB(
                           0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).btnGeneral,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 14.0,
-                              ),
+                      color: LightModeTheme().successGeneral,
+                      textStyle: LightModeTheme().titleSmall.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().primaryText,
+                            fontSize: 14.0,
+                          ),
                       elevation: 3.0,
                       borderSide: const BorderSide(
                         color: Colors.transparent,
@@ -298,9 +291,9 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                             : 'Todo');
                     return Text(
                       tipoText,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: Color.fromARGB(255, 0, 0, 0),
+                            color: const Color.fromARGB(255, 0, 0, 0),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w600,
                             fontStyle: FontStyle.italic,
@@ -369,26 +362,28 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                     ].divide(const SizedBox(width: 5.0)),
                   )
                 : const SizedBox(),
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      _model.type != TypeHistorial.reserva
-                          ? buildReserva(context)
-                          : const SizedBox(),
-                      _model.type != TypeHistorial.tranferencia
-                          ? buildTransferencia(context)
-                          : const SizedBox(),
-                      // buildTransferencia(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+
+            listHistorialMonedero(),
+            // Expanded(
+            //   child: Padding(
+            //     padding:
+            //         const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
+            //     child: SingleChildScrollView(
+            //       child: Column(
+            //         mainAxisSize: MainAxisSize.max,
+            //         children: [
+            //           _model.type != TypeHistorial.reserva
+            //               ? buildReserva(context)
+            //               : const SizedBox(),
+            //           _model.type != TypeHistorial.tranferencia
+            //               ? buildTransferencia(context)
+            //               : const SizedBox(),
+            //           // buildTransferencia(),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -405,7 +400,7 @@ Widget buildTransferencia(BuildContext context) {
         maxWidth: 570.0,
       ),
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: LightModeTheme().secondaryBackground,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: const Color(0xFFE74C3C),
@@ -459,12 +454,12 @@ Widget buildTransferencia(BuildContext context) {
                           TextSpan(
                             text: '',
                             style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: LightModeTheme().primary,
                               fontWeight: FontWeight.bold,
                             ),
                           )
                         ],
-                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        style: LightModeTheme().bodyLarge.override(
                               fontFamily: 'Readex Pro',
                               fontSize: 18.0,
                             ),
@@ -474,19 +469,19 @@ Widget buildTransferencia(BuildContext context) {
                       FFLocalizations.of(context).getText(
                         '088p3ttw' /* Pista Padel #1 */,
                       ),
-                      style: FlutterFlowTheme.of(context).labelMedium,
+                      style: LightModeTheme().labelMedium,
                     ),
                     Text(
                       FFLocalizations.of(context).getText(
                         'gz0qmisy' /* Lunes 3 Enero 2024 */,
                       ),
-                      style: FlutterFlowTheme.of(context).labelMedium,
+                      style: LightModeTheme().labelMedium,
                     ),
                     Text(
                       FFLocalizations.of(context).getText(
                         '3rydlm4r' /* Hora: 11:34 */,
                       ),
-                      style: FlutterFlowTheme.of(context).labelMedium,
+                      style: LightModeTheme().labelMedium,
                     ),
                   ],
                 ),
@@ -501,7 +496,7 @@ Widget buildTransferencia(BuildContext context) {
                     'tgp5papj' /* - 1,50 € */,
                   ),
                   textAlign: TextAlign.end,
-                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                  style: LightModeTheme().headlineSmall.override(
                         fontFamily: 'Outfit',
                         color: const Color(0xFFE74C3C),
                         fontSize: 18.0,
@@ -510,7 +505,7 @@ Widget buildTransferencia(BuildContext context) {
                 Container(
                   height: 15.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: LightModeTheme().secondaryBackground,
                   ),
                 ),
                 Text(
@@ -520,9 +515,9 @@ Widget buildTransferencia(BuildContext context) {
                     ,
                   ),
                   textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  style: LightModeTheme().bodyMedium.override(
                         fontFamily: 'Readex Pro',
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                       ),
                 ),
               ],
@@ -543,7 +538,7 @@ Widget buildReserva(BuildContext context) {
         maxWidth: 570.0,
       ),
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: LightModeTheme().secondaryBackground,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: const Color(0xFF00BC13),
@@ -597,12 +592,12 @@ Widget buildReserva(BuildContext context) {
                           TextSpan(
                             text: '',
                             style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: LightModeTheme().primary,
                               fontWeight: FontWeight.bold,
                             ),
                           )
                         ],
-                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        style: LightModeTheme().bodyLarge.override(
                               fontFamily: 'Readex Pro',
                               fontSize: 18.0,
                             ),
@@ -612,13 +607,13 @@ Widget buildReserva(BuildContext context) {
                       FFLocalizations.of(context).getText(
                         '3rs8cnun' /* Lunes 8 Enero 2024 */,
                       ),
-                      style: FlutterFlowTheme.of(context).labelMedium,
+                      style: LightModeTheme().labelMedium,
                     ),
                     Text(
                       FFLocalizations.of(context).getText(
                         'yhtwqot0' /* Hora: 11:34 */,
                       ),
-                      style: FlutterFlowTheme.of(context).labelMedium,
+                      style: LightModeTheme().labelMedium,
                     ),
                   ],
                 ),
@@ -636,7 +631,7 @@ Widget buildReserva(BuildContext context) {
                       '7fb17ptw' /* + 100,00 € */,
                     ),
                     textAlign: TextAlign.end,
-                    style: FlutterFlowTheme.of(context).headlineSmall.override(
+                    style: LightModeTheme().headlineSmall.override(
                           fontFamily: 'Outfit',
                           color: const Color(0xFF00BC13),
                           fontSize: 18.0,
@@ -649,9 +644,9 @@ Widget buildReserva(BuildContext context) {
                     FFLocalizations.of(context).getText(
                       'ms78u1cd' /* Tarjeta */,
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: LightModeTheme().primary,
                         ),
                   ),
                 ),
@@ -663,3 +658,271 @@ Widget buildReserva(BuildContext context) {
     ),
   );
 }
+
+Widget listHistorialMonedero() => Expanded(
+    child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
+        child: SingleChildScrollView(
+            child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+              child: Container(
+                width: double.infinity,
+                constraints: BoxConstraints(
+                  maxWidth: 570,
+                ),
+                decoration: BoxDecoration(
+                  color: LightModeTheme().secondaryBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: LightModeTheme().successGeneral,
+                    width: 2,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 5, 12),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(2, 0, 5, 25),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/images/icon_recarga.png',
+                                width: 30,
+                                height: 30,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Recarga',
+                                  style: LightModeTheme().bodyLarge.override(
+                                        fontFamily: 'Readex Pro',
+                                        fontSize: 18,
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                                Text(
+                                  '+ 100,00€',
+                                  style: LightModeTheme().bodyMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        color: Color(0xFF17D833),
+                                        fontSize: 18,
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 11, 0),
+                                  child: Text(
+                                    'Lunes 3 Enero 2024',
+                                    style:
+                                        LightModeTheme().labelMedium.override(
+                                              fontFamily: 'Readex Pro',
+                                              letterSpacing: 0,
+                                            ),
+                                  ),
+                                ),
+                                Text(
+                                  '11:34',
+                                  style: LightModeTheme().labelMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(-1, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 10, 0),
+                                    child: Text(
+                                      'Tarjeta',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: LightModeTheme().primary,
+                                                letterSpacing: 0,
+                                                lineHeight: 1,
+                                              ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+              child: Container(
+                width: double.infinity,
+                constraints: BoxConstraints(
+                  maxWidth: 570,
+                ),
+                decoration: BoxDecoration(
+                  color: LightModeTheme().secondaryBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: LightModeTheme().errorGeneral,
+                    width: 2,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 5, 12),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(2, 0, 5, 25),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/images/icon_recarga.png',
+                                width: 30,
+                                height: 30,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Reserva de pista',
+                                  style: LightModeTheme().bodyLarge.override(
+                                        fontFamily: 'Readex Pro',
+                                        fontSize: 18,
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                                Text(
+                                  '-1,50 €',
+                                  style: LightModeTheme().bodyMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        color: Color(0xFFE74C3C),
+                                        fontSize: 18,
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 11, 0),
+                                  child: Text(
+                                    'Lunes 3 Enero 2024',
+                                    style:
+                                        LightModeTheme().labelMedium.override(
+                                              fontFamily: 'Readex Pro',
+                                              letterSpacing: 0,
+                                            ),
+                                  ),
+                                ),
+                                Text(
+                                  '11:34',
+                                  style: LightModeTheme().labelMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Pista Padel #1',
+                                  style: LightModeTheme().bodyMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        color: LightModeTheme().secondaryText,
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(-1, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 10, 0),
+                                    child: Text(
+                                      'Monedero',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: LightModeTheme().primary,
+                                                letterSpacing: 0,
+                                                lineHeight: 0.9,
+                                              ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ].divide(SizedBox(height: 10)),
+        ))));

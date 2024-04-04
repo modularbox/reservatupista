@@ -7,8 +7,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 
 class MisSociosPage extends GetView<MisSociosController> {
   MisSociosController get self => controller;
@@ -28,7 +26,7 @@ class MisSociosPage extends GetView<MisSociosController> {
 
     return NavbarYAppbarProfesional(
       title: 'Mis Socios',
-      page: TypePage.MonederoVirtual,
+      page: TypePage.Monedero,
       child: Expanded(
         child: SingleChildScrollView(
           child: Column(

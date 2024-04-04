@@ -8,14 +8,6 @@ class CodigoIban extends GetView<RegistroProveedorController> {
 
   @override
   Widget build(BuildContext context) {
-    final controllersCodigo = [
-      TextEditingController(text: 'ES'),
-      TextEditingController(),
-      TextEditingController(),
-      TextEditingController(),
-      TextEditingController(),
-      TextEditingController()
-    ];
     final focusNodeCodigo = [
       FocusNode(),
       FocusNode(),
@@ -24,7 +16,24 @@ class CodigoIban extends GetView<RegistroProveedorController> {
       FocusNode(),
       FocusNode()
     ];
-    final lengthTextField = [2, 2, 4, 4, 2, 10];
+    final lengthTextField = [2, 2, 2, 4, 4, 10];
+    final controllersCodigo = self.pruebaEliminarVariable
+        ? [
+            TextEditingController(text: 'ES'),
+            TextEditingController(text: '12'),
+            TextEditingController(text: '12'),
+            TextEditingController(text: '1234'),
+            TextEditingController(text: '1234'),
+            TextEditingController(text: '1234567890'),
+          ]
+        : [
+            TextEditingController(text: 'ES'),
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController()
+          ];
     final nombres = [
       'Código\nPais',
       'Digito\nControl\n¨IBAN¨',

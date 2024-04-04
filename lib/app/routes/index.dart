@@ -9,17 +9,10 @@ export '/pages/profesional/datos_profesional/datos_profesional_widget.dart'
     show DatosProfesionalWidget;
 export '/pages/profesional/registro_profesional/registro_profesional_widget.dart'
     show RegistroProfesionalWidget;
-export '/pages/profesional/perfil_profesional/perfil_profesional_widget.dart'
-    show PerfilProfesionalWidget;
-export '/pages/usuario/monedero_virtual/monedero_virtual_widget.dart'
+export '../../pages/usuario/monedero_virtual/monedero_p.dart'
     show MonederoVirtualWidget;
 export '/pages/profesional/banco_virtual/banco_virtual_widget.dart'
     show BancoVirtualWidget;
-export '/app/pages/profesional/anadir_pista/anadir_pista_widget.dart'
-    show AnadirPistaWidget;
-export '/pages/profesional/tarifas/tarifas_widget.dart' show TarifasWidget;
-export '/pages/profesional/mis_pistas/mis_pistas_widget.dart'
-    show MisPistasWidget;
 export '/pages/usuario/notificaciones/notificaciones_widget.dart'
     show NotificacionesWidget;
 export '/pages/profesional/notificaciones_profesional/notificaciones_profesional_widget.dart'

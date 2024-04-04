@@ -459,6 +459,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   if (self.selectDay.value == null) {
                     return 0.0.empty;
                   }
+                  print(self.tiempoReservaListaCalendar);
                   final List<Widget> buildFechaHorarios = List.generate(
                       self.tiempoReservaListaCalendar.length,
                       (index) => Column(
@@ -656,6 +657,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildHorarios(List<Horario> horarios, int index) {
+    print(horarios);
     return Column(
         children: List.generate(1, (col) {
       final List<Widget> rows = [];
@@ -826,7 +828,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 //   onPressed: () => {Get.back()},
                 //   answer: "Reserva de pista",
                 //   title: controller2.selectedOption.value == 'monedero'
-                //       ? 'Monedero Virtual'
+                //       ? 'Monedero'
                 //       : "Tarjeta",
                 //   importe: 4.0,
                 //   titleButton: "Pagar",
@@ -1115,7 +1117,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SelectionWidget(
-              label: 'Monedero Virtual',
+              label: 'Monedero',
               value: 'monedero',
               controller: controller2,
             ),

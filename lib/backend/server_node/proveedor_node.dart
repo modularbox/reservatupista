@@ -60,6 +60,8 @@ class ProveedorNode {
   Future<dynamic> iniciarSesion(List datos) async {
     try {
       final response = await proveedorProvider.iniciarSesion(datos);
+      print("dfsjbfdsijbfjdsibnfjds");
+      print(response.body);
       if (response.statusCode == 200) {
         return ProveedorModel.fromJson(response.body);
       } else {

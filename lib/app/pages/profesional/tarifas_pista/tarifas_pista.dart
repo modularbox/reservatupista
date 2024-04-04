@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../components/appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
-import '../../../../flutter_flow/flutter_flow_widgets.dart';
 import './tarifas_pista_c.dart';
 import 'widgets/clonar_dias.dart';
 
@@ -45,7 +45,8 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+        padding: EdgeInsets.symmetric(
+            horizontal: 10.0, vertical: isiOS ? 15.0 : 5.0),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           buildButton(context, 'Clonar Día', Icons.copy, false),
           20.0.sw,
@@ -57,13 +58,12 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
 
   /// Construir la lista para seleccionar el dia de la semana
   Widget buildListaDeDiasSemana() {
-    final List<String> diasSelect = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
     return Obx(
       () => Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(
-            diasSelect.length,
+            self.listDiaSemana.length,
             (index) => BtnIcon(
               width: 100.w / 7,
               height: 45,
@@ -75,7 +75,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                       ? const Color(0xFF46EF98)
                       : FlutterFlowTheme.of(Get.context!).primary,
                   child: Text(
-                    diasSelect[index],
+                    self.listDiaSemana[index],
                     style:
                         FlutterFlowTheme.of(Get.context!).titleSmall.override(
                               fontFamily: 'Readex Pro',
@@ -278,9 +278,11 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                       child: Obx(() => TextFormField(
                             maxLength: 7,
                             controller: TextEditingController(
-                                text: self.listLuz[index].value
-                                    ? val.precioConLuzSocio
-                                    : val.precioSinLuzSocio),
+                                text: self.listClase[index].value
+                                    ? '0.00 €'
+                                    : self.listLuz[index].value
+                                        ? val.precioConLuzSocio
+                                        : val.precioSinLuzSocio),
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true),
                             obscureText: false,
@@ -306,9 +308,11 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                       child: Obx(() => TextFormField(
                             maxLength: 7,
                             controller: TextEditingController(
-                                text: self.listLuz[index].value
-                                    ? val.precioConLuzNoSocio
-                                    : val.precioSinLuzNoSocio),
+                                text: self.listClase[index].value
+                                    ? '0.00 €'
+                                    : self.listLuz[index].value
+                                        ? val.precioConLuzNoSocio
+                                        : val.precioSinLuzNoSocio),
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true),
                             obscureText: false,

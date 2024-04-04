@@ -20,12 +20,12 @@ class PerfilProfesionalModel extends FlutterFlowModel<PerfilProfesionalWidget> {
 
   String fotoName = 'assets/images/logo_reservatupista.png';
   String subtitle = 'Club Padel';
-  String btn1Name = 'Banco Virtual';
-  String btn1PushNamed = Routes.BANCOVIRTUAL;
+  String btn1Name = 'Caja';
+  String btn1PushNamed = Routes.CAJA;
   String btn2Name = 'Datos';
   String btn2PushNamed = Routes.DATOS_PROVEEDOR;
   String btn3Name = 'Notificaciones';
-  String btn3PushNamed = Routes.NOTIFICACIONESPROFESIONAL;
+  String btn3PushNamed = Routes.PERFIL_PROVEEDOR;
   String socio = Routes.MIS_SOCIOS;
   String btn4Name = 'Términos de servicio';
   String btnCerrar = Routes.LOGIN_USUARIO;

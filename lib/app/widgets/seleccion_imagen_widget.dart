@@ -204,7 +204,7 @@ class SeleccionImagenWidget extends StatelessWidget {
                 height: 60,
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                color: FlutterFlowTheme.of(context).redAccend1,
+                color: FlutterFlowTheme.of(context).errorGeneral,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Lexend Deca',
                       color: FlutterFlowTheme.of(context).primaryText,

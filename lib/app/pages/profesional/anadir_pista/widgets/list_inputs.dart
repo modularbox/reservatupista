@@ -71,12 +71,7 @@ class _ListInputsState extends State<ListInputs> {
                         '🥅 Multideporte',
                       ],
                       isValidate: self.deporte.isValidate.value,
-                      onChanged: (val) {
-                        self.deporte.isValidate.value = false;
-                        if (val.isNotEmpty) {
-                          self.nPistaController.text = '1';
-                        }
-                      },
+                      onChanged: self.onChangeDeporte,
                       onValidator: (val) => self.validarInputController(
                           val,
                           self.deporte.isValidate,
@@ -316,6 +311,7 @@ class _ListInputsState extends State<ListInputs> {
                         self.isValidBtnTarifas.refresh();
                         self.horaInicio.isValidate.value = false;
                         self.horaFin.isValidate.value = false;
+                        self.selfTarifas.datosGuardados.value = false;
                       },
                       enableInput: self.isValidBtnTarifas.value ||
                           self.duracionPartida.controller.text != '',
@@ -346,7 +342,8 @@ class _ListInputsState extends State<ListInputs> {
                       itemsDD: self.generarHoraFinal(self.listaHorarios.value),
                       onChanged: (val) => {
                         self.horaFin.isValidate.value = false,
-                        self.isValidBtnTarifas.refresh()
+                        self.isValidBtnTarifas.refresh(),
+                        self.selfTarifas.datosGuardados.value = false
                       },
                       isValidate: self.horaFin.isValidate.value,
                       onValidator: (val) => self.validarInputController(
@@ -991,7 +988,7 @@ class _ListInputsState extends State<ListInputs> {
                   4.0.sw,
                   Expanded(
                     child: Text(
-                      'Monedero Virtual',
+                      'Monedero',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).labelLarge.override(
                             fontFamily: 'Readex Pro',

@@ -11,6 +11,7 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
+import '../../../routes/app_pages.dart';
 import '../../../widgets/appbar_general.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -39,9 +40,12 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
           top: true,
           child: Column(
             children: [
-              const AppbarGeneral(
+              AppbarGeneral(
                 isTitleBack: true,
                 title: 'Datos Usuario',
+                onBack: self.seModificaronDatos
+                    ? () => Get.offNamed(Routes.PERFIL)
+                    : null,
               ),
               self.apidatosUsuario.obx((state) => getFomData(),
                   onLoading: Padding(
@@ -55,43 +59,45 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: FFButtonWidget(
-                onPressed: () {
-                  if (self.modificarDatos) {
-                    self.onPressedGuardarCambios();
-                  }
-                  self.modificarDatos = !self.modificarDatos;
-                  self.apidatosUsuario.rx.refresh();
-                },
-                text:
-                    self.modificarDatos ? 'Guardar Cambios' : 'Modificar Datos',
-                options: FFButtonOptions(
-                  width: 45.0.w,
-                  height: 40,
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  color: LightModeTheme().primary,
-                  textStyle: LightModeTheme().bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        color: LightModeTheme().tertiary,
+            Obx(() => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: FFButtonWidget(
+                    onPressed: () {
+                      if (self.modificarDatos.value) {
+                        self.onPressedGuardarCambios();
+                      }
+                      self.modificarDatos.toggle();
+                      self.apidatosUsuario.rx.refresh();
+                    },
+                    text: self.modificarDatos.value
+                        ? 'Guardar Cambios'
+                        : 'Modificar Datos',
+                    options: FFButtonOptions(
+                      width: 45.0.w,
+                      height: 40,
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: LightModeTheme().primary,
+                      textStyle: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().tertiary,
+                          ),
+                      elevation: 2,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
                       ),
-                  elevation: 2,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
+                )),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: FFButtonWidget(
                 onPressed: () => Get.dialog(LinkDialog(
-                  alertTitle: richTitle('¿Deseas ir al enlace externo?',
-                      fontSize: 20.0),
+                  alertTitle:
+                      richTitle('¿Deseas eliminar la cuenta?', fontSize: 20.0),
                   alertSubtitle: richSubtitle(
                       'https://app.reservatupista.com/eliminar_cuenta/'),
                   urlLink: 'https://app.reservatupista.com/eliminar_cuenta/',
@@ -300,7 +306,7 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
   void mostrarImagen() {
     Get.dialog(
       GestureDetector(
-        onTap: () => Get.back(),
+        onTap: Get.back,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -415,8 +421,9 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                     style: LightModeTheme().bodyMedium,
                     cursorColor: LightModeTheme().primary,
                     readOnly: true,
-                    enabled:
-                        self.modificarDatos ? isRequired : self.modificarDatos,
+                    enabled: self.modificarDatos.value
+                        ? isRequired
+                        : self.modificarDatos.value,
                     onTap: () => SelectDatos(
                       context: context,
                       itemsDD: propertiesTextField.listSelect,
@@ -478,8 +485,9 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    enabled:
-                        self.modificarDatos ? isRequired : self.modificarDatos,
+                    enabled: self.modificarDatos.value
+                        ? isRequired
+                        : self.modificarDatos.value,
                     filled: true,
                     suffixIcon: propertiesTextField.labelText == 'Código Postal'
                         ? self.apiCodigoPostal.obx(

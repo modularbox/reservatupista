@@ -102,7 +102,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 3,
@@ -120,10 +120,10 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(Get.context!).tertiary,
+                  color: LightModeTheme().tertiary,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: FlutterFlowTheme.of(Get.context!).secondary,
+                    color: LightModeTheme().secondary,
                     width: 3,
                   ),
                 ),
@@ -165,8 +165,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         child: AutoSizeText(
                           '$nombre $apellidos',
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(Get.context!).headlineSmall,
+                          style: LightModeTheme().headlineSmall,
                         )),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
@@ -176,15 +175,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              'Nick: $nick',
-                              style: LightModeTheme().bodyMedium,
-                            ),
+                            datos('Nick', nick),
                             5.0.sw,
-                            Text(
-                              'Nivel: $nivel',
-                              style: LightModeTheme().bodyMedium,
-                            ),
+                            datos('Nivel', nivel),
                           ],
                         ),
                       ),
@@ -200,7 +193,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 3,
@@ -218,10 +211,10 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                 width: 90,
                 height: 90,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(Get.context!).tertiary,
+                  color: LightModeTheme().tertiary,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: FlutterFlowTheme.of(Get.context!).secondary,
+                    color: LightModeTheme().secondary,
                     width: 3,
                   ),
                 ),
@@ -267,8 +260,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         child: AutoSizeText(
                           '$nombre $apellidos',
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(Get.context!).headlineSmall,
+                          style: LightModeTheme().headlineSmall,
                         )),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
@@ -278,17 +270,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              'Nick: $nick',
-                              style:
-                                  FlutterFlowTheme.of(Get.context!).labelMedium,
-                            ),
+                            datos('Nick', nick),
                             10.0.sw,
-                            Text(
-                              'Nivel: $nivel',
-                              style:
-                                  FlutterFlowTheme.of(Get.context!).labelMedium,
-                            ),
+                            datos('Nivel', nivel),
                           ],
                         ),
                       ),
@@ -346,13 +330,13 @@ class _PerfilWidgetState extends State<PerfilWidget> {
     return [
       subAppBar,
       ButtonPerfil(
-        title: 'Monedero Virtual',
+        title: 'Monedero',
         icon: Icons.credit_card,
         top: top,
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.toNamed(Routes.MONEDEROVIRTUAL);
+          Get.toNamed(Routes.MONEDERO);
         },
       ),
       ButtonPerfil(
@@ -376,8 +360,8 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         },
       ),
       ButtonPerfil(
-        title: 'Notificaciones',
-        icon: Icons.notifications_none,
+        title: 'Detalles Club',
+        icon: Icons.people,
         top: top,
         height: height,
         padding: padding,
@@ -419,7 +403,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
     return Container(
       width: 200,
       height: 45,
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
       decoration: BoxDecoration(
         color: const Color(0xFFF77066),
         boxShadow: const [
@@ -445,7 +429,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
               child: Text(
                 'Cerrar Sesión',
-                style: FlutterFlowTheme.of(Get.context!).bodyLarge,
+                style: LightModeTheme().bodyLarge,
               ),
             ),
             const Align(
@@ -493,7 +477,7 @@ class ButtonPerfil extends StatelessWidget {
         width: double.infinity,
         height: height ?? 60,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 5,
@@ -519,7 +503,7 @@ class ButtonPerfil extends StatelessWidget {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
                       title,
-                      style: FlutterFlowTheme.of(Get.context!).bodyLarge,
+                      style: LightModeTheme().bodyLarge,
                     ),
                   ),
                 ),
@@ -527,7 +511,7 @@ class ButtonPerfil extends StatelessWidget {
                   alignment: AlignmentDirectional(0.9, 0),
                   child: Icon(
                     Icons.arrow_forward_ios,
-                    color: FlutterFlowTheme.of(Get.context!).secondaryText,
+                    color: LightModeTheme().secondaryText,
                     size: 18,
                   ),
                 ),
@@ -559,4 +543,19 @@ class ButtonPerfil extends StatelessWidget {
         );
     }
   }
+}
+
+Widget datos(String title, String dato) {
+  return RichText(
+      text: TextSpan(children: [
+    TextSpan(
+      text: '$title: ',
+      style: LightModeTheme().bodyMedium.copyWith(fontWeight: FontWeight.bold),
+    ),
+    TextSpan(
+      text: dato,
+      style:
+          LightModeTheme().bodyMedium.copyWith(fontWeight: FontWeight.normal),
+    ),
+  ]));
 }

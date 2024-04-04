@@ -85,7 +85,10 @@ class DatosUsuarioController extends GetxController
   RxBool checkboxTerminos = false.obs;
   RxBool validateCheckbox = false.obs;
   RxBool validateExisteNick = false.obs;
-  bool modificarDatos = false;
+  RxBool modificarDatos = false.obs;
+
+  /// Verificar si se modificaron datos para actualizar el perfil
+  bool seModificaronDatos = false;
 
   RxString nick = ''.obs;
   late AnimationController animTerminos;
@@ -457,22 +460,38 @@ class DatosUsuarioController extends GetxController
         }
 
         if (datosModificados.isNotEmpty) {
-          await UsuarioNode().modificarUsuarioNode(
+          final result = await UsuarioNode().modificarUsuarioNode(
               usuarioModel!.idUsuario, datosSQL, datosModificados);
+          if (result.code == 2000) {
+            await Get.dialog(RichAlertDialog(
+              alertTitle: richTitle("Datos usuario"),
+              alertSubtitle: richSubtitle(result.message),
+              textButton: "Aceptar",
+              alertType: RichAlertType.SUCCESS,
+              onPressed: Get.back,
+            ));
+            seModificaronDatos = true;
+          } else {
+            await Get.dialog(RichAlertDialog(
+              alertTitle: richTitle("Datos usuario"),
+              alertSubtitle: richSubtitle(result.messageError()),
+              textButton: "Aceptar",
+              alertType: RichAlertType.WARNING,
+              onPressed: Get.back,
+            ));
+          }
+        } else {
+          await Get.dialog(RichAlertDialog(
+            alertTitle: richTitle("Datos usuario"),
+            alertSubtitle: richSubtitle(
+                "Los datos del usuario\nse han modificado correctamente."),
+            textButton: "Aceptar",
+            alertType: RichAlertType.SUCCESS,
+            onPressed: () {
+              Get.back();
+            },
+          ));
         }
-
-        /// Regresar al inicio y enviar el email.
-        await Get.dialog(RichAlertDialog(
-          //uses the custom alert dialog
-          alertTitle: richTitle("Datos usuario"),
-          alertSubtitle: richSubtitle(
-              "Los datos del usuario\nse han modificado correctamente."),
-          textButton: "Aceptar",
-          alertType: RichAlertType.SUCCESS,
-          onPressed: () {
-            Get.back();
-          },
-        ));
       } catch (e) {
         print(e);
       }
@@ -517,7 +536,9 @@ class DatosUsuarioController extends GetxController
         /// Actualizar Image
         db.imageServer.value =
             '${UsuarioNode().getImageNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
-        print(db.imageServer);
+
+        final storage = await SharedPreferences.getInstance();
+        storage.foto.write(db.imageServer.value);
         print('Seactualizo');
       } catch (e) {
         print(e);

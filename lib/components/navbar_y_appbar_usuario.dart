@@ -1,9 +1,9 @@
 import 'package:reservatu_pista/components/nav_bar_usuario/nav_bar_usuario_widget.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'appbar_usuario.dart';
 
 class NavbarYAppbarUsuario extends StatelessWidget {
@@ -32,21 +32,30 @@ class NavbarYAppbarUsuario extends StatelessWidget {
         ),
       );
     }
-
+    EdgeInsets padding = MediaQuery.of(context).padding;
+    double paddingTop = padding.top;
     return Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              AppbarUsuario(
-                  title: title, isTitle: isTitle, isTitleBack: isTitleBack),
-              child,
-            ],
-          ),
-        ),
-        bottomNavigationBar: isNavBar
-            ? NavBarUsuarioWidget(
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                paddingTop.sh,
+                AppbarUsuario(
+                    title: title, isTitle: isTitle, isTitleBack: isTitleBack),
+                child,
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: NavBarUsuarioWidget(
                 tipoDePagina: page,
-              )
-            : const SizedBox());
+              ),
+            ).visible(isNavBar)
+          ],
+        ),
+        bottomNavigationBar: Container(
+          height: 0.0,
+          margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
+        ));
   }
 }

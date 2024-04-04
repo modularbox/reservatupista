@@ -94,7 +94,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    llenadoAutomatico();
+    // llenadoAutomatico();
     change(null, status: RxStatus.empty());
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);

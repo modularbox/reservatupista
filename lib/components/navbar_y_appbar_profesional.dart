@@ -1,14 +1,10 @@
-import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../components/appbar_profesional.dart';
-import '../app/routes/app_pages.dart';
-import '../utils/dialog/rich_alert.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/nav_bar_profesional/nav_bar_profesional_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class NavbarYAppbarProfesional extends StatelessWidget {
   const NavbarYAppbarProfesional(
@@ -17,12 +13,14 @@ class NavbarYAppbarProfesional extends StatelessWidget {
       required this.title,
       this.page,
       this.isTitle = false,
-      this.isTitleBack = false});
+      this.isTitleBack = false,
+      this.isNavBar = true});
   final String title;
   final bool isTitle;
   final bool isTitleBack;
   final Widget child;
   final TypePage? page;
+  final bool isNavBar;
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -33,66 +31,32 @@ class NavbarYAppbarProfesional extends StatelessWidget {
         ),
       );
     }
-
+    EdgeInsets padding = MediaQuery.of(context).padding;
+    double paddingTop = padding.top;
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-      body: isTitleBack
-          ? SafeArea(
-              top: true,
-              child: Column(
-                children: [
-                  AppbarProfesional(
-                    title: title,
-                    isTitle: isTitle,
-                    isTitleBack: isTitleBack,
-                  ),
-                  child,
-                ],
-              ),
-            )
-          : WillPopScope(
-              onWillPop: () async {
-                /// Mensaje para saber si el usuario quiere cerrar sesion
-                await Get.dialog(RichAlertDialog(
-                  alertTitle: richTitle("Cerrar Sesión"),
-                  alertSubtitle:
-                      richSubtitle("¿Estás seguro de cerrar la sesión?"),
-                  textButton: "Aceptar",
-                  actions: [
-                    defaultAction(Colors.red, () => Get.back(), 'Cancelar'),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    defaultAction(
-                        Colors.blue,
-                        () =>
-                            Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1),
-                        'Aceptar')
-                  ],
-                  alertType: RichAlertType.WARNING,
-                  onPressed: () => Get.back(),
-                ));
-                return false;
-              },
-              child: SafeArea(
-                top: true,
-                child: Column(
-                  children: [
-                    AppbarProfesional(
-                      title: title,
-                      isTitle: isTitle,
-                      isTitleBack: isTitleBack,
-                    ),
-                    child,
-                  ],
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                paddingTop.sh,
+                AppbarProfesional(
+                  title: title,
+                  isTitle: isTitle,
+                  isTitleBack: isTitleBack,
                 ),
-              ),
+                child,
+              ],
             ),
-      bottomNavigationBar: page != null
-          ? NavBarProfesionalWidget(
-              tipoDePagina: page!,
-            )
-          : const SizedBox(),
-    );
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: NavBarProfesionalWidget(
+                  tipoDePagina: page,
+                )).visible(isNavBar),
+          ],
+        ),
+        bottomNavigationBar: Container(
+          height: 0.0,
+          margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
+        ));
   }
 }

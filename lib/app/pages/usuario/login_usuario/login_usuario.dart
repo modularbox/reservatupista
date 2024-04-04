@@ -36,7 +36,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     const lineColorUsuario = Color.fromARGB(160, 43, 120, 220);
     final focusedColorUsuario = FlutterFlowTheme.of(context).primary;
     const lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
-    final focusedColorProfesional = FlutterFlowTheme.of(context).btnGeneral;
+    final focusedColorProfesional = FlutterFlowTheme.of(context).successGeneral;
     // Declarar si el movil es pequeno
     final height = MediaQuery.sizeOf(context).height;
     movilPequeno = height <= 688;

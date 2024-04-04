@@ -1,9 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import '../../src/smooth_page_indicator.dart';
 import '../../src/effects/color_transition_effect.dart';
-
 import 'indicator_painter.dart';
 
 /// Paints a color change transition effect between active

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+
 class ListPistas {
   List<PistasModel> listPistas;
   ListPistas({required this.listPistas});
@@ -11,58 +13,68 @@ class ListPistas {
 }
 
 class PistasModel {
-  int idPista;
-  String deporte;
-  int numPista;
-  int techada;
-  String iluminacion;
-  String tipo;
-  String cesped;
-  int automatizada;
-  int duracionPartida;
-  String horaInicio;
-  String horaFin;
-  int tiempoReservaSocio;
-  int tiempoCancelacionSocio;
-  double precioLuzSocio;
-  double precioSinLuzSocio;
-  int tiempoReservaNoSocio;
-  int tiempoCancelacionNoSocio;
-  double precioLuzNoSocio;
-  double precioSinLuzNoSocio;
-  String descripcion;
-  String nombrePatrocinador;
-  String imagenPatrocinador;
-  int vestuario;
-  int duchas;
-  String imagenesPista;
+  int? idPista;
+  String? deporte;
+  int? numPista;
+  bool? techada;
+  bool? iluminacion;
+  String? tipo;
+  String? cesped;
+  bool? automatizada;
+  int? duracionPartida;
+  String? horaInicio;
+  String? horaFin;
+  int? tiempoReservaSocio;
+  int? tiempoCancelacionSocio;
+  int? precioLuzSocio;
+  int? precioSinLuzSocio;
+  int? tiempoReservaNoSocio;
+  int? tiempoCancelacionNoSocio;
+  int? precioLuzNoSocio;
+  int? precioSinLuzNoSocio;
+  String? descripcion;
+  String? nombrePatrocinador;
+  String? imagenPatrocinador;
+  bool? vestuario;
+  bool? duchas;
+  String? imagenesPista;
+  bool? efectivo;
+  bool? tarjeta;
+  bool? bono;
+  bool? reservatupista;
+  DateTime? fechaRegistro;
 
   PistasModel({
-    required this.idPista,
-    required this.deporte,
-    required this.numPista,
-    required this.techada,
-    required this.iluminacion,
-    required this.tipo,
-    required this.cesped,
-    required this.automatizada,
-    required this.duracionPartida,
-    required this.horaInicio,
-    required this.horaFin,
-    required this.tiempoReservaSocio,
-    required this.tiempoCancelacionSocio,
-    required this.precioLuzSocio,
-    required this.precioSinLuzSocio,
-    required this.tiempoReservaNoSocio,
-    required this.tiempoCancelacionNoSocio,
-    required this.precioLuzNoSocio,
-    required this.precioSinLuzNoSocio,
-    required this.descripcion,
-    required this.nombrePatrocinador,
-    required this.imagenPatrocinador,
-    required this.vestuario,
-    required this.duchas,
-    required this.imagenesPista,
+    this.idPista,
+    this.deporte,
+    this.numPista,
+    this.techada,
+    this.iluminacion,
+    this.tipo,
+    this.cesped,
+    this.automatizada,
+    this.duracionPartida,
+    this.horaInicio,
+    this.horaFin,
+    this.tiempoReservaSocio,
+    this.tiempoCancelacionSocio,
+    this.precioLuzSocio,
+    this.precioSinLuzSocio,
+    this.tiempoReservaNoSocio,
+    this.tiempoCancelacionNoSocio,
+    this.precioLuzNoSocio,
+    this.precioSinLuzNoSocio,
+    this.descripcion,
+    this.nombrePatrocinador,
+    this.imagenPatrocinador,
+    this.vestuario,
+    this.duchas,
+    this.imagenesPista,
+    this.efectivo,
+    this.tarjeta,
+    this.bono,
+    this.reservatupista,
+    this.fechaRegistro,
   });
 
   factory PistasModel.fromRawJson(String str) =>
@@ -84,12 +96,12 @@ class PistasModel {
         horaFin: json["hora_fin"],
         tiempoReservaSocio: json["tiempo_reserva_socio"],
         tiempoCancelacionSocio: json["tiempo_cancelacion_socio"],
-        precioLuzSocio: json["precio_luz_socio"].toDouble(),
-        precioSinLuzSocio: json["precio_sin_luz_socio"].toDouble(),
+        precioLuzSocio: json["precio_luz_socio"],
+        precioSinLuzSocio: json["precio_sin_luz_socio"],
         tiempoReservaNoSocio: json["tiempo_reserva_no_socio"],
         tiempoCancelacionNoSocio: json["tiempo_cancelacion_no_socio"],
-        precioLuzNoSocio: json["precio_luz_no_socio"].toDouble(),
-        precioSinLuzNoSocio: json["precio_sin_luz_no_socio"].toDouble(),
+        precioLuzNoSocio: json["precio_luz_no_socio"],
+        precioSinLuzNoSocio: json["precio_sin_luz_no_socio"],
         descripcion: json["descripcion"],
         nombrePatrocinador: json["nombre_patrocinador"],
         imagenPatrocinador: json["imagen_patrocinador"],
@@ -99,7 +111,6 @@ class PistasModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id_pista": idPista,
         "deporte": deporte,
         "num_pista": numPista,
         "techada": techada,

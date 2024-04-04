@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../../../../app_state.dart';
+import '../../../routes/models/tarifas_model.dart';
 
 class TarifasPistaController extends GetxController {
   List<List<Tarifa>> listTarifas = [];
@@ -23,6 +23,9 @@ class TarifasPistaController extends GetxController {
     false,
     false,
   ]);
+
+  /// Lista de dias en formato letra
+  final listDiaSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
   // Verificar si los datos estan guardados
   RxBool datosGuardados = false.obs;
 
@@ -169,6 +172,7 @@ class TarifasPistaController extends GetxController {
             newListTarifas.add(Tarifa(
                 disponible: true,
                 clases: element.clases,
+                diaSemana: listDiaSemana[i],
                 luz: element.luz,
                 horaInicio: element.horaInicio,
                 precioConLuzSocio: element.precioConLuzSocio,
@@ -178,6 +182,7 @@ class TarifasPistaController extends GetxController {
           } else {
             newListTarifas.add(Tarifa(
                 horaInicio: element.horaInicio,
+                diaSemana: listDiaSemana[i],
                 precioConLuzSocio: element.precioConLuzSocio,
                 precioConLuzNoSocio: element.precioConLuzNoSocio,
                 precioSinLuzNoSocio: element.precioSinLuzNoSocio,

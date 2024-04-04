@@ -20,6 +20,10 @@ export 'package:intl/intl.dart';
 export 'package:page_transition/page_transition.dart';
 export 'internationalization.dart' show FFLocalizations;
 
+extension WidgetExt on Widget {
+  Widget visible(bool isVisible) => isVisible ? this : const SizedBox.shrink();
+}
+
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
 

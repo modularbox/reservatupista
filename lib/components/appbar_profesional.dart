@@ -44,7 +44,7 @@ class AppbarProfesional extends StatelessWidget {
   }
 
   List<Widget> buildRow(BuildContext context) {
-    const String notify = Routes.NOTIFICACIONESPROFESIONAL;
+    const String notify = Routes.NOTIFICACIONES_PROVEEDOR;
 
     if (isTitleBack) {
       return [
@@ -168,7 +168,7 @@ class AppbarProfesional extends StatelessWidget {
                               color: FlutterFlowTheme.of(context).secondary)),
                       child: ImageServer()),
                   onPressed: () async {
-                    Get.toNamed(Routes.PERFILPROFESIONAL);
+                    Get.toNamed(Routes.PERFIL_PROVEEDOR);
                   },
                 ),
               ],

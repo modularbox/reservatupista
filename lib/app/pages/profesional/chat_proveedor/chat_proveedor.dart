@@ -10,6 +10,7 @@ class ChatProveedorPage extends GetView<ChatProveedorController> {
     return const NavbarYAppbarProfesional(
       title: 'Chat Proveedor',
       isTitleBack: true,
+      isNavBar: false,
       child: SizedBox(),
     );
   }

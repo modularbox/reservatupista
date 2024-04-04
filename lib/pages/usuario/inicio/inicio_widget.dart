@@ -60,9 +60,6 @@ class _InicioWidgetState extends State<InicioWidget> {
         ),
       );
     }
-
-    context.watch<FFAppState>();
-
     return NavbarYAppbarUsuario(
       title: 'Inicio',
       page: TypePage.Inicio,
@@ -73,10 +70,10 @@ class _InicioWidgetState extends State<InicioWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Container(
                   width: double.infinity,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 570,
                   ),
                   decoration: BoxDecoration(
@@ -84,20 +81,22 @@ class _InicioWidgetState extends State<InicioWidget> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                           child: Text(
                             'Partidas Abiertas',
                             style: FlutterFlowTheme.of(context).headlineSmall,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
                             'Martes, Enero 18th  ||  12:30pm',
                             style: FlutterFlowTheme.of(context)
@@ -109,7 +108,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
                           child: Text(
                             'Partido de Padel',
                             style: FlutterFlowTheme.of(context).labelMedium,
@@ -117,7 +117,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                         ),
 
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Ofertas',
                             style: FlutterFlowTheme.of(context).headlineMedium,
@@ -174,7 +175,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Noticias',
                             style: FlutterFlowTheme.of(context).headlineMedium,
@@ -243,13 +245,14 @@ class _InicioWidgetState extends State<InicioWidget> {
                           style: FlutterFlowTheme.of(context).labelLarge,
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 32),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0, 12, 0, 32),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -261,8 +264,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -274,8 +277,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -295,14 +298,14 @@ class _InicioWidgetState extends State<InicioWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
                 child: Container(
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         blurRadius: 4,
                         color: Color(0x33000000),
                         offset: Offset(0, 2),
@@ -314,7 +317,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                       width: 2,
                     ),
                   ),
-                  alignment: AlignmentDirectional(0, 0),
+                  alignment: const AlignmentDirectional(0, 0),
                   child: Text(
                     'Reservar',
                     style: FlutterFlowTheme.of(context).titleSmall,

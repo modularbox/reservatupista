@@ -27,7 +27,7 @@ class AnadirPistaWidget extends StatelessWidget {
     }
 
     return NavbarYAppbarProfesional(
-      title: 'Añadir Pista',
+      title: 'Crear Pista',
       page: TypePage.ReservarPista,
       child: Expanded(
         child: SingleChildScrollView(
@@ -64,7 +64,7 @@ class AnadirPistaWidget extends StatelessWidget {
                           24.0, 0.0, 24.0, 0.0),
                       iconPadding: const EdgeInsetsDirectional.fromSTEB(
                           0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).btnGeneral,
+                      color: FlutterFlowTheme.of(context).successGeneral,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Readex Pro',
@@ -76,7 +76,7 @@ class AnadirPistaWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              15.0.sh,
+              80.0.sh
             ],
           ),
         ),

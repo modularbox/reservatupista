@@ -104,8 +104,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
     context.watch<FFAppState>();
 
     return NavbarYAppbarProfesional(
-      title: 'Caja Virtual',
-      page: TypePage.MonederoVirtual,
+      title: 'Caja',
+      page: TypePage.None,
       child: Expanded(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -206,7 +206,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).btnGeneral,
+                              color:
+                                  FlutterFlowTheme.of(context).successGeneral,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -257,7 +258,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).btnGeneral,
+                      color: FlutterFlowTheme.of(context).successGeneral,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Readex Pro',

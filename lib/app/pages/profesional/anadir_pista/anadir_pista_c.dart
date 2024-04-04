@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:reservatu_pista/app/routes/models/pistas_model.dart';
+import 'package:reservatu_pista/backend/server_node/pista_node.dart';
+import 'package:reservatu_pista/backend/server_node/subir_image_node.dart';
 import '../../../../app_state.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import 'package:image/image.dart' as img;
@@ -10,6 +13,7 @@ import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
+import '../../../routes/models/tarifas_model.dart';
 import '../tarifas_pista/tarifas_pista_c.dart';
 
 extension SioNo on String {
@@ -18,7 +22,8 @@ extension SioNo on String {
   int get dp => this == '60 Minutos' ? 60 : 90;
   String get tm => '$this:00';
   int get trOtc => int.parse(split(' ')[0]);
-  double get pc => double.parse(split(' ')[0]);
+  int get pc =>
+      int.parse('${split(' ')[0].split('.')[0]}${split(' ')[0].split('.')[1]}');
 }
 
 class InputController {
@@ -167,10 +172,168 @@ class AnadirPistaController extends GetxController
     bono = InputController(animVibrate(vsync: this));
     reservatupista = InputController(animVibrate(vsync: this));
     animTerminos = animVibrate(vsync: this);
+    // initForm();
+  }
+
+  void initForm() {
+    deporte.controller.text = '🎾 Padel';
+    nPistaController.text = '1';
+    techada.controller.text = 'Si';
+    iluminacion.controller.text = 'Si';
+    tipo.controller.text = 'Cristal';
+    cesped.controller.text = 'Verde';
+    automatizada.controller.text = 'No';
+    duracionPartida.controller.text = '60 Minutos';
+    horaInicio.controller.text = '00:00';
+    horaFin.controller.text = '03:00';
+    socioTiempoReserva.controller.text = '1 Día';
+    socioTiempoCancelacion.controller.text = '1 Día';
+    socioPrecioConLuz.controller.text = '1.25 €';
+    socioPrecioSinLuz.controller.text = '2.20 €';
+    noSocioTiempoReserva.controller.text = '1 Día';
+    noSocioTiempoCancelacion.controller.text = '1 Día';
+    noSocioPrecioConLuz.controller.text = '1.15 €';
+    noSocioPrecioSinLuz.controller.text = '2.10 €';
+    descripcion.controller.text = 'Descripcion';
+    nombrePatrocinador.controller.text = 'Patrocinador1';
+    vestuario.controller.text = 'No';
+    duchas.controller.text = 'No';
+    efectivo.controller.text = 'No';
+    tarjeta.controller.text = 'No';
+    bono.controller.text = 'No';
+    reservatupista.controller.text = 'Si';
+  }
+
+  /// Crear la pista y subirla al servidor
+  void crearPista() async {
+    bool validarAnterior = true;
+    if (imagesPista.rx.value!.isEmpty) {
+      validarAnterior = false;
+      imagesPista.changeActions('validate');
+    }
+    if (!checkboxTerminos.value) {
+      validarAnterior = false;
+      validateCheckbox.value = true;
+      animTerminos.forward();
+    }
+    if (!selfTarifas.datosGuardados.value) {
+      validarAnterior = false;
+      validarTarifas.value = true;
+    }
+    if (formKey.currentState!.validate() && validarAnterior) {
+      print("Todos los campos estan completos");
+
+      try {
+        final imagenesPista = await subirImagenesServer();
+        final pistaDatos = PistasModel(
+          deporte: deporte.controller.text.de,
+          numPista: int.parse(nPistaController.text),
+          techada: techada.controller.text.sn,
+          iluminacion: iluminacion.controller.text.sn,
+          tipo: tipo.controller.text,
+          cesped: cesped.controller.text,
+          automatizada: automatizada.controller.text.sn,
+          duracionPartida: duracionPartida.controller.text.dp,
+          horaInicio: horaInicio.controller.text,
+          horaFin: horaFin.controller.text,
+          tiempoReservaSocio: socioTiempoReserva.controller.text.trOtc,
+          tiempoCancelacionSocio: socioTiempoCancelacion.controller.text.trOtc,
+          precioLuzSocio: socioPrecioConLuz.controller.text.pc,
+          precioSinLuzSocio: socioPrecioSinLuz.controller.text.pc,
+          tiempoReservaNoSocio: noSocioTiempoReserva.controller.text.trOtc,
+          tiempoCancelacionNoSocio:
+              noSocioTiempoCancelacion.controller.text.trOtc,
+          precioLuzNoSocio: noSocioPrecioConLuz.controller.text.pc,
+          precioSinLuzNoSocio: noSocioPrecioSinLuz.controller.text.pc,
+          descripcion: descripcion.controller.text,
+          nombrePatrocinador: nombrePatrocinador.controller.text,
+          imagenPatrocinador: imagenesPista.patrocinador,
+          vestuario: vestuario.controller.text.sn,
+          duchas: duchas.controller.text.sn,
+          imagenesPista: imagenesPista.pista,
+          efectivo: efectivo.controller.text.sn,
+          tarjeta: tarjeta.controller.text.sn,
+          bono: bono.controller.text.sn,
+          reservatupista: reservatupista.controller.text.sn,
+        );
+        final datosTarifas = [];
+        for (final diasTarifas in listaTarifas) {
+          for (final tarifa in diasTarifas) {
+            datosTarifas.add(tarifa.toList());
+          }
+        }
+        const datosTarifasKeys =
+            'activado, clases, luz, dia_semana, hora_inicio, hora_fin, precio_con_luz_socio, precio_sin_luz_socio, precio_con_luz_no_socio, precio_sin_luz_no_socio';
+
+        /// Llamar a la api
+        final result = await PistaNode().crearPista({
+          'pista': pistaDatos.toJson(),
+          'tarifas': datosTarifas,
+          'tarifas_keys': datosTarifasKeys
+        });
+        // Regresar la respuesta
+        if (result.code == 2000) {
+          await Get.dialog(RichAlertDialog(
+            alertTitle: richTitle('Crear Pista'),
+            alertSubtitle: richSubtitle(result.messageError()),
+            textButton: 'Aceptar',
+            alertType: RichAlertType.SUCCESS,
+            onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
+          ));
+        } else {
+          await Get.dialog(RichAlertDialog(
+            alertTitle: richTitle('Crear Pista'),
+            alertSubtitle: richSubtitle(result.messageError()),
+            textButton: 'Aceptar',
+            alertType: RichAlertType.WARNING,
+            onPressed: Get.back,
+          ));
+        }
+
+        print(result);
+      } catch (e, stack) {
+        print(stack);
+        print(e);
+      }
+    }
+  }
+
+  /// Subir imagenes al servidor
+  Future<ImagenesPista> subirImagenesServer() async {
+    // Obtener la fecha actual
+    final DateTime now = DateTime.now();
+
+    String nameFoto = now.millisecondsSinceEpoch.toString();
+    String nombreImagePatrocinador = '${nameFoto}_p';
+    String nombreImagePista = '';
+    // Subir Imagen del patrocinador
+    await subirImageNode(imagePatrocinador.value!,
+        destination: 'pistas', nameFoto: nombreImagePatrocinador);
+    // Subir imagenes de las fotos de la pista
+    for (var i = 0; i < imagesPista.rx.value!.length; i++) {
+      final nombrePista = '${nameFoto}_pi$i';
+      if (i != 0) {
+        nombreImagePista += ', ';
+      }
+      nombreImagePista += nombrePista;
+      await subirImageNode(imagesPista.rx.value![i],
+          destination: 'pistas', nameFoto: nombrePista);
+    }
+    return ImagenesPista(nombreImagePatrocinador, nombreImagePista);
   }
 
   AnimationController getAnimVibrate() {
     return animVibrate(vsync: this);
+  }
+
+  onChangeDeporte(String val) async {
+    if (val.isNotEmpty) {
+      final result = await PistaNode().getCountPistas(val.de);
+      deporte.isValidate.value = false;
+      if (val.isNotEmpty) {
+        nPistaController.text = result.toString();
+      }
+    }
   }
 
   validarInputController(
@@ -218,16 +381,19 @@ class AnadirPistaController extends GetxController
           }
         }
       }
+      final listDiaSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
       listaTarifas = List<List<Tarifa>>.generate(
           7,
-          (index) => List.generate(
+          (indexDia) => List.generate(
               newListString.length,
               (index) => Tarifa(
                   horaInicio: newListString[index],
+                  diaSemana: listDiaSemana[indexDia],
                   precioConLuzSocio: socioPrecioConLuz.controller.text,
                   precioSinLuzSocio: socioPrecioSinLuz.controller.text,
                   precioConLuzNoSocio: noSocioPrecioConLuz.controller.text,
                   precioSinLuzNoSocio: noSocioPrecioSinLuz.controller.text)));
+
       selfTarifas.onCrearPistas(listaTarifas);
       selfTarifas.indexDias.value = 0;
       Get.toNamed(Routes.TARIFAS_PISTA);
@@ -351,7 +517,7 @@ class AnadirPistaController extends GetxController
                 "Solo puedes seleccionar 5\nimagenes de la pista."),
             textButton: "Cerrar",
             alertType: RichAlertType.WARNING,
-            onPressed: () => Get.back(),
+            onPressed: Get.back,
           ));
         } else {
           List<File> imagesResize = [];
@@ -381,60 +547,6 @@ class AnadirPistaController extends GetxController
     // Regresar la imagen comprimida
     return File(path)
       ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 90));
-  }
-
-  /// Crear la pista y subirla al servidor
-  void crearPista() {
-    bool validarAnterior = true;
-    if (imagesPista.rx.value!.isEmpty) {
-      validarAnterior = false;
-      imagesPista.changeActions('validate');
-    }
-    if (!checkboxTerminos.value) {
-      validarAnterior = false;
-      validateCheckbox.value = true;
-      animTerminos.forward();
-    }
-    if (!selfTarifas.datosGuardados.value) {
-      validarAnterior = false;
-      validarTarifas.value = true;
-    }
-    if (formKey.currentState!.validate() && validarAnterior) {
-      print("Todos los campos estan completos");
-    }
-    //   final datosPista = [
-    //     deporteController!.text.de,
-    //     1,
-    //     techadaController!.text.sn,
-    //     iluminacionController!.text,
-    //     tipoController!.text,
-    //     cespedController!.text,
-    //     automatizadaController!.text.sn,
-    //     duracionPartidaController!.text.dp,
-    //     horaInicioController!.text.tm,
-    //     horaFinController!.text.tm,
-    //     tiempoReservaSocioController!.text.trOtc,
-    //     tiempoCancelacionSocioController!.text.trOtc,
-    //     precioConLuzSocioController!.text.pc,
-    //     precioSinLuzSocioController!.text.pc,
-    //     tiempoReservaNoSocioController!.text.trOtc,
-    //     tiempoCancelacionNoSocioController!.text.trOtc,
-    //     precioConLuzNoSocioController!.text.pc,
-    //     precioSinLuzNoSocioController!.text.pc,
-    //     descripcionController!.text,
-    //     nombrePatrocinadorController!.text,
-    //     'patrocinador1.jpg',
-    //     vestuarioController!.text.sn,
-    //     duchasController!.text.sn,
-    //     'imagen1.jpg,imagen2.jpg,imagen3.jpg'
-    //   ];
-    // // Obtén la fecha actual
-    // DateTime now = DateTime.now();
-    // // Obtén el número del día de la semana (1-7)
-    // int dayOfWeek = now.weekday;
-    // now = now.subtract(Duration(days: dayOfWeek - 1));
-    // final datosTarifas = generateTarifasSemana(now, dayOfWeek);
-    // anadirPistaNode(datosPista, datosTarifas);
   }
 
   @override
@@ -487,4 +599,10 @@ class AnadirPistaController extends GetxController
     // duchasController!.dispose();
     // duchasFocusNode!.dispose();
   }
+}
+
+class ImagenesPista {
+  String patrocinador;
+  String pista;
+  ImagenesPista(this.patrocinador, this.pista);
 }

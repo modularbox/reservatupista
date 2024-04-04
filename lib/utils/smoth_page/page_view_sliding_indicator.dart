@@ -46,7 +46,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
         topLeft: Radius.circular(10), bottomLeft: Radius.circular(10));
     if (widget.controller.initialPage == 1) {
       _leftPosition = widget.widthButtons;
-      _currentColor = FlutterFlowTheme.of(context).btnGeneral;
+      _currentColor = FlutterFlowTheme.of(context).successGeneral;
       _currentColorTextUsuario = Colors.black;
       _currentColorTextProveedor = Colors.white;
       _getBorder = const BorderRadius.only(
@@ -59,7 +59,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
           // Utiliza un Tween para cambiar de azul a verde
           ColorTween colorTween = ColorTween(
               begin: FlutterFlowTheme.of(context).primary,
-              end: FlutterFlowTheme.of(context).btnGeneral);
+              end: FlutterFlowTheme.of(context).successGeneral);
           ColorTween colorTextUsuario = ColorTween(
             begin: Colors.white,
             end: Colors.black,
@@ -76,7 +76,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
               colorTextProfesional.transform((widget.controller.page ?? 0) % 1);
           _getBorder = BorderRadius.circular(10);
           if (widget.controller.page! == 1) {
-            _currentColor = FlutterFlowTheme.of(context).btnGeneral;
+            _currentColor = FlutterFlowTheme.of(context).successGeneral;
             _currentColorTextUsuario = Colors.black;
             _currentColorTextProveedor = Colors.white;
             _getBorder = const BorderRadius.only(

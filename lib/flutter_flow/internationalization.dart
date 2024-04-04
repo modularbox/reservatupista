@@ -191,7 +191,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'My Reservations',
     },
     'wjdf6zwy': {
-      'es': 'Monedero Virtual',
+      'es': 'Monedero',
       'en': 'Virtual Wallet',
     },
     '7yt33xla': {
@@ -1055,7 +1055,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Account',
     },
     'y8p10wdt': {
-      'es': 'Añadir Pista',
+      'es': 'Crear Pista',
       'en': 'My Reservations',
     },
     '09ry2nfl': {
@@ -1063,7 +1063,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'My Reservations',
     },
     'b7j68e36': {
-      'es': 'Banco Virtual',
+      'es': 'Cajas',
       'en': 'Virtual Wallet',
     },
     'fsbotww5': {
@@ -1158,7 +1158,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'b8mc21qx': {
-      'es': 'Monedero\nVirtual',
+      'es': 'Monedero',
       'en': '',
     },
     'z7lgky7h': {
@@ -1182,7 +1182,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'j6jy1gzs': {
-      'es': 'Monedero\nVirtual',
+      'es': 'Monedero',
       'en': '',
     },
     '1ft2z6fw': {
@@ -1190,7 +1190,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
   },
-  // BancoVirtual
+  // CajaVirtual
   {
     '363bzsgo': {
       'es': '500.00 €',
@@ -1245,7 +1245,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'trwmi9k3': {
-      'es': 'Monedero\nVirtual',
+      'es': 'Monedero',
       'en': '',
     },
     '0hw15yqk': {
@@ -1265,7 +1265,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'f3a4dbb8': {
-      'es': 'Monedero\nVirtual',
+      'es': 'Monedero',
       'en': '',
     },
     'rvhp64tk': {
@@ -1660,7 +1660,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'xu9q1xy8': {
       'es':
-          '- Pantallas: Monedero Virtual, Banco Virtual.\n- Navegación entre las pantallas. \n- Uso de Widgets de FlutterFlow.',
+          '- Pantallas: Monederos, Cajas.\n- Navegación entre las pantallas. \n- Uso de Widgets de FlutterFlow.',
       'en':
           '- Added start and end time buttons with the respective times in order.\n- The classes button was added to the assignment table.\n- Button to clone the days\n- Description the button is bigger.\n- Generate table based on schedules.',
     },
@@ -1710,7 +1710,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'uetfcf3y': {
       'es':
-          '- Ajustes en anadir pista, precio luz y sin luz, socio y no socio.\n- Ajustes en la tabla de tarifas.\n- Ya quedo todo estructurado en la pantalla de tabla de tarifas.\n- Tiene que rellenar los campos para que el boton se vuelva verde. \n- Un slider para ver la tabla, y que solo se muevan los datos.\n- Logo en todas las pantallas de profesional.\n- Cambios en el banco virtual titulo y logo.',
+          '- Ajustes en anadir pista, precio luz y sin luz, socio y no socio.\n- Ajustes en la tabla de tarifas.\n- Ya quedo todo estructurado en la pantalla de tabla de tarifas.\n- Tiene que rellenar los campos para que el boton se vuelva verde. \n- Un slider para ver la tabla, y que solo se muevan los datos.\n- Logo en todas las pantallas de profesional.\n- Cambios en el Cajas titulo y logo.',
       'en':
           '- Added start and end time buttons with the respective times in order.\n- The classes button was added to the assignment table.\n- Button to clone the days\n- Description the button is bigger.\n- Generate table based on schedules.',
     },
@@ -1739,7 +1739,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '17ksl4u9': {
       'es':
-          '- Correciones del word en usuario(titulo reservas, revisar si baja mas o menos bien al momento de ver los horarios y la fecha, codigo de descuento, monedero virtual o tarjeta).\n- Datos Usuario del word (debajo de la foto el nick, sexo cambiar icono, campos empadronamiento y socio, los datos en bloques).\n- En las pantallas ya no bailan los datos.\n- Pagina de nick y la foto debajo, Debajo de apellidos el DNI.\n- Cambio de texto en Olvide Contraseña.\n- Cambios en el Splash resivar si funciona bien.\n- Todos los botones de ir atras ya funcionan.',
+          '- Correciones del word en usuario(titulo reservas, revisar si baja mas o menos bien al momento de ver los horarios y la fecha, codigo de descuento, monederos o tarjeta).\n- Datos Usuario del word (debajo de la foto el nick, sexo cambiar icono, campos empadronamiento y socio, los datos en bloques).\n- En las pantallas ya no bailan los datos.\n- Pagina de nick y la foto debajo, Debajo de apellidos el DNI.\n- Cambio de texto en Olvide Contraseña.\n- Cambios en el Splash resivar si funciona bien.\n- Todos los botones de ir atras ya funcionan.',
       'en':
           '- Added start and end time buttons with the respective times in order.\n- The classes button was added to the assignment table.\n- Button to clone the days\n- Description the button is bigger.\n- Generate table based on schedules.',
     },
@@ -1858,7 +1858,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'k7nfii5m': {
-      'es': 'Monedero Virtual',
+      'es': 'Monederos',
       'en': '',
     },
     '71p9jdiq': {
@@ -1891,11 +1891,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'rvipocsl': {
-      'es': 'Añadir Pista',
+      'es': 'Crear Pista',
       'en': '',
     },
     'rg88qsyw': {
-      'es': 'Banco Virtual',
+      'es': 'Caja',
       'en': '',
     },
     '3k8sopkf': {

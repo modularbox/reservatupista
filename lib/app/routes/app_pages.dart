@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
+import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
@@ -55,14 +57,14 @@ abstract class Routes {
   static const DATOSPROFESIONAL = '/datosProfesional';
   static const REGISTROUSUARIO = '/registroUsuario';
   static const REGISTROPROFESIONAL = '/registroProfesional';
-  static const PERFILPROFESIONAL = '/perfilProfesional';
-  static const MONEDEROVIRTUAL = '/monederoVirtual';
-  static const BANCOVIRTUAL = '/bancoVirtual';
-  static const ANADIRPISTA = '/anadirPista';
+  static const PERFIL_PROVEEDOR = '/perfil_proveedor';
+  static const MONEDERO = '/monedero';
+  static const CAJA = '/caja';
+  static const ANADIR_PISTA = '/anadir_pista';
   static const TARIFAS = '/tarifas';
-  static const MISPISTAS = '/misPistas';
+  static const MIS_PISTAS = '/mis_pistas';
   static const NOTIFICACIONES = '/notificaciones';
-  static const NOTIFICACIONESPROFESIONAL = '/notificacionesProfesional';
+  static const NOTIFICACIONES_PROVEEDOR = '/notificaciones_proveedor';
   static const INICIOPROFESIONAL = '/inicioProfesional';
   static const INICIO = '/inicio';
   static const LOGIN_PROFESIONAL = '/login_profesional';
@@ -75,7 +77,6 @@ abstract class Routes {
   static const CHAT = '/chat';
   static const RESULTADOS_ESTADISTICAS = '/resultados_estadisticas';
   static const CHAT_PROVEEDOR = '/chat_proveedor';
-  static const MIS_PISTAS = '/mis_pistas';
   static const RESERVA_TU_PISTA = '/reserva_tu_pista';
   static const DATOS_USUARIO = '/datos_usuario';
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
@@ -103,8 +104,13 @@ class AppPages {
       binding: RegistrarUsuarioBinding(),
     ),
     GetPage(
-      name: '/perfil',
+      name: Routes.PERFIL,
       page: () => PerfilWidget(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: Routes.PERFIL_PROVEEDOR,
+      page: () => PerfilProfesionalWidget(),
       transition: Transition.noTransition,
     ),
     // GetPage(
@@ -135,42 +141,28 @@ class AppPages {
       page: () => RegistroProfesionalWidget(),
     ),
     GetPage(
-      name: '/perfilProfesional',
-      page: () => PerfilProfesionalWidget(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: '/monederoVirtual',
+      name: Routes.MONEDERO,
       page: () => MonederoVirtualWidget(),
       binding: MonederoBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: '/bancoVirtual',
+      name: Routes.CAJA,
       page: () => BancoVirtualWidget(),
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: '/anadirPista',
+      name: Routes.ANADIR_PISTA,
       page: () => AnadirPistaWidget(),
       binding: AnadirPistaBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: '/tarifas',
-      page: () => TarifasWidget(),
-    ),
-    GetPage(
-      name: '/misPistas',
-      page: () => MisPistasWidget(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: '/notificaciones',
+      name: Routes.NOTIFICACIONES,
       page: () => NotificacionesWidget(),
     ),
     GetPage(
-      name: '/notificacionesProfesional',
+      name: Routes.NOTIFICACIONES_PROVEEDOR,
       page: () => NotificacionesProfesionalWidget(),
     ),
     GetPage(
@@ -189,11 +181,6 @@ class AppPages {
       binding: ReservarPistaBinding(),
       transition: Transition.noTransition,
     ),
-    // GetPage(
-    //    name: Routes.PAGOS_TARJETA,
-    //    page: () => PagosTarjetaPage(),
-    //    binding: PagosTarjetaBinding(),
-    // ),
     GetPage(
       name: Routes.REGISTRO_PROVEEDOR,
       page: () => RegistroProveedorPage(),

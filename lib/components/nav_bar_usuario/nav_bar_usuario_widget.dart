@@ -73,20 +73,14 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
   @override
   void dispose() {
     _model.maybeDispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      height: 70.0,
-      margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
-      decoration: const BoxDecoration(
-        color: Colors.transparent,
-      ),
+      height: 65.0,
       child: Stack(
         children: [
           Column(
@@ -157,15 +151,15 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                 },
                 isPage: widget.tipoDePagina == TypePage.ReservarPista,
                 icon: Icons.add,
-                title: 'Reservar Pista',
+                title: 'Reservar',
               ),
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.MONEDEROVIRTUAL);
+                  Get.offNamed(Routes.MONEDERO);
                 },
-                isPage: widget.tipoDePagina == TypePage.MonederoVirtual,
+                isPage: widget.tipoDePagina == TypePage.Monedero,
                 icon: Icons.credit_card,
-                title: 'Monedero Virtual',
+                title: 'Monedero',
               ),
               buildIconButtonMin(
                 onPressed: () async {

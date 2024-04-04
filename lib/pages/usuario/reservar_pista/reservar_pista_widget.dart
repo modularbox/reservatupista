@@ -466,7 +466,7 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SelectionWidget(
-              label: 'Monedero Virtual',
+              label: 'Monedero',
               value: 'monedero',
               controller: controller2,
             ),
@@ -514,7 +514,7 @@ class _ReservarPistaWidgetState extends State<ReservarPistaWidget>
           //   onPressed: () => {Navigator.pop(context)},
           //   answer: "Reserva de pista",
           //   title: controller2.selectedOption.value == 'monedero'
-          //       ? 'Monedero Virtual'
+          //       ? 'Monedero'
           //       : "Tarjeta",
           //   importe: 4.0,
           //   titleButton: "Pagar",

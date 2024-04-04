@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../../../flutter_flow/flutter_flow_theme.dart';
@@ -18,10 +20,12 @@ class GeneralDialogAnswer extends StatelessWidget {
   final void Function()? onPressedButton2;
   final Color? colorButton1;
   final Color? colorButton2;
+  final Widget? descripcionWidget;
   const GeneralDialogAnswer(
       {super.key,
       this.title = '',
       this.descripcion = '',
+      this.descripcionWidget,
       this.textButton1 = 'Cancelar',
       this.textButton2 = 'Confirmar',
       this.visibilityButton1 = true,
@@ -102,12 +106,23 @@ class GeneralDialogAnswer extends StatelessWidget {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                  child: Text(
-                    descripcion,
-                    textAlign: TextAlign.center,
-                    style: LightModeTheme()
-                        .bodyLarge
-                        .copyWith(decoration: TextDecoration.none),
+                  child: SizedBox(
+                    height: 200,
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            descripcionWidget ??
+                                Text(
+                                  descripcion,
+                                  style: LightModeTheme().bodyLarge.copyWith(
+                                      decoration: TextDecoration.none),
+                                ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Row(
@@ -154,7 +169,8 @@ class GeneralDialogAnswer extends StatelessWidget {
                               24, 0, 24, 0),
                           iconPadding:
                               const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                          color: colorButton2 ?? LightModeTheme().btnGeneral,
+                          color:
+                              colorButton2 ?? LightModeTheme().successGeneral,
                           textStyle: LightModeTheme().titleSmall.override(
                                 fontFamily: 'Readex Pro',
                                 color: LightModeTheme().primaryText,

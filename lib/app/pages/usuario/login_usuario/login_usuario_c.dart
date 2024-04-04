@@ -124,7 +124,8 @@ class LoginUsuarioController extends GetxController
   void onPressedUsuario() async {
     if (formUsuarioKey.currentState!.validate()) {
       bool isUserPrueba =
-          emailUsuarioController.text == 'app@reservatupista.com' &&
+          (emailUsuarioController.text == 'app@reservatupista.com' ||
+                  emailUsuarioController.text == 'email@ficticio.com') &&
               passwordUsuarioController.text == '12345678';
       if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
         validateTerminosUsuario.value = true;
@@ -174,7 +175,8 @@ class LoginUsuarioController extends GetxController
   void onPressedProveedor() async {
     if (formProveedorKey.currentState!.validate()) {
       bool isUserPrueba =
-          emailProveedorController.text == 'app@reservatupista.com' &&
+          (emailUsuarioController.text == 'app@reservatupista.com' ||
+                  emailUsuarioController.text == 'email@ficticio.com') &&
               passwordProveedorController.text == '12345678';
       if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
         validateTerminosProveedor.value = true;

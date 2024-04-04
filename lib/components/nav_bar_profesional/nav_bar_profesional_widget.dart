@@ -17,10 +17,10 @@ export 'nav_bar_profesional_model.dart';
 class NavBarProfesionalWidget extends StatefulWidget {
   const NavBarProfesionalWidget({
     super.key,
-    required this.tipoDePagina,
+    this.tipoDePagina,
   });
 
-  final TypePage tipoDePagina;
+  final TypePage? tipoDePagina;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -83,12 +83,9 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 65.0,
-      margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
       child: Stack(
         children: [
           Column(
@@ -155,23 +152,23 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
               ),
               buildIconCenter(
                 onPressed: () async {
-                  Get.offAllNamed(Routes.ANADIRPISTA);
+                  Get.offAllNamed(Routes.ANADIR_PISTA);
                 },
                 isPage: widget.tipoDePagina == TypePage.ReservarPista,
                 icon: Icons.add,
-                title: 'Añadir Pista',
+                title: 'Crear Pista',
               ),
               buildIconButtonMin(
                 onPressed: () async {
                   Get.offNamed(Routes.MIS_SOCIOS);
                 },
-                isPage: widget.tipoDePagina == TypePage.MonederoVirtual,
+                isPage: widget.tipoDePagina == TypePage.Monedero,
                 icon: Icons.safety_divider,
                 title: 'Mis Socios',
               ),
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.PERFILPROFESIONAL);
+                  Get.offNamed(Routes.PERFIL_PROVEEDOR);
                 },
                 isPage: widget.tipoDePagina == TypePage.Perfil,
                 icon: Icons.person,

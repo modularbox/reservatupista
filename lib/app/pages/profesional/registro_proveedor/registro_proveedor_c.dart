@@ -22,6 +22,9 @@ import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class RegistroProveedorController extends GetxController
     with SingleGetTickerProviderMixin {
+  /// ELiminar esyas variables
+  bool pruebaEliminarVariable = true;
+
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostalFiscal = StateRx(Rx<bool?>(null));
   // Traer datos de la api de codigo postal Nominatim
@@ -464,6 +467,7 @@ class RegistroProveedorController extends GetxController
       try {
         // Obtener la fecha actual
         final DateTime now = DateTime.now();
+
         // Formatear la fecha en el formato deseado
         final String formattedDate =
             DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
@@ -511,6 +515,7 @@ class RegistroProveedorController extends GetxController
           comunidadController.text,
         ];
 
+        /// Subir los datos al servidor
         final result = await ProveedorNode()
             .anadirProveedorNode(datosSQLProveedor, datosSQLClub);
         if (result.code == 2000) {

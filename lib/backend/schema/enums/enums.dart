@@ -1,8 +1,8 @@
-
 enum TypePage {
   Inicio,
   MisReservas,
   ReservarPista,
-  MonederoVirtual,
+  Monedero,
   Perfil,
+  None,
 }

@@ -178,7 +178,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                       width: double.infinity,
                       height: 503,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         boxShadow: const [
                           BoxShadow(
                             blurRadius: 4,
@@ -199,8 +199,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                 Center(
                                   child: Text(
                                     title,
-                                    style: FlutterFlowTheme.of(context)
-                                        .displaySmall,
+                                    style: LightModeTheme().displaySmall,
                                   ),
                                 ),
                                 Align(
@@ -265,8 +264,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                               children: [
                                 Text(
                                   '${FormatNumber.formatNumberWithTwoDecimals(_model.money)} €',
-                                  style:
-                                      FlutterFlowTheme.of(context).displaySmall,
+                                  style: LightModeTheme().displaySmall,
                                 ),
                               ],
                             ),
@@ -289,14 +287,12 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                   iconPadding:
                                       const EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 0),
-                                  color: FlutterFlowTheme.of(context).error,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
+                                  color: LightModeTheme().error,
+                                  textStyle:
+                                      LightModeTheme().titleSmall.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: LightModeTheme().primaryText,
+                                          ),
                                   elevation: 3,
                                   borderSide: const BorderSide(
                                     color: Colors.transparent,
@@ -323,15 +319,12 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                                   iconPadding:
                                       const EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 0),
-                                  color:
-                                      FlutterFlowTheme.of(context).btnGeneral,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
+                                  color: LightModeTheme().successGeneral,
+                                  textStyle:
+                                      LightModeTheme().titleSmall.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: LightModeTheme().primaryText,
+                                          ),
                                   elevation: 3,
                                   borderSide: const BorderSide(
                                     color: Colors.transparent,
