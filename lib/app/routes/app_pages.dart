@@ -197,8 +197,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.RESERVAR_PISTA,
-      page: () => ReservarPistaPage2(),
-      binding: ReservarPistaBinding2(),
+      page: () => ReservarPistaPage(),
+      binding: ReservarPistaBinding(),
       transition: Transition.noTransition,
     ),
     // GetPage(
