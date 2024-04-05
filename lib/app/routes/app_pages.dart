@@ -1,4 +1,8 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista2/reservar_pista_b2.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista2/reservar_pista_p2.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
 import 'package:reservatu_pista/app/ui/pages/monederovirtual_page/monederovirtual_b.dart';
@@ -111,7 +115,7 @@ class AppPages {
     ),
     GetPage(
       name: '/perfil',
-      page: () => PerfilWidget(),
+      page: () => const PerfilWidget(),
       transition: Transition.noTransition,
     ),
     // GetPage(
@@ -193,8 +197,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.RESERVAR_PISTA,
-      page: () => ReservarPistaPage(),
-      binding: ReservarPistaBinding(),
+      page: () => ReservarPistaPage2(),
+      binding: ReservarPistaBinding2(),
       transition: Transition.noTransition,
     ),
     // GetPage(

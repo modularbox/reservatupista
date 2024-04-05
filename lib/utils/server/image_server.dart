@@ -17,11 +17,13 @@ class ImageServer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     db.getImageUsuario();
-    return Obx(() => Image.network(
-          db.imageServer.value,
-          width: width,
-          height: height,
-          fit: fit,
-        ));
+    return Obx(() => db.imageServer.value == ''
+        ? const SizedBox.shrink()
+        : Image.network(
+            db.imageServer.value,
+            width: width,
+            height: height,
+            fit: fit,
+          ));
   }
 }

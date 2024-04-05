@@ -286,13 +286,14 @@ class DatabaseController extends GetxController {
     }
   }
 
-  Future<String> obtenerHorariosPistas(int id_pista, DateTime dia) async {
+  Future<String> obtenerHorariosPistas(int id_pista, DateTime fecha) async {
     try {
-      String nuevaFecha = DateFormat('yyyy-MM-dd').format(dia);
-      print('nuevaFecha $nuevaFecha');
+      // Generar la lista de nombres cortos de los días de la semana
+      // String nuevaFecha = DateFormat('yyyy-MM-dd').format(dia);
+      // print('nuevaFecha $nuevaFecha');
       print('idd_pista $id_pista');
       var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_horarios_pista?id_pista=$id_pista&fecha=$nuevaFecha'));
+          'https://api.reservatupista.com/usuario/obtener_horarios_pistas/$id_pista/?dia_semana=${fecha.diaSemana}'));
       print('response.body.toString() ${response.body.toString()}');
       print('response.body ${response.body}');
       print('lleeeeeeeeeega');
@@ -441,4 +442,8 @@ Future<String> obtenerHorariosPista(String dia, String id_pista) async {
     }
     return {'pistas': listacom};
   }
+}
+
+extension DateTimeExt on DateTime {
+  String get diaSemana => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
 }

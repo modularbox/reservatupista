@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:reservatu_pista/utils/logger/logger.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
@@ -22,14 +23,22 @@ class HorarioFinInicio {
   }
 }
 
-class ReservarPistaController extends GetxController
+class ReservarPistaController2 extends GetxController
     with SingleGetTickerProviderMixin {
   DatabaseController db = Get.find();
-  //variable que almacena todas las localidades existentes.
-  Rx<List<String>> localidades = Rx<List<String>>([]);
+
+  /// Variable que almacena todas las localidades existentes.
+  final Rx<List<String>> _localidades = Rx<List<String>>([]);
+  List<String> get localidades => _localidades.value;
+  set localidades(List<String> value) => _localidades.value = value;
+
+  /// Variable que almacena todos los clubes existentes de la localidad
+  final Rx<List<String>> clubes = Rx<List<String>>([]);
+
   Map<String, String> mapLocalidades = {};
   Rx<String> cod_postal = Rx<String>('');
-  Rx<List<String>> clubes = Rx<List<String>>([]);
+  // Rx<List<String>> clubes = Rx<List<String>>([]);
+
   Rx<String> id_club_seleccionado = Rx<String>('');
   Map<String, String> mapClubes = {};
   Rx<List<String>> deportes = Rx<List<String>>([]);
@@ -50,14 +59,12 @@ class ReservarPistaController extends GetxController
   // Rx<int?> selectedDay = Rx<int?>(null);
   Rx<int?> selectPista = Rx<int?>(null);
   Rx<int?> selectDay = Rx<int?>(null);
-  Rx<String?> selectedItemDeporte = Rx<String?>(null);
   // Cancelar la reserva
   RxBool cancelarReserva = false.obs;
 
   Rx<HorarioFinInicio?> selectHorario = Rx<HorarioFinInicio?>(null);
   final ScrollController scrollController = ScrollController();
   Rx<DateTime?> selectDateDay = Rx<DateTime?>(null);
-  late List<DateTime?> singleDatePickerValueWithDefaultValue;
   RxList<bool> listReservas = [false, false, false, false].obs;
   TextEditingController localidadController = TextEditingController();
   FocusNode localidadFocusNode = FocusNode();
@@ -78,7 +85,7 @@ class ReservarPistaController extends GetxController
   GlobalKey keyPistas = GlobalKey();
   GlobalKey keyDatos = GlobalKey();
 
-  int diaHoy = 0;
+  // int diaHoy = 0;
   RxBool terms = false.obs;
   RxDouble totalHeight = 0.0.obs;
   RxDouble sizedBoxHeight = 0.0.obs;
@@ -158,11 +165,8 @@ class ReservarPistaController extends GetxController
         }
       }
     }, time: const Duration(milliseconds: 50));
-    singleDatePickerValueWithDefaultValue = [fechaActual];
-    diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
     tiempoReservaListaCalendar = getListaHorarios();
   }
-  //funcion para obtener lista con todas las localidades
 
   Future<void> generarListaLocalidades() async {
     try {
@@ -175,7 +179,7 @@ class ReservarPistaController extends GetxController
       List<String> listaLocalidades = localidadesData
           .map<String>((localidad) => localidad['localidad'] as String)
           .toList();
-      localidades.value = listaLocalidades;
+      localidades = listaLocalidades;
       return;
     } catch (error) {
       rethrow;
@@ -185,13 +189,6 @@ class ReservarPistaController extends GetxController
   //funcion para obtener los clubes que hay en cada localidad
   Future<void> generarListaClubes(String cod_postal) async {
     try {
-      //resets
-      clubController.text = '';
-      deporteController.text = '';
-      clubes.value = [];
-      deportes.value = [];
-      /*//seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
-      selectDay.value = null;*/
       //deporte_seleccionado.value = '';
       String clubesJson = await db.obtenerClubes(cod_postal);
       print('clubesssJson $clubesJson');
@@ -206,7 +203,6 @@ class ReservarPistaController extends GetxController
         mapClubes[clubesData[i]['nombre']] =
             clubesData[i]['id_club'].toString();
       }
-
       List<String> listaClubes =
           clubesData.map<String>((club) => club['nombre'] as String).toList();
       clubes.value = listaClubes;
@@ -231,13 +227,9 @@ class ReservarPistaController extends GetxController
       }
       List<dynamic> deportesData = json.decode(deportesJson);
 
-      print('deportesData $deportesData');
-      print('deportesData[0] ${deportesData[0]['deporte']}');
-
       List<String> listaDeportes = deportesData
           .map<String>((deporte) => deporte['deporte'] as String)
           .toList();
-      print('listaDeportes $listaDeportes');
       deportes.value = listaDeportes;
       return;
     } catch (error, stack) {
