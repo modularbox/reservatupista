@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
@@ -35,7 +37,7 @@ import '../pages/usuario/resultados_estadisticas/resultados_estadisticas.dart';
 import '../pages/usuario/resultados_estadisticas/resultados_estadisticas_b.dart';
 import '../pages/profesional/chat_proveedor/chat_proveedor.dart';
 import '../pages/profesional/chat_proveedor/chat_proveedor_b.dart';
-import '../pages/profesional/mis_pistas/mis_pistas.dart';
+import '../pages/profesional/mis_pistas/mis_pistas_p.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_b.dart';
 import '../pages/usuario/datos_usuario/datos_usuario.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
@@ -52,7 +54,7 @@ abstract class Routes {
   static const PERFIL = '/perfil';
   static const LOGINPROFESIONAL = '/loginProfesional';
   static const RESERVARPISTA = '/reservarPista';
-  static const MISRESERVAS = '/misReservas';
+  static const MIS_RESERVAS = '/mis_reservas';
   static const DATOS = '/datos';
   static const DATOSPROFESIONAL = '/datosProfesional';
   static const REGISTROUSUARIO = '/registroUsuario';
@@ -123,8 +125,9 @@ class AppPages {
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: '/misReservas',
-      page: () => MisReservasWidget(),
+      name: Routes.MIS_RESERVAS,
+      page: () => MisReservasPage(),
+      binding: MisReservasBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(

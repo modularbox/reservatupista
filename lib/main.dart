@@ -47,7 +47,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     // _appStateNotifier = AppStateNotifier.instance;
-
     // Future.delayed(Duration(milliseconds: 5),
     //     () => setState(() => _appStateNotifier.stopShowingSplashImage()));
   }

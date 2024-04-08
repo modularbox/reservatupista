@@ -6,7 +6,6 @@ import 'package:reservatu_pista/utils/format_date.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../routes/models/mis_pistas_model.dart';
-import '../../../routes/models/pistas_model.dart';
 
 extension FechaExt on DateTime {
   String get formatFecha => FormatDate.dateToString(this);
@@ -14,7 +13,7 @@ extension FechaExt on DateTime {
 }
 
 class MisPistasController extends GetxController
-    with GetSingleTickerProviderStateMixin, StateMixin<List<PistasModel>> {
+    with GetSingleTickerProviderStateMixin {
   /// Obtencion de los datos de la api
   StateRx<List<MiPista>> misPistas = StateRx(Rx<List<MiPista>>([]));
 
@@ -74,7 +73,7 @@ class MisPistasController extends GetxController
   @override
   void onReady() {
     cargarDatos();
-    // TODO: implement onReady
+    // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Verifica si el contexto de la GlobalKey es nulo
       final List<double> newDeportesWidth = [];
@@ -109,14 +108,14 @@ class MisPistasController extends GetxController
       final result = await PistaNode().getMisPista(deporte, fecha.letraDia);
       if (result is MisPistas) {
         if (result.misPistas.isEmpty) {
-          misPistas.change([], RxStatusDemo.empty());
+          misPistas.changeStatus(RxStatusDemo.empty());
         } else {
           misPistas.change(result.misPistas, RxStatusDemo.success());
         }
       }
     } catch (error) {
-      change(null,
-          status: RxStatus.error('Error al cargar datos de las pistas.'));
+      misPistas.change(
+          [], RxStatusDemo.error('Error al cargar datos de las pistas.'));
     }
   }
 
@@ -148,7 +147,5 @@ class MisPistasController extends GetxController
       {fecha = fecha.subtract(const Duration(days: 1)), cargarDatos()};
 
   /// Ver cuando pulsa en algun deporte
-  void onPressDeporte(String val) {
-    deporte = val;
-  }
+  void onPressDeporte(String val) => {deporte = val};
 }

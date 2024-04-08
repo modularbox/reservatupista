@@ -10,6 +10,7 @@ import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
+import '../../../routes/models/mis_pistas_model.dart';
 import './mis_pistas_c.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -113,6 +114,7 @@ class MisPistasPage extends GetView<MisPistasController> {
         ],
       );
 
+  /// Build LIsta deportes
   List<Widget> buildListDeportes() {
     final listDeportes = [
       DatosDeporte('Padel', 'U1F3BE'),
@@ -137,6 +139,7 @@ class MisPistasPage extends GetView<MisPistasController> {
         .toList();
   }
 
+  /// Build Deporte
   Widget buildDeporte(DatosDeporte e, int index) {
     return Stack(
       children: [
@@ -191,125 +194,7 @@ class MisPistasPage extends GetView<MisPistasController> {
                 child: Column(
                   children: List.generate(
                     state!.length,
-                    (i) => InkWell(
-                      splashColor: const Color.fromARGB(0, 156, 137, 137),
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      child: Container(
-                        height: 90,
-                        decoration: BoxDecoration(
-                          color: LightModeTheme().secondaryBackground,
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 4,
-                              color: Color.fromARGB(51, 0, 0, 0),
-                              offset: Offset(
-                                0,
-                                2,
-                              ),
-                            )
-                          ],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          border:
-                              Border.all(width: 1, color: Colores().grisClaro),
-                        ),
-                        child: Align(
-                          alignment: const AlignmentDirectional(0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        bottomLeft: Radius.circular(12),
-                                        bottomRight: Radius.circular(0),
-                                        topLeft: Radius.circular(12),
-                                        topRight: Radius.circular(0),
-                                      ),
-                                      child: Image.network(
-                                        ImageServerNetwork.pista(
-                                                state[i].imagenPatrocinador)
-                                            .urlImage,
-                                        width: 50,
-                                        height: 50,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    state[i].deporte,
-                                    style: LightModeTheme().bodyMedium.override(
-                                          fontFamily: 'Readex Pro',
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(10, 0, 0, 0),
-                                              child: Text(
-                                                'Pista ${state[i].numPista} - ${state[i].nombrePatrocinador}',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      fontSize: 16,
-                                                      letterSpacing: 0,
-                                                    ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: buildListPartidas(
-                                            state[i].totalLibre,
-                                            state[i].totalAbierta,
-                                            state[i].totalCerrada,
-                                            state[i].total),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ).animateOnPageLoad(
-                        self.animationsMap['containerOnPageLoadAnimation']!),
+                    (i) => buildPista(state[i]),
                   ).divide(10.0.sh).addToEnd(65.0.sh),
                 ),
               ),
@@ -332,6 +217,119 @@ class MisPistasPage extends GetView<MisPistasController> {
                   fontWeight: FontWeight.w700,
                   fontSize: 16)),
         ));
+  }
+
+  /// Widget Pista
+  Widget buildPista(MiPista pista) {
+    return InkWell(
+      splashColor: const Color.fromARGB(0, 156, 137, 137),
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      child: Container(
+        height: 90,
+        decoration: BoxDecoration(
+          color: LightModeTheme().secondaryBackground,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 4,
+              color: Color.fromARGB(51, 0, 0, 0),
+              offset: Offset(
+                0,
+                2,
+              ),
+            )
+          ],
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+          border: Border.all(width: 1, color: Colores().grisClaro),
+        ),
+        child: Align(
+          alignment: const AlignmentDirectional(0, 0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(0),
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(0),
+                      ),
+                      child: Image.network(
+                        ImageServerNetwork.pista(pista.imagenPatrocinador)
+                            .urlImage,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    pista.deporte,
+                    style: LightModeTheme().bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 0, 0),
+                              child: Text(
+                                'Pista ${pista.numPista} - ${pista.nombrePatrocinador}',
+                                style: LightModeTheme().bodyMedium.override(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 16,
+                                      letterSpacing: 0,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: buildListPartidas(
+                            pista.totalLibre,
+                            pista.totalAbierta,
+                            pista.totalCerrada,
+                            pista.total),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ).animateOnPageLoad(self.animationsMap['containerOnPageLoadAnimation']!);
   }
 
   List<Widget> buildListPartidas(

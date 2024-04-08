@@ -139,7 +139,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
               ),
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.MISRESERVAS);
+                  Get.offNamed(Routes.MIS_RESERVAS);
                 },
                 isPage: widget.tipoDePagina == TypePage.MisReservas,
                 icon: Icons.calendar_month,
