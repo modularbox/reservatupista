@@ -43,7 +43,8 @@ class ReservarPistaController extends GetxController
   Rx<String> duracion_partida = Rx<String>('');
   Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
-
+  Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
+  Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);
   Rx<int?> selectDeporte = Rx<int?>(null);
@@ -231,8 +232,8 @@ class ReservarPistaController extends GetxController
       }
       List<dynamic> deportesData = json.decode(deportesJson);
 
-      print('deportesData $deportesData');
-      print('deportesData[0] ${deportesData[0]['deporte']}');
+      //print('deportesData $deportesData');
+      //print('deportesData[0] ${deportesData[0]['deporte']}');
 
       List<String> listaDeportes = deportesData
           .map<String>((deporte) => deporte['deporte'] as String)
@@ -276,10 +277,12 @@ class ReservarPistaController extends GetxController
   Future<List<dynamic>> generarListaHorarios(
       int idPista, DateTime dia_seleccionado) async {
     try {
+      print('responseeeeeeeeeeee00');
       String response =
           await db.obtenerHorariosPistas(idPista, dia_seleccionado);
+      print('responseeeeeeeeeeee11 ${response}');
       if (response.length <= 0) return [];
-      print('response ${response}');
+      print('responseeeeeeeeeeee22 ${response}');
       List<dynamic> datosPista2 = json.decode(response);
       print('datosPista22 ${datosPista2}');
       return datosPista2;

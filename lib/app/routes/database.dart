@@ -222,6 +222,25 @@ class DatabaseController extends GetxController {
     }
   }
 
+  Future<bool> reservarPista(int idUsuario, int money, DateTime fecha,
+      String hora_inicio, String id_pista) async {
+    try {
+      var response = await http.post(
+          Uri.parse('https://api.reservatupista.com/usuario/reservar_pista'),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({
+            'id_pista': id_pista,
+            'id_usuario': idUsuario,
+            'cantidad': money * 100,
+            'fecha': fecha,
+            'hora_inicio': hora_inicio
+          }));
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   Future<String> obtenerPrecioPista(
       String dia, String hora_inicio, String id_pista) async {
     try {
@@ -277,6 +296,7 @@ class DatabaseController extends GetxController {
 
   Future<String> obtenerDatosPista(String id_pista) async {
     try {
+      print('iddddd_pista ${id_pista}');
       var response = await http.get(Uri.parse(
           'https://api.reservatupista.com/usuario/obtener_datos_pista?id_pista=$id_pista'));
       print('responseeeeeeeeeeeeeeeeeei ${response.body}');
@@ -292,13 +312,17 @@ class DatabaseController extends GetxController {
       // String nuevaFecha = DateFormat('yyyy-MM-dd').format(dia);
       // print('nuevaFecha $nuevaFecha');
       print('idd_pista $id_pista');
+      print('fecha.diaSemana ${fecha.diaSemana}');
       var response = await http.get(Uri.parse(
           'https://api.reservatupista.com/usuario/obtener_horarios_pistas/$id_pista/?dia_semana=${fecha.diaSemana}'));
       print('response.body.toString() ${response.body.toString()}');
-      print('response.body ${response.body}');
+      print(' ${response.body}');
       print('lleeeeeeeeeega');
+
       return response.body.toString();
-    } catch (error) {
+    } catch (error, stack) {
+      print('stackkkkkkkkkkkkkk $stack');
+      print('errorrrrrrrrrrrrr $error');
       rethrow;
     }
   }

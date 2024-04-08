@@ -79,7 +79,12 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   void reservarPistaF() async {
-    bool response = await db.subtractUserMoney(db.idUsuario, 4);
+    bool response = await db.reservarPista(
+        db.idUsuario,
+        4,
+        self.fecha_seleccionada.value,
+        self.hora_inicio_reserva_seleccionada.value,
+        self.id_pista_seleccionada.value.toString());
     if (response == true) {
       db.getMoney();
       Get.back();
@@ -828,6 +833,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   borderWidth: isSelect ? 2 : 0.5,
                   hoverColor: Colores().usuario.primary69,
                   onPressed: () {
+                    print('textHorario ${textHorario}');
+                    self.hora_inicio_reserva_seleccionada.value = textHorario;
                     self.selectHorario.value = HorarioFinInicio(
                         inicio: textHorario,
                         termino: termino,
