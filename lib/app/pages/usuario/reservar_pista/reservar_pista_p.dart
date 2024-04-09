@@ -941,34 +941,50 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   padding: const EdgeInsets.all(0),
                   height: 40,
                   width: 100.w / 4,
-                  fillColor: Colores().orange, //Colores().proveedor.primary,
+                  fillColor: Colors.purpleAccent,
                   borderRadius: isSelect ? 30 : null,
                   borderColor:
                       isSelect ? Colores().usuario.primary : Colors.white,
                   borderWidth: isSelect ? 2 : 0.5,
                   hoverColor: Colores().usuario.primary69,
-                  onPressed: null,
-                  /*() {
-                    print(2222222222222222);
+                  onPressed: () async {
+                    self.hora_inicio_reserva_seleccionada.value = textHorario;
+                    self.selectHorario.value = HorarioFinInicio(
+                        inicio: textHorario,
+                        termino: termino,
+                        typeEstadoHorario: TypeEstadoHorario.reservadaParcial);
+
+                    http.Response resultString = await db.obtenerPlazasPista(
+                        db.storage.idUsuario.read(),
+                        self.fecha_seleccionada.value,
+                        self.hora_inicio_reserva_seleccionada.value,
+                        self.id_pista_seleccionada.value);
+                    Map result = jsonDecode(resultString.body);
+                    int plazas_reservadas_totales =
+                        result['plazas_reservadas_totales'];
+                    print(
+                        'plazas_reservadas_totales $plazas_reservadas_totales');
+                    //if(result != null && result.body!=null && result.body.plazas_reservadas_totales == 0)
+                    /*self.selectHorario
+                        .refresh();
+                    self.listReservas.value = [true, false, false, false];
                     bool isEqual = false;
                     if (self.selectHorario.value != null) {
                       isEqual = self.selectHorario.value!.isEquals(
                           HorarioFinInicio(
                               inicio: textHorario,
                               termino: termino,
-                              typeEstadoHorario: TypeEstadoHorario.cerrada));
+                              typeEstadoHorario: TypeEstadoHorario.abierta));
                     }
-                    self.listReservas.value =
-                        self.listReservas.map((e) => e = false).toList();
                     if (isEqual) {
                       self.selectHorario.refresh();
                     } else {
                       self.selectHorario.value = HorarioFinInicio(
                           inicio: textHorario,
                           termino: termino,
-                          typeEstadoHorario: TypeEstadoHorario.cerrada);
-                    }
-                  }*/
+                          typeEstadoHorario: TypeEstadoHorario.abierta);
+                    }*/
+                  },
                   icon: Center(
                       child: Text(
                     textHorario,
