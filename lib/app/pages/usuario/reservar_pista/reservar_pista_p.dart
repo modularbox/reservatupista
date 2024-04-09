@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
@@ -1199,113 +1200,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       "4.00 €",
       "code"
     ];
-    list.add(SizedBox(
-      width: 100.w,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Row(
-            children: List.generate(
-              self.listReservas.length,
-              (index) => Stack(
-                children: [
-                  index == 0 &&
-                          self.selectHorario.value!.typeEstadoHorario ==
-                              TypeEstadoHorario.abierta
-                      ? self.cancelarReserva.value
-                          ? ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(30.0)),
-                              child: ImageServer(
-                                height: 50,
-                                width: 50,
-                              ),
-                            )
-                          : ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(30.0)),
-                              child: Image.asset(
-                                'assets/images/icon_user2.jpg',
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.fill,
-                              ),
-                            )
-                      : ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30.0)),
-                          child: ImageServer(
-                            height: 50,
-                            width: 50,
-                          ),
-                        ),
-                  BtnIcon(
-                      onPressed: index == 0 &&
-                              self.selectHorario.value!.typeEstadoHorario ==
-                                  TypeEstadoHorario.abierta
-                          ? null
-                          : () {
-                              print('aaaaaaaaaaaaaaaaaaaaa');
-                              self.listReservas[index] =
-                                  !self.listReservas[index];
-                            },
-                      padding: const EdgeInsets.all(0),
-                      borderRadius: 35.0,
-                      size: const Size(50, 50),
-                      borderWidth: 2,
-                      hoverColor: Colores().usuario.primary69,
-                      borderColor: Colores().usuario.primary,
-                      fillColor: self.listReservas[index] ||
-                              index == 0 ||
-                              (index == 1 &&
-                                  self.selectHorario.value!.typeEstadoHorario ==
-                                      TypeEstadoHorario.abierta)
-                          ? Colors.transparent
-                          : Colors.white,
-                      icon: self.listReservas[index] ||
-                              index == 0 ||
-                              (index == 1 &&
-                                  self.selectHorario.value!.typeEstadoHorario ==
-                                      TypeEstadoHorario.abierta)
-                          ? const SizedBox.shrink()
-                          : Icon(
-                              Icons.add,
-                              color: Colores().usuario.primary,
-                              size: 30,
-                              weight: 2,
-                            )),
-                ],
-              ),
-            ).divide(4.0.sw),
-          ),
-          Obx(() => BtnIcon(
-                onPressed: () {
-                  if (self.cancelarReserva.value) {
-                    self.listReservas.value =
-                        self.listReservas.map((e) => e = false).toList();
-                    self.cancelarReserva.value = false;
-                  } else {
-                    self.listReservas.value =
-                        self.listReservas.map((e) => e = true).toList();
-                    self.cancelarReserva.value = true;
-                  }
-                },
-                fillColor: self.cancelarReserva.value
-                    ? Colores().rojo
-                    : Colores().usuario.primary,
-                borderRadius: 10,
-                size: const Size(130, 40),
-                icon: Text(
-                  self.cancelarReserva.value ? 'Cancelar' : 'Reservar todo',
-                  style: FlutterFlowTheme.of(Get.context!)
-                      .bodyMedium
-                      .copyWith(color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-              ))
-        ]),
-      ),
-    ));
+    list.add(SizedBox(width: 100.w, child: buildUsuarios()));
     for (var i = 0; i < datos.length; i++) {
       if (datosList[i] == "code") {
         list.add(
