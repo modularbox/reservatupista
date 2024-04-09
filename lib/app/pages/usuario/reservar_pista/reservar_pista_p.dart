@@ -741,11 +741,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         case 'RESERVADA_CLASE':
           status = TypeEstadoHorario.reservadaClase;
           break;
-        case 'RESERVADA':
-          status = TypeEstadoHorario.reservada;
-          break;
         case 'RESERVADA_PARCIAL':
           status = TypeEstadoHorario.reservadaParcial;
+          break;
+        case 'RESERVADA_COMPLETA':
+          status = TypeEstadoHorario.reservada;
           break;
         default:
           status = TypeEstadoHorario.abierta;
