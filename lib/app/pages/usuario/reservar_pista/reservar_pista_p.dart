@@ -941,7 +941,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   padding: const EdgeInsets.all(0),
                   height: 40,
                   width: 100.w / 4,
-                  fillColor: Colors.purpleAccent,
+                  fillColor: Colores().orange,
                   borderRadius: isSelect ? 30 : null,
                   borderColor:
                       isSelect ? Colores().usuario.primary : Colors.white,
@@ -952,7 +952,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     self.selectHorario.value = HorarioFinInicio(
                         inicio: textHorario,
                         termino: termino,
-                        typeEstadoHorario: TypeEstadoHorario.reservadaParcial);
+                        typeEstadoHorario: TypeEstadoHorario.abierta);
 
                     http.Response resultString = await db.obtenerPlazasPista(
                         db.storage.idUsuario.read(),
