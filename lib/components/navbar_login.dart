@@ -4,7 +4,6 @@ import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../app/routes/database.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'alert_versions_widget.dart';
 
 extension SizedBoxExt on double {
@@ -15,7 +14,7 @@ extension SizedBoxExt on double {
 class NavBarLogin extends StatelessWidget {
   NavBarLogin({super.key});
 
-  DatabaseController db = Get.find();
+  final DatabaseController db = Get.find();
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -56,7 +55,7 @@ class NavBarLogin extends StatelessWidget {
           left: 75,
           child: Container(
             width: MediaQuery.of(context).size.width - (155),
-            constraints: BoxConstraints(maxWidth: 300),
+            constraints: const BoxConstraints(maxWidth: 300),
             child: FittedBox(
               fit: BoxFit.cover,
               child: Text(

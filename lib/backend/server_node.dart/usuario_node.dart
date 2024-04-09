@@ -54,7 +54,7 @@ class UsuarioNode {
       final url =
           Uri.parse('${DatosServer().urlServer}/usuario/iniciar_sesion');
       // Crear una solicitud multipart
-      print(usuario.toString());
+      print('usuario.toString()');
       var request = http.post(url,
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({

@@ -6,7 +6,6 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/smoth_page/page_view_sliding_indicator.dart';
 import '../../../routes/app_pages.dart';
-import '../../../widgets/text_inputters/inputter_registro.dart';
 import 'eliminar_cuenta_c.dart';
 import '../../../../components/navbar_login.dart';
 import '/components/app_bar_login_widget.dart';
@@ -19,7 +18,7 @@ import '../../../../constants.dart';
 class EliminarCuentaPage extends GetView<EliminarCuentaController> {
   EliminarCuentaPage({super.key});
   EliminarCuentaController get self => controller;
-  DatabaseController db = Get.find();
+  final DatabaseController db = Get.find();
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = const Color(0xFF2B78DC);
 

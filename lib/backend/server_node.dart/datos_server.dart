@@ -1,6 +1,9 @@
+// ignore_for_file: constant_identifier_names
+
 class DatosServer {
-  // String urlServer = 'http://192.168.1.134:3000';
-  String urlServer = 'https://api.reservatupista.com';
+  // String urlServer = 'http://192.168.0.209:3000';
+  // String urlServer = 'https://api.reservatupista.com';
+  String urlServer = 'https://apidevelop.reservatupista.com';
 
   String datos(List<TypeDatosServer> listTypes) {
     List<String> newList = [];
