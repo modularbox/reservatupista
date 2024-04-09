@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../utils/btn_icon.dart';
@@ -22,6 +23,7 @@ import '/backend/schema/enums/enums.dart';
 import 'widgets/input_club_favoritos.dart';
 import 'widgets/input_select.dart';
 import '../../../routes/database.dart';
+import 'package:http/http.dart' as http;
 
 class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaController get self => controller;
@@ -84,7 +86,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         4,
         self.fecha_seleccionada.value,
         self.hora_inicio_reserva_seleccionada.value,
-        self.id_pista_seleccionada.value.toString());
+        self.id_pista_seleccionada.value.toString(),
+        self.plazas_a_reservar.value);
     if (response == true) {
       db.getMoney();
       Get.back();
@@ -771,7 +774,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         rows.add(Row(
             children: List<Widget>.generate(4, (row) {
           if ((row + i) < horarios.length) {
-            print(66666666);
             final String textHorario = horarios[row + i].horario;
             final String termino = (row + i + 1) == horarios.length
                 ? "00:00"
@@ -779,7 +781,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             final isSelect = self.selectHorario.value == null
                 ? false
                 : (self.selectHorario.value!.inicio == textHorario);
-            print(6666666666);
             if (horarios[row + i].estatus == TypeEstadoHorario.cerrada) {
               return BtnIcon(
                   padding: const EdgeInsets.all(0),
@@ -832,13 +833,24 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       isSelect ? Colores().usuario.primary : Colors.white,
                   borderWidth: isSelect ? 2 : 0.5,
                   hoverColor: Colores().usuario.primary69,
-                  onPressed: () {
-                    print('textHorario ${textHorario}');
+                  onPressed: () async {
                     self.hora_inicio_reserva_seleccionada.value = textHorario;
                     self.selectHorario.value = HorarioFinInicio(
                         inicio: textHorario,
                         termino: termino,
                         typeEstadoHorario: TypeEstadoHorario.abierta);
+
+                    http.Response resultString = await db.obtenerPlazasPista(
+                        db.storage.idUsuario.read(),
+                        self.fecha_seleccionada.value,
+                        self.hora_inicio_reserva_seleccionada.value,
+                        self.id_pista_seleccionada.value);
+                    Map result = jsonDecode(resultString.body);
+                    int plazas_reservadas_totales =
+                        result['plazas_reservadas_totales'];
+                    print(
+                        'plazas_reservadas_totales $plazas_reservadas_totales');
+                    //if(result != null && result.body!=null && result.body.plazas_reservadas_totales == 0)
                     /*self.selectHorario
                         .refresh();
                     self.listReservas.value = [true, false, false, false];
@@ -1176,6 +1188,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                   TypeEstadoHorario.abierta
                           ? null
                           : () {
+                              print('aaaaaaaaaaaaaaaaaaaaa');
                               self.listReservas[index] =
                                   !self.listReservas[index];
                             },
