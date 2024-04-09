@@ -935,6 +935,47 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 16),
                   )));
+            } else if (horarios[row + i].estatus ==
+                TypeEstadoHorario.reservadaParcial) {
+              return BtnIcon(
+                  padding: const EdgeInsets.all(0),
+                  height: 40,
+                  width: 100.w / 4,
+                  fillColor: Colores().orange, //Colores().proveedor.primary,
+                  borderRadius: isSelect ? 30 : null,
+                  borderColor:
+                      isSelect ? Colores().usuario.primary : Colors.white,
+                  borderWidth: isSelect ? 2 : 0.5,
+                  hoverColor: Colores().usuario.primary69,
+                  onPressed: null,
+                  /*() {
+                    print(2222222222222222);
+                    bool isEqual = false;
+                    if (self.selectHorario.value != null) {
+                      isEqual = self.selectHorario.value!.isEquals(
+                          HorarioFinInicio(
+                              inicio: textHorario,
+                              termino: termino,
+                              typeEstadoHorario: TypeEstadoHorario.cerrada));
+                    }
+                    self.listReservas.value =
+                        self.listReservas.map((e) => e = false).toList();
+                    if (isEqual) {
+                      self.selectHorario.refresh();
+                    } else {
+                      self.selectHorario.value = HorarioFinInicio(
+                          inicio: textHorario,
+                          termino: termino,
+                          typeEstadoHorario: TypeEstadoHorario.cerrada);
+                    }
+                  }*/
+                  icon: Center(
+                      child: Text(
+                    textHorario,
+                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 16),
+                  )));
             }
             return Container(
                 height: 40,
