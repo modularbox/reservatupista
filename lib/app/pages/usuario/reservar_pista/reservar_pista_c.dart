@@ -4,7 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
+import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
+import 'package:reservatu_pista/backend/server_node.dart/reservas_node.dart';
+
 import 'dart:convert';
+
+extension ExtDateTime on DateTime {
+  String get formatDate =>
+      '${year.toString()}-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
+}
 
 class HorarioFinInicio {
   HorarioFinInicio(
@@ -89,6 +97,10 @@ class ReservarPistaController extends GetxController
 
   final appBarAndNavBar = 120;
   PageController pageViewController = PageController();
+
+  /// Obtener los usuarios con reservas
+  final Rx<ReservasUsuarios?> reservas_usuarios = Rx<ReservasUsuarios?>(null);
+
   @override
   void onInit() {
     super.onInit();
@@ -165,6 +177,23 @@ class ReservarPistaController extends GetxController
     tiempoReservaListaCalendar = getListaHorarios();
   }
   //funcion para obtener lista con todas las localidades
+
+  void obtenerPlazasLibres() async {
+    print("dfoihodisfhodsfhoids");
+    try {
+      final idPista = id_pista_seleccionada.value.toString();
+      final fecha = fecha_seleccionada.value.formatDate;
+      final horaInicio = hora_inicio_reserva_seleccionada.value;
+      print('$idPista, $fecha, $horaInicio');
+      final result =
+          await ReservasNode().obtenerPlazasLibres(idPista, fecha, horaInicio);
+      if (result is ReservasUsuarios) {
+        reservas_usuarios.value = result;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future<void> generarListaLocalidades() async {
     try {
