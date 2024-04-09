@@ -80,12 +80,18 @@ class DatabaseController extends GetxController {
     // storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
     // storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
   }
-  Future<void> getImageUsuario() async {
+  Future<void> getImageUsuario(String? changeImage) async {
     try {
-      final storage = await SharedPreferences.getInstance();
-      final String imageUsuario = storage.fotoUsuario.read();
-      imageServer.value = UsuarioNode().getImageUsuarioNode(imageUsuario);
-      print(imageUsuario);
+      if (changeImage != null) {
+        imageServer.value = UsuarioNode().getImageUsuarioNode(changeImage);
+      } else {
+        if (imageServer.value == '') {
+          final storage = await SharedPreferences.getInstance();
+          final String imageUsuario = storage.fotoUsuario.read();
+          imageServer.value = UsuarioNode().getImageUsuarioNode(imageUsuario);
+          print('imageuUSaurio: $imageUsuario');
+        }
+      }
     } catch (e) {}
   }
 
