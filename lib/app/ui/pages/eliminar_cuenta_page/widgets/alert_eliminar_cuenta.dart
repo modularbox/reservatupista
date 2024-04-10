@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_c.dart';
-
 import '../../../../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../../flutter_flow/flutter_flow_widgets.dart';
@@ -35,9 +34,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
               color: Colors.white,
               size: 30,
             ),
-            onPressed: () async {
-              Get.back();
-            },
+            onPressed: Get.back,
           ),
           title: Text(
             'Eliminar Cuenta',
@@ -47,7 +44,6 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                   fontSize: 22,
                 ),
           ),
-          actions: [],
           centerTitle: false,
           elevation: 2,
         ),
@@ -295,12 +291,13 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 8, 0),
                                     child: Obx(() => FFButtonWidget(
-                                          onPressed: !controller
-                                                  .checkboxEliminarCuenta.value
-                                              ? null
-                                              : () async {
-                                                  // Confirmación
-                                                  var confirmDialogResponse =
+                                          onPressed:
+                                              !controller.checkboxEliminarCuenta
+                                                      .value
+                                                  ? null
+                                                  : () async {
+                                                      // Confirmación
+
                                                       await showDialog<bool>(
                                                             context: context,
                                                             builder:
@@ -331,7 +328,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                                             },
                                                           ) ??
                                                           false;
-                                                },
+                                                    },
                                           text: 'Eliminar',
                                           options: FFButtonOptions(
                                             height: 40,
