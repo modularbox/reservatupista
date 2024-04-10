@@ -841,16 +841,17 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         termino: termino,
                         typeEstadoHorario: TypeEstadoHorario.abierta);
 
-                    http.Response resultString = await db.obtenerPlazasPista(
-                        db.storage.idUsuario.read(),
-                        self.fecha_seleccionada.value,
-                        self.hora_inicio_reserva_seleccionada.value,
-                        self.id_pista_seleccionada.value);
-                    Map result = jsonDecode(resultString.body);
-                    int plazas_reservadas_totales =
-                        result['plazas_reservadas_totales'];
-                    print(
-                        'plazas_reservadas_totales $plazas_reservadas_totales');
+                    self.obtenerPlazasLibres();
+                    // http.Response resultString = await db.obtenerPlazasPista(
+                    //     db.storage.idUsuario.read(),
+                    //     self.fecha_seleccionada.value,
+                    //     self.hora_inicio_reserva_seleccionada.value,
+                    //     self.id_pista_seleccionada.value);
+                    // Map result = jsonDecode(resultString.body);
+                    // int plazas_reservadas_totales =
+                    //     result['plazas_reservadas_totales'];
+                    // print(
+                    //     'plazas_reservadas_totales $plazas_reservadas_totales');
                     //if(result != null && result.body!=null && result.body.plazas_reservadas_totales == 0)
                     /*self.selectHorario
                         .refresh();
@@ -954,18 +955,18 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         inicio: textHorario,
                         termino: termino,
                         typeEstadoHorario: TypeEstadoHorario.abierta);
-
-                    http.Response resultString = await db.obtenerPlazasPista(
-                        db.storage.idUsuario.read(),
-                        self.fecha_seleccionada.value,
-                        self.hora_inicio_reserva_seleccionada.value,
-                        self.id_pista_seleccionada.value);
-                    Map result = jsonDecode(resultString.body);
-                    int plazas_reservadas_totales =
-                        int.parse(result['plazas_reservadas_totales']);
-                    ;
-                    print(
-                        'plazas_reservadas_totales $plazas_reservadas_totales');
+                    self.obtenerPlazasLibres();
+                    // http.Response resultString = await db.obtenerPlazasPista(
+                    //     db.storage.idUsuario.read(),
+                    //     self.fecha_seleccionada.value,
+                    //     self.hora_inicio_reserva_seleccionada.value,
+                    //     self.id_pista_seleccionada.value);
+                    // Map result = jsonDecode(resultString.body);
+                    // int plazas_reservadas_totales =
+                    //     int.parse(result['plazas_reservadas_totales']);
+                    // ;
+                    // print(
+                    //     'plazas_reservadas_totales $plazas_reservadas_totales');
                     //if(result != null && result.body!=null && result.body.plazas_reservadas_totales == 0)
                     /*self.selectHorario
                         .refresh();

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get_connect/connect.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
@@ -34,7 +36,7 @@ class ReservasNode {
       await provider.initialize();
       final response =
           await provider.obtenerPlazasLibres(idPista, fecha, horaInicio);
-      print('obtenerPlazasLibres ${response.body}');
+      print('obtenerPlazasLibres ${jsonEncode(response.body)}');
       if (response.statusCode == 200) {
         print('obtenerPlazasLibres ${response.body}');
         return ReservasUsuarios.fromJson(response.body);

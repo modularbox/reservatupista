@@ -43,7 +43,7 @@ Widget buildUsuarios() {
 
   /// Datos usuarios a reservar
   final Rx<ReservaUsuario> usuario = Rx<ReservaUsuario>(ReservaUsuario(
-      idUsuario: '8',
+      idUsuario: 8,
       nick: 'mynick',
       imagen: '1710273751351',
       plazasReservadas: 0));
@@ -51,6 +51,8 @@ Widget buildUsuarios() {
   return Obx(() {
     final reservas_usuarios = self.reservas_usuarios.value;
     if (reservas_usuarios is ReservasUsuarios) {
+      final int plazasReservadasTotales =
+          reservas_usuarios.plazasReservadasTotales;
       return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -62,7 +64,7 @@ Widget buildUsuarios() {
                   ? const SizedBox.shrink()
                   : buildButton(
                       (capacidad -
-                          (reservas_usuarios.plazasReservadasTotales +
+                          (plazasReservadasTotales +
                               usuario.value.plazasReservadas)),
                       usuario,
                       cancelarReserva),
@@ -76,8 +78,7 @@ Widget buildUsuarios() {
                   usuario.refresh();
                   cancelarReserva.value = false;
                 } else {
-                  usuario.value.plazasReservadas =
-                      reservas_usuarios.plazasReservadasTotales;
+                  usuario.value.plazasReservadas = plazasReservadasTotales;
                   usuario.refresh();
                   cancelarReserva.value = true;
                 }

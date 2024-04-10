@@ -34,7 +34,7 @@ class ReservasUsuarios {
 }
 
 class ReservaUsuario {
-  String idUsuario;
+  int idUsuario;
   String nick;
   String imagen;
   int plazasReservadas;
@@ -54,14 +54,14 @@ class ReservaUsuario {
   factory ReservaUsuario.fromJson(Map<String, dynamic> json) => ReservaUsuario(
         idUsuario: json["id_usuario"],
         nick: json["nick"],
-        imagen: json["imagen"],
+        imagen: json["foto"],
         plazasReservadas: json["plazas_reservadas"],
       );
 
   Map<String, dynamic> toJson() => {
         "id_usuario": idUsuario,
         "nick": nick,
-        "imagen": imagen,
+        "foto": imagen,
         "plazas_reservadas": plazasReservadas,
       };
 }
