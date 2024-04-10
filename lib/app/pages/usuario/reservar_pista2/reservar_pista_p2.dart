@@ -27,6 +27,7 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
 
   void reservarPistaF() async {
     bool response = await db.subtractUserMoney(db.idUsuario, 4);
+    print('responseeee1 $response');
     if (response == true) {
       db.getMoney();
       Get.back();
@@ -810,7 +811,9 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
                 print('dinero_total ${db.dineroTotal}');
-                final precio = db.dineroTotal -
+                print('db.dineroTotal ${db.dineroTotal}');
+                print('db.dineroTotalEuros ${db.dineroTotalEuros}');
+                final saldo = db.dineroTotal -
                     precio_reserva *
                         100; /*int.parse(db.datosPerfilUsuario
                         .obx(
@@ -826,8 +829,8 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
                             ))
                         .toString())*/
 
-                print('preciooooooooooo ${precio}'); //(0 - 4.0);
-                if (precio < 0) {
+                print('saldo ${saldo}'); //(0 - 4.0);
+                if (saldo < 0) {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,
                     alertTitle: 'Reservar Pista',

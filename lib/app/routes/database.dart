@@ -177,7 +177,7 @@ class DatabaseController extends GetxController {
       if (result is UsuarioModel) {
         dineroTotal = result.dineroTotal;
         dineroTotalEuros = ((dineroTotal) / 100).toStringAsFixed(2);
-
+        print('dineroTotalEuros $dineroTotalEuros');
         print('eeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       }
     } catch (e, stack) {
@@ -239,12 +239,15 @@ class DatabaseController extends GetxController {
             'id_pista': id_pista,
             'id_usuario': idUsuario,
             'cantidad': money * 100,
-            'fecha': fecha,
+            'fecha': fecha.toString(),
             'hora_inicio': hora_inicio,
-            plazas_a_reservar: plazas_a_reservar
+            'plazas_a_reservar': plazas_a_reservar
           }));
+      print('fecha.toString() ${fecha.toString()}');
+      print('response.bodyresponse.body ${response.body}');
       return true;
     } catch (error) {
+      print('error reservarPista $error');
       return false;
     }
   }

@@ -82,13 +82,18 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   void reservarPistaF() async {
+    print('self.fecha_seleccionada.value ${self.fecha_seleccionada.value}');
+    print(
+        'self.fecha_seleccionada.value ${self.fecha_seleccionada.value.toString()}');
     bool response = await db.reservarPista(
-        db.idUsuario,
+        db.storage.idUsuario.read(),
         4,
         self.fecha_seleccionada.value,
         self.hora_inicio_reserva_seleccionada.value,
         self.id_pista_seleccionada.value.toString(),
         self.plazas_a_reservar.value);
+    print('reservarPistaF');
+    print('responseEEEEE1 ${response}');
     if (response == true) {
       db.getMoney();
       Get.back();
