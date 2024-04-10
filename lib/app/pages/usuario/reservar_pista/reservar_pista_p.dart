@@ -962,7 +962,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         self.id_pista_seleccionada.value);
                     Map result = jsonDecode(resultString.body);
                     int plazas_reservadas_totales =
-                        result['plazas_reservadas_totales'];
+                        int.parse(result['plazas_reservadas_totales']);
+                    ;
                     print(
                         'plazas_reservadas_totales $plazas_reservadas_totales');
                     //if(result != null && result.body!=null && result.body.plazas_reservadas_totales == 0)
