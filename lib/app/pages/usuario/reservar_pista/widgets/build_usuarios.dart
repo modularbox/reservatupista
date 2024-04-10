@@ -8,6 +8,7 @@ import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
+import '../reservar_pista_c.dart';
 
 Widget buildUsuarios() {
   final datosHardCode = {
@@ -28,6 +29,7 @@ Widget buildUsuarios() {
     ],
     "message": "Bien"
   };
+  //ReservarPistaController reservarPistaController = ReservarPistaController();
   final ReservarPistaController self = Get.find();
   // Cancelar la reserva
   RxBool cancelarReserva = false.obs;
@@ -77,8 +79,18 @@ Widget buildUsuarios() {
                   usuario.value.plazasReservadas = 0;
                   usuario.refresh();
                   cancelarReserva.value = false;
+                  //alvaro
+                  self.plazas_a_reservar.value = 0;
+                  print('self.plazas_a_reservar ${self.plazas_a_reservar}');
                 } else {
-                  usuario.value.plazasReservadas = plazasReservadasTotales;
+                  //alvaro
+                  int plazas_a_reservar = capacidad - plazasReservadasTotales;
+                  self.plazas_a_reservar.value = plazas_a_reservar;
+                  print('cacacidadd $capacidad');
+                  print('plazasReservadasTotaless $plazasReservadasTotales');
+                  print('self.plazas_a_reservar ${self.plazas_a_reservar}');
+                  usuario.value.plazasReservadas = plazas_a_reservar;
+                  //usuario.value.plazasReservadas = plazasReservadasTotales;
                   usuario.refresh();
                   cancelarReserva.value = true;
                 }
@@ -113,6 +125,11 @@ Widget buildButton(
                 children: [
                   BtnIcon(
                       onPressed: () {
+                        ReservarPistaController reservarPistaController =
+                            Get.find<ReservarPistaController>();
+                        reservarPistaController.plazas_a_reservar.value += 1;
+                        print(
+                            'ReservarPistaController().plazas_a_reservar.value ${reservarPistaController.plazas_a_reservar.value}');
                         usuario.value.plazasReservadas += 1;
                         usuario.refresh();
                         cancelarReserva.value = true;
