@@ -1,423 +1,396 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/routes/database.dart';
+import '../../../../flutter_flow/flutter_flow_animations.dart';
+import '../../../../utils/btn_icon.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
+import '../../../../utils/smoth_page/page_view_sliding_indicator.dart';
+import '../../../routes/app_pages.dart';
 import 'eliminar_cuenta_c.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '../../../../components/navbar_login.dart';
+import '/components/app_bar_login_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import '../../../../constants.dart';
 
 class EliminarCuentaPage extends GetView<EliminarCuentaController> {
-  @override
-  Widget build(BuildContext context) {
-    return HomePageWidget();
-  }
-}
-
-class HomePageWidget extends GetView<EliminarCuentaController> {
-  HomePageWidget({super.key});
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  EliminarCuentaPage({super.key});
+  EliminarCuentaController get self => controller;
+  final DatabaseController db = Get.find();
+  final Color colorProfesional = const Color(0xFF46EF98);
+  final Color colorUsuario = const Color(0xFF2B78DC);
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+    const lineColorUsuario = Color.fromARGB(160, 43, 120, 220);
+    final focusedColorUsuario = LightModeTheme().primary;
+    const lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
+    final focusedColorProfesional = LightModeTheme().btnGeneral;
     return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            Get.back();
-          },
-        ),
-        title: Text(
-          'Confirmarla eliminación',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Outfit',
-                color: Colors.white,
-                fontSize: 22,
-              ),
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2,
-      ),
+      backgroundColor: LightModeTheme().primaryText,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         top: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: AlignmentDirectional(0, 0),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
-                child: Material(
-                  color: Colors.transparent,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(0),
-                      topLeft: Radius.circular(0),
-                      topRight: Radius.circular(0),
+        child: Container(
+          width: MediaQuery.sizeOf(context).width,
+          height: MediaQuery.sizeOf(context).height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [LightModeTheme().tertiary, LightModeTheme().accent4],
+              stops: const [0, 1],
+              begin: const AlignmentDirectional(0, -1),
+              end: const AlignmentDirectional(0, 1),
+            ),
+          ),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Align(
+                    alignment: AlignmentDirectional(0, 0),
+                    child: AppBarLoginWidget(),
+                  ),
+                  Container(
+                    width: MediaQuery.sizeOf(context).width <= 500
+                        ? 10
+                        : MediaQuery.sizeOf(context).width * kWidthPercentage,
+                    constraints: const BoxConstraints(
+                      minWidth: 500, // Ajusta este valor según tus necesidades
+                    ),
+                    child: Column(
+                      children: [
+                        PageViewSlidingIndicator(
+                          widthButtons: MediaQuery.sizeOf(context).width <= 500
+                              ? (MediaQuery.of(context).size.width * 0.51) * 0.9
+                              : ((MediaQuery.of(context).size.width >= 640 &&
+                                      MediaQuery.of(context).size.width < 740)
+                                  ? (MediaQuery.of(context).size.width * 0.51) *
+                                      0.5
+                                  : (MediaQuery.of(context).size.width * 0.5) *
+                                      0.45),
+                          pageCount: self.initialPage,
+                          controller: self.pageViewController,
+                        ),
+                        SizedBox(
+                          height: 450,
+                          child: PageView(
+                            controller: self.pageViewController,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              buildInputsLogin(
+                                  formKey: self.formUsuarioKey,
+                                  self.emailUsuarioController,
+                                  self.passwordUsuarioController,
+                                  self.emailUsuarioFocusNode,
+                                  self.passwordUsuarioFocusNode,
+                                  self.passwordVisibility,
+                                  'Usuario',
+                                  'Disfruta de todos tus\ndeportes con un click.',
+                                  self.checkboxValueTerminosUsuario,
+                                  Routes.INICIO,
+                                  Routes.REGISTRAR_USUARIO,
+                                  self.animTerminosUsuario,
+                                  self.validateTerminosUsuario,
+                                  lineColor: lineColorUsuario,
+                                  focusedColor: focusedColorUsuario,
+                                  typeUser: 0,
+                                  palomita: Colors.white,
+                                  onPressed: self.onPressedUsuario),
+                              buildInputsLogin(
+                                  formKey: self.formProveedorKey,
+                                  self.emailProveedorController,
+                                  self.passwordProveedorController,
+                                  self.emailProveedorFocusNode,
+                                  self.passwordProveedorFocusNode,
+                                  self.passwordProveedorVisibility,
+                                  'Proveedor',
+                                  'Clubs, Ayuntamiento, \nComunidad, Asociación.',
+                                  self.checkboxValueTerminosProveedor,
+                                  Routes.INICIOPROFESIONAL,
+                                  Routes.REGISTRO_PROVEEDOR,
+                                  self.animTerminosProveedor,
+                                  self.validateTerminosProveedor,
+                                  lineColor: lineColorProfesional,
+                                  focusedColor: focusedColorProfesional,
+                                  typeUser: 1,
+                                  palomita: Colors.black,
+                                  onPressed: self.onPressedProveedor),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.8,
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.sizeOf(context).height * 0.7,
+                ],
+              ),
+              NavBarLogin()
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildInputsLogin(
+    TextEditingController email,
+    TextEditingController contrasena,
+    FocusNode emailFocus,
+    FocusNode contrasenaFocus,
+    RxBool passwordVisibility,
+    String title,
+    String subtitle,
+    RxBool checkboxTerminos,
+    String accederPage,
+    String registroPage,
+    AnimationController animTerminos,
+    RxBool validateTerminos, {
+    required Color lineColor,
+    required Color focusedColor,
+    required Color palomita,
+    required int typeUser,
+    required dynamic Function()? onPressed,
+    required Key formKey,
+  }) {
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+            child: VibratingWidget(
+              controller: self.animUsuario,
+              child: TextFormField(
+                controller: email,
+                focusNode: emailFocus,
+                obscureText: false,
+                maxLength: 40,
+                decoration: InputDecoration(
+                  counterText: '',
+                  errorStyle: const TextStyle(
+                      fontSize: 0, decoration: TextDecoration.none),
+                  labelText: 'Email',
+                  hintText: 'Ingresa tu email aquí...',
+                  hintStyle: LightModeTheme().bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        color: const Color(0xFF95A1AC),
+                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: lineColor,
+                      width: 2,
                     ),
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 4,
-                          color: Color(0x33000000),
-                          offset: Offset(0, 2),
-                        )
-                      ],
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(0),
-                        topRight: Radius.circular(0),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: focusedColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: LightModeTheme().error,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: LightModeTheme().error,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: LightModeTheme().secondaryBackground,
+                  contentPadding:
+                      const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                  prefixIcon: const Icon(
+                    Icons.person,
+                  ),
+                  prefixIconColor: focusedColor,
+                ),
+                inputFormatters: [
+                  // FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9@.]'))
+                  // FilterEmailTextInputFormatter(),
+                  // FilteringTextInputFormatter.deny(RegExp('[^a-zA-Z0-9@.]')),
+                ],
+                style: LightModeTheme().bodyMedium,
+                onChanged: self.onChangeTextField,
+                validator: (val) {
+                  return self.validateTextField(val, self.animUsuario);
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+            child: Obx(() => VibratingWidget(
+                  controller: self.animContrasena,
+                  child: TextFormField(
+                    controller: contrasena,
+                    focusNode: contrasenaFocus,
+                    maxLength: 15,
+                    obscureText: !self.passwordVisibility.value,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      labelText: 'Contraseña',
+                      hintText: 'Ingresa tu contraseña aqui...',
+                      hintStyle: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: const Color(0xFF95A1AC),
+                          ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: lineColor,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: focusedColor,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: LightModeTheme().error,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: LightModeTheme().error,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      filled: true,
+                      fillColor: LightModeTheme().secondaryBackground,
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                      prefixIcon: Icon(
+                        passwordVisibility.value ? Icons.lock_open : Icons.lock,
+                      ),
+                      prefixIconColor: focusedColor,
+                      suffixIcon: InkWell(
+                        onTap: () => passwordVisibility.value =
+                            !passwordVisibility.value,
+                        focusNode: FocusNode(skipTraversal: true),
+                        child: Icon(
+                          passwordVisibility.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: const Color(0xFF95A1AC),
+                          size: 22,
+                        ),
                       ),
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(-1, -1),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Text(
-                                'Lee esta información detenidamente. Es importante.',
-                                textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
-                                      fontFamily: 'Outfit',
-                                      fontSize: 20,
-                                    ),
-                              ),
-                            ),
+                    style: LightModeTheme().bodyMedium,
+                    onChanged: self.onChangeTextField,
+                    validator: (val) =>
+                        self.validateTextField(val, self.animContrasena),
+                  ),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 10),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    10.0.sw,
+                    Text(
+                      '',
+                      style: LightModeTheme().bodyMedium,
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: BtnIcon(
+                    onPressed: () async {
+                      Get.toNamed(Routes.OLVIDE_CONTRASENA,
+                          arguments: typeUser);
+                    },
+                    borderRadius: 12,
+                    icon: Text(
+                      '¿Has olvidado la contraseña?',
+                      style: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().primary,
                           ),
-                          Align(
-                            alignment: AlignmentDirectional(-1, 0),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: RichText(
-                                textScaler: MediaQuery.of(context).textScaler,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          'Antes de eliminar Gmail de tu cuenta de Google, recuerda que si lo haces ya no podrás enviar, recibir ni acceder a ningún correo electrónico de tu cuenta ',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                      text: 'cuenta@gmail.com',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-1, 0),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Text(
-                                'También puede que pierdas el acceso a servicios que no pertenezcan a Google en los que uses cuenta@gmail.com. Por ejemplo, si usas esta dirección de correo electrónico como dirección de correo electrónico de recuperación para tu cuenta bancaria, puede que tengas problemas para restrablecer la contraseña de la cuenta. Si continúas, deberás actualizar dirección de correo electrónico en todos los servicios que no pertenezcan a Google en los que la uses.',
-                                textAlign: TextAlign.justify,
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-1, 0),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Text(
-                                'Al eliminar Gmail, se cerrará tu bandeja de entrada, se eliminará definitivamente todo su contenido y perderás el acceso a tu dirección de correo electrónico en el plazo de dos días laborables.',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-1, 0),
-                            child: Padding(
-                              padding: EdgeInsets.all(12),
-                              child: RichText(
-                                textScaler: MediaQuery.of(context).textScaler,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Podrás usar',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                      text: ' cuenta@gmail.com ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'para iniciar sesión en tu cuenta de Google una vez hayas eliminado Gmail.',
-                                      style: TextStyle(),
-                                    )
-                                  ],
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(12),
-                            child: RichText(
-                              textScaler: MediaQuery.of(context).textScaler,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Se eliminarásn tus ',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: '4',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: ' conversaciones',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-1, 0),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(5, 8, 0, 8),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(-1, 0),
-                                    child: Theme(
-                                      data: ThemeData(
-                                        checkboxTheme: CheckboxThemeData(
-                                          visualDensity: VisualDensity.compact,
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                        ),
-                                        unselectedWidgetColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                      ),
-                                      child: Text('djkbfk'),
-                                      // child: Checkbox(
-                                      //   value: _model.checkboxValue ??= false,
-                                      //   onChanged: (newValue) async {
-                                      //     setState(() =>
-                                      //         _model.checkboxValue = newValue!);
-                                      //   },
-                                      //   activeColor:
-                                      //       FlutterFlowTheme.of(context)
-                                      //           .primary,
-                                      //   checkColor:
-                                      //       FlutterFlowTheme.of(context).info,
-                                      // ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'Sí, quiero eliminar definitivamente cuenta@gmail.com de mi cuenta de Google.',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 50, 0, 20),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 8, 0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      // Confirmación
-                                      var confirmDialogResponse =
-                                          await showDialog<bool>(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title:
-                                                        Text('¿Está seguro?'),
-                                                    content: Text(
-                                                        'Esta acción es definitiva, proceda sólo si esta seguro de su decisión.'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('Cancelar'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text(
-                                                            'Eliminar cuenta'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ) ??
-                                              false;
-                                    },
-                                    text: 'Eliminar',
-                                    options: FFButtonOptions(
-                                      height: 40,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24, 0, 24, 0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0, 0, 0, 0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: Colors.white,
-                                          ),
-                                      elevation: 3,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                ),
-                                FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
-                                  },
-                                  text: 'Cancelar',
-                                  options: FFButtonOptions(
-                                    height: 40,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24, 0, 24, 0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
-                                    elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FFButtonWidget(
+                  onPressed: onPressed,
+                  text: 'Acceder',
+                  options: FFButtonOptions(
+                    width: Get.width <= 500
+                        ? Get.width * 0.4
+                        : (Get.width * 0.4) * 0.5,
+                    height: 40,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: focusedColor,
+                    textStyle: LightModeTheme().bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: LightModeTheme().tertiary,
+                        ),
+                    elevation: 2,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          TerminosCondicionesDialog(
+            animTerminos,
+            checkboxTerminos,
+            focusedColor,
+            validateTerminos,
+            palomita,
+            paddingTop: 20,
+          ),
+          Divider(
+            height: 2,
+            thickness: 2,
+            indent: 20,
+            endIndent: 20,
+            color: LightModeTheme().lineColor,
+          ),
+        ],
       ),
     );
   }

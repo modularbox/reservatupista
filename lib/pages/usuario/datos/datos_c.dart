@@ -9,7 +9,7 @@ import '../../../utils/dialog/rich_alert.dart';
 // import '../../../../utils/dialog/rich_alert.dart';
 // import '../../../routes/app_pages.dart';
 
-class DatosController extends GetxController with SingleGetTickerProviderMixin {
+class DatosController extends GetxController with GetTickerProviderStateMixin {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

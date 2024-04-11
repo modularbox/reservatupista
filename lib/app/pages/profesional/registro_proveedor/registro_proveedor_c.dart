@@ -22,7 +22,7 @@ import '../../../widgets/terminos_condiciones.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class RegistroProveedorController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostalFiscal = StateRx(Rx<bool?>(null));
   // Traer datos de la api de codigo postal Nominatim

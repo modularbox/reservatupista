@@ -19,8 +19,6 @@ import 'package:provider/provider.dart';
 import '../../../utils/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math';
-import 'dart:html' as html;
-
 import 'alert_recargar_model.dart';
 export 'alert_recargar_model.dart';
 

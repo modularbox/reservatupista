@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get/get_connect/connect.dart';
 import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
 import '../../app/routes/models/usuario_model.dart';
@@ -12,13 +13,48 @@ extension on String {
   }
 }
 
+class UsuarioProvider extends GetConnect {
+  late String _token;
+  final url = DatosServer().urlServer;
+  UsuarioProvider() {
+    _initialize(); // Llama al método _initialize en el constructor
+  }
+
+  Future<void> _initialize() async {
+    // Llama a una función asíncrona para obtener el token
+    // _token = await _getTokenFromServer();
+  }
+  // Get request
+  Future<Response> getUser(int id) => get('http://youapi/users/$id');
+  // Get request
+  Future<Response> deleteUser(String id, String token, String user) =>
+      delete('$url/$user',
+          headers: {"Authorization": "Bearer $token", 'id$user': id});
+}
+
 class UsuarioNode {
+  final usuarioProvider = UsuarioProvider();
+  Future<dynamic> delete(String id, String token, String user) async {
+    try {
+      var response = await usuarioProvider.deleteUser(id, token, user);
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print('Error al eliminar la cuenta: $error');
+      print(stack);
+      return MessageError(message: 'Error al Eliminar la Cuenta', code: 501);
+    }
+  }
+
   Future<dynamic> iniciarSesion(List usuario) async {
     try {
       final url =
           Uri.parse('${DatosServer().urlServer}/usuario/iniciar_sesion');
       // Crear una solicitud multipart
-      print(usuario.toString());
+      print('usuario.toString()');
       var request = http.post(url,
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({

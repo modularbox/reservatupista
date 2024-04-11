@@ -32,7 +32,7 @@ class InputController {
 }
 
 class AnadirPistaController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   RxBool isValidBtnTarifas = false.obs;
   TarifasPistaController selfTarifas = Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();

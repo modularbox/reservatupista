@@ -24,7 +24,7 @@ class HorarioFinInicio {
 }
 
 class ReservarPistaController2 extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   DatabaseController db = Get.find();
 
   /// Variable que almacena todas las localidades existentes.
