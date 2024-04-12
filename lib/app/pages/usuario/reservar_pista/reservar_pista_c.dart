@@ -63,7 +63,7 @@ class ReservarPistaController extends GetxController
   Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
   Rx<bool> mostrarPista = Rx<bool>(false);
   Rx<bool> horariosAbiertos = Rx<bool>(false);
-  Rx<int> plazas_a_reservar = Rx<int>(0);
+  Rx<int> plazas_a_reservar = Rx<int>(1);
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<String> localidad_seleccionada = Rx<String>('');
   Rx<int?> selectClub = Rx<int?>(null);
@@ -76,6 +76,7 @@ class ReservarPistaController extends GetxController
   Rx<int> precio_con_luz_no_socio = Rx<int>(0);
   Rx<int> precio_sin_luz_socio = Rx<int>(0);
   Rx<int> precio_sin_luz_no_socio = Rx<int>(0);
+  Rx<int> precio_elegido = Rx<int>(0);
   Rx<int> precio_a_mostrar = Rx<int>(
       0); //PRECIO QUE SE MOSTRARÁ AL USUARIO A LA HORA DE RESERVAR ALGUNA PISTA. Se calcula multiplicando el precio obtenido de la reserva por las plazas que se va a reservar
   late SharedPreferences storage;

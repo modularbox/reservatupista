@@ -86,9 +86,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     print('self.fecha_seleccionada.value ${self.fecha_seleccionada.value}');
     print(
         'self.fecha_seleccionada.value ${self.fecha_seleccionada.value.toString()}');
+    print('self.precio_a_mostrar.valueeeee ${self.precio_a_mostrar.value}');
+
     bool response = await db.reservarPista(
         db.storage.idUsuario.read(),
-        4 * self.plazas_a_reservar.value,
+        self.precio_a_mostrar.value / 100,
         self.fecha_seleccionada.value,
         self.hora_inicio_reserva_seleccionada.value,
         self.id_pista_seleccionada.value.toString(),
@@ -212,6 +214,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                   self.cod_postal.value =
                                       self.mapLocalidades[value] ?? '';
                                   self.localidad_seleccionada.value = value;
+                                  self.deporte_seleccionado.value = '';
+                                  self.selectDay.value = null;
+                                  self.selectHorario.value = null;
                                   print(
                                       'self.selectNombreLocalidad.value ${self.localidad_seleccionada.value}');
                                   self.generarListaClubes(
@@ -219,7 +224,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                   print(
                                       'self.clubes.value ${self.clubes.value}');
                                   //self.generarListaClubes(self.cod_postal.value);
-                                  self.mostrarPista.value = false;
                                 }
                               },
                               popupProps: PopupProps.menu(
@@ -301,7 +305,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 context: context,
                                 labelText: 'Club',
                                 onChanged: (val, favorito) {
-                                  self.mostrarPista.value = false;
                                   print('cambia clubbbbbbbb');
                                   self.deporteController.text = '';
                                   String id_club = self.mapClubes[val] ?? '';
@@ -327,7 +330,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           context: context,
                           labelText: 'Deporte',
                           onChanged: (val) {
-                            self.mostrarPista.value = false;
                             self.deporte_seleccionado.value = val;
                             self.generarListaPistas(
                                 self.id_club_seleccionado.value,
@@ -359,7 +361,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           DateTime.now()
                         ], //self.singleDatePickerValueWithDefaultValue,
                         onValueChanged: (position, dayDate) {
-                          self.mostrarPista.value = true;
                           self.fecha_seleccionada.value = DateTime(
                               dayDate.year, dayDate.month, dayDate.day);
                           print(
@@ -387,30 +388,25 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               self.id_club_seleccionado.value,
                               self.deporte_seleccionado.value);
                           print('generateLista2 $generateLista2');*/
-                          return self.mostrarPista.value
-                              ? SizedBox(
-                                  key: self.keyPistas,
-                                  height: 100,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: List.generate(
-                                          self.pistas.value.length,
-                                          //generateLista.length,
-                                          (index) => buildChip(
-                                              context,
-                                              self.pistas
-                                                  .value[index]['id_pista']
-                                                  .toString(),
-                                              self.pistas.value[index][
-                                                  'imagen_patrocinador'], //generateLista[index],
-                                              index)).divide(3.0.sw).around(
-                                          4.0.sw),
-                                    ),
-                                  ))
-                              : Container();
+                          return SizedBox(
+                              key: self.keyPistas,
+                              height: 100,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: List.generate(
+                                      self.pistas.value.length,
+                                      //generateLista.length,
+                                      (index) => buildChip(
+                                          context,
+                                          self.pistas.value[index]['id_pista']
+                                              .toString(),
+                                          self.pistas.value[index][
+                                              'imagen_patrocinador'], //generateLista[index],
+                                          index)).divide(3.0.sw).around(4.0.sw),
+                                ),
+                              ));
                         }),
                 ),
                 Container(
@@ -912,12 +908,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           horarios[row + i].precio_sin_luz_no_socio ?? 0;
                       self.precio_sin_luz_socio.value =
                           horarios[row + i].precio_sin_luz_socio ?? 0;
-                      print('rowwww ${row}');
-                      print('iiiiii ${i}');
-                      print(
-                          'horarios[row + i].precio_sin_luz_socio ${horarios[row + i].precio_sin_luz_socio}');
-                      print(
-                          'self.precio_sin_luz_socio.value ${self.precio_sin_luz_socio.value}');
+
                       self.hora_inicio_reserva_seleccionada.value = textHorario;
                       self.selectHorario.value = HorarioFinInicio(
                           inicio: textHorario,
@@ -1040,12 +1031,30 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     borderWidth: isSelect ? 2 : 0.5,
                     hoverColor: Colores().usuario.primary69,
                     onPressed: () async {
-                      self.hora_inicio_reserva_seleccionada.value = textHorario;
+                      /*
                       self.selectHorario.value = HorarioFinInicio(
                           inicio: textHorario,
                           termino: termino,
                           typeEstadoHorario: TypeEstadoHorario.abierta);
                       print('entraaaaaaaa aquiiii');
+                      self.obtenerPlazasLibres();*/
+                      self.hora_inicio_reserva_seleccionada.value = textHorario;
+                      self.pista_con_luces.value = horarios[row + i].luces;
+                      self.precio_con_luz_no_socio.value =
+                          horarios[row + i].precio_con_luz_no_socio ?? 0;
+                      self.precio_con_luz_socio.value =
+                          horarios[row + i].precio_con_luz_socio ?? 0;
+                      self.precio_sin_luz_no_socio.value =
+                          horarios[row + i].precio_sin_luz_no_socio ?? 0;
+                      self.precio_sin_luz_socio.value =
+                          horarios[row + i].precio_sin_luz_socio ?? 0;
+
+                      self.hora_inicio_reserva_seleccionada.value = textHorario;
+                      self.selectHorario.value = HorarioFinInicio(
+                          inicio: textHorario,
+                          termino: termino,
+                          typeEstadoHorario: TypeEstadoHorario.abierta);
+
                       self.obtenerPlazasLibres();
                       // http.Response resultString = await db.obtenerPlazasPista(
                       //     db.storage.idUsuario.read(),
@@ -1125,14 +1134,12 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       onPressed: self.selectHorario.value == null
           ? null
           : () {
-              const precio_reserva = 4; //euros
+              double precio_reserva = self.precio_a_mostrar.value / 100; //euros
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                print('dinero_total ${db.dineroTotal}');
-                final precio = db.dineroTotal -
-                    precio_reserva *
-                        100; /*int.parse(db.datosPerfilUsuario
+                final precio = self.precio_a_mostrar
+                    .value; /*int.parse(db.datosPerfilUsuario
                         .obx(
                             (state) => Text(
                                   '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
@@ -1271,13 +1278,14 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       int precio_sin_luz_no_socio,
       int precio_sin_luz_socio) {
     final List<Widget> list = [];
-    //int precioReserva = luz ? precio_con_luz_no_socio : precio_sin_luz_no_socio;
+
+    int precioReserva = luz ? precio_con_luz_no_socio : precio_sin_luz_no_socio;
     /*if (self.plazas_a_reservar.value > 0) {
       self.precio_a_mostrar.value = precioReserva;
     } else {
       self.precio_a_mostrar.value = precioReserva;
     }*/
-    //self.precio_a_mostrar.value = precioReserva;
+    self.precio_a_mostrar.value = precioReserva * self.plazas_a_reservar.value;
 
     //print('precioReserva ${precioReserva}');
     print('asdfasdfasdfasdfasdfasdfasdfasfdasdfasfasdfasdfasdf');
@@ -1421,7 +1429,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               label: 'Monedero Virtual',
               value: 'monedero',
               controller: controller2,
-              db: db,
+              db: self,
             ),
             const SizedBox(
               width: 16,
@@ -1430,7 +1438,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               label: 'Tarjeta',
               value: 'tarjeta',
               controller: controller2,
-              db: db,
+              db: self,
             ),
           ],
         ),
@@ -1474,7 +1482,7 @@ class SelectionWidget extends StatelessWidget {
   final String label;
   final String value;
   final SelectionController controller;
-  final DatabaseController db;
+  final ReservarPistaController db;
   SelectionWidget(
       {required this.label,
       required this.value,
@@ -1540,7 +1548,7 @@ class SelectionWidget extends StatelessWidget {
                 ),
                 value == 'monedero'
                     ? Text(
-                        '${(double.parse(db.dineroTotal.toString()) / 100).toStringAsFixed(2)} €',
+                        '${(double.parse(db.storage.dineroTotal.read().toString()) / 100).toStringAsFixed(2)} €',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: isSelected ? Colors.white : Colors.black,

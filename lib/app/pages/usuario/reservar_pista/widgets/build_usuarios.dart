@@ -14,7 +14,6 @@ Widget buildUsuarios() {
   //ReservarPistaController reservarPistaController = ReservarPistaController();
   final ReservarPistaController self = Get.find();
   // Cancelar la reserva
-  RxBool cancelarReserva = false.obs;
 
   /// Obtener los usuarios con reservas
   // final Rx<ReservasUsuarios> reservas_usuarios =
@@ -54,42 +53,35 @@ Widget buildUsuarios() {
                           (plazasReservadasTotales +
                               self.usuario.value.plazasReservadas)),
                       self.usuario,
-                      cancelarReserva,
+                      self.cancelarReserva,
                       self),
             ].divide(2.0.sw),
           ),
         ),
         Obx(() => BtnIcon(
               onPressed: () {
-                if (cancelarReserva.value) {
-                  self.usuario.value.plazasReservadas = 0;
-
-                  cancelarReserva.value = false;
-                  //alvaro
-                  self.plazas_a_reservar.value = 0;
-                  print('self.plazas_a_reservar ${self.plazas_a_reservar}');
+                if (self.cancelarReserva.value) {
+                  self.usuario.value.plazasReservadas = 1;
+                  self.plazas_a_reservar.value = 1;
+                  self.cancelarReserva.value = false;
                 } else {
-                  //alvaro
                   int plazas_a_reservar = capacidad - plazasReservadasTotales;
                   self.plazas_a_reservar.value = plazas_a_reservar;
-                  print('cacacidadd $capacidad');
-                  print('plazasReservadasTotaless $plazasReservadasTotales');
-                  print('self.plazas_a_reservar ${self.plazas_a_reservar}');
                   self.usuario.value.plazasReservadas = plazas_a_reservar;
-                  //usuario.value.plazasReservadas = plazasReservadasTotales;
-
-                  cancelarReserva.value = true;
+                  self.cancelarReserva.value = true;
                 }
+                self.precio_a_mostrar.value = self.precio_elegido.value *
+                    self.usuario.value.plazasReservadas;
                 self.usuario.refresh();
               },
-              fillColor: cancelarReserva.value
+              fillColor: self.cancelarReserva.value
                   ? Colores().rojo
                   : Colores().usuario.primary,
               borderRadius: 10,
               padding: const EdgeInsets.all(0),
               size: const Size(80, 60),
               icon: Text(
-                cancelarReserva.value ? 'Cancelar' : 'Reservar\ntodo',
+                self.cancelarReserva.value ? 'Cancelar' : 'Reservar\ntodo',
                 style:
                     LightModeTheme().bodyMedium.copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
@@ -117,6 +109,7 @@ Widget buildButton(int length, Rx<ReservaUsuario> usuario,
                         int precio = self.pista_con_luces.value
                             ? self.precio_con_luz_no_socio.value
                             : self.precio_sin_luz_no_socio.value;
+                        self.precio_elegido.value = precio;
                         /*print(
                             'usuario.value.plazasReservadas33 ${usuario.value.plazasReservadas}');
                         print(

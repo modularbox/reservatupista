@@ -230,7 +230,7 @@ class DatabaseController extends GetxController {
     }
   }
 
-  Future<bool> reservarPista(int idUsuario, int money, DateTime fecha,
+  Future<bool> reservarPista(int idUsuario, double money, DateTime fecha,
       String hora_inicio, String id_pista, int plazas_a_reservar) async {
     try {
       var response = await http.post(
@@ -244,7 +244,9 @@ class DatabaseController extends GetxController {
             'hora_inicio': hora_inicio,
             'plazas_a_reservar': plazas_a_reservar
           }));
+      print('moooney ${money}');
       print('fecha.toString() ${fecha.toString()}');
+      print('hora_iniciohora_inicio ${hora_inicio}');
       print('response.bodyresponse.body ${response.body}');
       return true;
     } catch (error) {
