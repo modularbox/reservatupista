@@ -9,27 +9,8 @@ import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import '../reservar_pista_c.dart';
 
 Widget buildUsuarios() {
-  final datosHardCode = {
-    "plazas_reservadas_totales": 2,
-    "usuarios": [
-      {
-        "id_usuario": "1",
-        "nick": "djsab7",
-        "imagen": "1710273751351",
-        "plazas_reservadas": 1
-      },
-      {
-        "id_usuario": "1",
-        "nick": "adshj7",
-        "imagen": "1710273751351",
-        "plazas_reservadas": 1
-      }
-    ],
-    "message": "Bien"
-  };
   //ReservarPistaController reservarPistaController = ReservarPistaController();
   final ReservarPistaController self = Get.find();
   // Cancelar la reserva
@@ -44,13 +25,6 @@ Widget buildUsuarios() {
   /// Capacidad para reservar
   final int capacidad = self.pistas.value[self.selectPista.value!]['capacidad'];
 
-  /// Datos usuarios a reservar
-  final Rx<ReservaUsuario> usuario = Rx<ReservaUsuario>(ReservaUsuario(
-      idUsuario: self.storage.idUsuario.read(),
-      nick: self.storage.nick.read(),
-      imagen: self.storage.fotoUsuario.read(),
-      plazasReservadas: 1));
-
   return Obx(() {
     final reservas_usuarios = self.reservas_usuarios.value;
     if (reservas_usuarios is ReservasUsuarios) {
@@ -58,12 +32,12 @@ Widget buildUsuarios() {
           reservas_usuarios.plazasReservadasTotales;
       //if (usuario.value.plazasReservadas == 0) usuario.value.plazasReservadas++;
       print(
-          'usuario.value.plazasReservadas4 ${usuario.value.plazasReservadas}');
+          'usuario.value.plazasReservadas4 ${self.usuario.value.plazasReservadas}');
       //usuario.value.plazasReservadas = 3;
       print(
           'plazasReservadasTotalesplazasReservadasTotales $plazasReservadasTotales');
       print(
-          'usuario.value.plazasReservadasusuario.value.plazasReservadas ${usuario.value.plazasReservadas}');
+          'usuario.value.plazasReservadasusuario.value.plazasReservadas ${self.usuario.value.plazasReservadas}');
       print(
           'reservas_usuarios.usuarios.length ${reservas_usuarios.usuarios.length}');
       return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -78,8 +52,8 @@ Widget buildUsuarios() {
                   : buildButton(
                       (capacidad -
                           (plazasReservadasTotales +
-                              usuario.value.plazasReservadas)),
-                      usuario,
+                              self.usuario.value.plazasReservadas)),
+                      self.usuario,
                       cancelarReserva,
                       self),
             ].divide(2.0.sw),
@@ -88,7 +62,7 @@ Widget buildUsuarios() {
         Obx(() => BtnIcon(
               onPressed: () {
                 if (cancelarReserva.value) {
-                  usuario.value.plazasReservadas = 0;
+                  self.usuario.value.plazasReservadas = 0;
 
                   cancelarReserva.value = false;
                   //alvaro
@@ -101,12 +75,12 @@ Widget buildUsuarios() {
                   print('cacacidadd $capacidad');
                   print('plazasReservadasTotaless $plazasReservadasTotales');
                   print('self.plazas_a_reservar ${self.plazas_a_reservar}');
-                  usuario.value.plazasReservadas = plazas_a_reservar;
+                  self.usuario.value.plazasReservadas = plazas_a_reservar;
                   //usuario.value.plazasReservadas = plazasReservadasTotales;
 
                   cancelarReserva.value = true;
                 }
-                usuario.refresh();
+                self.usuario.refresh();
               },
               fillColor: cancelarReserva.value
                   ? Colores().rojo
@@ -155,7 +129,7 @@ Widget buildButton(int length, Rx<ReservaUsuario> usuario,
                             'usuario.value.plazasReservadas2 ${usuario.value.plazasReservadas}');
 
                         final precio_a_mostrar =
-                            precio * self.plazas_a_reservar.value;
+                            precio * usuario.value.plazasReservadas;
 
                         /*final precio_a_mostrar =
                             precio * self.plazas_a_reservar.value;*/

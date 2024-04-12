@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
@@ -33,6 +34,10 @@ class HorarioFinInicio {
 
 class ReservarPistaController extends GetxController
     with GetTickerProviderStateMixin {
+  /// Reservas Usuario
+
+  /// Datos usuarios a reservar
+  late Rx<ReservaUsuario> usuario;
   DatabaseController db = Get.find();
   //variable que almacena todas las localidades existentes.
   Rx<List<String>> localidades = Rx<List<String>>([]);
@@ -120,7 +125,11 @@ class ReservarPistaController extends GetxController
     generarListaLocalidades();
     fechaActual = DateTime.now();
     storage = await SharedPreferences.getInstance();
-
+    usuario = Rx<ReservaUsuario>(ReservaUsuario(
+        idUsuario: storage.idUsuario.read(),
+        nick: storage.nick.read(),
+        imagen: storage.fotoUsuario.read(),
+        plazasReservadas: 1));
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
