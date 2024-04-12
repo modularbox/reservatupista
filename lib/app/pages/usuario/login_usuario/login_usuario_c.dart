@@ -15,7 +15,7 @@ import '../../../routes/models/proveedor_model.dart';
 import '../../../routes/models/usuario_model.dart';
 
 class LoginUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   /// Obtener la pagina 0 Usuario, 1 Proveedor
   int? initialPage = Get.arguments;
   PageController pageViewController = PageController(

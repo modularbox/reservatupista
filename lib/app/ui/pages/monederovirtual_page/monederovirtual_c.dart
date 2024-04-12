@@ -7,7 +7,7 @@ import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 enum TypeHistorial { reserva, tranferencia, all }
 
 class MonederoVirtualController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   // Conexion a la base de datos
 
   DatabaseController db = Get.find();
