@@ -9,7 +9,8 @@ enum TypeStorage {
   tokenProveedor,
   dineroTotal,
   fotoProveedor,
-  fotoUsuario
+  fotoUsuario,
+  nick
 }
 
 extension ExtSharedPreferences on SharedPreferences {
@@ -21,6 +22,7 @@ extension ExtSharedPreferences on SharedPreferences {
   Storage get tokenProveedor => Storage(TypeStorage.tokenProveedor, this);
   Storage get dineroTotal => Storage(TypeStorage.dineroTotal, this);
   Storage get fotoProveedor => Storage(TypeStorage.fotoProveedor, this);
+  Storage get nick => Storage(TypeStorage.nick, this);
   Storage get fotoUsuario => Storage(TypeStorage.fotoUsuario, this);
 }
 

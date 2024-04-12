@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
@@ -38,23 +39,33 @@ Widget buildUsuarios() {
   // final Rx<ReservasUsuarios> reservas_usuarios =
   //     Rx<ReservasUsuarios>(ReservasUsuarios.fromJson(datosHardCode));
 
-  self.obtenerPlazasLibres();
+  //self.obtenerPlazasLibres();
 
   /// Capacidad para reservar
   final int capacidad = self.pistas.value[self.selectPista.value!]['capacidad'];
 
   /// Datos usuarios a reservar
   final Rx<ReservaUsuario> usuario = Rx<ReservaUsuario>(ReservaUsuario(
-      idUsuario: 8,
-      nick: 'mynick',
-      imagen: '1710273751351',
-      plazasReservadas: 0));
+      idUsuario: self.storage.idUsuario.read(),
+      nick: self.storage.nick.read(),
+      imagen: self.storage.fotoUsuario.read(),
+      plazasReservadas: 1));
 
   return Obx(() {
     final reservas_usuarios = self.reservas_usuarios.value;
     if (reservas_usuarios is ReservasUsuarios) {
       final int plazasReservadasTotales =
           reservas_usuarios.plazasReservadasTotales;
+      //if (usuario.value.plazasReservadas == 0) usuario.value.plazasReservadas++;
+      print(
+          'usuario.value.plazasReservadas4 ${usuario.value.plazasReservadas}');
+      //usuario.value.plazasReservadas = 3;
+      print(
+          'plazasReservadasTotalesplazasReservadasTotales $plazasReservadasTotales');
+      print(
+          'usuario.value.plazasReservadasusuario.value.plazasReservadas ${usuario.value.plazasReservadas}');
+      print(
+          'reservas_usuarios.usuarios.length ${reservas_usuarios.usuarios.length}');
       return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -69,7 +80,8 @@ Widget buildUsuarios() {
                           (plazasReservadasTotales +
                               usuario.value.plazasReservadas)),
                       usuario,
-                      cancelarReserva),
+                      cancelarReserva,
+                      self),
             ].divide(2.0.sw),
           ),
         ),
@@ -77,7 +89,7 @@ Widget buildUsuarios() {
               onPressed: () {
                 if (cancelarReserva.value) {
                   usuario.value.plazasReservadas = 0;
-                  usuario.refresh();
+
                   cancelarReserva.value = false;
                   //alvaro
                   self.plazas_a_reservar.value = 0;
@@ -91,9 +103,10 @@ Widget buildUsuarios() {
                   print('self.plazas_a_reservar ${self.plazas_a_reservar}');
                   usuario.value.plazasReservadas = plazas_a_reservar;
                   //usuario.value.plazasReservadas = plazasReservadasTotales;
-                  usuario.refresh();
+
                   cancelarReserva.value = true;
                 }
+                usuario.refresh();
               },
               fillColor: cancelarReserva.value
                   ? Colores().rojo
@@ -114,8 +127,10 @@ Widget buildUsuarios() {
   });
 }
 
-Widget buildButton(
-    int length, Rx<ReservaUsuario> usuario, RxBool cancelarReserva) {
+Widget buildButton(int length, Rx<ReservaUsuario> usuario,
+    RxBool cancelarReserva, ReservarPistaController self) {
+  print('lengthhh $length');
+  print('usuario.value.reser $length');
   return Row(
     children: [
       buildUsuario(usuario.value),
@@ -125,14 +140,37 @@ Widget buildButton(
                 children: [
                   BtnIcon(
                       onPressed: () {
-                        ReservarPistaController reservarPistaController =
-                            Get.find<ReservarPistaController>();
-                        reservarPistaController.plazas_a_reservar.value += 1;
+                        int precio = self.pista_con_luces.value
+                            ? self.precio_con_luz_no_socio.value
+                            : self.precio_sin_luz_no_socio.value;
+                        /*print(
+                            'usuario.value.plazasReservadas33 ${usuario.value.plazasReservadas}');
                         print(
-                            'ReservarPistaController().plazas_a_reservar.value ${reservarPistaController.plazas_a_reservar.value}');
+                            'self.precio_a_mostrar.value ${self.precio_a_mostrar.value}');
+                        print(
+                            'usuario.value.plazasReservadas1 ${usuario.value.plazasReservadas}');*/
                         usuario.value.plazasReservadas += 1;
-                        usuario.refresh();
+                        self.plazas_a_reservar.value += 1;
+                        print(
+                            'usuario.value.plazasReservadas2 ${usuario.value.plazasReservadas}');
+
+                        final precio_a_mostrar =
+                            precio * self.plazas_a_reservar.value;
+
+                        /*final precio_a_mostrar =
+                            precio * self.plazas_a_reservar.value;*/
+                        print(
+                            'precio_a_mostrarprecio_a_mostrar ${precio_a_mostrar}');
+                        //if (self.plazas_a_reservar.value < 5)
+                        //  self.plazas_a_reservar.value += 1;
+
+                        /*print(
+                            'usuario.value.plazasReservadas fake ${self.plazas_a_reservar.value}');*/
+
+                        self.precio_a_mostrar.value = precio_a_mostrar;
+
                         cancelarReserva.value = true;
+                        usuario.refresh();
                       },
                       padding: const EdgeInsets.all(0),
                       borderRadius: 35.0,
@@ -155,6 +193,8 @@ Widget buildButton(
 }
 
 Widget buildUsuario(ReservaUsuario user) {
+  print('user.plazasReservadas ${user.plazasReservadas}');
+
   return Row(
       children: List.generate(
     user.plazasReservadas,
@@ -163,7 +203,9 @@ Widget buildUsuario(ReservaUsuario user) {
         Stack(
           children: [
             BtnIcon(
-              onPressed: () {},
+              onPressed: () {
+                print('user.plazasReservadas22 ${user.plazasReservadas}');
+              },
               padding: const EdgeInsets.all(0),
               borderRadius: 35.0,
               size: const Size(50, 50),

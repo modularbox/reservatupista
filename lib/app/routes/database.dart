@@ -225,6 +225,7 @@ class DatabaseController extends GetxController {
           body: jsonEncode({'id_usuario': idUsuario, 'cantidad': money * 100}));
       return true;
     } catch (error) {
+      print('errorrrrr: $error');
       return false;
     }
   }
@@ -269,6 +270,7 @@ class DatabaseController extends GetxController {
       print('responseeee $response');
       return response;
     } catch (error) {
+      print('eeeeeeeeerrror: $error');
       rethrow;
     }
   }
@@ -280,6 +282,7 @@ class DatabaseController extends GetxController {
           'https://api.reservatupista.com/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista'));
       return 'true';
     } catch (error) {
+      print('eeeeeeeeerrrror: $error');
       return 'false';
     }
   }
@@ -290,6 +293,7 @@ class DatabaseController extends GetxController {
           'https://api.reservatupista.com/usuario/obtener_localidades'));
       return response.body.toString();
     } catch (error) {
+      print('eeeeeeeeerrrrooor: $error');
       rethrow;
     }
   }
@@ -300,6 +304,7 @@ class DatabaseController extends GetxController {
           'https://api.reservatupista.com/usuario/obtener_clubes?cod_postal=$cod_postal'));
       return response.body.toString();
     } catch (error) {
+      print('eeeeeeeeerrrrrrrror: $error');
       rethrow;
     }
   }
@@ -310,6 +315,7 @@ class DatabaseController extends GetxController {
           'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club'));
       return response.body.toString();
     } catch (error) {
+      print('eeeeeeeeerrrrrrrrrrrrrrrrror: $error');
       rethrow;
     }
   }
@@ -322,6 +328,7 @@ class DatabaseController extends GetxController {
           'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&deporte=$deporte'));
       return response.body.toString();
     } catch (error) {
+      print('eeeeerror: $error');
       rethrow;
     }
   }
@@ -334,6 +341,7 @@ class DatabaseController extends GetxController {
       print('responseeeeeeeeeeeeeeeeeei ${response.body}');
       return response.body.toString();
     } catch (error) {
+      print('eeeeerrorrrrr: $error');
       rethrow;
     }
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
@@ -46,23 +47,33 @@ class ReservarPistaController extends GetxController
 
   Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
   Rx<int> id_pista_seleccionada = Rx<int>(0);
+  Rx<bool> pista_automatizada = Rx<bool>(false);
+  Rx<bool> pista_con_luces = Rx<bool>(false);
   Rx<String> hora_apertura_pista = Rx<String>('');
   Rx<String> hora_cierre_pista = Rx<String>('');
-  Rx<String> duracion_partida = Rx<String>('');
+  Rx<int> duracion_partida = Rx<int>(0);
   Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
   Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
   Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
-  //para almacenar las plazas que quiere reservar el usuario a la hora de reservar pista
-
+  Rx<bool> mostrarPista = Rx<bool>(false);
+  Rx<bool> horariosAbiertos = Rx<bool>(false);
   Rx<int> plazas_a_reservar = Rx<int>(0);
   Rx<int?> selectLocalidad = Rx<int?>(null);
+  Rx<String> localidad_seleccionada = Rx<String>('');
   Rx<int?> selectClub = Rx<int?>(null);
   Rx<int?> selectDeporte = Rx<int?>(null);
   // Rx<int?> selectedDay = Rx<int?>(null);
   Rx<int?> selectPista = Rx<int?>(null);
   Rx<int?> selectDay = Rx<int?>(null);
   Rx<String?> selectedItemDeporte = Rx<String?>(null);
+  Rx<int> precio_con_luz_socio = Rx<int>(0);
+  Rx<int> precio_con_luz_no_socio = Rx<int>(0);
+  Rx<int> precio_sin_luz_socio = Rx<int>(0);
+  Rx<int> precio_sin_luz_no_socio = Rx<int>(0);
+  Rx<int> precio_a_mostrar = Rx<int>(
+      0); //PRECIO QUE SE MOSTRARÁ AL USUARIO A LA HORA DE RESERVAR ALGUNA PISTA. Se calcula multiplicando el precio obtenido de la reserva por las plazas que se va a reservar
+  late SharedPreferences storage;
   // Cancelar la reserva
   RxBool cancelarReserva = false.obs;
 
@@ -104,10 +115,12 @@ class ReservarPistaController extends GetxController
   final Rx<ReservasUsuarios?> reservas_usuarios = Rx<ReservasUsuarios?>(null);
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     generarListaLocalidades();
     fechaActual = DateTime.now();
+    storage = await SharedPreferences.getInstance();
+
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
@@ -191,6 +204,7 @@ class ReservarPistaController extends GetxController
           await ReservasNode().obtenerPlazasLibres(idPista, fecha, horaInicio);
       if (result is ReservasUsuarios) {
         reservas_usuarios.value = result;
+        print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
       }
     } catch (e) {
       print(e);
@@ -290,11 +304,20 @@ class ReservarPistaController extends GetxController
         pistas.value = [];
         return;
       }
+      print('llega akiiii');
+
       // List<dynamic> pistasData = json.decode(pistasJson);
       pistas.value = json.decode(pistasJson);
+      print('llega akiiii22');
+      //POR DEFECTO SIEMPRE COGE COMO SELECCIONADA LA PRIMERA QUE DEVUELVE LA BASE DE DATOS
       id_pista_seleccionada.value = pistas.value[0]['id_pista'];
-      print('id_pista_seleccionada $id_pista_seleccionada');
-      print('pistasData[0] ${pistas.value[0]['id_pista']}');
+      print('id_pista_seleccionada ${id_pista_seleccionada.value}');
+      duracion_partida.value = pistas.value[0]['duracion_partida'];
+      print('duracion_partida.value ${duracion_partida.value}');
+      pista_automatizada.value =
+          (pistas.value[0]['automatizada'] == 1) ? true : false;
+
+      print('pista_automatizadaaa ${pista_automatizada.value}');
       /* List<String> listaPistas = pistasData
           .map<String>((pista) => pista['id_pista'].toString())
           .toList();*/

@@ -49,7 +49,7 @@ class ReservarPistaController2 extends GetxController
   Rx<int> id_pista_seleccionada = Rx<int>(0);
   Rx<String> hora_apertura_pista = Rx<String>('');
   Rx<String> hora_cierre_pista = Rx<String>('');
-  Rx<String> duracion_partida = Rx<String>('');
+  Rx<int> duracion_partida = Rx<int>(60); //la duracion en minutos
   Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
 
