@@ -18,6 +18,8 @@ class Versions extends GetView<DatabaseController> {
   Versions({super.key, required this.getWidth, required this.onPressed});
   final List<DatosVersion> arrayVersion2 = [
     DatosVersion(
+        v: '2.2.5', info: '''Eliminar cuentas.''', fecha: '11/04/2024'),
+    DatosVersion(
         v: '2.2.4', info: '''Mostrar y agregar pistas.''', fecha: '04/04/2024'),
     DatosVersion(
         v: '2.2.3', info: '''Detalles en la interfaz.''', fecha: '01/04/2024'),

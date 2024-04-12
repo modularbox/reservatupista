@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/routes/models/club_model.dart';
 import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../backend/server_node/proveedor_node.dart';
@@ -67,6 +68,20 @@ class DatosProveedorController extends GetxController
     getDatosProveedor();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
+  }
+
+  void onOpenDialogEliminarCuenta() async {
+    final storage = await SharedPreferences.getInstance();
+    final String parametros =
+        '?id=${storage.idProveedor.read()}&user=0&token=${storage.token.read()}&email=${emailController.text}';
+    Get.dialog(LinkDialog(
+      alertTitle: richTitleLink(
+          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
+          fontSize: 20.0),
+      alertSubtitle: richSubtitleLink(
+          'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
+      urlLink: 'https://app.reservatupista.com/eliminar_cuenta/$parametros',
+    ));
   }
 
   getDatosProveedor() async {

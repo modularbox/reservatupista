@@ -56,9 +56,9 @@ class TerminosCondicionesDialog extends StatelessWidget {
             10.0.sw,
             BtnIcon(
               onPressed: () => Get.dialog(LinkDialog(
-                alertTitle:
-                    richTitle('¿Deseas ir al enlace externo?', fontSize: 20.0),
-                alertSubtitle: richSubtitle(
+                alertTitle: richTitleLink('¿Deseas ir al enlace externo?',
+                    fontSize: 20.0),
+                alertSubtitle: richSubtitleLink(
                     'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
               )),
               borderRadius: 12,

@@ -155,13 +155,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: FFButtonWidget(
-                  onPressed: () => Get.dialog(LinkDialog(
-                    alertTitle: richTitle('¿Deseas eliminar la cuenta?',
-                        fontSize: 20.0),
-                    alertSubtitle: richSubtitle(
-                        'https://app.reservatupista.com/eliminar_cuenta/'),
-                    urlLink: 'https://app.reservatupista.com/eliminar_cuenta/',
-                  )),
+                  onPressed: self.onOpenDialogEliminarCuenta,
                   text: 'Eliminar Cuenta',
                   options: FFButtonOptions(
                     width: 40.0.w,

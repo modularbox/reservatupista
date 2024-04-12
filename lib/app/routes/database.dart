@@ -20,7 +20,7 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.2.4';
+  String version = '2.2.5';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
@@ -29,19 +29,17 @@ class DatabaseController extends GetxController {
   RxDouble money = 0.0.obs;
   // Datos para cargar los datos de perfil
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
-  // StateRx<ProveedorModel?> datosPerfilProveedor =
-  //     StateRx(Rx<ProveedorModel?>(null));
   StateRx<ClubModel?> datosPerfilClub = StateRx(Rx<ClubModel?>(null));
 
   @override
   void onInit() async {
     super.onInit();
     // Muestra el estado de carga
-    datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
+    datosPerfilUsuario.loading();
     // Muestra el estado de carga
     // datosPerfilProveedor.changeStatus(RxStatusDemo.loading());
     // Muestra el estado de carga
-    datosPerfilClub.changeStatus(RxStatusDemo.loading());
+    datosPerfilClub.loading();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
@@ -103,7 +101,7 @@ class DatabaseController extends GetxController {
         imageServer.value = UsuarioNode().getImageNode(result.foto);
         datosUsuarioPerfil = result;
         print(result.toJson());
-        datosPerfilUsuario.change(result, RxStatusDemo.success());
+        datosPerfilUsuario.success(result);
         return true;
       }
     } catch (e) {
@@ -121,7 +119,7 @@ class DatabaseController extends GetxController {
       final result =
           await ProveedorNode().getClub(storage.idClub.read(), listTypes);
       if (result is ClubModel) {
-        datosPerfilClub.change(result, RxStatusDemo.success());
+        datosPerfilClub.success(result);
       }
     } catch (e) {
       print(e);
@@ -155,6 +153,7 @@ class DatabaseController extends GetxController {
 
 List generate() {
   final localidades = [
+    'Navalmoral de la mata',
     'Belvis de Monroy',
     'Riolobos',
     'Casar de Palomaro',
@@ -165,7 +164,6 @@ List generate() {
     'Tayuela',
     'Tayuela Club',
   ];
-
   final clubs = [
     'Club 1',
     'Club 2',
@@ -185,12 +183,20 @@ List generate() {
     // List listCompleta = [];
     // for (var i = 0; i < clubs.length; i++) {
     List listaClubs = [];
-    for (var j = 0; j < l + 1; j++) {
+    if (l == 0) {
       listaClubs.add({
-        'name': clubs[j] + ' ${localidades[l]}',
+        'name': 'Ayuntamiento',
         'favorito': false,
-        'deportes': getDeportes(l + 1)
+        'deportes': getDeportesPiscina(l + 1)
       });
+    } else {
+      for (var j = 0; j < l + 1; j++) {
+        listaClubs.add({
+          'name': clubs[j] + ' ${localidades[l]}',
+          'favorito': false,
+          'deportes': getDeportes(l + 1)
+        });
+      }
     }
     mapj['clubs'] = listaClubs;
     mapa.add(mapj);
@@ -198,6 +204,74 @@ List generate() {
   }
   return mapa;
   // printInfo(info: jsonEncode(mapa).toString());
+}
+
+List getDeportesPiscina(int index) {
+  final deportes = [
+    '🎾 Padel',
+    '🎾 Tenis',
+    '🏊‍♀️ P. Climatizada',
+  ];
+  final lentdeportes = [
+    2,
+    1,
+    4,
+  ];
+  final newLista = [];
+  for (var i = 0; i < deportes.length; i++) {
+    newLista.add({
+      'name': deportes[i],
+      'semana':
+          List.generate(7, (index) => getSemanaPiscina(index, lentdeportes[i]))
+    });
+  }
+  return newLista;
+}
+
+Map getSemanaPiscina(int index, int pistasLengts) {
+  final pistas = [
+    'Reservatupista',
+    'Modularbox',
+    'Miragredos',
+    'Fibrabox',
+  ];
+  // const image = 'logo_reservatupista.png';
+  final images = [
+    'logo_reservatupista_title.jpg',
+    'logo_modularbox.jpg',
+    'logo_miragredos.jpg',
+    'logo_fibrabox.jpg'
+  ];
+  List listacom = [];
+  for (var j = 0; j < pistasLengts; j++) {
+    // pistas[j]
+    final random = Random();
+    final horariosAleatorio = [
+      {"horario": "07:30", "estatus": "reservada"},
+      {"horario": "09:00", "estatus": "reservada"},
+      {"horario": "10:30", "estatus": "reservada"},
+      {"horario": "12:00", "estatus": "reservada"},
+      {"horario": "13:30", "estatus": "ocupada"},
+      {"horario": "15:00", "estatus": "ocupada"},
+      {"horario": "16:30", "estatus": "reservada"},
+      {"horario": "18:00", "estatus": "reservada"},
+      {"horario": "19:30", "estatus": "reservada"},
+      {"horario": "21:00", "estatus": "reservada"},
+      {"horario": "22:30", "estatus": "reservada"}
+    ];
+    final estatus = ['desocupada', 'reservada', 'ocupada', 'abierta'];
+    for (var i = 0; i < horariosAleatorio.length; i++) {
+      int indiceAleatorio = random.nextInt(4);
+      if (index == 0 && pistas[j] == "Modularbox") {
+        horariosAleatorio[i]['estatus'] = 'reservada';
+      } else {
+        horariosAleatorio[i]['estatus'] = estatus[indiceAleatorio];
+      }
+    }
+    listacom.add(
+        {'name': pistas[j], 'image': images[j], 'horarios': horariosAleatorio});
+  }
+  return {'pistas': listacom};
 }
 
 List getDeportes(int index) {
@@ -218,6 +292,12 @@ List getDeportes(int index) {
     '⚽ Balomano',
     '🏉 Rugby',
     '🥅 Multideporte',
+  ];
+  final deportesPiscina = [
+    '🎾 Padel',
+    '🎾 Tenis',
+    '🏸 Badminton',
+    '🏊‍♀️ P. Climatizada',
   ];
   final newLista = [];
   final RAD = Random();

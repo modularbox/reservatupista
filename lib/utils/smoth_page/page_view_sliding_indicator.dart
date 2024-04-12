@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../utils/btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-// import '../../../../utils/sizer.dart';
 
 /// A Page view sliding indicator.
 class PageViewSlidingIndicator extends StatefulWidget {
@@ -39,14 +38,14 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
   void initState() {
     super.initState();
     _leftPosition = 0;
-    _currentColor = FlutterFlowTheme.of(context).primary;
+    _currentColor = LightModeTheme().primary;
     _currentColorTextUsuario = Colors.white;
     _currentColorTextProveedor = Colors.black;
     _getBorder = const BorderRadius.only(
         topLeft: Radius.circular(10), bottomLeft: Radius.circular(10));
     if (widget.controller.initialPage == 1) {
       _leftPosition = widget.widthButtons;
-      _currentColor = FlutterFlowTheme.of(context).successGeneral;
+      _currentColor = LightModeTheme().successGeneral;
       _currentColorTextUsuario = Colors.black;
       _currentColorTextProveedor = Colors.white;
       _getBorder = const BorderRadius.only(
@@ -58,8 +57,8 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
           _leftPosition = (widget.controller.page! * (widget.widthButtons));
           // Utiliza un Tween para cambiar de azul a verde
           ColorTween colorTween = ColorTween(
-              begin: FlutterFlowTheme.of(context).primary,
-              end: FlutterFlowTheme.of(context).successGeneral);
+              begin: LightModeTheme().primary,
+              end: LightModeTheme().successGeneral);
           ColorTween colorTextUsuario = ColorTween(
             begin: Colors.white,
             end: Colors.black,
@@ -76,7 +75,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
               colorTextProfesional.transform((widget.controller.page ?? 0) % 1);
           _getBorder = BorderRadius.circular(10);
           if (widget.controller.page! == 1) {
-            _currentColor = FlutterFlowTheme.of(context).successGeneral;
+            _currentColor = LightModeTheme().successGeneral;
             _currentColorTextUsuario = Colors.black;
             _currentColorTextProveedor = Colors.white;
             _getBorder = const BorderRadius.only(
@@ -124,10 +123,11 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: widget.widthButtons - 2,
+                  height: 100,
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
@@ -138,6 +138,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                             curve: Curves.linear);
                       }
                     },
+                    padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -152,13 +153,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                         ),
                         Text(
                           'Usuario',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: _currentColorTextUsuario,
-                                    fontSize: sizeText,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Outfit',
+                                color: _currentColorTextUsuario,
+                                fontSize: sizeText,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ],
                     ),
@@ -169,7 +169,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                   width: 2,
                   color: const Color(0xFFB2B4B7),
                 ),
-                Container(
+                SizedBox(
                   width: widget.widthButtons - 2,
                   height: 80,
                   child: BtnIcon(
@@ -182,6 +182,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                             curve: Curves.linear);
                       }
                     },
+                    padding: const EdgeInsets.only(bottom: 2),
                     icon: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -196,13 +197,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                         ),
                         Text(
                           'Proveedor',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: _currentColorTextProveedor,
-                                    fontSize: sizeText,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Outfit',
+                                color: _currentColorTextProveedor,
+                                fontSize: sizeText,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ],
                     ),

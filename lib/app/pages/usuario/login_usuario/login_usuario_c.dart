@@ -191,7 +191,7 @@ class LoginUsuarioController extends GetxController
           storage.idProveedor.write(result.idProveedor);
           // Guardar el token
           storage.token.write(result.token);
-          // Guardar el token
+          // Guardar el Club
           storage.idClub.write(result.idClub);
           // Guardar el foto
           storage.foto.write(ProveedorNode().getImageNode(result.foto));

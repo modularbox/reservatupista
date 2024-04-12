@@ -570,6 +570,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 ),
               ),
               Obx(() => self.sizedBoxHeight.value.sh),
+              35.0.sh
             ],
           ),
         ),
@@ -595,6 +596,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   ) {
     return Obx(() {
       final bool isSelect = index == self.selectPista.value;
+      print("))))))))))) ${self.selectDeporte.value}");
+      print("))))))))))) ${self.clubController.text}");
       return Stack(
         children: [
           Column(
@@ -611,7 +614,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 ),
                 child: Center(
                   child: Text(
-                    'Pista ${(index + 1)}',
+                    self.selectDeporte.value == 2 &&
+                            self.clubController.text == 'Ayuntamiento'
+                        ? 'Calle ${(index + 1)}'
+                        : 'Pista ${(index + 1)}',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(Get.context!)
                         .bodyMedium

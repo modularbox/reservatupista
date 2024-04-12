@@ -74,7 +74,6 @@ class _LinkDialogState extends State<LinkDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                      height: dialogHeight,
                       width: 90.w,
                       child: Card(
                         shape: const RoundedRectangleBorder(
@@ -83,35 +82,39 @@ class _LinkDialogState extends State<LinkDialog> {
                           ),
                         ),
                         color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            10.0.sh,
-                            Align(
-                              alignment: const AlignmentDirectional(0.9, 0),
-                              child: FlutterFlowIconButton(
-                                borderColor: const Color.fromARGB(255, 0, 0, 0),
-                                borderRadius: 12,
-                                borderWidth: 3,
-                                fillColor: const Color(0xFFF77066),
-                                buttonSize: 45,
-                                icon: const Icon(
-                                  Icons.close_rounded,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  size: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Align(
+                                alignment: const AlignmentDirectional(0.9, 0),
+                                child: FlutterFlowIconButton(
+                                  borderColor:
+                                      const Color.fromARGB(255, 0, 0, 0),
+                                  borderRadius: 12,
+                                  borderWidth: 3,
+                                  fillColor: const Color(0xFFF77066),
+                                  buttonSize: 45,
+                                  icon: const Icon(
+                                    Icons.close_rounded,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    size: 30,
+                                  ),
+                                  onPressed: () async {
+                                    Navigator.pop(context);
+                                  },
                                 ),
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
                               ),
-                            ),
-                            10.0.sh,
-                            widget.alertTitle,
-                            SizedBox(height: dialogHeight / 10),
-                            widget.alertSubtitle,
-                            SizedBox(height: dialogHeight / 10),
-                            defaultAction()
-                          ],
+                              10.0.sh,
+                              widget.alertTitle,
+                              SizedBox(height: dialogHeight / 10),
+                              widget.alertSubtitle,
+                              SizedBox(height: dialogHeight / 10),
+                              defaultAction()
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -158,7 +161,7 @@ class _LinkDialogState extends State<LinkDialog> {
   }
 }
 
-Text richTitle(String title, {double fontSize = 24.0}) {
+Text richTitleLink(String title, {double fontSize = 24.0}) {
   return Text(
     title,
     textAlign: TextAlign.center,
@@ -166,7 +169,7 @@ Text richTitle(String title, {double fontSize = 24.0}) {
   );
 }
 
-Text richSubtitle(String subtitle) {
+Text richSubtitleLink(String subtitle) {
   return Text(
     subtitle,
     textAlign: TextAlign.center,

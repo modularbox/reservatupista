@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 class DatosServer {
   // String urlServer = 'http://localhost:3000';
   String urlServer = 'https://api.reservatupista.com';
@@ -28,6 +26,10 @@ class DatosServer {
     }
     return newList.join(', ');
   }
+}
+
+extension EnumExt on TypeDatosServerProveedor {
+  String get val => toString().split('.')[1];
 }
 
 enum TypeDatosServer {

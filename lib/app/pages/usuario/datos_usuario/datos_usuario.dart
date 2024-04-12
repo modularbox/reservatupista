@@ -43,9 +43,6 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
               AppbarGeneral(
                 isTitleBack: true,
                 title: 'Datos Usuario',
-                onBack: self.seModificaronDatos
-                    ? () => Get.offNamed(Routes.PERFIL)
-                    : null,
               ),
               self.apidatosUsuario.obx((state) => getFomData(),
                   onLoading: Padding(
@@ -95,13 +92,7 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: FFButtonWidget(
-                onPressed: () => Get.dialog(LinkDialog(
-                  alertTitle:
-                      richTitle('¿Deseas eliminar la cuenta?', fontSize: 20.0),
-                  alertSubtitle: richSubtitle(
-                      'https://app.reservatupista.com/eliminar_cuenta/'),
-                  urlLink: 'https://app.reservatupista.com/eliminar_cuenta/',
-                )),
+                onPressed: self.onOpenDialogEliminarCuenta,
                 text: 'Eliminar Cuenta',
                 options: FFButtonOptions(
                   width: 45.0.w,

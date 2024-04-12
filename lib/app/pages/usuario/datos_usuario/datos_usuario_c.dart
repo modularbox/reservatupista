@@ -1,17 +1,17 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/backend/server_node/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/subir_image_node.dart';
+import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node/subir_image_node.dart';
-import '../../../../backend/server_node/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
@@ -107,6 +107,20 @@ class DatosUsuarioController extends GetxController
     getDatosUsuario();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
+  }
+
+  void onOpenDialogEliminarCuenta() async {
+    final storage = await SharedPreferences.getInstance();
+    final String parametros =
+        '?id=${storage.idUsuario.read()}&user=0&token=${storage.token.read()}&email=${emailController.text}';
+    Get.dialog(LinkDialog(
+      alertTitle: richTitleLink(
+          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
+          fontSize: 20.0),
+      alertSubtitle: richSubtitleLink(
+          'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
+      urlLink: 'https://app.reservatupista.com/eliminar_cuenta/$parametros',
+    ));
   }
 
   getDatosUsuario() async {

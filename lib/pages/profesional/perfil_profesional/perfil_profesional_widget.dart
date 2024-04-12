@@ -335,8 +335,8 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         onPressed: () async {
           Get.dialog(LinkDialog(
             alertTitle:
-                richTitle('¿Deseas ir al enlace externo?', fontSize: 20.0),
-            alertSubtitle: richSubtitle(
+                richTitleLink('¿Deseas ir al enlace externo?', fontSize: 20.0),
+            alertSubtitle: richSubtitleLink(
                 'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
           ));
         },

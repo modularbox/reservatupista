@@ -68,23 +68,11 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: AppBarLoginWidget(
                       movilPequeno: movilPequeno,
                     ),
                   ),
-                  // MaterialButton(
-                  //   color: Colors.blue,
-                  //   onPressed: () => Get.toNamed(Routes.PAGO_TPV),
-                  //   splashColor: Colors.blueGrey,
-                  //   child: const Text(
-                  //     'Ir al pago tpv',
-                  //     style: TextStyle(
-                  //       color: Colors.white,
-                  //       fontSize: 16,
-                  //     ),
-                  //   ),
-                  // ),
                   PageViewSlidingIndicator(
                     widthButtons: MediaQuery.of(context).size.width * 0.45,
                     pageCount: self.initialPage,

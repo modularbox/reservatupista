@@ -44,6 +44,11 @@ extension StateRxExt<T> on StateRx<T> {
       });
     });
   }
+
+  void loading() => changeStatus(RxStatusDemo.loading());
+  void success(T newValue) => change(newValue, RxStatusDemo.success());
+  void empty() => changeStatus(RxStatusDemo.empty());
+  void error(String message) => changeStatus(RxStatusDemo.error(message));
 }
 
 class StateRx<T> {
