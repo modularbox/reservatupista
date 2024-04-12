@@ -11,7 +11,7 @@ import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../routes/models/mis_pistas_model.dart';
-import './mis_pistas_c.dart';
+import 'tarifas_c.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 // Generado con chatgpt
@@ -24,9 +24,9 @@ extension IterableExtension<E> on List<E> {
   }
 }
 
-class MisPistasPage extends GetView<MisPistasController> {
-  MisPistasPage({super.key});
-  MisPistasController get self => controller;
+class COPIARARCHIVOSPage extends GetView<COPIARARCHIVOSController> {
+  COPIARARCHIVOSPage({super.key});
+  COPIARARCHIVOSController get self => controller;
   @override
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(

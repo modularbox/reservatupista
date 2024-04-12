@@ -133,6 +133,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color bottomBarLoginText = const Color(0xFFFFFFFF);
   late Color errorGeneral = const Color(0xFFF77066);
   late Color successGeneral = const Color(0xFF46EF98);
+  late Color proveedor = const Color(0xFF46EF98);
 }
 
 abstract class Typography {

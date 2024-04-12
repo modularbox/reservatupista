@@ -12,7 +12,7 @@ extension FechaExt on DateTime {
   String get letraDia => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
 }
 
-class MisPistasController extends GetxController
+class COPIARARCHIVOSController extends GetxController
     with GetSingleTickerProviderStateMixin {
   /// Obtencion de los datos de la api
   StateRx<List<MiPista>> misPistas = StateRx(Rx<List<MiPista>>([]));
