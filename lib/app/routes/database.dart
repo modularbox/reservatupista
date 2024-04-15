@@ -368,6 +368,22 @@ class DatabaseController extends GetxController {
       rethrow;
     }
   }
+
+  Future<String> existeReservaPendiente(
+      int id_pista, DateTime fecha, String horaInicio) async {
+    try {
+      var response = await http.get(Uri.parse(
+          'https://api.reservatupista.com/usuario/obtener_reservas_pendientes/?id_pista=${id_pista}&fecha=${fecha}&hora_inicio=${horaInicio}'));
+      print('response.body.toString() ${response.body.toString()}');
+      print('${response.body}');
+
+      return response.body.toString();
+    } catch (error, stack) {
+      print('stackkkkkkkkkkkkkkkk $stack');
+      print('errorrrrrrrrrrrrrrr $error');
+      rethrow;
+    }
+  }
 /*
 Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {

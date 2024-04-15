@@ -94,7 +94,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         self.fecha_seleccionada.value,
         self.hora_inicio_reserva_seleccionada.value,
         self.id_pista_seleccionada.value.toString(),
-        self.plazas_a_reservar.value);
+        self.usuario.value.plazasReservadas); //self.plazas_a_reservar.value
     print('reservarPistaF');
     print('responseEEEEE1 ${response}');
     if (response == true) {
@@ -1285,7 +1285,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     } else {
       self.precio_a_mostrar.value = precioReserva;
     }*/
-    self.precio_a_mostrar.value = precioReserva * self.plazas_a_reservar.value;
+    self.precio_a_mostrar.value = precioReserva *
+        self.usuario.value.plazasReservadas; //self.plazas_a_reservar.value;
 
     //print('precioReserva ${precioReserva}');
     print('asdfasdfasdfasdfasdfasdfasdfasfdasdfasfasdfasdfasdf');

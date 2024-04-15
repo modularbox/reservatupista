@@ -61,8 +61,6 @@ class ReservarPistaController extends GetxController
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
   Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
   Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
-  Rx<bool> mostrarPista = Rx<bool>(false);
-  Rx<bool> horariosAbiertos = Rx<bool>(false);
   Rx<int> plazas_a_reservar = Rx<int>(1);
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<String> localidad_seleccionada = Rx<String>('');

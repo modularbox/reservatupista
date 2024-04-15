@@ -34,11 +34,16 @@ Widget buildUsuarios() {
           'usuario.value.plazasReservadas4 ${self.usuario.value.plazasReservadas}');
       //usuario.value.plazasReservadas = 3;
       print(
+          '(capacidad - (plazasReservadasTotales + self.usuario.value.plazasReservadas)) ${(capacidad - (plazasReservadasTotales + self.usuario.value.plazasReservadas))}');
+      print(
+          '(capacidad - (plazasReservadasTotales + self.usuario.value.plazasReservadas2)) ${(capacidad - (plazasReservadasTotales + self.plazas_a_reservar.value))}');
+      print(
           'plazasReservadasTotalesplazasReservadasTotales $plazasReservadasTotales');
       print(
           'usuario.value.plazasReservadasusuario.value.plazasReservadas ${self.usuario.value.plazasReservadas}');
       print(
           'reservas_usuarios.usuarios.length ${reservas_usuarios.usuarios.length}');
+      //self.precio_a_mostrar.value =
       return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -62,11 +67,11 @@ Widget buildUsuarios() {
               onPressed: () {
                 if (self.cancelarReserva.value) {
                   self.usuario.value.plazasReservadas = 1;
-                  self.plazas_a_reservar.value = 1;
+                  //self.plazas_a_reservar.value = 1;
                   self.cancelarReserva.value = false;
                 } else {
                   int plazas_a_reservar = capacidad - plazasReservadasTotales;
-                  self.plazas_a_reservar.value = plazas_a_reservar;
+                  //self.plazas_a_reservar.value = plazas_a_reservar;
                   self.usuario.value.plazasReservadas = plazas_a_reservar;
                   self.cancelarReserva.value = true;
                 }
@@ -117,7 +122,7 @@ Widget buildButton(int length, Rx<ReservaUsuario> usuario,
                         print(
                             'usuario.value.plazasReservadas1 ${usuario.value.plazasReservadas}');*/
                         usuario.value.plazasReservadas += 1;
-                        self.plazas_a_reservar.value += 1;
+                        //self.plazas_a_reservar.value += 1;
                         print(
                             'usuario.value.plazasReservadas2 ${usuario.value.plazasReservadas}');
 
