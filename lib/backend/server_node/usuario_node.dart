@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:get/get_connect/connect.dart';
 import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app/routes/models/usuario_model.dart';
 import 'datos_server.dart';
 
@@ -12,13 +15,71 @@ extension on String {
   }
 }
 
+class UsuarioProvider extends GetConnect {
+  late String token;
+  late int idUser;
+  final url = DatosServer().urlServer;
+
+  Future<void> initialize() async {
+    final storage = await SharedPreferences.getInstance();
+    token = storage.token.read();
+    idUser = storage.idUsuario.read();
+  }
+
+  Future<void> _initialize() async {
+    // Llama a una función asíncrona para obtener el token
+    // _token = await _getTokenFromServer();
+  }
+  // Get request
+  // Get request
+  Future<Response> deleteUser(String id, String token, String user) =>
+      delete('$url/$user',
+          headers: {"Authorization": "Bearer $token", 'id$user': id});
+
+  Future<Response> getUser(int id, List<TypeDatosServer> listTypes) =>
+      get('$url/usuario/datos', headers: {
+        "Authorization": "Bearer $token",
+        "idusuario": id.toString(),
+        "datos": DatosServer().datosParseados(listTypes)
+      });
+
+  // Put Modificar datos
+  Future<Response> modificarUser(int id, List datos, List<String> idsDatos) =>
+      put(
+        '$url/usuario',
+        {"id": idUser.toString(), "datos": datos, "ids_datos": idsDatos},
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+        contentType: 'application/json',
+      );
+}
+
 class UsuarioNode {
+  final usuarioProvider = UsuarioProvider();
+
+  final provider = UsuarioProvider();
+  Future<dynamic> delete(String id, String token, String user) async {
+    try {
+      var response = await usuarioProvider.deleteUser(id, token, user);
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print('Error al eliminar la cuenta: $error');
+      print(stack);
+      return MessageError(message: 'Error al Eliminar la Cuenta', code: 501);
+    }
+  }
+
   Future<dynamic> iniciarSesion(List usuario) async {
     try {
       final url =
           Uri.parse('${DatosServer().urlServer}/usuario/iniciar_sesion');
       // Crear una solicitud multipart
-      print(usuario.toString());
+      print('usuario.toString()');
       var request = http.post(url,
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
@@ -94,31 +155,24 @@ class UsuarioNode {
     }
   }
 
-  Future<void> modificarUsuarioNode(
+  Future<MessageError> modificarUsuarioNode(
       int id, List usuario, List<String> datosModificados) async {
     try {
-      final url = Uri.parse('${DatosServer().urlServer}/usuario');
-      // Crear una solicitud multipart
-      print(usuario.toString());
-      var request = http.put(url,
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({
-            "id": id,
-            "datosUsuario": usuario,
-            "datosModificados": datosModificados
-          }));
-
-      // Enviar la solicitud
-      var response = await request;
+      await provider.initialize();
+      final response =
+          await provider.modificarUser(id, usuario, datosModificados);
       if (response.statusCode == 200) {
-        print('usuario modificado correctamente');
+        return MessageError.fromJson(response.body);
       } else {
-        // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario modificado. Código de estado: ${response.statusCode}');
+        print(response.body);
+        return MessageError(
+            code: response.body.code,
+            message: 'Ocurrio un error al actualizar el Usuario');
       }
-    } catch (error) {
-      print('Error al usuario modificado: $error');
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return MessageError(message: 'Error al Modificar Usuario', code: 501);
     }
   }
 
@@ -147,28 +201,20 @@ class UsuarioNode {
   }
 
   Future<UsuarioModel?> getUsuario(
-      int id, String token, List<TypeDatosServer> listTypes) async {
+      int id, List<TypeDatosServer> listTypes) async {
     try {
-      final url = Uri.parse('${DatosServer().urlServer}/usuario/datos');
-      print(token);
-      print(DatosServer().datos(listTypes));
-      // Crear una solicitud multipart
-      final response = await http.get(url, headers: {
-        "Authorization": "Bearer $token",
-        "idusuario": id.toString(),
-        "datos": DatosServer().datos(listTypes)
-      });
-      print(response.body);
+      await provider.initialize();
+      final response = await provider.getUser(id, listTypes);
       if (response.statusCode == 200) {
-        print(response.body == '{}');
-        print('get datos usuario correctamente');
-        return UsuarioModel.fromRawJson(response.body);
+        return UsuarioModel.fromJson(response.body);
       } else {
-        final messageError = MessageError.fromRawJson(response.body);
+        final messageError = MessageError(
+            code: response.body.code,
+            message: 'Ocurrio un error al actualizar el Usuario');
         print(messageError.message);
         // Manejar el caso en el que la carga no fue exitosa
         print(
-            'Error al obtener datos del usuario. Código: ${messageError.code}');
+            'Error al obtener datos del ---ausuario. Código: ${messageError.code}');
       }
     } catch (error, stack) {
       print(stack);

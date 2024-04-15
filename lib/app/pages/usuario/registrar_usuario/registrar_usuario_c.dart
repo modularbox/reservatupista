@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/backend/server_node.dart/usuario_existe_nick.dart';
+import 'package:reservatu_pista/backend/server_node/usuario_existe_nick.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
-import '../../../../backend/server_node.dart/usuario_node.dart';
+import '../../../../backend/server_node/subir_image_node.dart';
+import '../../../../backend/server_node/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dialog/rich_alert.dart';
@@ -23,7 +23,7 @@ import 'package:image/image.dart' as img;
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class RegistrarUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin, StateMixin<bool> {
+    with GetTickerProviderStateMixin, StateMixin<bool> {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
 

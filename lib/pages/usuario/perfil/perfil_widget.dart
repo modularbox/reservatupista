@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/routes/database.dart';
 import '../../../app/widgets/terminos_condiciones.dart';
@@ -55,19 +53,23 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         page: TypePage.Perfil,
         isTitle: true,
         child: db.datosPerfilUsuario.obx(
-            (state) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: 100.h <= 745
-                    ? datosPerfil(
-                        space: spaceSizedBoxBtnCerrarRes(),
-                        subAppBar: subAppBar(true),
-                        height: 50,
-                        top: 10,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2))
-                    : datosPerfil(
-                        space: spaceSizedBoxBtnCerrar(),
-                        subAppBar: subAppBar(false))),
+            (state) => Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: 100.h <= 745
+                            ? datosPerfil(
+                                space: spaceSizedBoxBtnCerrarRes(),
+                                subAppBar: subAppBar(true),
+                                height: 50,
+                                top: 10,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 2))
+                            : datosPerfil(
+                                space: spaceSizedBoxBtnCerrar(),
+                                subAppBar: subAppBar(false))),
+                  ),
+                ),
             onLoading: SizedBox(
                 width: 20,
                 child: ColorLoader(

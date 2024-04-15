@@ -4,12 +4,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
+import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
+import 'package:reservatu_pista/backend/server_node/reservas_node.dart';
+
+import 'dart:convert';
+
+extension ExtDateTime on DateTime {
+  String get formatDate =>
+      '${year.toString()}-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
+}
 
 class HorarioFinInicio {
   HorarioFinInicio(
       {required this.inicio,
       required this.termino,
       required this.typeEstadoHorario});
+
   final String inicio;
   final String termino;
   final TypeEstadoHorario typeEstadoHorario;
@@ -21,8 +31,31 @@ class HorarioFinInicio {
 }
 
 class ReservarPistaController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   DatabaseController db = Get.find();
+  //variable que almacena todas las localidades existentes.
+  Rx<List<String>> localidades = Rx<List<String>>([]);
+  Map<String, String> mapLocalidades = {};
+  Rx<String> cod_postal = Rx<String>('');
+  Rx<List<String>> clubes = Rx<List<String>>([]);
+  Rx<String> id_club_seleccionado = Rx<String>('');
+  Map<String, String> mapClubes = {};
+  Rx<List<String>> deportes = Rx<List<String>>([]);
+  Map<String, String> mapDeportes = {};
+  Rx<String> deporte_seleccionado = Rx<String>('');
+
+  Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
+  Rx<int> id_pista_seleccionada = Rx<int>(0);
+  Rx<String> hora_apertura_pista = Rx<String>('');
+  Rx<String> hora_cierre_pista = Rx<String>('');
+  Rx<String> duracion_partida = Rx<String>('');
+  Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
+  Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
+  Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
+  //para almacenar las plazas que quiere reservar el usuario a la hora de reservar pista
+
+  Rx<int> plazas_a_reservar = Rx<int>(0);
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);
   Rx<int?> selectDeporte = Rx<int?>(null);
@@ -42,6 +75,8 @@ class ReservarPistaController extends GetxController
   FocusNode localidadFocusNode = FocusNode();
   TextEditingController deporteController = TextEditingController();
   FocusNode deporteFocusNode = FocusNode();
+  TextEditingController PistaController = TextEditingController();
+  FocusNode PistaFocusNode = FocusNode();
   TextEditingController nPistaController = TextEditingController();
   FocusNode nPistaFocusNode = FocusNode();
   TextEditingController clubController = TextEditingController();
@@ -64,9 +99,14 @@ class ReservarPistaController extends GetxController
 
   final appBarAndNavBar = 120;
   PageController pageViewController = PageController();
+
+  /// Obtener los usuarios con reservas
+  final Rx<ReservasUsuarios?> reservas_usuarios = Rx<ReservasUsuarios?>(null);
+
   @override
   void onInit() {
     super.onInit();
+    generarListaLocalidades();
     fechaActual = DateTime.now();
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
@@ -101,8 +141,8 @@ class ReservarPistaController extends GetxController
             sizedBoxHeight.value = newSize;
           }
         }
-        pageViewController.animateToPage(callback,
-            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+        /*pageViewController.animateToPage(callback,
+            duration: const Duration(milliseconds: 300), curve: Curves.linear);*/
       }
     }, time: const Duration(milliseconds: 50));
     debounce(selectHorario, (callback) async {
@@ -137,6 +177,176 @@ class ReservarPistaController extends GetxController
     singleDatePickerValueWithDefaultValue = [fechaActual];
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
     tiempoReservaListaCalendar = getListaHorarios();
+  }
+  //funcion para obtener lista con todas las localidades
+
+  void obtenerPlazasLibres() async {
+    print("dfoihodisfhodsfhoids");
+    try {
+      final idPista = id_pista_seleccionada.value.toString();
+      final fecha = fecha_seleccionada.value.formatDate;
+      final horaInicio = hora_inicio_reserva_seleccionada.value;
+      print('$idPista, $fecha, $horaInicio');
+      final result =
+          await ReservasNode().obtenerPlazasLibres(idPista, fecha, horaInicio);
+      if (result is ReservasUsuarios) {
+        reservas_usuarios.value = result;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> generarListaLocalidades() async {
+    try {
+      String localidadesJson = await db.obtenerLocalidades();
+      // Convertir la cadena JSON en una lista de mapas
+      List<dynamic> localidadesData = json.decode(localidadesJson);
+      mapLocalidades = Map.fromEntries(localidadesData.map(
+          (e) => MapEntry<String, String>(e['localidad'], e['cod_postal'])));
+
+      List<String> listaLocalidades = localidadesData
+          .map<String>((localidad) => localidad['localidad'] as String)
+          .toList();
+      localidades.value = listaLocalidades;
+      return;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  //funcion para obtener los clubes que hay en cada localidad
+  Future<void> generarListaClubes(String cod_postal) async {
+    try {
+      //resets
+      clubController.text = '';
+      deporteController.text = '';
+      clubes.value = [];
+      deportes.value = [];
+      /*//seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
+      selectDay.value = null;*/
+      //deporte_seleccionado.value = '';
+      String clubesJson = await db.obtenerClubes(cod_postal);
+      print('clubesssJson $clubesJson');
+      if (clubesJson == '[]') {
+        //falta cambiar
+        print('pruebaaaaaaaaaaaaaaaa');
+        return;
+      }
+      List<dynamic> clubesData = json.decode(clubesJson);
+
+      for (var i = 0; i < clubesData.length; i++) {
+        mapClubes[clubesData[i]['nombre']] =
+            clubesData[i]['id_club'].toString();
+      }
+
+      List<String> listaClubes =
+          clubesData.map<String>((club) => club['nombre'] as String).toList();
+      clubes.value = listaClubes;
+      return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorr $error');
+      rethrow;
+    }
+  }
+
+  //funcion para obtener los deportes que hay en cada pista de los clubes
+  Future<void> generarListaDeportes(String id_club) async {
+    //deporteController.text = '';
+    deporte_seleccionado.value = '';
+    try {
+      String deportesJson = await db.obtenerDeportes(id_club);
+      print('deportesJson $deportesJson');
+      if (deportesJson == '{}') {
+        deportes.value = [];
+        return;
+      }
+      List<dynamic> deportesData = json.decode(deportesJson);
+
+      //print('deportesData $deportesData');
+      //print('deportesData[0] ${deportesData[0]['deporte']}');
+
+      List<String> listaDeportes = deportesData
+          .map<String>((deporte) => deporte['deporte'] as String)
+          .toList();
+      print('listaDeportes $listaDeportes');
+      deportes.value = listaDeportes;
+      return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorrrrrrrr $error');
+      rethrow;
+    }
+  }
+
+//funcion para obtener las pistas que hay en cada club
+  Future<void> generarListaPistas(String id_club, String deporte) async {
+    //deporteController.text = '';
+    try {
+      String pistasJson = await db.obtenerPistas(id_club, deporte);
+      print('pistasJson $pistasJson');
+      if (pistasJson.isEmpty) {
+        pistas.value = [];
+        return;
+      }
+      // List<dynamic> pistasData = json.decode(pistasJson);
+      pistas.value = json.decode(pistasJson);
+      id_pista_seleccionada.value = pistas.value[0]['id_pista'];
+      print('id_pista_seleccionada $id_pista_seleccionada');
+      print('pistasData[0] ${pistas.value[0]['id_pista']}');
+      /* List<String> listaPistas = pistasData
+          .map<String>((pista) => pista['id_pista'].toString())
+          .toList();*/
+      return;
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('$error');
+      rethrow;
+    }
+  }
+
+  Future<List<dynamic>> generarListaHorarios(
+      int idPista, DateTime dia_seleccionado) async {
+    try {
+      print('responseeeeeeeeeeee00');
+      String response =
+          await db.obtenerHorariosPistas(idPista, dia_seleccionado);
+      print('responseeeeeeeeeeee11 ${response}');
+      if (response.length <= 0) return [];
+      print('responseeeeeeeeeeee22 ${response}');
+      List<dynamic> datosPista2 = json.decode(response);
+      print('datosPista22 ${datosPista2}');
+      return datosPista2;
+      /*String datosPistaString = await db.obtenerDatosPista(idPista);
+      List<dynamic> datosPista = json.decode(datosPistaString);
+      hora_apertura_pista.value = datosPista[0]['hora_inicio'].toString();
+      hora_cierre_pista.value = datosPista[0]['hora_fin'].toString();
+      duracion_partida.value = datosPista[0]['duracion_partida'].toString();
+      List<String> partesHoraInicio = hora_apertura_pista.value.split(":");
+      TimeOfDay horaInicio = TimeOfDay(
+        hour: int.parse(partesHoraInicio[0]), // hora
+        minute: int.parse(partesHoraInicio[1]), // minutos
+      );
+      DateTime hora_apertura = DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+          horaInicio.hour,
+          horaInicio.minute);
+      DateTime prueba = hora_apertura.add(Duration(minutes: 30));
+      DateTime hora_cierre = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      );
+
+      return datosPista; */
+    } catch (error, stack) {
+      print('stack: ${stack}');
+      print('errorrrrr $error');
+      rethrow;
+    }
   }
 
   List<DateTime> getListaHorarios() {

@@ -60,7 +60,9 @@ class TerminosCondicionesDialog extends StatelessWidget {
               borderRadius: 12,
               padding: const EdgeInsets.all(0),
               icon: Text(
-                'He leído y acepto los Términos y Condiciones de Servicio.',
+                Get.width < 500
+                    ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
+                    : 'He leído y acepto los Términos y Condiciones de Servicio.',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',

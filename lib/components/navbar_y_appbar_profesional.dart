@@ -34,8 +34,6 @@ class NavbarYAppbarProfesional extends StatelessWidget {
       );
     }
 
-    context.watch<FFAppState>();
-
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: isTitleBack

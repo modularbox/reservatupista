@@ -1,14 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-import 'package:reservatu_pista/app/routes/database.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-// import '../../app/pages/usuario/pagos_tarjeta/pagos_tarjeta.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../utils/buttons_sounds.dart';
-// import '../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../utils/format_number.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -22,10 +18,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/sizer.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
-import 'dart:html' as html;
-
 import 'alert_recargar_model.dart';
 export 'alert_recargar_model.dart';
 
@@ -437,16 +430,10 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     try {
       String num_operacion = generarNumeroOperacionUnico();
       guardarUsuarioOperacion(num_operacion, dinero);
-      if (isWeb) {
-        html.window.open(
-            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}',
-            '_self');
-      } else {
-        await launchURL(
-            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
-        Get.back();
-        Get.back();
-      }
+      await launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+      Get.back();
+      Get.back();
     } catch (e) {
       rethrow;
     }

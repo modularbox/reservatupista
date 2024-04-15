@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import '../../../../backend/schema/enums/enums.dart';
-import '../../../../backend/server_node.dart/get_pistas_node.dart';
+import '../../../../backend/server_node/get_pistas_node.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../routes/models/pistas_model.dart';

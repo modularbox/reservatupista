@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
 import '../../../../utils/loader/color_loader_3.dart';
 import '../../../../utils/server/image_server.dart';
 import '../../../widgets/seleccion_imagen_widget.dart';
@@ -150,6 +152,31 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: ColorLoader3(),
                   )),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: FFButtonWidget(
+                  onPressed: self.onOpenDialogEliminarCuenta,
+                  text: 'Eliminar Cuenta',
+                  options: FFButtonOptions(
+                    width: 40.0.w,
+                    height: 40,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: Colores().rojo,
+                    textStyle: LightModeTheme().bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: LightModeTheme().tertiary,
+                        ),
+                    elevation: 2,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
             ],
           ),
         ));
@@ -478,8 +505,8 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Image.network(
-                          ProveedorNode().getImageProveedorNode(
-                              self.imageFileCertificado.value!),
+                          ProveedorNode()
+                              .getImageNode(self.imageFileCertificado.value!),
                           width: 250.0,
                           fit: BoxFit.fitWidth,
                         ),
@@ -494,8 +521,8 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                 icon: CircleAvatar(
                   radius: 20,
                   backgroundImage: NetworkImage(
-                    ProveedorNode().getImageProveedorNode(
-                        self.imageFileCertificado.value!),
+                    ProveedorNode()
+                        .getImageNode(self.imageFileCertificado.value!),
                   ),
                 ))
             : const SizedBox.shrink()),

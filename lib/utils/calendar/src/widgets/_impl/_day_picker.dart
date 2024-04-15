@@ -153,7 +153,6 @@ class _DayPickerState extends State<_DayPicker> {
       if (day < 1) {
         dayItems.add(Container(color: const Color(0xffc0c0c0)));
       } else {
-        // print(contador);
         final DateTime dayToBuild = DateTime(year, month, day);
         final bool isSelectedDay = widget.config.selectDayConfig == dayToBuild;
         final bool isToday =
@@ -333,7 +332,6 @@ class _DayPickerState extends State<_DayPicker> {
             child: dayWidget,
           );
         } else {
-          print("gjhhjjh");
           final int cont = contador;
           dayWidget = InkResponse(
             focusNode: _dayFocusNodes[day - 1],

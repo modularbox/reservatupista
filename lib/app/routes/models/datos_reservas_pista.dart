@@ -177,8 +177,8 @@ class Horario {
   factory Horario.fromJson(Map<String, dynamic> json) {
     late TypeEstadoHorario typeEstado;
     switch (json["estatus"]) {
-      case 'ocupada':
-        typeEstado = TypeEstadoHorario.ocupada;
+      case 'reservadaParcial':
+        typeEstado = TypeEstadoHorario.reservadaParcial;
         break;
       case 'reservada':
         typeEstado = TypeEstadoHorario.reservada;
@@ -186,8 +186,11 @@ class Horario {
       case 'abierta':
         typeEstado = TypeEstadoHorario.abierta;
         break;
+      case 'reservadaClase':
+        typeEstado = TypeEstadoHorario.reservadaClase;
+        break;
       default:
-        typeEstado = TypeEstadoHorario.desocupada;
+        typeEstado = TypeEstadoHorario.cerrada;
         break;
     }
     return Horario(
@@ -202,4 +205,10 @@ class Horario {
       };
 }
 
-enum TypeEstadoHorario { ocupada, desocupada, reservada, abierta }
+enum TypeEstadoHorario {
+  reservadaParcial,
+  reservadaClase,
+  reservada,
+  abierta,
+  cerrada
+}

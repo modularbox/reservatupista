@@ -21,7 +21,7 @@ enum Name {
 }
 
 class LoginProfesionalController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   final unfocusNode = FocusNode();
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;

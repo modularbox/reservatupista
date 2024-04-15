@@ -5,6 +5,7 @@ extension StateRxExt<T> on StateRx<T> {
   Widget obx(
     NotifierBuilder<T?> widget, {
     Widget Function(String? error)? onError,
+    Widget? onSuccess,
     Widget? onLoading,
     Widget? onEmpty,
   }) {
@@ -20,11 +21,17 @@ extension StateRxExt<T> on StateRx<T> {
         } else if (status.isEmpty) {
           return onEmpty ??
               const SizedBox.shrink(); // Also can be widget(null); but is risky
-        }
+        } else if (status.isSuccess) {}
+
         return widget(newValue);
       });
     });
   }
+
+  void loading() => changeStatus(RxStatusDemo.loading());
+  void success(T newValue) => change(newValue, RxStatusDemo.success());
+  void empty() => changeStatus(RxStatusDemo.empty());
+  void error(String message) => changeStatus(RxStatusDemo.error(message));
 }
 
 class StateRx<T> {

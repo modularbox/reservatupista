@@ -4,10 +4,8 @@ import 'package:flutter/services.dart';
 import 'dart:math' as math;
 import '/flutter_flow/flutter_flow_theme.dart';
 
-enum TypeInputRPista { select, input }
-
-class InputRPista extends FormField<String> {
-  InputRPista({
+class InputReservarPista extends FormField<String> {
+  InputReservarPista({
     Key? key,
     this.controller,
     this.icon,
@@ -39,7 +37,6 @@ class InputRPista extends FormField<String> {
     required this.context,
     this.onValidator,
     this.inputFormatters,
-    this.typeInputRPista = TypeInputRPista.select,
     FocusNode? focusNode,
     TextInputType? keyboardType,
     int? maxLength,
@@ -49,7 +46,8 @@ class InputRPista extends FormField<String> {
           key: key,
           initialValue: controller!.text,
           builder: (FormFieldState<String> field) {
-            final _InputRPistaState state = field as _InputRPistaState;
+            final _InputReservarPistaState state =
+                field as _InputReservarPistaState;
 
             void onChangedHandler(String value) {
               if (onChanged != null) {
@@ -108,26 +106,18 @@ class InputRPista extends FormField<String> {
                   keyboardType: keyboardType,
                   onChanged: onChangedHandler,
                   onTap: lfOnTap,
-                  readOnly: readOnly,
-                  enableInteractiveSelection: enableInteractiveSelection,
-                  enabled: enableInput,
                   inputFormatters: inputFormatters,
                   validator: onValidator,
                 ),
               );
             }
 
-            if (typeInputRPista == TypeInputRPista.input) {
-              return buildField(null);
-            } else {
-              return buildField(state._handleTap);
-            }
+            return buildField(state._handleTap);
           },
         );
   final String? Function(String?)? onValidator;
   final BuildContext context;
   final bool? enableInput;
-  final TypeInputRPista typeInputRPista;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -205,14 +195,14 @@ class InputRPista extends FormField<String> {
   final Color? dropdownColor;
 
   @override
-  _InputRPistaState createState() => _InputRPistaState();
+  _InputReservarPistaState createState() => _InputReservarPistaState();
 }
 
-class _InputRPistaState extends FormFieldState<String> {
+class _InputReservarPistaState extends FormFieldState<String> {
   TextEditingController? _stateController;
 
   @override
-  InputRPista get widget => super.widget as InputRPista;
+  InputReservarPista get widget => super.widget as InputReservarPista;
 
   TextEditingController? get _effectiveController =>
       widget.controller ?? _stateController;
@@ -440,7 +430,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             textStyle: route.style,
             child: widget.isScroll
                 ? Container(
-                    height: 100,
+                    height: 200,
                     child: Scrollbar(
                       thumbVisibility: true,
                       child: SingleChildScrollView(
