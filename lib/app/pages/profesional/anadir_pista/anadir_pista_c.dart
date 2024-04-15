@@ -172,7 +172,7 @@ class AnadirPistaController extends GetxController
     bono = InputController(animVibrate(vsync: this));
     reservatupista = InputController(animVibrate(vsync: this));
     animTerminos = animVibrate(vsync: this);
-    // initForm();
+    initForm();
   }
 
   void initForm() {
@@ -186,16 +186,16 @@ class AnadirPistaController extends GetxController
     duracionPartida.controller.text = '60 Minutos';
     horaInicio.controller.text = '00:00';
     horaFin.controller.text = '03:00';
-    socioTiempoReserva.controller.text = '1 Día';
-    socioTiempoCancelacion.controller.text = '1 Día';
+    socioTiempoReserva.controller.text = '10 Día';
+    socioTiempoCancelacion.controller.text = '24 Horas';
     socioPrecioConLuz.controller.text = '1.25 €';
-    socioPrecioSinLuz.controller.text = '2.20 €';
-    noSocioTiempoReserva.controller.text = '1 Día';
-    noSocioTiempoCancelacion.controller.text = '1 Día';
-    noSocioPrecioConLuz.controller.text = '1.15 €';
-    noSocioPrecioSinLuz.controller.text = '2.10 €';
+    socioPrecioSinLuz.controller.text = '1.00 €';
+    noSocioTiempoReserva.controller.text = '6 Día';
+    noSocioTiempoCancelacion.controller.text = '12 Horas';
+    noSocioPrecioConLuz.controller.text = '2.15 €';
+    noSocioPrecioSinLuz.controller.text = '2.00 €';
     descripcion.controller.text = 'Descripcion';
-    nombrePatrocinador.controller.text = 'Patrocinador1';
+    nombrePatrocinador.controller.text = 'Patrocinador2';
     vestuario.controller.text = 'No';
     duchas.controller.text = 'No';
     efectivo.controller.text = 'No';

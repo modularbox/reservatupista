@@ -72,27 +72,29 @@ class MisPistasController extends GetxController
 
   @override
   void onReady() {
-    cargarDatos();
-    // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Verifica si el contexto de la GlobalKey es nulo
-      final List<double> newDeportesWidth = [];
-      for (var i = 0; i < deporteKey.length; i++) {
-        if (deporteKey[i].currentContext != null) {
-          // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
-          double width = deporteKey[i].currentContext!.size!.width;
-          newDeportesWidth.add(width);
-        }
-      }
-      deportesWidth.value = newDeportesWidth;
-    });
     super.onReady();
+    cargarDatos();
   }
 
   /// Initialization and disposal methods.
   @override
   void onInit() async {
     super.onInit();
+    // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 200), () {
+        // Verifica si el contexto de la GlobalKey es nulo
+        final List<double> newDeportesWidth = [];
+        for (var i = 0; i < deporteKey.length; i++) {
+          if (deporteKey[i].currentContext != null) {
+            // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
+            double width = deporteKey[i].currentContext!.size!.width;
+            newDeportesWidth.add(width);
+          }
+        }
+        deportesWidth.value = newDeportesWidth;
+      });
+    });
     // Cambiar la fecha cuando se actualice y mover el pageview
     debounce(_fechaNextPrevious, (val) => val ? nextPage() : previousPage(),
         time: const Duration(milliseconds: 200));
@@ -103,19 +105,18 @@ class MisPistasController extends GetxController
 
   /// Método para cargar datos
   void cargarDatos() async {
-    misPistas.changeStatus(RxStatusDemo.loading());
+    misPistas.loading();
     try {
       final result = await PistaNode().getMisPista(deporte, fecha.letraDia);
       if (result is MisPistas) {
         if (result.misPistas.isEmpty) {
-          misPistas.changeStatus(RxStatusDemo.empty());
+          misPistas.empty();
         } else {
-          misPistas.change(result.misPistas, RxStatusDemo.success());
+          misPistas.success(result.misPistas);
         }
       }
     } catch (error) {
-      misPistas.change(
-          [], RxStatusDemo.error('Error al cargar datos de las pistas.'));
+      misPistas.error('Error al cargar datos de las pistas.');
     }
   }
 

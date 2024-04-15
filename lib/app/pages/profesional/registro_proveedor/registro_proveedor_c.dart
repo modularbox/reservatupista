@@ -124,9 +124,9 @@ class RegistroProveedorController extends GetxController
         apiCodigoPostalFiscal.change(false, RxStatusDemo.success());
       }
     } else {
-      localidadController.text = '';
-      comunidadController.text = '';
-      provinciaController.text = '';
+      localidadFiscalController.text = '';
+      comunidadFiscalController.text = '';
+      provinciaFiscalController.text = '';
       apiCodigoPostalFiscal.changeStatus(RxStatusDemo.empty());
     }
   }
@@ -174,7 +174,7 @@ class RegistroProveedorController extends GetxController
             onValidate: (val) => val!.length < 9 ? '' : null,
             inputFormatters: [SinEspaciosInputFormatter(), CIFNIFFormatter()]),
         direccionFiscal: PropertiesTextField(
-          labelText: 'Dirección fiscal',
+          labelText: 'Dirección Fiscal',
           controller: direccionFiscalController,
           anim: animVibrate(vsync: this),
           maxLength: 50,
@@ -212,18 +212,21 @@ class RegistroProveedorController extends GetxController
           labelText: 'Localidad',
           controller: localidadFiscalController,
           anim: animVibrate(vsync: this),
+          enabled: false,
           maxLength: 50,
         ),
         provincia: PropertiesTextField(
           labelText: 'Provincia',
           controller: provinciaFiscalController,
           anim: animVibrate(vsync: this),
+          enabled: false,
           maxLength: 50,
         ),
         comunidad: PropertiesTextField(
           labelText: 'Comunidad',
           controller: comunidadFiscalController,
           anim: animVibrate(vsync: this),
+          enabled: false,
           maxLength: 50,
         ),
       );
@@ -236,7 +239,7 @@ class RegistroProveedorController extends GetxController
             isSelect: true,
             listSelect: ['Club', 'Ayuntamiento', 'Comunidad', 'Asociación']),
         certificadoCuenta: PropertiesTextField(
-          labelText: 'Certificado de cuenta',
+          labelText: 'Certificado de Cuenta',
           controller: certificadoCuentaController,
           anim: animVibrate(vsync: this),
           maxLength: 20,
@@ -300,7 +303,7 @@ class RegistroProveedorController extends GetxController
       );
   List<PropertiesTextField> datosUbicacion() => DatosUbicacionTextField(
         nombreComercial: PropertiesTextField(
-          labelText: 'Nombre comercial',
+          labelText: 'Nombre Club',
           controller: nombreComercialController,
           anim: animVibrate(vsync: this),
           maxLength: 40,
@@ -343,18 +346,21 @@ class RegistroProveedorController extends GetxController
           labelText: 'Localidad',
           controller: localidadController,
           anim: animVibrate(vsync: this),
+          enabled: false,
           maxLength: 40,
         ),
         provincia: PropertiesTextField(
           labelText: 'Provincia',
           controller: provinciaController,
           anim: animVibrate(vsync: this),
+          enabled: false,
           maxLength: 30,
         ),
         comunidad: PropertiesTextField(
           labelText: 'Comunidad',
           controller: comunidadController,
           anim: animVibrate(vsync: this),
+          enabled: false,
           maxLength: 50,
         ),
       ).listProperty();
@@ -616,6 +622,7 @@ class PropertiesTextField {
       this.listSelect,
       this.onValidate,
       this.onChange,
+      this.enabled = true,
       this.inputFormatters,
       this.suffixIcon});
   final String labelText;
@@ -631,6 +638,7 @@ class PropertiesTextField {
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? onValidate;
   final void Function(String)? onChange;
+  final bool enabled;
 
   String? validateTextField(String? text) {
     if (text == null || text.isEmpty) {
@@ -742,7 +750,7 @@ class DatosContrasenaTextField {
           maxLength: 15,
           controller: contrasenaController),
       comprobarContrasena: PropertiesTextField(
-          labelText: 'Comprobar contraseña',
+          labelText: 'Comprobar Contraseña',
           anim: animVibrate(vsync: tick),
           maxLength: 15,
           controller: contrasenaController2),

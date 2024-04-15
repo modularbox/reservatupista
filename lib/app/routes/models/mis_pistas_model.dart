@@ -59,9 +59,9 @@ class MiPista {
         deporte: json["deporte"],
         imagenPatrocinador: json["imagen_patrocinador"],
         total: json["total"],
-        totalLibre: json['totalLibre'] ?? 0,
-        totalAbierta: json['totalAbierta'] ?? 0,
-        totalCerrada: json['totalCerrada'] ?? 0,
+        totalLibre: json['total_libres'] ?? 0,
+        totalAbierta: json['total_abiertas'] ?? 0,
+        totalCerrada: json['total_cerradas'] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

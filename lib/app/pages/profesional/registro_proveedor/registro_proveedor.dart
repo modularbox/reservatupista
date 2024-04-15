@@ -441,6 +441,7 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                         focusNode: propertiesTextField.focusNode,
                         maxLength: propertiesTextField.maxLength,
                         keyboardType: propertiesTextField.keyboardType,
+                        enabled: propertiesTextField.enabled,
                         decoration: InputDecoration(
                           counterText: '',
                           errorStyle: const TextStyle(fontSize: 0),
@@ -450,6 +451,13 @@ class RegistroProveedorPage extends GetView<RegistroProveedorController> {
                                     fontFamily: 'Readex Pro',
                                     color: const Color(0xFF95A1AC),
                                   ),
+                          disabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: lineColor,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: lineColor,
