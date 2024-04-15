@@ -5,7 +5,7 @@ import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
-import 'package:reservatu_pista/backend/server_node.dart/reservas_node.dart';
+import 'package:reservatu_pista/backend/server_node/reservas_node.dart';
 
 import 'dart:convert';
 

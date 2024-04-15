@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../../app/routes/app_pages.dart';
 import '../../../app/routes/database.dart';
-import '../../../app/widgets/terminos_condiciones.dart';
+import '../../../app/routes/models/club_model.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_profesional.dart';
 import '../../../utils/auto_size_text/auto_size_text.dart';
@@ -17,12 +19,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// ignore: must_be_immutable
-class PerfilProfesionalWidget extends StatelessWidget {
-  PerfilProfesionalWidget({super.key});
+class PerfilProfesionalWidget extends StatefulWidget {
+  const PerfilProfesionalWidget({super.key});
+
+  @override
+  State<PerfilProfesionalWidget> createState() =>
+      _PerfilProfesionalWidgetState();
+}
+
+class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
   final btnSize = GlobalKey<ScaffoldState>();
   final keyLogo = GlobalKey<ScaffoldState>();
   final DatabaseController db = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    db.getDatosClubId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +53,46 @@ class PerfilProfesionalWidget extends StatelessWidget {
         title: 'Perfil Proveedor',
         page: TypePage.Perfil,
         isTitle: true,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: 100.h <= 745
-                ? datosPerfil(
-                    space: spaceSizedBoxBtnCerrarRes(),
-                    subAppBar: subAppBar(true),
-                    height: 50,
-                    top: 10,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2))
-                : datosPerfil(
-                    space: spaceSizedBoxBtnCerrar(),
-                    subAppBar: subAppBar(false))));
+        child: db.datosPerfilClub.obx(
+            (state) => Expanded(
+                  child: scrollPerfil(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: 100.h <= 745
+                                ? datosPerfil(
+                                    space: spaceSizedBoxBtnCerrarRes(),
+                                    subAppBar: subAppBar(true, state),
+                                    height: 50,
+                                    top: 10,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 2))
+                                : datosPerfil(
+                                    space: spaceSizedBoxBtnCerrar(),
+                                    subAppBar: subAppBar(false, state))),
+                        buildBtnCerrar()
+                      ],
+                    ),
+                  ),
+                ),
+            onLoading: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ColorLoader3(),
+            ),
+            onEmpty: const SizedBox.shrink()));
   }
 
-  Widget subAppBar(bool responsive) {
+  Widget scrollPerfil({required Widget child}) {
+    if (isWeb) {
+      return SingleChildScrollView(child: child);
+    } else {
+      return child;
+    }
+  }
+
+  Widget subAppBar(bool responsive, ClubModel? state) {
     if (responsive) {
       return Container(
         width: double.infinity,
@@ -116,7 +155,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
                   child: SizedBox(
                       width: 100.w - 138,
                       child: AutoSizeText(
-                        db.datosProveedor!.nombreComercial,
+                        state == null ? '' : state.nombre,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(Get.context!).headlineSmall,
                       )),
@@ -192,7 +231,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
                   child: SizedBox(
                       width: 100.w - 138,
                       child: AutoSizeText(
-                        db.datosProveedor!.nombreComercial,
+                        state!.nombre,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(Get.context!).headlineSmall,
                       )),
@@ -248,7 +287,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
     return [
       subAppBar,
       ButtonPerfil(
-        title: 'Banco Virtual',
+        title: 'Caja',
         icon: Icons.credit_card,
         top: top,
         height: height,
@@ -278,8 +317,8 @@ class PerfilProfesionalWidget extends StatelessWidget {
         },
       ),
       ButtonPerfil(
-        title: 'Notificaciones',
-        icon: Icons.notifications_none,
+        title: 'Mi Club',
+        icon: Icons.people,
         top: top,
         height: height,
         padding: padding,
@@ -294,7 +333,12 @@ class PerfilProfesionalWidget extends StatelessWidget {
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.dialog(const TerminosCondiciones());
+          Get.dialog(LinkDialog(
+            alertTitle:
+                richTitleLink('¿Deseas ir al enlace externo?', fontSize: 20.0),
+            alertSubtitle: richSubtitleLink(
+                'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
+          ));
         },
       ),
       ButtonPerfil(
@@ -309,12 +353,6 @@ class PerfilProfesionalWidget extends StatelessWidget {
           );
         },
       ),
-      isiOS
-          ? const SizedBox(
-              height: 25,
-            )
-          : space,
-      buildBtnCerrar()
     ];
   }
 
@@ -322,6 +360,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
     return Container(
       width: 200,
       height: 45,
+      margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
       decoration: BoxDecoration(
         color: const Color(0xFFF77066),
         boxShadow: const [

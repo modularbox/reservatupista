@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/app/routes/models/club_model.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../backend/server_node.dart/proveedor_node.dart';
-import '../../backend/server_node.dart/usuario_node.dart';
+import '../../backend/server_node/proveedor_node.dart';
+import '../../backend/server_node/usuario_node.dart';
 import '../../utils/state_getx/state_mixin_demo.dart';
 import 'models/datos_reservas_pista.dart';
 import 'models/proveedor_model.dart';
@@ -44,6 +45,7 @@ class DatabaseController extends GetxController {
   set dineroTotalEuros(value) => _dineroTotalEuros.value = value;
 
   StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
+  StateRx<ClubModel?> datosPerfilClub = StateRx(Rx<ClubModel?>(null));
   // StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
 
   //alvaro
@@ -57,6 +59,7 @@ class DatabaseController extends GetxController {
     // Muestra el estado de carga
     // datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
     // getUserId();
+    datosPerfilClub.loading();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
@@ -87,7 +90,7 @@ class DatabaseController extends GetxController {
       } else {
         if (imageServer.value == '') {
           final storage = await SharedPreferences.getInstance();
-          final String imageUsuario = storage.fotoUsuario.read();
+          final String imageUsuario = storage.foto.read();
           imageServer.value = UsuarioNode().getImageUsuarioNode(imageUsuario);
           print('imageuUSaurio: $imageUsuario');
         }
@@ -123,8 +126,8 @@ class DatabaseController extends GetxController {
         TypeDatosServer.foto
       ];
 
-      final result = await UsuarioNode().getUsuario(
-          storage.idUsuario.read(), storage.tokenUsuario.read(), listTypes);
+      final result =
+          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
         datosPerfilUsuario.change(result, RxStatusDemo.success());
@@ -171,8 +174,8 @@ class DatabaseController extends GetxController {
         TypeDatosServer.dinero_total,
       ];
 
-      final result = await UsuarioNode().getUsuario(
-          storage.idUsuario.read(), storage.tokenUsuario.read(), listTypes);
+      final result =
+          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
 
       if (result is UsuarioModel) {
         dineroTotal = result.dineroTotal;
@@ -191,13 +194,30 @@ class DatabaseController extends GetxController {
     idUsuario = Storage(TypeStorage.idUsuario, getStorage).read();
   }
 
+  Future<void> getDatosClubId() async {
+    try {
+      final storage = await SharedPreferences.getInstance();
+      final List<TypeDatosServerClub> listTypes = [
+        TypeDatosServerClub.nombre,
+      ];
+      final result =
+          await ProveedorNode().getClub(storage.idClub.read(), listTypes);
+      if (result is ClubModel) {
+        datosPerfilClub.success(result);
+      }
+    } catch (e, s) {
+      print('getDatosClubId: stack $s');
+      print('getDatosClubId: $e');
+    }
+  }
+
   void setDatosUsuario(UsuarioModel result) {
     imageServer.value = UsuarioNode().getImageUsuarioNode(result.foto);
     datosUsuario = result;
   }
 
   void setDatosProveedor(ProveedorModel result) {
-    imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
+    imageServer.value = ProveedorNode().getImageNode(result.foto);
     datosProveedor = result;
   }
 
@@ -205,7 +225,7 @@ class DatabaseController extends GetxController {
     try {
       final result = await ProveedorNode().getProveedorNode('1');
       if (result is ProveedorModel) {
-        imageServer.value = ProveedorNode().getImageProveedorNode(result.foto);
+        imageServer.value = ProveedorNode().getImageNode(result.foto);
         datosProveedor = result;
 
         return true;

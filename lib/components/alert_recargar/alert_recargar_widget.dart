@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';

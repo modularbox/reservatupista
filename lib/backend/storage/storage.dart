@@ -5,11 +5,12 @@ enum TypeStorage {
   passwordProveedor,
   idUsuario,
   idProveedor,
-  tokenUsuario,
-  tokenProveedor,
+  token,
   dineroTotal,
-  fotoProveedor,
-  fotoUsuario
+  emailUsuario,
+  emailProveedor,
+  foto,
+  idClub
 }
 
 extension ExtSharedPreferences on SharedPreferences {
@@ -17,11 +18,12 @@ extension ExtSharedPreferences on SharedPreferences {
   Storage get passwordProveedor => Storage(TypeStorage.passwordProveedor, this);
   Storage get idUsuario => Storage(TypeStorage.idUsuario, this);
   Storage get idProveedor => Storage(TypeStorage.idProveedor, this);
-  Storage get tokenUsuario => Storage(TypeStorage.tokenUsuario, this);
-  Storage get tokenProveedor => Storage(TypeStorage.tokenProveedor, this);
+  Storage get token => Storage(TypeStorage.token, this);
   Storage get dineroTotal => Storage(TypeStorage.dineroTotal, this);
-  Storage get fotoProveedor => Storage(TypeStorage.fotoProveedor, this);
-  Storage get fotoUsuario => Storage(TypeStorage.fotoUsuario, this);
+  Storage get foto => Storage(TypeStorage.foto, this);
+  Storage get emailProveedor => Storage(TypeStorage.emailProveedor, this);
+  Storage get emailUsuario => Storage(TypeStorage.emailUsuario, this);
+  Storage get idClub => Storage(TypeStorage.idClub, this);
 }
 
 class Storage {
@@ -46,6 +48,8 @@ class Storage {
   }
 
   Future<bool> write(dynamic value) async {
+    print('write');
+    print(value);
     if (value is String) {
       return await getStorage.setString(type.toString(), value);
     } else if (value is int) {

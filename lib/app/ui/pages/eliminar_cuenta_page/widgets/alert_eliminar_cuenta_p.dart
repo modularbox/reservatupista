@@ -1,43 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_c.dart';
 import '../../../../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../../flutter_flow/flutter_flow_widgets.dart';
 
 class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
-  AlertEliminarCuentaWidget({super.key, required this.user});
+  AlertEliminarCuentaWidget(
+      {super.key, required this.user, required this.email});
   final int user;
+  final String email;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    String email = '';
-    if (user == 0) {
-      email = controller.emailUsuarioController.text;
-    } else {
-      email = controller.emailProveedorController.text;
-    }
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () async {
-              Get.back();
-            },
-          ),
           title: Text(
             'Eliminar Cuenta',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -46,7 +29,6 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                   fontSize: 22,
                 ),
           ),
-          actions: [],
           centerTitle: false,
           elevation: 2,
         ),
@@ -364,9 +346,8 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                         )),
                                   ),
                                   FFButtonWidget(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
+                                    onPressed: () =>
+                                        Get.offAllNamed(Routes.LOGIN_USUARIO),
                                     text: 'Cancelar',
                                     options: FFButtonOptions(
                                       height: 40,

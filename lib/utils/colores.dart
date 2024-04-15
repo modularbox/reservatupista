@@ -6,6 +6,7 @@ class Colores {
   final Color rojo = const Color(0xFFF77066);
   final Color orange = const Color(0xFFFFA500);
   final Color grisClaro = const Color.fromRGBO(220, 220, 220, 1.0);
+  final Color sucessGeneral = const Color(0xFF46EF98);
 }
 
 class ColoresProveedor {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../utils/btn_icon.dart';

@@ -3,9 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:reservatu_pista/app/routes/models/club_model.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
+import '../../../../backend/server_node/subir_image_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image/image.dart' as img;
 import '../../../../utils/loader/color_loader.dart';
@@ -15,7 +20,7 @@ import '../../../routes/models/proveedor_model.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class DatosProveedorController extends GetxController
-    with GetTickerProviderStateMixin {
+    with SingleGetTickerProviderMixin {
   // Datos de la api datos del usuario
   StateRx<bool?> apiDatosProveedor = StateRx(Rx<bool?>(null));
   // Traer datos de la api de codigo postal Nominatim
@@ -65,10 +70,45 @@ class DatosProveedorController extends GetxController
     animTerminos = animVibrate(vsync: this);
   }
 
+  void onOpenDialogEliminarCuenta() async {
+    final storage = await SharedPreferences.getInstance();
+    final String parametros =
+        '?id=${storage.idProveedor.read()}&user=0&token=${storage.token.read()}&email=${emailController.text}';
+    Get.dialog(LinkDialog(
+      alertTitle: richTitleLink(
+          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
+          fontSize: 20.0),
+      alertSubtitle: richSubtitleLink(
+          'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
+      urlLink: 'https://app.reservatupista.com/eliminar_cuenta/$parametros',
+    ));
+  }
+
   getDatosProveedor() async {
     apiDatosProveedor.initStatus(RxStatusDemo.loading());
     try {
-      final result = await ProveedorNode().getProveedorNode('1');
+      final storage = await SharedPreferences.getInstance();
+      final List<TypeDatosServerProveedor> listTypes = [
+        TypeDatosServerProveedor.tipo,
+        TypeDatosServerProveedor.cif_nif,
+        TypeDatosServerProveedor.direccion_fiscal,
+        TypeDatosServerProveedor.codigo_postal_fiscal,
+        TypeDatosServerProveedor.localidad_fiscal,
+        TypeDatosServerProveedor.provincia_fiscal,
+        TypeDatosServerProveedor.comunidad_fiscal,
+        TypeDatosServerProveedor.codigo_iban,
+        TypeDatosServerProveedor.certificado_cuenta,
+        TypeDatosServerProveedor.nombre,
+        TypeDatosServerProveedor.apellidos,
+        TypeDatosServerProveedor.fijo,
+        TypeDatosServerProveedor.email,
+        TypeDatosServerProveedor.lada,
+        TypeDatosServerProveedor.telefono,
+        TypeDatosServerProveedor.foto,
+        TypeDatosServerProveedor.certificado_cuenta
+      ];
+      final result = await ProveedorNode()
+          .getProveedor(storage.idProveedor.read(), listTypes);
       if (result is ProveedorModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -98,15 +138,30 @@ class DatosProveedorController extends GetxController
         emailController.text = result.email;
         ladaController.text = lada;
         telefonoController.text = result.telefono;
-        nombreComercialController.text = result.nombreComercial;
-        direccionController.text = result.direccion;
-        codigoPostalController.text = result.codigoPostal.toString();
-        localidadController.text = result.localidad;
-        provinciaController.text = result.provincia;
-        comunidadController.text = result.comunidad;
         fotoController.text = result.foto;
         imageFile.value = result.foto;
         imageFileCertificado.value = result.certificadoCuenta;
+
+        /// Obtener los datos del club
+
+        final List<TypeDatosServerClub> listTypes = [
+          TypeDatosServerClub.nombre,
+          TypeDatosServerClub.codigo_postal,
+          TypeDatosServerClub.direccion,
+          TypeDatosServerClub.localidad,
+          TypeDatosServerClub.provincia,
+          TypeDatosServerClub.comunidad
+        ];
+        final resultClub =
+            await ProveedorNode().getClub(storage.idClub.read(), listTypes);
+        if (resultClub is ClubModel) {
+          nombreComercialController.text = resultClub.nombre;
+          direccionController.text = resultClub.direccion;
+          codigoPostalController.text = resultClub.codigoPostal;
+          localidadController.text = resultClub.localidad;
+          provinciaController.text = resultClub.provincia;
+          comunidadController.text = resultClub.comunidad;
+        }
         apiDatosProveedor.change(true, RxStatusDemo.success());
       }
     } catch (e) {
@@ -303,7 +358,7 @@ class DatosProveedorController extends GetxController
 
         /// Actualizar Image
         db.imageServer.value =
-            '${ProveedorNode().getImageProveedorNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${ProveedorNode().getImageNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
         print(db.imageServer);
         print('Seactualizo');
       } catch (e) {
@@ -323,7 +378,7 @@ class DatosProveedorController extends GetxController
 
         /// Actualizar Image
         imageFileCertificado.value =
-            '${ProveedorNode().getImageProveedorNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${ProveedorNode().getImageNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
 
         print('Seactualizo');
       } catch (e) {

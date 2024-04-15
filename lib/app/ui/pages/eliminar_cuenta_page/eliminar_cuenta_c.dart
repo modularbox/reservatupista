@@ -1,36 +1,18 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/widgets/alert_eliminar_cuenta_p.dart';
-import 'package:reservatu_pista/backend/server_node.dart/usuario_node.dart';
+import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
 import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import '../../../routes/models/proveedor_model.dart';
 import '../../../routes/models/usuario_model.dart';
-// import 'dart:html' as html;
 
-// class UserProvider extends GetConnect {
-//   // Get request
-//   Future<Response> getUser(int id) => get('http://youapi/users/$id');
-//   // Post request
-//   Future<Response> postUser(Map data) => post('http://youapi/users', data);
-//   // Post request with File
-//   Future<Response<CasesModel>> postCases(List<int> image) {
-//     final form = FormData({
-//       'file': MultipartFile(image, filename: 'avatar.png'),
-//       'otherFile': MultipartFile(image, filename: 'cover.png'),
-//     });
-//     return post('http://youapi/users/upload', form);
-//   }
-
-//   GetSocket userMessages() {
-//     return socket('https://yourapi/users/socket');
-//   }
-// }
 class EliminarCuentaController extends GetxController
     with GetTickerProviderStateMixin {
   /// Obtener la pagina 0 Usuario, 1 Proveedor
@@ -80,16 +62,38 @@ class EliminarCuentaController extends GetxController
   String id = '';
   String token = '';
 
+  /// Obtener los parametros de la url
+
+  // Obtener los parámetros de la URL
+  Map<String, String> queryParams = Uri.base.queryParameters;
+
   @override
   void onInit() async {
     super.onInit();
-    // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
     animTerminosProveedor = animVibrate(vsync: this);
+
+    // onInitForm();
     debounce(passwordVisibility, (_) => passwordVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    if (queryParams['id'] != null &&
+        queryParams['user'] != null &&
+        queryParams['token'] != null &&
+        queryParams['email'] != null) {
+      //Example id=1&user=4&token=32434dassa&email=jfdbsi233#53fjsdf
+      token = queryParams['token']!;
+      id = queryParams['id']!;
+      Get.dialog(AlertEliminarCuentaWidget(
+          user: int.parse(queryParams['user']!), email: queryParams['email']!));
+    }
   }
 
   // Pruebas para la app
@@ -111,7 +115,7 @@ class EliminarCuentaController extends GetxController
           alertSubtitle: richSubtitle(result.messageError()),
           textButton: "Cerrar",
           alertType: TypeGeneralDialog.SUCCESS,
-          // onPressed: () => {html.window.location.reload()},
+          onPressed: () => Get.offAllNamed(Routes.LOGIN_USUARIO),
         ));
       } else {
         Get.dialog(ChangeDialogGeneral(
@@ -158,7 +162,10 @@ class EliminarCuentaController extends GetxController
         if (result is UsuarioModel) {
           id = result.idUsuario.toString();
           token = result.token;
-          Get.dialog(AlertEliminarCuentaWidget(user: 0));
+          Get.dialog(AlertEliminarCuentaWidget(
+            user: 0,
+            email: emailUsuarioController.text,
+          ));
         } else if (result is MessageError) {
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Usuario"),
@@ -201,7 +208,10 @@ class EliminarCuentaController extends GetxController
         if (result is ProveedorModel) {
           id = result.idProveedor.toString();
           token = result.token;
-          Get.dialog(AlertEliminarCuentaWidget(user: 1));
+          Get.dialog(AlertEliminarCuentaWidget(
+            user: 1,
+            email: emailProveedorController.text,
+          ));
         } else if (result is MessageError) {
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Proveedor"),

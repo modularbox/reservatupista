@@ -69,21 +69,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     alignment: AlignmentDirectional(0, 0),
                     child: AppBarLoginWidget(),
                   ),
-                  MaterialButton(
-                    color: Colors.blue,
-                    onPressed: () => Get.toNamed(Routes.PAGO_TPV),
-                    splashColor: Colors.blueGrey,
-                    child: const Text(
-                      'Ir al pago tpv',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
                   Container(
                     width: MediaQuery.sizeOf(context).width * kWidthPercentage,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       minWidth: 500, // Ajusta este valor según tus necesidades
                     ),
                     child: Column(

@@ -4,17 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:reservatu_pista/backend/server_node/datos_server.dart';
+import 'package:reservatu_pista/backend/server_node/subir_image_node.dart';
+import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node.dart/subir_image_node.dart';
-import '../../../../backend/server_node.dart/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
+import '../../../routes/app_pages.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/usuario_model.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import 'package:image/image.dart' as img;
 
 enum ImagenType { network, file, asset }
@@ -26,7 +30,7 @@ class TiposImagenes {
 }
 
 class DatosUsuarioController extends GetxController
-    with GetTickerProviderStateMixin {
+    with SingleGetTickerProviderMixin {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
   // Datos de la api datos del usuario
@@ -83,7 +87,10 @@ class DatosUsuarioController extends GetxController
   RxBool checkboxTerminos = false.obs;
   RxBool validateCheckbox = false.obs;
   RxBool validateExisteNick = false.obs;
-  bool modificarDatos = false;
+  RxBool modificarDatos = false.obs;
+
+  /// Verificar si se modificaron datos para actualizar el perfil
+  bool seModificaronDatos = false;
 
   RxString nick = ''.obs;
   late AnimationController animTerminos;
@@ -104,9 +111,54 @@ class DatosUsuarioController extends GetxController
     animTerminos = animVibrate(vsync: this);
   }
 
+  void onOpenDialogEliminarCuenta() async {
+    final storage = await SharedPreferences.getInstance();
+    final String parametros =
+        '?id=${storage.idUsuario.read()}&user=0&token=${storage.token.read()}&email=${emailController.text}';
+    Get.toNamed(Routes.ELIMINAR_CUENTA + parametros);
+    Get.dialog(LinkDialog(
+      alertTitle: richTitleLink(
+          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
+          fontSize: 20.0),
+      alertSubtitle: richSubtitleLink(
+          'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
+      urlLink: 'https://app.reservatupista.com/eliminar_cuenta/$parametros',
+    ));
+  }
+
   getDatosUsuario() async {
     try {
-      final result = await UsuarioNode().getUsuarioNode('1');
+      final storage = await SharedPreferences.getInstance();
+      final List<TypeDatosServer> listTypes = [
+        TypeDatosServer.apellidos,
+        TypeDatosServer.nombre,
+        TypeDatosServer.nick,
+        TypeDatosServer.nivel,
+        TypeDatosServer.nombre,
+        TypeDatosServer.apellidos,
+        TypeDatosServer.sexo,
+        TypeDatosServer.DNI,
+        TypeDatosServer.lada,
+        TypeDatosServer.telefono,
+        TypeDatosServer.email,
+        TypeDatosServer.empadronamiento,
+        TypeDatosServer.comunidad_de_vecinos,
+        TypeDatosServer.direccion,
+        TypeDatosServer.codigo_postal,
+        TypeDatosServer.localidad,
+        TypeDatosServer.provincia,
+        TypeDatosServer.comunidad,
+        TypeDatosServer.nick,
+        TypeDatosServer.nivel,
+        TypeDatosServer.posicion,
+        TypeDatosServer.marca_pala,
+        TypeDatosServer.modelo_pala,
+        TypeDatosServer.juegos_semana,
+        TypeDatosServer.foto,
+      ];
+      final result =
+          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
+      // final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
         final List<String> listLada = [
           '🇪🇸 +34',
@@ -130,7 +182,7 @@ class DatosUsuarioController extends GetxController
         empadronamientoController.text = result.empadronamiento;
         comunidadVecinosController.text = result.comunidadDeVecinos;
         direccionController.text = result.direccion;
-        codigoPostalController.text = result.codigoPostal.toString();
+        codigoPostalController.text = result.codigoPostal;
         localidadController.text = result.localidad;
         provinciaController.text = result.provincia;
         comunidadController.text = result.comunidad;
@@ -425,22 +477,38 @@ class DatosUsuarioController extends GetxController
         }
 
         if (datosModificados.isNotEmpty) {
-          await UsuarioNode().modificarUsuarioNode(
+          final result = await UsuarioNode().modificarUsuarioNode(
               usuarioModel!.idUsuario, datosSQL, datosModificados);
+          if (result.code == 2000) {
+            await Get.dialog(RichAlertDialog(
+              alertTitle: richTitle("Datos usuario"),
+              alertSubtitle: richSubtitle(result.message),
+              textButton: "Aceptar",
+              alertType: RichAlertType.SUCCESS,
+              onPressed: Get.back,
+            ));
+            seModificaronDatos = true;
+          } else {
+            await Get.dialog(RichAlertDialog(
+              alertTitle: richTitle("Datos usuario"),
+              alertSubtitle: richSubtitle(result.messageError()),
+              textButton: "Aceptar",
+              alertType: RichAlertType.WARNING,
+              onPressed: Get.back,
+            ));
+          }
+        } else {
+          await Get.dialog(RichAlertDialog(
+            alertTitle: richTitle("Datos usuario"),
+            alertSubtitle: richSubtitle(
+                "Los datos del usuario\nse han modificado correctamente."),
+            textButton: "Aceptar",
+            alertType: RichAlertType.SUCCESS,
+            onPressed: () {
+              Get.back();
+            },
+          ));
         }
-
-        /// Regresar al inicio y enviar el email.
-        await Get.dialog(RichAlertDialog(
-          //uses the custom alert dialog
-          alertTitle: richTitle("Datos usuario"),
-          alertSubtitle: richSubtitle(
-              "Los datos del usuario\nse han modificado correctamente."),
-          textButton: "Aceptar",
-          alertType: RichAlertType.SUCCESS,
-          onPressed: () {
-            Get.back();
-          },
-        ));
       } catch (e) {
         print(e);
       }
@@ -485,7 +553,9 @@ class DatosUsuarioController extends GetxController
         /// Actualizar Image
         db.imageServer.value =
             '${UsuarioNode().getImageUsuarioNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
-        print(db.imageServer);
+
+        final storage = await SharedPreferences.getInstance();
+        storage.foto.write(db.imageServer.value);
         print('Seactualizo');
       } catch (e) {
         print(e);

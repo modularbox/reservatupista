@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
-import 'package:reservatu_pista/backend/server_node.dart/usuario_node.dart';
+import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../backend/server_node.dart/proveedor_node.dart';
+import '../../../../backend/server_node/proveedor_node.dart';
 import '../../../../backend/storage/storage.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../routes/app_pages.dart';
@@ -71,8 +71,6 @@ class LoginUsuarioController extends GetxController
   late Storage storageDineroTotalUsuario;
   late Storage storageIdUsuario;
   late Storage storageIdProveedor;
-  late Storage storageTokenUsuario;
-  late Storage storageTokenProveedor;
 
   @override
   void onInit() async {
@@ -97,8 +95,6 @@ class LoginUsuarioController extends GetxController
           Storage(TypeStorage.passwordProveedor, getStorage);
       storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
       storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-      storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
-      storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
       storageDineroTotalUsuario = Storage(TypeStorage.dineroTotal, getStorage);
 
       // Usuario
@@ -150,10 +146,10 @@ class LoginUsuarioController extends GetxController
           // Si el usuario existe guardamos el id para futuras peticiones
           storageIdUsuario.write(result.idUsuario);
           // Guardar el token
-          storageTokenUsuario.write(result.token);
+          storage.token.write(result.token);
           // Guardar el token
           storageDineroTotalUsuario.write(result.dineroTotal);
-          storage.fotoUsuario.write(result.foto);
+          storage.foto.write(result.foto);
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
             await storagePasswordUsuario.write(passwordUsuarioController.text);
@@ -193,8 +189,11 @@ class LoginUsuarioController extends GetxController
         if (result is ProveedorModel) {
           // Si el usuario existe guardamos el id para futuras peticiones
           storageIdProveedor.write(result.idProveedor);
+          final storage = await SharedPreferences.getInstance();
           // Guardar el token
-          storageTokenProveedor.write(result.token);
+          storage.token.write(result.token);
+          // Guardar el Club
+          storage.idClub.write(result.idClub);
           // Si es recordar contrasena
           if (checkboxValueRecordarProveedor.value) {
             storagePasswordProveedor.write(passwordProveedorController.text);
