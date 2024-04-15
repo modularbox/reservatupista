@@ -7,10 +7,16 @@ import 'package:reservatu_pista/utils/format_date.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../routes/models/mis_pistas_model.dart';
+import 'Socio.dart';
 
 class MisSociosController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  final RxBool selected = false.obs;
   final unfocusNode = FocusNode();
+  /*final List socios = [
+    Socio("José Martinez Durán", "NickUno", "123456789A", 4.00,
+        "Calle Falsa nº1", 43, "Revés", "Mañana", "jose@reservatupista.com"),
+  ];*/
   // State field(s) for searchBar widget.
   FocusNode? searchBarFocusNode;
   TextEditingController? searchBarController;
@@ -120,15 +126,19 @@ class MisSociosController extends GetxController
     );
   }
 
-  void onChangedCheckbox3(bool? newValue) {
-    checkboxValue3 = newValue!;
-  }
-
   void onCambiarChip(List<String>? val) {
     choiceChipsValue = val?.firstOrNull;
   }
 
   void onChangedCheckbox(bool? newValue) {
+    checkboxValue1 = newValue!;
+  }
+
+  void onChangedCheckbox2(bool? newValue) {
+    checkboxValue1 = newValue!;
+  }
+
+  void onChangedCheckbox3(bool? newValue) {
     checkboxValue1 = newValue!;
   }
 

@@ -1,19 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node/image_server_node.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/widgets/checker.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_choice_chips.dart';
 import 'package:reservatu_pista/flutter_flow/form_field_controller.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
-import 'package:reservatu_pista/utils/colores.dart';
-import 'package:reservatu_pista/utils/loader/color_loader.dart';
-import 'package:reservatu_pista/utils/sizer.dart';
-import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
-import '../../../routes/models/mis_pistas_model.dart';
 import 'mis_socios_c.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'widgets/popup_datos_socios2.dart';
@@ -207,674 +204,54 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                         wrapped: false,
                       ),
                     ),
-                    Builder(
-                      builder: (context) => Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            Get.dialog(const DatosSocio2Widget());
-                            /* await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: AlignmentDirectional(0, 0)
-                                      .resolve(Directionality.of(context)),
-                                  child: GestureDetector(
-                                    onTap: () => _model
-                                            .unfocusNode.canRequestFocus
-                                        ? FocusScope.of(context)
-                                            .requestFocus(_model.unfocusNode)
-                                        : FocusScope.of(context).unfocus(),
-                                    child: DatosSocio2Widget(),
-                                  ),
-                                );
-                              },
-                            ).then((value) => setState(() {}));
-                          */
-                          },
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: Container(
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 4,
-                                    color: Color(0x230E151B),
-                                    offset: Offset(
-                                      0.0,
-                                      2,
-                                    ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(24),
-                                border: Border.all(
-                                  color: LightModeTheme().successGeneral,
-                                  width: 4,
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: const AlignmentDirectional(
-                                        -0.96, -1.32),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              2, 15, 0, 0),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(24),
-                                        child: Image.network(
-                                          'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
-                                          width: 44,
-                                          height: 44,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment:
-                                        const AlignmentDirectional(0, -0.61),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              60, 0, 12, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Martínez Durán, José',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          color: const Color(
-                                                              0xFF14181B),
-                                                          fontSize: 16,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
-                                              Theme(
-                                                data: ThemeData(
-                                                  checkboxTheme:
-                                                      CheckboxThemeData(
-                                                    visualDensity:
-                                                        VisualDensity.compact,
-                                                    materialTapTargetSize:
-                                                        MaterialTapTargetSize
-                                                            .shrinkWrap,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                    ),
-                                                  ),
-                                                  unselectedWidgetColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryText,
-                                                ),
-                                                child: Checkbox(
-                                                  value: _model
-                                                      .checkboxValue1 ??= false,
-                                                  onChanged: (newValue) async {
-                                                    _model.onChangedCheckbox(
-                                                        newValue);
-                                                  },
-                                                  side: BorderSide(
-                                                    width: 2,
-                                                    color: LightModeTheme()
-                                                        .secondaryText,
-                                                  ),
-                                                  activeColor: LightModeTheme()
-                                                      .proveedor,
-                                                  checkColor:
-                                                      LightModeTheme().info,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            'NickUno',
-                                            style: LightModeTheme()
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Nivel: 4.00',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      letterSpacing: 0,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            'Partidas jugadas: 48',
-                                            style: LightModeTheme()
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ).animateOnPageLoad(_model
-                            .animationsMap['containerOnPageLoadAnimation1']!),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 4,
-                                color: Color(0x230E151B),
-                                offset: Offset(
-                                  0.0,
-                                  2,
-                                ),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                              color: LightModeTheme().successGeneral,
-                              width: 4,
-                            ),
-                          ),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment:
-                                    const AlignmentDirectional(-0.96, -1.32),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      2, 15, 0, 0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(24),
-                                    child: Image.network(
-                                      'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxmYWNlJTIwY2xvc2UlMjB8ZW58MHx8fHwxNzExNDY5NTAwfDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                      width: 44,
-                                      height: 44,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(0, -0.61),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      60, 0, 12, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Martinez Soria, Manolo',
-                                            style: LightModeTheme()
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  color:
-                                                      const Color(0xFF14181B),
-                                                  fontSize: 16,
-                                                  letterSpacing: 0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                          Theme(
-                                            data: ThemeData(
-                                              checkboxTheme: CheckboxThemeData(
-                                                visualDensity:
-                                                    VisualDensity.compact,
-                                                materialTapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                              ),
-                                              unselectedWidgetColor:
-                                                  LightModeTheme()
-                                                      .secondaryText,
-                                            ),
-                                            child: Checkbox(
-                                              value: _model.checkboxValue2 ??=
-                                                  false,
-                                              onChanged: (newValue) async {
-                                                // // // setState(() =>
-                                                // // //     _model.checkboxValue2 =
-                                                // // //         newValue!);
-                                              },
-                                              side: BorderSide(
-                                                width: 2,
-                                                color: LightModeTheme()
-                                                    .secondaryText,
-                                              ),
-                                              activeColor:
-                                                  LightModeTheme().proveedor,
-                                              checkColor: LightModeTheme().info,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        'NickDos',
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Nivel: 4.00',
-                                            style: LightModeTheme()
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        'Partidas jugadas: 7',
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ).animateOnPageLoad(_model
-                          .animationsMap['containerOnPageLoadAnimation2']!),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 4,
-                                color: Color(0x230E151B),
-                                offset: Offset(
-                                  0.0,
-                                  2,
-                                ),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                              color: LightModeTheme().successGeneral,
-                              width: 4,
-                            ),
-                          ),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment:
-                                    const AlignmentDirectional(-0.96, -1.32),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      2, 15, 0, 0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(24),
-                                    child: Image.network(
-                                      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxmYWNlJTIwY2xvc2UlMjB1cHxlbnwwfHx8fDE3MTE0Njk1NzZ8MA&ixlib=rb-4.0.3&q=80&w=400',
-                                      width: 44,
-                                      height: 44,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(0, -0.61),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      60, 0, 12, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'García García, Isabel',
-                                            style: LightModeTheme()
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  color:
-                                                      const Color(0xFF14181B),
-                                                  fontSize: 16,
-                                                  letterSpacing: 0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                          Theme(
-                                            data: ThemeData(
-                                              checkboxTheme: CheckboxThemeData(
-                                                visualDensity:
-                                                    VisualDensity.compact,
-                                                materialTapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                              ),
-                                              unselectedWidgetColor:
-                                                  LightModeTheme()
-                                                      .secondaryText,
-                                            ),
-                                            child: Checkbox(
-                                              value: _model.checkboxValue3 ??=
-                                                  false,
-                                              onChanged: (newValue) async {
-                                                _model.onChangedCheckbox3(
-                                                    newValue);
-                                              },
-                                              side: BorderSide(
-                                                width: 2,
-                                                color: LightModeTheme()
-                                                    .secondaryText,
-                                              ),
-                                              activeColor:
-                                                  LightModeTheme().proveedor,
-                                              checkColor: LightModeTheme().info,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        'NickTres',
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Nivel: 4.00',
-                                            style: LightModeTheme()
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        'Partidas jugadas: 24',
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Builder(
-                      builder: (context) => Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              Get.dialog(const DatosSocio2Widget());
-                            },
-                            /*onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: AlignmentDirectional(0, 0)
-                                      .resolve(Directionality.of(context)),
-                                  child: GestureDetector(
-                                    onTap: () => _model
-                                            .unfocusNode.canRequestFocus
-                                        ? FocusScope.of(context)
-                                            .requestFocus(_model.unfocusNode)
-                                        : FocusScope.of(context).unfocus(),
-                                    child: DatosSocio2Widget(),
-                                  ),
-                                );
-                              },
-                            ).then((value) => setState(() {}));
-                          },*/
-                            child: Material(
-                              color: Colors.transparent,
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: Container(
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 4,
-                                      color: Color(0x230E151B),
-                                      offset: Offset(
-                                        0.0,
-                                        2,
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(
-                                    color: const Color(0x23FFA500),
-                                    width: 4,
-                                  ),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment: const AlignmentDirectional(
-                                          -0.96, -1.32),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(2, 15, 0, 0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(24),
-                                          child: Image.network(
-                                            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzExNDY5NTc2fDA&ixlib=rb-4.0.3&q=80&w=400',
-                                            width: 44,
-                                            height: 44,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0, -0.61),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(60, 0, 12, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          -1, 0),
-                                                  child: Text(
-                                                    'NickCuatro',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          color: const Color(
-                                                              0xFF14181B),
-                                                          fontSize: 16,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  ' ',
-                                                  style: LightModeTheme()
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              'Partidas jugadas: 2',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )),
-                    ),
+                    buildSocio(
+                        "José Martínez Durán",
+                        "NickUno",
+                        "Nivel: 4.00",
+                        "Partidas jugadas: 48",
+                        'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
+                        LightModeTheme().successGeneral,
+                        1),
+                    buildSocio(
+                        "José Martínez Durán",
+                        "NickUno",
+                        "Nivel: 4.00",
+                        "Partidas jugadas: 48",
+                        'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
+                        LightModeTheme().successGeneral,
+                        1),
+                    buildSocio(
+                        "José Martínez Durán",
+                        "NickUno",
+                        "Nivel: 4.00",
+                        "Partidas jugadas: 48",
+                        'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
+                        LightModeTheme().successGeneral,
+                        1),
+                    buildSocio(
+                        "Manolo Martinez Soria",
+                        "NickDos",
+                        "Nivel 4.00",
+                        "Partidas jugadas: 7",
+                        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxmYWNlJTIwY2xvc2UlMjB8ZW58MHx8fHwxNzExNDY5NTAwfDA&ixlib=rb-4.0.3&q=80&w=1080',
+                        LightModeTheme().successGeneral,
+                        2),
+                    buildSocio(
+                        "Isabel García García",
+                        "NickTres",
+                        "Nivel: 4.00",
+                        "Partidas jugadas: 24",
+                        'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxmYWNlJTIwY2xvc2UlMjB1cHxlbnwwfHx8fDE3MTE0Njk1NzZ8MA&ixlib=rb-4.0.3&q=80&w=400',
+                        LightModeTheme().successGeneral,
+                        3),
+                    buildSocio(
+                        "NickCuatro",
+                        "",
+                        "",
+                        "Partidas jugadas: 2",
+                        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzExNDY5NTc2fDA&ixlib=rb-4.0.3&q=80&w=400",
+                        LightModeTheme().errorGeneral,
+                        4),
                   ],
                 ),
               ),
@@ -883,5 +260,163 @@ class ListaSociosWidget extends GetView<MisSociosController> {
         ),
       ),
     );
+  }
+
+  Widget buildSocio(
+      String nombre,
+      String nick,
+      String nivel,
+      String partidasJugadas,
+      String urlImagen,
+      Color colorBorde,
+      int posicion) {
+    return Builder(
+        builder: (context) => Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  Get.dialog(const DatosSocio2Widget());
+                },
+                child: Material(
+                  color: Colors.transparent,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Container(
+                    height: 110,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Color(0x230E151B),
+                          offset: Offset(
+                            0.0,
+                            2,
+                          ),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: colorBorde,
+                        width: 4,
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-0.96, -1.32),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(2, 15, 0, 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(24),
+                              child: Image.network(
+                                urlImagen,
+                                width: 44,
+                                height: 44,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0, -0.61),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(60, 5, 12, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      nombre,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF14181B),
+                                            fontSize: 16,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                    Transform.scale(
+                                      scaleX: 1.5,
+                                      scaleY: 1.5,
+                                      child: Theme(
+                                        data: ThemeData(
+                                            checkboxTheme: CheckboxThemeData(
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                            ),
+                                            unselectedWidgetColor:
+                                                Colors.black),
+                                        child: Checker(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  nick,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        letterSpacing: 0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      nivel,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  partidasJugadas,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        letterSpacing: 0,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ));
   }
 }
