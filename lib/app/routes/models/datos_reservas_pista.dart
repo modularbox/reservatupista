@@ -143,39 +143,50 @@ class Semana {
 class Pista {
   String name;
   String image;
-  List<Horario> horarios;
 
   Pista({
     required this.name,
     required this.image,
-    required this.horarios,
   });
 
   factory Pista.fromJson(Map<String, dynamic> json) => Pista(
         name: json["name"],
         image: json["image"],
-        horarios: List<Horario>.from(
-            json["horarios"].map((x) => Horario.fromJson(x))),
       );
+  /*List<Horario>.from(
+            json["horarios"].map((x) => Horario.fromJson(x))) */
 
+/*List<Horario>.from(json["horarios"].map((x) =>
+            Horario(horario: '13:00', estatus: TypeEstadoHorario.abierta))),*/
   Map<String, dynamic> toJson() => {
         "name": name,
         "image": image,
-        "horarios": List<dynamic>.from(horarios.map((x) => x.toJson())),
       };
 }
 
 class Horario {
   String horario;
   TypeEstadoHorario estatus;
-
-  Horario({
-    required this.horario,
-    required this.estatus,
-  });
+  int? precio_con_luz_socio;
+  int? precio_con_luz_no_socio;
+  int? precio_sin_luz_socio;
+  int? precio_sin_luz_no_socio;
+  bool luces;
+  Horario(
+      {required this.horario,
+      required this.estatus,
+      required this.precio_con_luz_no_socio,
+      required this.precio_con_luz_socio,
+      required this.precio_sin_luz_no_socio,
+      required this.precio_sin_luz_socio,
+      this.luces = false});
 
   factory Horario.fromJson(Map<String, dynamic> json) {
-    late TypeEstadoHorario typeEstado;
+    final TypeEstadoHorario typeEstado;
+    int precio_con_luz_socio;
+    int precio_con_luz_no_socio;
+    int precio_sin_luz_socio;
+    int precio_sin_luz_no_socio;
     switch (json["estatus"]) {
       case 'reservadaParcial':
         typeEstado = TypeEstadoHorario.reservadaParcial;
@@ -193,10 +204,22 @@ class Horario {
         typeEstado = TypeEstadoHorario.cerrada;
         break;
     }
+
+    precio_con_luz_socio = json["precio_con_luz_socio"] ?? 2;
+    precio_con_luz_no_socio = json["precio_con_luz_no_socio"] ?? 2;
+    precio_sin_luz_socio = json["precio_sin_luz_socio"] ?? 2;
+    precio_sin_luz_no_socio = json["precio_sin_luz_no_socio"] ?? 2;
+    print('precio_con_luz_sociooo $precio_con_luz_socio');
+    print(22343242342);
+    print(11111111);
+    print('json["horario"] ${json["horario"]}');
     return Horario(
-      horario: json["horario"],
-      estatus: typeEstado,
-    );
+        horario: json["horario"],
+        estatus: typeEstado,
+        precio_con_luz_no_socio: precio_con_luz_no_socio,
+        precio_con_luz_socio: precio_con_luz_socio,
+        precio_sin_luz_no_socio: precio_sin_luz_no_socio,
+        precio_sin_luz_socio: precio_sin_luz_socio);
   }
 
   Map<String, dynamic> toJson() => {

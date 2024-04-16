@@ -30,7 +30,6 @@ abstract class FlutterFlowTheme {
   late Color success;
   late Color warning;
   late Color error;
-  late Color redAccend1;
   late Color info;
 
   late Color lineColor;

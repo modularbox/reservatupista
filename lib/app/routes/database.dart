@@ -179,6 +179,7 @@ class DatabaseController extends GetxController {
 
       if (result is UsuarioModel) {
         dineroTotal = result.dineroTotal;
+        storage.dineroTotal.write(dineroTotal);
         dineroTotalEuros = ((dineroTotal) / 100).toStringAsFixed(2);
         print('dineroTotalEuros $dineroTotalEuros');
         print('eeeeeeeeeeeeeeeeeeeeeeeeeeeee');

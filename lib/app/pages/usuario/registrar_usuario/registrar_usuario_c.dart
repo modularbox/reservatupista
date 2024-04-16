@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/backend/server_node/usuario_existe_nick.dart';
+import 'package:reservatu_pista/app/routes/models/geonames_model.dart';
+import 'package:reservatu_pista/backend/server_node/geonames_node.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
-import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../backend/server_node/subir_image_node.dart';
 import '../../../../backend/server_node/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
@@ -15,7 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
-import '../../../widgets/terminos_condiciones.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:image/image.dart' as img;
@@ -23,7 +22,7 @@ import 'package:image/image.dart' as img;
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class RegistrarUsuarioController extends GetxController
-    with GetTickerProviderStateMixin, StateMixin<bool> {
+    with SingleGetTickerProviderMixin, StateMixin<bool> {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
 
@@ -83,7 +82,10 @@ class RegistrarUsuarioController extends GetxController
   // RxBool validateCheckbox = false.obs;
   RxBool validateExisteNick = false.obs;
 
+  // Verificar si existe nick
   RxString nick = ''.obs;
+  // Verificar si existe email
+  RxString email = ''.obs;
   late AnimationController animTerminos;
   Rx<String?> imageFile = Rx<String?>(null);
   late ButtonsPage btns;
@@ -121,7 +123,7 @@ class RegistrarUsuarioController extends GetxController
   // }
 
   llenadoAutomatico() {
-    nombreController.text = 'Nombre Fiticio';
+    nombreController.text = 'Alvaro';
     apellidosController.text = 'Apellido Fiticio';
     sexoController.text = 'Hombre';
     dniController.text = '12345678D';
@@ -133,15 +135,19 @@ class RegistrarUsuarioController extends GetxController
     localidadController.text = 'Localidad';
     provinciaController.text = 'Provincia';
     comunidadController.text = 'Comunidad';
-    nickController.text = 'ficticio1';
-    contrasenaComprobarController.text = '55r452df#';
-    contrasenaController.text = '55r452df#';
+    nickController.text = 'alvaro1';
+    contrasenaComprobarController.text = '12345678';
+    contrasenaController.text = '12345678';
   }
 
-  /// Loading Codigo Postal
+  /// Loading Nick
   void loadingNick(String val) {
-    change(null, status: RxStatus.loading());
-    nick.value = val;
+    if (val.isEmpty) {
+      change(null, status: RxStatus.empty());
+    } else {
+      change(null, status: RxStatus.loading());
+      nick.value = val;
+    }
   }
 
   /// Existe el Nick
@@ -149,7 +155,7 @@ class RegistrarUsuarioController extends GetxController
     // Muestra el estado de carga
     change(null, status: RxStatus.loading());
     try {
-      final existe = await getUsuarioExisteNick(nick);
+      final existe = await UsuarioNode().getUsuarioExisteNick(nick);
       change(existe, status: RxStatus.success());
     } catch (error) {
       // En caso de error, muestra el mensaje de error
@@ -163,8 +169,8 @@ class RegistrarUsuarioController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await getDireccionNominatim(codigoPostal);
-        if (direccion is DireccionNominatim) {
+        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        if (direccion is GeoNamesModel) {
           localidadController.text = direccion.localidad;
           comunidadController.text = direccion.comunidad;
           provinciaController.text = direccion.provincia;
@@ -177,6 +183,9 @@ class RegistrarUsuarioController extends GetxController
         apiCodigoPostal.change(false, RxStatusDemo.success());
       }
     } else {
+      localidadController.text = '';
+      comunidadController.text = '';
+      provinciaController.text = '';
       apiCodigoPostal.changeStatus(RxStatusDemo.empty());
     }
   }
@@ -204,6 +213,7 @@ class RegistrarUsuarioController extends GetxController
             isSelect: true,
             anim: animVibrate(vsync: this),
             listSelect: ['Hombre', 'Mujer'],
+            isRequired: false,
             maxLength: 10),
         dni: PropertiesTextField(
             labelText: 'DNI',
@@ -211,6 +221,7 @@ class RegistrarUsuarioController extends GetxController
             textEditingController: dniController,
             anim: animVibrate(vsync: this),
             maxLength: 9,
+            isRequired: false,
             inputFormatters: [SinEspaciosInputFormatter(), DNI8digitos1Letra()],
             onValidate: (val) => val!.length != 9 ? '' : null),
         lada: PropertiesTextField(
@@ -259,9 +270,9 @@ class RegistrarUsuarioController extends GetxController
             isRequired: false),
         direccion: PropertiesTextField(
             labelText: 'Dirección',
-            // focusNode: FocusNode(),
             textEditingController: direccionController,
             anim: animVibrate(vsync: this),
+            isRequired: false,
             maxLength: 50),
         codigoPostal: PropertiesTextField(
             labelText: 'Código Postal',
@@ -277,18 +288,24 @@ class RegistrarUsuarioController extends GetxController
             // focusNode: FocusNode(),
             textEditingController: localidadController,
             anim: animVibrate(vsync: this),
+            enabled: false,
+            isRequired: false,
             maxLength: 50),
         comunidad: PropertiesTextField(
             labelText: 'Comunidad',
             // focusNode: FocusNode(),
             textEditingController: comunidadController,
             anim: animVibrate(vsync: this),
+            enabled: false,
+            isRequired: false,
             maxLength: 50),
         provincia: PropertiesTextField(
             labelText: 'Provincia',
             // focusNode: FocusNode(),
             textEditingController: provinciaController,
             anim: animVibrate(vsync: this),
+            enabled: false,
+            isRequired: false,
             maxLength: 50),
       ).listProperty();
   DatosJuegoNamesTextField datosJuego() => DatosJuegoNamesTextField(
@@ -665,6 +682,7 @@ class PropertiesTextField {
       this.onValidate,
       this.listSelect,
       this.inputFormatters,
+      this.enabled = true,
       this.isRequired = true});
 
   final String labelText;
@@ -678,6 +696,7 @@ class PropertiesTextField {
   final bool isRequired;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? onValidate;
+  final bool enabled;
 
   String? validateTextField(String? text) {
     if (text == null || text.isEmpty) {
@@ -799,7 +818,7 @@ class DatosContrasenaTextField {
           maxLength: 15,
           textEditingController: contrasenaController),
       comprobarContrasena: PropertiesTextField(
-          labelText: 'Comprobar contraseña',
+          labelText: 'Comprobar Contraseña',
           anim: animVibrate(vsync: tick),
           maxLength: 15,
           textEditingController: contrasenaController2),

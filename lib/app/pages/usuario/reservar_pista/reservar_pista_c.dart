@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/backend/server_node/reservas_node.dart';
-
 import 'dart:convert';
 
 extension ExtDateTime on DateTime {
@@ -32,6 +33,10 @@ class HorarioFinInicio {
 
 class ReservarPistaController extends GetxController
     with GetTickerProviderStateMixin {
+  /// Reservas Usuario
+
+  /// Datos usuarios a reservar
+  late Rx<ReservaUsuario> usuario;
   DatabaseController db = Get.find();
   //variable que almacena todas las localidades existentes.
   Rx<List<String>> localidades = Rx<List<String>>([]);
@@ -41,44 +46,40 @@ class ReservarPistaController extends GetxController
   Rx<String> id_club_seleccionado = Rx<String>('');
   Map<String, String> mapClubes = {};
   Rx<List<String>> deportes = Rx<List<String>>([]);
-  Map<String, String> mapDeportes = {};
   Rx<String> deporte_seleccionado = Rx<String>('');
 
   Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
   Rx<int> id_pista_seleccionada = Rx<int>(0);
-  Rx<String> hora_apertura_pista = Rx<String>('');
-  Rx<String> hora_cierre_pista = Rx<String>('');
-  Rx<String> duracion_partida = Rx<String>('');
-  Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
-  Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
-  Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
-  //para almacenar las plazas que quiere reservar el usuario a la hora de reservar pista
 
-  Rx<int> plazas_a_reservar = Rx<int>(0);
+  Rx<bool> pista_automatizada = Rx<bool>(false);
+  Rx<bool> pista_con_luces = Rx<bool>(false);
+
+  Rx<int> duracion_partida = Rx<int>(0);
+  Rx<DateTime> fecha_seleccionada = Rx<DateTime>(DateTime.now());
+  Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
+  Rx<int> plazas_a_reservar = Rx<int>(1);
   Rx<int?> selectLocalidad = Rx<int?>(null);
-  Rx<int?> selectClub = Rx<int?>(null);
-  Rx<int?> selectDeporte = Rx<int?>(null);
-  // Rx<int?> selectedDay = Rx<int?>(null);
+  Rx<String> localidad_seleccionada = Rx<String>('');
   Rx<int?> selectPista = Rx<int?>(null);
   Rx<int?> selectDay = Rx<int?>(null);
   Rx<String?> selectedItemDeporte = Rx<String?>(null);
+  Rx<int> precio_con_luz_socio = Rx<int>(0);
+  Rx<int> precio_con_luz_no_socio = Rx<int>(0);
+  Rx<int> precio_sin_luz_socio = Rx<int>(0);
+  Rx<int> precio_sin_luz_no_socio = Rx<int>(0);
+  Rx<int> precio_elegido = Rx<int>(0);
+  Rx<int> precio_a_mostrar = Rx<int>(
+      0); //PRECIO QUE SE MOSTRARÁ AL USUARIO A LA HORA DE RESERVAR ALGUNA PISTA. Se calcula multiplicando el precio obtenido de la reserva por las plazas que se va a reservar
+
+  late SharedPreferences storage;
   // Cancelar la reserva
   RxBool cancelarReserva = false.obs;
 
   Rx<HorarioFinInicio?> selectHorario = Rx<HorarioFinInicio?>(null);
   final ScrollController scrollController = ScrollController();
   Rx<DateTime?> selectDateDay = Rx<DateTime?>(null);
-  late List<DateTime?> singleDatePickerValueWithDefaultValue;
-  RxList<bool> listReservas = [false, false, false, false].obs;
-  TextEditingController localidadController = TextEditingController();
-  FocusNode localidadFocusNode = FocusNode();
   TextEditingController deporteController = TextEditingController();
   FocusNode deporteFocusNode = FocusNode();
-  TextEditingController PistaController = TextEditingController();
-  FocusNode PistaFocusNode = FocusNode();
-  TextEditingController nPistaController = TextEditingController();
-  FocusNode nPistaFocusNode = FocusNode();
   TextEditingController clubController = TextEditingController();
   FocusNode clubFocusNode = FocusNode();
   TextEditingController codigoDescuentoController = TextEditingController();
@@ -90,9 +91,7 @@ class ReservarPistaController extends GetxController
   GlobalKey keyPistas = GlobalKey();
   GlobalKey keyDatos = GlobalKey();
 
-  int diaHoy = 0;
   RxBool terms = false.obs;
-  RxDouble totalHeight = 0.0.obs;
   RxDouble sizedBoxHeight = 0.0.obs;
   late DateTime fechaActual;
   late List<DateTime> tiempoReservaListaCalendar;
@@ -104,10 +103,16 @@ class ReservarPistaController extends GetxController
   final Rx<ReservasUsuarios?> reservas_usuarios = Rx<ReservasUsuarios?>(null);
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     generarListaLocalidades();
     fechaActual = DateTime.now();
+    storage = await SharedPreferences.getInstance();
+    usuario = Rx<ReservaUsuario>(ReservaUsuario(
+        idUsuario: storage.idUsuario.read(),
+        nick: storage.nick.read(),
+        imagen: storage.foto.read(),
+        plazasReservadas: 1));
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
@@ -174,8 +179,8 @@ class ReservarPistaController extends GetxController
         }
       }
     }, time: const Duration(milliseconds: 50));
-    singleDatePickerValueWithDefaultValue = [fechaActual];
-    diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
+    // singleDatePickerValueWithDefaultValue = [fechaActual];
+    // diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
     tiempoReservaListaCalendar = getListaHorarios();
   }
   //funcion para obtener lista con todas las localidades
@@ -191,6 +196,7 @@ class ReservarPistaController extends GetxController
           await ReservasNode().obtenerPlazasLibres(idPista, fecha, horaInicio);
       if (result is ReservasUsuarios) {
         reservas_usuarios.value = result;
+        print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
       }
     } catch (e) {
       print(e);
@@ -290,11 +296,20 @@ class ReservarPistaController extends GetxController
         pistas.value = [];
         return;
       }
+      print('llega akiiii');
+
       // List<dynamic> pistasData = json.decode(pistasJson);
       pistas.value = json.decode(pistasJson);
+      print('llega akiiii22');
+      //POR DEFECTO SIEMPRE COGE COMO SELECCIONADA LA PRIMERA QUE DEVUELVE LA BASE DE DATOS
       id_pista_seleccionada.value = pistas.value[0]['id_pista'];
-      print('id_pista_seleccionada $id_pista_seleccionada');
-      print('pistasData[0] ${pistas.value[0]['id_pista']}');
+      print('id_pista_seleccionada ${id_pista_seleccionada.value}');
+      duracion_partida.value = pistas.value[0]['duracion_partida'];
+      print('duracion_partida.value ${duracion_partida.value}');
+      pista_automatizada.value =
+          (pistas.value[0]['automatizada'] == 1) ? true : false;
+
+      print('pista_automatizadaaa ${pista_automatizada.value}');
       /* List<String> listaPistas = pistasData
           .map<String>((pista) => pista['id_pista'].toString())
           .toList();*/

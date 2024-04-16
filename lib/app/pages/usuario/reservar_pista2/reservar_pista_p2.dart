@@ -599,9 +599,9 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
           status = TypeEstadoHorario.abierta;
           break;
       }
-      array_horarios.add(
-        Horario(horario: datosPistaJson[i]['hora'], estatus: status),
-      );
+      // array_horarios.add(
+      //   Horario(horario: datosPistaJson[i]['hora'], estatus: status),
+      // );
     }
     print('array_horarios $array_horarios');
     return buildHorarios(array_horarios);

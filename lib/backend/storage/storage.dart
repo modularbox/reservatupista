@@ -10,7 +10,8 @@ enum TypeStorage {
   emailUsuario,
   emailProveedor,
   foto,
-  idClub
+  idClub,
+  nick
 }
 
 extension ExtSharedPreferences on SharedPreferences {
@@ -24,6 +25,7 @@ extension ExtSharedPreferences on SharedPreferences {
   Storage get emailProveedor => Storage(TypeStorage.emailProveedor, this);
   Storage get emailUsuario => Storage(TypeStorage.emailUsuario, this);
   Storage get idClub => Storage(TypeStorage.idClub, this);
+  Storage get nick => Storage(TypeStorage.nick, this);
 }
 
 class Storage {

@@ -35,7 +35,6 @@ class InputClubFavorito extends FormField<String> {
     this.isDense = false,
     this.readOnly = true,
     this.enableInteractiveSelection = false,
-    required this.context,
     required this.clubsFavoritos,
     this.onValidator,
     this.inputFormatters,
@@ -77,11 +76,11 @@ class InputClubFavorito extends FormField<String> {
                   decoration: InputDecoration(
                     counterText: '',
                     labelText: labelText,
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                    labelStyle: LightModeTheme().labelMedium,
+                    hintStyle: LightModeTheme().labelMedium,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().alternate,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
@@ -95,21 +94,21 @@ class InputClubFavorito extends FormField<String> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
@@ -139,8 +138,8 @@ class InputClubFavorito extends FormField<String> {
                     contentPadding: const EdgeInsetsDirectional.fromSTEB(
                         16.0, 12.0, 16.0, 12.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  cursorColor: FlutterFlowTheme.of(context).primary,
+                  style: LightModeTheme().bodyMedium,
+                  cursorColor: LightModeTheme().primary,
                   maxLength: maxLength,
                   keyboardType: keyboardType,
                   // onChanged: onChangedHandler,
@@ -158,7 +157,6 @@ class InputClubFavorito extends FormField<String> {
           },
         );
   final String? Function(String?)? onValidator;
-  final BuildContext context;
   final bool? enableInput;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
@@ -283,7 +281,7 @@ class _InputClubFavoritoState extends FormFieldState<String> {
           (index) => DropdownMenuItem<String>(
                 value: widget.itemsDD![index],
                 child: Text(widget.itemsDD![index],
-                    style: FlutterFlowTheme.of(context).labelMedium),
+                    style: LightModeTheme().labelMedium),
               )),
       buttonRect: menuMargin.resolve(textDirection).inflateRect(itemRect),
       padding: _kMenuItemPadding.resolve(textDirection),
@@ -490,8 +488,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       opacity: _fadeOpacity,
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-                color: FlutterFlowTheme.of(context).alternate, width: 2),
+            border: Border.all(color: LightModeTheme().alternate, width: 2),
             borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(
@@ -516,7 +513,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                       ),
                     ))
                 : ListView(
-                    padding: kMaterialListPadding,
+                    padding: EdgeInsets.all(0),
                     itemExtent: _kMenuItemHeight,
                     shrinkWrap: true,
                     children: children,
@@ -695,7 +692,7 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
       removeLeft: true,
       removeRight: true,
       child: Padding(
-        padding: const EdgeInsets.only(left: 7.0),
+        padding: const EdgeInsets.only(left: 0.0),
         child: Builder(
           builder: (BuildContext context) {
             return CustomSingleChildLayout(

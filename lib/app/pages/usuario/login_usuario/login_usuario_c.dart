@@ -150,6 +150,7 @@ class LoginUsuarioController extends GetxController
           // Guardar el token
           storageDineroTotalUsuario.write(result.dineroTotal);
           storage.foto.write(result.foto);
+          storage.nick.write(result.nick);
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
             await storagePasswordUsuario.write(passwordUsuarioController.text);
