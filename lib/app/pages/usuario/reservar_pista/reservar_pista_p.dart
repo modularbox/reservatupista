@@ -1138,8 +1138,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                final precio = self.precio_a_mostrar
-                    .value; /*int.parse(db.datosPerfilUsuario
+                final precio = self.storage.dineroTotal.read() -
+                    (self.precio_a_mostrar * 100);
+                /*int.parse(db.datosPerfilUsuario
                         .obx(
                             (state) => Text(
                                   '${FormatNumber.formatNumberWithTwoDecimals(double.parse(state!.dineroTotal.toString()) / 100)} €',
@@ -1152,7 +1153,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               child: ColorLoader2(),
                             ))
                         .toString())*/
-
                 print('preciooooooooooo ${precio}'); //(0 - 4.0);
                 if (precio < 0) {
                   Get.dialog(RichAlertFlutterFlow(

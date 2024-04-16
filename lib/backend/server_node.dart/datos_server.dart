@@ -1,6 +1,6 @@
 class DatosServer {
   // String urlServer = 'http://192.168.1.134:3000';
-  String urlServer = 'https://api.reservatupista.com';
+  String urlServer = 'https://apidevelop.reservatupista.com';
 
   String datos(List<TypeDatosServer> listTypes) {
     List<String> newList = [];
