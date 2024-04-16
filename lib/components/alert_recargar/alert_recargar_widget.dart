@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/app/routes/database.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,7 +35,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
     with TickerProviderStateMixin {
   late AlertRecargarModel _model;
   late String title;
-
+  DatabaseController db = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool hasImageTriggered = false;
   bool anim5 = false;
@@ -353,7 +354,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                             '¿Estás seguro de recargar el Monedero Virtual?',
                         textButton: title,
                         precio: '${_model.money.twoDecimals} €',
-                        onPressed: () => realizarPago(
+                        onPressed: () => db.recargarMonedero(
                             int.parse(_model.money.toString()) * 100),
 
                         /*() {
@@ -405,55 +406,6 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
             jsonEncode(<String, String>{'id_usuario': '1', 'dinero': dinero}));
     return response;
   }*/
-
-  Future<http.Response> guardarUsuarioOperacion(
-      String num_operacion, int cantidad) async {
-    final getStorage = await SharedPreferences.getInstance();
-    final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-
-    http.Response response = await http.post(
-        Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'id_usuario': storageIdUsuario.read().toString(),
-          'num_operacion': num_operacion,
-          'cantidad': cantidad.toString(),
-          //estado es null al principio
-        }));
-    print('responseeeeeeeeeeeeeeeeeeee ${response}');
-    return response;
-  }
-
-  Future<void> realizarPago(int dinero) async {
-    try {
-      String num_operacion = generarNumeroOperacionUnico();
-      guardarUsuarioOperacion(num_operacion, dinero);
-      await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
-      Get.back();
-      Get.back();
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  String generarNumeroOperacionUnico() {
-    DateTime now = DateTime.now();
-    int timestamp = now.microsecondsSinceEpoch;
-    Random random = Random();
-    int aleatorio = random.nextInt(999999);
-
-    String formattedString =
-        '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
-
-    return formattedString;
-  }
-
-  String _padNumber(int number) {
-    return number.toString().padLeft(2, '0');
-  }
 
   Widget buildBtnBillete(int number) {
     return InkWell(

@@ -28,7 +28,7 @@ class PagoTpvController extends GetxController {
       print('hora_inicio $hora_inicio');
       final url = Uri.parse('https://tpv.modularbox.com/pago_tpv');
       final urlGuardarReservaPendiente = Uri.parse(
-          'https://api.reservatupista.com/usuario/guardar_reserva_pendiente?id_usuario=$id_usuario&id_pista${id_pista}&fecha=${fecha}&hora_inicio=$hora_inicio');
+          'https://apidevelop.reservatupista.com/usuario/guardar_reserva_pendiente?id_usuario=$id_usuario&id_pista${id_pista}&fecha=${fecha}&hora_inicio=$hora_inicio');
       var requestGuardarReservaPendiente = http.get(
         url,
       );

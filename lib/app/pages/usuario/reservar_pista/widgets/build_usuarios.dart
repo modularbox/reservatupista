@@ -69,8 +69,10 @@ Widget buildUsuarios() {
                   self.usuario.value.plazasReservadas = 1;
                   //self.plazas_a_reservar.value = 1;
                   self.cancelarReserva.value = false;
+                  self.plazasLibres = capacidad - plazasReservadasTotales;
                 } else {
                   int plazas_a_reservar = capacidad - plazasReservadasTotales;
+                  self.plazasLibres = 0;
                   //self.plazas_a_reservar.value = plazas_a_reservar;
                   self.usuario.value.plazasReservadas = plazas_a_reservar;
                   self.cancelarReserva.value = true;
@@ -122,6 +124,8 @@ Widget buildButton(int length, Rx<ReservaUsuario> usuario,
                         print(
                             'usuario.value.plazasReservadas1 ${usuario.value.plazasReservadas}');*/
                         usuario.value.plazasReservadas += 1;
+                        self.plazasLibres -= 1;
+
                         //self.plazas_a_reservar.value += 1;
                         print(
                             'usuario.value.plazasReservadas2 ${usuario.value.plazasReservadas}');

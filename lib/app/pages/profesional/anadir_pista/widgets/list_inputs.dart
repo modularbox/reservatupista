@@ -991,7 +991,7 @@ class _ListInputsState extends State<ListInputs> {
                   4.0.sw,
                   Expanded(
                     child: Text(
-                      'Monedero Virtual',
+                      'Monedero Virtuald',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).labelLarge.override(
                             fontFamily: 'Readex Pro',

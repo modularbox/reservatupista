@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista2/reservar_pista_c2.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../backend/server_node.dart/proveedor_node.dart';
 import '../../backend/server_node.dart/usuario_node.dart';
@@ -216,11 +219,113 @@ class DatabaseController extends GetxController {
     return false;
   }
 
+  Future<http.Response> guardarUsuarioOperacion(
+      String num_operacion,
+      int cantidad,
+      DateTime fecha,
+      String hora_inicio,
+      String hora_fin,
+      int id_usuario,
+      {bool reservaConPista = false}) async {
+    http.Response response;
+    if (reservaConPista) {
+      response = await http.post(
+          Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'id_usuario': id_usuario.toString(),
+            'num_operacion': num_operacion,
+            'cantidad': cantidad.toString(),
+            'fecha': fecha.toString(),
+            'hora_inicio': hora_inicio,
+            'hora_fin': hora_fin,
+            'reserva_con_pista': 'true'
+            //estado es null al principio
+          }));
+    } else {
+      response = await http.post(
+          Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'id_usuario': id_usuario.toString(),
+            'num_operacion': num_operacion,
+            'cantidad': cantidad.toString(),
+            'fecha': fecha.toString(),
+            'hora_inicio': hora_inicio,
+            'hora_fin': hora_fin,
+            //estado es null al principio
+          }));
+    }
+    print('responseeeeeeeeeeeeeeeeeeee ${response}');
+    return response;
+  }
+
+  Future<void> recargarMonedero(int dinero) async {
+    try {
+      String num_operacion = generarNumeroOperacionUnico();
+      guardarUsuarioOperacion(
+          num_operacion,
+          dinero,
+          ReservarPistaController().fecha_seleccionada.value,
+          ReservarPistaController().hora_inicio_reserva_seleccionada.value,
+          ReservarPistaController().hora_fin_reserva_seleccionada.value,
+          DatabaseController().storage.idUsuario.read());
+      await launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+      Get.back();
+      Get.back();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //es igual que recargarMonedero
+  Future<void> reservarPistaConTarjeta(int dinero) async {
+    try {
+      String num_operacion = generarNumeroOperacionUnico();
+      guardarUsuarioOperacion(
+          num_operacion,
+          dinero,
+          ReservarPistaController().fecha_seleccionada.value,
+          ReservarPistaController().hora_inicio_reserva_seleccionada.value,
+          ReservarPistaController().hora_fin_reserva_seleccionada.value,
+          DatabaseController().storage.idUsuario.read(),
+          reservaConPista: true);
+      await launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+      Get.back();
+      Get.back();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  String generarNumeroOperacionUnico({bool esReservaConTarjeta = false}) {
+    DateTime now = DateTime.now();
+    int timestamp = now.microsecondsSinceEpoch;
+    Random random = Random();
+    int aleatorio = random.nextInt(999999);
+
+    String formattedString =
+        '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
+    if (esReservaConTarjeta) formattedString += '_reservaConTarjeta';
+
+    return formattedString;
+  }
+
+  String _padNumber(int number) {
+    return number.toString().padLeft(2, '0');
+  }
+
   //alvaro
   Future<bool> subtractUserMoney(int idUsuario, int money) async {
     try {
-      var response = await http.post(
-          Uri.parse('https://api.reservatupista.com/usuario/restar_dinero'),
+      var url = '${DatosServer().urlServer}/usuario/restar_dinero';
+      var response = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({'id_usuario': idUsuario, 'cantidad': money * 100}));
       return true;
@@ -233,8 +338,8 @@ class DatabaseController extends GetxController {
   Future<bool> reservarPista(int idUsuario, double money, DateTime fecha,
       String hora_inicio, String id_pista, int plazas_a_reservar) async {
     try {
-      var response = await http.post(
-          Uri.parse('https://api.reservatupista.com/usuario/reservar_pista'),
+      var url = '${DatosServer().urlServer}/usuario/reservar_pista';
+      var response = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
             'id_pista': id_pista,
@@ -258,10 +363,9 @@ class DatabaseController extends GetxController {
   Future<http.Response> obtenerPlazasPista(
       int idUsuario, DateTime fecha, String hora_inicio, int id_pista) async {
     try {
+      var url = '${DatosServer().urlServer}/usuario/obtener_plazas_libres';
       print('hora_inicio ${hora_inicio}');
-      http.Response response = await http.post(
-          Uri.parse(
-              'https://api.reservatupista.com/usuario/obtener_plazas_libres'),
+      http.Response response = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
             'id_pista': id_pista,
@@ -280,8 +384,9 @@ class DatabaseController extends GetxController {
   Future<String> obtenerPrecioPista(
       String dia, String hora_inicio, String id_pista) async {
     try {
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista'));
+      var url =
+          '${DatosServer().urlServer}/usuario/obtener_precio_pista?dia=$dia&hora=$hora_inicio&id_pista=$id_pista';
+      var response = await http.get(Uri.parse(url));
       return 'true';
     } catch (error) {
       print('eeeeeeeeerrrror: $error');
@@ -291,8 +396,8 @@ class DatabaseController extends GetxController {
 
   Future<String> obtenerLocalidades() async {
     try {
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_localidades'));
+      var url = '${DatosServer().urlServer}/usuario/obtener_localidades';
+      var response = await http.get(Uri.parse(url));
       return response.body.toString();
     } catch (error) {
       print('eeeeeeeeerrrrooor: $error');
@@ -302,8 +407,9 @@ class DatabaseController extends GetxController {
 
   Future<String> obtenerClubes(String cod_postal) async {
     try {
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_clubes?cod_postal=$cod_postal'));
+      var url =
+          '${DatosServer().urlServer}/usuario/obtener_clubes?cod_postal=$cod_postal';
+      var response = await http.get(Uri.parse(url));
       return response.body.toString();
     } catch (error) {
       print('eeeeeeeeerrrrrrrror: $error');
@@ -313,8 +419,9 @@ class DatabaseController extends GetxController {
 
   Future<String> obtenerDeportes(String id_club) async {
     try {
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_deportes?id_club=$id_club'));
+      var url =
+          '${DatosServer().urlServer}/usuario/obtener_deportes?id_club=$id_club';
+      var response = await http.get(Uri.parse(url));
       return response.body.toString();
     } catch (error) {
       print('eeeeeeeeerrrrrrrrrrrrrrrrror: $error');
@@ -326,8 +433,9 @@ class DatabaseController extends GetxController {
     try {
       print('id_club $id_club');
       print('deporte $deporte');
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_pistas?id_club=$id_club&deporte=$deporte'));
+      var url =
+          '${DatosServer().urlServer}/usuario/obtener_pistas?id_club=$id_club&deporte=$deporte';
+      var response = await http.get(Uri.parse(url));
       return response.body.toString();
     } catch (error) {
       print('eeeeerror: $error');
@@ -338,8 +446,9 @@ class DatabaseController extends GetxController {
   Future<String> obtenerDatosPista(String id_pista) async {
     try {
       print('iddddd_pista ${id_pista}');
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_datos_pista?id_pista=$id_pista'));
+      var url =
+          '${DatosServer().urlServer}/usuario/obtener_datos_pista?id_pista=$id_pista';
+      var response = await http.get(Uri.parse(url));
       print('responseeeeeeeeeeeeeeeeeei ${response.body}');
       return response.body.toString();
     } catch (error) {
@@ -355,8 +464,9 @@ class DatabaseController extends GetxController {
       // print('nuevaFecha $nuevaFecha');
       print('idd_pista $id_pista');
       print('fecha.diaSemana ${fecha.diaSemana}');
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/obtener_horarios_pistas/$id_pista/?dia_semana=${fecha.diaSemana}&fecha=${fecha}'));
+      var url =
+          '${DatosServer().urlServer}/usuario/obtener_horarios_pistas/$id_pista/?dia_semana=${fecha.diaSemana}&fecha=${fecha}';
+      var response = await http.get(Uri.parse(url));
       print('response.body.toString() ${response.body.toString()}');
       print(' ${response.body}');
       print('lleeeeeeeeeega');
@@ -372,8 +482,9 @@ class DatabaseController extends GetxController {
   Future<String> guardarReservaPendiente(
       int id_pista, DateTime fecha, String horaInicio) async {
     try {
-      var response = await http.get(Uri.parse(
-          'https://api.reservatupista.com/usuario/guardar_reserva_pendiente/?id_pista=${id_pista}&fecha=${fecha}&hora_inicio=${horaInicio}'));
+      var url =
+          '${DatosServer().urlServer}/usuario/guardar_reserva_pendiente/?id_pista=${id_pista}&fecha=${fecha}&hora_inicio=${horaInicio}';
+      var response = await http.get(Uri.parse(url));
       print('response.body.toString() ${response.body.toString()}');
       print('${response.body}');
 

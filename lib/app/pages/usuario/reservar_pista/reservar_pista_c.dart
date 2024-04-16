@@ -1,3 +1,6 @@
+//Si lo añado rompe la app
+//import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,6 +65,9 @@ class ReservarPistaController extends GetxController
   Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
   Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
   Rx<int> plazas_a_reservar = Rx<int>(1);
+  //variable que almacenara la diferencia entre la capacidad de la pista y las plazas que quiere reservar el user, para no tener que estar seteando constantemente la diferencia
+  int plazasLibres = 0;
+  int capacidad_pista = 4;
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<String> localidad_seleccionada = Rx<String>('');
   Rx<int?> selectClub = Rx<int?>(null);
@@ -212,6 +218,8 @@ class ReservarPistaController extends GetxController
           await ReservasNode().obtenerPlazasLibres(idPista, fecha, horaInicio);
       if (result is ReservasUsuarios) {
         reservas_usuarios.value = result;
+        plazasLibres = capacidad_pista - result.plazasReservadasTotales;
+        print('plazaslibressss $plazasLibres');
         print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
       }
     } catch (e) {
@@ -324,7 +332,8 @@ class ReservarPistaController extends GetxController
       print('duracion_partida.value ${duracion_partida.value}');
       pista_automatizada.value =
           (pistas.value[0]['automatizada'] == 1) ? true : false;
-
+      capacidad_pista = pistas.value[0]['capacidad'];
+      print('capacidad_pistaaaaa ${capacidad_pista}');
       print('pista_automatizadaaa ${pista_automatizada.value}');
       /* List<String> listaPistas = pistasData
           .map<String>((pista) => pista['id_pista'].toString())

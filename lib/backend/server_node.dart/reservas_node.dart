@@ -38,7 +38,6 @@ class ReservasNode {
           await provider.obtenerPlazasLibres(idPista, fecha, horaInicio);
       print('obtenerPlazasLibres ${jsonEncode(response.body)}');
       if (response.statusCode == 200) {
-        print('obtenerPlazasLibres ${response.body}');
         return ReservasUsuarios.fromJson(response.body);
       } else {
         return false;

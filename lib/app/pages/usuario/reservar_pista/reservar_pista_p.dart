@@ -25,10 +25,12 @@ import '/backend/schema/enums/enums.dart';
 import 'widgets/input_club_favoritos.dart';
 import 'widgets/input_select.dart';
 import '../../../routes/database.dart';
+import '../../../../components/alert_recargar/alert_recargar_widget.dart';
 import 'package:http/http.dart' as http;
 
 class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaController get self => controller;
+
   final SelectionController controller2 = SelectionController();
   final DatabaseController db = Get.find();
 
@@ -1155,17 +1157,54 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         .toString())*/
                 print('preciooooooooooo ${precio}'); //(0 - 4.0);
                 if (precio < 0) {
-                  Get.dialog(RichAlertFlutterFlow(
-                    alertType: TypeAlert.NONE,
-                    alertTitle: 'Reservar Pista',
-                    alertSubtitle:
-                        'No tienes saldo suficiente, debes recargar para poder reservar.',
-                    textButton: 'Aceptar',
-                    precio: '${precio_reserva.toStringAsFixed(2)} €',
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ));
+                  if (controller2.selectedOption.value == 'tarjeta') {
+                    Get.dialog(RichAlertFlutterFlow(
+                      alertType: TypeAlert.NONE,
+                      alertTitle: 'Reservar Pista',
+                      alertSubtitle: '¿Desea reservar la pista?',
+                      textButton: '',
+                      acceptButton: MaterialButton(
+                        color: Colors.green,
+                        onPressed: () => db.reservarPistaConTarjeta(30),
+                        splashColor: Colors.lightGreen,
+                        child: Text(
+                          'Aceptar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      cancelButton: MaterialButton(
+                        color: Colors.red,
+                        onPressed: () => Get.back(),
+                        splashColor: Colors.redAccent,
+                        child: Text(
+                          'Cancelar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      precio: '${precio_reserva.toStringAsFixed(2)} €',
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ));
+                  } else {
+                    Get.dialog(RichAlertFlutterFlow(
+                      alertType: TypeAlert.NONE,
+                      alertTitle: 'Reservar Pista',
+                      alertSubtitle:
+                          'No tienes saldo suficiente, debes recargar para poder reservar.',
+                      textButton: 'Aceptar',
+                      precio: '${precio_reserva.toStringAsFixed(2)} €',
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ));
+                  }
                 } else {
                   Get.dialog(RichAlertFlutterFlow(
                     alertType: TypeAlert.NONE,
@@ -1428,7 +1467,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           children: [
             SelectionWidget(
               label: 'Monedero Virtual',
-              value: 'monedero',
+              value: self.storage.dineroTotal.read() > 0 ? 'monedero' : '0',
               controller: controller2,
               db: self,
             ),
@@ -1499,7 +1538,56 @@ class SelectionWidget extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            controller.selectedOption.value = value;
+            if (value == 'tarjeta') {
+              print('tarjeta');
+            } else {
+              //if(db.plazasLibres)
+              if (db.storage.dineroTotal.read() <= 0) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('No tienes créditos'),
+                      content: Text(
+                          'Necesitas recargar créditos en tu monedero virtual.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            // Cerrar la alerta cuando se presione el botón "Aceptar"
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Aceptar'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else if (db.storage.dineroTotal.read() <
+                  db.precio_a_mostrar.value) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Saldo insuficiente'),
+                      content: Text(
+                          'El precio de la reserva es superior al dinero de su monedero virtual'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            // Cerrar la alerta cuando se presione el botón "Aceptar"
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Aceptar'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            }
+            if (value != '0') controller.selectedOption.value = value;
+            print(
+                'controller.selectedOption.value ${controller.selectedOption.value}');
           },
           child: Container(
             width: MediaQuery.sizeOf(context).width / 2 - 15,
