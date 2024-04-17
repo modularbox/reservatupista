@@ -13,6 +13,7 @@ import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import 'mis_socios_c.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'Socio.dart';
 import 'widgets/popup_datos_socios2.dart';
 
 class MisSociosPage extends GetView<MisSociosController> {
@@ -204,54 +205,8 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                         wrapped: false,
                       ),
                     ),
-                    buildSocio(
-                        "José Martínez Durán",
-                        "NickUno",
-                        "Nivel: 4.00",
-                        "Partidas jugadas: 48",
-                        'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
-                        LightModeTheme().successGeneral,
-                        1),
-                    buildSocio(
-                        "José Martínez Durán",
-                        "NickUno",
-                        "Nivel: 4.00",
-                        "Partidas jugadas: 48",
-                        'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
-                        LightModeTheme().successGeneral,
-                        1),
-                    buildSocio(
-                        "José Martínez Durán",
-                        "NickUno",
-                        "Nivel: 4.00",
-                        "Partidas jugadas: 48",
-                        'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
-                        LightModeTheme().successGeneral,
-                        1),
-                    buildSocio(
-                        "Manolo Martinez Soria",
-                        "NickDos",
-                        "Nivel 4.00",
-                        "Partidas jugadas: 7",
-                        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxmYWNlJTIwY2xvc2UlMjB8ZW58MHx8fHwxNzExNDY5NTAwfDA&ixlib=rb-4.0.3&q=80&w=1080',
-                        LightModeTheme().successGeneral,
-                        2),
-                    buildSocio(
-                        "Isabel García García",
-                        "NickTres",
-                        "Nivel: 4.00",
-                        "Partidas jugadas: 24",
-                        'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxmYWNlJTIwY2xvc2UlMjB1cHxlbnwwfHx8fDE3MTE0Njk1NzZ8MA&ixlib=rb-4.0.3&q=80&w=400',
-                        LightModeTheme().successGeneral,
-                        3),
-                    buildSocio(
-                        "NickCuatro",
-                        "",
-                        "",
-                        "Partidas jugadas: 2",
-                        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzExNDY5NTc2fDA&ixlib=rb-4.0.3&q=80&w=400",
-                        LightModeTheme().errorGeneral,
-                        4),
+                    ...List.generate(controller.socios.length,
+                        ((i) => buildSocio(controller.socios[i])))
                   ],
                 ),
               ),
@@ -262,17 +217,10 @@ class ListaSociosWidget extends GetView<MisSociosController> {
     );
   }
 
-  Widget buildSocio(
-      String nombre,
-      String nick,
-      String nivel,
-      String partidasJugadas,
-      String urlImagen,
-      Color colorBorde,
-      int posicion) {
+  Widget buildSocio(Socio socio) {
     return Builder(
         builder: (context) => Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
+              padding: const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 8),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -291,7 +239,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                     height: 110,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4,
                           color: Color(0x230E151B),
@@ -303,21 +251,23 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                       ],
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                        color: colorBorde,
+                        color: socio.isSocio()
+                            ? LightModeTheme().successGeneral
+                            : LightModeTheme().errorGeneral,
                         width: 4,
                       ),
                     ),
                     child: Stack(
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-0.96, -1.32),
+                          alignment: const AlignmentDirectional(-0.96, -1.32),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(2, 15, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                2, 15, 0, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(24),
                               child: Image.network(
-                                urlImagen,
+                                socio.urlImagen,
                                 width: 44,
                                 height: 44,
                                 fit: BoxFit.cover,
@@ -326,10 +276,10 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, -0.61),
+                          alignment: const AlignmentDirectional(0, -0.61),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(60, 5, 12, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                60, 5, 12, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -341,12 +291,14 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      nombre,
+                                      socio.isSocio()
+                                          ? socio.nombre
+                                          : socio.nick,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
                                             fontFamily: 'Readex Pro',
-                                            color: Color(0xFF14181B),
+                                            color: const Color(0xFF14181B),
                                             fontSize: 16,
                                             letterSpacing: 0,
                                             fontWeight: FontWeight.w500,
@@ -370,13 +322,14 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                             ),
                                             unselectedWidgetColor:
                                                 Colors.black),
+                                        // ignore: prefer_const_constructors
                                         child: Checker(),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Text(
-                                  nick,
+                                  socio.isSocio() ? socio.nick : "",
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -389,7 +342,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      nivel,
+                                      "Nivel: ${socio.nivel}",
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -400,7 +353,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                   ],
                                 ),
                                 Text(
-                                  partidasJugadas,
+                                  "Partidas jugadas: ${socio.partidasJugadas}",
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

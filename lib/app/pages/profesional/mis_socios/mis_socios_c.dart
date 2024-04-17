@@ -11,12 +11,93 @@ import 'Socio.dart';
 
 class MisSociosController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  final RxBool selected = false.obs;
   final unfocusNode = FocusNode();
-  /*final List socios = [
-    Socio("José Martinez Durán", "NickUno", "123456789A", 4.00,
-        "Calle Falsa nº1", 43, "Revés", "Mañana", "jose@reservatupista.com"),
-  ];*/
+  final List socios = [
+    Socio(
+        "José Martinez Durán",
+        "NickUno",
+        "123456789A",
+        "4.00",
+        "Calle Falsa nº1",
+        43,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080",
+        true),
+    Socio(
+        "José Martinez Durán",
+        "NickUno",
+        "123456789A",
+        "4.00",
+        "Calle Falsa nº1",
+        43,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080",
+        true),
+    Socio(
+        "Manolo Martinez Soria",
+        "NickDos",
+        "123456789A",
+        "4.00",
+        "Calle Falsa nº1",
+        7,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxmYWNlJTIwY2xvc2UlMjB8ZW58MHx8fHwxNzExNDY5NTAwfDA&ixlib=rb-4.0.3&q=80&w=1080",
+        true),
+    Socio(
+        "Isabel García García",
+        "NickTres",
+        "123456789A",
+        "4.25",
+        "Calle Falsa nº1",
+        24,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxmYWNlJTIwY2xvc2UlMjB1cHxlbnwwfHx8fDE3MTE0Njk1NzZ8MA&ixlib=rb-4.0.3&q=80&w=400",
+        true),
+    Socio(
+        "José Martinez Durán",
+        "NickUno",
+        "123456789A",
+        "4.00",
+        "Calle Falsa nº1",
+        43,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080",
+        false),
+    Socio(
+        "Isabel García García",
+        "NickCuatro",
+        "123456789A",
+        "4.25",
+        "Calle Falsa nº1",
+        2,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzExNDY5NTc2fDA&ixlib=rb-4.0.3&q=80&w=400",
+        false)
+  ];
   // State field(s) for searchBar widget.
   FocusNode? searchBarFocusNode;
   TextEditingController? searchBarController;
