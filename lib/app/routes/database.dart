@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista2/reservar_pista_c2.dart';
@@ -276,10 +277,13 @@ class DatabaseController extends GetxController {
     return response;
   }
 
+  void setHoraFin(hora_inicio) {}
+
   Future<void> recargarMonedero(
       int dinero, ReservarPistaController reservarPistaController) async {
     try {
       String num_operacion = generarNumeroOperacionUnico();
+
       guardarUsuarioOperacion(
           num_operacion,
           dinero,
@@ -297,25 +301,72 @@ class DatabaseController extends GetxController {
     }
   }
 
+  Future<Map> comprobarExistenciaReservas(id_pista, fecha, hora_inicio) async {
+    try {
+      var url =
+          '${DatosServer().urlServer}/usuario/comprobar_existencia_reservas?id_pista=$id_pista&fecha=$fecha&hora_inicio=$hora_inicio';
+      var jsonData = await http.get(Uri.parse(url));
+      var response = json.decode(jsonData.body.toString());
+      print('response2 ${response}');
+      print('response2 ${response['existeReserva']}');
+      return response;
+    } catch (error) {
+      print('eeeeeeeeerrrror: $error');
+      return {};
+    }
+  }
+
+  void mostrarAlerta(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Título de la Alerta"),
+          content: Text("Contenido de la alerta."),
+        );
+      },
+    );
+  }
+
   //es igual que recargarMonedero
   Future<void> reservarPistaConTarjeta(
       int dinero, ReservarPistaController reservarPistaController) async {
     try {
-      String num_operacion =
-          generarNumeroOperacionUnico(esReservaConTarjeta: true);
-      guardarUsuarioOperacion(
-          num_operacion,
-          dinero,
-          reservarPistaController.fecha_seleccionada.value,
-          reservarPistaController.hora_inicio_reserva_seleccionada.value,
-          reservarPistaController.hora_fin_reserva_seleccionada.value,
-          storage.idUsuario.read(),
+      var response = await comprobarExistenciaReservas(
           reservarPistaController.id_pista_seleccionada.value,
-          reservaConTarjeta: true);
-      await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
-      Get.back();
-      Get.back();
+          reservarPistaController.fecha_seleccionada.value,
+          reservarPistaController.hora_inicio_reserva_seleccionada.value);
+      if (response['existeReserva']) {
+        if (response['esReservaEnProceso']) {
+          Get.dialog(AlertDialog(
+            title: Text("Alguien está en proceso de reservar esta pista."),
+            content: Text("Intente reservar en 10 minutos."),
+          ));
+        } else {
+          Get.dialog(AlertDialog(
+            title: Text("Error. Ya existe una reserva para esta pista."),
+            content: Text("Elija otra hora, fecha o pista."),
+          ));
+        }
+      } else {
+        String num_operacion =
+            generarNumeroOperacionUnico(esReservaConTarjeta: true);
+        print(
+            'reservarPistaController.hora_fin_reserva_seleccionada.value ${reservarPistaController.hora_fin_reserva_seleccionada.value}');
+        guardarUsuarioOperacion(
+            num_operacion,
+            dinero,
+            reservarPistaController.fecha_seleccionada.value,
+            reservarPistaController.hora_inicio_reserva_seleccionada.value,
+            reservarPistaController.hora_fin_reserva_seleccionada.value,
+            storage.idUsuario.read(),
+            reservarPistaController.id_pista_seleccionada.value,
+            reservaConTarjeta: true);
+        await launchURL(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
+        Get.back();
+        Get.back();
+      }
     } catch (e) {
       rethrow;
     }

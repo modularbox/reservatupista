@@ -1502,7 +1502,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             ),
             SelectionWidget(
               label: 'Tarjeta',
-              value: 'tarjeta',
+              value: self.capacidad_pista == self.plazas_a_reservar.value
+                  ? 'tarjeta'
+                  : '00',
               controller: controller2,
               db: self,
             ),
@@ -1565,15 +1567,37 @@ class SelectionWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             if (value == 'tarjeta') {
-              print('tarjeta');
-            } else {
-              //if(db.plazasLibres)
-              if (db.storage.dineroTotal.read() <= 0) {
+            } else if (value == '00') {
+              if (db.plazas_a_reservar.value != db.capacidad_pista) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('No tienes créditos'),
+                      title: Text('Error al seleccionar método de pago'),
+                      content: Text(
+                          'Para reservar con tarjeta necesitas ocupar todas las plazas de la pista.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            // Cerrar la alerta cuando se presione el botón "Aceptar"
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Aceptar'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            } else if (value == '0') {
+              //if(db.plazasLibres)
+              if (db.storage.dineroTotal.read() <= 0) {
+                // es igual que value == '0' ya que comparo lo mismo al enviarle el value
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Falta de créditos'),
                       content: Text(
                           'Necesitas recargar créditos en tu monedero virtual.'),
                       actions: [
@@ -1611,7 +1635,8 @@ class SelectionWidget extends StatelessWidget {
                 );
               }
             }
-            if (value != '0') controller.selectedOption.value = value;
+            if (value != '0' && value != '00')
+              controller.selectedOption.value = value;
             print(
                 'controller.selectedOption.value ${controller.selectedOption.value}');
           },
