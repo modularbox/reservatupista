@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista2/reservar_pista_c2.dart';
 import 'package:reservatu_pista/app/routes/database.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
@@ -36,6 +38,7 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
   late AlertRecargarModel _model;
   late String title;
   DatabaseController db = Get.find();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool hasImageTriggered = false;
   bool anim5 = false;
@@ -347,6 +350,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                 FFButtonWidget(
                   onPressed: () {
                     if (_model.money > 0) {
+                      ReservarPistaController reservarPistaController =
+                          Get.find();
                       Get.dialog(RichAlertFlutterFlow(
                         alertType: TypeAlert.NONE,
                         alertTitle: title,
@@ -355,7 +360,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                         textButton: title,
                         precio: '${_model.money.twoDecimals} €',
                         onPressed: () => db.recargarMonedero(
-                            int.parse(_model.money.toString()) * 100),
+                            int.parse(_model.money.toString()) * 100,
+                            reservarPistaController),
 
                         /*() {
                           DatabaseController db = Get.find();

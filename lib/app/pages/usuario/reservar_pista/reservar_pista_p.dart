@@ -912,6 +912,31 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           horarios[row + i].precio_sin_luz_socio ?? 0;
 
                       self.hora_inicio_reserva_seleccionada.value = textHorario;
+                      int hora_hora_inicio = int.parse(self
+                          .hora_inicio_reserva_seleccionada.value
+                          .substring(0, 2));
+                      print(
+                          'self.hora_inicio_reserva_seleccionada.value.substring(3, 2) ${self.hora_inicio_reserva_seleccionada.value.substring(3, 5)}');
+                      int minutos_hora_inicio = int.parse(self
+                          .hora_inicio_reserva_seleccionada.value
+                          .substring(3, 5));
+                      //PARA SETEAR LA HORA FIN
+                      DateTime horaInicial = DateTime(
+                          self.fecha_seleccionada.value.year,
+                          self.fecha_seleccionada.value.month,
+                          self.fecha_seleccionada.value.day,
+                          hora_hora_inicio,
+                          minutos_hora_inicio,
+                          0);
+                      DateTime horaFin = horaInicial
+                          .add(Duration(minutes: self.duracion_partida.value));
+                      print('textHorario $textHorario');
+                      print('horaInicial $horaInicial');
+                      print('horaFin $horaFin');
+                      self.hora_fin_reserva_seleccionada.value =
+                          horaFin.toString().substring(11, 16);
+                      print(
+                          'self.hora_fin_reserva_seleccionada.value ${self.hora_fin_reserva_seleccionada.value}');
                       self.selectHorario.value = HorarioFinInicio(
                           inicio: textHorario,
                           termino: termino,
@@ -1041,6 +1066,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       print('entraaaaaaaa aquiiii');
                       self.obtenerPlazasLibres();*/
                       self.hora_inicio_reserva_seleccionada.value = textHorario;
+
                       self.pista_con_luces.value = horarios[row + i].luces;
                       self.precio_con_luz_no_socio.value =
                           horarios[row + i].precio_con_luz_no_socio ?? 0;
@@ -1165,7 +1191,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       textButton: '',
                       acceptButton: MaterialButton(
                         color: Colors.green,
-                        onPressed: () => db.reservarPistaConTarjeta(30),
+                        onPressed: () => db.reservarPistaConTarjeta(30, self),
                         splashColor: Colors.lightGreen,
                         child: Text(
                           'Aceptar',

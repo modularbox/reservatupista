@@ -20,6 +20,7 @@ class DatabaseBinding implements Bindings {
   @override
   void dependencies() {
     Get.put<DatabaseController>(DatabaseController());
+    Get.lazyPut(() => ReservarPistaController());
   }
 }
 
@@ -226,9 +227,18 @@ class DatabaseController extends GetxController {
       String hora_inicio,
       String hora_fin,
       int id_usuario,
-      {bool reservaConPista = false}) async {
+      int id_pista,
+      {bool reservaConTarjeta = false}) async {
     http.Response response;
-    if (reservaConPista) {
+    if (reservaConTarjeta) {
+      print('id_usuario.toString() ${id_usuario.toString()}');
+      print('num_operacion ${num_operacion}');
+      print('cantidad ${cantidad}');
+      print('fecha ${fecha}');
+      print('hora_inicio ${hora_inicio}');
+      print('hora_fin ${hora_fin}');
+      print('id_pista ${id_pista}');
+      print('reservaConTarjeta ${reservaConTarjeta}');
       response = await http.post(
           Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
           headers: <String, String>{
@@ -241,7 +251,8 @@ class DatabaseController extends GetxController {
             'fecha': fecha.toString(),
             'hora_inicio': hora_inicio,
             'hora_fin': hora_fin,
-            'reserva_con_pista': 'true'
+            'reserva_con_tarjeta': 'true',
+            'id_pista': id_pista.toString()
             //estado es null al principio
           }));
     } else {
@@ -257,23 +268,26 @@ class DatabaseController extends GetxController {
             'fecha': fecha.toString(),
             'hora_inicio': hora_inicio,
             'hora_fin': hora_fin,
+            'id_pista': id_pista.toString()
             //estado es null al principio
           }));
     }
-    print('responseeeeeeeeeeeeeeeeeeee ${response}');
+    print('responseeeeeeeeeeeeeeeeeeee ${response.body}');
     return response;
   }
 
-  Future<void> recargarMonedero(int dinero) async {
+  Future<void> recargarMonedero(
+      int dinero, ReservarPistaController reservarPistaController) async {
     try {
       String num_operacion = generarNumeroOperacionUnico();
       guardarUsuarioOperacion(
           num_operacion,
           dinero,
-          ReservarPistaController().fecha_seleccionada.value,
-          ReservarPistaController().hora_inicio_reserva_seleccionada.value,
-          ReservarPistaController().hora_fin_reserva_seleccionada.value,
-          DatabaseController().storage.idUsuario.read());
+          reservarPistaController.fecha_seleccionada.value,
+          reservarPistaController.hora_inicio_reserva_seleccionada.value,
+          reservarPistaController.hora_fin_reserva_seleccionada.value,
+          reservarPistaController.id_pista_seleccionada.value,
+          storage.idUsuario.read());
       await launchURL(
           'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
       Get.back();
@@ -284,17 +298,20 @@ class DatabaseController extends GetxController {
   }
 
   //es igual que recargarMonedero
-  Future<void> reservarPistaConTarjeta(int dinero) async {
+  Future<void> reservarPistaConTarjeta(
+      int dinero, ReservarPistaController reservarPistaController) async {
     try {
-      String num_operacion = generarNumeroOperacionUnico();
+      String num_operacion =
+          generarNumeroOperacionUnico(esReservaConTarjeta: true);
       guardarUsuarioOperacion(
           num_operacion,
           dinero,
-          ReservarPistaController().fecha_seleccionada.value,
-          ReservarPistaController().hora_inicio_reserva_seleccionada.value,
-          ReservarPistaController().hora_fin_reserva_seleccionada.value,
-          DatabaseController().storage.idUsuario.read(),
-          reservaConPista: true);
+          reservarPistaController.fecha_seleccionada.value,
+          reservarPistaController.hora_inicio_reserva_seleccionada.value,
+          reservarPistaController.hora_fin_reserva_seleccionada.value,
+          storage.idUsuario.read(),
+          reservarPistaController.id_pista_seleccionada.value,
+          reservaConTarjeta: true);
       await launchURL(
           'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
       Get.back();
@@ -313,7 +330,7 @@ class DatabaseController extends GetxController {
     String formattedString =
         '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
     if (esReservaConTarjeta) formattedString += '_reservaConTarjeta';
-
+    print('formattedString $formattedString');
     return formattedString;
   }
 
