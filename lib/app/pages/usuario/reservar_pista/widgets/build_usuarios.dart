@@ -41,7 +41,6 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                         (capacidad -
                             (plazasReservadasTotales +
                                 self.usuario.value.plazasReservadas)),
-                        self.usuario,
                         self.cancelarReserva,
                       ),
               ].divide(2.0.sw),
@@ -89,12 +88,11 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
 
   Widget buildButton(
     int length,
-    Rx<ReservaUsuario> usuario,
     RxBool cancelarReserva,
   ) {
     return Row(
       children: [
-        buildUsuario(usuario.value),
+        buildUsuario(self.usuario.value),
         ...List.generate(
             length >= 0 ? length : 0,
             (index) => Column(
@@ -102,17 +100,15 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                     BtnIcon(
                         onPressed: () {
                           self.precio_elegido.value = precio;
-                          usuario.value.plazasReservadas += 1;
+                          self.usuario.value.plazasReservadas += 1;
                           self.plazas_a_reservar.value += 1;
                           if (self.plazas_a_reservar.value == capacidad) {
                             self.cancelarReserva.value = true;
                           }
-
                           final precio_a_mostrar =
-                              precio * usuario.value.plazasReservadas;
+                              precio * self.usuario.value.plazasReservadas;
                           self.precio_a_mostrar.value = precio_a_mostrar;
-
-                          usuario.refresh();
+                          self.usuario.refresh();
                         },
                         padding: const EdgeInsets.all(0),
                         borderRadius: 35.0,
@@ -155,6 +151,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                     if (self.plazas_a_reservar < capacidad) {
                       self.cancelarReserva.value = false;
                     }
+                    self.usuario.refresh();
                   },
             padding: const EdgeInsets.all(0),
             borderRadius: 35.0,
