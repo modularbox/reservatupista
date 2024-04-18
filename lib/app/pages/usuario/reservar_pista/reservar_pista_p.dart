@@ -1401,7 +1401,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       '${double.parse((self.precio_a_mostrar.value / 100).toString())} €',
       "code"
     ];
-    list.add(SizedBox(width: 100.w, child: buildUsuarios()));
+    list.add(SizedBox(width: 100.w, child: const SelectedUsuarios()));
     for (var i = 0; i < datos.length; i++) {
       if (datosList[i] == "code") {
         list.add(
