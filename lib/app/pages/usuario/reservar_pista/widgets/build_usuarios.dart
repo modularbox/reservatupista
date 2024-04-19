@@ -27,20 +27,28 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
       if (reservas_usuarios is ReservasUsuarios) {
         final int plazasReservadasTotales =
             reservas_usuarios.plazasReservadasTotales;
-
+        final tamanoBotones = self.cancelarReserva.value
+            ? capacidad
+            : (capacidad -
+                (plazasReservadasTotales +
+                    self.usuario.value.plazasReservadas));
+        print("tamanoBotones ${tamanoBotones}");
         return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
             child: Row(
               children: [
-                ...List.generate(reservas_usuarios.usuarios.length,
-                    (index) => buildUsuario(reservas_usuarios.usuarios[index])),
+                self.cancelarReserva.value
+                    ? const SizedBox.shrink()
+                    : Row(
+                        children: List.generate(
+                            reservas_usuarios.usuarios.length,
+                            (index) => buildUsuario(
+                                reservas_usuarios.usuarios[index]))),
                 self.reservas_usuarios.value == null
                     ? const SizedBox.shrink()
                     : buildButton(
-                        (capacidad -
-                            (plazasReservadasTotales +
-                                self.usuario.value.plazasReservadas)),
+                        tamanoBotones,
                         self.cancelarReserva,
                       ),
               ].divide(2.0.sw),
@@ -56,8 +64,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                       self.cancelarReserva.value = false;
                     } else {
                       // ignore: non_constant_identifier_names
-                      int plazas_a_reservar =
-                          capacidad - plazasReservadasTotales;
+                      int plazas_a_reservar = capacidad;
                       self.plazas_a_reservar.value = plazas_a_reservar;
                       self.usuario.value.plazasReservadas = plazas_a_reservar;
                       self.cancelarReserva.value = true;
@@ -93,39 +100,44 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
     return Row(
       children: [
         buildUsuario(self.usuario.value),
-        ...List.generate(
-            length >= 0 ? length : 0,
-            (index) => Column(
-                  children: [
-                    BtnIcon(
-                        onPressed: () {
-                          self.precio_elegido.value = precio;
-                          self.usuario.value.plazasReservadas += 1;
-                          self.plazas_a_reservar.value += 1;
-                          if (self.plazas_a_reservar.value == capacidad) {
-                            self.cancelarReserva.value = true;
-                          }
-                          final precio_a_mostrar =
-                              precio * self.usuario.value.plazasReservadas;
-                          self.precio_a_mostrar.value = precio_a_mostrar;
-                          self.usuario.refresh();
-                        },
-                        padding: const EdgeInsets.all(0),
-                        borderRadius: 35.0,
-                        size: const Size(50, 50),
-                        borderWidth: 2,
-                        hoverColor: Colores().usuario.primary69,
-                        borderColor: Colores().usuario.primary,
-                        fillColor: Colors.white,
-                        icon: Icon(
-                          Icons.add,
-                          color: Colores().usuario.primary,
-                          size: 30,
-                          weight: 2,
-                        )),
-                    const Text('')
-                  ],
-                ))
+        self.cancelarReserva.value
+            ? const SizedBox.shrink()
+            : Row(
+                children: List.generate(
+                    length >= 0 ? length : 0,
+                    (index) => Column(
+                          children: [
+                            BtnIcon(
+                                onPressed: () {
+                                  self.precio_elegido.value = precio;
+                                  self.usuario.value.plazasReservadas += 1;
+                                  self.plazas_a_reservar.value += 1;
+                                  if (self.plazas_a_reservar.value ==
+                                      (capacidad)) {
+                                    self.cancelarReserva.value = true;
+                                  }
+                                  final precio_a_mostrar = precio *
+                                      self.usuario.value.plazasReservadas;
+                                  self.precio_a_mostrar.value =
+                                      precio_a_mostrar;
+                                  self.usuario.refresh();
+                                },
+                                padding: const EdgeInsets.all(0),
+                                borderRadius: 35.0,
+                                size: const Size(50, 50),
+                                borderWidth: 2,
+                                hoverColor: Colores().usuario.primary69,
+                                borderColor: Colores().usuario.primary,
+                                fillColor: Colors.white,
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colores().usuario.primary,
+                                  size: 30,
+                                  weight: 2,
+                                )),
+                            const Text('')
+                          ],
+                        )))
       ],
     );
   }

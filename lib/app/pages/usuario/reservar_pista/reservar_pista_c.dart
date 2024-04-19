@@ -122,7 +122,7 @@ class ReservarPistaController extends GetxController
   PageController pageViewController = PageController();
 
   /// Obtener los usuarios con reservas
-  final Rx<ReservasUsuarios?> reservas_usuarios = Rx<ReservasUsuarios?>(null);
+  final reservas_usuarios = Rxn<ReservasUsuarios>();
 
   @override
   void onInit() async {

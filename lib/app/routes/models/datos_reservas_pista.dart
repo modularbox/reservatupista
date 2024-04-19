@@ -233,6 +233,6 @@ enum TypeEstadoHorario {
   reservadaClase,
   reservada,
   abierta,
-  reservaEnProceso,
+  reserva_en_proceso,
   cerrada
 }

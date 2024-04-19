@@ -19,10 +19,8 @@ class ReservasUsuarios {
   factory ReservasUsuarios.fromJson(Map<String, dynamic> json) =>
       ReservasUsuarios(
         plazasReservadasTotales: json["plazas_reservadas_totales"],
-        usuarios: json["plazas_reservadas_totales"] == 0
-            ? []
-            : List<ReservaUsuario>.from(
-                json["usuarios"].map((x) => ReservaUsuario.fromJson(x))),
+        usuarios: List<ReservaUsuario>.from(
+            json["usuarios"].map((x) => ReservaUsuario.fromJson(x))),
         message: json['message'],
       );
 
