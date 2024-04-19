@@ -802,6 +802,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         case 'RESERVADA_COMPLETA':
           status = TypeEstadoHorario.reservada;
           break;
+        case 'RESERVA_EN_PROCESO':
+          status = TypeEstadoHorario.reserva_en_proceso;
+          break;
         default:
           status = TypeEstadoHorario.abierta;
           break;
@@ -1191,7 +1194,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       textButton: '',
                       acceptButton: MaterialButton(
                         color: Colors.green,
-                        onPressed: () => db.reservarPistaConTarjeta(30, self),
+                        onPressed: () => db.reservarPistaConTarjeta(
+                            self.precio_a_mostrar.value, self),
                         splashColor: Colors.lightGreen,
                         child: Text(
                           'Aceptar',
