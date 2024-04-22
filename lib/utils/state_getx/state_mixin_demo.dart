@@ -20,6 +20,7 @@ import 'package:get/get.dart';
       )),
     onEmpty: const SizedBox.shrink()),
 */
+
 extension StateRxExt<T> on StateRx<T> {
   Widget obx(
     NotifierBuilder<T?> widget, {
@@ -44,6 +45,8 @@ extension StateRxExt<T> on StateRx<T> {
       });
     });
   }
+
+  void loading() => changeStatus(RxStatusDemo.loading());
 }
 
 class StateRx<T> {

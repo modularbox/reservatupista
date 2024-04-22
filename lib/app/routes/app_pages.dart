@@ -30,7 +30,7 @@ import '../pages/usuario/reservar_pista/reservar_pista.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
 import '../pages/profesional/registro_proveedor/registro_proveedor.dart';
 import '../pages/profesional/registro_proveedor/registro_proveedor_b.dart';
-import '../pages/Profesional/mis_socios/mis_socios.dart';
+import '../pages/Profesional/mis_socios/mis_socios_p.dart';
 import '../pages/Profesional/mis_socios/mis_socios_b.dart';
 import '../pages/Profesional/datos_proveedor/datos_proveedor.dart';
 import '../pages/Profesional/datos_proveedor/datos_proveedor_b.dart';
@@ -172,9 +172,9 @@ class AppPages {
       page: () => NotificacionesProfesionalWidget(),
     ),
     GetPage(
-      name: Routes.NOTIFICACIONES_PROVEEDOR,
-      page: () => NotificacionesProfesionalWidget(),
-    ),
+        name: Routes.NOTIFICACIONES_PROVEEDOR,
+        page: () => NotificacionesProfesionalWidget(),
+        transition: Transition.zoom),
     GetPage(
       name: '/inicioProfesional',
       page: () => InicioProfesionalWidget(),

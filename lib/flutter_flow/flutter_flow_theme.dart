@@ -139,6 +139,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color reservaPendiente = const Color(0xFFFFA500);
   late Color usuario = const Color(0xFF2B78DC);
   late Color aguamarina = const Color(0xFF39D2C0);
+  late Color proveedor = const Color(0xFF46EF98);
 }
 
 abstract class Typography {
