@@ -1,11 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
-import 'package:reservatu_pista/app/pages/usuario/reservar_pista2/reservar_pista_c2.dart';
 import 'package:reservatu_pista/app/routes/database.dart';
-import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
-import 'package:reservatu_pista/backend/storage/storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../utils/buttons_sounds.dart';
 import '../../utils/dialog/rich_alert_flutterflow.dart';
@@ -351,7 +347,8 @@ class _AlertRecargarWidgetState extends State<AlertRecargarWidget>
                   onPressed: () {
                     if (_model.money > 0) {
                       ReservarPistaController reservarPistaController =
-                          Get.find();
+                          Get.find(tag: 'reserva');
+                      print(reservarPistaController);
                       Get.dialog(RichAlertFlutterFlow(
                         alertType: TypeAlert.NONE,
                         alertTitle: title,

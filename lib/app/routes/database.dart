@@ -231,15 +231,16 @@ class DatabaseController extends GetxController {
       int id_pista,
       {bool reservaConTarjeta = false}) async {
     http.Response response;
+
+    print('id_usuario.toString() ${id_usuario.toString()}');
+    print('num_operacion ${num_operacion}');
+    print('cantidad ${cantidad}');
+    print('fecha ${fecha}');
+    print('hora_inicio ${hora_inicio}');
+    print('hora_fin ${hora_fin}');
+    print('id_pista ${id_pista}');
+    print('reservaConTarjeta ${reservaConTarjeta}');
     if (reservaConTarjeta) {
-      print('id_usuario.toString() ${id_usuario.toString()}');
-      print('num_operacion ${num_operacion}');
-      print('cantidad ${cantidad}');
-      print('fecha ${fecha}');
-      print('hora_inicio ${hora_inicio}');
-      print('hora_fin ${hora_fin}');
-      print('id_pista ${id_pista}');
-      print('reservaConTarjeta ${reservaConTarjeta}');
       response = await http.post(
           Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
           headers: <String, String>{
