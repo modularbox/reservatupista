@@ -27,6 +27,7 @@ class MisSociosController extends GetxController
       ],
     ),
   };
+
   @override
   void onInit() {
     super.onInit();

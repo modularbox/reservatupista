@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';

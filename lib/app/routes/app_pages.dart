@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_usuario_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
+import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_model.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -84,6 +89,8 @@ abstract class Routes {
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
   static const TARIFAS_PISTA = '/tarifas_pista';
   static const PAGO_TPV = '/pago_tpv';
+  static const AMIGOS = '/amigos_usuario';
+  static const MIS_BONOS = '/bonos';
 }
 
 /// Get Routes
@@ -162,7 +169,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.NOTIFICACIONES,
-      page: () => NotificacionesWidget(),
+      page: () => NotificacionesProfesionalWidget(),
     ),
     GetPage(
       name: Routes.NOTIFICACIONES_PROVEEDOR,
@@ -245,6 +252,16 @@ class AppPages {
       name: Routes.PAGO_TPV,
       page: () => PagoTpvPage(),
       binding: PagoTpvBinding(),
+    ),
+    GetPage(
+      name: Routes.AMIGOS,
+      page: () => AmigosPage(),
+      binding: AmigosBinding(),
+    ),
+    GetPage(
+      name: Routes.MIS_BONOS,
+      page: () => MisBonosPage(),
+      binding: MisBonosBinding(),
     ),
   ];
 }

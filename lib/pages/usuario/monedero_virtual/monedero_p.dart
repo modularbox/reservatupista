@@ -228,7 +228,7 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
                               elevation: 3.0,
                               borderSide: const BorderSide(
                                 color: Colors.transparent,
-                                width: 1.0,
+                                width: 3.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
@@ -660,269 +660,308 @@ Widget buildReserva(BuildContext context) {
 }
 
 Widget listHistorialMonedero() => Expanded(
-    child: Padding(
+      child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
         child: SingleChildScrollView(
-            child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-              child: Container(
-                width: double.infinity,
-                constraints: BoxConstraints(
-                  maxWidth: 570,
-                ),
-                decoration: BoxDecoration(
-                  color: LightModeTheme().secondaryBackground,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: LightModeTheme().successGeneral,
-                    width: 2,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    maxWidth: 570,
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 5, 12),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(2, 0, 5, 25),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/icon_recarga.png',
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
+                  decoration: BoxDecoration(
+                    color: LightModeTheme().secondaryBackground,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: LightModeTheme().successGeneral,
+                      width: 3,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 12, 5, 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(2, 0, 5, 25),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  'assets/images/icon_recarga.png',
+                                  width: 30,
+                                  height: 30,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Recarga',
-                                  style: LightModeTheme().bodyLarge.override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 18,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                                Text(
-                                  '+ 100,00€',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF17D833),
-                                        fontSize: 18,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 11, 0),
-                                  child: Text(
-                                    'Lunes 3 Enero 2024',
+                          ],
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Recarga',
+                                    style: LightModeTheme().bodyLarge.override(
+                                          fontFamily: 'Readex Pro',
+                                          fontSize: 18,
+                                          letterSpacing: 0,
+                                        ),
+                                  ),
+                                  Text(
+                                    '+ 100,00€',
+                                    style: LightModeTheme().bodyMedium.override(
+                                          fontFamily: 'Readex Pro',
+                                          color: Color(0xFF17D833),
+                                          fontSize: 18,
+                                          letterSpacing: 0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 11, 0),
+                                    child: Text(
+                                      'Lunes 3 Enero 2024',
+                                      style:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '11:34',
                                     style:
                                         LightModeTheme().labelMedium.override(
                                               fontFamily: 'Readex Pro',
                                               letterSpacing: 0,
                                             ),
                                   ),
-                                ),
-                                Text(
-                                  '11:34',
-                                  style: LightModeTheme().labelMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        letterSpacing: 0,
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(-1, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 10, 0),
+                                      child: Text(
+                                        'Tarjeta',
+                                        textAlign: TextAlign.center,
+                                        style: LightModeTheme()
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color: LightModeTheme().primary,
+                                              letterSpacing: 0,
+                                              lineHeight: 1,
+                                            ),
                                       ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(-1, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 10, 0),
-                                    child: Text(
-                                      'Tarjeta',
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          LightModeTheme().bodyMedium.override(
-                                                fontFamily: 'Readex Pro',
-                                                color: LightModeTheme().primary,
-                                                letterSpacing: 0,
-                                                lineHeight: 1,
-                                              ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-              child: Container(
-                width: double.infinity,
-                constraints: BoxConstraints(
-                  maxWidth: 570,
-                ),
-                decoration: BoxDecoration(
-                  color: LightModeTheme().secondaryBackground,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: LightModeTheme().errorGeneral,
-                    width: 2,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    maxWidth: 570,
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 5, 12),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(2, 0, 5, 25),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/icon_recarga.png',
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
+                  decoration: BoxDecoration(
+                    color: LightModeTheme().secondaryBackground,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: LightModeTheme().errorGeneral,
+                      width: 3,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 12, 5, 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 25),
+                              child: Icon(
+                                Icons.data_saver_on_rounded,
+                                color: LightModeTheme().primaryText,
+                                size: 30,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Reserva de pista',
-                                  style: LightModeTheme().bodyLarge.override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 18,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                                Text(
-                                  '-1,50 €',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFFE74C3C),
-                                        fontSize: 18,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 11, 0),
-                                  child: Text(
-                                    'Lunes 3 Enero 2024',
-                                    style:
-                                        LightModeTheme().labelMedium.override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
-                                  ),
-                                ),
-                                Text(
-                                  '11:34',
-                                  style: LightModeTheme().labelMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Pista Padel #1',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        color: LightModeTheme().secondaryText,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(-1, 0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 10, 0),
-                                    child: Text(
-                                      'Monedero',
-                                      textAlign: TextAlign.center,
+                          ],
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Reserva de Pista',
+                                      style:
+                                          LightModeTheme().bodyLarge.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 18,
+                                                letterSpacing: 0,
+                                              ),
+                                    ),
+                                    Text(
+                                      '-1,50 €',
                                       style:
                                           LightModeTheme().bodyMedium.override(
                                                 fontFamily: 'Readex Pro',
-                                                color: LightModeTheme().primary,
+                                                color: Color(0xFFE74C3C),
+                                                fontSize: 18,
                                                 letterSpacing: 0,
-                                                lineHeight: 0.9,
+                                              ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 11, 0),
+                                    child: Text(
+                                      'Lunes 3 Enero 2024 - 11:00-12:30',
+                                      style:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
                                               ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  Align(
+                                    alignment: AlignmentDirectional(-1, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 10, 0),
+                                      child: Text(
+                                        'Tarjeta',
+                                        textAlign: TextAlign.center,
+                                        style: LightModeTheme()
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color: LightModeTheme().primary,
+                                              letterSpacing: 0,
+                                              lineHeight: 1,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 11, 0),
+                                    child: Text(
+                                      'Ayto. Riolobos',
+                                      style:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 10, 0),
+                                    child: Text(
+                                      '#12345',
+                                      style: LightModeTheme()
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color:
+                                                LightModeTheme().secondaryText,
+                                            letterSpacing: 0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Pista Padel #1',
+                                    style: LightModeTheme().bodyMedium.override(
+                                          fontFamily: 'Readex Pro',
+                                          color: LightModeTheme().secondaryText,
+                                          letterSpacing: 0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ].divide(SizedBox(height: 10)),
-        ))));
+            ].divide(SizedBox(height: 10)),
+          ),
+        ),
+      ),
+    );
