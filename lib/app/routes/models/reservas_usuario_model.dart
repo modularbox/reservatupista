@@ -54,7 +54,7 @@ class ReservaUsuario {
   factory ReservaUsuario.fromJson(Map<String, dynamic> json) => ReservaUsuario(
         idUsuario: json["id_usuario"],
         nick: json["nick"],
-        imagen: json["foto"],
+        imagen: json["foto"] == null ? "" : json['foto'],
         plazasReservadas: json["plazas_reservadas"],
       );
 

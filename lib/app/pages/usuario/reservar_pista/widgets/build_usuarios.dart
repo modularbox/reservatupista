@@ -44,7 +44,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                         children: List.generate(
                             reservas_usuarios.usuarios.length,
                             (index) => buildUsuario(
-                                reservas_usuarios.usuarios[index]))),
+                                reservas_usuarios.usuarios[index], true))),
                 self.reservas_usuarios.value == null
                     ? const SizedBox.shrink()
                     : buildButton(
@@ -99,7 +99,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
   ) {
     return Row(
       children: [
-        buildUsuario(self.usuario.value),
+        buildUsuario(self.usuario.value, false),
         self.cancelarReserva.value
             ? const SizedBox.shrink()
             : Row(
@@ -142,7 +142,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
     );
   }
 
-  Widget buildUsuario(ReservaUsuario user) {
+  Widget buildUsuario(ReservaUsuario user, bool isPlazaReservada) {
     print('user.plazasReservadas ${user.plazasReservadas}');
 
     return Row(
@@ -170,7 +170,8 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
             size: const Size(50, 50),
             borderWidth: 2,
             hoverColor: Colores().usuario.primary69,
-            borderColor: Colores().usuario.primary,
+            borderColor:
+                isPlazaReservada ? Colores().orange : Colores().usuario.primary,
             fillColor: Colors.white,
             icon: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(30.0)),
