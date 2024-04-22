@@ -1187,10 +1187,65 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 print('preciooooooooooo ${precio}'); //(0 - 4.0);
                 if (precio < 0) {
                   if (controller2.selectedOption.value == 'tarjeta') {
+                    print('preciooooooooooo tarjeta');
                     Get.dialog(RichAlertFlutterFlow(
                       alertType: TypeAlert.NONE,
                       alertTitle: 'Reservar Pista',
-                      alertSubtitle: '¿Desea reservar la pista?',
+                      alertSubtitle:
+                          '¿Desea reservar la pista directamente con tarjeta?',
+                      textButton: '',
+                      acceptButton: MaterialButton(
+                        color: Colors.green,
+                        onPressed: () => db.reservarPistaConTarjeta(
+                            self.precio_a_mostrar.value, self),
+                        splashColor: Colors.lightGreen,
+                        child: Text(
+                          'Aceptar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      cancelButton: MaterialButton(
+                        color: Colors.red,
+                        onPressed: () => Get.back(),
+                        splashColor: Colors.redAccent,
+                        child: Text(
+                          'Cancelar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      precio: '${precio_reserva.toStringAsFixed(2)} €',
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ));
+                  } else {
+                    print('preciooooooooooo monedero');
+                    Get.dialog(RichAlertFlutterFlow(
+                      alertType: TypeAlert.NONE,
+                      alertTitle: 'Reservar Pista',
+                      alertSubtitle:
+                          'No tienes saldo suficiente, debes recargar para poder reservar.',
+                      textButton: 'Aceptar',
+                      precio: '${precio_reserva.toStringAsFixed(2)} €',
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ));
+                  }
+                } else {
+                  if (controller2.selectedOption.value == 'tarjeta') {
+                    print('preciooooooooooo tarjeta');
+                    Get.dialog(RichAlertFlutterFlow(
+                      alertType: TypeAlert.NONE,
+                      alertTitle: 'Reservar Pista',
+                      alertSubtitle:
+                          '¿Desea reservar la pista directamente con tarjeta?',
                       textButton: '',
                       acceptButton: MaterialButton(
                         color: Colors.green,
@@ -1226,50 +1281,38 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     Get.dialog(RichAlertFlutterFlow(
                       alertType: TypeAlert.NONE,
                       alertTitle: 'Reservar Pista',
-                      alertSubtitle:
-                          'No tienes saldo suficiente, debes recargar para poder reservar.',
-                      textButton: 'Aceptar',
+                      alertSubtitle: '¿Desea reservar la pista?',
+                      textButton: '',
+                      acceptButton: MaterialButton(
+                        color: Colors.green,
+                        onPressed: () => reservarPistaF(),
+                        splashColor: Colors.lightGreen,
+                        child: Text(
+                          'Aceptar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      cancelButton: MaterialButton(
+                        color: Colors.red,
+                        onPressed: () => Get.back(),
+                        splashColor: Colors.redAccent,
+                        child: Text(
+                          'Cancelar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                       precio: '${precio_reserva.toStringAsFixed(2)} €',
                       onPressed: () {
                         Get.back();
                       },
                     ));
                   }
-                } else {
-                  Get.dialog(RichAlertFlutterFlow(
-                    alertType: TypeAlert.NONE,
-                    alertTitle: 'Reservar Pista',
-                    alertSubtitle: '¿Desea reservar la pista?',
-                    textButton: '',
-                    acceptButton: MaterialButton(
-                      color: Colors.green,
-                      onPressed: () => reservarPistaF(),
-                      splashColor: Colors.lightGreen,
-                      child: Text(
-                        'Aceptar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    cancelButton: MaterialButton(
-                      color: Colors.red,
-                      onPressed: () => Get.back(),
-                      splashColor: Colors.redAccent,
-                      child: Text(
-                        'Cancelar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    precio: '${precio_reserva.toStringAsFixed(2)} €',
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ));
                 }
                 // Get.dialog(AnswerDialog(
                 //   onPressed: () => {Get.back()},
@@ -1571,8 +1614,12 @@ class SelectionWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             if (value == 'tarjeta') {
+              print('entraaaaaaaaa tarjeta');
             } else if (value == '00') {
+              print('entraaaaaaaaa 00');
               if (db.plazas_a_reservar.value != db.capacidad_pista) {
+                print(
+                    'entraaaaaaaaa db.plazas_a_reservar.value != db.capacidad_pista');
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
