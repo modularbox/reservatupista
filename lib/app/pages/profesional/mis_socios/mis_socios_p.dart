@@ -18,6 +18,7 @@ class MisSociosPage extends GetView<MisSociosController> {
         title: 'Mis Pistas',
         page: TypePage.MisReservas,
         child: Expanded(child: ListaSociosWidget()));
+    //sdaas
   }
 }
 
