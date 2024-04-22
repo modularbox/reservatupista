@@ -329,73 +329,85 @@ class _PerfilWidgetState extends State<PerfilWidget> {
       EdgeInsetsGeometry? padding}) {
     return [
       subAppBar,
-      ButtonPerfil(
-        title: 'Monedero',
-        icon: Icons.credit_card,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          Get.toNamed(Routes.MONEDERO);
-        },
-      ),
-      ButtonPerfil(
-        title: 'Datos',
-        icon: Icons.dehaze,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          Get.toNamed(Routes.DATOS_USUARIO);
-        },
-      ),
-      ButtonPerfil(
-        title: 'Resultados/Estadísticas',
-        icon: Icons.bar_chart_outlined,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          Get.toNamed(Routes.RESULTADOS_ESTADISTICAS);
-        },
-      ),
-      ButtonPerfil(
-        title: 'Detalles Club',
-        icon: Icons.people,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          Get.toNamed(Routes.NOTIFICACIONES);
-        },
-      ),
-      ButtonPerfil(
-        title: 'Términos de servicio',
-        icon: Icons.privacy_tip_rounded,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          Get.dialog(LinkDialog(
-            alertTitle:
-                richTitle('¿Deseas ir al enlace externo?', fontSize: 20.0),
-            alertSubtitle: richSubtitle(
-                'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
-          ));
-        },
-      ),
-      ButtonPerfil(
-        title: 'Invitar a amigos',
-        icon: Icons.ios_share,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          await Share.share(
-            'https://reservatupista.com/',
-          );
-        },
-      ),
+      Column(mainAxisSize: MainAxisSize.max, children: [
+        ButtonPerfil(
+          title: 'Monedero',
+          icon: Icons.credit_card,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.MONEDERO);
+          },
+        ),
+        ButtonPerfil(
+          title: 'Datos',
+          icon: Icons.dehaze,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.DATOS_USUARIO);
+          },
+        ),
+        ButtonPerfil(
+          title: 'Amigos',
+          icon: Icons.person_add,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.AMIGOS);
+          },
+        ),
+        ButtonPerfil(
+          title: 'Mis Bonos',
+          icon: Icons.book,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.MIS_BONOS);
+          },
+        ),
+        ButtonPerfil(
+          title: 'Historial Partidas',
+          icon: Icons.bar_chart_outlined,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.RESULTADOS_ESTADISTICAS);
+          },
+        ),
+        ButtonPerfil(
+          title: 'Términos de servicio',
+          icon: Icons.privacy_tip_rounded,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.dialog(LinkDialog(
+              alertTitle:
+                  richTitle('¿Deseas ir al enlace externo?', fontSize: 20.0),
+              alertSubtitle: richSubtitle(
+                  'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
+            ));
+          },
+        ),
+        ButtonPerfil(
+          title: 'Invitar a amigos',
+          icon: Icons.ios_share,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            await Share.share(
+              'https://reservatupista.com/',
+            );
+          },
+        ),
+      ]),
     ];
   }
 
@@ -426,7 +438,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
               child: Text(
                 'Cerrar Sesión',
                 style: LightModeTheme().bodyLarge,
@@ -493,14 +505,14 @@ class ButtonPerfil extends StatelessWidget {
           hoverColor: hoverColor,
           borderRadius: 12,
           icon: Padding(
-            padding: padding ?? EdgeInsets.all(8),
+            padding: padding ?? const EdgeInsets.all(8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 buildIcon(context),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
                       title,
                       style: LightModeTheme().bodyLarge,
@@ -508,7 +520,7 @@ class ButtonPerfil extends StatelessWidget {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.9, 0),
+                  alignment: const AlignmentDirectional(0.9, 0),
                   child: Icon(
                     Icons.arrow_forward_ios,
                     color: LightModeTheme().secondaryText,

@@ -20,7 +20,7 @@ class MisReservasPage extends GetView<MisReservasController> {
   @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
-        title: 'Monedero',
+        title: 'Mis Reservas',
         page: TypePage.MisReservas,
         child: SafeArea(
           top: false,
@@ -32,50 +32,53 @@ class MisReservasPage extends GetView<MisReservasController> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Obx(() => SingleChildScrollView(
+                          padding: EdgeInsets.only(top: 10.0),
                           scrollDirection: Axis.horizontal,
                           child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: buildListDeportes()),
                         )),
+                    // Generated code for this Container Widget...
                     Padding(
-                      padding: const EdgeInsets.all(5),
+                      padding: EdgeInsets.all(10),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          // context.pushNamed('HorasPistas');
+                          //context.pushNamed('HorasPistas');
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
-                          height: 130,
+                          height: 150,
                           decoration: BoxDecoration(
-                            color: LightModeTheme().secondaryBackground,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4,
-                                color: LightModeTheme().primaryText,
-                                offset: const Offset(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                offset: Offset(
                                   0,
                                   2,
                                 ),
                               )
                             ],
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(10),
                               bottomRight: Radius.circular(10),
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
                             ),
                             border: Border.all(
-                              color: Colores().orange,
+                              color: LightModeTheme().reservaPendiente,
                               width: 3,
                             ),
                           ),
                           child: Align(
-                            alignment: const AlignmentDirectional(0, 0),
+                            alignment: AlignmentDirectional(0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -83,9 +86,9 @@ class MisReservasPage extends GetView<MisReservasController> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(5),
+                                      padding: EdgeInsets.all(5),
                                       child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(12),
                                           bottomRight: Radius.circular(0),
                                           topLeft: Radius.circular(12),
@@ -108,38 +111,41 @@ class MisReservasPage extends GetView<MisReservasController> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 10, 0, 0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
                                               child: Text(
                                                 'Pista 1 - Patrocinador',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      fontSize: 16,
-                                                      letterSpacing: 0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 16,
+                                                          letterSpacing: 0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 5, 0),
                                               child: Text(
                                                 '#12348',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      fontSize: 14,
-                                                      letterSpacing: 0,
-                                                    ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 14,
+                                                          letterSpacing: 0,
+                                                        ),
                                               ),
                                             ),
                                           ],
@@ -152,7 +158,7 @@ class MisReservasPage extends GetView<MisReservasController> {
                                         children: [
                                           Text(
                                             '10/05/2024 - 12:30',
-                                            style: LightModeTheme()
+                                            style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -160,24 +166,27 @@ class MisReservasPage extends GetView<MisReservasController> {
                                                 ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 0, 5, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 5, 0),
                                             child: Text(
                                               '4,00€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 18,
-                                                    letterSpacing: 0,
-                                                  ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        fontSize: 18,
+                                                        letterSpacing: 0,
+                                                      ),
                                             ),
                                           ),
                                         ],
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0, 10, 0, 0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -189,7 +198,9 @@ class MisReservasPage extends GetView<MisReservasController> {
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(24),
                                               ),
@@ -197,7 +208,7 @@ class MisReservasPage extends GetView<MisReservasController> {
                                                 width: 120,
                                                 height: 120,
                                                 clipBehavior: Clip.antiAlias,
-                                                decoration: const BoxDecoration(
+                                                decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.network(
@@ -210,7 +221,9 @@ class MisReservasPage extends GetView<MisReservasController> {
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(24),
                                                 border: Border.all(
@@ -219,24 +232,36 @@ class MisReservasPage extends GetView<MisReservasController> {
                                                       .primaryText,
                                                 ),
                                               ),
-                                              child: Container(
-                                                width: 120,
-                                                height: 120,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
+                                              child: BtnIcon(
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                borderRadius: 20,
+                                                borderWidth: 1,
+                                                buttonSize: 40,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 15,
                                                 ),
-                                                child: Image.network(
-                                                  '',
-                                                  fit: BoxFit.cover,
-                                                ),
+                                                onPressed: () {
+                                                  print(
+                                                      'IconButton pressed ...');
+                                                },
                                               ),
                                             ),
                                             Container(
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 shape: BoxShape.circle,
                                                 border: Border.all(
                                                   color: FlutterFlowTheme.of(
@@ -244,24 +269,36 @@ class MisReservasPage extends GetView<MisReservasController> {
                                                       .primaryText,
                                                 ),
                                               ),
-                                              child: Container(
-                                                width: 120,
-                                                height: 120,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
+                                              child: BtnIcon(
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                borderRadius: 20,
+                                                borderWidth: 1,
+                                                buttonSize: 40,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 15,
                                                 ),
-                                                child: Image.network(
-                                                  '',
-                                                  fit: BoxFit.cover,
-                                                ),
+                                                onPressed: () {
+                                                  print(
+                                                      'IconButton pressed ...');
+                                                },
                                               ),
                                             ),
                                             Container(
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 shape: BoxShape.circle,
                                                 border: Border.all(
                                                   color: FlutterFlowTheme.of(
@@ -269,17 +306,27 @@ class MisReservasPage extends GetView<MisReservasController> {
                                                       .primaryText,
                                                 ),
                                               ),
-                                              child: Container(
-                                                width: 120,
-                                                height: 120,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
+                                              child: BtnIcon(
+                                                borderColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                borderRadius: 20,
+                                                borderWidth: 1,
+                                                buttonSize: 40,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 15,
                                                 ),
-                                                child: Image.network(
-                                                  '',
-                                                  fit: BoxFit.cover,
-                                                ),
+                                                onPressed: () {
+                                                  print(
+                                                      'IconButton pressed ...');
+                                                },
                                               ),
                                             ),
                                             Expanded(
@@ -308,7 +355,7 @@ class MisReservasPage extends GetView<MisReservasController> {
                                                 ],
                                               ),
                                             ),
-                                          ].divide(const SizedBox(width: 3)),
+                                          ].divide(SizedBox(width: 3)),
                                         ),
                                       ),
                                       Padding(
@@ -321,79 +368,440 @@ class MisReservasPage extends GetView<MisReservasController> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(width: 3)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          //context.pushNamed('HorasPistas');
+                        },
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 0.9,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                offset: Offset(
+                                  0,
+                                  2,
+                                ),
+                              )
+                            ],
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                            border: Border.all(
+                              color: LightModeTheme().errorGeneral,
+                              width: 3,
+                            ),
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(12),
+                                          bottomRight: Radius.circular(0),
+                                          topLeft: Radius.circular(12),
+                                          topRight: Radius.circular(0),
+                                        ),
+                                        child: Image.network(
+                                          'https://www.adslzone.net/app/uploads-adslzone.net/2022/02/U1F3BE.png',
+                                          width: 50,
+                                          height: 50,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'Pista 2 - ModularBox',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 16,
+                                                          letterSpacing: 0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 5, 0),
+                                              child: Text(
+                                                '#12349',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 14,
+                                                          letterSpacing: 0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '10/05/2024 - 12:30',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 5, 0),
+                                            child: Text(
+                                              '16,00€',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        fontSize: 18,
+                                                        letterSpacing: 0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
                                             Container(
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(24),
                                               ),
-                                              child: Text(
-                                                '4.25',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      letterSpacing: 0,
-                                                    ),
+                                              child: Container(
+                                                width: 120,
+                                                height: 120,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://picsum.photos/seed/120/600',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                             Container(
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(24),
                                               ),
-                                              child: Text(
-                                                '4.25',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      letterSpacing: 0,
-                                                    ),
+                                              child: Container(
+                                                width: 120,
+                                                height: 120,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://picsum.photos/seed/120/600',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                             Container(
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(24),
                                               ),
-                                              child: Text(
-                                                '4.25',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      letterSpacing: 0,
-                                                    ),
+                                              child: Container(
+                                                width: 120,
+                                                height: 120,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://picsum.photos/seed/120/600',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                             Container(
                                               width: 32,
                                               height: 32,
                                               decoration: BoxDecoration(
-                                                color: LightModeTheme().accent4,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent4,
                                                 borderRadius:
                                                     BorderRadius.circular(24),
                                               ),
-                                              child: Text(
-                                                '4.25',
-                                                style: LightModeTheme()
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      letterSpacing: 0,
-                                                    ),
+                                              child: Container(
+                                                width: 120,
+                                                height: 120,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  'https://picsum.photos/seed/120/600',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                          ].divide(const SizedBox(width: 3)),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0, 0, 5, 0),
+                                                    child: Text(
+                                                      'Monedero',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            letterSpacing: 0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(width: 3)),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 10, 0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 6),
+                                              child: Container(
+                                                child: Text(
+                                                  '4.25',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(width: 3)),
                                         ),
                                       ),
                                     ],
@@ -718,7 +1126,7 @@ class MisReservasPage extends GetView<MisReservasController> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
                         child: Text(
-                          'Monedero',
+                          'Mis Reservas',
                           style: LightModeTheme().bodyMedium.override(
                                 fontFamily: 'Readex Pro',
                                 letterSpacing: 0,

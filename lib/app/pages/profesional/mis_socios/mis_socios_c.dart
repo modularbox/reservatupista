@@ -200,7 +200,6 @@ class MisSociosController extends GetxController
     ),
   };
 
-  /// Initialization and disposal methods.
   @override
   void onInit() async {
     super.onInit();
