@@ -336,18 +336,15 @@ class DatabaseController extends GetxController {
           reservarPistaController.id_pista_seleccionada.value,
           reservarPistaController.fecha_seleccionada.value,
           reservarPistaController.hora_inicio_reserva_seleccionada.value);
-      if (response['existeReserva']) {
-        if (response['esReservaEnProceso']) {
-          Get.dialog(AlertDialog(
-            title: Text("Alguien está en proceso de reservar esta pista."),
-            content: Text("Intente reservar en 10 minutos."),
-          ));
-        } else {
-          Get.dialog(AlertDialog(
-            title: Text("Error. Ya existe una reserva para esta pista."),
-            content: Text("Elija otra hora, fecha o pista."),
-          ));
-        }
+      if (response['existeReserva'] && response['esReservaEnProceso']) {
+        Get.dialog(const AlertDialog(
+          title: Text("Alguien está en proceso de reservar esta pista."),
+          content: Text("Intente reservar en 10 minutos."),
+        ));
+        // Get.dialog(AlertDialog(
+        //   title: Text("Error. Ya existe una reserva para esta pista."),
+        //   content: Text("Elija otra hora, fecha o pista."),
+        // ));
       } else {
         String num_operacion =
             generarNumeroOperacionUnico(esReservaConTarjeta: true);
