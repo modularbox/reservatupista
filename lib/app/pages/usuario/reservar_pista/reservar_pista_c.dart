@@ -212,6 +212,7 @@ class ReservarPistaController extends GetxController
     try {
       final idPista = id_pista_seleccionada.value.toString();
       final fecha = fecha_seleccionada.value.formatDate;
+      print("fecha: $fecha");
       final horaInicio = hora_inicio_reserva_seleccionada.value;
       print('$idPista, $fecha, $horaInicio');
       final result =
@@ -219,6 +220,8 @@ class ReservarPistaController extends GetxController
       if (result is ReservasUsuarios) {
         reservas_usuarios.value = result;
         plazasLibres = capacidad_pista - result.plazasReservadasTotales;
+
+        usuario.refresh();
         print('plazaslibressss $plazasLibres');
         print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
       }
