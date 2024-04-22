@@ -244,15 +244,15 @@ class DatabaseController extends GetxController {
       response = await http.post(
           Uri.parse('${DatosServer().urlServer}/usuario/guardar_operacion'),
           headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
+            'Content-Type': 'application/json;',
           },
           body: jsonEncode(<String, String>{
             'id_usuario': id_usuario.toString(),
             'num_operacion': num_operacion,
             'cantidad': cantidad.toString(),
             'fecha': fecha.toString(),
-            'hora_inicio': hora_inicio,
-            'hora_fin': hora_fin,
+            'hora_inicio': '13:00:00',
+            'hora_fin': '14:00:00',
             'reserva_con_tarjeta': 'true',
             'id_pista': id_pista.toString()
             //estado es null al principio

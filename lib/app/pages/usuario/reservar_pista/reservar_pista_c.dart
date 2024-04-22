@@ -62,8 +62,8 @@ class ReservarPistaController extends GetxController
   Rx<int> duracion_partida = Rx<int>(0);
   Rx<DateTime> fecha_seleccionada = Rx<DateTime>(
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
-  Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('');
-  Rx<String> hora_fin_reserva_seleccionada = Rx<String>('');
+  Rx<String> hora_inicio_reserva_seleccionada = Rx<String>('00:00:00');
+  Rx<String> hora_fin_reserva_seleccionada = Rx<String>('01:00:00');
   Rx<int> plazas_a_reservar = Rx<int>(1);
   //variable que almacenara la diferencia entre la capacidad de la pista y las plazas que quiere reservar el user, para no tener que estar seteando constantemente la diferencia
   int plazasLibres = 0;
