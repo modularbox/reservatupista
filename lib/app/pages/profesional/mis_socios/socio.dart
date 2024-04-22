@@ -1,6 +1,7 @@
 import 'dart:core';
 
 class Socio {
+  int id;
   String nombre;
   String nick;
   bool socio;
@@ -14,8 +15,10 @@ class Socio {
   String telefono;
   String fechaAlta;
   String urlImagen;
+  int tiempoRestante;
 
   Socio(
+      this.id,
       this.nombre,
       this.nick,
       this.dni,
@@ -28,7 +31,8 @@ class Socio {
       this.telefono,
       this.fechaAlta,
       this.urlImagen,
-      this.socio);
+      this.socio,
+      this.tiempoRestante);
 
   bool isSocio() {
     return socio;

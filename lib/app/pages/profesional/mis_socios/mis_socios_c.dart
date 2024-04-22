@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node/pista_node.dart';
-import 'package:reservatu_pista/flutter_flow/form_field_controller.dart';
-import 'package:reservatu_pista/utils/format_date.dart';
-import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/chip_data.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/widgets/chips.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
-import '../../../routes/models/mis_pistas_model.dart';
 import 'Socio.dart';
 
 class MisSociosController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final unfocusNode = FocusNode();
+  final List<ChipData> chips = Chips.all;
+
+  final _selectChip = (-1).obs;
+  int get selectChip => _selectChip.value;
+  set selectChip(int value) => _selectChip.value = value;
+
+  void cambiarChip() {}
+
+  int socioSeleccionado = -1;
   final List socios = [
     Socio(
+        0,
         "José Martinez Durán",
         "NickUno",
         "123456789A",
@@ -21,73 +28,83 @@ class MisSociosController extends GetxController
         "Calle Falsa nº1",
         43,
         "Revés",
-        "Mañana",
+        "Tarde",
         "jose@reservatupista.com",
         "678123456",
         "15/04/2024",
         "https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080",
-        true),
+        true,
+        72),
     Socio(
-        "José Martinez Durán",
-        "NickUno",
-        "123456789A",
-        "4.00",
-        "Calle Falsa nº1",
-        43,
-        "Revés",
-        "Mañana",
-        "jose@reservatupista.com",
-        "678123456",
-        "15/04/2024",
-        "https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080",
-        true),
-    Socio(
-        "Manolo Martinez Soria",
+        1,
+        "Nuria Garcia Robledo",
         "NickDos",
+        "123456789A",
+        "4.00",
+        "Calle Falsa nº1",
+        43,
+        "Revés",
+        "Mañana",
+        "jose@reservatupista.com",
+        "678123456",
+        "15/04/2024",
+        "https://images.unsplash.com/photo-1593529467220-9d721ceb9a78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOXx8ZmFjZXxlbnwwfHx8fDE3MTM0MTc1MTJ8MA&ixlib=rb-4.0.3&q=80&w=1080",
+        true,
+        10),
+    Socio(
+        2,
+        "Manolo Martinez Soria",
+        "NickTres",
         "123456789A",
         "4.00",
         "Calle Falsa nº1",
         7,
         "Revés",
         "Mañana",
-        "jose@reservatupista.com",
+        "manolo@reservatupista.com",
         "678123456",
         "15/04/2024",
         "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxmYWNlJTIwY2xvc2UlMjB8ZW58MHx8fHwxNzExNDY5NTAwfDA&ixlib=rb-4.0.3&q=80&w=1080",
-        true),
+        true,
+        86),
     Socio(
+        3,
         "Isabel García García",
-        "NickTres",
-        "123456789A",
+        "NickCuatro",
+        "123456789B",
         "4.25",
-        "Calle Falsa nº1",
+        "Calle Falsa nº6",
         24,
         "Revés",
         "Mañana",
-        "jose@reservatupista.com",
+        "isabel@reservatupista.com",
         "678123456",
         "15/04/2024",
         "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxmYWNlJTIwY2xvc2UlMjB1cHxlbnwwfHx8fDE3MTE0Njk1NzZ8MA&ixlib=rb-4.0.3&q=80&w=400",
-        true),
+        true,
+        22),
     Socio(
-        "José Martinez Durán",
-        "NickUno",
+        4,
+        "Mariano Rodriguez Durán",
+        "NickCinco",
         "123456789A",
-        "4.00",
+        "2.00",
         "Calle Falsa nº1",
-        43,
+        6,
         "Revés",
         "Mañana",
         "jose@reservatupista.com",
         "678123456",
         "15/04/2024",
-        "https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080",
-        false),
+        "https://images.unsplash.com/photo-1600364768707-1385e68a48f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzEzNDI5NzIzfDA&ixlib=rb-4.0.3&q=80&w=400",
+        false,
+        -1),
     Socio(
-        "Isabel García García",
-        "NickCuatro",
+        5,
+        "Encarni Bosco Martin",
+        "NickSeis",
         "123456789A",
-        "4.25",
+        "3.50",
         "Calle Falsa nº1",
         2,
         "Revés",
@@ -96,24 +113,13 @@ class MisSociosController extends GetxController
         "678123456",
         "15/04/2024",
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzExNDY5NTc2fDA&ixlib=rb-4.0.3&q=80&w=400",
-        false)
+        false,
+        -1)
   ];
   // State field(s) for searchBar widget.
   FocusNode? searchBarFocusNode;
   TextEditingController? searchBarController;
   String? Function(BuildContext, String?)? searchBarControllerValidator;
-  // State field(s) for ChoiceChips widget.
-  FormFieldController<List<String>>? choiceChipsValueController;
-  String? get choiceChipsValue =>
-      choiceChipsValueController?.value?.firstOrNull;
-  set choiceChipsValue(String? val) =>
-      choiceChipsValueController?.value = val != null ? [val] : [];
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue1;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue2;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue3;
 
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
@@ -130,8 +136,8 @@ class MisSociosController extends GetxController
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 800.ms,
-          begin: Offset(50, 0),
-          end: Offset(0, 0),
+          begin: const Offset(50, 0),
+          end: const Offset(0, 0),
         ),
       ],
     ),
@@ -149,8 +155,8 @@ class MisSociosController extends GetxController
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 800.ms,
-          begin: Offset(50, 0),
-          end: Offset(0, 0),
+          begin: const Offset(50, 0),
+          end: const Offset(0, 0),
         ),
       ],
     ),
@@ -168,8 +174,8 @@ class MisSociosController extends GetxController
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 800.ms,
-          begin: Offset(50, 0),
-          end: Offset(0, 0),
+          begin: const Offset(50, 0),
+          end: const Offset(0, 0),
         ),
       ],
     ),
@@ -187,8 +193,8 @@ class MisSociosController extends GetxController
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 800.ms,
-          begin: Offset(50, 0),
-          end: Offset(0, 0),
+          begin: const Offset(50, 0),
+          end: const Offset(0, 0),
         ),
       ],
     ),
@@ -207,21 +213,7 @@ class MisSociosController extends GetxController
     );
   }
 
-  void onCambiarChip(List<String>? val) {
-    choiceChipsValue = val?.firstOrNull;
-  }
-
-  void onChangedCheckbox(bool? newValue) {
-    checkboxValue1 = newValue!;
-  }
-
-  void onChangedCheckbox2(bool? newValue) {
-    checkboxValue1 = newValue!;
-  }
-
-  void onChangedCheckbox3(bool? newValue) {
-    checkboxValue1 = newValue!;
-  }
+  void setBusquedaState() {}
 
   @override
   void dispose() {

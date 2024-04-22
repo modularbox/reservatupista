@@ -1,18 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/chip_data.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/widgets/checker.dart';
-import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
-import 'package:reservatu_pista/flutter_flow/flutter_flow_choice_chips.dart';
-import 'package:reservatu_pista/flutter_flow/form_field_controller.dart';
-import 'package:reservatu_pista/utils/btn_icon.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/widgets/popup_datos_socios_pendiente.dart';
 import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import 'mis_socios_c.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'Socio.dart';
 import 'widgets/popup_datos_socios2.dart';
 
@@ -51,162 +45,90 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16, 12, 8, 0),
-                              child: TextFormField(
-                                controller: _model.searchBarController,
-                                focusNode: _model.searchBarFocusNode,
-                                textCapitalization: TextCapitalization.words,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Buscar socio',
-                                  labelStyle:
-                                      LightModeTheme().labelMedium.override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: LightModeTheme().primaryText,
-                                            fontSize: 14,
-                                            letterSpacing: 0,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                  hintStyle:
-                                      LightModeTheme().labelMedium.override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: LightModeTheme().primaryText,
-                                            fontSize: 14,
-                                            letterSpacing: 0,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: LightModeTheme().primaryText,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: LightModeTheme().proveedor,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFFF5963),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFFF5963),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  filled: true,
-                                  fillColor: const Color(0xFFF1F4F8),
-                                  contentPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          24, 24, 20, 24),
-                                  prefixIcon: const Icon(
-                                    Icons.search,
-                                    color: Color(0xFF57636C),
-                                    size: 16,
-                                  ),
-                                ),
-                                style: LightModeTheme().bodyMedium.override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF14181B),
-                                      fontSize: 14,
-                                      letterSpacing: 0,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                minLines: null,
-                                validator: _model.searchBarControllerValidator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 12, 12, 0),
-                            child: BtnIcon(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30,
-                              borderWidth: 1,
-                              buttonSize: 50,
-                              icon: const Icon(
-                                Icons.search_sharp,
-                                color: Color(0xFF14181B),
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                print('IconButton pressed ...');
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 3, 0, 0),
+                      child: Expanded(
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 0, 10, 10),
+                          child: SearchAnchor(
+                              isFullScreen: false,
+                              viewHintText: "Buscar socio...",
+                              viewSurfaceTintColor:
+                                  LightModeTheme().secondaryBackground,
+                              viewBackgroundColor:
+                                  LightModeTheme().primaryBackground,
+                              builder: (BuildContext context,
+                                  SearchController controller) {
+                                return SearchBar(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      LightModeTheme().secondaryBackground),
+                                  controller: controller,
+                                  surfaceTintColor: MaterialStateProperty.all(
+                                      LightModeTheme().secondaryBackground),
+                                  overlayColor:
+                                      MaterialStateColor.resolveWith((states) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
+                                      return LightModeTheme().primaryBackground;
+                                    }
+                                    return LightModeTheme().secondaryBackground;
+                                  }),
+                                  padding: const MaterialStatePropertyAll<
+                                          EdgeInsets>(
+                                      EdgeInsets.symmetric(horizontal: 16.0)),
+                                  onTap: () {
+                                    controller.openView();
+                                  },
+                                  onChanged: (_) {
+                                    controller.openView();
+                                  },
+                                  leading: const Icon(Icons.search),
+                                );
                               },
-                            ),
-                          ),
-                        ],
+                              suggestionsBuilder: (BuildContext context,
+                                  SearchController suggestcontroller) {
+                                return List.generate(
+                                    controller.socios.length,
+                                    (i) => Padding(
+                                          padding: const EdgeInsets.all(2),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: LightModeTheme()
+                                                  .primaryBackground,
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Text(
+                                                  controller.socios[i].nombre,
+                                                  style: LightModeTheme()
+                                                      .bodyLarge,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ));
+                              }),
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                      child: FlutterFlowChoiceChips(
-                        options: const [
-                          ChipData('Nivel', null, null),
-                          ChipData('Antigüedad', null, null),
-                          ChipData('Tiempo restante', null, null)
-                        ],
-                        onChanged: (val) => _model.onCambiarChip(val),
-                        selectedChipStyle: ChipStyle(
-                          backgroundColor: LightModeTheme().proveedor,
-                          textStyle: LightModeTheme().bodyMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: LightModeTheme().info,
-                                letterSpacing: 0,
-                              ),
-                          iconColor: LightModeTheme().info,
-                          iconSize: 18,
-                          elevation: 2,
-                          borderColor: LightModeTheme().primaryText,
-                          borderWidth: 1,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        unselectedChipStyle: ChipStyle(
-                          backgroundColor: LightModeTheme().secondaryBackground,
-                          textStyle: LightModeTheme().bodyMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: LightModeTheme().secondaryText,
-                                letterSpacing: 0,
-                              ),
-                          iconColor: LightModeTheme().secondaryText,
-                          iconSize: 18,
-                          elevation: 0,
-                          borderColor: LightModeTheme().alternate,
-                          borderWidth: 1,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        chipSpacing: 8,
-                        rowSpacing: 12,
-                        multiselect: false,
-                        initialized: _model.choiceChipsValue != null,
-                        alignment: WrapAlignment.start,
-                        controller: _model.choiceChipsValueController ??=
-                            FormFieldController<List<String>>(
-                          ['All'],
-                        ),
-                        wrapped: false,
-                      ),
-                    ),
+                    Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ...List.generate(controller.chips.length,
+                                  (i) => buildChips(controller.chips[i], i))
+                            ])),
                     ...List.generate(controller.socios.length,
-                        ((i) => buildSocio(controller.socios[i])))
+                        ((i) => buildSocio(controller.socios[i]))),
+                    Container(
+                      width: 0,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -227,7 +149,10 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  Get.dialog(const DatosSocio2Widget());
+                  controller.socioSeleccionado = socio.id;
+                  socio.isSocio()
+                      ? Get.dialog(const DatosSocio2Widget())
+                      : Get.dialog(const DatosSocioWidgetPendiente());
                 },
                 child: Material(
                   color: Colors.transparent,
@@ -371,5 +296,32 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                 ),
               ),
             ));
+  }
+
+  Widget buildChips(ChipData chip, int i) {
+    return ChipTheme(
+        data: (const ChipThemeData(selectedColor: Colors.amber)),
+        child: FilterChip(
+            showCheckmark: false,
+            avatar: CircleAvatar(
+              backgroundColor: controller.selectChip == i
+                  ? LightModeTheme().primaryBackground
+                  : LightModeTheme().secondaryBackground,
+              child: Icon(controller.selectChip == i
+                  ? Icons.expand_more_outlined
+                  : Icons.expand_less_outlined),
+            ),
+            padding: const EdgeInsets.all(4),
+            backgroundColor: controller.selectChip == i
+                ? LightModeTheme().proveedor
+                : LightModeTheme().secondaryBackground,
+            label: Text(chip.label),
+            deleteIcon: const Icon(Icons.cancel),
+            deleteIconColor: Colors.red,
+            selectedColor: LightModeTheme().proveedor,
+            onSelected: (value) {
+              controller.selectChip = i;
+              controller.cambiarChip();
+            }));
   }
 }

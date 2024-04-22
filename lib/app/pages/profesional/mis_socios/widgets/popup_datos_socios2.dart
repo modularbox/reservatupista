@@ -1,27 +1,24 @@
-import 'dart:ui';
+import 'dart:math';
 
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import '../Socio.dart';
+import '../mis_socios_c.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import 'popup_expulsar_socio.dart';
-
-class DatosSocio2Widget extends StatefulWidget {
+class DatosSocio2Widget extends GetView<MisSociosController> {
   const DatosSocio2Widget({super.key});
 
   @override
-  State<DatosSocio2Widget> createState() => _DatosSocio2WidgetState();
+  Widget build(BuildContext context) {
+    return _DatosSocio2WidgetState();
+  }
 }
 
-class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
+class _DatosSocio2WidgetState extends GetView<MisSociosController> {
+  Socio? socio;
   final datos = [
     "Nombre: ",
     "Nivel: ",
@@ -34,37 +31,26 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
     "Teléfono: ",
     "Fecha de alta: ",
   ];
-  final datosSubtitulos = [
-    "José Durán García",
-    "4.00",
-    "123456789A",
-    "Calle Falsa nº1",
-    "48",
-    "Revés",
-    "Mañana",
-    "email@reservatupista.com",
-    "654321987",
-    "12/04/2024"
-  ];
-  @override
-  void setState(VoidCallback callback) {
-    super.setState(callback);
-  }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  List<String> cargarDatos() {
+    return [
+      socio!.nombre,
+      socio!.nivel,
+      socio!.dni,
+      socio!.direccion,
+      socio!.partidasJugadas.toString(),
+      socio!.posicion,
+      socio!.horario,
+      socio!.email,
+      socio!.telefono,
+      socio!.fechaAlta
+    ];
   }
 
   Text getTexto(String info) {
     return Text(
       info,
-      style: FlutterFlowTheme.of(context).bodyMedium.override(
+      style: LightModeTheme().bodyMedium.override(
           fontFamily: 'Readex Pro',
           letterSpacing: 0,
           decoration: TextDecoration.none),
@@ -75,7 +61,7 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
     var pesoLetrasCabecera = FontWeight.bold;
     return Text(
       cabecera,
-      style: FlutterFlowTheme.of(context).bodyMedium.override(
+      style: LightModeTheme().bodyMedium.override(
           fontFamily: 'Readex Pro',
           letterSpacing: 0,
           fontWeight: pesoLetrasCabecera,
@@ -85,23 +71,25 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
 
   @override
   Widget build(BuildContext context) {
+    socio = controller.socios[controller.socioSeleccionado];
+    final datosSubtitulos = cargarDatos();
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Align(
-            alignment: AlignmentDirectional(0, 0),
+            alignment: const AlignmentDirectional(0, 0),
             child: Container(
               width: 500,
               height: 700,
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 700,
               ),
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                boxShadow: [
+                color: LightModeTheme().secondaryBackground,
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 12,
                     color: Color(0x33000000),
@@ -117,13 +105,14 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 20),
+                padding: const EdgeInsetsDirectional.fromSTEB(4, 4, 4, 20),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 12, 10, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 12, 10, 12),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -131,16 +120,15 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              color: LightModeTheme().secondaryBackground,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(40),
                                 child: Image.network(
-                                  'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
+                                  socio!.urlImagen,
                                   width: 100,
                                   height: 100,
                                   fit: BoxFit.cover,
@@ -150,15 +138,15 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16, 0, 0, 0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Nick',
-                                    style: FlutterFlowTheme.of(context)
+                                    socio!.nick,
+                                    style: LightModeTheme()
                                         .headlineLarge
                                         .override(
                                             fontFamily: 'Outfit',
@@ -170,18 +158,16 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1, -1),
+                            alignment: const AlignmentDirectional(1, -1),
                             child: FlutterFlowIconButton(
                               borderColor: Colors.transparent,
                               borderRadius: 30,
                               borderWidth: 1,
                               buttonSize: 44,
-                              fillColor:
-                                  FlutterFlowTheme.of(context).errorGeneral,
+                              fillColor: LightModeTheme().errorGeneral,
                               icon: Icon(
                                 Icons.close,
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 size: 24,
                               ),
                               onPressed: () async {
@@ -196,16 +182,16 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1, 0),
+                          alignment: const AlignmentDirectional(-1, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 12, 0, 12),
                                 child: Text(
                                   'Datos personales:',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: LightModeTheme()
                                       .headlineSmall
                                       .override(
                                           fontFamily: 'Outfit',
@@ -221,26 +207,26 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                             ((i) => buildTituloySubtitulo(
                                 datos[i], datosSubtitulos[i]))),
                         Align(
-                          alignment: AlignmentDirectional(-1, 0),
+                          alignment: const AlignmentDirectional(-1, 0),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10, 2, 0, 2),
                                   child: getTextoCabecera("Le quedan: "),
                                 ),
                                 Text(
-                                  '12 días',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: Color(0xFFE62310),
-                                          letterSpacing: 0,
-                                          decoration: TextDecoration.none),
+                                  socio!.tiempoRestante.toString(),
+                                  style: LightModeTheme().bodyMedium.override(
+                                      fontFamily: 'Readex Pro',
+                                      color: socio!.tiempoRestante < 30
+                                          ? const Color(0xFFE62310)
+                                          : const Color.fromARGB(255, 0, 0, 0),
+                                      letterSpacing: 0,
+                                      decoration: TextDecoration.none),
                                 ),
                               ],
                             ),
@@ -250,14 +236,15 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 5, 0, 2),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 5, 0, 2),
                               child: getTextoCabecera("Bonos: "),
                             ),
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -271,23 +258,24 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                       ],
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0, 0),
+                      alignment: const AlignmentDirectional(0, 0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             buildBoton(
                                 "Mensaje",
-                                Icon(
+                                const Icon(
                                   Icons.message_rounded,
                                   size: 15,
                                 ),
                                 LightModeTheme().successGeneral),
                             buildBoton(
                                 "Email",
-                                Icon(
+                                const Icon(
                                   Icons.email_rounded,
                                   size: 15,
                                 ),
@@ -298,33 +286,11 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                     ),
                     Builder(
                       builder: (context) => Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-
-                          //
-                          //Preguntar a Miguel
-                          //
-
-                          /*Función dinámica
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: AlignmentDirectional(0, 0)
-                                      .resolve(Directionality.of(context)),
-                                  child: ExpulsarSocioWidget(),
-                                );
-                              },
-                            ).then((value) => setState(() {}));
-                          },
-                          */
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: buildBoton(
                               "Expulsar",
-                              Icon(
+                              const Icon(
                                 Icons.dangerous,
                                 size: 15,
                               ),
@@ -342,14 +308,14 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
 
   Widget buildTituloySubtitulo(String titulo, String subtitulo) {
     return Align(
-      alignment: AlignmentDirectional(-1, 0),
+      alignment: const AlignmentDirectional(-1, 0),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10, 2, 0, 2),
+              padding: const EdgeInsetsDirectional.fromSTEB(10, 2, 0, 2),
               child: getTextoCabecera(titulo),
             ),
             getTexto(subtitulo),
@@ -361,7 +327,7 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
 
   Widget buildBono(String tipo, String digito) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
       child: Material(
         color: Colors.transparent,
         elevation: 2,
@@ -372,24 +338,24 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
           width: 70,
           height: 70,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: LightModeTheme().secondaryBackground,
             borderRadius: BorderRadius.circular(4),
             border: Border.all(
-              color: FlutterFlowTheme.of(context).primaryText,
+              color: LightModeTheme().primaryText,
               width: 2,
             ),
           ),
           child: Align(
-            alignment: AlignmentDirectional(0, 0),
+            alignment: const AlignmentDirectional(0, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                   child: Text(
                     tipo,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           fontSize: 10,
                           letterSpacing: 0,
@@ -399,7 +365,7 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
                 ),
                 Text(
                   digito,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  style: LightModeTheme().bodyMedium.override(
                         fontFamily: 'Readex Pro',
                         fontSize: 20,
                         letterSpacing: 0,
@@ -423,16 +389,16 @@ class _DatosSocio2WidgetState extends State<DatosSocio2Widget> {
       options: FFButtonOptions(
         height: 40,
         width: 150,
-        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+        iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
         color: color,
-        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+        textStyle: LightModeTheme().titleSmall.override(
               fontFamily: 'Readex Pro',
-              color: FlutterFlowTheme.of(context).primaryText,
+              color: LightModeTheme().primaryText,
               letterSpacing: 0,
             ),
         elevation: 3,
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.transparent,
           width: 1,
         ),
