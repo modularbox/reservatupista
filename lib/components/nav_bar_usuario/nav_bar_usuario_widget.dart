@@ -135,7 +135,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
             children: [
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.INICIO);
+                  Get.offAllNamed(Routes.INICIO);
                 },
                 isPage: widget.tipoDePagina == TypePage.Inicio,
                 icon: Icons.home_rounded,
@@ -145,7 +145,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
               ),
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.MISRESERVAS);
+                  Get.offAllNamed(Routes.MISRESERVAS);
                 },
                 isPage: widget.tipoDePagina == TypePage.MisReservas,
                 icon: Icons.calendar_month,
@@ -153,7 +153,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
               ),
               buildIconCenter(
                 onPressed: () async {
-                  Get.offNamed(Routes.RESERVAR_PISTA);
+                  Get.offAllNamed(Routes.RESERVAR_PISTA);
                 },
                 isPage: widget.tipoDePagina == TypePage.ReservarPista,
                 icon: Icons.add,
@@ -161,7 +161,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
               ),
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.MONEDEROVIRTUAL);
+                  Get.offAllNamed(Routes.MONEDEROVIRTUAL);
                 },
                 isPage: widget.tipoDePagina == TypePage.MonederoVirtual,
                 icon: Icons.credit_card,
@@ -169,7 +169,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
               ),
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.PERFIL);
+                  Get.offAllNamed(Routes.PERFIL);
                 },
                 isPage: widget.tipoDePagina == TypePage.Perfil,
                 icon: Icons.person,

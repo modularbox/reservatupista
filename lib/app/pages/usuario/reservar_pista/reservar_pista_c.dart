@@ -1,6 +1,3 @@
-//Si lo añado rompe la app
-//import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -220,7 +217,7 @@ class ReservarPistaController extends GetxController
       if (result is ReservasUsuarios) {
         reservas_usuarios.value = result;
         plazasLibres = capacidad_pista - result.plazasReservadasTotales;
-
+        usuario.value.plazasReservadas = 1;
         usuario.refresh();
         print('plazaslibressss $plazasLibres');
         print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
