@@ -120,6 +120,8 @@ class ReservarPistaController extends GetxController
 
   /// Obtener los usuarios con reservas
   final reservas_usuarios = Rxn<ReservasUsuarios>();
+  // Verificar si las reservas son abiertas y si ha solicitado todas las reservas siendo el mismo
+  bool totalMisReservas = false;
 
   @override
   void onInit() async {

@@ -19,6 +19,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
       : self.precio_sin_luz_no_socio.value;
   // Capacidad de la pista
   int get capacidad => self.pistas.value[self.selectPista.value!]['capacidad'];
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -32,19 +33,20 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
             : (capacidad -
                 (plazasReservadasTotales +
                     self.usuario.value.plazasReservadas));
-        print("tamanoBotones ${tamanoBotones}");
         return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
             child: Row(
               children: [
-                self.cancelarReserva.value
+                (self.cancelarReserva.value && !self.totalMisReservas)
                     ? const SizedBox.shrink()
                     : Row(
                         children: List.generate(
                             reservas_usuarios.usuarios.length,
                             (index) => buildUsuario(
-                                reservas_usuarios.usuarios[index], true))),
+                                  reservas_usuarios.usuarios[index],
+                                  true,
+                                ))),
                 self.reservas_usuarios.value == null
                     ? const SizedBox.shrink()
                     : buildButton(
@@ -63,11 +65,18 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                       self.plazas_a_reservar.value = 1;
                       self.cancelarReserva.value = false;
                     } else {
-                      // ignore: non_constant_identifier_names
-                      int plazas_a_reservar = capacidad;
-                      self.plazas_a_reservar.value = plazas_a_reservar;
-                      self.usuario.value.plazasReservadas = plazas_a_reservar;
-                      self.cancelarReserva.value = true;
+                      self.totalMisReservas =
+                          todasMisReservas(self.plazas_a_reservar.value);
+                      if (self.totalMisReservas) {
+                        self.cancelarReserva.value = true;
+                        self.usuario.value.plazasReservadas += 1;
+                        self.plazas_a_reservar.value += 1;
+                      } else {
+                        // ignore: non_constant_identifier_names
+                        self.plazas_a_reservar.value = capacidad;
+                        self.usuario.value.plazasReservadas = capacidad;
+                        self.cancelarReserva.value = true;
+                      }
                     }
                     self.precio_a_mostrar.value = self.precio_elegido.value *
                         self.usuario.value.plazasReservadas;
@@ -112,8 +121,16 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                                   self.precio_elegido.value = precio;
                                   self.usuario.value.plazasReservadas += 1;
                                   self.plazas_a_reservar.value += 1;
+                                  // if (todasMisReservas()) {
+                                  //   self.cancelarReserva.value = true;
+                                  // } else
                                   if (self.plazas_a_reservar.value ==
                                       (capacidad)) {
+                                    self.cancelarReserva.value = true;
+                                  }
+                                  self.totalMisReservas = todasMisReservas(
+                                      self.plazas_a_reservar.value);
+                                  if (self.totalMisReservas) {
                                     self.cancelarReserva.value = true;
                                   }
                                   final precio_a_mostrar = precio *
@@ -143,15 +160,13 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
   }
 
   Widget buildUsuario(ReservaUsuario user, bool isPlazaReservada) {
-    print('user.plazasReservadas ${user.plazasReservadas}');
-    print('self.plazasLibres ${self.plazasLibres}');
     return Row(
         children: List.generate(
       user.plazasReservadas,
       (index) => Column(
         children: [
           BtnIcon(
-            onPressed: index == 0
+            onPressed: index == 0 || (self.cancelarReserva.isTrue)
                 ? null
                 : () {
                     self.usuario.value.plazasReservadas -= 1;
@@ -160,7 +175,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                     final precio_a_mostrar =
                         precio * self.usuario.value.plazasReservadas;
                     self.precio_a_mostrar.value = precio_a_mostrar;
-                    if (self.plazas_a_reservar < capacidad) {
+                    if (self.plazas_a_reservar <= capacidad) {
                       self.cancelarReserva.value = false;
                     }
                     self.usuario.refresh();
@@ -186,5 +201,25 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
         ],
       ),
     ));
+  }
+
+  /// Verificar si todas las reservas son del usuario y si tiene alguna pendiente
+  bool todasMisReservas(int plazasReservadas) {
+    print("TodasMisReservas");
+    final idUsuario = self.usuario.value.idUsuario;
+    print(idUsuario);
+    print(self.reservas_usuarios.value!.usuarios);
+    int total = 0;
+    for (final reserva_usuario in self.reservas_usuarios.value!.usuarios) {
+      print("total");
+      print(
+          "reserva_usuario.plazasReservada ${reserva_usuario.plazasReservadas}");
+      print(reserva_usuario.plazasReservadas + plazasReservadas);
+      if (reserva_usuario.idUsuario == idUsuario) {
+        total += reserva_usuario.plazasReservadas;
+      }
+    }
+    print("totalssssss: ${total}");
+    return total == self.reservas_usuarios.value!.plazasReservadasTotales;
   }
 }
