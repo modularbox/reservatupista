@@ -144,7 +144,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
 
   Widget buildUsuario(ReservaUsuario user, bool isPlazaReservada) {
     print('user.plazasReservadas ${user.plazasReservadas}');
-
+    print('self.plazasLibres ${self.plazasLibres}');
     return Row(
         children: List.generate(
       user.plazasReservadas,

@@ -319,6 +319,28 @@ class DatabaseController extends GetxController {
     }
   }
 
+  Future<Map> pisar_reserva(
+      int id_pista,
+      DateTime fecha_reserva,
+      String hora_inicio,
+      String hora_fin,
+      int id_usuario,
+      int plazas_a_reservar,
+      int coste_total_reserva) async {
+    try {
+      var url =
+          '${DatosServer().urlServer}/usuario/pisar_reserva?id_pista=$id_pista&fecha_reserva=$fecha_reserva&hora_inicio=$hora_inicio&hora_fin=$hora_fin&id_usuario=$id_usuario&plazas_a_reservar=$plazas_a_reservar, coste_total_reserva=$coste_total_reserva';
+      var jsonData = await http.get(Uri.parse(url));
+      var response = json.decode(jsonData.body.toString());
+      print('response2 ${response}');
+      print('response2 ${response['existeReserva']}');
+      return response;
+    } catch (error) {
+      print('eeeeeeeeerrrror: $error');
+      return {};
+    }
+  }
+
   void mostrarAlerta(BuildContext context) {
     showDialog(
       context: context,
@@ -335,6 +357,7 @@ class DatabaseController extends GetxController {
   Future<void> reservarPistaConTarjeta(
       int dinero, ReservarPistaController reservarPistaController) async {
     try {
+      final num_operacion;
       var response = await comprobarExistenciaReservas(
           reservarPistaController.id_pista_seleccionada.value,
           reservarPistaController.fecha_seleccionada.value,
@@ -349,8 +372,17 @@ class DatabaseController extends GetxController {
         //   content: Text("Elija otra hora, fecha o pista."),
         // ));
       } else {
-        String num_operacion =
-            generarNumeroOperacionUnico(esReservaConTarjeta: true);
+        if (reservarPistaController.plazasLibres ==
+            reservarPistaController.capacidad_pista) {
+          num_operacion =
+              generarNumeroOperacionUnico(esReservaConTarjeta: true);
+          print('NOOOOOO PISAAAAAA ');
+        } else {
+          print('SIIIIII PISAAAAAA ');
+          num_operacion = generarNumeroOperacionUnico(
+              esReservaConTarjeta: true, pisarReserva: true);
+        }
+
         print(
             'reservarPistaController.hora_fin_reserva_seleccionada.value ${reservarPistaController.hora_fin_reserva_seleccionada.value}');
         guardarUsuarioOperacion(
@@ -372,7 +404,8 @@ class DatabaseController extends GetxController {
     }
   }
 
-  String generarNumeroOperacionUnico({bool esReservaConTarjeta = false}) {
+  String generarNumeroOperacionUnico(
+      {bool esReservaConTarjeta = false, bool pisarReserva = false}) {
     DateTime now = DateTime.now();
     int timestamp = now.microsecondsSinceEpoch;
     Random random = Random();
@@ -381,6 +414,7 @@ class DatabaseController extends GetxController {
     String formattedString =
         '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
     if (esReservaConTarjeta) formattedString += '_reservaConTarjeta';
+    if (pisarReserva) formattedString += '_pisarReserva';
     print('formattedString $formattedString');
     return formattedString;
   }
