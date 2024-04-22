@@ -286,13 +286,14 @@ class DatabaseController extends GetxController {
       String num_operacion = generarNumeroOperacionUnico();
 
       guardarUsuarioOperacion(
-          num_operacion,
-          dinero,
-          reservarPistaController.fecha_seleccionada.value,
-          reservarPistaController.hora_inicio_reserva_seleccionada.value,
-          reservarPistaController.hora_fin_reserva_seleccionada.value,
-          reservarPistaController.id_pista_seleccionada.value,
-          storage.idUsuario.read());
+        num_operacion,
+        dinero,
+        reservarPistaController.fecha_seleccionada.value,
+        reservarPistaController.hora_inicio_reserva_seleccionada.value,
+        reservarPistaController.hora_fin_reserva_seleccionada.value,
+        storage.idUsuario.read(),
+        reservarPistaController.id_pista_seleccionada.value,
+      );
       await launchURL(
           'https://tpv.modularbox.com/pago_tpv?cantidad=${dinero}&num_operacion=${num_operacion}');
       Get.back();

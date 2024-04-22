@@ -148,7 +148,8 @@ class LoginUsuarioController extends GetxController
         if (result is UsuarioModel) {
           final storage = await SharedPreferences.getInstance();
           // Si el usuario existe guardamos el id para futuras peticiones
-          storageIdUsuario.write(result.idUsuario);
+          print("idUsuario ${result.idUsuario}");
+          storage.idUsuario.write(result.idUsuario);
           // Guardar el token
           storageTokenUsuario.write(result.token);
           // Guardar el token
