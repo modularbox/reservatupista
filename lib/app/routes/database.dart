@@ -270,6 +270,7 @@ class DatabaseController extends GetxController {
             'fecha': fecha.toString(),
             'hora_inicio': hora_inicio,
             'hora_fin': hora_fin,
+            'reserva_con_tarjeta': 'false',
             'id_pista': id_pista.toString()
             //estado es null al principio
           }));

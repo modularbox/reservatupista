@@ -803,7 +803,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           status = TypeEstadoHorario.reservada;
           break;
         case 'RESERVA_EN_PROCESO':
-          status = TypeEstadoHorario.reserva_en_proceso;
+          status = TypeEstadoHorario.reservaEnProceso;
           break;
         default:
           status = TypeEstadoHorario.abierta;
@@ -1170,7 +1170,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
                 final precio = self.storage.dineroTotal.read() -
-                    (self.precio_a_mostrar * 100);
+                    (self.precio_a_mostrar.value);
                 /*int.parse(db.datosPerfilUsuario
                         .obx(
                             (state) => Text(
