@@ -1208,11 +1208,13 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     ));
     list.add(
       TerminosCondicionesDialog(
-          AnimationController(vsync: self),
-          self.terms,
-          Colores().proveedor.primary,
-          self.terms,
-          FlutterFlowTheme.of(Get.context!).primaryText),
+        AnimationController(vsync: self),
+        self.terms,
+        Colores().proveedor.primary,
+        self.terms,
+        FlutterFlowTheme.of(Get.context!).primaryText,
+        saltoLinea: true,
+      ),
     );
     list.add(const SizedBox(
       height: 5,

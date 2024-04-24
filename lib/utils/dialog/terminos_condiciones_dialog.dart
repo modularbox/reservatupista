@@ -12,13 +12,14 @@ import '../../flutter_flow/flutter_flow_theme.dart';
 class TerminosCondicionesDialog extends StatelessWidget {
   TerminosCondicionesDialog(this.animTerminos, this.checkboxTerminos,
       this.focusedColor, this.validateTerminos, this.palomita,
-      {super.key, this.paddingTop});
+      {super.key, this.paddingTop, this.saltoLinea = false});
   AnimationController animTerminos;
   double? paddingTop;
   RxBool checkboxTerminos;
   Color focusedColor;
   RxBool validateTerminos;
   Color palomita;
+  bool saltoLinea;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class TerminosCondicionesDialog extends StatelessWidget {
               borderRadius: 12,
               padding: const EdgeInsets.all(0),
               icon: Text(
-                Get.width < 500
+                Get.width < 500 || saltoLinea
                     ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
                     : 'He leído y acepto los Términos y Condiciones de Servicio.',
                 textAlign: TextAlign.start,
