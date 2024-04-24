@@ -1113,7 +1113,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           color: Color(0xff4c4c4c))),
                 ),
                 SizedBox(
-                  width: 99.w - 128,
+                  width: Get.width * 0.3 - 128,
+                  // width: 99.w - 128,
                   child: TextFormField(
                     controller: controller.codigoDescuentoController,
                     maxLength: 10,
