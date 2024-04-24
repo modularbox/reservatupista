@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_p.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
@@ -388,6 +389,16 @@ class _PerfilWidgetState extends State<PerfilWidget> {
           padding: padding,
           onPressed: () async {
             Get.toNamed(Routes.HISTORIAL_USUARIO);
+          },
+        ),
+        ButtonPerfil(
+          title: 'Privacidad',
+          icon: Icons.private_connectivity_rounded,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.to(MenuPrivacidadWidget());
           },
         ),
         ButtonPerfil(

@@ -15,6 +15,8 @@ import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_p.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
@@ -104,6 +106,7 @@ abstract class Routes {
   static const HISTORIAL_USUARIO = '/historial_usuario';
   static const MIS_CLUBES = '/mis_clubes';
   static const COMPRAR_BONOS = '/comprar_bonos';
+  static const PRIVACIDAD = '/privacidad';
 }
 
 /// Get Routes
@@ -300,6 +303,11 @@ class AppPages {
       name: Routes.COMPRAR_BONOS,
       page: () => ComprarBonosWidget(),
       binding: ComprarBonosBinding(),
+    ),
+    GetPage(
+      name: Routes.PRIVACIDAD,
+      page: () => MenuPrivacidadWidget(),
+      binding: PrivacidadBinding(),
     ),
   ];
 }
