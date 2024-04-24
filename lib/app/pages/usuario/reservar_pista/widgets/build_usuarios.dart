@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';

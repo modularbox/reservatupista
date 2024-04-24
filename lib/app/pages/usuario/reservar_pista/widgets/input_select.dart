@@ -459,7 +459,6 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                       ),
                     ))
                 : ListView(
-                    padding: kMaterialListPadding,
                     itemExtent: _kMenuItemHeight,
                     shrinkWrap: true,
                     children: children,
@@ -654,7 +653,7 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
       removeLeft: true,
       removeRight: true,
       child: Padding(
-        padding: const EdgeInsets.only(left: 7.0),
+        padding: const EdgeInsets.only(left: 0.0),
         child: Builder(
           builder: (BuildContext context) {
             return CustomSingleChildLayout(

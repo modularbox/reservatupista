@@ -103,14 +103,14 @@ class _DayPickerState extends State<_DayPicker> {
     ];
     for (var i = 0; i < traduceDays.length; i++) {
       result.add(Container(
-          color: Color(0XFF459e00),
+          color: const Color(0XFF459e00),
           child: ExcludeSemantics(
             child: Center(
               child: Text(
                 traduceDays[i],
                 // style: widget.config.weekdayLabelTextStyle ?? headerStyle,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
           )));
@@ -130,7 +130,7 @@ class _DayPickerState extends State<_DayPicker> {
     final TextStyle dayStyle = textTheme.bodySmall!;
     final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
-    final Color selectedDayColor = Colores().usuario.primary;
+    final Color selectedDayColor = Colores().usuario.primary160;
     final Color selectedDayBackground = colorScheme.primary;
 
     final int year = widget.displayedMonth.year;
@@ -275,7 +275,7 @@ class _DayPickerState extends State<_DayPicker> {
           dayColor = Colors.black;
           final rangePickerIncludedDayDecoration = BoxDecoration(
             borderRadius: widget.config.dayBorderRadius,
-            color: Color(0xffc0c0c0),
+            color: const Color(0xffc0c0c0),
             shape: widget.config.dayBorderRadius != null
                 ? BoxShape.rectangle
                 : BoxShape.circle,
@@ -373,13 +373,13 @@ class _DayPickerState extends State<_DayPicker> {
         Expanded(
           child: Container(
             decoration: decoration ??
-                BoxDecoration(color: const Color.fromARGB(0, 244, 67, 54))
+                const BoxDecoration(color: Color.fromARGB(0, 244, 67, 54))
                     .copyWith(
                         border: Border.all(width: 1, color: Colors.white)),
             child: Center(
               child: Text(
                 localizations.formatDecimal(day),
-                style: FlutterFlowTheme.of(context).bodySmall,
+                style: FlutterFlowTheme.of(context).bodyMedium,
               ),
             ),
           ),

@@ -75,7 +75,7 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
                 Column(
                   key: controller.keyInputs,
                   children: [
-                    buildInputLocalidades(),
+                    // buildInputLocalidades(),
                     5.0.sh,
                     buildInputClubs(),
                     5.0.sh,
@@ -273,71 +273,78 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
   }
 
   /// Input de las pistas
-  Widget buildInputLocalidades() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5.0),
-      child: SizedBox(
-        height: 45,
-        child: Obx(() => self.localidades.isEmpty
-            ? const SizedBox.shrink()
-            : DropdownSearch<String>(
-                onChanged: (value) {
-                  if (value != null) {
-                    self.cod_postal.value = self.mapLocalidades[value] ?? '';
-                    self.generarListaClubes(self.cod_postal.value);
-                    print('self.clubes.value ${self.clubes.value}');
-                  }
-                },
-                popupProps: PopupProps.menu(
-                  emptyBuilder: (context, searchEntry) =>
-                      const Center(child: Text('No se encontraron resultados')),
-                  showSelectedItems: true,
-                  showSearchBox: true,
-                  disabledItemFn: (String s) => s.startsWith('I'),
-                ),
-                items: self.localidades,
-                dropdownDecoratorProps: DropDownDecoratorProps(
-                  dropdownSearchDecoration: InputDecoration(
-                    labelText: 'Localidad',
-                    hintText: "Selecciona la localidad.",
-                    labelStyle: LightModeTheme().labelMedium,
-                    hintStyle: LightModeTheme().labelMedium,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().alternate,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                        16.0, 12.0, 16.0, 12.0),
-                  ),
-                ),
-              )),
-      ),
-    );
-  }
+  // Widget buildInputLocalidades() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(top: 5.0),
+  //     child: SizedBox(
+  //       height: 45,
+  //       child: Obx(() => self.localidades.isEmpty
+  //           ? const SizedBox.shrink()
+  //           : DropdownSearch<String>(
+  //               onChanged: (value) {
+  //                 if (value != null) {
+  //                   self.cod_postal.value = self.mapLocalidades[value] ?? '';
+  //                   self.localidad_seleccionada.value = value;
+  //                   self.deporte_seleccionado.value = '';
+  //                   self.selectDay.value = null;
+  //                   self.selectHorario.value = null;
+  //                   print(
+  //                       'self.selectNombreLocalidad.value ${self.localidad_seleccionada.value}');
+  //                   self.generarListaClubes(self.cod_postal.value);
+  //                   print('self.clubes.value ${self.clubes.value}');
+  //                   //self.generarListaClubes(self.cod_postal.value);
+  //                 }
+  //               },
+  //               popupProps: PopupProps.menu(
+  //                 emptyBuilder: (context, searchEntry) =>
+  //                     const Center(child: Text('No se encontraron resultados')),
+  //                 showSelectedItems: true,
+  //                 showSearchBox: true,
+  //                 disabledItemFn: (String s) => s.startsWith('I'),
+  //               ),
+  //               items: self.localidades,
+  //               dropdownDecoratorProps: DropDownDecoratorProps(
+  //                 dropdownSearchDecoration: InputDecoration(
+  //                   labelText: 'Localidad',
+  //                   hintText: "Selecciona la localidad.",
+  //                   labelStyle: LightModeTheme().labelMedium,
+  //                   hintStyle: LightModeTheme().labelMedium,
+  //                   enabledBorder: OutlineInputBorder(
+  //                     borderSide: BorderSide(
+  //                       color: LightModeTheme().alternate,
+  //                       width: 2.0,
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(5.0),
+  //                   ),
+  //                   focusedBorder: OutlineInputBorder(
+  //                     borderSide: BorderSide(
+  //                       color: LightModeTheme().primary,
+  //                       width: 2.0,
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(5.0),
+  //                   ),
+  //                   errorBorder: OutlineInputBorder(
+  //                     borderSide: BorderSide(
+  //                       color: LightModeTheme().error,
+  //                       width: 2.0,
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(5.0),
+  //                   ),
+  //                   focusedErrorBorder: OutlineInputBorder(
+  //                     borderSide: BorderSide(
+  //                       color: LightModeTheme().error,
+  //                       width: 2.0,
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(5.0),
+  //                   ),
+  //                   contentPadding: const EdgeInsetsDirectional.fromSTEB(
+  //                       16.0, 12.0, 16.0, 12.0),
+  //                 ),
+  //               ),
+  //             )),
+  //     ),
+  //   );
+  // }
 
   /// Input de los Clubss
   Widget buildInputClubs() {
@@ -347,9 +354,10 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
           context: Get.context!,
           labelText: 'Club',
           onChanged: (val, favorito) {
-            String id_club = self.mapClubes[val] ?? '';
-            self.generarListaDeportes(id_club);
-            self.id_club_seleccionado.value = id_club;
+            self.deporteController.text = '';
+            String idClub = self.mapClubes[val] ?? '';
+            self.generarListaDeportes(idClub);
+            self.id_club_seleccionado.value = idClub;
             self.selectDay.value = null;
           },
           clubsFavoritos: [false, false],
