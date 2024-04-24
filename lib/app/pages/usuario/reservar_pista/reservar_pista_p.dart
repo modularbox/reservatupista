@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
@@ -58,7 +57,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             onPressed: () {
               Get.toNamed(Routes.MISRESERVAS);
             },
-            child: Text('Aceptar'),
+            child: const Text('Aceptar'),
           ),
         ],
       );
@@ -71,7 +70,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
             onPressed: () {
               Get.back(); // Cierra la alerta
             },
-            child: Text('Aceptar'),
+            child: const Text('Aceptar'),
           ),
         ],
       );
@@ -108,8 +107,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         child: SingleChildScrollView(
           controller: controller.scrollController,
           child: Container(
-            constraints: BoxConstraints(minWidth: 300),
-            width: MediaQuery.sizeOf(context).width * 0.3,
+            constraints: const BoxConstraints(minWidth: 300),
+            width: Get.width * 0.3,
             child: Column(
               children: [
                 Column(
@@ -229,7 +228,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               )),
                         );
                       } else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     }),
                     Obx(() {
@@ -428,7 +427,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                         ConnectionState.waiting) {
                                       print(111111);
                                       // Mientras se carga la lista de widgets
-                                      return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
+                                      return const CircularProgressIndicator(); // Puedes mostrar un indicador de carga
                                     } else if (snapshot.hasError) {
                                       print(11111111);
                                       // Si hay un error al cargar la lista de widgets
@@ -1109,7 +1108,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         onPressed: () => db.reservarPistaConTarjeta(
                             self.precio_a_mostrar.value, self),
                         splashColor: Colors.lightGreen,
-                        child: Text(
+                        child: const Text(
                           'Aceptar',
                           style: TextStyle(
                             color: Colors.white,
@@ -1121,7 +1120,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         color: Colors.red,
                         onPressed: () => Get.back(),
                         splashColor: Colors.redAccent,
-                        child: Text(
+                        child: const Text(
                           'Cancelar',
                           style: TextStyle(
                             color: Colors.white,
@@ -1162,7 +1161,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         onPressed: () => db.reservarPistaConTarjeta(
                             self.precio_a_mostrar.value, self),
                         splashColor: Colors.lightGreen,
-                        child: Text(
+                        child: const Text(
                           'Aceptar',
                           style: TextStyle(
                             color: Colors.white,
@@ -1174,7 +1173,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         color: Colors.red,
                         onPressed: () => Get.back(),
                         splashColor: Colors.redAccent,
-                        child: Text(
+                        child: const Text(
                           'Cancelar',
                           style: TextStyle(
                             color: Colors.white,
@@ -1197,7 +1196,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         color: Colors.green,
                         onPressed: () => reservarPistaF(),
                         splashColor: Colors.lightGreen,
-                        child: Text(
+                        child: const Text(
                           'Aceptar',
                           style: TextStyle(
                             color: Colors.white,
@@ -1209,7 +1208,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         color: Colors.red,
                         onPressed: () => Get.back(),
                         splashColor: Colors.redAccent,
-                        child: Text(
+                        child: const Text(
                           'Cancelar',
                           style: TextStyle(
                             color: Colors.white,
@@ -1237,10 +1236,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               ButtonsSounds.playSound();
             },
       style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color>(Color.fromARGB(192, 0, 255, 123)),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            const Color.fromARGB(192, 0, 255, 123)),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(130, 20), // Ajusta el ancho y alto según tus necesidades
+          const Size(130, 20), // Ajusta el ancho y alto según tus necesidades
         ),
       ),
       child: const Center(
@@ -1269,7 +1268,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         backgroundColor: MaterialStateProperty.all<Color>(
             const Color.fromARGB(211, 255, 48, 48)),
         fixedSize: MaterialStateProperty.all<Size>(
-          Size(130, 20), // Ajusta el ancho y alto según tus necesidades
+          const Size(130, 20), // Ajusta el ancho y alto según tus necesidades
         ),
       ),
       child: const Center(
@@ -1440,7 +1439,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         );
       }
     }
-    list.add(SizedBox(
+    list.add(const SizedBox(
       height: 5,
     ));
     list.add(
@@ -1469,7 +1468,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         ),
       ),
     );
-    list.add(SizedBox(
+    list.add(const SizedBox(
       height: 5,
     ));
     list.add(
@@ -1480,14 +1479,14 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           self.terms,
           FlutterFlowTheme.of(Get.context!).primaryText),
     );
-    list.add(SizedBox(
+    list.add(const SizedBox(
       height: 5,
     ));
     list.add(SizedBox(
       width: 100.w - 16,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [buildButton(), SizedBox(width: 40), buildCancelar()],
+        children: [buildButton(), const SizedBox(width: 40), buildCancelar()],
       ),
     ));
     return list;
@@ -1534,8 +1533,8 @@ class SelectionWidget extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Error al seleccionar método de pago'),
-                      content: Text(
+                      title: const Text('Error al seleccionar método de pago'),
+                      content: const Text(
                           'Para reservar con tarjeta necesitas ocupar todas las plazas de la pista.'),
                       actions: [
                         TextButton(
@@ -1543,7 +1542,7 @@ class SelectionWidget extends StatelessWidget {
                             // Cerrar la alerta cuando se presione el botón "Aceptar"
                             Navigator.of(context).pop();
                           },
-                          child: Text('Aceptar'),
+                          child: const Text('Aceptar'),
                         ),
                       ],
                     );
@@ -1558,8 +1557,8 @@ class SelectionWidget extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Falta de créditos'),
-                      content: Text(
+                      title: const Text('Falta de créditos'),
+                      content: const Text(
                           'Necesitas recargar créditos en tu monedero virtual.'),
                       actions: [
                         TextButton(
@@ -1567,7 +1566,7 @@ class SelectionWidget extends StatelessWidget {
                             // Cerrar la alerta cuando se presione el botón "Aceptar"
                             Navigator.of(context).pop();
                           },
-                          child: Text('Aceptar'),
+                          child: const Text('Aceptar'),
                         ),
                       ],
                     );
@@ -1579,8 +1578,8 @@ class SelectionWidget extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Saldo insuficiente'),
-                      content: Text(
+                      title: const Text('Saldo insuficiente'),
+                      content: const Text(
                           'El precio de la reserva es superior al dinero de su monedero virtual'),
                       actions: [
                         TextButton(
@@ -1588,7 +1587,7 @@ class SelectionWidget extends StatelessWidget {
                             // Cerrar la alerta cuando se presione el botón "Aceptar"
                             Navigator.of(context).pop();
                           },
-                          child: Text('Aceptar'),
+                          child: const Text('Aceptar'),
                         ),
                       ],
                     );
@@ -1615,7 +1614,7 @@ class SelectionWidget extends StatelessWidget {
                       : Colors.transparent,
                   spreadRadius: 3,
                   blurRadius: 7,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -1655,7 +1654,7 @@ class SelectionWidget extends StatelessWidget {
                           color: isSelected ? Colors.white : Colors.black,
                         ),
                       )
-                    : SizedBox()
+                    : const SizedBox()
               ],
             ),
           ),

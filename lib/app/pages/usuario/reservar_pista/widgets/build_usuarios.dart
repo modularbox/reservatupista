@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
@@ -23,6 +24,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      print("capacidad: ${capacidad}");
       // ignore: non_constant_identifier_names
       final reservas_usuarios = self.reservas_usuarios.value;
       if (reservas_usuarios is ReservasUsuarios) {
@@ -33,6 +35,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
             : (capacidad -
                 (plazasReservadasTotales +
                     self.usuario.value.plazasReservadas));
+        print("tamanoBotones : $tamanoBotones");
         return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
@@ -60,7 +63,7 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
               ? const SizedBox.shrink()
               : BtnIcon(
                   onPressed: () {
-                    if (self.cancelarReserva.value) {
+                    if (self.cancelarReserva.isTrue) {
                       self.usuario.value.plazasReservadas = 1;
                       self.plazas_a_reservar.value = 1;
                       self.cancelarReserva.value = false;
@@ -121,9 +124,6 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                                   self.precio_elegido.value = precio;
                                   self.usuario.value.plazasReservadas += 1;
                                   self.plazas_a_reservar.value += 1;
-                                  // if (todasMisReservas()) {
-                                  //   self.cancelarReserva.value = true;
-                                  // } else
                                   if (self.plazas_a_reservar.value ==
                                       (capacidad)) {
                                     self.cancelarReserva.value = true;
@@ -219,7 +219,9 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
         total += reserva_usuario.plazasReservadas;
       }
     }
-    print("totalssssss: ${total}");
-    return total == self.reservas_usuarios.value!.plazasReservadasTotales;
+    print(
+        "totalssssss: ${total} : ${self.reservas_usuarios.value!.plazasReservadasTotales}");
+    return total == self.reservas_usuarios.value!.plazasReservadasTotales &&
+        total != 0;
   }
 }
