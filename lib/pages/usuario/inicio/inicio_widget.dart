@@ -1,19 +1,14 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
-import 'package:reservatu_pista/utils/dialog/answer/general_dialog_answer.dart';
-
 import '../../../backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
 import 'inicio_model.dart';
 export 'inicio_model.dart';
 
@@ -1349,7 +1344,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                         Align(
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Amigos :',
+                            'Amigos:',
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
                                 .override(
@@ -1380,7 +1375,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                     size: 50,
                                   ),
                                   onPressed: () async {
-                                    // context.pushNamed('buscadorAmigo');
+                                    Get.to(AmigosPage);
                                   },
                                 ),
                               ),
@@ -1415,33 +1410,6 @@ class _InicioWidgetState extends State<InicioWidget> {
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
-                    boxShadow: [
-                      const BoxShadow(
-                        blurRadius: 4,
-                        color: Color(0x33000000),
-                        offset: Offset(0, 2),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: FlutterFlowTheme.of(context).accent1,
-                      width: 2,
-                    ),
-                  ),
-                  alignment: const AlignmentDirectional(0, 0),
-                  child: Text(
-                    'Reservar',
-                    style: FlutterFlowTheme.of(context).titleSmall,
                   ),
                 ),
               ),

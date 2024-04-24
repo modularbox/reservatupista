@@ -1,3 +1,3 @@
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
-// class MisClubesController extends GetxController {}
+class MisClubesController extends GetxController {}

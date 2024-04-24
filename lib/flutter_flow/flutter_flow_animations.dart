@@ -33,7 +33,6 @@ void setupAnimations(Iterable<AnimationInfo> animations, TickerProvider vsync) {
 
 extension AnimatedWidgetExtension on Widget {
   Widget animateOnPageLoad(AnimationInfo animationInfo) => Animate(
-      effects: animationInfo.effects,
       child: this,
       onPlay: (controller) => animationInfo.loop
           ? controller.repeat(reverse: animationInfo.reverse)

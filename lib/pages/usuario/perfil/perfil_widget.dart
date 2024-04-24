@@ -371,13 +371,23 @@ class _PerfilWidgetState extends State<PerfilWidget> {
           },
         ),
         ButtonPerfil(
+          title: 'Mis Clubes',
+          icon: Icons.payment,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.MIS_CLUBES);
+          },
+        ),
+        ButtonPerfil(
           title: 'Historial Partidas',
           icon: Icons.bar_chart_outlined,
           top: top,
           height: height,
           padding: padding,
           onPressed: () async {
-            Get.toNamed(Routes.RESULTADOS_ESTADISTICAS);
+            Get.toNamed(Routes.HISTORIAL_USUARIO);
           },
         ),
         ButtonPerfil(

@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
+
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -80,7 +83,9 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                   color: FlutterFlowTheme.of(context).primaryText,
                   size: 30,
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
               ),
               title: Stack(
                 children: [
@@ -610,7 +615,10 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                                                                 .primaryText,
                                                         size: 50,
                                                       ),
-                                                      onPressed: () async {},
+                                                      onPressed: () async {
+                                                        Get.to(
+                                                            ComprarBonosWidget());
+                                                      },
                                                     ),
                                                   ),
                                                 ),

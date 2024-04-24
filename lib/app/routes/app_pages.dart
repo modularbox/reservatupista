@@ -2,13 +2,21 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_usuario_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
-import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_model.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -91,6 +99,11 @@ abstract class Routes {
   static const PAGO_TPV = '/pago_tpv';
   static const AMIGOS = '/amigos_usuario';
   static const MIS_BONOS = '/bonos';
+  static const ANADIR_AMIGOS = '/anadir_amigos';
+  static const ANADIR_CLUB = '/anadir_club';
+  static const HISTORIAL_USUARIO = '/historial_usuario';
+  static const MIS_CLUBES = '/mis_clubes';
+  static const COMPRAR_BONOS = '/comprar_bonos';
 }
 
 /// Get Routes
@@ -262,6 +275,31 @@ class AppPages {
       name: Routes.MIS_BONOS,
       page: () => MisBonosPage(),
       binding: MisBonosBinding(),
+    ),
+    GetPage(
+      name: Routes.ANADIR_AMIGOS,
+      page: () => AnadirAmigos(),
+      binding: AnadirAmigosBinding(),
+    ),
+    GetPage(
+      name: Routes.ANADIR_CLUB,
+      page: () => AnadirAmigos(),
+      binding: AnadirClubBinding(),
+    ),
+    GetPage(
+      name: Routes.HISTORIAL_USUARIO,
+      page: () => HistorialPage(),
+      binding: HistorialBinding(),
+    ),
+    // GetPage(
+    //   name: Routes.MIS_CLUBES,
+    //   page: () => MisClubesWidget(),
+    //   binding: MisClubesBinding(),
+    // ),
+    GetPage(
+      name: Routes.COMPRAR_BONOS,
+      page: () => ComprarBonosWidget(),
+      binding: ComprarBonosBinding(),
     ),
   ];
 }

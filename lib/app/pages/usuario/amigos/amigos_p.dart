@@ -1,3 +1,7 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
+import 'package:reservatu_pista/app/routes/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -35,9 +39,9 @@ class _AmigosPageState extends State<AmigosPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () => _model.unfocusNode.canRequestFocus
-      //     ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-      //     : FocusScope.of(context).unfocus(),
+      //  onTap: () => _model.unfocusNode.canRequestFocus
+      //    ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+      //    : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF1F4F8),
@@ -61,7 +65,9 @@ class _AmigosPageState extends State<AmigosPage> {
                   color: FlutterFlowTheme.of(context).primaryText,
                   size: 30,
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  Get.to(PerfilWidget());
+                },
               ),
               title: Stack(
                 children: [
@@ -256,7 +262,9 @@ class _AmigosPageState extends State<AmigosPage> {
                                         ),
                                       ),
                                       FFButtonWidget(
-                                        onPressed: () async {},
+                                        onPressed: () async {
+                                          Get.to(AnadirAmigos());
+                                        },
                                         text: 'Añadir amigos',
                                         icon: Icon(
                                           Icons.person_sharp,
