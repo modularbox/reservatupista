@@ -969,15 +969,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     ));
                   }
                 }
-                // Get.dialog(AnswerDialog(
-                //   onPressed: () => {Get.back()},
-                //   answer: "Reserva de pista",
-                //   title: controller2.selectedOption.value == 'monedero'
-                //       ? 'Monedero Virtual'
-                //       : "Tarjeta",
-                //   importe: 4.0,
-                //   titleButton: "Pagar",
-                // ));
               }
               ButtonsSounds.playSound();
             },
@@ -1152,7 +1143,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       } else {
         list.add(
           Container(
-            width: 100.w - 16,
+            width: Get.width * 0.3,
             height: 20,
             margin: const EdgeInsets.symmetric(horizontal: 5),
             child: Row(
@@ -1199,9 +1190,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               controller: controller2,
               db: self,
             ),
-            const SizedBox(
-              width: 16,
-            ),
+            5.0.sw,
             SelectionWidget(
               label: 'Tarjeta',
               value: self.capacidad_pista == self.plazas_a_reservar.value
@@ -1347,7 +1336,7 @@ class SelectionWidget extends StatelessWidget {
                 'controller.selectedOption.value ${controller.selectedOption.value}');
           },
           child: Container(
-            width: MediaQuery.sizeOf(context).width / 2 - 15,
+            width: (Get.width * 0.27) / 2,
             height: 50,
             decoration: BoxDecoration(
               color: isSelected ? Colors.blue : Colors.white,
