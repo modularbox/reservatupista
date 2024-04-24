@@ -13,7 +13,6 @@ import '../../../../utils/colores.dart';
 import '../../../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/search_droptown/dropdown_search.dart';
-import '../../../../utils/server/image_server.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
 import './reservar_pista_c.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,64 +24,13 @@ import '/backend/schema/enums/enums.dart';
 import 'widgets/input_club_favoritos.dart';
 import 'widgets/input_select.dart';
 import '../../../routes/database.dart';
-import '../../../../components/alert_recargar/alert_recargar_widget.dart';
-import 'package:http/http.dart' as http;
 
 class ReservarPistaPage extends GetView<ReservarPistaController> {
-  ReservarPistaController get self => controller;
+  ReservarPistaPage({super.key});
 
+  ReservarPistaController get self => controller;
   final SelectionController controller2 = SelectionController();
   final DatabaseController db = Get.find();
-
-  //final listaLocalidades
-  List<String> generateListClubs() {
-    final clubs = self.selectLocalidad.value == null
-        ? []
-        : self.db.datosReserva.reservas[self.selectLocalidad.value!].clubs;
-    final List<String> listFavoritos = [];
-    final List<String> listNoFavoritos = [];
-    for (var i = 0; i < clubs.length; i++) {
-      if (clubs[i].favorito) {
-        listFavoritos.add(clubs[i].name);
-      } else {
-        listNoFavoritos.add(clubs[i].name);
-      }
-    }
-    return listFavoritos + listNoFavoritos;
-  }
-
-  List<bool> generateListClubsBool() {
-    final clubs = self.selectLocalidad.value == null
-        ? []
-        : self.db.datosReserva.reservas[self.selectLocalidad.value!].clubs;
-    final List<bool> listFavoritos = [];
-    final List<bool> listNoFavoritos = [];
-    for (var i = 0; i < clubs.length; i++) {
-      if (clubs[i].favorito) {
-        listFavoritos.add(true);
-      } else {
-        listNoFavoritos.add(false);
-      }
-    }
-
-    return listFavoritos + listNoFavoritos;
-  }
-
-  List<String> generateListClubsFavoritos() {
-    List<String> list = self.db.datosReserva.clubsFavoritos
-        .map<String>((e) => self
-            .db.datosReserva.reservas[e.indexLocalidad].clubs[e.indexClub].name)
-        .toList();
-    return list;
-  }
-
-  List<bool> generateListClubsFavoritosBool() {
-    List<bool> list = self.db.datosReserva.clubsFavoritos
-        .map<bool>((e) => self.db.datosReserva.reservas[e.indexLocalidad]
-            .clubs[e.indexClub].favorito)
-        .toList();
-    return list;
-  }
 
   void reservarPistaF() async {
     print('self.fecha_seleccionada.value ${self.fecha_seleccionada.value}');
@@ -130,18 +78,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     }
   }
 
-  List<String> generateListDeporte() {
-    List<String> list = self
-        .db
-        .datosReserva
-        .reservas[self.selectLocalidad.value!]
-        .clubs[self.selectClub.value!]
-        .deportes
-        .map<String>((e) => e.name)
-        .toList();
-    return list;
-  }
-
   bool estaAutomatizada(idPista) {
     List pistas = self.pistas.value;
     for (int i = 0; i < pistas.length; i++) {
@@ -163,34 +99,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     return 60;
   }
 
-  /* List<Pista> generateListPistas() {
-    print('listaaaa');
-    List<Pista> list = self.selectDay.value == null
-        ? []
-        : [
-            Pista(name: 'name', image: 'image', horarios: [
-              Horario(horario: 'horario', estatus: TypeEstadoHorario.abierta)
-            ]),
-            Pista(name: 'name', image: 'image', horarios: [
-              Horario(horario: 'horario', estatus: TypeEstadoHorario.abierta)
-            ])
-          ];
-    print('listaaaa222');
-    /*self
-            .db
-            .datosReserva
-            .reservas[self.selectLocalidad.value!]
-            .clubs[self.selectClub.value!]
-            .deportes[self.selectDeporte.value!]
-            .semana[self.selectDay.value!]
-            .pistas;*/
-
-    return list;
-  }*/
-
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
     return NavbarYAppbarUsuario(
       title: 'Reservar Pista',
       page: TypePage.ReservarPista,

@@ -1,4 +1,4 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
@@ -599,9 +599,9 @@ class ReservarPistaPage2 extends GetView<ReservarPistaController2> {
           status = TypeEstadoHorario.abierta;
           break;
       }
-      array_horarios.add(
-        Horario(horario: datosPistaJson[i]['hora'], estatus: status),
-      );
+      // array_horarios.add(
+      //   // Horario(horario: datosPistaJson[i]['hora'], estatus: status),
+      // );
     }
     print('array_horarios $array_horarios');
     return buildHorarios(array_horarios);
@@ -1308,4 +1308,3 @@ class SelectionWidget extends StatelessWidget {
     );
   }
 }
-*/
