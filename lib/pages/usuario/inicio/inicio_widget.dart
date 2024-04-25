@@ -66,31 +66,28 @@ class _InicioWidgetState extends State<InicioWidget> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Generated code for this Container Widget...
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Container(
                   width: double.infinity,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 570,
                   ),
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: LightModeTheme().secondaryBackground,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
                             'Partidas abiertas:',
-                            style: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .override(
+                            style: LightModeTheme().headlineSmall.override(
                                   fontFamily: 'Outfit',
                                 ),
                           ),
@@ -101,8 +98,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(7, 12, 7, 8),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    7, 12, 7, 8),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -121,7 +118,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                       height: 200,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 4,
                                             color: Color(0x230E151B),
@@ -133,21 +130,24 @@ class _InicioWidgetState extends State<InicioWidget> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .reservaPendiente,
+                                          color:
+                                              LightModeTheme().reservaPendiente,
                                           width: 4,
                                         ),
                                       ),
                                       child: Stack(
                                         children: [
                                           Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.98, -1.08),
+                                            alignment:
+                                                const AlignmentDirectional(
+                                                    -0.98, -1.08),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(2, 15, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(2, 15, 0, 0),
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(12),
                                                   bottomRight:
@@ -166,10 +166,12 @@ class _InicioWidgetState extends State<InicioWidget> {
                                           ),
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0, -0.72),
+                                                const AlignmentDirectional(
+                                                    0, -0.72),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(50, 0, 12, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(50, 0, 12, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
@@ -186,7 +188,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0, 0),
                                                         child: Text(
                                                           'Ayto Riolobos',
@@ -196,7 +198,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 16,
                                                                 letterSpacing:
@@ -225,7 +227,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Readex Pro',
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF14181B),
                                                                   fontSize: 16,
                                                                   fontWeight:
@@ -244,9 +246,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 4, 0, 4),
+                                                                0, 4, 0, 4),
                                                         child: Text(
                                                           '09.00 - 10:30',
                                                           style: FlutterFlowTheme
@@ -255,7 +257,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF57636C),
                                                                 fontSize: 12,
                                                                 letterSpacing:
@@ -268,16 +270,19 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       ),
                                                     ],
                                                   ),
-                                                ].divide(SizedBox(height: 5)),
+                                                ].divide(
+                                                    const SizedBox(height: 5)),
                                               ),
                                             ),
                                           ),
                                           Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.79, 0.87),
+                                            alignment:
+                                                const AlignmentDirectional(
+                                                    -0.79, 0.87),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(4, 0, 4, 4),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(4, 0, 4, 4),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -288,9 +293,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 8, 0),
+                                                            0, 0, 8, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -300,9 +305,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 8, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 8, 0),
                                                           child: Container(
                                                             width: 32,
                                                             height: 32,
@@ -322,7 +327,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -337,16 +342,13 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1, 0),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        0,
-                                                                        5,
-                                                                        0,
-                                                                        0),
+                                                                    0, 5, 0, 0),
                                                             child: Text(
                                                               'NickUno',
                                                               style: FlutterFlowTheme
@@ -363,16 +365,13 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1, 0),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        0,
-                                                                        5,
-                                                                        0,
-                                                                        0),
+                                                                    0, 5, 0, 0),
                                                             child: Text(
                                                               '4.25',
                                                               style: FlutterFlowTheme
@@ -392,9 +391,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 8, 0),
+                                                            0, 0, 8, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -404,9 +403,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 8, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 8, 0),
                                                           child: Container(
                                                             width: 32,
                                                             height: 32,
@@ -426,7 +425,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -441,9 +440,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
                                                             style: FlutterFlowTheme
@@ -459,9 +458,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
                                                             style: FlutterFlowTheme
@@ -480,9 +479,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 8, 0),
+                                                            0, 0, 8, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -492,9 +491,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 8, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 8, 0),
                                                           child: Container(
                                                             width: 32,
                                                             height: 32,
@@ -514,7 +513,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -529,9 +528,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
                                                             style: FlutterFlowTheme
@@ -547,9 +546,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
                                                             style: FlutterFlowTheme
@@ -575,9 +574,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 0, 8, 0),
+                                                                0, 0, 8, 0),
                                                         child: Container(
                                                           width: 32,
                                                           height: 32,
@@ -616,8 +615,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(7, 12, 7, 8),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    7, 12, 7, 8),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -637,7 +636,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
-                                          BoxShadow(
+                                          const BoxShadow(
                                             blurRadius: 4,
                                             color: Color(0x230E151B),
                                             offset: Offset(
@@ -648,21 +647,24 @@ class _InicioWidgetState extends State<InicioWidget> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .reservaPendiente,
+                                          color:
+                                              LightModeTheme().reservaPendiente,
                                           width: 4,
                                         ),
                                       ),
                                       child: Stack(
                                         children: [
                                           Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.98, -1.08),
+                                            alignment:
+                                                const AlignmentDirectional(
+                                                    -0.98, -1.08),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(2, 15, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(2, 15, 0, 0),
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(12),
                                                   bottomRight:
@@ -681,10 +683,12 @@ class _InicioWidgetState extends State<InicioWidget> {
                                           ),
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0, -0.72),
+                                                const AlignmentDirectional(
+                                                    0, -0.72),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(50, 0, 12, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(50, 0, 12, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
@@ -701,7 +705,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0, 0),
                                                         child: Text(
                                                           'Ayto Riolobos',
@@ -711,7 +715,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 16,
                                                                 letterSpacing:
@@ -740,7 +744,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Readex Pro',
-                                                                  color: Color(
+                                                                  color: const Color(
                                                                       0xFF14181B),
                                                                   fontSize: 16,
                                                                   fontWeight:
@@ -759,9 +763,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 4, 0, 4),
+                                                                0, 4, 0, 4),
                                                         child: Text(
                                                           '09.00 - 10:30',
                                                           style: FlutterFlowTheme
@@ -770,7 +774,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Readex Pro',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF57636C),
                                                                 fontSize: 12,
                                                                 letterSpacing:
@@ -783,16 +787,19 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       ),
                                                     ],
                                                   ),
-                                                ].divide(SizedBox(height: 5)),
+                                                ].divide(
+                                                    const SizedBox(height: 5)),
                                               ),
                                             ),
                                           ),
                                           Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.79, 0.87),
+                                            alignment:
+                                                const AlignmentDirectional(
+                                                    -0.79, 0.87),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(4, 0, 4, 4),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(4, 0, 4, 4),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -801,9 +808,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 8, 0),
+                                                            0, 0, 8, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -813,9 +820,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 8, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 8, 0),
                                                           child: Container(
                                                             width: 32,
                                                             height: 32,
@@ -835,7 +842,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -850,16 +857,13 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1, 0),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        0,
-                                                                        5,
-                                                                        0,
-                                                                        0),
+                                                                    0, 5, 0, 0),
                                                             child: Text(
                                                               'NickUno',
                                                               style: FlutterFlowTheme
@@ -876,16 +880,13 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1, 0),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        0,
-                                                                        5,
-                                                                        0,
-                                                                        0),
+                                                                    0, 5, 0, 0),
                                                             child: Text(
                                                               '4.25',
                                                               style: FlutterFlowTheme
@@ -905,9 +906,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 8, 0),
+                                                            0, 0, 8, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -917,9 +918,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 8, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 8, 0),
                                                           child: Container(
                                                             width: 32,
                                                             height: 32,
@@ -939,7 +940,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -954,9 +955,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
                                                             style: FlutterFlowTheme
@@ -972,9 +973,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
                                                             style: FlutterFlowTheme
@@ -993,9 +994,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 8, 0),
+                                                            0, 0, 8, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -1005,9 +1006,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 8, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 0, 8, 0),
                                                           child: Container(
                                                             width: 32,
                                                             height: 32,
@@ -1027,7 +1028,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                               clipBehavior: Clip
                                                                   .antiAlias,
                                                               decoration:
-                                                                  BoxDecoration(
+                                                                  const BoxDecoration(
                                                                 shape: BoxShape
                                                                     .circle,
                                                               ),
@@ -1042,9 +1043,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
                                                             style: FlutterFlowTheme
@@ -1060,9 +1061,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
                                                             style: FlutterFlowTheme
@@ -1088,9 +1089,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 0, 8, 0),
+                                                                0, 0, 8, 0),
                                                         child: Container(
                                                           width: 32,
                                                           height: 32,
@@ -1151,9 +1152,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 5, 0, 0),
+                                                                0, 5, 0, 0),
                                                         child: Text(
                                                           '',
                                                           style: FlutterFlowTheme
@@ -1183,21 +1184,21 @@ class _InicioWidgetState extends State<InicioWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 5),
                             child: Text(
                               'Noticias:',
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineSmall
-                                  .override(
+                              style: LightModeTheme().headlineSmall.override(
                                     fontFamily: 'Outfit',
                                   ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                           child: Container(
                             width: double.infinity,
                             height: 150,
@@ -1252,9 +1253,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 scrollDirection: Axis.horizontal,
                                 autoPlay: true,
                                 autoPlayAnimationDuration:
-                                    Duration(milliseconds: 1200),
+                                    const Duration(milliseconds: 1200),
                                 autoPlayInterval:
-                                    Duration(milliseconds: (1200 + 1200)),
+                                    const Duration(milliseconds: (1200 + 1200)),
                                 autoPlayCurve: Curves.linear,
                                 pauseAutoPlayInFiniteScroll: true,
                                 onPageChanged: (index, _) =>
@@ -1264,14 +1265,13 @@ class _InicioWidgetState extends State<InicioWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 5),
                             child: Text(
                               'Ofertas:',
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineSmall
-                                  .override(
+                              style: LightModeTheme().headlineSmall.override(
                                     fontFamily: 'Outfit',
                                   ),
                             ),
@@ -1331,9 +1331,9 @@ class _InicioWidgetState extends State<InicioWidget> {
                               scrollDirection: Axis.horizontal,
                               autoPlay: true,
                               autoPlayAnimationDuration:
-                                  Duration(milliseconds: 1200),
+                                  const Duration(milliseconds: 1200),
                               autoPlayInterval:
-                                  Duration(milliseconds: (1200 + 1200)),
+                                  const Duration(milliseconds: (1200 + 1200)),
                               autoPlayCurve: Curves.linear,
                               pauseAutoPlayInFiniteScroll: true,
                               onPageChanged: (index, _) =>
@@ -1342,36 +1342,33 @@ class _InicioWidgetState extends State<InicioWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
                             'Amigos:',
-                            style: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .override(
+                            style: LightModeTheme().headlineSmall.override(
                                   fontFamily: 'Outfit',
                                 ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 52),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0, 12, 0, 52),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 0, 12, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 0, 12, 0),
                                 child: BtnIcon(
-                                  borderColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  borderColor:
+                                      LightModeTheme().secondaryBackground,
                                   borderRadius: 20,
                                   borderWidth: 1,
                                   buttonSize: 80,
-                                  fillColor:
-                                      FlutterFlowTheme.of(context).usuario,
+                                  fillColor: LightModeTheme().usuario,
                                   icon: Icon(
                                     Icons.add,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                     size: 50,
                                   ),
                                   onPressed: () async {
@@ -1380,8 +1377,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -1393,8 +1390,8 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(

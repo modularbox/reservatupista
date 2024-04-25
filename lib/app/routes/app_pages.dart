@@ -294,11 +294,11 @@ class AppPages {
       page: () => HistorialPage(),
       binding: HistorialBinding(),
     ),
-    // GetPage(
-    //   name: Routes.MIS_CLUBES,
-    //   page: () => MisClubesWidget(),
-    //   binding: MisClubesBinding(),
-    // ),
+    GetPage(
+      name: Routes.MIS_CLUBES,
+      page: () => MisClubesWidget(),
+      binding: MisClubesBinding(),
+    ),
     GetPage(
       name: Routes.COMPRAR_BONOS,
       page: () => ComprarBonosWidget(),
