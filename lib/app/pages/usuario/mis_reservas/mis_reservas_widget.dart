@@ -1,6 +1,6 @@
 import 'package:reservatu_pista/utils/animations/get_image.dart';
-import '../../../components/navbar_y_appbar_usuario.dart';
-import '../../../utils/server/image_server.dart';
+import '../../../../components/navbar_y_appbar_usuario.dart';
+import '../../../../utils/server/image_server.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

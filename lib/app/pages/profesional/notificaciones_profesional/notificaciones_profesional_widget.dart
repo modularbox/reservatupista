@@ -1,7 +1,7 @@
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
-import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional_controller.dart';
+import 'package:reservatu_pista/app/pages/profesional/notificaciones_profesional/notificaciones_profesional_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';

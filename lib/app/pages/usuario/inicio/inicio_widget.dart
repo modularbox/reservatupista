@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
-import '../../../backend/schema/enums/enums.dart';
+import '../../../../backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';

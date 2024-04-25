@@ -1,4 +1,4 @@
-import '../../../app/routes/app_pages.dart';
+import '../../../routes/app_pages.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'perfil_profesional_widget.dart' show PerfilProfesionalWidget;
 import 'package:flutter/material.dart';

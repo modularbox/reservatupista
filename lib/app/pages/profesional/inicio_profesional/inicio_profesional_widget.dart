@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../../backend/schema/enums/enums.dart';
-import '../../../components/navbar_y_appbar_profesional.dart';
+import '../../../../backend/schema/enums/enums.dart';
+import '../../../../components/navbar_y_appbar_profesional.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -290,33 +290,6 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4,
-                        color: Color(0x33000000),
-                        offset: Offset(0, 2),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: FlutterFlowTheme.of(context).accent1,
-                      width: 2,
-                    ),
-                  ),
-                  alignment: AlignmentDirectional(0, 0),
-                  child: Text(
-                    'Reservar',
-                    style: FlutterFlowTheme.of(context).titleSmall,
                   ),
                 ),
               ),

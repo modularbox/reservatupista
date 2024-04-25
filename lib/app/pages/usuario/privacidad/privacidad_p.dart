@@ -63,7 +63,9 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                   color: FlutterFlowTheme.of(context).primaryText,
                   size: 30,
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
               ),
               title: Stack(
                 children: [
@@ -298,7 +300,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -372,7 +374,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -446,7 +448,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -520,7 +522,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -594,7 +596,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -668,7 +670,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -742,7 +744,7 @@ class _MenuPrivacidadWidgetState extends State<MenuPrivacidadWidget> {
                       ),
                       Divider(
                         thickness: 1,
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().secondaryText,
                       ),
                     ],
                   ),
