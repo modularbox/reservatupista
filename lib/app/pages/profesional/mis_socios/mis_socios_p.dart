@@ -18,7 +18,6 @@ class MisSociosPage extends GetView<MisSociosController> {
         title: 'Mis Pistas',
         page: TypePage.MisReservas,
         child: Expanded(child: ListaSociosWidget()));
-    //sdaas
   }
 }
 
@@ -53,7 +52,6 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                               10, 0, 10, 10),
                           child: SearchAnchor(
                               isFullScreen: false,
-                              viewHintText: "Buscar socio...",
                               viewSurfaceTintColor:
                                   LightModeTheme().secondaryBackground,
                               viewBackgroundColor:
@@ -61,6 +59,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                               builder: (BuildContext context,
                                   SearchController controller) {
                                 return SearchBar(
+                                  hintText: "Buscar socio...",
                                   backgroundColor: MaterialStateProperty.all(
                                       LightModeTheme().secondaryBackground),
                                   controller: controller,

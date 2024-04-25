@@ -1,37 +1,30 @@
-import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_model.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
+import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-class NotificacionesProfesionalWidget extends StatefulWidget {
+class NotificacionesProfesionalWidget
+    extends GetView<NotificacionesProfesionalController> {
   const NotificacionesProfesionalWidget({super.key});
 
   @override
-  State<NotificacionesProfesionalWidget> createState() =>
-      _NotificacionesWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarProfesional(
+        title: 'Mis Pistas',
+        page: TypePage.MisReservas,
+        child: Expanded(child: _NotificacionesWidgetState()));
+  }
 }
 
 class _NotificacionesWidgetState
-    extends State<NotificacionesProfesionalWidget> {
-  late NotificacionesModel _model;
+    extends GetView<NotificacionesProfesionalController> {
+  NotificacionesProfesionalController get _model => controller;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, () => NotificacionesModel());
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,130 +34,16 @@ class _NotificacionesWidgetState
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF1F4F8),
+        backgroundColor: const Color(0xFFF1F4F8),
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (context, _) => [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: IconThemeData(color: Color(0xFFFF0000)),
-              automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 61,
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 30,
-                ),
-                onPressed: () async {
-                  Navigator.pop(context);
-                },
-              ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: Text(
-                        'Notificaciones',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              letterSpacing: 0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-                          child: badges.Badge(
-                            badgeContent: Text(
-                              '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            showBadge: true,
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
-                            elevation: 4,
-                            padding: EdgeInsets.all(8),
-                            position: badges.BadgePosition.topEnd(),
-                            animationType: badges.BadgeAnimationType.scale,
-                            toAnimate: true,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.chat_bubble_outline_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_reservatupista.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
-            ),
-          ],
+          headerSliverBuilder: (context, _) => [],
           body: Builder(
             builder: (context) {
               return Stack(
                 children: [
                   ListView(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       0,
                       4,
                       0,
@@ -173,12 +52,13 @@ class _NotificacionesWidgetState
                     scrollDirection: Axis.vertical,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -190,12 +70,12 @@ class _NotificacionesWidgetState
                             ],
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).usuario,
+                              color: LightModeTheme().usuario,
                               width: 2,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,16 +84,14 @@ class _NotificacionesWidgetState
                                   width: 32,
                                   height: 32,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: LightModeTheme().secondaryBackground,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       width: 2,
                                     ),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.person_add_rounded,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -221,8 +99,9 @@ class _NotificacionesWidgetState
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -233,29 +112,29 @@ class _NotificacionesWidgetState
                                         Text(
                                           'Solicitud de amistad',
                                           maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 4, 0, 0),
                                           child: Text(
-                                            'Alberto quiere ser tu amigo.',
+                                            'NickSeis quiere ser tu amigo.',
                                             maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF15161E),
+                                                  color:
+                                                      const Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
@@ -263,9 +142,8 @@ class _NotificacionesWidgetState
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 6, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 6, 0, 0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
@@ -277,11 +155,13 @@ class _NotificacionesWidgetState
                                                   borderRadius:
                                                       BorderRadius.circular(12),
                                                   border: Border.all(
-                                                    color: Color(0xFFE5E7EB),
+                                                    color:
+                                                        const Color(0xFFE5E7EB),
                                                   ),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(2),
+                                                  padding:
+                                                      const EdgeInsets.all(2),
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -296,8 +176,9 @@ class _NotificacionesWidgetState
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(12, 0, 0, 0),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(12, 0, 0, 0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -307,43 +188,20 @@ class _NotificacionesWidgetState
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Alberto Sanchez',
+                                                      'NickSeis',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyLarge
                                                           .override(
                                                             fontFamily:
                                                                 'Plus Jakarta Sans',
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xFF15161E),
                                                             fontSize: 16,
                                                             letterSpacing: 0,
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                           ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 4, 0, 0),
-                                                      child: Text(
-                                                        'alberto.sanchez',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .labelSmall
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Plus Jakarta Sans',
-                                                              color: Color(
-                                                                  0xFF606A85),
-                                                              fontSize: 12,
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -357,31 +215,18 @@ class _NotificacionesWidgetState
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 8, 0, 4),
-                                              child: Text(
-                                                'Hace 2 horas',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 4),
+                                              child: buildTextoTiempo("2"),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: FFButtonWidget(
                                                     onPressed: () {
                                                       print(
@@ -391,13 +236,13 @@ class _NotificacionesWidgetState
                                                     options: FFButtonOptions(
                                                       height: 30,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  3, 0, 3, 0),
+                                                              3, 0, 3, 0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 0, 0, 0),
+                                                              0, 0, 0, 0),
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -417,7 +262,8 @@ class _NotificacionesWidgetState
                                                                     0,
                                                               ),
                                                       elevation: 3,
-                                                      borderSide: BorderSide(
+                                                      borderSide:
+                                                          const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1,
@@ -436,13 +282,13 @@ class _NotificacionesWidgetState
                                                   options: FFButtonOptions(
                                                     height: 30,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                3, 0, 3, 0),
+                                                            3, 0, 3, 0),
                                                     iconPadding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 0, 0),
+                                                            0, 0, 0, 0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .errorGeneral,
@@ -460,7 +306,8 @@ class _NotificacionesWidgetState
                                                               letterSpacing: 0,
                                                             ),
                                                     elevation: 3,
-                                                    borderSide: BorderSide(
+                                                    borderSide:
+                                                        const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1,
                                                     ),
@@ -483,12 +330,13 @@ class _NotificacionesWidgetState
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -500,12 +348,12 @@ class _NotificacionesWidgetState
                             ],
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).usuario,
+                              color: LightModeTheme().usuario,
                               width: 2,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -514,16 +362,14 @@ class _NotificacionesWidgetState
                                   width: 32,
                                   height: 32,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: LightModeTheme().secondaryBackground,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       width: 2,
                                     ),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.insert_invitation,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -531,8 +377,9 @@ class _NotificacionesWidgetState
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 4, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -543,29 +390,29 @@ class _NotificacionesWidgetState
                                         Text(
                                           'Invitación a partida',
                                           maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 4, 0, 0),
                                           child: Text(
                                             'Has sido invitado por Andrés a una partida',
                                             maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF15161E),
+                                                  color:
+                                                      const Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
@@ -580,35 +427,19 @@ class _NotificacionesWidgetState
                                               CrossAxisAlignment.end,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 8, 0, 4),
-                                              child: Text(
-                                                'Hace 2 horas',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 4),
+                                              child: buildTextoTiempo("2"),
                                             ),
                                             Text(
                                               'Ver más',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ],
                                         ),
@@ -622,12 +453,13 @@ class _NotificacionesWidgetState
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -639,12 +471,12 @@ class _NotificacionesWidgetState
                             ],
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).usuario,
+                              color: LightModeTheme().usuario,
                               width: 2,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -653,16 +485,14 @@ class _NotificacionesWidgetState
                                   width: 32,
                                   height: 32,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: LightModeTheme().secondaryBackground,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       width: 2,
                                     ),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.insert_invitation,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -670,8 +500,9 @@ class _NotificacionesWidgetState
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 4, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -682,29 +513,29 @@ class _NotificacionesWidgetState
                                         Text(
                                           'Has quedado en reserva',
                                           maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 4, 0, 0),
                                           child: Text(
                                             'Has quedado en reserva de la partida con código #12',
                                             maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF15161E),
+                                                  color:
+                                                      const Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
@@ -719,36 +550,20 @@ class _NotificacionesWidgetState
                                               CrossAxisAlignment.end,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 8, 0, 4),
-                                              child: Text(
-                                                'Hace 2 horas',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 4),
+                                              child: buildTextoTiempo("2"),
                                             ),
                                             Text(
                                               'Ver más',
                                               textAlign: TextAlign.start,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ],
                                         ),
@@ -761,7 +576,7 @@ class _NotificacionesWidgetState
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 8)),
+                    ].divide(const SizedBox(height: 8)),
                   ),
                 ],
               );
@@ -769,6 +584,19 @@ class _NotificacionesWidgetState
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildTextoTiempo(String tiempo) {
+    return Text(
+      "Hace $tiempo horas",
+      style: LightModeTheme().labelSmall.override(
+            fontFamily: 'Plus Jakarta Sans',
+            color: const Color(0xFF606A85),
+            fontSize: 12,
+            letterSpacing: 0,
+            fontWeight: FontWeight.w500,
+          ),
     );
   }
 }

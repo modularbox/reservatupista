@@ -56,24 +56,28 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         child: db.datosPerfilUsuario.obx(
             (state) => Expanded(
                   child: scrollPerfil(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: 100.h <= 745
-                                ? datosPerfil(
-                                    space: spaceSizedBoxBtnCerrarRes(),
-                                    subAppBar: subAppBar(true),
-                                    height: 50,
-                                    top: 10,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2))
-                                : datosPerfil(
-                                    space: spaceSizedBoxBtnCerrar(),
-                                    subAppBar: subAppBar(false))),
-                        buildBtnCerrar()
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: 100.h <= 745
+                                  ? datosPerfil(
+                                      space: spaceSizedBoxBtnCerrarRes(),
+                                      subAppBar: subAppBar(true),
+                                      height: 50,
+                                      top: 10,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 2))
+                                  : datosPerfil(
+                                      space: spaceSizedBoxBtnCerrar(),
+                                      subAppBar: subAppBar(false))),
+                          buildBtnCerrar()
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -253,7 +257,6 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
@@ -433,49 +436,51 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   }
 
   Widget buildBtnCerrar() {
-    return Container(
-      width: 200,
-      height: 45,
-      margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF77066),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 5,
-            color: Color(0x3416202A),
-            offset: Offset(0, 2),
-          )
-        ],
-        borderRadius: BorderRadius.circular(12),
-        shape: BoxShape.rectangle,
-      ),
-      child: BtnIcon(
-        onPressed: () async {
-          Get.offAllNamed(Routes.LOGIN_USUARIO);
-        },
-        hoverColor: Colores().usuario.primary69,
-        borderRadius: 12,
-        icon: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-              child: Text(
-                'Cerrar Sesión',
-                style: LightModeTheme().bodyLarge,
-              ),
+    return Padding(
+        padding: EdgeInsets.all(20),
+        child: Container(
+          width: 200,
+          height: 45,
+          margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF77066),
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 5,
+                color: Color(0x3416202A),
+                offset: Offset(0, 2),
+              )
+            ],
+            borderRadius: BorderRadius.circular(12),
+            shape: BoxShape.rectangle,
+          ),
+          child: BtnIcon(
+            onPressed: () async {
+              Get.offAllNamed(Routes.LOGIN_USUARIO);
+            },
+            hoverColor: Colores().usuario.primary69,
+            borderRadius: 12,
+            icon: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  child: Text(
+                    'Cerrar Sesión',
+                    style: LightModeTheme().bodyLarge,
+                  ),
+                ),
+                const Align(
+                  alignment: AlignmentDirectional(0.9, 0),
+                  child: Icon(
+                    Icons.logout,
+                    size: 20,
+                  ),
+                ),
+              ],
             ),
-            const Align(
-              alignment: AlignmentDirectional(0.9, 0),
-              child: Icon(
-                Icons.logout,
-                size: 20,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
 
