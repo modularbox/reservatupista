@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/animations/list_animations.dart';
+import '../../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-import '../../../utils/dialog/rich_alert.dart';
+import '../../../../utils/dialog/rich_alert.dart';
 
 // import '../../../../utils/dialog/rich_alert.dart';
 // import '../../../routes/app_pages.dart';

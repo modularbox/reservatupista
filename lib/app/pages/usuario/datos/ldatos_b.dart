@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import './datos_c.dart';
+import 'datos_c.dart';
 
 class DatosBinding implements Bindings {
   @override

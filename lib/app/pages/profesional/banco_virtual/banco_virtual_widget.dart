@@ -1,8 +1,8 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 
-import '../../../components/alert_recargar/alert_recargar_widget.dart';
-import '../../../components/navbar_y_appbar_profesional.dart';
-import '../../../utils/format_number.dart';
+import '../../../../components/alert_recargar/alert_recargar_widget.dart';
+import '../../../../components/navbar_y_appbar_profesional.dart';
+import '../../../../utils/format_number.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

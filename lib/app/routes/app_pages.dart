@@ -17,7 +17,7 @@ import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_p.dart';
-import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
+import 'package:reservatu_pista/app/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
@@ -27,7 +27,7 @@ import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/usuario/perfil/perfil_widget.dart';
 // import '../../pages/usuario/registro_usuario/registro_usuario_widget.dart';
 // import '../../pages/usuario/reservar_pista/reservar_pista_widget.dart';
-import '../../pages/usuario/datos/ldatos_b.dart';
+import '../pages/usuario/datos/ldatos_b.dart';
 import '../pages/profesional/anadir_pista/anadir_pista_b.dart';
 import '../pages/usuario/login_usuario/login_usuario.dart';
 import '../pages/usuario/login_usuario/login_usuario_b.dart';
