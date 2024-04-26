@@ -324,5 +324,10 @@ class AppPages {
       page: () => ChatIndividualWidget(),
       binding: ChatIndividualBinding(),
     ),
+    GetPage(
+      name: Routes.DETALLES_RESERVA_CLIENTE,
+      page: () => DetallesReservaClienteWidget(),
+      binding: DetallesReservaClienteBinding(),
+    ),
   ];
 }

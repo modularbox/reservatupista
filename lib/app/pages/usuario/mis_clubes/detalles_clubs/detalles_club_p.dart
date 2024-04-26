@@ -1,22 +1,25 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club_c.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
-class DetalleClubWidget extends StatefulWidget {
+class DetalleClubWidget extends GetView<DetallesClubController> {
   const DetalleClubWidget({super.key});
 
-  @override
-  State<DetalleClubWidget> createState() => _DetalleClubWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Detalle club',
+        page: TypePage.None,
+        child: Expanded(child: _DetalleClubWidgetState()));
+  }
 }
 
-class _DetalleClubWidgetState extends State<DetalleClubWidget> {
+class _DetalleClubWidgetState extends GetView<DetallesClubController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -28,119 +31,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (context, _) => [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: IconThemeData(color: Color(0xFFFF0000)),
-              automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 61,
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 30,
-                ),
-                onPressed: () async {},
-              ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: Text(
-                        'Detalle Club',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              letterSpacing: 0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-                          child: badges.Badge(
-                            badgeContent: Text(
-                              '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            showBadge: true,
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
-                            elevation: 4,
-                            padding: EdgeInsets.all(8),
-                            position: badges.BadgePosition.topEnd(),
-                            animationType: badges.BadgeAnimationType.scale,
-                            toAnimate: true,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.chat_bubble_outline_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_reservatupista.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
-            )
-          ],
+          headerSliverBuilder: (context, _) => [],
           body: Builder(
             builder: (context) {
               return SafeArea(
@@ -159,7 +50,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 10),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -179,7 +70,8 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                 'https://images.unsplash.com/photo-1646649853703-7645147474ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMnx8cGFkZWx8ZW58MHx8fHwxNzExMzk5MjQ4fDA&ixlib=rb-4.0.3&q=80&w=1080',
                                               ).image,
                                             ),
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft: Radius.circular(0),
                                               bottomRight: Radius.circular(0),
                                               topLeft: Radius.circular(10),
@@ -198,8 +90,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                         .titleLarge
                                                         .override(
                                                           fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                          color: LightModeTheme()
                                                               .secondaryBackground,
                                                           fontSize: 25,
                                                           letterSpacing: 0,
@@ -214,8 +105,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                         .titleLarge
                                                         .override(
                                                           fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                          color: LightModeTheme()
                                                               .secondaryBackground,
                                                           fontSize: 25,
                                                           letterSpacing: 0,
@@ -398,9 +288,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                       scrollDirection: Axis.horizontal,
                                       autoPlay: true,
                                       autoPlayAnimationDuration:
-                                          Duration(milliseconds: 400),
-                                      autoPlayInterval:
-                                          Duration(milliseconds: (400 + 3000)),
+                                          const Duration(milliseconds: 400),
+                                      autoPlayInterval: const Duration(
+                                          milliseconds: (400 + 3000)),
                                       autoPlayCurve: Curves.linear,
                                       pauseAutoPlayInFiniteScroll: true,
                                     ),
@@ -411,9 +301,10 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                           ],
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 5, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -430,10 +321,11 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                       ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0, 0),
+                                  alignment: const AlignmentDirectional(0, 0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 10),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 10),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -445,8 +337,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                               MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 15),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 15),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -489,7 +382,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -525,7 +418,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -561,7 +454,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -597,7 +490,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -633,7 +526,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -669,7 +562,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -705,7 +598,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -741,7 +634,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -777,7 +670,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -813,7 +706,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -849,7 +742,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -885,7 +778,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -921,7 +814,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -957,7 +850,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -993,7 +886,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -1029,7 +922,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                 clipBehavior: Clip
                                                                     .antiAlias,
                                                                 decoration:
-                                                                    BoxDecoration(
+                                                                    const BoxDecoration(
                                                                   shape: BoxShape
                                                                       .circle,
                                                                 ),
@@ -1054,7 +947,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                               ),
                                                             ],
                                                           ),
-                                                        ].divide(SizedBox(
+                                                        ].divide(const SizedBox(
                                                             width: 10)),
                                                       ),
                                                     ),
@@ -1073,7 +966,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0, 0),
                                                     child: Text(
                                                       'Servicios:',
@@ -1089,9 +982,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 0, 5),
+                                                            0, 0, 0, 5),
                                                     child:
                                                         SingleChildScrollView(
                                                       scrollDirection:
@@ -1102,12 +995,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
+                                                                    5, 0, 5, 0),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1125,12 +1015,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
+                                                                    5, 0, 5, 0),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1148,12 +1035,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
+                                                                    5, 0, 5, 0),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1171,12 +1055,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
+                                                                    5, 0, 5, 0),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1194,12 +1075,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
+                                                                    5, 0, 5, 0),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1217,12 +1095,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
+                                                                    5, 0, 5, 0),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1246,8 +1121,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 15, 0, 0),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 15, 0, 0),
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
@@ -1273,9 +1149,9 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 0, 0, 10),
+                                                              0, 0, 0, 10),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -1311,7 +1187,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                       backgroundColor:
                                                                           Colors
                                                                               .transparent,
-                                                                      alignment: AlignmentDirectional(
+                                                                      alignment: const AlignmentDirectional(
                                                                               0,
                                                                               0)
                                                                           .resolve(
@@ -1323,9 +1199,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                       ),
                                                                     );
                                                                   },
-                                                                ).then((value) =>
-                                                                    setState(
-                                                                        () {}));
+                                                                );
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1371,7 +1245,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                       backgroundColor:
                                                                           Colors
                                                                               .transparent,
-                                                                      alignment: AlignmentDirectional(
+                                                                      alignment: const AlignmentDirectional(
                                                                               0,
                                                                               0)
                                                                           .resolve(
@@ -1381,9 +1255,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                               () {}),
                                                                     );
                                                                   },
-                                                                ).then((value) =>
-                                                                    setState(
-                                                                        () {}));
+                                                                );
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1429,7 +1301,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                       backgroundColor:
                                                                           Colors
                                                                               .transparent,
-                                                                      alignment: AlignmentDirectional(
+                                                                      alignment: const AlignmentDirectional(
                                                                               0,
                                                                               0)
                                                                           .resolve(
@@ -1439,9 +1311,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                                               () {}),
                                                                     );
                                                                   },
-                                                                ).then((value) =>
-                                                                    setState(
-                                                                        () {}));
+                                                                );
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1494,7 +1364,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                             ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 2)),
+                                      ].divide(const SizedBox(height: 2)),
                                     ),
                                   ),
                                 ),
@@ -1504,27 +1374,27 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () {
                                           print('Button pressed ...');
                                         },
                                         text: 'Comprar bonos',
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.book,
                                           size: 15,
                                         ),
                                         options: FFButtonOptions(
                                           width: 165,
                                           height: 40,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
-                                          color: Color(0xFF0067FF),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
+                                          color: const Color(0xFF0067FF),
                                           textStyle:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -1535,7 +1405,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                                     letterSpacing: 0,
                                                   ),
                                           elevation: 3,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1,
                                           ),
@@ -1549,18 +1419,17 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                         print('Button pressed ...');
                                       },
                                       text: 'Hacerte socio',
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.workspace_premium,
                                         size: 15,
                                       ),
                                       options: FFButtonOptions(
                                         width: 165,
                                         height: 40,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .warning,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -1583,7 +1452,7 @@ class _DetalleClubWidgetState extends State<DetalleClubWidget> {
                                     ),
                                   ],
                                 ),
-                              ].divide(SizedBox(height: 6)),
+                              ].divide(const SizedBox(height: 6)),
                             ),
                           ),
                         ),
