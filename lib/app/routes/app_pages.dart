@@ -13,8 +13,11 @@ import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart'
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/detalles_reserva/detalles_reserva_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/detalles_reserva/detalles_reserva_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_b.dart';
@@ -110,6 +113,7 @@ abstract class Routes {
   static const COMPRAR_BONOS = '/comprar_bonos';
   static const PRIVACIDAD = '/privacidad';
   static const CHAT_INDIVIDUAL = '/chat_individual';
+  static const DETALLES_RESERVA_CLIENTE = '/detalles_reserva_cliente';
 }
 
 /// Get Routes
@@ -289,7 +293,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ANADIR_CLUB,
-      page: () => AnadirAmigos(),
+      page: () => BuscarClubWidget(),
       binding: AnadirClubBinding(),
     ),
     GetPage(
@@ -317,5 +321,10 @@ class AppPages {
       page: () => ChatIndividualWidget(),
       binding: ChatIndividualBinding(),
     ),
+    GetPage(
+      name: Routes.DETALLES_RESERVA_CLIENTE,
+      page: () => DetallesReservaClienteWidget(),
+      binding: DetallesReservaClienteBinding(),
+    )
   ];
 }

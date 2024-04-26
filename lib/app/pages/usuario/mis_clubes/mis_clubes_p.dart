@@ -14,7 +14,7 @@ class MisClubesWidget extends GetView<MisClubesController> {
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Mis clubes',
-        page: TypePage.MisReservas,
+        page: TypePage.None,
         child: Expanded(child: _MisClubesWidgetState()));
   }
 }

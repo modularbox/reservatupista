@@ -1,185 +1,36 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_c.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
-class MisBonosPage extends StatefulWidget {
+class MisBonosPage extends GetView<MisBonosController> {
   const MisBonosPage({super.key});
 
-  @override
-  State<MisBonosPage> createState() => _MisBonosWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Mis bonos',
+        page: TypePage.None,
+        child: Expanded(child: _MisBonosWidgetState()));
+  }
 }
 
-class _MisBonosWidgetState extends State<MisBonosPage>
-    with TickerProviderStateMixin {
+class _MisBonosWidgetState extends GetView<MisBonosController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: 0,
-          end: 1,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: Offset(50, 0),
-          end: Offset(0, 0),
-        ),
-      ],
-    ),
-  };
-
-  @override
-  void initState() {
-    super.initState();
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (context, _) => [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: IconThemeData(color: Color(0xFFFF0000)),
-              automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 61,
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 30,
-                ),
-                onPressed: () async {
-                  Navigator.pop(context);
-                },
-              ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: Text(
-                        'Mis Bonos',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              letterSpacing: 0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-                          child: badges.Badge(
-                            badgeContent: Text(
-                              '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            showBadge: true,
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
-                            elevation: 4,
-                            padding: EdgeInsets.all(8),
-                            position: badges.BadgePosition.topEnd(),
-                            animationType: badges.BadgeAnimationType.scale,
-                            toAnimate: true,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.chat_bubble_outline_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_reservatupista.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
-            )
-          ],
+          headerSliverBuilder: (context, _) => [],
           body: Builder(
             builder: (context) {
               return SafeArea(
@@ -200,8 +51,7 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                             child: Container(
                               height: 320,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: [
                                   BoxShadow(
                                     blurRadius: 4,
@@ -214,8 +64,7 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                                 ],
                                 borderRadius: BorderRadius.circular(24),
                                 border: Border.all(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: LightModeTheme().primaryText,
                                   width: 2,
                                 ),
                               ),
@@ -249,13 +98,12 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                                           0, 5, 0, 0),
                                       child: Text(
                                         'Ayto Riolobos',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .displaySmall
                                             .override(
                                               fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                              color: LightModeTheme()
+                                                  .secondaryBackground,
                                               fontSize: 25,
                                               letterSpacing: 0,
                                             ),
@@ -636,13 +484,12 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                                           0, 30, 0, 0),
                                       child: Text(
                                         'Riolobos',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .displaySmall
                                             .override(
                                               fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                              color: LightModeTheme()
+                                                  .secondaryBackground,
                                               fontSize: 25,
                                               letterSpacing: 0,
                                             ),
@@ -652,8 +499,7 @@ class _MisBonosWidgetState extends State<MisBonosPage>
                                 ],
                               ),
                             ),
-                          ).animateOnPageLoad(
-                              animationsMap['containerOnPageLoadAnimation']!),
+                          ),
                         ),
                       ],
                     ),

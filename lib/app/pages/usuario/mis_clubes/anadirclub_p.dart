@@ -11,7 +11,7 @@ class BuscarClubWidget extends GetView<AnadirClubController> {
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Mis clubes',
-        page: TypePage.MisReservas,
+        page: TypePage.None,
         child: Expanded(child: _BuscarClubWidgetState()));
   }
 }
