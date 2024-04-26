@@ -1,17 +1,18 @@
 import 'package:get/route_manager.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
-class ChatIndividualWidget extends StatefulWidget {
-  const ChatIndividualWidget({super.key});
+class ChatGrupoWidget extends StatefulWidget {
+  const ChatGrupoWidget({super.key});
 
   @override
-  State<ChatIndividualWidget> createState() => _ChatIndividualWidgetState();
+  State<ChatGrupoWidget> createState() => _ChatGrupoWidgetState();
 }
 
-class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
+class _ChatGrupoWidgetState extends State<ChatGrupoWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -22,6 +23,7 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
         backgroundColor: LightModeTheme().primaryBackground,
         appBar: AppBar(
           backgroundColor: LightModeTheme().secondaryBackground,
+          iconTheme: IconThemeData(color: LightModeTheme().primaryText),
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderRadius: 30,
@@ -51,7 +53,7 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
                       shape: BoxShape.circle,
                     ),
                     child: Image.network(
-                      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8ZmFjZXxlbnwwfHx8fDE3MTI1NjQ0MDB8MA&ixlib=rb-4.0.3&q=80&w=400',
+                      'https://images.unsplash.com/photo-1631495634750-0f14320bc0a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxzcG9ydCUyMHRlYW18ZW58MHx8fHwxNzEyNTY4Mjc1fDA&ixlib=rb-4.0.3&q=80&w=400',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -59,7 +61,7 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                   child: Text(
-                    'NickUno',
+                    'Grupo',
                     style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           fontSize: 18,
@@ -67,11 +69,32 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
                         ),
                   ),
                 ),
+                Flexible(
+                  child: Align(
+                    alignment: AlignmentDirectional(1, 0),
+                    child: FlutterFlowIconButton(
+                      borderColor: LightModeTheme().secondaryBackground,
+                      borderRadius: 30,
+                      borderWidth: 1,
+                      buttonSize: 40,
+                      fillColor: LightModeTheme().secondaryBackground,
+                      icon: Icon(
+                        Icons.group_add,
+                        color: LightModeTheme().primaryText,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        print('IconButton pressed ...');
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           actions: [],
           centerTitle: false,
+          elevation: 2,
         ),
         body: SafeArea(
           top: true,
@@ -91,46 +114,68 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
+                            Column(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8ZmFjZXxlbnwwfHx8fDE3MTI1NjQ0MDB8MA&ixlib=rb-4.0.3&q=80&w=400',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 8, 0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: LightModeTheme().accent3,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        'Ey, quieres jugar?',
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 10, 0),
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.network(
+                                          'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8ZmFjZXxlbnwwfHx8fDE3MTI1NjQ0MDB8MA&ixlib=rb-4.0.3&q=80&w=400',
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 8, 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: LightModeTheme().accent3,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            'Quien juega hoy?',
+                                            style: LightModeTheme()
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(-1, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 5),
+                                    child: Text(
+                                      'Isabel',
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 14,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ),
                                 ),
@@ -152,7 +197,7 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        'Claro, a las 5?',
+                                        'Yo me apunto',
                                         style: LightModeTheme()
                                             .bodyMedium
                                             .override(
@@ -167,46 +212,68 @@ class _ChatIndividualWidgetState extends State<ChatIndividualWidget> {
                                 ),
                               ],
                             ),
-                            Row(
+                            Column(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8ZmFjZXxlbnwwfHx8fDE3MTI1NjQ0MDB8MA&ixlib=rb-4.0.3&q=80&w=400',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 8, 0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: LightModeTheme().accent3,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        'Perfecto',
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 10, 0),
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.network(
+                                          'https://images.unsplash.com/photo-1592245734204-6561336cbc6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw3fHxpZCUyMHBob3RvfGVufDB8fHx8MTcxMTQ2OTI2OHww&ixlib=rb-4.0.3&q=80&w=1080',
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 8, 0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: LightModeTheme().accent3,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            'No puedo',
+                                            style: LightModeTheme()
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(-1, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 5),
+                                    child: Text(
+                                      'Adrian',
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 14,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ),
                                 ),

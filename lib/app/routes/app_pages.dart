@@ -4,6 +4,8 @@ import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_usuario_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_grupo/chat_grupo_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_grupo/chat_grupo_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
@@ -110,6 +112,7 @@ abstract class Routes {
   static const COMPRAR_BONOS = '/comprar_bonos';
   static const PRIVACIDAD = '/privacidad';
   static const CHAT_INDIVIDUAL = '/chat_individual';
+  static const CHAT_GRUPO = '/chat_grupo';
 }
 
 /// Get Routes
@@ -316,6 +319,11 @@ class AppPages {
       name: Routes.CHAT_INDIVIDUAL,
       page: () => ChatIndividualWidget(),
       binding: ChatIndividualBinding(),
+    ),
+    GetPage(
+      name: Routes.CHAT_INDIVIDUAL,
+      page: () => ChatGrupoWidget(),
+      binding: ChatGrupoBinding(),
     ),
   ];
 }
