@@ -1,3 +1,6 @@
+import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -51,20 +54,26 @@ class _Shat2WidgetState extends State<ChatPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primary,
-                          shape: BoxShape.circle,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1500381692567-10b711044b5d?w=512&h=512',
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(ChatIndividualWidget);
+                          print("Hey");
+                        },
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary,
+                            shape: BoxShape.circle,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              'https://images.unsplash.com/photo-1500381692567-10b711044b5d?w=512&h=512',
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

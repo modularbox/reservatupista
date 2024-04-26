@@ -4,6 +4,8 @@ import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_usuario_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_b.dart';
@@ -107,6 +109,7 @@ abstract class Routes {
   static const MIS_CLUBES = '/mis_clubes';
   static const COMPRAR_BONOS = '/comprar_bonos';
   static const PRIVACIDAD = '/privacidad';
+  static const CHAT_INDIVIDUAL = '/chat_individual';
 }
 
 /// Get Routes
@@ -308,6 +311,11 @@ class AppPages {
       name: Routes.PRIVACIDAD,
       page: () => MenuPrivacidadWidget(),
       binding: PrivacidadBinding(),
+    ),
+    GetPage(
+      name: Routes.CHAT_INDIVIDUAL,
+      page: () => ChatIndividualWidget(),
+      binding: ChatIndividualBinding(),
     ),
   ];
 }
