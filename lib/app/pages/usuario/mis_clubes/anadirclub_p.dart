@@ -1,120 +1,111 @@
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_c.dart';
+import 'package:get/get.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-class BuscarClubWidget extends StatefulWidget {
+class BuscarClubWidget extends GetView<AnadirClubController> {
   const BuscarClubWidget({super.key});
 
-  @override
-  State<BuscarClubWidget> createState() => _BuscarClubWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Mis clubes',
+        page: TypePage.MisReservas,
+        child: Expanded(child: _BuscarClubWidgetState()));
+  }
 }
 
-class _BuscarClubWidgetState extends State<BuscarClubWidget>
-    with TickerProviderStateMixin {
+class _BuscarClubWidgetState extends GetView<AnadirClubController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  AnadirClubController get _model => controller;
 
-  final animationsMap = <String, AnimationInfo>{};
-
-  @override
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 12, 8, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 12, 8, 0),
                         child: TextFormField(
                           textCapitalization: TextCapitalization.words,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Buscar',
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
+                            labelStyle: LightModeTheme().labelMedium.override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: LightModeTheme().primaryText,
                                   fontSize: 14,
                                   letterSpacing: 0,
                                   fontWeight: FontWeight.normal,
                                 ),
-                            hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
+                            hintStyle: LightModeTheme().labelMedium.override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: LightModeTheme().primaryText,
                                   fontSize: 14,
                                   letterSpacing: 0,
                                   fontWeight: FontWeight.normal,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: LightModeTheme().primaryText,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFF4B39EF),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFFF5963),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFFF5963),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             filled: true,
-                            fillColor: Color(0xFFF1F4F8),
+                            fillColor: const Color(0xFFF1F4F8),
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(24, 24, 20, 24),
-                            prefixIcon: Icon(
+                                const EdgeInsetsDirectional.fromSTEB(
+                                    24, 24, 20, 24),
+                            prefixIcon: const Icon(
                               Icons.search,
                               color: Color(0xFF57636C),
                               size: 16,
                             ),
                           ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF14181B),
-                                    fontSize: 14,
-                                    letterSpacing: 0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Plus Jakarta Sans',
+                                color: const Color(0xFF14181B),
+                                fontSize: 14,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.normal,
+                              ),
                         ),
                       ),
                     ),
@@ -122,7 +113,7 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
                 child: Material(
                   color: Colors.transparent,
                   elevation: 4,
@@ -132,8 +123,8 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                   child: Container(
                     height: 180,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
+                      color: LightModeTheme().secondaryBackground,
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4,
                           color: Color(0x230E151B),
@@ -145,14 +136,14 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                       ],
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: LightModeTheme().primaryText,
                         width: 2,
                       ),
                     ),
                     child: Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(0),
                             topLeft: Radius.circular(20),
@@ -166,38 +157,33 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-0.01, -0.75),
+                          alignment: const AlignmentDirectional(-0.01, -0.75),
                           child: Text(
                             'Ayto. Riolobos',
-                            style: FlutterFlowTheme.of(context)
-                                .displaySmall
-                                .override(
+                            style: LightModeTheme().displaySmall.override(
                                   fontFamily: 'Outfit',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   fontSize: 25,
                                   letterSpacing: 0,
                                 ),
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0.56),
+                          alignment: const AlignmentDirectional(0, 0.56),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 10),
                                   child: Text(
                                     'Riolobos',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: LightModeTheme().bodyMedium.override(
                                           fontFamily: 'Readex Pro',
                                           fontSize: 20,
                                           letterSpacing: 0,
@@ -206,9 +192,7 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                                 ),
                                 Text(
                                   'Miembro desde hace 4 años',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
@@ -218,14 +202,20 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                             ),
                           ),
                         ),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                                onPressed: () {},
+                                iconSize: 50,
+                                color: Colors.amber,
+                                icon: Icon(Icons.star_border))),
                       ],
                     ),
                   ),
-                ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation1']!),
+                ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
                 child: Material(
                   color: Colors.transparent,
                   elevation: 4,
@@ -235,8 +225,8 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                   child: Container(
                     height: 180,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
+                      color: LightModeTheme().secondaryBackground,
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4,
                           color: Color(0x230E151B),
@@ -248,14 +238,14 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                       ],
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: LightModeTheme().primaryText,
                         width: 2,
                       ),
                     ),
                     child: Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(0),
                             topLeft: Radius.circular(20),
@@ -269,38 +259,33 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-0.01, -0.75),
+                          alignment: const AlignmentDirectional(-0.01, -0.75),
                           child: Text(
                             'Cáceres Padel',
-                            style: FlutterFlowTheme.of(context)
-                                .displaySmall
-                                .override(
+                            style: LightModeTheme().displaySmall.override(
                                   fontFamily: 'Outfit',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   fontSize: 25,
                                   letterSpacing: 0,
                                 ),
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, 0.56),
+                          alignment: const AlignmentDirectional(0, 0.56),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 10),
                                   child: Text(
                                     'Cáceres',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: LightModeTheme().bodyMedium.override(
                                           fontFamily: 'Readex Pro',
                                           fontSize: 20,
                                           letterSpacing: 0,
@@ -309,9 +294,7 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                                 ),
                                 Text(
                                   'Miembro desde hace 2 meses',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
@@ -321,11 +304,17 @@ class _BuscarClubWidgetState extends State<BuscarClubWidget>
                             ),
                           ),
                         ),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                                onPressed: () {},
+                                iconSize: 50,
+                                color: Colors.amber,
+                                icon: Icon(Icons.star_border))),
                       ],
                     ),
                   ),
-                ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation2']!),
+                ),
               ),
             ],
           ),

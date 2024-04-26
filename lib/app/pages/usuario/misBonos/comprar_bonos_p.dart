@@ -1,6 +1,3 @@
-import 'package:get/get.dart';
-import 'package:reservatu_pista/app/routes/index.dart';
-
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -32,7 +29,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
@@ -40,7 +37,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
               pinned: true,
               floating: true,
               snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+              backgroundColor: LightModeTheme().secondaryBackground,
               iconTheme: IconThemeData(color: Color(0xFFFF0000)),
               automaticallyImplyLeading: false,
               leading: FlutterFlowIconButton(
@@ -50,7 +47,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                 buttonSize: 61,
                 icon: Icon(
                   Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: LightModeTheme().primaryText,
                   size: 30,
                 ),
                 onPressed: () async {
@@ -66,7 +63,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                       child: Text(
                         'Comprar Bonos',
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        style: LightModeTheme().bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               fontSize: 20,
                               letterSpacing: 0,
@@ -85,9 +82,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                           child: badges.Badge(
                             badgeContent: Text(
                               '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
                                     color: Colors.white,
                                     letterSpacing: 0,
@@ -95,7 +90,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                             ),
                             showBadge: true,
                             shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
+                            badgeColor: LightModeTheme().primary,
                             elevation: 4,
                             padding: EdgeInsets.all(8),
                             position: badges.BadgePosition.topEnd(),
@@ -109,8 +104,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                       8, 0, 0, 0),
                                   child: Icon(
                                     Icons.notifications_none,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
+                                    color: LightModeTheme().secondaryText,
                                     size: 24,
                                   ),
                                 ),
@@ -119,8 +113,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                       8, 0, 0, 0),
                                   child: Icon(
                                     Icons.chat_bubble_outline_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
+                                    color: LightModeTheme().secondaryText,
                                     size: 24,
                                   ),
                                 ),
@@ -165,8 +158,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                           width: MediaQuery.sizeOf(context).width,
                           height: 100,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: LightModeTheme().secondaryBackground,
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
@@ -185,9 +177,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                             child: Text(
                               'Bonos disponibles:',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 20,
                                     letterSpacing: 0,
@@ -209,8 +199,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                 width: MediaQuery.sizeOf(context).width * 0.4,
                                 height: 125,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4,
@@ -223,7 +212,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                   ],
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
-                                    color: FlutterFlowTheme.of(context).usuario,
+                                    color: LightModeTheme().usuario,
                                     width: 2,
                                   ),
                                 ),
@@ -239,7 +228,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                                   0, 5, 0, 0),
                                           child: Text(
                                             'Descuento:',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -252,7 +241,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                           alignment: AlignmentDirectional(0, 0),
                                           child: Text(
                                             '10+1',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -265,8 +254,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                           width: double.infinity,
                                           height: 30,
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .usuario,
+                                            color: LightModeTheme().usuario,
                                           ),
                                           alignment: AlignmentDirectional(0, 1),
                                           child: Column(
@@ -370,8 +358,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                 width: MediaQuery.sizeOf(context).width * 0.4,
                                 height: 125,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4,
@@ -384,7 +371,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                   ],
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
-                                    color: FlutterFlowTheme.of(context).usuario,
+                                    color: LightModeTheme().usuario,
                                     width: 2,
                                   ),
                                 ),
@@ -403,7 +390,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                                   0, 5, 0, 0),
                                           child: Text(
                                             'Bono:',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -418,7 +405,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                                   4, 5, 3, 20),
                                           child: Text(
                                             'Bono 10 partidas por las mañanas',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -433,8 +420,7 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                       width: double.infinity,
                                       height: 30,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .usuario,
+                                        color: LightModeTheme().usuario,
                                       ),
                                       alignment: AlignmentDirectional(0, 1),
                                       child: Row(
@@ -471,9 +457,8 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                                   .fromSTEB(10, 0, 10, 0),
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .successGeneral,
+                                              color: LightModeTheme()
+                                                  .successGeneral,
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -487,9 +472,8 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                                                   ),
                                               elevation: 3,
                                               borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -516,12 +500,9 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: Text(
                           'Ayto Riolobos',
-                          style: FlutterFlowTheme.of(context)
-                              .displaySmall
-                              .override(
+                          style: LightModeTheme().displaySmall.override(
                                 fontFamily: 'Outfit',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 fontSize: 25,
                                 letterSpacing: 0,
                               ),
@@ -534,12 +515,9 @@ class _ComprarBonosWidgetState extends State<ComprarBonosWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
                         child: Text(
                           'Riolobos',
-                          style: FlutterFlowTheme.of(context)
-                              .displaySmall
-                              .override(
+                          style: LightModeTheme().displaySmall.override(
                                 fontFamily: 'Outfit',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 fontSize: 25,
                                 letterSpacing: 0,
                               ),

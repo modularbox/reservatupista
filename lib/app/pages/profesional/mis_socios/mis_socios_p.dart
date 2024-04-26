@@ -126,7 +126,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                       width: 0,
                       height: 70,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                       ),
                     )
                   ],
@@ -219,15 +219,14 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                       socio.isSocio()
                                           ? socio.nombre
                                           : socio.nick,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: const Color(0xFF14181B),
-                                            fontSize: 16,
-                                            letterSpacing: 0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyLarge.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: const Color(0xFF14181B),
+                                                fontSize: 16,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                     ),
                                     Transform.scale(
                                       scaleX: 1.5,
@@ -255,9 +254,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                 ),
                                 Text(
                                   socio.isSocio() ? socio.nick : "",
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.w600,
@@ -268,20 +265,17 @@ class ListaSociosWidget extends GetView<MisSociosController> {
                                   children: [
                                     Text(
                                       "Nivel: ${socio.nivel}",
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
                                 Text(
                                   "Partidas jugadas: ${socio.partidasJugadas}",
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         letterSpacing: 0,
                                       ),
