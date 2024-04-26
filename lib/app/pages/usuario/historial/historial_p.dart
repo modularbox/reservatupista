@@ -1,26 +1,24 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_c.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
-class HistorialPage extends StatefulWidget {
+class HistorialPage extends GetView<HistorialController> {
   const HistorialPage({super.key});
 
   @override
-  State<HistorialPage> createState() => _HistorialUsuarioWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Historial',
+        page: TypePage.None,
+        child: Expanded(child: _HistorialUsuarioWidgetState()));
+  }
 }
 
-class _HistorialUsuarioWidgetState extends State<HistorialPage> {
+class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,33 +26,6 @@ class _HistorialUsuarioWidgetState extends State<HistorialPage> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderRadius: 30,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            'Historial',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Readex Pro',
-                  fontSize: 20,
-                  letterSpacing: 0,
-                ),
-          ),
-          actions: [],
-          centerTitle: false,
-          elevation: 0,
-        ),
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(

@@ -16,7 +16,7 @@ class MisSociosPage extends GetView<MisSociosController> {
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(
         title: 'Mis Pistas',
-        page: TypePage.MisReservas,
+        page: TypePage.None,
         child: Expanded(child: ListaSociosWidget()));
   }
 }
