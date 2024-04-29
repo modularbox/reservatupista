@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 class MisClubesWidget extends GetView<MisClubesController> {
   const MisClubesWidget({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Mis clubes',
@@ -32,13 +33,14 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
             child: Stack(
               children: [
                 Align(
-                  alignment: AlignmentDirectional(1, 1),
+                  alignment: const AlignmentDirectional(1, 1),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 4,
@@ -46,13 +48,13 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: GestureDetector(
-                            onTap: () => Get.to(DetalleClubWidget()),
+                            onTap: () => Get.to(const DetalleClubWidget()),
                             child: Container(
                               height: 180,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x230E151B),
@@ -72,7 +74,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                               child: Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(0),
                                       bottomRight: Radius.circular(0),
                                       topLeft: Radius.circular(20),
@@ -86,8 +88,8 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                     ),
                                   ),
                                   Align(
-                                    alignment:
-                                        AlignmentDirectional(-0.01, -0.75),
+                                    alignment: const AlignmentDirectional(
+                                        -0.01, -0.75),
                                     child: Text(
                                       'Nombre club',
                                       style: FlutterFlowTheme.of(context)
@@ -102,10 +104,12 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0.56),
+                                    alignment:
+                                        const AlignmentDirectional(0, 0.56),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              15, 0, 0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -114,9 +118,8 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                             CrossAxisAlignment.stretch,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 10),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 10),
                                             child: Text(
                                               'Riolobos',
                                               style:
@@ -151,7 +154,8 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 4,
@@ -163,7 +167,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 4,
                                   color: Color(0x230E151B),
@@ -182,7 +186,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                             child: Stack(
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(0),
                                     bottomRight: Radius.circular(0),
                                     topLeft: Radius.circular(20),
@@ -196,7 +200,8 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-0.01, -0.75),
+                                  alignment:
+                                      const AlignmentDirectional(-0.01, -0.75),
                                   child: Text(
                                     'Nombre club',
                                     style: FlutterFlowTheme.of(context)
@@ -212,10 +217,12 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0, 0.56),
+                                  alignment:
+                                      const AlignmentDirectional(0, 0.56),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        15, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            15, 0, 0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
@@ -224,9 +231,8 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                           CrossAxisAlignment.stretch,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 10),
                                           child: Text(
                                             'Riolobos',
                                             style: FlutterFlowTheme.of(context)
@@ -259,10 +265,10 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                       ),
                       Flexible(
                         child: Align(
-                          alignment: AlignmentDirectional(1, 1),
+                          alignment: const AlignmentDirectional(1, 1),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 10, 60),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 10, 60),
                             child: FlutterFlowIconButton(
                               borderColor: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -278,7 +284,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                 size: 40,
                               ),
                               onPressed: () async {
-                                Get.to(BuscarClubWidget());
+                                Get.to(const BuscarClubWidget());
                               },
                             ),
                           ),

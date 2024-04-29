@@ -3,7 +3,6 @@ import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart'
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 class MisBonosPage extends GetView<MisBonosController> {
   const MisBonosPage({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Mis bonos',
@@ -41,7 +41,8 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
                           child: Material(
                             color: Colors.transparent,
                             elevation: 4,
@@ -52,7 +53,7 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                               height: 320,
                               decoration: BoxDecoration(
                                 color: LightModeTheme().secondaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x230E151B),
@@ -73,9 +74,10 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                   Opacity(
                                     opacity: 0.8,
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, -1),
+                                      alignment:
+                                          const AlignmentDirectional(0, -1),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
+                                        borderRadius: const BorderRadius.only(
                                           bottomLeft: Radius.circular(0),
                                           bottomRight: Radius.circular(0),
                                           topLeft: Radius.circular(20),
@@ -92,10 +94,12 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, -1),
+                                    alignment:
+                                        const AlignmentDirectional(0, -1),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 5, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 5, 0, 0),
                                       child: Text(
                                         'Ayto Riolobos',
                                         style: LightModeTheme()
@@ -111,10 +115,11 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 1),
+                                    alignment: const AlignmentDirectional(0, 1),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 15),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 15),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -122,7 +127,7 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
-                                          Align(
+                                          const Align(
                                             alignment:
                                                 AlignmentDirectional(0, 0),
                                             child: Padding(
@@ -152,17 +157,14 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                               .height *
                                                           0.12,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .info,
+                                                    color:
+                                                        LightModeTheme().info,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             4),
                                                     border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
+                                                      color: LightModeTheme()
+                                                          .primaryText,
                                                       width: 2,
                                                     ),
                                                   ),
@@ -172,41 +174,42 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 5, 0, 0),
+                                                                0, 5, 0, 0),
                                                         child: Text(
                                                           'Descuento:',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                letterSpacing:
-                                                                    0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                         ),
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0, 0),
                                                         child: Text(
                                                           '5%',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                fontSize: 40,
-                                                                letterSpacing:
-                                                                    0,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    fontSize:
+                                                                        40,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                  ),
                                                         ),
                                                       ),
                                                     ],
@@ -230,17 +233,14 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                               .height *
                                                           0.12,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                                    color: LightModeTheme()
                                                         .secondaryBackground,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             4),
                                                     border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
+                                                      color: LightModeTheme()
+                                                          .primaryText,
                                                       width: 2,
                                                     ),
                                                   ),
@@ -250,70 +250,72 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 5, 0, 0),
+                                                                0, 5, 0, 0),
                                                         child: Text(
                                                           'Bono:',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                letterSpacing:
-                                                                    0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                         ),
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0, 0),
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(3,
-                                                                      3, 3, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  3, 3, 3, 0),
                                                           child: Text(
                                                             'Bono 10 partidas por las mañanas',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  fontSize: 14,
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      fontSize:
+                                                                          14,
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0, 0),
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      3, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 3, 0, 0),
                                                           child: Text(
                                                             'Quedan 3',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  fontSize: 13,
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      fontSize:
+                                                                          13,
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
@@ -324,9 +326,8 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                             ],
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 7, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 7, 0, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -350,17 +351,14 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                             .height *
                                                         0.12,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
+                                                      color: LightModeTheme()
                                                           .secondaryBackground,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               4),
                                                       border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        color: LightModeTheme()
+                                                            .primaryText,
                                                         width: 2,
                                                       ),
                                                     ),
@@ -370,41 +368,42 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                  0, 5, 0, 0),
                                                           child: Text(
                                                             'Descuento:',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
                                                           ),
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   0, 0),
                                                           child: Text(
                                                             '3€',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  fontSize: 40,
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      fontSize:
+                                                                          40,
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ],
@@ -429,43 +428,35 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                                             .height *
                                                         0.12,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
+                                                      color: LightModeTheme()
                                                           .secondaryBackground,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               4),
                                                       border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        color: LightModeTheme()
+                                                            .primaryText,
                                                         width: 2,
                                                       ),
                                                     ),
                                                     child:
                                                         FlutterFlowIconButton(
-                                                      borderColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground,
+                                                      borderColor: LightModeTheme()
+                                                          .secondaryBackground,
                                                       borderRadius: 0,
                                                       borderWidth: 1,
                                                       buttonSize: 40,
-                                                      fillColor: FlutterFlowTheme
-                                                              .of(context)
+                                                      fillColor: LightModeTheme()
                                                           .secondaryBackground,
                                                       icon: Icon(
                                                         Icons.add,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        color: LightModeTheme()
+                                                            .primaryText,
                                                         size: 50,
                                                       ),
                                                       onPressed: () async {
                                                         Get.to(
-                                                            ComprarBonosWidget());
+                                                            const ComprarBonosWidget());
                                                       },
                                                     ),
                                                   ),
@@ -478,10 +469,12 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, -1),
+                                    alignment:
+                                        const AlignmentDirectional(0, -1),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 30, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 30, 0, 0),
                                       child: Text(
                                         'Riolobos',
                                         style: LightModeTheme()
@@ -503,7 +496,7 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                         ),
                       ],
                     ),
-                    Align(
+                    const Align(
                       alignment: AlignmentDirectional(0, 1),
                     ),
                   ],

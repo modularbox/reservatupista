@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/inicio/noticias/detalle_noticia_p.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../../../../backend/schema/enums/enums.dart';
@@ -1204,13 +1205,16 @@ class _InicioWidgetState extends State<InicioWidget> {
                             height: 150,
                             child: CarouselSlider(
                               items: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr4y2iO3DSI3bZ5rKnSkTY66IZ2r0MsSaUFfJMffG-GlmaXNL-7jvfOkt0MrtqZsmvkAE&usqp=CAU',
-                                    width: 300,
-                                    height: 200,
-                                    fit: BoxFit.cover,
+                                GestureDetector(
+                                  onTap: () => Get.to(DetalleNoticiaWidget()),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr4y2iO3DSI3bZ5rKnSkTY66IZ2r0MsSaUFfJMffG-GlmaXNL-7jvfOkt0MrtqZsmvkAE&usqp=CAU',
+                                      width: 300,
+                                      height: 200,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 ClipRRect(

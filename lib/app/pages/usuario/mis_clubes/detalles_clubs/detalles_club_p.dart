@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 class DetalleClubWidget extends GetView<DetallesClubController> {
   const DetalleClubWidget({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Detalle club',

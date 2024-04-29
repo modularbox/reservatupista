@@ -2,16 +2,14 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class ComprarBonosWidget extends GetView<ComprarBonosController> {
   const ComprarBonosWidget({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Comprar bonos',

@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 class HazteSocioWidget extends GetView<HazteSocioController> {
   const HazteSocioWidget({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Hazte Socio',
@@ -29,7 +30,7 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [],
@@ -48,8 +49,7 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                             width: MediaQuery.sizeOf(context).width,
                             height: MediaQuery.sizeOf(context).height * 0.25,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              color: LightModeTheme().secondaryBackground,
                             ),
                             child: ClipRRect(
                               child: Image.network(
@@ -74,19 +74,17 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                   children: [
                                     Icon(
                                       Icons.circle_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 10,
                                     ),
                                     Text(
                                       'Descuentos en torneos y ligas',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 20,
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -96,19 +94,17 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                   children: [
                                     Icon(
                                       Icons.circle_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 10,
                                     ),
                                     Text(
                                       'Descuentos en clases',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 20,
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -118,19 +114,17 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                   children: [
                                     Icon(
                                       Icons.circle_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 10,
                                     ),
                                     Text(
                                       '10% descuento en deportes base',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 20,
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -140,19 +134,17 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                   children: [
                                     Icon(
                                       Icons.circle_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 10,
                                     ),
                                     Text(
                                       'Reserva con  7 días de antelacion',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 20,
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -162,19 +154,17 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                   children: [
                                     Icon(
                                       Icons.circle_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 10,
                                     ),
                                     Text(
                                       'Cancela con más tiempo',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 20,
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -184,19 +174,17 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                   children: [
                                     Icon(
                                       Icons.circle_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 10,
                                     ),
                                     Text(
                                       'Y mucho más',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 20,
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -216,56 +204,48 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0,
-                                          ),
+                                      labelStyle:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
                                       hintText: 'Escribe un comentario al club',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 15,
-                                            letterSpacing: 0,
-                                          ),
+                                      hintStyle:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 15,
+                                                letterSpacing: 0,
+                                              ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .usuario,
+                                          color: LightModeTheme().usuario,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                          color: LightModeTheme().primary,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: LightModeTheme().error,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: LightModeTheme().error,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: LightModeTheme().bodyMedium.override(
                                           fontFamily: 'Readex Pro',
                                           letterSpacing: 0,
                                         ),
@@ -292,14 +272,12 @@ class _HazteSocioWidgetState extends GetView<HazteSocioController> {
                                     iconPadding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .successGeneral,
-                                    textStyle: FlutterFlowTheme.of(context)
+                                    color: LightModeTheme().successGeneral,
+                                    textStyle: LightModeTheme()
                                         .titleSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                          color: LightModeTheme().primaryText,
                                           letterSpacing: 0,
                                         ),
                                     elevation: 3,
