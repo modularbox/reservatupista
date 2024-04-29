@@ -1,4 +1,7 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
@@ -28,7 +31,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
       onTap: () {},
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [],
@@ -51,7 +54,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 10),
+                                      0, 0, 0, 10),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -62,20 +65,13 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                           width: 100,
                                           height: 100,
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
+                                            color: LightModeTheme()
                                                 .secondaryBackground,
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: Image.network(
                                                 'https://images.unsplash.com/photo-1646649853703-7645147474ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMnx8cGFkZWx8ZW58MHx8fHwxNzExMzk5MjQ4fDA&ixlib=rb-4.0.3&q=80&w=1080',
                                               ).image,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              bottomLeft: Radius.circular(0),
-                                              bottomRight: Radius.circular(0),
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
                                             ),
                                           ),
                                           child: Column(
@@ -85,33 +81,31 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                             children: [
                                               Text(
                                                 'Ayto Riolobos',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: LightModeTheme()
-                                                              .secondaryBackground,
-                                                          fontSize: 25,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
+                                                style: LightModeTheme()
+                                                    .titleLarge
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color: LightModeTheme()
+                                                          .secondaryBackground,
+                                                      fontSize: 25,
+                                                      letterSpacing: 0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                               ),
                                               Text(
                                                 'Riolobos',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: LightModeTheme()
-                                                              .secondaryBackground,
-                                                          fontSize: 25,
-                                                          letterSpacing: 0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
+                                                style: LightModeTheme()
+                                                    .titleLarge
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color: LightModeTheme()
+                                                          .secondaryBackground,
+                                                      fontSize: 25,
+                                                      letterSpacing: 0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -125,158 +119,42 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                   height: 120,
                                   child: CarouselSlider(
                                     items: [
-                                      // InkWell(
-                                      //   splashColor: Colors.transparent,
-                                      //   focusColor: Colors.transparent,
-                                      //   hoverColor: Colors.transparent,
-                                      //   highlightColor: Colors.transparent,
-                                      //   onTap: () async {
-                                      //     await Navigator.push(
-                                      //       context,
-                                      //       PageTransition(
-                                      //         type: PageTransitionType.fade,
-                                      //         child:
-                                      //             FlutterFlowExpandedImageView(
-                                      //           image: Image.network(
-                                      //             'https://www.indiepadelclub.es/wp-content/uploads/2021/05/carrusel_club_0006_03.jpg',
-                                      //             fit: BoxFit.contain,
-                                      //           ),
-                                      //           allowRotation: false,
-                                      //           tag: 'imageTag1',
-                                      //           useHeroAnimation: true,
-                                      //         ),
-                                      //       ),
-                                      //     );
-                                      //   },
-                                      //   child: Hero(
-                                      //     tag: 'imageTag1',
-                                      //     transitionOnUserGestures: true,
-                                      //     child: ClipRRect(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(8),
-                                      //       child: Image.network(
-                                      //         'https://www.indiepadelclub.es/wp-content/uploads/2021/05/carrusel_club_0006_03.jpg',
-                                      //         width: 300,
-                                      //         height: 200,
-                                      //         fit: BoxFit.cover,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      // InkWell(
-                                      //   splashColor: Colors.transparent,
-                                      //   focusColor: Colors.transparent,
-                                      //   hoverColor: Colors.transparent,
-                                      //   highlightColor: Colors.transparent,
-                                      //   onTap: () async {
-                                      //     await Navigator.push(
-                                      //       context,
-                                      //       PageTransition(
-                                      //         type: PageTransitionType.fade,
-                                      //         child:
-                                      //             FlutterFlowExpandedImageView(
-                                      //           image: Image.network(
-                                      //             'https://img.freepik.com/foto-gratis/arreglo-raquetas-pelotas-tenis_23-2149434236.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1710374400&semt=ais',
-                                      //             fit: BoxFit.contain,
-                                      //           ),
-                                      //           allowRotation: false,
-                                      //           tag: 'imageTag2',
-                                      //           useHeroAnimation: true,
-                                      //         ),
-                                      //       ),
-                                      //     );
-                                      //   },
-                                      //   child: Hero(
-                                      //     tag: 'imageTag2',
-                                      //     transitionOnUserGestures: true,
-                                      //     child: ClipRRect(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(8),
-                                      //       child: Image.network(
-                                      //         'https://img.freepik.com/foto-gratis/arreglo-raquetas-pelotas-tenis_23-2149434236.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1710374400&semt=ais',
-                                      //         width: 300,
-                                      //         height: 200,
-                                      //         fit: BoxFit.cover,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      // InkWell(
-                                      //   splashColor: Colors.transparent,
-                                      //   focusColor: Colors.transparent,
-                                      //   hoverColor: Colors.transparent,
-                                      //   highlightColor: Colors.transparent,
-                                      //   onTap: () async {
-                                      //     await Navigator.push(
-                                      //       context,
-                                      //       PageTransition(
-                                      //         type: PageTransitionType.fade,
-                                      //         child:
-                                      //             FlutterFlowExpandedImageView(
-                                      //           image: Image.network(
-                                      //             'https://media-cdn.tripadvisor.com/media/photo-s/13/35/dd/7a/curso-con-monitores.jpg',
-                                      //             fit: BoxFit.contain,
-                                      //           ),
-                                      //           allowRotation: false,
-                                      //           tag: 'imageTag3',
-                                      //           useHeroAnimation: true,
-                                      //         ),
-                                      //       ),
-                                      //     );
-                                      //   },
-                                      //   child: Hero(
-                                      //     tag: 'imageTag3',
-                                      //     transitionOnUserGestures: true,
-                                      //     child: ClipRRect(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(8),
-                                      //       child: Image.network(
-                                      //         'https://media-cdn.tripadvisor.com/media/photo-s/13/35/dd/7a/curso-con-monitores.jpg',
-                                      //         width: 300,
-                                      //         height: 200,
-                                      //         fit: BoxFit.cover,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      // InkWell(
-                                      //   splashColor: Colors.transparent,
-                                      //   focusColor: Colors.transparent,
-                                      //   hoverColor: Colors.transparent,
-                                      //   highlightColor: Colors.transparent,
-                                      //   onTap: () async {
-                                      //     await Navigator.push(
-                                      //       context,
-                                      //       PageTransition(
-                                      //         type: PageTransitionType.fade,
-                                      //         child:
-                                      //             FlutterFlowExpandedImageView(
-                                      //           image: Image.network(
-                                      //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0H2CE1pGylHB3Gny1gMdOoQPO0k1eopYB6A3tzSM36w&s',
-                                      //             fit: BoxFit.contain,
-                                      //           ),
-                                      //           allowRotation: false,
-                                      //           tag: 'imageTag4',
-                                      //           useHeroAnimation: true,
-                                      //         ),
-                                      //       ),
-                                      //     );
-                                      //   },
-                                      //   child: Hero(
-                                      //     tag: 'imageTag4',
-                                      //     transitionOnUserGestures: true,
-                                      //     child: ClipRRect(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(8),
-                                      //       child: Image.network(
-                                      //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0H2CE1pGylHB3Gny1gMdOoQPO0k1eopYB6A3tzSM36w&s',
-                                      //         width: 300,
-                                      //         height: 200,
-                                      //         fit: BoxFit.cover,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          'https://www.indiepadelclub.es/wp-content/uploads/2021/05/carrusel_club_0006_03.jpg',
+                                          width: 300,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          'https://img.freepik.com/foto-gratis/arreglo-raquetas-pelotas-tenis_23-2149434236.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1710374400&semt=ais',
+                                          width: 300,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          'https://media-cdn.tripadvisor.com/media/photo-s/13/35/dd/7a/curso-con-monitores.jpg',
+                                          width: 300,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0H2CE1pGylHB3Gny1gMdOoQPO0k1eopYB6A3tzSM36w&s',
+                                          width: 300,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ],
                                     options: CarouselOptions(
                                       initialPage: 1,
@@ -291,7 +169,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                           const Duration(milliseconds: 400),
                                       autoPlayInterval: const Duration(
                                           milliseconds: (400 + 3000)),
-                                      autoPlayCurve: Curves.linear,
+                                      autoPlayCurve: Curves.easeInCubic,
                                       pauseAutoPlayInFiniteScroll: true,
                                     ),
                                   ),
@@ -312,9 +190,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                 Text(
                                   '¡Bienvenido a nuestro Club de Pádel! Un espacio dedicado a la pasión por el deporte ¡Bienvenido a nuestro Club de Pádel! Un espacio dedicado a la pasión por el deporte ',
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.w500,
@@ -339,11 +215,10 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                             Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 15),
+                                                      .fromSTEB(0, 0, 0, 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                                  color: LightModeTheme()
                                                       .secondaryBackground,
                                                 ),
                                                 child: Column(
@@ -352,8 +227,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                   children: [
                                                     Text(
                                                       'Deportes:',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
+                                                      style: LightModeTheme()
                                                           .titleLarge
                                                           .override(
                                                             fontFamily:
@@ -957,9 +831,8 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                color: LightModeTheme()
+                                                    .secondaryBackground,
                                               ),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -970,8 +843,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                             0, 0),
                                                     child: Text(
                                                       'Servicios:',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
+                                                      style: LightModeTheme()
                                                           .titleLarge
                                                           .override(
                                                             fontFamily:
@@ -1123,11 +995,10 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                             Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 15, 0, 0),
+                                                      .fromSTEB(0, 5, 0, 0),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                                  color: LightModeTheme()
                                                       .secondaryBackground,
                                                 ),
                                                 child: Column(
@@ -1138,8 +1009,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                       'Contacto:',
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
+                                                      style: LightModeTheme()
                                                           .titleLarge
                                                           .override(
                                                             fontFamily:
@@ -1379,7 +1249,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                               10, 0, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () {
-                                          print('Button pressed ...');
+                                          Get.to(ComprarBonosWidget());
                                         },
                                         text: 'Comprar bonos',
                                         icon: const Icon(
@@ -1395,15 +1265,14 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                               const EdgeInsetsDirectional
                                                   .fromSTEB(0, 0, 0, 0),
                                           color: const Color(0xFF0067FF),
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    letterSpacing: 0,
-                                                  ),
+                                          textStyle: LightModeTheme()
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                letterSpacing: 0,
+                                              ),
                                           elevation: 3,
                                           borderSide: const BorderSide(
                                             color: Colors.transparent,
@@ -1430,21 +1299,18 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                             .fromSTEB(0, 0, 0, 0),
                                         iconPadding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 0, 0, 0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .warning,
-                                        textStyle: FlutterFlowTheme.of(context)
+                                        color: LightModeTheme().warning,
+                                        textStyle: LightModeTheme()
                                             .titleSmall
                                             .override(
                                               fontFamily: 'Readex Pro',
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                               letterSpacing: 0,
                                             ),
                                         elevation: 3,
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .warning,
+                                          color: LightModeTheme().warning,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
