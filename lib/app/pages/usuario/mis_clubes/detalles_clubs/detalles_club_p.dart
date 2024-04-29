@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
@@ -1285,7 +1286,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                     ),
                                     FFButtonWidget(
                                       onPressed: () {
-                                        print('Button pressed ...');
+                                        Get.to(HazteSocioWidget());
                                       },
                                       text: 'Hacerte socio',
                                       icon: const Icon(

@@ -1372,7 +1372,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                     size: 50,
                                   ),
                                   onPressed: () async {
-                                    Get.to(AmigosPage);
+                                    Get.to(AmigosPage());
                                   },
                                 ),
                               ),

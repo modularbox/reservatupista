@@ -8,6 +8,8 @@ import 'package:reservatu_pista/app/pages/usuario/chat/chat_grupo/chat_grupo_b.d
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_grupo/chat_grupo_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_b.dart';
@@ -117,6 +119,7 @@ abstract class Routes {
   static const CHAT_INDIVIDUAL = '/chat_individual';
   static const CHAT_GRUPO = '/chat_grupo';
   static const DETALLES_RESERVA_CLIENTE = '/detalles_reserva_cliente';
+  static const HAZTE_SOCIO = '/hazte_socio';
 }
 
 /// Get Routes
@@ -328,6 +331,11 @@ class AppPages {
       name: Routes.DETALLES_RESERVA_CLIENTE,
       page: () => DetallesReservaClienteWidget(),
       binding: DetallesReservaClienteBinding(),
+    ),
+    GetPage(
+      name: Routes.HAZTE_SOCIO,
+      page: () => HazteSocioWidget(),
+      binding: HazteSocioBinding(),
     ),
   ];
 }
