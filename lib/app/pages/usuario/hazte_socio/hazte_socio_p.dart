@@ -1,25 +1,27 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_c.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class HazteSocioWidget extends StatefulWidget {
+class HazteSocioWidget extends GetView<HazteSocioController> {
   const HazteSocioWidget({super.key});
 
-  @override
-  State<HazteSocioWidget> createState() => _HazteSocioWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Hazte Socio',
+        page: TypePage.None,
+        child: Expanded(child: _HazteSocioWidgetState()));
+  }
 }
 
-class _HazteSocioWidgetState extends State<HazteSocioWidget> {
+class _HazteSocioWidgetState extends GetView<HazteSocioController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,104 +31,7 @@ class _HazteSocioWidgetState extends State<HazteSocioWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (context, _) => [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: IconThemeData(color: Color(0xFFFF0000)),
-              automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 61,
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 30,
-                ),
-                onPressed: () async {},
-              ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: Text(
-                        'Hazte Socio',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              letterSpacing: 0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-                          child: badges.Badge(
-                            badgeContent: Text(
-                              '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            showBadge: true,
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
-                            elevation: 4,
-                            padding: EdgeInsets.all(8),
-                            position: badges.BadgePosition.topEnd(),
-                            animationType: badges.BadgeAnimationType.scale,
-                            toAnimate: true,
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                              child: Icon(
-                                Icons.chat_bubble_outline_outlined,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_reservatupista.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
-            )
-          ],
+          headerSliverBuilder: (context, _) => [],
           body: Builder(
             builder: (context) {
               return SafeArea(
