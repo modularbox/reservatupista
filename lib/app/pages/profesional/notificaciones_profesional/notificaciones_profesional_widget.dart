@@ -15,7 +15,7 @@ class NotificacionesProfesionalWidget
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(
         title: 'Mis Pistas',
-        page: TypePage.MisReservas,
+        page: TypePage.Inicio,
         child: Expanded(child: _NotificacionesWidgetState()));
   }
 }

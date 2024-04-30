@@ -27,7 +27,9 @@ import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
+import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_widget.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
 // import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
 // import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
@@ -199,7 +201,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.NOTIFICACIONES,
-      page: () => NotificacionesProfesionalWidget(),
+      page: () => NotificacionesWidgetState(),
     ),
     GetPage(
         name: Routes.NOTIFICACIONES_PROVEEDOR,
