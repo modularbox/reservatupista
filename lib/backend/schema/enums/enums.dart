@@ -5,4 +5,5 @@ enum TypePage {
   Monedero,
   Perfil,
   None,
+  MisSocios
 }
