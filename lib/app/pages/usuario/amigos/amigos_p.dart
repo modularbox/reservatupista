@@ -255,7 +255,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
                                                 ),
-                                            // validator: _model
+                                            // validator: _modelflu
                                             //     .textControllerValidator
                                             //     .asValidator(context),
                                           ),

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
@@ -57,24 +56,26 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         child: db.datosPerfilClub.obx(
             (state) => Expanded(
                   child: scrollPerfil(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: 100.h <= 745
-                                ? datosPerfil(
-                                    space: spaceSizedBoxBtnCerrarRes(),
-                                    subAppBar: subAppBar(true, state),
-                                    height: 50,
-                                    top: 10,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2))
-                                : datosPerfil(
-                                    space: spaceSizedBoxBtnCerrar(),
-                                    subAppBar: subAppBar(false, state))),
-                        buildBtnCerrar()
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: 100.h <= 745
+                                  ? datosPerfil(
+                                      space: spaceSizedBoxBtnCerrarRes(),
+                                      subAppBar: subAppBar(true, state),
+                                      height: 50,
+                                      top: 10,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 2))
+                                  : datosPerfil(
+                                      space: spaceSizedBoxBtnCerrar(),
+                                      subAppBar: subAppBar(false, state))),
+                          buildBtnCerrar()
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -328,6 +329,16 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         },
       ),
       ButtonPerfil(
+        title: 'Tarifas y facturas',
+        icon: Icons.airplane_ticket,
+        top: top,
+        height: height,
+        padding: padding,
+        onPressed: () async {
+          Get.toNamed(Routes.TARIFAS_PROVEEDOR);
+        },
+      ),
+      ButtonPerfil(
         title: 'Términos de servicio',
         icon: Icons.privacy_tip_rounded,
         top: top,
@@ -342,18 +353,21 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
           ));
         },
       ),
-      ButtonPerfil(
-        title: 'Invitar a amigos',
-        icon: Icons.ios_share,
-        top: top,
-        height: height,
-        padding: padding,
-        onPressed: () async {
-          await Share.share(
-            'https://reservatupista.com/',
-          );
-        },
-      ),
+      Container(
+        margin: EdgeInsets.only(bottom: 20.0),
+        child: ButtonPerfil(
+          title: 'Invitar a amigos',
+          icon: Icons.ios_share,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            await Share.share(
+              'https://reservatupista.com/',
+            );
+          },
+        ),
+      )
     ];
   }
 
@@ -361,6 +375,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
     return Container(
       width: 200,
       height: 45,
+      padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
       margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
       decoration: BoxDecoration(
         color: const Color(0xFFF77066),

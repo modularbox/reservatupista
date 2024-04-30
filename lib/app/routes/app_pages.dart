@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
+import 'package:reservatu_pista/app/pages/profesional/tarifas/tarifas_b.dart';
+import 'package:reservatu_pista/app/pages/profesional/tarifas/tarifas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_usuario_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
-import 'package:reservatu_pista/app/pages/usuario/chat/chat_grupo/chat_grupo_b.dart';
-import 'package:reservatu_pista/app/pages/usuario/chat/chat_grupo/chat_grupo_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_b.dart';
@@ -120,6 +120,7 @@ abstract class Routes {
   static const CHAT_GRUPO = '/chat_grupo';
   static const DETALLES_RESERVA_CLIENTE = '/detalles_reserva_cliente';
   static const HAZTE_SOCIO = '/hazte_socio';
+  static const TARIFAS_PROVEEDOR = '/tarifas';
 }
 
 /// Get Routes
@@ -336,6 +337,11 @@ class AppPages {
       name: Routes.HAZTE_SOCIO,
       page: () => HazteSocioWidget(),
       binding: HazteSocioBinding(),
+    ),
+    GetPage(
+      name: Routes.TARIFAS_PROVEEDOR,
+      page: () => TarifasWidget(),
+      binding: TarifasBinding(),
     ),
   ];
 }
