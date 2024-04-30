@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 
 class MisSociosController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,

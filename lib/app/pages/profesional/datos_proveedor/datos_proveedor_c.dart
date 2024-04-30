@@ -15,7 +15,7 @@ import '../../../routes/models/proveedor_model.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class DatosProveedorController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   // Datos de la api datos del usuario
   StateRx<bool?> apiDatosProveedor = StateRx(Rx<bool?>(null));
   // Traer datos de la api de codigo postal Nominatim
@@ -94,16 +94,16 @@ class DatosProveedorController extends GetxController
         certificadoCuentaController.text = result.certificadoCuenta;
         nombreController.text = result.nombre;
         apellidosController.text = result.apellidos;
-        fijoController.text = result.fijo;
+        // fijoController.text = result.fijo;
         emailController.text = result.email;
         ladaController.text = lada;
         telefonoController.text = result.telefono;
-        nombreComercialController.text = result.nombreComercial;
-        direccionController.text = result.direccion;
-        codigoPostalController.text = result.codigoPostal.toString();
-        localidadController.text = result.localidad;
-        provinciaController.text = result.provincia;
-        comunidadController.text = result.comunidad;
+        // nombreComercialController.text = result.nombreComercial;
+        // direccionController.text = result.direccion;
+        // codigoPostalController.text = result.codigoPostal.toString();
+        // localidadController.text = result.localidad;
+        // provinciaController.text = result.provincia;
+        // comunidadController.text = result.comunidad;
         fotoController.text = result.foto;
         imageFile.value = result.foto;
         imageFileCertificado.value = result.certificadoCuenta;

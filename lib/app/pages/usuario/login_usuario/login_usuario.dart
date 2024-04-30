@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/routes/database.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
 import '../../../../utils/btn_icon.dart';
@@ -17,11 +18,12 @@ import 'package:flutter/services.dart';
 import '../../../../constants.dart';
 
 class LoginUsuarioPage extends GetView<LoginUsuarioController> {
-  const LoginUsuarioPage({super.key});
+  LoginUsuarioPage({super.key});
   LoginUsuarioController get self => controller;
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = const Color(0xFF2B78DC);
 
+  DatabaseController db = Get.find();
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -147,7 +149,6 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                             ],
                           ),
                         ),
-                       
                       ],
                     ),
                   ),
@@ -180,10 +181,12 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     required int typeUser,
     required Color focusedColor,
     required Color palomita,
-    required int typeUser,
+    //required int typeUser,
     required dynamic Function()? onPressed,
     required Key formKey,
   }) {
+    //db.getDatosUsuarioMoney();
+
     return Form(
       key: formKey,
       child: Column(

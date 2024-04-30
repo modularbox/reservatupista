@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get/get_connect/connect.dart';
 import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
 import '../../app/routes/models/usuario_model.dart';
@@ -12,13 +13,48 @@ extension on String {
   }
 }
 
+class UsuarioProvider extends GetConnect {
+  late String _token;
+  final url = DatosServer().urlServer;
+  UsuarioProvider() {
+    _initialize(); // Llama al método _initialize en el constructor
+  }
+
+  Future<void> _initialize() async {
+    // Llama a una función asíncrona para obtener el token
+    // _token = await _getTokenFromServer();
+  }
+  // Get request
+  Future<Response> getUser(int id) => get('http://youapi/users/$id');
+  // Get request
+  Future<Response> deleteUser(String id, String token, String user) =>
+      delete('$url/$user',
+          headers: {"Authorization": "Bearer $token", 'id$user': id});
+}
+
 class UsuarioNode {
+  final usuarioProvider = UsuarioProvider();
+  Future<dynamic> delete(String id, String token, String user) async {
+    try {
+      var response = await usuarioProvider.deleteUser(id, token, user);
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print('Error al eliminar la cuenta: $error');
+      print(stack);
+      return MessageError(message: 'Error al Eliminar la Cuenta', code: 501);
+    }
+  }
+
   Future<dynamic> iniciarSesion(List usuario) async {
     try {
       final url =
           Uri.parse('${DatosServer().urlServer}/usuario/iniciar_sesion');
       // Crear una solicitud multipart
-      print(usuario.toString());
+      print('usuario.toString()');
       var request = http.post(url,
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
@@ -130,6 +166,7 @@ class UsuarioNode {
 
       // Enviar la solicitud
       var response = await request;
+      print('response.body  ${response.body}');
       if (response.statusCode == 200) {
         print(response.body == '{}');
         print('get datos usuario correctamente');
@@ -158,7 +195,7 @@ class UsuarioNode {
         "idusuario": id.toString(),
         "datos": DatosServer().datos(listTypes)
       });
-      print(response.body);
+      print("response ${response.body}");
       if (response.statusCode == 200) {
         print(response.body == '{}');
         print('get datos usuario correctamente');
@@ -166,6 +203,31 @@ class UsuarioNode {
       } else {
         final messageError = MessageError.fromRawJson(response.body);
         print(messageError.message);
+        // Manejar el caso en el que la carga no fue exitosa
+        print(
+            'Error al obtener datos del usuario. Código: ${messageError.code}');
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+    }
+    return null;
+  }
+
+  Future<UsuarioModel?> getUsuarioDatos(
+      int id, String token, List<String> listTypes) async {
+    try {
+      final url = Uri.parse('${DatosServer().urlServer}/usuario/datos');
+      // Crear una solicitud multipart
+      final response = await http.get(url, headers: {
+        "Authorization": "Bearer $token",
+        "idusuario": id.toString(),
+        "datos": listTypes.join(', ')
+      });
+      if (response.statusCode == 200) {
+        return UsuarioModel.fromRawJson(response.body);
+      } else {
+        final messageError = MessageError.fromRawJson(response.body);
         // Manejar el caso en el que la carga no fue exitosa
         print(
             'Error al obtener datos del usuario. Código: ${messageError.code}');

@@ -329,3 +329,8 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
     }
   }
 }
+
+extension ExtIntDinero on int {
+  String get euro =>
+      '${(this / 100).toStringAsFixed(2).replaceAll('.', ',')} €';
+}

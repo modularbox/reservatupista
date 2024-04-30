@@ -39,14 +39,14 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
   void initState() {
     super.initState();
     _leftPosition = 0;
-    _currentColor = FlutterFlowTheme.of(context).primary;
+    _currentColor = LightModeTheme().primary;
     _currentColorTextUsuario = Colors.white;
     _currentColorTextProveedor = Colors.black;
     _getBorder = const BorderRadius.only(
         topLeft: Radius.circular(10), bottomLeft: Radius.circular(10));
     if (widget.controller.initialPage == 1) {
       _leftPosition = widget.widthButtons;
-      _currentColor = FlutterFlowTheme.of(context).btnGeneral;
+      _currentColor = LightModeTheme().successGeneral;
       _currentColorTextUsuario = Colors.black;
       _currentColorTextProveedor = Colors.white;
       _getBorder = const BorderRadius.only(
@@ -58,8 +58,8 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
           _leftPosition = (widget.controller.page! * (widget.widthButtons));
           // Utiliza un Tween para cambiar de azul a verde
           ColorTween colorTween = ColorTween(
-              begin: FlutterFlowTheme.of(context).primary,
-              end: FlutterFlowTheme.of(context).btnGeneral);
+              begin: LightModeTheme().primary,
+              end: LightModeTheme().successGeneral);
           ColorTween colorTextUsuario = ColorTween(
             begin: Colors.white,
             end: Colors.black,
@@ -76,7 +76,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
               colorTextProfesional.transform((widget.controller.page ?? 0) % 1);
           _getBorder = BorderRadius.circular(10);
           if (widget.controller.page! == 1) {
-            _currentColor = FlutterFlowTheme.of(context).btnGeneral;
+            _currentColor = LightModeTheme().btnGeneral;
             _currentColorTextUsuario = Colors.black;
             _currentColorTextProveedor = Colors.white;
             _getBorder = const BorderRadius.only(
@@ -128,7 +128,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
               children: [
                 SizedBox(
                   width: widget.widthButtons - 2,
-                  height: 50,
+                  height: 100,
                   child: BtnIcon(
                     borderRadius: 10,
                     onPressed: () async {
@@ -154,13 +154,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                         ),
                         Text(
                           'Usuario',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: _currentColorTextUsuario,
-                                    fontSize: sizeText,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Outfit',
+                                color: _currentColorTextUsuario,
+                                fontSize: sizeText,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ],
                     ),
@@ -199,13 +198,12 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
                         ),
                         Text(
                           'Proveedor',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: _currentColorTextProveedor,
-                                    fontSize: sizeText,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Outfit',
+                                color: _currentColorTextProveedor,
+                                fontSize: sizeText,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ],
                     ),

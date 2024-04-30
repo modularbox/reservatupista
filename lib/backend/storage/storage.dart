@@ -7,7 +7,23 @@ enum TypeStorage {
   idProveedor,
   tokenUsuario,
   tokenProveedor,
-  dineroTotal
+  dineroTotal,
+  fotoProveedor,
+  fotoUsuario,
+  nick
+}
+
+extension ExtSharedPreferences on SharedPreferences {
+  Storage get passwordUsuario => Storage(TypeStorage.passwordUsuario, this);
+  Storage get passwordProveedor => Storage(TypeStorage.passwordProveedor, this);
+  Storage get idUsuario => Storage(TypeStorage.idUsuario, this);
+  Storage get idProveedor => Storage(TypeStorage.idProveedor, this);
+  Storage get tokenUsuario => Storage(TypeStorage.tokenUsuario, this);
+  Storage get tokenProveedor => Storage(TypeStorage.tokenProveedor, this);
+  Storage get dineroTotal => Storage(TypeStorage.dineroTotal, this);
+  Storage get fotoProveedor => Storage(TypeStorage.fotoProveedor, this);
+  Storage get nick => Storage(TypeStorage.nick, this);
+  Storage get fotoUsuario => Storage(TypeStorage.fotoUsuario, this);
 }
 
 class Storage {

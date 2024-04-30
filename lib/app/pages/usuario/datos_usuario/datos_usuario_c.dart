@@ -26,7 +26,7 @@ class TiposImagenes {
 }
 
 class DatosUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
   // Datos de la api datos del usuario

@@ -116,7 +116,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
                   child: SizedBox(
                       width: 100.w - 138,
                       child: AutoSizeText(
-                        db.datosProveedor!.nombreComercial,
+                        db.datosProveedor!.nombre,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(Get.context!).headlineSmall,
                       )),
@@ -192,7 +192,7 @@ class PerfilProfesionalWidget extends StatelessWidget {
                   child: SizedBox(
                       width: 100.w - 138,
                       child: AutoSizeText(
-                        db.datosProveedor!.nombreComercial,
+                        db.datosProveedor!.nombre,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(Get.context!).headlineSmall,
                       )),

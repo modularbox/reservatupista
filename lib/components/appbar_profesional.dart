@@ -44,7 +44,6 @@ class AppbarProfesional extends StatelessWidget {
   }
 
   List<Widget> buildRow(BuildContext context) {
-    const String fotoName = 'assets/images/logo_reservatupista.png';
     const String notify = Routes.NOTIFICACIONESPROFESIONAL;
 
     if (isTitleBack) {
@@ -111,7 +110,7 @@ class AppbarProfesional extends StatelessWidget {
                     shape: badges.BadgeShape.circle,
                     badgeColor: Colores().proveedor.primary,
                     elevation: 4,
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
                     animationType: badges.BadgeAnimationType.scale,
                     toAnimate: false,
@@ -141,7 +140,7 @@ class AppbarProfesional extends StatelessWidget {
                     shape: badges.BadgeShape.circle,
                     badgeColor: Colores().proveedor.primary,
                     elevation: 4,
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
                     animationType: badges.BadgeAnimationType.scale,
                     toAnimate: false,

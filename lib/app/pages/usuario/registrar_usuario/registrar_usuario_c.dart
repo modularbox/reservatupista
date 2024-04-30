@@ -23,7 +23,7 @@ import 'package:image/image.dart' as img;
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class RegistrarUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin, StateMixin<bool> {
+    with GetTickerProviderStateMixin, StateMixin<bool> {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
 
