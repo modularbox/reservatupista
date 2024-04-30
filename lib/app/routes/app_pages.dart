@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
+import 'package:reservatu_pista/app/pages/profesional/facturas/factura_detalle_p.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_pistas/horas_pistas/horas_pistas_b.dart';
 import 'package:reservatu_pista/app/pages/profesional/tarifas/tarifas_b.dart';
 import 'package:reservatu_pista/app/pages/profesional/tarifas/tarifas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
@@ -27,7 +29,6 @@ import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/privacidad/privacidad_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
-import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_widget.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
@@ -123,6 +124,7 @@ abstract class Routes {
   static const DETALLES_RESERVA_CLIENTE = '/detalles_reserva_cliente';
   static const HAZTE_SOCIO = '/hazte_socio';
   static const TARIFAS_PROVEEDOR = '/tarifas';
+  static const HORAS_PISTAS = '/horas_pistas';
 }
 
 /// Get Routes
@@ -344,6 +346,11 @@ class AppPages {
       name: Routes.TARIFAS_PROVEEDOR,
       page: () => TarifasWidget(),
       binding: TarifasBinding(),
+    ),
+    GetPage(
+      name: Routes.HORAS_PISTAS,
+      page: () => FacturaProveedorWidget(),
+      binding: HorasPistasBinding(),
     ),
   ];
 }
