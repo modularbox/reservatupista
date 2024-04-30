@@ -15,8 +15,8 @@ class MisSociosPage extends GetView<MisSociosController> {
   @override
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(
-        title: 'Mis Pistas',
-        page: TypePage.MisReservas,
+        title: 'Mis socios',
+        page: TypePage.None,
         child: Expanded(child: ListaSociosWidget()));
   }
 }

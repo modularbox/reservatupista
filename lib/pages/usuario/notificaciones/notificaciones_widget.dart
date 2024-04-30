@@ -6,14 +6,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'notificaciones_model.dart';
-import 'package:badges/badges.dart' as badges;
 export 'notificaciones_model.dart';
 
 class NotificacionesWidgetState extends GetView<NotificacionesController> {
+  const NotificacionesWidgetState({super.key});
+
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -47,7 +47,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF1F4F8),
+        backgroundColor: const Color(0xFFF1F4F8),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [],
@@ -56,7 +56,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
               return Stack(
                 children: [
                   ListView(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       0,
                       4,
                       0,
@@ -65,12 +65,13 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                     scrollDirection: Axis.vertical,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -87,7 +88,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +106,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                       width: 2,
                                     ),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.person_add_rounded,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -113,8 +114,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -129,25 +131,25 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 4, 0, 0),
                                           child: Text(
-                                            'Alberto quiere ser tu amigo.',
+                                            'Nick quiere ser tu amigo.',
                                             maxLines: 2,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF15161E),
+                                                  color:
+                                                      const Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
@@ -155,9 +157,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 6, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 6, 0, 0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
@@ -169,17 +170,19 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                   borderRadius:
                                                       BorderRadius.circular(12),
                                                   border: Border.all(
-                                                    color: Color(0xFFE5E7EB),
+                                                    color:
+                                                        const Color(0xFFE5E7EB),
                                                   ),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(2),
+                                                  padding:
+                                                      const EdgeInsets.all(2),
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10),
                                                     child: Image.network(
-                                                      'https://source.unsplash.com/random/1280x720?profile&5',
+                                                      'https://static.vecteezy.com/system/resources/previews/001/503/756/non_2x/boy-face-avatar-cartoon-free-vector.jpg',
                                                       width: 44,
                                                       height: 44,
                                                       fit: BoxFit.cover,
@@ -188,8 +191,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(12, 0, 0, 0),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(12, 0, 0, 0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -199,43 +203,20 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Alberto Sanchez',
+                                                      'Nick',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyLarge
                                                           .override(
                                                             fontFamily:
                                                                 'Plus Jakarta Sans',
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xFF15161E),
                                                             fontSize: 16,
                                                             letterSpacing: 0,
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                           ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 4, 0, 0),
-                                                      child: Text(
-                                                        'alberto.sanchez',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .labelSmall
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Plus Jakarta Sans',
-                                                              color: Color(
-                                                                  0xFF606A85),
-                                                              fontSize: 12,
-                                                              letterSpacing: 0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -249,8 +230,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 8, 0, 4),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 4),
                                               child: Text(
                                                 'Hace 2 horas',
                                                 style:
@@ -259,8 +241,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
+                                                          color: const Color(
+                                                              0xFF606A85),
                                                           fontSize: 12,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -272,8 +254,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 5, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 0, 5, 0),
                                                   child: FFButtonWidget(
                                                     onPressed: () {
                                                       print(
@@ -283,13 +266,13 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                     options: FFButtonOptions(
                                                       height: 30,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  3, 0, 3, 0),
+                                                              3, 0, 3, 0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 0, 0, 0),
+                                                              0, 0, 0, 0),
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -309,7 +292,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                                     0,
                                                               ),
                                                       elevation: 3,
-                                                      borderSide: BorderSide(
+                                                      borderSide:
+                                                          const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1,
@@ -328,13 +312,13 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                   options: FFButtonOptions(
                                                     height: 30,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                3, 0, 3, 0),
+                                                            3, 0, 3, 0),
                                                     iconPadding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                0, 0, 0, 0),
+                                                            0, 0, 0, 0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .errorGeneral,
@@ -352,7 +336,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                               letterSpacing: 0,
                                                             ),
                                                     elevation: 3,
-                                                    borderSide: BorderSide(
+                                                    borderSide:
+                                                        const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1,
                                                     ),
@@ -375,12 +360,13 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -397,7 +383,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -415,7 +401,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                       width: 2,
                                     ),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.insert_invitation,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -423,8 +409,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 4, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -439,16 +426,15 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 4, 0, 0),
                                           child: Text(
                                             'Has sido invitado por Andrés a una partida',
                                             maxLines: 2,
@@ -457,7 +443,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF15161E),
+                                                  color:
+                                                      const Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
@@ -472,8 +459,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               CrossAxisAlignment.end,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 8, 0, 4),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 4),
                                               child: Text(
                                                 'Hace 2 horas',
                                                 style:
@@ -482,8 +470,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
+                                                          color: const Color(
+                                                              0xFF606A85),
                                                           fontSize: 12,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -514,12 +502,13 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -536,7 +525,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -554,7 +543,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                       width: 2,
                                     ),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.insert_invitation,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -562,8 +551,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12, 0, 4, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -578,16 +568,15 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF15161E),
+                                                color: const Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 4, 0, 0),
                                           child: Text(
                                             'Has quedado en reserva de la partida con código #12',
                                             maxLines: 2,
@@ -596,7 +585,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: Color(0xFF15161E),
+                                                  color:
+                                                      const Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
@@ -611,8 +601,9 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                               CrossAxisAlignment.end,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 8, 0, 4),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 4),
                                               child: Text(
                                                 'Hace 2 horas',
                                                 style:
@@ -621,8 +612,8 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
+                                                          color: const Color(
+                                                              0xFF606A85),
                                                           fontSize: 12,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -653,7 +644,7 @@ class _NotificacionesWidgetState extends GetView<NotificacionesController> {
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 8)),
+                    ].divide(const SizedBox(height: 8)),
                   ),
                 ],
               );
