@@ -325,7 +325,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.toNamed(Routes.NOTIFICACIONES_PROVEEDOR);
+          Get.toNamed(Routes.MIS_PISTAS);
         },
       ),
       ButtonPerfil(

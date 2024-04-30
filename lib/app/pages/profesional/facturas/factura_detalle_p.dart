@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 class FacturaProveedorWidget extends GetView<_FacturaProveedorWidgetState> {
   const FacturaProveedorWidget({super.key});
+
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(
         title: 'Tarifas Y facturas',

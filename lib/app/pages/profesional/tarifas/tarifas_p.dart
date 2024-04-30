@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/facturas/factura_detalle_p.dart';
-import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
