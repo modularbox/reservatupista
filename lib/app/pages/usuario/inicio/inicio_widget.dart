@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/inicio/noticias/detalle_noticia_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/inicio/ofertas/oferta_p.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../../../../backend/schema/enums/enums.dart';
@@ -1286,13 +1287,16 @@ class _InicioWidgetState extends State<InicioWidget> {
                           height: 150,
                           child: CarouselSlider(
                             items: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  'https://www.time2padel.com/blog/wp-content/uploads/2014/07/g_1405427007-ofertas-de-palas-de-padel-en-las-rebajas-2014.jpg',
-                                  width: 300,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                              GestureDetector(
+                                onTap: () => Get.to(OfertaWidget()),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    'https://www.time2padel.com/blog/wp-content/uploads/2014/07/g_1405427007-ofertas-de-palas-de-padel-en-las-rebajas-2014.jpg',
+                                    width: 300,
+                                    height: 200,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               ClipRRect(
