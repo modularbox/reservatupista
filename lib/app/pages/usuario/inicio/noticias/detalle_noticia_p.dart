@@ -46,7 +46,8 @@ class _DetalleNoticiaWidgetState extends GetView<DetalleNoticiaController> {
                           'https://www.sportbs.es/wp-content/uploads/2018/07/Instalacion-de-pistas-de-padel-en-Extremadura.jpg'),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 16, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 16, 0, 0),
                       child: Text(
                         'Apertura de pista',
                         style: LightModeTheme().headlineMedium.override(
@@ -56,7 +57,8 @@ class _DetalleNoticiaWidgetState extends GetView<DetalleNoticiaController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 8, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 8, 0, 0),
                       child: Text(
                         '02/04/2024',
                         style: LightModeTheme().titleSmall.override(
@@ -69,7 +71,8 @@ class _DetalleNoticiaWidgetState extends GetView<DetalleNoticiaController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 2, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 2, 0, 0),
                       child: Text(
                         'Riolobos',
                         style: LightModeTheme().titleSmall.override(
@@ -82,7 +85,8 @@ class _DetalleNoticiaWidgetState extends GetView<DetalleNoticiaController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 14),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 14),
                       child: Text(
                         'En el pintoresco pueblo de Riolobos, la emoción se apoderó de sus habitantes con la inauguración de la primera pista de pádel. El sonido de las palas golpeando la pelota resonaba en el aire, mientras se daban cita tanto jóvenes como mayores para disfrutar de este deporte en un ambiente comunitario y festivo. La pista impecablemente iluminada ofrecía un escenario perfecto para los partidos emocionantes que se sucedían a lo largo del día, convirtiendo el pádel en la nueva pasión de esta pequeña localidad.\n',
                         style: LightModeTheme().labelLarge.override(
