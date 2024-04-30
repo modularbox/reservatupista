@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
+import 'package:reservatu_pista/app/ui/pages/monederovirtual_page/monederovirtual_c.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
@@ -350,7 +351,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       return Column(
         children: [
           Container(
-            width: 50.w,
+            width: Get.width * 0.3,
             color: Colors.green,
             child: Row(
               children: [
@@ -385,21 +386,22 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         fontSize: 18),
                   ),
                 ),
-                index == self.tiempoReservaListaCalendar.length - 1
-                    ? const SizedBox(
-                        width: 25,
-                      )
-                    : BtnIcon(
-                        onPressed: () {
-                          self.pageViewController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.linear);
-                        },
-                        hoverColor: Colores().usuario.primary69,
-                        borderRadius: 28,
-                        icon: const Icon(Icons.arrow_forward_ios,
-                            color: Colors.white, size: 28),
-                      ),
+                // index == self.tiempoReservaListaCalendar.length - 1
+                //     ? const SizedBox(
+                //         width: 25,
+                //       )
+                //     :
+                BtnIcon(
+                  onPressed: () {
+                    self.pageViewController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.linear);
+                  },
+                  hoverColor: Colores().usuario.primary69,
+                  borderRadius: 28,
+                  icon: const Icon(Icons.arrow_forward_ios,
+                      color: Colors.white, size: 28),
+                ),
               ],
             ),
           ),
@@ -824,8 +826,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               if (controller.terms.value &&
                   controller2.selectedOption.value != '' &&
                   controller2.selectedOption.value != 'rellenar') {
-                final precio = self.storage.dineroTotal.read() -
-                    (self.precio_a_mostrar.value);
+                final precio =
+                    self.db.dineroTotal - (self.precio_a_mostrar.value);
                 /*int.parse(db.datosPerfilUsuario
                         .obx(
                             (state) => Text(
@@ -1069,19 +1071,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       "Precio",
       "Descuento"
     ];
-    final selectHorario = self.selectHorario.value ??
-        HorarioFinInicio(
-            inicio: '00:00',
-            termino: '00:00',
-            typeEstadoHorario: TypeEstadoHorario.abierta);
-    final comienzo =
-        "${FormatDate.dateToString(controller.selectDateDay.value!)} ${selectHorario.inicio}";
-    final finaliza =
-        "${FormatDate.dateToString(controller.selectDateDay.value!)} ${selectHorario.termino}";
     const double fontSize = 13;
-    final stringLOcalidad = (self.selectLocalidad.value != null
-        ? self.db.datosReserva.reservas[self.selectLocalidad.value!].localidad
-        : (self.selectedItemDeporte.value ?? ''));
     final List<String> datosList = [
       localidad,
       deporte,
@@ -1187,9 +1177,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           children: [
             SelectionWidget(
               label: 'Monedero Virtual',
-              value: self.storage.dineroTotal.read() > 0 ? 'monedero' : '0',
+              value: self.db.dineroTotal > 0 ? 'monedero' : '0',
               controller: controller2,
-              db: self,
+              self: self,
             ),
             5.0.sw,
             SelectionWidget(
@@ -1198,7 +1188,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   ? 'tarjeta'
                   : '00',
               controller: controller2,
-              db: self,
+              self: self,
             ),
           ],
         ),
@@ -1244,12 +1234,12 @@ class SelectionWidget extends StatelessWidget {
   final String label;
   final String value;
   final SelectionController controller;
-  final ReservarPistaController db;
+  final ReservarPistaController self;
   SelectionWidget(
       {required this.label,
       required this.value,
       required this.controller,
-      required this.db});
+      required this.self});
 
   @override
   Widget build(BuildContext context) {
@@ -1264,7 +1254,7 @@ class SelectionWidget extends StatelessWidget {
               print('entraaaaaaaaa tarjeta');
             } else if (value == '00') {
               print('entraaaaaaaaa 00');
-              if (db.plazas_a_reservar.value != db.capacidad_pista) {
+              if (self.plazas_a_reservar.value != self.capacidad_pista) {
                 print(
                     'entraaaaaaaaa db.plazas_a_reservar.value != db.capacidad_pista');
                 showDialog(
@@ -1289,7 +1279,7 @@ class SelectionWidget extends StatelessWidget {
               }
             } else if (value == '0') {
               //if(db.plazasLibres)
-              if (db.storage.dineroTotal.read() <= 0) {
+              if (self.db.dineroTotal <= 0) {
                 // es igual que value == '0' ya que comparo lo mismo al enviarle el value
                 showDialog(
                   context: context,
@@ -1310,8 +1300,7 @@ class SelectionWidget extends StatelessWidget {
                     );
                   },
                 );
-              } else if (db.storage.dineroTotal.read() <
-                  db.precio_a_mostrar.value) {
+              } else if (self.db.dineroTotal < self.precio_a_mostrar.value) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -1386,7 +1375,7 @@ class SelectionWidget extends StatelessWidget {
                 ),
                 value == 'monedero'
                     ? Text(
-                        '${(double.parse(db.storage.dineroTotal.read().toString()) / 100).toStringAsFixed(2)} €',
+                        self.db.dineroTotal.euro,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: isSelected ? Colors.white : Colors.black,

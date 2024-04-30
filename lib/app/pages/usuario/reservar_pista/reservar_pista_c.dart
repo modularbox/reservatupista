@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:reservatu_pista/backend/storage/storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:reservatu_pista/app/routes/service/db_s.dart';
 import '../../../../utils/sizer.dart';
 import '../../../routes/database.dart';
 import '../../../routes/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/routes/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/backend/server_node.dart/reservas_node.dart';
-
 import 'dart:convert';
 
 extension ExtDateTime on DateTime {
@@ -38,7 +36,8 @@ class ReservarPistaController extends GetxController
 
   /// Datos usuarios a reservar
   late Rx<ReservaUsuario> usuario;
-  DatabaseController db = Get.find();
+  DatabaseController db2 = Get.find();
+  DBService db = Get.find();
   //variable que almacena todas las localidades existentes.
   Rx<List<String>> localidades = Rx<List<String>>([]);
   Map<String, String> mapLocalidades = {};
@@ -80,9 +79,9 @@ class ReservarPistaController extends GetxController
   Rx<int> precio_elegido = Rx<int>(0);
   Rx<int> precio_a_mostrar = Rx<int>(
       0); //PRECIO QUE SE MOSTRARÁ AL USUARIO A LA HORA DE RESERVAR ALGUNA PISTA. Se calcula multiplicando el precio obtenido de la reserva por las plazas que se va a reservar
-  late SharedPreferences storage;
+  // late SharedPreferences storage;
   // Cancelar la reserva
-  RxBool cancelarReserva = false.obs;
+  final cancelarReserva = false.obs;
 
   Rx<HorarioFinInicio?> selectHorario = Rx<HorarioFinInicio?>(null);
   final ScrollController scrollController = ScrollController();
@@ -113,7 +112,7 @@ class ReservarPistaController extends GetxController
   RxDouble totalHeight = 0.0.obs;
   RxDouble sizedBoxHeight = 0.0.obs;
   late DateTime fechaActual;
-  late List<DateTime> tiempoReservaListaCalendar;
+  // late List<DateTime> tiempoReservaListaCalendar;
 
   final appBarAndNavBar = 120;
   PageController pageViewController = PageController();
@@ -123,17 +122,20 @@ class ReservarPistaController extends GetxController
   // Verificar si las reservas son abiertas y si ha solicitado todas las reservas siendo el mismo
   bool totalMisReservas = false;
 
+  // Datos de la reserva
+  late DatosReservaPista datosReserva;
+
   @override
   void onInit() async {
     super.onInit();
     generarListaLocalidades();
     fechaActual = DateTime.now();
-    storage = await SharedPreferences.getInstance();
     usuario = Rx<ReservaUsuario>(ReservaUsuario(
-        idUsuario: storage.idUsuario.read(),
-        nick: storage.nick.read(),
-        imagen: storage.fotoUsuario.read(),
+        idUsuario: db.idUsuario,
+        nick: db.nick,
+        imagen: db.fotoUsuario,
         plazasReservadas: 1));
+    db.getMoney();
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
@@ -202,7 +204,6 @@ class ReservarPistaController extends GetxController
     }, time: const Duration(milliseconds: 50));
     singleDatePickerValueWithDefaultValue = [fechaActual];
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
-    tiempoReservaListaCalendar = getListaHorarios();
   }
   //funcion para obtener lista con todas las localidades
 
@@ -231,7 +232,7 @@ class ReservarPistaController extends GetxController
 
   Future<void> generarListaLocalidades() async {
     try {
-      String localidadesJson = await db.obtenerLocalidades();
+      String localidadesJson = await db2.obtenerLocalidades();
       // Convertir la cadena JSON en una lista de mapas
       List<dynamic> localidadesData = json.decode(localidadesJson);
       mapLocalidades = Map.fromEntries(localidadesData.map(
@@ -258,7 +259,7 @@ class ReservarPistaController extends GetxController
       /*//seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
       selectDay.value = null;*/
       //deporte_seleccionado.value = '';
-      String clubesJson = await db.obtenerClubes(cod_postal);
+      String clubesJson = await db2.obtenerClubes(cod_postal);
       print('clubesssJson $clubesJson');
       if (clubesJson == '[]') {
         //falta cambiar
@@ -288,7 +289,7 @@ class ReservarPistaController extends GetxController
     //deporteController.text = '';
     deporte_seleccionado.value = '';
     try {
-      String deportesJson = await db.obtenerDeportes(id_club);
+      String deportesJson = await db2.obtenerDeportes(id_club);
       print('deportesJson $deportesJson');
       if (deportesJson == '{}') {
         deportes.value = [];
@@ -316,7 +317,7 @@ class ReservarPistaController extends GetxController
   Future<void> generarListaPistas(String id_club, String deporte) async {
     //deporteController.text = '';
     try {
-      String pistasJson = await db.obtenerPistas(id_club, deporte);
+      String pistasJson = await db2.obtenerPistas(id_club, deporte);
       print('pistasJson $pistasJson');
       if (pistasJson.isEmpty) {
         pistas.value = [];
@@ -353,7 +354,7 @@ class ReservarPistaController extends GetxController
     try {
       print('responseeeeeeeeeeee00');
       String response =
-          await db.obtenerHorariosPistas(idPista, dia_seleccionado);
+          await db2.obtenerHorariosPistas(idPista, dia_seleccionado);
       print('responseeeeeeeeeeee11 ${response}');
       if (response.length <= 0) return [];
       print('responseeeeeeeeeeee22 ${response}');
@@ -393,7 +394,7 @@ class ReservarPistaController extends GetxController
 
   List<DateTime> getListaHorarios() {
     return List.generate(
-        db.datosReserva.tiempoReserva, (index) => getAddDia(index));
+        db2.datosReserva.tiempoReserva, (index) => getAddDia(index));
   }
 
   DateTime fechaAnterior() {

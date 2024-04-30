@@ -23,81 +23,20 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print("capacidad: ${capacidad}");
       // ignore: non_constant_identifier_names
       final reservas_usuarios = self.reservas_usuarios.value;
       if (reservas_usuarios is ReservasUsuarios) {
-        final int plazasReservadasTotales =
-            reservas_usuarios.plazasReservadasTotales;
-        final tamanoBotones = self.cancelarReserva.value
-            ? capacidad
-            : (capacidad -
-                (plazasReservadasTotales +
-                    self.usuario.value.plazasReservadas));
-        print("tamanoBotones : $tamanoBotones");
         return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
             child: Row(
               children: [
-                (self.cancelarReserva.value && !self.totalMisReservas)
-                    ? const SizedBox.shrink()
-                    : Row(
-                        children: List.generate(
-                            reservas_usuarios.usuarios.length,
-                            (index) => buildUsuario(
-                                  reservas_usuarios.usuarios[index],
-                                  true,
-                                ))),
-                self.reservas_usuarios.value == null
-                    ? const SizedBox.shrink()
-                    : buildButton(
-                        tamanoBotones,
-                        self.cancelarReserva,
-                      ),
+                buildReservasAbiertas(reservas_usuarios),
+                buildReservas()
               ].divide(2.0.sw),
             ),
           ),
-          Obx(() => capacidad == 0
-              ? const SizedBox.shrink()
-              : BtnIcon(
-                  onPressed: () {
-                    if (self.cancelarReserva.isTrue) {
-                      self.usuario.value.plazasReservadas = 1;
-                      self.plazas_a_reservar.value = 1;
-                      self.cancelarReserva.value = false;
-                    } else {
-                      self.totalMisReservas =
-                          todasMisReservas(self.plazas_a_reservar.value);
-                      if (self.totalMisReservas) {
-                        self.cancelarReserva.value = true;
-                        self.usuario.value.plazasReservadas += 1;
-                        self.plazas_a_reservar.value += 1;
-                      } else {
-                        // ignore: non_constant_identifier_names
-                        self.plazas_a_reservar.value = capacidad;
-                        self.usuario.value.plazasReservadas = capacidad;
-                        self.cancelarReserva.value = true;
-                      }
-                    }
-                    self.precio_a_mostrar.value = self.precio_elegido.value *
-                        self.usuario.value.plazasReservadas;
-                    self.usuario.refresh();
-                  },
-                  fillColor: self.cancelarReserva.value
-                      ? Colores().rojo
-                      : Colores().usuario.primary,
-                  borderRadius: 10,
-                  padding: const EdgeInsets.all(0),
-                  size: const Size(80, 60),
-                  icon: Text(
-                    self.cancelarReserva.value ? 'Cancelar' : 'Reservar\ntodo',
-                    style: LightModeTheme()
-                        .bodyMedium
-                        .copyWith(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                ))
+          Obx(buildCancelarReservar),
         ]);
       }
       return const SizedBox.shrink();
@@ -127,11 +66,13 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
                                       (capacidad)) {
                                     self.cancelarReserva.value = true;
                                   }
-                                  self.totalMisReservas = todasMisReservas(
-                                      self.plazas_a_reservar.value);
-                                  if (self.totalMisReservas) {
-                                    self.cancelarReserva.value = true;
+
+                                  /// Poner las reservas abiertas y mostrarlas
+                                  final total = todasMisReservas2();
+                                  if (total) {
+                                    self.totalMisReservas = true;
                                   }
+
                                   final precio_a_mostrar = precio *
                                       self.usuario.value.plazasReservadas;
                                   self.precio_a_mostrar.value =
@@ -168,6 +109,9 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
             onPressed: index == 0 || (self.cancelarReserva.isTrue)
                 ? null
                 : () {
+                    if (self.totalMisReservas) {
+                      self.totalMisReservas = false;
+                    }
                     self.usuario.value.plazasReservadas -= 1;
                     self.plazas_a_reservar.value -= 1;
                     // ignore: non_constant_identifier_names
@@ -202,8 +146,83 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
     ));
   }
 
+  Widget buildReservasAbiertas(ReservasUsuarios reservas_usuarios) {
+    return (self.cancelarReserva.value)
+        ? const SizedBox.shrink()
+        : Row(
+            children: List.generate(
+                reservas_usuarios.usuarios.length,
+                (index) => buildUsuario(
+                      reservas_usuarios.usuarios[index],
+                      true,
+                    )));
+  }
+
+  Widget buildReservas() {
+    // ver el tamano de los botones
+    final tamanoBotones = self.cancelarReserva.value
+        ? capacidad
+        : (capacidad -
+            (self.reservas_usuarios.value!.plazasReservadasTotales +
+                self.usuario.value.plazasReservadas));
+    return self.reservas_usuarios.value == null
+        ? const SizedBox.shrink()
+        : buildButton(
+            tamanoBotones,
+            self.cancelarReserva,
+          );
+  }
+
+  /// Build bonton para cancelar y reservar todo
+  Widget buildCancelarReservar() {
+    final changeColor = self.cancelarReserva.value || self.totalMisReservas;
+    return capacidad == 0
+        ? const SizedBox.shrink()
+        : BtnIcon(
+            onPressed: () {
+              if (self.cancelarReserva.isTrue || self.totalMisReservas) {
+                self.usuario.value.plazasReservadas = 1;
+                self.plazas_a_reservar.value = 1;
+                self.cancelarReserva.value = false;
+                self.totalMisReservas = false;
+              } else {
+                if (self.totalMisReservas) {
+                  self.totalMisReservas = false;
+                } else {
+                  /// Poner las reservas abiertas y mostrarlas
+                  final total = todasMisReservas2();
+                  if (total) {
+                    final reservasPendientes = capacidad -
+                        self.reservas_usuarios.value!.plazasReservadasTotales;
+                    self.plazas_a_reservar.value = reservasPendientes;
+                    self.usuario.value.plazasReservadas = reservasPendientes;
+                    self.totalMisReservas = true;
+                  } else {
+                    // ignore: non_constant_identifier_names
+                    self.plazas_a_reservar.value = capacidad;
+                    self.usuario.value.plazasReservadas = capacidad;
+                    self.cancelarReserva.value = true;
+                  }
+                }
+              }
+              self.precio_a_mostrar.value = self.precio_elegido.value *
+                  self.usuario.value.plazasReservadas;
+              self.usuario.refresh();
+            },
+            fillColor: changeColor ? Colores().rojo : Colores().usuario.primary,
+            borderRadius: 10,
+            padding: const EdgeInsets.all(0),
+            size: const Size(80, 60),
+            icon: Text(
+              changeColor ? 'Cancelar' : 'Reservar\ntodo',
+              style: LightModeTheme().bodyMedium.copyWith(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          );
+  }
+
   /// Verificar si todas las reservas son del usuario y si tiene alguna pendiente
-  bool todasMisReservas(int plazasReservadas) {
+  int todasMisReservas(int plazasReservadas) {
     print("TodasMisReservas");
     final idUsuario = self.usuario.value.idUsuario;
     print(idUsuario);
@@ -220,7 +239,30 @@ class SelectedUsuarios extends GetView<ReservarPistaController> {
     }
     print(
         "totalssssss: ${total} : ${self.reservas_usuarios.value!.plazasReservadasTotales}");
-    return total == self.reservas_usuarios.value!.plazasReservadasTotales &&
-        total != 0;
+    return total;
+  }
+
+  /// Verificar si todas las reservas son del usuario y si tiene alguna pendiente
+  bool todasMisReservas2() {
+    if (self.reservas_usuarios.value!.plazasReservadasTotales == 0) {
+      return false;
+    }
+    print("TodasMisReservas");
+    final idUsuario = self.usuario.value.idUsuario;
+    print(idUsuario);
+    print(self.reservas_usuarios.value!.usuarios);
+    int total = 0;
+    for (final reserva_usuario in self.reservas_usuarios.value!.usuarios) {
+      print("total");
+      print(
+          "reserva_usuario.plazasReservada ${reserva_usuario.plazasReservadas}");
+      if (reserva_usuario.idUsuario == idUsuario) {
+        total += reserva_usuario.plazasReservadas;
+      }
+    }
+    print(
+        "totalssssss: ${total} : ${self.reservas_usuarios.value!.plazasReservadasTotales}");
+    // total += self.usuario.value.plazasReservadas;
+    return total == self.reservas_usuarios.value!.plazasReservadasTotales;
   }
 }

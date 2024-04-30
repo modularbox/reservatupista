@@ -17,7 +17,7 @@ class AlertRecargarModel extends FlutterFlowModel<AlertRecargarWidget> {
     unfocusNode.dispose();
   }
 
-  double money = 0.0;
+  double money = 0;
 
   /// Action blocks are added here.
 

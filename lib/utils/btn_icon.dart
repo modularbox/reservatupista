@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BtnIcon extends StatefulWidget {
   const BtnIcon({
-    Key? key,
+    super.key,
     required this.icon,
     this.borderColor,
     this.borderRadius,
@@ -21,7 +21,7 @@ class BtnIcon extends StatefulWidget {
     this.iconColor,
     this.size,
     this.showLoadingIndicator = false,
-  }) : super(key: key);
+  });
 
   final Widget icon;
   final double? borderRadius;

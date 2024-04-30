@@ -166,6 +166,7 @@ class UsuarioNode {
 
       // Enviar la solicitud
       var response = await request;
+      print('response.body  ${response.body}');
       if (response.statusCode == 200) {
         print(response.body == '{}');
         print('get datos usuario correctamente');
@@ -194,7 +195,7 @@ class UsuarioNode {
         "idusuario": id.toString(),
         "datos": DatosServer().datos(listTypes)
       });
-      print(response.body);
+      print("response ${response.body}");
       if (response.statusCode == 200) {
         print(response.body == '{}');
         print('get datos usuario correctamente');
@@ -202,6 +203,31 @@ class UsuarioNode {
       } else {
         final messageError = MessageError.fromRawJson(response.body);
         print(messageError.message);
+        // Manejar el caso en el que la carga no fue exitosa
+        print(
+            'Error al obtener datos del usuario. Código: ${messageError.code}');
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+    }
+    return null;
+  }
+
+  Future<UsuarioModel?> getUsuarioDatos(
+      int id, String token, List<String> listTypes) async {
+    try {
+      final url = Uri.parse('${DatosServer().urlServer}/usuario/datos');
+      // Crear una solicitud multipart
+      final response = await http.get(url, headers: {
+        "Authorization": "Bearer $token",
+        "idusuario": id.toString(),
+        "datos": listTypes.join(', ')
+      });
+      if (response.statusCode == 200) {
+        return UsuarioModel.fromRawJson(response.body);
+      } else {
+        final messageError = MessageError.fromRawJson(response.body);
         // Manejar el caso en el que la carga no fue exitosa
         print(
             'Error al obtener datos del usuario. Código: ${messageError.code}');

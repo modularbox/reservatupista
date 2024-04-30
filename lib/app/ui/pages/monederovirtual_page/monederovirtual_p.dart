@@ -13,6 +13,8 @@ import 'package:flutter/services.dart';
 import 'monederovirtual_c.dart';
 
 class MonederoVirtualPage extends GetView<MonederoVirtualController> {
+  const MonederoVirtualPage({super.key});
+  MonederoVirtualController get self => controller;
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -58,7 +60,7 @@ class MonederoVirtualPage extends GetView<MonederoVirtualController> {
                   const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
               child: Container(
                 width: MediaQuery.of(context).size.width * kWidthPercentage,
-                constraints: BoxConstraints(minWidth: 600),
+                constraints: const BoxConstraints(minWidth: 600),
                 height: 120.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondary,
@@ -112,7 +114,7 @@ class MonederoVirtualPage extends GetView<MonederoVirtualController> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: Obx(() => Text(
-                                  '${controller.db.dineroTotalEuros} €',
+                                  controller.db.dineroTotal.euro,
                                   style: FlutterFlowTheme.of(context)
                                       .headlineLarge
                                       .override(
@@ -123,25 +125,9 @@ class MonederoVirtualPage extends GetView<MonederoVirtualController> {
                                       ),
                                 )),
                           ),
-                          // Obx(
-                          //   () => Padding(
-                          //     padding: const EdgeInsetsDirectional.fromSTEB(
-                          //         0.0, 8.0, 0.0, 0.0),
-                          //     child: Text(
-                          //       '${FormatNumber.formatNumberWithTwoDecimals(db.money.value).toString()} €',
-                          //       style: FlutterFlowTheme.of(context)
-                          //           .headlineLarge
-                          //           .override(
-                          //             fontFamily: 'Outfit',
-                          //             color: const Color(0xFF14181B),
-                          //             fontSize: 30.0,
-                          //             fontWeight: FontWeight.w600,
-                          //           ),
-                          //     ),
-                          //   ),
-                          // ),
                           FFButtonWidget(
                             onPressed: () async {
+                              self.money = 0;
                               await showAlignedDialog(
                                 context: context,
                                 // isGlobal: true,
@@ -150,7 +136,7 @@ class MonederoVirtualPage extends GetView<MonederoVirtualController> {
                                 builder: (dialogContext) {
                                   return Material(
                                     color: const Color.fromARGB(0, 163, 0, 0),
-                                    child: (AlertRecargarWidget()),
+                                    child: AlertRecargarWidget(),
                                   );
                                 },
                               ).then((value) => {});
@@ -198,53 +184,6 @@ class MonederoVirtualPage extends GetView<MonederoVirtualController> {
                   buildBtnOption('Reservas', TypeHistorial.reserva),
                   buildBtnOption('Recargas', TypeHistorial.tranferencia),
                   buildBtnOption('Todo', TypeHistorial.all),
-                  // buildBtnOption('Reservas', TypeHistorial.reserva),
-                  // FFButtonWidget(
-                  //     text: 'Reservas',
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         _model.type = TypeHistorial.reserva;
-                  //       });
-                  //     },
-                  //     options: FFButtonOptions(
-                  //         textStyle: TextStyle(
-                  //             color: _model.type != TypeHistorial.reserva
-                  //                 ? Colors.black
-                  //                 : Colors.white),
-                  //         borderSide: _model.type != TypeHistorial.reserva
-                  //             ? const BorderSide(
-                  //                 color: Colors.black, width: 2)
-                  //             : null,
-                  //         color: _model.type != TypeHistorial.reserva
-                  //             ? Colors.white
-                  //             : Colors.green,
-                  //         borderRadius: BorderRadius.circular(30))),
-                  // FFButtonWidget(
-                  //     text: 'Recargas',
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         _model.type = TypeHistorial.tranferencia;
-                  //       });
-                  //     },
-                  //     options: FFButtonOptions(
-                  //         textStyle: TextStyle(color: Colors.white),
-                  //         color: _model.type != TypeHistorial.tranferencia
-                  //             ? const Color.fromARGB(255, 50, 50, 50)
-                  //             : Colors.green,
-                  //         borderRadius: BorderRadius.circular(30))),
-                  // FFButtonWidget(
-                  // text: 'Todo',
-                  // onPressed: () {
-                  //   setState(() {
-                  //     _model.type = TypeHistorial.all;
-                  //   });
-                  // },
-                  // options: FFButtonOptions(
-                  //     textStyle: TextStyle(color: Colors.white),
-                  //     color: _model.type != TypeHistorial.all
-                  //         ? const Color.fromARGB(255, 50, 50, 50)
-                  //         : Colors.green,
-                  //     borderRadius: BorderRadius.circular(30))),
                 ].divide(const SizedBox(width: 10.0)),
               ),
             ),
@@ -328,7 +267,6 @@ Widget buildTransferencia(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
                       text: TextSpan(
                         children: [
                           TextSpan(
@@ -467,7 +405,6 @@ Widget buildReserva(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
                       text: TextSpan(
                         children: [
                           TextSpan(

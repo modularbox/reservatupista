@@ -47,7 +47,6 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         ),
       );
     }
-
     return NavbarYAppbarUsuario(
         title: 'Perfil',
         page: TypePage.Perfil,

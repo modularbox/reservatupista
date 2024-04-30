@@ -1,10 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-
 import 'package:http/http.dart' as http;
-import 'package:reservatu_pista/backend/storage/storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../pages/usuario/reservar_pista/reservar_pista_c.dart';
 
 class PagoTpvController extends GetxController {
@@ -19,7 +16,7 @@ class PagoTpvController extends GetxController {
       int dia = claseReserva.fecha_seleccionada.value.day;
       DateTime fecha = DateTime(anio, mes, dia);
       String hora_inicio = claseReserva.hora_inicio_reserva_seleccionada.value;
-      int id_usuario = claseReserva.storage.idUsuario.read();
+      int id_usuario = claseReserva.db.idUsuario;
       int id_pista = claseReserva.id_pista_seleccionada.value;
       print('id_pista $id_pista');
       print('anio $anio');

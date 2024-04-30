@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/routes/models/message_error.dart';
+import 'package:reservatu_pista/app/routes/service/db_s.dart';
 import 'package:reservatu_pista/backend/server_node.dart/usuario_node.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,7 +64,7 @@ class LoginUsuarioController extends GetxController
   late AnimationController animTerminosProveedor;
 
   // Controller datos locales
-  DatabaseController db = Get.find();
+  DBService db = Get.find();
 
   /// Obtener los datos si el usuario guardo la contrasena
   late Storage storagePasswordUsuario;
@@ -128,55 +129,62 @@ class LoginUsuarioController extends GetxController
 
   // Iniciar Sesion Usuario
   void onPressedUsuario() async {
-    if (formUsuarioKey.currentState!.validate()) {
-      bool isUserPrueba =
-          emailUsuarioController.text == 'app@reservatupista.com' &&
-              passwordUsuarioController.text == '12345678';
-      if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
-        validateTerminosUsuario.value = true;
-        animTerminosUsuario.forward();
-      } else {
-        // Encriptar contrasena
-        List<int> bytes = utf8.encode(passwordUsuarioController.text);
-        String hashConstrasena = sha1.convert(bytes).toString();
-        // Llamar a la api de reservatupista
-        final result = await UsuarioNode().iniciarSesion([
-          emailUsuarioController.text,
-          emailUsuarioController.text,
-          hashConstrasena
-        ]);
-        if (result is UsuarioModel) {
-          final storage = await SharedPreferences.getInstance();
-          // Si el usuario existe guardamos el id para futuras peticiones
-          print("idUsuario ${result.idUsuario}");
-          storage.idUsuario.write(result.idUsuario);
-          // Guardar el token
-          storageTokenUsuario.write(result.token);
-          // Guardar el token
-          //storageDineroTotalUsuario.write(result.dineroTotal);
-          storage.dineroTotal.write(result.dineroTotal);
-          storage.fotoUsuario.write(result.foto);
-          storage.nick.write(result.nick);
+    try {
+      if (formUsuarioKey.currentState!.validate()) {
+        bool isUserPrueba =
+            emailUsuarioController.text == 'app@reservatupista.com' &&
+                passwordUsuarioController.text == '12345678';
+        if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
+          validateTerminosUsuario.value = true;
+          animTerminosUsuario.forward();
+        } else {
+          // Encriptar contrasena
+          List<int> bytes = utf8.encode(passwordUsuarioController.text);
+          String hashConstrasena = sha1.convert(bytes).toString();
+          // Llamar a la api de reservatupista
+          final result = await UsuarioNode().iniciarSesion([
+            emailUsuarioController.text,
+            emailUsuarioController.text,
+            hashConstrasena
+          ]);
+          if (result is UsuarioModel) {
+            final storage = await SharedPreferences.getInstance();
+            // Si el usuario existe guardamos el id para futuras peticiones
+            print("idUsuario ${result.idUsuario}");
+            storage.idUsuario.write(result.idUsuario);
+            // Guardar el token
+            storage.tokenUsuario.write(result.token);
+            // Guardar el token
+            //storageDineroTotalUsuario.write(result.dineroTotal);
+            storage.dineroTotal.write(result.dineroTotal);
+            storage.fotoUsuario.write(result.foto);
+            storage.nick.write(result.nick);
 
-          // Si es recordar contrasena
-          if (checkboxValueRecordarUsuario.value) {
-            await storagePasswordUsuario.write(passwordUsuarioController.text);
-          } else {
-            storagePasswordUsuario.remove();
+            // Si es recordar contrasena
+            if (checkboxValueRecordarUsuario.value) {
+              await storagePasswordUsuario
+                  .write(passwordUsuarioController.text);
+            } else {
+              storagePasswordUsuario.remove();
+            }
+            // print("foto ${result.idUsuario}");
+            await db.getDB();
+            Get.toNamed(Routes.INICIO);
+          } else if (result is MessageError) {
+            Get.dialog(GeneralDialog(
+              alertTitle: richTitle("Login Usuario"),
+              alertSubtitle: richSubtitle(result.messageError()),
+              textButton: "Cerrar",
+              alertType: TypeGeneralDialog.WARNING,
+              onPressed: () => Get.back(),
+            ));
           }
-          db.setDatosUsuario(result);
-          Get.toNamed(Routes.INICIO);
-        } else if (result is MessageError) {
-          Get.dialog(GeneralDialog(
-            alertTitle: richTitle("Login Usuario"),
-            alertSubtitle: richSubtitle(result.messageError()),
-            textButton: "Cerrar",
-            alertType: TypeGeneralDialog.WARNING,
-            onPressed: () => Get.back(),
-          ));
         }
+        isValidateForms = true;
       }
-      isValidateForms = true;
+    } catch (e, stack) {
+      print(e);
+      print(stack);
     }
   }
 
@@ -205,7 +213,7 @@ class LoginUsuarioController extends GetxController
           } else {
             storagePasswordProveedor.remove();
           }
-          db.setDatosProveedor(result);
+          db.onInit();
           Get.toNamed(Routes.INICIOPROFESIONAL);
         } else if (result is MessageError) {
           Get.dialog(GeneralDialog(
