@@ -36,7 +36,7 @@ class InputController {
 }
 
 class AnadirPistaController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   RxBool isValidBtnTarifas = false.obs;
   TarifasPistaController selfTarifas = Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -111,7 +111,7 @@ class AnadirPistaController extends GetxController
   // Imagen del patrocinador
   Rx<File?> imagePatrocinador = Rx<File?>(null);
   // Imagenes de la pistas
-  StateRx<List<File>?> imagesPista = StateRx(Rx<List<File>?>(null));
+  StateRx<List<File>?> imagesPista = StateRx(Rxn<List<File>>());
   // Lista de los horarios para crear las tarifas
   Rx<List<String>> listaHorarios = Rx<List<String>>([]);
   // Lista de las tarifas
@@ -172,10 +172,10 @@ class AnadirPistaController extends GetxController
     bono = InputController(animVibrate(vsync: this));
     reservatupista = InputController(animVibrate(vsync: this));
     animTerminos = animVibrate(vsync: this);
-    initForm();
+    // onInitForm();
   }
 
-  void initForm() {
+  void onInitForm() {
     deporte.controller.text = '🎾 Padel';
     nPistaController.text = '1';
     techada.controller.text = 'Si';

@@ -20,7 +20,7 @@ class DatabaseBinding implements Bindings {
 }
 
 class DatabaseController extends GetxController {
-  String version = '2.2.5';
+  String version = '2.2.8';
   Rx<String> imageServer = ''.obs;
   late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
@@ -28,8 +28,8 @@ class DatabaseController extends GetxController {
   ProveedorModel? datosProveedor;
   RxDouble money = 0.0.obs;
   // Datos para cargar los datos de perfil
-  StateRx<UsuarioModel?> datosPerfilUsuario = StateRx(Rx<UsuarioModel?>(null));
-  StateRx<ClubModel?> datosPerfilClub = StateRx(Rx<ClubModel?>(null));
+  final datosPerfilUsuario = StateRx(Rxn<UsuarioModel?>());
+  final datosPerfilClub = StateRx(Rxn<ClubModel>());
 
   @override
   void onInit() async {

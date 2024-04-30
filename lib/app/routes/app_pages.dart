@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_widget.dart';
+import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
+import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_b.dart';
+import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_p.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 // import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
@@ -23,8 +25,8 @@ import '../ui/pages/pagotpv_page/pagotpv_p.dart';
 import './index.dart';
 import '../pages/usuario/reservar_pista/reservar_pista.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
-import '../pages/profesional/registro_proveedor/registro_proveedor.dart';
-import '../pages/profesional/registro_proveedor/registro_proveedor_b.dart';
+import '../pages/profesional/registro_proveedor/registrar_proveedor.dart';
+import '../pages/profesional/registro_proveedor/registrar_proveedor_b.dart';
 import '../pages/Profesional/mis_socios/mis_socios.dart';
 import '../pages/Profesional/mis_socios/mis_socios_b.dart';
 import '../pages/Profesional/datos_proveedor/datos_proveedor.dart';
@@ -72,7 +74,7 @@ abstract class Routes {
   static const LOGIN_PROFESIONAL = '/login_profesional';
   static const RESERVAR_PISTA = '/reservar_pista';
   static const PAGOS_TARJETA = '/pagos_tarjeta';
-  static const REGISTRO_PROVEEDOR = '/registro_proveedor';
+  static const REGISTRAR_PROVEEDOR = '/registrar_proveedor';
   static const MIS_SOCIOS = '/mis_socios';
   static const DATOS_PROVEEDOR = '/datos_proveedor';
   static const PRUEBA_PROVEEDOR = '/prueba_proveedor';
@@ -84,12 +86,18 @@ abstract class Routes {
   static const OLVIDE_CONTRASENA = '/olvide_contrasena';
   static const TARIFAS_PISTA = '/tarifas_pista';
   static const PAGO_TPV = '/pago_tpv';
+  static const PRUEBAS = '/pruebas';
 }
 
 /// Get Routes
 class AppPages {
   static const INITIAL = Routes.LOGIN_USUARIO;
   static final routes = [
+    GetPage(
+      name: Routes.PRUEBAS,
+      page: () => PruebasPage(),
+      binding: PruebasBinding(),
+    ),
     GetPage(
       name: Routes.LOGIN_USUARIO,
       page: () => LoginUsuarioPage(),
@@ -156,14 +164,14 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ANADIR_PISTA,
-      page: () => AnadirPistaWidget(),
+      page: () => AnadirPistaPage(),
       binding: AnadirPistaBinding(),
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: Routes.NOTIFICACIONES,
-      page: () => NotificacionesWidget(),
-    ),
+        name: Routes.NOTIFICACIONES,
+        page: () => NotificacionesWidget(),
+        transition: Transition.zoom),
     GetPage(
       name: Routes.NOTIFICACIONES_PROVEEDOR,
       page: () => NotificacionesProfesionalWidget(),
@@ -185,9 +193,9 @@ class AppPages {
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: Routes.REGISTRO_PROVEEDOR,
-      page: () => RegistroProveedorPage(),
-      binding: RegistroProveedorBinding(),
+      name: Routes.REGISTRAR_PROVEEDOR,
+      page: () => RegistrarProveedorPage(),
+      binding: RegistrarProveedorBinding(),
     ),
     GetPage(
       name: Routes.MIS_SOCIOS,

@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 
 class MisSociosController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
+  final check = false.obs;
+
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -36,5 +38,10 @@ class MisSociosController extends GetxController
           !anim.applyInitialState),
       this,
     );
+  }
+
+  onChangedCheck(RxBool checked) {
+    print(checked.value);
+    checked.toggle();
   }
 }

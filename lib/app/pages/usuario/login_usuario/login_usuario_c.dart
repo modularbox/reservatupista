@@ -16,7 +16,7 @@ import '../../../routes/models/proveedor_model.dart';
 import '../../../routes/models/usuario_model.dart';
 
 class LoginUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   /// Obtener la pagina 0 Usuario, 1 Proveedor
   int? initialPage = Get.arguments;
   PageController pageViewController = PageController(
@@ -191,8 +191,9 @@ class LoginUsuarioController extends GetxController
           storage.idProveedor.write(result.idProveedor);
           // Guardar el token
           storage.token.write(result.token);
-          // Guardar el Club
+          print(result.idClub);
           storage.idClub.write(result.idClub);
+
           // Guardar el foto
           storage.foto.write(ProveedorNode().getImageNode(result.foto));
           // Si es recordar contrasena

@@ -20,7 +20,7 @@ import '../../../routes/models/proveedor_model.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class DatosProveedorController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   // Datos de la api datos del usuario
   StateRx<bool?> apiDatosProveedor = StateRx(Rx<bool?>(null));
   // Traer datos de la api de codigo postal Nominatim
@@ -134,7 +134,7 @@ class DatosProveedorController extends GetxController
         certificadoCuentaController.text = result.certificadoCuenta;
         nombreController.text = result.nombre;
         apellidosController.text = result.apellidos;
-        fijoController.text = result.fijo;
+        fijoController.text = result.fijo.toString();
         emailController.text = result.email;
         ladaController.text = lada;
         telefonoController.text = result.telefono;
@@ -159,8 +159,8 @@ class DatosProveedorController extends GetxController
           direccionController.text = resultClub.direccion;
           codigoPostalController.text = resultClub.codigoPostal;
           localidadController.text = resultClub.localidad;
-          provinciaController.text = resultClub.provincia;
-          comunidadController.text = resultClub.comunidad;
+          // provinciaController.text = resultClub.provincia;
+          // comunidadController.text = resultClub.comunidad;
         }
         apiDatosProveedor.change(true, RxStatusDemo.success());
       }
@@ -242,7 +242,7 @@ class DatosProveedorController extends GetxController
             isSelect: true,
             listSelect: ['Club', 'Ayuntamiento', 'Comunidad', 'Asociación']),
         certificadoCuenta: PropertiesTextField(
-          labelText: 'Certificado de cuenta',
+          labelText: 'Certificado de Cuenta',
           controller: certificadoCuentaController,
           anim: animVibrate(vsync: this),
           maxLength: 20,

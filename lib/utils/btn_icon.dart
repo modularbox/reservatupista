@@ -118,44 +118,47 @@ class _BtnIconState extends State<BtnIcon> {
         }),
         fixedSize: MaterialStatePropertyAll(widget.size));
 
-    return Container(
-      width: widget.width ?? widget.buttonSize,
-      height: widget.height ?? widget.buttonSize,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          useMaterial3: true,
-        ),
-        child: IgnorePointer(
-          ignoring: (widget.showLoadingIndicator && loading),
-          child: IconButton(
-            icon: (widget.showLoadingIndicator && loading)
-                ? SizedBox(
-                    width: iconSize,
-                    height: iconSize,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        iconColor ?? Colors.white,
+    return MouseRegion(
+      onHover: (event) => print("hover-------"),
+      child: Container(
+        width: widget.width ?? widget.buttonSize,
+        height: widget.height ?? widget.buttonSize,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            useMaterial3: true,
+          ),
+          child: IgnorePointer(
+            ignoring: (widget.showLoadingIndicator && loading),
+            child: IconButton(
+              icon: (widget.showLoadingIndicator && loading)
+                  ? SizedBox(
+                      width: iconSize,
+                      height: iconSize,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          iconColor ?? Colors.white,
+                        ),
                       ),
-                    ),
-                  )
-                : widget.icon,
-            onPressed: widget.onPressed == null
-                ? null
-                : () async {
-                    if (loading) {
-                      return;
-                    }
-                    setState(() => loading = true);
-                    try {
-                      await widget.onPressed!();
-                    } finally {
-                      if (mounted) {
-                        setState(() => loading = false);
+                    )
+                  : widget.icon,
+              onPressed: widget.onPressed == null
+                  ? null
+                  : () async {
+                      if (loading) {
+                        return;
                       }
-                    }
-                  },
-            style: style,
+                      setState(() => loading = true);
+                      try {
+                        await widget.onPressed!();
+                      } finally {
+                        if (mounted) {
+                          setState(() => loading = false);
+                        }
+                      }
+                    },
+              style: style,
+            ),
           ),
         ),
       ),

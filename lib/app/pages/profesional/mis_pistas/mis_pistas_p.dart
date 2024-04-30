@@ -54,9 +54,10 @@ class MisPistasPage extends GetView<MisPistasController> {
                     Obx(() => SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: buildListDeportes()),
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: buildListDeportes())
+                              .animateOnPageLoad(self.animationPistaDeporte),
                         )),
                   ],
                 ),
@@ -329,7 +330,7 @@ class MisPistasPage extends GetView<MisPistasController> {
           ),
         ),
       ),
-    ).animateOnPageLoad(self.animationsMap['containerOnPageLoadAnimation']!);
+    ).animateOnPageLoad(self.animationPistaDeporte);
   }
 
   List<Widget> buildListPartidas(

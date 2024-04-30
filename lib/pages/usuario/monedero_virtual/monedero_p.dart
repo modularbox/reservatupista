@@ -12,7 +12,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'monedero_virtual_model.dart';
 export 'monedero_virtual_model.dart';
 
@@ -100,8 +99,6 @@ class _MonederoVirtualWidgetState extends State<MonederoVirtualWidget>
         ),
       );
     }
-
-    context.watch<FFAppState>();
 
     Widget buildBtnOption(String title, TypeHistorial typeHistorial) {
       bool isTypeHistorial = _model.type != typeHistorial;

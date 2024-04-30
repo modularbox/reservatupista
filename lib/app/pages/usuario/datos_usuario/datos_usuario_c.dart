@@ -28,7 +28,7 @@ class TiposImagenes {
 }
 
 class DatosUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
   // Datos de la api datos del usuario
@@ -246,12 +246,13 @@ class DatosUsuarioController extends GetxController
             isSelect: true,
             anim: animVibrate(vsync: this),
             listSelect: ['Hombre', 'Mujer'],
+            isRequired: false,
             maxLength: 10),
         dni: PropertiesTextField(
             labelText: 'DNI',
-            // focusNode: dniFocusNode,
             textEditingController: dniController,
             anim: animVibrate(vsync: this),
+            isRequired: false,
             maxLength: 9),
         lada: PropertiesTextField(
           labelText: '',
@@ -288,7 +289,6 @@ class DatosUsuarioController extends GetxController
             isRequired: false),
         direccion: PropertiesTextField(
             labelText: 'Dirección',
-            // focusNode: FocusNode(),
             textEditingController: direccionController,
             anim: animVibrate(vsync: this),
             maxLength: 50,
@@ -302,26 +302,24 @@ class DatosUsuarioController extends GetxController
             maxLength: 5,
             isRequired: false),
         localidad: PropertiesTextField(
-            labelText: 'Localidad',
-            // focusNode: FocusNode(),
-            textEditingController: localidadController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50,
-            isRequired: false),
+          labelText: 'Localidad',
+          textEditingController: localidadController,
+          anim: animVibrate(vsync: this),
+          maxLength: 50,
+        ),
         comunidad: PropertiesTextField(
-            labelText: 'Comunidad',
-            // focusNode: FocusNode(),
-            textEditingController: comunidadController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50,
-            isRequired: false),
+          labelText: 'Comunidad',
+          textEditingController: comunidadController,
+          anim: animVibrate(vsync: this),
+          maxLength: 50,
+        ),
         provincia: PropertiesTextField(
-            labelText: 'Provincia',
-            // focusNode: FocusNode(),
-            textEditingController: provinciaController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50,
-            isRequired: false),
+          labelText: 'Provincia',
+          // focusNode: FocusNode(),
+          textEditingController: provinciaController,
+          anim: animVibrate(vsync: this),
+          maxLength: 50,
+        ),
       ).listProperty();
   DatosJuegoNamesTextField datosJuego() => DatosJuegoNamesTextField(
         nick: PropertiesTextField(
@@ -408,10 +406,13 @@ class DatosUsuarioController extends GetxController
     if (formKey.currentState!.validate()) {
       try {
         final Map verModificaciones = {
-          "empadronamiento": {
-            "seModifico":
-                usuarioModel!.empadronamiento != empadronamientoController.text,
-            "valorModificado": empadronamientoController.text
+          "sexo": {
+            "seModifico": usuarioModel!.sexo != sexoController.text,
+            "valorModificado": sexoController.text
+          },
+          "DNI": {
+            "seModifico": usuarioModel!.dni != dniController.text,
+            "valorModificado": dniController.text
           },
           "comunidad_de_vecinos": {
             "seModifico": usuarioModel!.comunidadDeVecinos !=
@@ -472,6 +473,8 @@ class DatosUsuarioController extends GetxController
             datosModificados.add(_);
           }
         }
+        print(datosModificados);
+        print(datosSQL);
 
         if (datosModificados.isNotEmpty) {
           final result = await UsuarioNode().modificarUsuarioNode(

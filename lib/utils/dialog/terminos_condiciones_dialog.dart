@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../flutter_flow/flutter_flow_animations.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
-import 'link_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-// ignore: must_be_immutable
 class TerminosCondicionesDialog extends StatelessWidget {
-  TerminosCondicionesDialog(this.animTerminos, this.checkboxTerminos,
+  const TerminosCondicionesDialog(this.animTerminos, this.checkboxTerminos,
       this.focusedColor, this.validateTerminos, this.palomita,
       {super.key, this.paddingTop});
-  AnimationController animTerminos;
-  double? paddingTop;
-  RxBool checkboxTerminos;
-  Color focusedColor;
-  RxBool validateTerminos;
-  Color palomita;
+  final AnimationController animTerminos;
+  final double? paddingTop;
+  final RxBool checkboxTerminos;
+  final Color focusedColor;
+  final RxBool validateTerminos;
+  final Color palomita;
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +53,14 @@ class TerminosCondicionesDialog extends StatelessWidget {
             ),
             10.0.sw,
             BtnIcon(
-              onPressed: () => Get.dialog(LinkDialog(
-                alertTitle: richTitleLink('¿Deseas ir al enlace externo?',
-                    fontSize: 20.0),
-                alertSubtitle: richSubtitleLink(
-                    'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
-              )),
+              onPressed: () async {
+                final urlPoliticaPrivacidad = Uri.parse(
+                    'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
+                if (canLaunch) {
+                  launchUrl(urlPoliticaPrivacidad);
+                }
+              },
               borderRadius: 12,
               padding: const EdgeInsets.all(0),
               icon: Text(

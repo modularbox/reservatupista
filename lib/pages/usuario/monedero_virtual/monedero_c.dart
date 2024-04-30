@@ -6,7 +6,7 @@ import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/buttons_sounds.dart';
 
 class MonederoController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   Map<String, dynamic> args = Get.arguments ?? {};
   List<bool> selectRecarga = [false, false, false, false, false, false];
   RxBool isFiltrar = false.obs;
@@ -30,8 +30,8 @@ class MonederoController extends GetxController
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 50.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),

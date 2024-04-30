@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/sizer.dart';
 
 class SeleccionarImagenWidget extends StatelessWidget {
@@ -22,7 +23,6 @@ class SeleccionarImagenWidget extends StatelessWidget {
   final bool isProveedor;
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
     final listaIcons = [
       [
         'icon_sport_padel',
@@ -137,29 +137,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: () => Get.dialog(GeneralDialogAnswer(
-                visibilityButton1: false,
-                title: 'Permisos',
-                descripcionWidget: Column(
-                  children: [
-                    Text(
-                      '¿Podría permitir el acceso a tu cámara para tomar fotos y videos dentro de la aplicación?',
-                      textAlign: TextAlign.center,
-                      style: LightModeTheme().bodyLarge.copyWith(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.none),
-                    ),
-                    10.0.sh,
-                    Text(
-                      'La aplicación requiere acceso a la cámara y a la galería de fotos para permitir a los usuarios capturar imágenes y videos dentro de la aplicación, así como seleccionar imágenes existentes para su uso en diversas funciones, como la creación de perfiles, la publicación de contenido y la personalización de experiencias. Por ejemplo, al permitir el acceso a la cámara, los usuarios pueden tomar y compartir fotos de sus experiencias utilizando nuestra aplicación. Al acceder a la galería de fotos, los usuarios pueden seleccionar imágenes previamente capturadas para utilizarlas como contenido en sus publicaciones o para personalizar su perfil.',
-                      style: LightModeTheme()
-                          .bodyLarge
-                          .copyWith(decoration: TextDecoration.none),
-                    ),
-                  ],
-                ),
-                onPressedButton2: camera,
-              )),
+              onPressed: camera,
               text: 'Camara',
               icon: const Icon(
                 Icons.camera_alt,
@@ -184,29 +162,7 @@ class SeleccionarImagenWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: () => Get.dialog(GeneralDialogAnswer(
-                visibilityButton1: false,
-                title: 'Permisos',
-                descripcionWidget: Column(
-                  children: [
-                    Text(
-                      '¿Podría permitir el acceso a tu cámara para tomar fotos y videos dentro de la aplicación?',
-                      textAlign: TextAlign.center,
-                      style: LightModeTheme().bodyLarge.copyWith(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.none),
-                    ),
-                    10.0.sh,
-                    Text(
-                      'La aplicación requiere acceso a la cámara y a la galería de fotos para permitir a los usuarios capturar imágenes y videos dentro de la aplicación, así como seleccionar imágenes existentes para su uso en diversas funciones, como la creación de perfiles, la publicación de contenido y la personalización de experiencias. Por ejemplo, al permitir el acceso a la cámara, los usuarios pueden tomar y compartir fotos de sus experiencias utilizando nuestra aplicación. Al acceder a la galería de fotos, los usuarios pueden seleccionar imágenes previamente capturadas para utilizarlas como contenido en sus publicaciones o para personalizar su perfil.',
-                      style: LightModeTheme()
-                          .bodyLarge
-                          .copyWith(decoration: TextDecoration.none),
-                    ),
-                  ],
-                ),
-                onPressedButton2: galeria,
-              )),
+              onPressed: galeria,
               text: 'Galería',
               icon: const Icon(
                 Icons.collections,

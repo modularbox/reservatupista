@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../flutter_flow/flutter_flow_theme.dart';
-import '../registro_proveedor_c.dart';
+import '../registrar_proveedor_c.dart';
 
-class CodigoIban extends GetView<RegistroProveedorController> {
-  RegistroProveedorController get self => controller;
+class CodigoIban extends GetView<RegistrarProveedorController> {
+  const CodigoIban({super.key});
+
+  RegistrarProveedorController get self => controller;
 
   @override
   Widget build(BuildContext context) {
@@ -201,14 +203,14 @@ class CodigoIban extends GetView<RegistroProveedorController> {
             color: FlutterFlowTheme.of(context).primaryText,
           ),
       textAlign: TextAlign.center,
-      validator: (val) {
-        if (val!.length < maxLength) {
-          return '';
-        } else {
-          self.listCodigoIban[index] = val;
-          return null;
-        }
-      },
+      // validator: (val) {
+      //   if (val!.length < maxLength) {
+      //     return '';
+      //   } else {
+      //     self.listCodigoIban[index] = val;
+      //     return null;
+      //   }
+      // },
     );
   }
 }

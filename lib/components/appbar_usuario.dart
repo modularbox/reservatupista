@@ -8,14 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
 class AppbarUsuario extends StatelessWidget {
-  AppbarUsuario(
+  const AppbarUsuario(
       {super.key,
       required this.title,
       required this.isTitle,
-      required this.isTitleBack});
+      required this.isTitleBack,
+      this.isPage = false});
   final String title;
   final bool isTitle;
   final bool isTitleBack;
+  final bool isPage;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -109,7 +111,7 @@ class AppbarUsuario extends StatelessWidget {
                     shape: badges.BadgeShape.circle,
                     badgeColor: FlutterFlowTheme.of(context).primary,
                     elevation: 4,
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
                     animationType: badges.BadgeAnimationType.scale,
                     toAnimate: false,
@@ -139,7 +141,7 @@ class AppbarUsuario extends StatelessWidget {
                     shape: badges.BadgeShape.circle,
                     badgeColor: FlutterFlowTheme.of(context).primary,
                     elevation: 4,
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
                     animationType: badges.BadgeAnimationType.scale,
                     toAnimate: false,
@@ -163,6 +165,7 @@ class AppbarUsuario extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
+                          color: isPage ? Colores().usuario.primary160 : null,
                           border: Border.all(
                               color: FlutterFlowTheme.of(context).secondary)),
                       child: ImageServer()),

@@ -1,5 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/routes/models/geonames_model.dart';
 import 'package:reservatu_pista/backend/server_node/geonames_node.dart';
-import 'package:reservatu_pista/utils/format_number.dart';
 import '../../../../backend/server_node/subir_image_node.dart';
 import '../../../../backend/server_node/usuario_node.dart';
 import '../../../../utils/animations/list_animations.dart';
@@ -18,84 +17,41 @@ import '../../../routes/app_pages.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'package:image/image.dart' as img;
-
-import '../../../widgets/text_inputters/inputter_registro.dart';
+import 'class/text_input_controller.dart';
 
 class RegistrarUsuarioController extends GetxController
-    with SingleGetTickerProviderMixin, StateMixin<bool> {
+    with GetTickerProviderStateMixin {
   // Traer datos de la api de codigo postal Nominatim
-  StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
-
-  ///  State fields for stateful widgets in this page.
-  final unfocusNode = FocusNode();
-// State field(s) for nick widget.
-  FocusNode nickFocusNode = FocusNode();
-  TextEditingController nickController = TextEditingController();
-  // State field(s) for nombre widget.
-  FocusNode nombreFocusNode = FocusNode();
-  TextEditingController nombreController = TextEditingController();
-  // State field(s) for apellidos widget.
-  FocusNode apellidosFocusNode = FocusNode();
-  TextEditingController apellidosController = TextEditingController();
-  // State field(s) for sexo widget.
-  FocusNode sexoFocusNode = FocusNode();
-  TextEditingController sexoController = TextEditingController();
-  // State field(s) for dni widget.
-  FocusNode dniFocusNode = FocusNode();
-  TextEditingController dniController = TextEditingController();
-  // State field(s) for telefono widget.
-  FocusNode telefonoFocusNode = FocusNode();
-  TextEditingController telefonoController = TextEditingController();
-  // State field(s) for email widget.
-  FocusNode emailFocusNode = FocusNode();
-  TextEditingController emailController = TextEditingController();
-  // State field(s) for socio widget.
-  FocusNode socioFocusNode = FocusNode();
-  TextEditingController empadronamientoController = TextEditingController();
-  TextEditingController ladaController =
-      TextEditingController(text: '🇪🇸 +34');
-  TextEditingController fotoController = TextEditingController();
-  TextEditingController letraController = TextEditingController();
-  TextEditingController direccionController = TextEditingController();
-  TextEditingController numeroController = TextEditingController();
-  TextEditingController pisoController = TextEditingController();
-  TextEditingController comunidadVecinosController = TextEditingController();
-  TextEditingController comunidadController = TextEditingController();
-  TextEditingController codigoPostalController = TextEditingController();
-  TextEditingController localidadController = TextEditingController();
-  TextEditingController provinciaController = TextEditingController();
-  TextEditingController nivelController = TextEditingController();
-  TextEditingController posicionController = TextEditingController();
-  TextEditingController palaController = TextEditingController();
-  TextEditingController modeloController = TextEditingController();
-  TextEditingController juegoPorSemanaController = TextEditingController();
-  TextEditingController clubFavoritoController = TextEditingController();
-  TextEditingController contrasenaController = TextEditingController();
-  TextEditingController contrasenaComprobarController = TextEditingController();
-  FocusNode fotoFocusNode = FocusNode();
-
+  final apiCodigoPostal = StateRx(Rxn<bool>());
+  // Api si existe el nick
+  final apiExisteNick = StateRx(Rxn<bool>());
+  // Controlladores para los inputs
+  final tc = TextInputController();
+  // Global key para el form de los inputs
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // Si el form esta validado
   bool isValidateForms = false;
+  // Checar si los terminos y condiciones son aceptados
   RxBool checkboxTerminos = false.obs;
+  // La visibilidad de la contrasena
   RxBool contrasenaVisibility = false.obs;
   RxBool comprobarContrasenaVisibility = false.obs;
-  // RxBool validateCheckbox = false.obs;
-  RxBool validateExisteNick = false.obs;
-
-  // Verificar si existe nick
+  // Verificar si existe nick y mandar a la api en un tiempo determinado
   RxString nick = ''.obs;
-  // Verificar si existe email
+  // Verificar si existe email y mandar a la api en un tiempo determinado
   RxString email = ''.obs;
+  // Animacion de los terminos y condiciones
   late AnimationController animTerminos;
-  Rx<String?> imageFile = Rx<String?>(null);
+  // Guardar imagen del usuario
+  final imageFile = Rxn<String>();
+  // Botones para las peticiones de cambiar imagen
   late ButtonsPage btns;
-  bool isFocusNode = false;
 
   @override
   void onInit() {
     super.onInit();
-    // llenadoAutomatico();
-    change(null, status: RxStatus.empty());
+    // onInitForm();
+    apiExisteNick.empty();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
     debounce(contrasenaVisibility, (_) => contrasenaVisibility.value = false,
@@ -108,44 +64,30 @@ class RegistrarUsuarioController extends GetxController
     }, time: const Duration(seconds: 1));
   }
 
-  // llenadoAutomatico() {
-  //   nombreController.text = 'Miguel Angel';
-  //   apellidosController.text = 'Hernandez Martinez';
-  //   sexoController.text = 'Hombre';
-  //   dniController.text = '12345678D';
-  //   ladaController.text = '🇪🇸 +34';
-  //   telefonoController.text = '999999999';
-  //   emailController.text = 'xhmigue@hotamil.com';
-  //   direccionController.text = 'Peraleda';
-  //   nickController.text = 'Miguel1';
-  //   contrasenaComprobarController.text = '123456';
-  //   contrasenaController.text = '123456';
-  // }
-
-  llenadoAutomatico() {
-    nombreController.text = 'Alvaro';
-    apellidosController.text = 'Apellido Fiticio';
-    sexoController.text = 'Hombre';
-    dniController.text = '12345678D';
-    ladaController.text = '🇪🇸 +34';
-    telefonoController.text = '999999999';
-    emailController.text = 'ficticio@hotamil.com';
-    direccionController.text = 'Direccion';
-    codigoPostalController.text = '21233';
-    localidadController.text = 'Localidad';
-    provinciaController.text = 'Provincia';
-    comunidadController.text = 'Comunidad';
-    nickController.text = 'alvaro1';
-    contrasenaComprobarController.text = '12345678';
-    contrasenaController.text = '12345678';
+  onInitForm() {
+    tc.nombre.text = 'Nombre Fiticio';
+    tc.apellidos.text = 'Apellido Fiticio';
+    tc.sexo.text = 'Hombre';
+    tc.dni.text = '12345678D';
+    tc.lada.text = '🇪🇸 +34';
+    tc.telefono.text = '999999999';
+    tc.email.text = 'app@reservatupista.com';
+    tc.direccion.text = 'Direccion';
+    tc.codigoPostal.text = '12345';
+    tc.localidad.text = 'Localidad';
+    tc.provincia.text = 'Provincia';
+    tc.comunidad.text = 'Comunidad';
+    tc.nick.text = 'ficticio1';
+    tc.contrasenaComprobar.text = '12345678';
+    tc.contrasena.text = '12345678';
   }
 
   /// Loading Nick
   void loadingNick(String val) {
     if (val.isEmpty) {
-      change(null, status: RxStatus.empty());
+      apiExisteNick.empty();
     } else {
-      change(null, status: RxStatus.loading());
+      apiExisteNick.loading();
       nick.value = val;
     }
   }
@@ -153,13 +95,13 @@ class RegistrarUsuarioController extends GetxController
   /// Existe el Nick
   void existeNick(String nick) async {
     // Muestra el estado de carga
-    change(null, status: RxStatus.loading());
+    apiExisteNick.loading();
     try {
       final existe = await UsuarioNode().getUsuarioExisteNick(nick);
-      change(existe, status: RxStatus.success());
+      apiExisteNick.success(existe);
     } catch (error) {
       // En caso de error, muestra el mensaje de error
-      change(false, status: RxStatus.success());
+      apiExisteNick.success(false);
     }
   }
 
@@ -171,9 +113,9 @@ class RegistrarUsuarioController extends GetxController
       try {
         final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
         if (direccion is GeoNamesModel) {
-          localidadController.text = direccion.localidad;
-          comunidadController.text = direccion.comunidad;
-          provinciaController.text = direccion.provincia;
+          tc.localidad.text = direccion.localidad;
+          tc.comunidad.text = direccion.comunidad;
+          tc.provincia.text = direccion.provincia;
           apiCodigoPostal.change(true, RxStatusDemo.success());
         } else {
           apiCodigoPostal.change(false, RxStatusDemo.success());
@@ -183,211 +125,12 @@ class RegistrarUsuarioController extends GetxController
         apiCodigoPostal.change(false, RxStatusDemo.success());
       }
     } else {
-      localidadController.text = '';
-      comunidadController.text = '';
-      provinciaController.text = '';
+      tc.localidad.text = '';
+      tc.comunidad.text = '';
+      tc.provincia.text = '';
       apiCodigoPostal.changeStatus(RxStatusDemo.empty());
     }
   }
-
-  /// Datos de todos los inputs
-  DatosPersonalesNamesTextField datosPersonales() =>
-      DatosPersonalesNamesTextField(
-        nombre: PropertiesTextField(
-            labelText: 'Nombre',
-            textEditingController: nombreController,
-            anim: animVibrate(vsync: this),
-            maxLength: 40,
-            onValidate: (val) => val!.length < 3 ? '' : null,
-            inputFormatters: [SoloLetras()]),
-        apellidos: PropertiesTextField(
-            labelText: 'Apellidos',
-            textEditingController: apellidosController,
-            anim: animVibrate(vsync: this),
-            maxLength: 40,
-            onValidate: (val) => val!.length < 3 ? '' : null,
-            inputFormatters: [SoloLetras()]),
-        sexo: PropertiesTextField(
-            labelText: 'Sexo',
-            textEditingController: sexoController,
-            isSelect: true,
-            anim: animVibrate(vsync: this),
-            listSelect: ['Hombre', 'Mujer'],
-            maxLength: 10),
-        dni: PropertiesTextField(
-            labelText: 'DNI',
-            // focusNode: dniFocusNode,
-            textEditingController: dniController,
-            anim: animVibrate(vsync: this),
-            maxLength: 9,
-            inputFormatters: [SinEspaciosInputFormatter(), DNI8digitos1Letra()],
-            onValidate: (val) => val!.length != 9 ? '' : null),
-        lada: PropertiesTextField(
-          labelText: '',
-          textEditingController: ladaController,
-          isSelect: true,
-          listSelect: ['🇪🇸 +34', '🇵🇹 +351', '🇲🇫 +33', '🇲🇽 +52'],
-          anim: animVibrate(vsync: this),
-          maxLength: 8,
-        ),
-        telefono: PropertiesTextField(
-            labelText: 'Telefono',
-            textEditingController: telefonoController,
-            keyboardType: TextInputType.phone,
-            anim: animVibrate(vsync: this),
-            maxLength: 9,
-            inputFormatters: [SinEspaciosInputFormatter(), SoloNumeros()],
-            onValidate: (val) => val!.length != 9 ? '' : null),
-        email: PropertiesTextField(
-            labelText: 'Email',
-            textEditingController: emailController,
-            anim: animVibrate(vsync: this),
-            maxLength: 40,
-            inputFormatters: [SinEspaciosInputFormatter()],
-            onValidate: (val) {
-              // Utilizar una expresión regular para validar el formato de correo electrónico
-              if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
-                  .hasMatch(val!)) {
-                return '';
-              }
-              return null;
-            }),
-      );
-  List<PropertiesTextField> datosUbicacion() => DatosUbicacionNamesTextField(
-        socio: PropertiesTextField(
-            labelText: 'Empadronamiento',
-            textEditingController: empadronamientoController,
-            anim: animVibrate(vsync: this),
-            maxLength: 40,
-            isRequired: false),
-        comunidadVecinos: PropertiesTextField(
-            labelText: 'Comunidad de vecinos',
-            textEditingController: comunidadVecinosController,
-            anim: animVibrate(vsync: this),
-            maxLength: 9,
-            isRequired: false),
-        direccion: PropertiesTextField(
-            labelText: 'Dirección',
-            // focusNode: FocusNode(),
-            textEditingController: direccionController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50),
-        codigoPostal: PropertiesTextField(
-            labelText: 'Código Postal',
-            // focusNode: FocusNode(),
-            textEditingController: codigoPostalController,
-            anim: animVibrate(vsync: this),
-            keyboardType: TextInputType.number,
-            maxLength: 5,
-            inputFormatters: [SinEspaciosInputFormatter(), SoloNumeros()],
-            onValidate: (val) => val!.length != 5 ? '' : null),
-        localidad: PropertiesTextField(
-            labelText: 'Localidad',
-            // focusNode: FocusNode(),
-            textEditingController: localidadController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50),
-        comunidad: PropertiesTextField(
-            labelText: 'Comunidad',
-            // focusNode: FocusNode(),
-            textEditingController: comunidadController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50),
-        provincia: PropertiesTextField(
-            labelText: 'Provincia',
-            // focusNode: FocusNode(),
-            textEditingController: provinciaController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50),
-      ).listProperty();
-  DatosJuegoNamesTextField datosJuego() => DatosJuegoNamesTextField(
-        nick: PropertiesTextField(
-            labelText: 'Nick',
-            // focusNode: nickFocusNode,
-            textEditingController: nickController,
-            anim: animVibrate(vsync: this),
-            maxLength: 20,
-            inputFormatters: [SinEspaciosInputFormatter()],
-            onValidate:
-                (val) => // Utilizar una expresión regular para validar alfanumérico
-                    RegExp(r'^[0-9]+$').hasMatch(val!) ? '' : null),
-        nivel: PropertiesTextField(
-            labelText: 'Nivel',
-            // focusNode: FocusNode(),
-            textEditingController: nivelController,
-            isSelect: true,
-            listSelect: List<String>.generate(
-                40,
-                (index) => FormatNumber.formatNumberWithTwoDecimals(
-                    (0.25 + (index * 0.25)))),
-            anim: animVibrate(vsync: this),
-            maxLength: 15,
-            isRequired: false),
-        position: PropertiesTextField(
-            labelText: 'Posición',
-            // focusNode: FocusNode(),
-            textEditingController: posicionController,
-            isSelect: true,
-            listSelect: ['Drive', 'Reves', 'Ambos'],
-            anim: animVibrate(vsync: this),
-            maxLength: 50,
-            isRequired: false),
-        pala: PropertiesTextField(
-            labelText: 'Marca de pala',
-            // focusNode: FocusNode(),
-            textEditingController: palaController,
-            anim: animVibrate(vsync: this),
-            isSelect: true,
-            listSelect: [
-              'ADIDAS',
-              'AKKERON',
-              'AES',
-              'BABOLAT',
-              'BLACK CROW',
-              'BULLPADEL',
-              'DROP SHOT',
-              'DUNLOP',
-              'ECLYPSE',
-              'ENEBE',
-              'HEAD',
-              'J`AYBER',
-              'JOMA',
-              'KELME'
-                  'LEGEND',
-              'MUNICH',
-              'NOX',
-              'SET',
-              'SIUX',
-              'STARTVIE',
-              'STARVIE',
-              'VARLION',
-              'VIBORA',
-              'WILSON'
-            ],
-            maxLength: 50,
-            isRequired: false),
-        modelo: PropertiesTextField(
-            labelText: 'Modelo de pala',
-            // focusNode: FocusNode(),
-            textEditingController: modeloController,
-            anim: animVibrate(vsync: this),
-            maxLength: 50,
-            isRequired: false),
-        juegoPorSemana: PropertiesTextField(
-            labelText: 'Juegos por semana',
-            // focusNode: FocusNode(),
-            textEditingController: juegoPorSemanaController,
-            isSelect: true,
-            listSelect: List.generate(10, (index) => (index + 1).toString()),
-            anim: animVibrate(vsync: this),
-            maxLength: 2,
-            isRequired: false),
-      );
-
-  DatosContrasenaTextField datosContrasena() => DatosContrasenaTextField.init(
-      tick: this,
-      contrasenaController2: contrasenaComprobarController,
-      contrasenaController: contrasenaController);
 
   /// Registrar Usuario
   void onPressedRegistrar() async {
@@ -416,28 +159,28 @@ class RegistrarUsuarioController extends GetxController
         }
 
         /// Insertar los datos en SQL en la tabla
-        List<int> bytes = utf8.encode(contrasenaController.text);
+        List<int> bytes = utf8.encode(tc.contrasena.text);
         String hashConstrasena = sha1.convert(bytes).toString();
-        final nombre = nombreController.text;
-        final apellidos = apellidosController.text;
-        final sexo = sexoController.text;
-        final DNI = dniController.text;
-        final lada = ladaController.text.split(" ")[1];
-        final telefono = telefonoController.text;
-        final email = emailController.text;
-        final empadronamiento = empadronamientoController.text;
-        final comunidad_de_vecinos = comunidadVecinosController.text;
-        final direccion = direccionController.text;
-        final codigo_postal = codigoPostalController.text;
-        final localidad = localidadController.text;
-        final provincia = provinciaController.text;
-        final comunidad = comunidadController.text;
-        final nick = nickController.text;
-        final nivel = nivelController.text;
-        final posicion = posicionController.text;
-        final marca_pala = palaController.text;
-        final modelo_pala = modeloController.text;
-        final juegos_semana = juegoPorSemanaController.text;
+        final nombre = tc.nombre.text;
+        final apellidos = tc.apellidos.text;
+        final sexo = tc.sexo.text;
+        final DNI = tc.dni.text;
+        final lada = tc.lada.text.split(" ")[1];
+        final telefono = tc.telefono.text;
+        final email = tc.email.text;
+        final empadronamiento = tc.empadronamiento.text;
+        final comunidad_de_vecinos = tc.comunidadVecinos.text;
+        final direccion = tc.direccion.text;
+        final codigo_postal = tc.codigoPostal.text;
+        final localidad = tc.localidad.text;
+        final provincia = tc.provincia.text;
+        final comunidad = tc.comunidad.text;
+        final nick = tc.nick.text;
+        final nivel = tc.nivel.text;
+        final posicion = tc.posicion.text;
+        final marca_pala = tc.pala.text;
+        final modelo_pala = tc.modelo.text;
+        final juegos_semana = tc.juegoPorSemana.text;
         final contrasena = hashConstrasena;
         final foto = nameFoto;
         final fecha_registro = formattedDate;
@@ -488,7 +231,6 @@ class RegistrarUsuarioController extends GetxController
       if (!checkboxTerminos.value) {
         animTerminos.forward();
       }
-      // validateCheckbox.value = true;
     }
   }
 
@@ -528,7 +270,7 @@ class RegistrarUsuarioController extends GetxController
   String? validateTextField(BuildContext context, String? text,
       AnimationController anim, FocusNode focusNode, String nameData) {
     if (text == null || text.isEmpty) {
-      FocusScope.of(context).requestFocus(focusNode);
+      // FocusScope.of(context).requestFocus(focusNode);
       anim.forward();
       return '';
     }
@@ -536,28 +278,28 @@ class RegistrarUsuarioController extends GetxController
   }
 
   String? validateTextFieldContrasena(
-      AnimationController anim, FocusNode focusNode, String nameData) {
-    if (contrasenaController.text.isEmpty) {
-      if (!isFocusNode) {
-        isFocusNode = true;
-        focusNode.requestFocus();
-      }
+      AnimationController anim, FocusNode focusNode) {
+    if (tc.contrasena.text.isEmpty) {
+      // if (!isFocusNode) {
+      //   isFocusNode = true;
+      //   focusNode.requestFocus();
+      // }
       anim.forward();
       return '';
     }
-    if (contrasenaController.text.length < 6) {
-      if (!isFocusNode) {
-        isFocusNode = true;
-        focusNode.requestFocus();
-      }
+    if (tc.contrasena.text.length < 6) {
+      // if (!isFocusNode) {
+      //   isFocusNode = true;
+      //   focusNode.requestFocus();
+      // }
       anim.forward();
       return '';
     }
-    if (contrasenaController.text != contrasenaComprobarController.text) {
-      if (!isFocusNode) {
-        isFocusNode = true;
-        focusNode.requestFocus();
-      }
+    if (tc.contrasena.text != tc.contrasenaComprobar.text) {
+      // if (!isFocusNode) {
+      //   isFocusNode = true;
+      //   focusNode.requestFocus();
+      // }
       anim.forward();
       return '';
     }
@@ -565,39 +307,32 @@ class RegistrarUsuarioController extends GetxController
   }
 
   String? validateTextFieldContrasenaComprobar(
-      AnimationController anim, FocusNode focusNode, String nameData) {
-    if (contrasenaController.text.isEmpty) {
-      if (!isFocusNode) {
-        isFocusNode = true;
-        focusNode.requestFocus();
-      }
+      AnimationController anim, FocusNode focusNode) {
+    if (tc.contrasena.text.isEmpty) {
+      // if (!isFocusNode) {
+      //   isFocusNode = true;
+      //   focusNode.requestFocus();
+      // }
       anim.forward();
       return '';
     }
-    if (contrasenaComprobarController.text.length < 6) {
-      if (!isFocusNode) {
-        isFocusNode = true;
-        focusNode.requestFocus();
-      }
+    if (tc.contrasenaComprobar.text.length < 6) {
+      // if (!isFocusNode) {
+      //   isFocusNode = true;
+      //   focusNode.requestFocus();
+      // }
       anim.forward();
       return 'La contraseña debe tener minimo 6 dígitos.';
     }
-    if (contrasenaController.text != contrasenaComprobarController.text) {
-      if (!isFocusNode) {
-        isFocusNode = true;
-        focusNode.requestFocus();
-      }
+    if (tc.contrasena.text != tc.contrasenaComprobar.text) {
+      // if (!isFocusNode) {
+      //   isFocusNode = true;
+      //   focusNode.requestFocus();
+      // }
       anim.forward();
       return 'La contraseña no coinciden.';
     }
     return null;
-  }
-
-  void onChangeTextField(String text) {
-    if (isValidateForms && text.isNotEmpty) {
-      isValidateForms = false;
-      !formKey.currentState!.validate();
-    }
   }
 
   Future<void> pickImage(ImageSource source, {String? path}) async {
@@ -607,37 +342,32 @@ class RegistrarUsuarioController extends GetxController
       final pickedFile = await ImagePicker().pickImage(source: source);
       if (pickedFile != null) {
         imageFile.value = pickedFile.path;
-        fotoController.text = 'IMG';
+        tc.foto.text = 'IMG';
       }
     }
   }
 
   @override
   void onClose() {
-    unfocusNode.dispose();
-    nickFocusNode.dispose();
-    nickController.dispose();
-
-    nombreFocusNode.dispose();
-    nombreController.dispose();
-
-    apellidosFocusNode.dispose();
-    apellidosController.dispose();
-
-    sexoFocusNode.dispose();
-    sexoController.dispose();
-
-    dniFocusNode.dispose();
-    dniController.dispose();
-
-    telefonoFocusNode.dispose();
-    telefonoController.dispose();
-    emailFocusNode.dispose();
-    emailController.dispose();
-    socioFocusNode.dispose();
-    empadronamientoController.dispose();
-    contrasenaController.dispose();
-    contrasenaComprobarController.dispose();
+    tc.unfocusNode.dispose();
+    tc.nickFocusNode.dispose();
+    tc.nick.dispose();
+    tc.nombreFocusNode.dispose();
+    tc.nombre.dispose();
+    tc.apellidosFocusNode.dispose();
+    tc.apellidos.dispose();
+    tc.sexoFocusNode.dispose();
+    tc.sexo.dispose();
+    tc.dniFocusNode.dispose();
+    tc.dni.dispose();
+    tc.telefonoFocusNode.dispose();
+    tc.telefono.dispose();
+    tc.emailFocusNode.dispose();
+    tc.email.dispose();
+    tc.socioFocusNode.dispose();
+    tc.empadronamiento.dispose();
+    tc.contrasena.dispose();
+    tc.contrasenaComprobar.dispose();
     super.onClose();
   }
 }
@@ -661,159 +391,4 @@ class ButtonsPage {
   }
 
   cancel() {}
-}
-
-class PropertiesTextField {
-  PropertiesTextField(
-      {required this.labelText,
-      required this.anim,
-      required this.maxLength,
-      this.keyboardType,
-      required this.textEditingController,
-      this.isSelect = false,
-      this.onValidate,
-      this.listSelect,
-      this.inputFormatters,
-      this.isRequired = true});
-
-  final String labelText;
-  final bool isSelect;
-  final AnimationController anim;
-  final int maxLength;
-  final List<String>? listSelect;
-  final TextInputType? keyboardType;
-  final FocusNode focusNode = FocusNode();
-  final TextEditingController textEditingController;
-  final bool isRequired;
-  final List<TextInputFormatter>? inputFormatters;
-  final String? Function(String?)? onValidate;
-
-  String? validateTextField(String? text) {
-    if (text == null || text.isEmpty) {
-      FocusScope.of(Get.context!).requestFocus(focusNode);
-      anim.forward();
-      return '';
-    }
-    return onValidate == null ? null : onValidate!(text);
-  }
-}
-
-class DatosPersonalesNamesTextField {
-  DatosPersonalesNamesTextField({
-    this.nombre,
-    this.apellidos,
-    this.sexo,
-    this.dni,
-    this.lada,
-    this.telefono,
-    this.email,
-  });
-  final PropertiesTextField? nombre;
-  final PropertiesTextField? apellidos;
-  final PropertiesTextField? sexo;
-  final PropertiesTextField? lada;
-  final PropertiesTextField? dni;
-  final PropertiesTextField? telefono;
-  final PropertiesTextField? email;
-  List<PropertiesTextField> listProperty() {
-    return [
-      nombre!,
-      apellidos!,
-      sexo!,
-      dni!,
-      telefono!,
-      email!,
-    ];
-  }
-
-  List<PropertiesTextField> listTopProperty() {
-    return [
-      nombre!,
-      apellidos!,
-    ];
-  }
-}
-
-class DatosUbicacionNamesTextField {
-  DatosUbicacionNamesTextField({
-    this.direccion,
-    this.codigoPostal,
-    this.localidad,
-    this.provincia,
-    this.socio,
-    this.comunidad,
-    this.comunidadVecinos,
-  });
-  final PropertiesTextField? socio;
-  final PropertiesTextField? comunidad;
-  final PropertiesTextField? direccion;
-  final PropertiesTextField? codigoPostal;
-  final PropertiesTextField? localidad;
-  final PropertiesTextField? provincia;
-  final PropertiesTextField? comunidadVecinos;
-  List<PropertiesTextField> listProperty() {
-    return [
-      socio!,
-      comunidadVecinos!,
-      direccion!,
-      codigoPostal!,
-      localidad!,
-      provincia!,
-      comunidad!,
-    ];
-  }
-}
-
-class DatosJuegoNamesTextField {
-  DatosJuegoNamesTextField({
-    this.nick,
-    this.nivel,
-    this.position,
-    this.pala,
-    this.modelo,
-    this.juegoPorSemana,
-    this.clubFavorito,
-  });
-  final PropertiesTextField? nick;
-  final PropertiesTextField? nivel;
-  final PropertiesTextField? position;
-  final PropertiesTextField? pala;
-  final PropertiesTextField? modelo;
-  final PropertiesTextField? juegoPorSemana;
-  final PropertiesTextField? clubFavorito;
-  List<PropertiesTextField> listProperty() {
-    return [
-      nivel!,
-      position!,
-      pala!,
-      modelo!,
-      juegoPorSemana!,
-    ];
-  }
-}
-
-class DatosContrasenaTextField {
-  DatosContrasenaTextField({
-    required this.contrasena,
-    required this.comprobarContrasena,
-  });
-  factory DatosContrasenaTextField.init(
-      {required TickerProvider tick,
-      required TextEditingController contrasenaController,
-      required TextEditingController contrasenaController2}) {
-    return DatosContrasenaTextField(
-      contrasena: PropertiesTextField(
-          labelText: 'Contraseña',
-          anim: animVibrate(vsync: tick),
-          maxLength: 15,
-          textEditingController: contrasenaController),
-      comprobarContrasena: PropertiesTextField(
-          labelText: 'Comprobar contraseña',
-          anim: animVibrate(vsync: tick),
-          maxLength: 15,
-          textEditingController: contrasenaController2),
-    );
-  }
-  final PropertiesTextField contrasena;
-  final PropertiesTextField comprobarContrasena;
 }

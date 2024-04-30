@@ -17,7 +17,6 @@ class PistaProvider extends GetConnect {
     final storage = await SharedPreferences.getInstance();
     token = storage.token.read();
     idClub = storage.idClub.read();
-    print(idClub);
   }
 
   // Get request

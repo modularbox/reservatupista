@@ -41,7 +41,11 @@ class NavbarYAppbarUsuario extends StatelessWidget {
               children: [
                 paddingTop.sh,
                 AppbarUsuario(
-                    title: title, isTitle: isTitle, isTitleBack: isTitleBack),
+                  title: title,
+                  isTitle: isTitle,
+                  isTitleBack: isTitleBack,
+                  isPage: page == TypePage.Perfil,
+                ),
                 child,
               ],
             ),

@@ -15,7 +15,7 @@ class ProveedorModel {
   String certificadoCuenta;
   String nombre;
   String apellidos;
-  String fijo;
+  int fijo;
   String email;
   String lada;
   String telefono;
@@ -38,7 +38,7 @@ class ProveedorModel {
     this.certificadoCuenta = '',
     this.nombre = '',
     this.apellidos = '',
-    this.fijo = '',
+    this.fijo = 0,
     this.email = '',
     this.lada = '',
     this.telefono = '',
@@ -67,7 +67,7 @@ class ProveedorModel {
         certificadoCuenta: json["certificado_cuenta"] ?? '',
         nombre: json["nombre"] ?? '',
         apellidos: json["apellidos"] ?? '',
-        fijo: json["fijo"] ?? '',
+        fijo: json["fijo"] ?? 0,
         email: json["email"] ?? '',
         lada: json["lada"] ?? '',
         telefono: json["telefono"] ?? '',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/checked.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import './mis_socios_c.dart';
 import '/backend/schema/enums/enums.dart';
@@ -33,12 +34,13 @@ class MisSociosPage extends GetView<MisSociosController> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(7.0, 12.0, 7.0, 12.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(7.0, 12.0, 7.0, 12.0),
                 child: Container(
                   height: 100.0,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x230E151B),
@@ -50,10 +52,10 @@ class MisSociosPage extends GetView<MisSociosController> {
                   child: Stack(
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(2.0, 15.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            2.0, 15.0, 0.0, 0.0),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(12.0),
                             bottomRight: Radius.circular(0.0),
                             topLeft: Radius.circular(12.0),
@@ -68,7 +70,7 @@ class MisSociosPage extends GetView<MisSociosController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             60.0, 0.0, 12.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -85,7 +87,7 @@ class MisSociosPage extends GetView<MisSociosController> {
                                       .bodyLarge
                                       .override(
                                         fontFamily: 'Readex Pro',
-                                        color: Color(0xFF14181B),
+                                        color: const Color(0xFF14181B),
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -97,7 +99,7 @@ class MisSociosPage extends GetView<MisSociosController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
                                   child: Text(
                                     'Enero 2024',
@@ -105,14 +107,14 @@ class MisSociosPage extends GetView<MisSociosController> {
                                         .labelSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: Color(0xFF57636C),
+                                          color: const Color(0xFF57636C),
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
                                   child: Text(
                                     'Reservas: 5',
@@ -120,7 +122,7 @@ class MisSociosPage extends GetView<MisSociosController> {
                                         .labelSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: Color(0xFF57636C),
+                                          color: const Color(0xFF57636C),
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,
                                         ),

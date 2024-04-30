@@ -15,30 +15,28 @@ extension FechaExt on DateTime {
 class MisPistasController extends GetxController
     with GetSingleTickerProviderStateMixin {
   /// Obtencion de los datos de la api
-  StateRx<List<MiPista>> misPistas = StateRx(Rx<List<MiPista>>([]));
+  final misPistas = StateRx(Rx<List<MiPista>>([]));
 
   /// Controlador para las animaciones
-  final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 800.ms,
-          begin: Offset(50.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
+  final animationPistaDeporte = AnimationInfo(
+    trigger: AnimationTrigger.onPageLoad,
+    effects: [
+      FadeEffect(
+        curve: Curves.linear,
+        delay: 0.ms,
+        duration: 400.ms,
+        begin: 0.0,
+        end: 1.0,
+      ),
+      MoveEffect(
+        curve: Curves.linear,
+        delay: 0.ms,
+        duration: 400.ms,
+        begin: const Offset(50.0, 0.0),
+        end: const Offset(0.0, 0.0),
+      ),
+    ],
+  );
 
   /// Controlador para cambiar de paginas en la
   PageController? pageViewController;

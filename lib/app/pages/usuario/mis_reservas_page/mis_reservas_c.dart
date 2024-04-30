@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/routes/models/mis_reservas_model.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
 extension IterableExtension<E> on List<E> {
@@ -17,6 +21,27 @@ class MisReservasController extends GetxController
   /// Obtencion de los datos de la api
   StateRx<List<MiReserva>> misReservas = StateRx(Rx<List<MiReserva>>([]));
 
+  /// Controlador para las animaciones
+  final animationPistaDeporte = AnimationInfo(
+    trigger: AnimationTrigger.onPageLoad,
+    effects: [
+      FadeEffect(
+        curve: Curves.linear,
+        delay: 0.ms,
+        duration: 400.ms,
+        begin: 0.0,
+        end: 1.0,
+      ),
+      MoveEffect(
+        curve: Curves.linear,
+        delay: 0.ms,
+        duration: 400.ms,
+        begin: const Offset(50.0, 0.0),
+        end: const Offset(0.0, 0.0),
+      ),
+    ],
+  );
+
   /// Controlador para cambiar de deporte
   final _deporte = 'Padel'.obs;
   String get deporte => _deporte.value;
@@ -30,19 +55,6 @@ class MisReservasController extends GetxController
   @override
   void onReady() {
     cargarDatos();
-    // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Verifica si el contexto de la GlobalKey es nulo
-      final List<double> newDeportesWidth = [];
-      for (var i = 0; i < deporteKey.length; i++) {
-        if (deporteKey[i].currentContext != null) {
-          // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
-          double width = deporteKey[i].currentContext!.size!.width;
-          newDeportesWidth.add(width);
-        }
-      }
-      deportesWidth.value = newDeportesWidth;
-    });
     super.onReady();
   }
 
@@ -50,6 +62,21 @@ class MisReservasController extends GetxController
   @override
   void onInit() async {
     super.onInit();
+    // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(milliseconds: 200), () {
+        // Verifica si el contexto de la GlobalKey es nulo
+        final List<double> newDeportesWidth = [];
+        for (var i = 0; i < deporteKey.length; i++) {
+          if (deporteKey[i].currentContext != null) {
+            // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
+            double width = deporteKey[i].currentContext!.size!.width;
+            newDeportesWidth.add(width);
+          }
+        }
+        deportesWidth.value = newDeportesWidth;
+      });
+    });
     // Mandar llamar a la api cargar datos cada vez que se cambie el estado del deporte
     debounce(_deporte, (val) => cargarDatos(),
         time: const Duration(milliseconds: 100));

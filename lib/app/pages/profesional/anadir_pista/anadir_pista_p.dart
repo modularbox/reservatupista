@@ -11,9 +11,9 @@ import './widgets/list_inputs.dart';
 import 'anadir_pista_c.dart';
 
 // ignore: must_be_immutable
-class AnadirPistaWidget extends StatelessWidget {
-  AnadirPistaWidget({super.key});
-  AnadirPistaController self = Get.find();
+class AnadirPistaPage extends GetView<AnadirPistaController> {
+  AnadirPistaPage({super.key});
+  AnadirPistaController get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {

@@ -381,7 +381,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                       enableInteractiveSelection: propertiesTextField.isSelect,
                     );
                   })
-                : (propertiesTextField.labelText == 'Certificado de cuenta'
+                : (propertiesTextField.labelText == 'Certificado de Cuenta'
                     ? buildUploadImage(
                         context: context,
                         propertiesTextField: propertiesTextField)
@@ -495,7 +495,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
         ),
         prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Icon(Icons.edit_square, color: focusedColor, size: 40)),
+            child: Icon(Icons.edit_square, color: focusedColor, size: 30)),
         suffixIcon: Obx(() => self.imageFileCertificado.value != null
             ? BtnIcon(
                 onPressed: () {

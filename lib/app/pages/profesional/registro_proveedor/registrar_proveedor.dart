@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/profesional/registro_proveedor/widgets/inputs_datos_registro_proveedor.dart';
+import 'package:reservatu_pista/utils/colores.dart';
+import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
+import 'registrar_proveedor_c.dart';
 import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
-import '../../../../utils/colores.dart';
-import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../widgets/appbar_general.dart';
 import '../../../widgets/seleccionar_imagen/seleccionar_imagen_widget.dart';
-import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
-import 'widgets/inputs_datos_registro_usuario.dart';
 
-class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
-  RegistrarUsuarioPage({super.key});
-  RegistrarUsuarioController get self => controller;
+class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
+  RegistrarProveedorPage({super.key});
 
+  RegistrarProveedorController get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -29,26 +29,30 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
         ),
       );
     }
+
     return Scaffold(
-        key: scaffoldKey,
-        body: SafeArea(
+      key: scaffoldKey,
+      body: Builder(
+        builder: (context) {
+          return SafeArea(
             top: true,
             child: Column(
               children: [
                 const AppbarGeneral(
                   isTitleBack: true,
-                  title: 'Registro Usuario',
+                  title: 'Registro Proveedor',
                 ),
                 Form(
                   key: self.formKey,
                   child: Expanded(
                     child: SingleChildScrollView(
+                      controller: self.scrollController,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           buildSelectImage(),
-                          const InputsDatosRegistroUsuario(),
+                          const InputsDatosRegistroProveedor(),
                           TerminosCondicionesDialog(
                               self.animTerminos,
                               self.checkboxTerminos,
@@ -56,7 +60,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                               self.checkboxTerminos,
                               FlutterFlowTheme.of(Get.context!).primaryText),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: FFButtonWidget(
                               onPressed: self.onPressedRegistrar,
                               text: 'Registrate',
@@ -88,7 +92,11 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                   ),
                 ),
               ],
-            )));
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget buildSelectImage() {
@@ -123,7 +131,6 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                     SizedBox(
                       width: 90,
                       child: TextFormField(
-                        focusNode: self.tc.fotoFocusNode,
                         decoration: InputDecoration(
                             errorStyle: const TextStyle(fontSize: 0),
                             errorBorder: OutlineInputBorder(
@@ -135,7 +142,8 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                             ),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 3, color: Colores().usuario.primary),
+                                    width: 3,
+                                    color: Colores().proveedor.primary),
                                 borderRadius: BorderRadius.circular(50)),
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(width: 3),
@@ -161,9 +169,11 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                       child: BtnIcon(
                         onPressed: () {
                           Get.dialog(SeleccionarImagenWidget(
-                              camera: self.btns.camera,
-                              galeria: self.btns.galeria,
-                              imageLocal: self.btns.imageLocal));
+                            camera: self.btns.camera,
+                            galeria: self.btns.galeria,
+                            imageLocal: self.btns.imageLocal,
+                            isProveedor: true,
+                          ));
                         },
                         borderRadius: 50,
                         padding: const EdgeInsets.all(0),
@@ -172,6 +182,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                         icon: Obx(() => ClipRRect(
                               borderRadius: BorderRadius.circular(60),
                               child: getImage(self.imageFile.value,
+                                  color: Colores().proveedor.primary,
                                   isRegristro: true),
                             )),
                       ),

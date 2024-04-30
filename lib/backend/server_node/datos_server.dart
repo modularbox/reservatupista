@@ -1,23 +1,6 @@
 class DatosServer {
   // String urlServer = 'http://localhost:3000';
-  String urlServer = 'https://api.reservatupista.com';
-
-  // String datos(List<TypeDatosServer> listTypes) {
-  //   List<String> newList = [];
-  //   for (var element in listTypes) {
-  //     newList.add(element.toString().substring('TypeDatosServer.'.length));
-  //   }
-  //   return newList.join(', ');
-  // }
-
-  // String datosProveedor(List<TypeDatosServerProveedor> listTypes) {
-  //   List<String> newList = [];
-  //   for (var element in listTypes) {
-  //     newList.add(
-  //         element.toString().substring('TypeDatosServerProveedor.'.length));
-  //   }
-  //   return newList.join(', ');
-  // }
+  String urlServer = 'https://apidevelop.reservatupista.com';
 
   String datosParseados(List<dynamic> listTypes) {
     List<String> newList = [];

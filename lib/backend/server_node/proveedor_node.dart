@@ -100,10 +100,11 @@ class ProveedorNode {
   //   }
   // }
 
-  Future<MessageError> anadirProveedorNode(List proveedor, List club) async {
+  Future<MessageError> anadirProveedorNode(
+      List proveedor, List club, List localidad) async {
     try {
-      final response = await proveedorProvider
-          .anadirProveedorAndClub({"proveedor": proveedor, "club": club});
+      final response = await proveedorProvider.anadirProveedorAndClub(
+          {"proveedor": proveedor, "club": club, "localidad": localidad});
       if (response.statusCode == 200) {
         return MessageError.fromJson(response.body);
       } else {
@@ -200,6 +201,7 @@ class ProveedorNode {
       await proveedorProvider.initialize();
       final response = await proveedorProvider.getClub(id, listTypes);
       if (response.statusCode == 200) {
+        print(response.body);
         return ClubModel.fromJson(response.body);
       } else {
         final messageError = MessageError.fromJson(response.body);

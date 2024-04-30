@@ -21,7 +21,7 @@ class HorarioFinInicio {
 }
 
 class ReservarPistaController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   DatabaseController db = Get.find();
   Rx<int?> selectLocalidad = Rx<int?>(null);
   Rx<int?> selectClub = Rx<int?>(null);

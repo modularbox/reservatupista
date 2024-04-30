@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
@@ -54,12 +56,11 @@ class _PerfilWidgetState extends State<PerfilWidget> {
         isTitle: true,
         child: db.datosPerfilUsuario.obx(
             (state) => Expanded(
-                  child: scrollPerfil(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: 100.h <= 745
                                 ? datosPerfil(
                                     space: spaceSizedBoxBtnCerrarRes(),
@@ -71,9 +72,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                                 : datosPerfil(
                                     space: spaceSizedBoxBtnCerrar(),
                                     subAppBar: subAppBar(false))),
-                        buildBtnCerrar()
-                      ],
-                    ),
+                      ),
+                      Positioned(bottom: 0, child: buildBtnCerrar())
+                    ],
                   ),
                 ),
             onLoading: Padding(
@@ -84,6 +85,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   }
 
   Widget scrollPerfil({required Widget child}) {
+    return SingleChildScrollView(child: child);
     if (isWeb) {
       return SingleChildScrollView(child: child);
     } else {
@@ -400,46 +402,52 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   }
 
   Widget buildBtnCerrar() {
-    return Container(
-      width: 200,
-      height: 45,
-      margin: EdgeInsets.only(bottom: 60.0 + (isiOS ? 15.0 : 0.0)),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF77066),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 5,
-            color: Color(0x3416202A),
-            offset: Offset(0, 2),
-          )
-        ],
-        borderRadius: BorderRadius.circular(12),
-        shape: BoxShape.rectangle,
-      ),
-      child: BtnIcon(
-        onPressed: () async {
-          Get.offAllNamed(Routes.LOGIN_USUARIO);
-        },
-        hoverColor: Colores().usuario.primary69,
-        borderRadius: 12,
-        icon: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-              child: Text(
-                'Cerrar Sesión',
-                style: LightModeTheme().bodyLarge,
-              ),
+    return SizedBox(
+      width: Get.width,
+      child: Center(
+        child: Container(
+          width: 200,
+          height: 50,
+          margin: EdgeInsets.only(
+              bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF77066),
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 5,
+                color: Color(0x3416202A),
+                offset: Offset(0, 2),
+              )
+            ],
+            borderRadius: BorderRadius.circular(12),
+            shape: BoxShape.rectangle,
+          ),
+          child: BtnIcon(
+            onPressed: () async {
+              Get.offAllNamed(Routes.LOGIN_USUARIO);
+            },
+            hoverColor: Colores().usuario.primary69,
+            borderRadius: 12,
+            icon: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                  child: Text(
+                    'Cerrar Sesión',
+                    style: LightModeTheme().bodyLarge,
+                  ),
+                ),
+                const Align(
+                  alignment: AlignmentDirectional(0.9, 0),
+                  child: Icon(
+                    Icons.logout,
+                    size: 20,
+                  ),
+                ),
+              ],
             ),
-            const Align(
-              alignment: AlignmentDirectional(0.9, 0),
-              child: Icon(
-                Icons.logout,
-                size: 20,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

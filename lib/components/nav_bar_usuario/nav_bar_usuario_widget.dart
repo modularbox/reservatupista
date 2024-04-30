@@ -8,15 +8,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'nav_bar_usuario_model.dart';
 export 'nav_bar_usuario_model.dart';
 
 class NavBarUsuarioWidget extends StatefulWidget {
   const NavBarUsuarioWidget({
-    Key? key,
+    super.key,
     required this.tipoDePagina,
-  }) : super(key: key);
+  });
 
   final TypePage? tipoDePagina;
 
@@ -133,9 +132,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                 },
                 isPage: widget.tipoDePagina == TypePage.Inicio,
                 icon: Icons.home_rounded,
-                title: FFLocalizations.of(context).getText(
-                  'x6w02hml' /* Inicio */,
-                ),
+                title: 'Inicio',
               ),
               buildIconButtonMin(
                 onPressed: () async {
@@ -192,6 +189,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   borderWidth: 1.0,
                   buttonSize: 45.0,
                   fillColor: FlutterFlowTheme.of(context).primary,
+                  hoverColor: FlutterFlowTheme.of(context).primary,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
@@ -206,6 +204,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   borderWidth: 1.0,
                   buttonSize: 45.0,
                   fillColor: const Color(0xFF9299A1),
+                  hoverColor: FlutterFlowTheme.of(context).primary,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
