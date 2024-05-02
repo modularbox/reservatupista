@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
-
 import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -9,7 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import 'inicio_profesional_model.dart';
 export 'inicio_profesional_model.dart';
 
