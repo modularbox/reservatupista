@@ -62,7 +62,7 @@ import '../pages/usuario/chat/chat.dart';
 import '../pages/usuario/chat/chat_b.dart';
 import '../pages/usuario/resultados_estadisticas/resultados_estadisticas.dart';
 import '../pages/usuario/resultados_estadisticas/resultados_estadisticas_b.dart';
-import '../pages/profesional/chat_proveedor/chat_proveedor.dart';
+import '../pages/profesional/chat_proveedor/chat_proveedor_p.dart';
 import '../pages/profesional/chat_proveedor/chat_proveedor_b.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_p.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_b.dart';
@@ -259,7 +259,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.CHAT_PROVEEDOR,
-      page: () => ChatProveedorPage(),
+      page: () => ChatProfesionalWidget(),
       binding: ChatProveedorBinding(),
     ),
     GetPage(

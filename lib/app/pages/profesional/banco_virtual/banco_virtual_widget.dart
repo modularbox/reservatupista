@@ -233,7 +233,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                   animationsMap['containerOnPageLoadAnimation']!),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 10.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -282,7 +282,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                       tipoText,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: Color(0xFF808080),
+                            color: LightModeTheme().primaryText,
                             fontSize: 14.0,
                             fontWeight: FontWeight.w600,
                             fontStyle: FontStyle.italic,
@@ -307,8 +307,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           },
                           options: FFButtonOptions(
                               color: _model.type != TypeHistorial.reserva
-                                  ? Color.fromARGB(255, 50, 50, 50)
-                                  : Colors.green,
+                                  ? LightModeTheme().accent3
+                                  : LightModeTheme().successGeneral,
                               borderRadius: BorderRadius.circular(30))),
                       FFButtonWidget(
                           text: 'Transferencia',
@@ -319,8 +319,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           },
                           options: FFButtonOptions(
                               color: _model.type != TypeHistorial.tranferencia
-                                  ? Color.fromARGB(255, 50, 50, 50)
-                                  : Colors.green,
+                                  ? LightModeTheme().accent3
+                                  : LightModeTheme().successGeneral,
                               borderRadius: BorderRadius.circular(30))),
                       FFButtonWidget(
                           text: 'Todo',
@@ -331,8 +331,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           },
                           options: FFButtonOptions(
                               color: _model.type != TypeHistorial.all
-                                  ? Color.fromARGB(255, 50, 50, 50)
-                                  : Colors.green,
+                                  ? LightModeTheme().accent3
+                                  : LightModeTheme().successGeneral,
                               borderRadius: BorderRadius.circular(30))),
                     ].divide(SizedBox(width: 5.0)),
                   )
