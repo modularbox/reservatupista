@@ -31,7 +31,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
       onTap: () {},
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(
@@ -50,10 +50,10 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: LightModeTheme().alternate,
                         ),
                       ),
                       child: Column(
@@ -67,8 +67,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                               children: [
                                 Icon(
                                   Icons.search_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
+                                  color: LightModeTheme().secondaryText,
                                   size: 24,
                                 ),
                                 Expanded(
@@ -82,34 +81,31 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                         controller: controller.textController,
                                         focusNode:
                                             controller.textFieldFocusNode,
-                                        autofocus: true,
+                                        autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Buscar pedidos...',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    letterSpacing: 0,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    letterSpacing: 0,
-                                                  ),
+                                          labelStyle: LightModeTheme()
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
+                                          hintStyle: LightModeTheme()
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
                                           focusedErrorBorder: InputBorder.none,
                                           filled: true,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryBackground,
+                                          fillColor: LightModeTheme()
+                                              .secondaryBackground,
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Readex Pro',
@@ -145,38 +141,32 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                       onChanged: (val) {},
                                       selectedChipStyle: ChipStyle(
                                         backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .reservaPendiente,
-                                        textStyle: FlutterFlowTheme.of(context)
+                                            LightModeTheme().reservaPendiente,
+                                        textStyle: LightModeTheme()
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              color: Colors.black,
                                               letterSpacing: 0,
                                             ),
-                                        iconColor: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        iconColor: LightModeTheme().primaryText,
                                         iconSize: 18,
                                         elevation: 0,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
                                       unselectedChipStyle: ChipStyle(
                                         backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        textStyle: FlutterFlowTheme.of(context)
+                                            LightModeTheme().primaryBackground,
+                                        textStyle: LightModeTheme()
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
+                                              color: LightModeTheme()
+                                                  .secondaryText,
                                               letterSpacing: 0,
                                             ),
-                                        iconColor: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        iconColor:
+                                            LightModeTheme().secondaryText,
                                         iconSize: 18,
                                         elevation: 0,
                                         borderRadius: BorderRadius.circular(16),
@@ -206,7 +196,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                   padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 4),
                   child: Text(
                     'Pedidos Recientes',
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                    style: LightModeTheme().labelMedium.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
@@ -226,7 +216,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              Get.to(DetallesPedidoWidget());
+                              Get.dialog(DetallesPedidoWidget());
                             },
                             child: Material(
                               color: Colors.transparent,
@@ -237,12 +227,10 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   borderRadius: BorderRadius.circular(16),
                                   border: Border.all(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                     width: 2,
                                   ),
                                 ),
@@ -278,14 +266,12 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                           children: [
                                             Text(
                                               'Pedido #12345',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyLarge
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                             Padding(
                                               padding:
@@ -293,16 +279,16 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                                       .fromSTEB(16, 0, 0, 0),
                                               child: Text(
                                                 'En proceso',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                style: LightModeTheme()
+                                                    .titleLarge
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .reservaPendiente,
-                                                          letterSpacing: 0,
-                                                        ),
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
                                             ),
                                           ],
@@ -313,7 +299,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                             .fromSTEB(16, 4, 16, 0),
                                         child: Text(
                                           'Detalles del pedido: 1x Pala Nox Ultimate Power LTD Carbon',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .labelMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -340,11 +326,10 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              color: LightModeTheme().secondaryBackground,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: LightModeTheme().primaryText,
                                 width: 2,
                               ),
                             ),
@@ -380,7 +365,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                       children: [
                                         Text(
                                           'Pedido #67890',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -392,7 +377,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                               .fromSTEB(16, 0, 0, 0),
                                           child: Text(
                                             'Completado',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .titleLarge
                                                 .override(
                                                   fontFamily: 'Outfit',
@@ -411,12 +396,11 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                             16, 4, 16, 0),
                                     child: Text(
                                       'Detalles del pedido: 1x Zapatillas deportivas, 1x Mochila de hidratación.',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ),
                                 ],
@@ -436,11 +420,10 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              color: LightModeTheme().secondaryBackground,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: LightModeTheme().primaryText,
                                 width: 2,
                               ),
                             ),
@@ -476,7 +459,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                       children: [
                                         Text(
                                           'Pedido #24680',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -488,7 +471,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                               .fromSTEB(16, 0, 0, 0),
                                           child: Text(
                                             'Cancelado',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .titleLarge
                                                 .override(
                                                   fontFamily: 'Outfit',
@@ -507,12 +490,11 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                             16, 4, 16, 0),
                                     child: Text(
                                       'Detalles del pedido: 1x Gorra deportiva, 1x Pulsera de actividad.',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0,
-                                          ),
+                                      style:
+                                          LightModeTheme().labelMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0,
+                                              ),
                                     ),
                                   ),
                                 ],

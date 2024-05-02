@@ -22,6 +22,8 @@ import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/detalles_reserva/detalles_reserva_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/detalles_reserva/detalles_reserva_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
@@ -353,10 +355,10 @@ class AppPages {
       page: () => FacturaProveedorWidget(),
       binding: HorasPistasBinding(),
     ),
-    // GetPage(
-    //   name: Routes.PEDIDOS,
-    //   page: () => ListaPedidosWidget(),
-    //   binding: MisPedidosBinding(),
-    // ),
+    GetPage(
+      name: Routes.PEDIDOS,
+      page: () => ListaPedidosWidget(),
+      binding: MisPedidosBinding(),
+    ),
   ];
 }

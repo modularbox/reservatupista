@@ -30,16 +30,6 @@ class _ExpulsarSocioWidgetState extends State<ExpulsarSocioWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Opacity(
-          opacity: 0.7,
-          child: Container(
-            width: MediaQuery.sizeOf(context).width,
-            height: MediaQuery.sizeOf(context).height * 1,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-            ),
-          ),
-        ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
           child: Align(
@@ -48,7 +38,7 @@ class _ExpulsarSocioWidgetState extends State<ExpulsarSocioWidget> {
               width: 400,
               height: 200,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
+                color: LightModeTheme().secondaryBackground,
                 boxShadow: const [
                   BoxShadow(
                     blurRadius: 5,
@@ -76,25 +66,21 @@ class _ExpulsarSocioWidgetState extends State<ExpulsarSocioWidget> {
                         children: [
                           Text(
                             'Confirmación',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 25,
-                                    letterSpacing: 0,
-                                    fontWeight: FontWeight.w800,
-                                    decoration: TextDecoration.none),
+                            style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 25,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w800,
+                                decoration: TextDecoration.none),
                           ),
                           Text(
                             'Ésta acción es irreversible',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 18,
-                                    letterSpacing: 0,
-                                    fontWeight: FontWeight.w500,
-                                    decoration: TextDecoration.none),
+                            style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.none),
                           ),
                           FFButtonWidget(
                             onPressed: () {
@@ -107,14 +93,10 @@ class _ExpulsarSocioWidgetState extends State<ExpulsarSocioWidget> {
                                   24, 0, 24, 0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 0, 0),
-                              color:
-                                  FlutterFlowTheme.of(context).successGeneral,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
+                              color: LightModeTheme().successGeneral,
+                              textStyle: LightModeTheme().titleSmall.override(
                                     fontFamily: 'Readex Pro',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                     fontSize: 18,
                                     letterSpacing: 0,
                                   ),
@@ -132,15 +114,14 @@ class _ExpulsarSocioWidgetState extends State<ExpulsarSocioWidget> {
                     Align(
                       alignment: const AlignmentDirectional(0.94, -0.88),
                       child: FlutterFlowIconButton(
-                        borderColor: FlutterFlowTheme.of(context).error,
+                        borderColor: LightModeTheme().error,
                         borderRadius: 20,
                         borderWidth: 0,
                         buttonSize: 40,
-                        fillColor: FlutterFlowTheme.of(context).errorGeneral,
+                        fillColor: LightModeTheme().errorGeneral,
                         icon: Icon(
                           Icons.close,
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: LightModeTheme().secondaryBackground,
                           size: 24,
                         ),
                         onPressed: () async {

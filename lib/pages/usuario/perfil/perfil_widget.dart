@@ -33,7 +33,6 @@ class _PerfilWidgetState extends State<PerfilWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     db.getDatosUsuarioId();
   }
@@ -381,7 +380,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
           height: height,
           padding: padding,
           onPressed: () async {
-            Get.toNamed(Routes.MIS_BONOS);
+            Get.toNamed(Routes.PEDIDOS);
           },
         ),
         ButtonPerfil(
