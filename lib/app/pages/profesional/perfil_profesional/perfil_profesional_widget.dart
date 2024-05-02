@@ -367,7 +367,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
             );
           },
         ),
-      )
+      ),
     ];
   }
 

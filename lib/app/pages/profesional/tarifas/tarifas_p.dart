@@ -37,7 +37,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 25, 10, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -49,7 +49,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 40),
+                                          0, 0, 0, 30),
                                       child: PageView(
                                         controller:
                                             PageController(initialPage: 0),
@@ -61,9 +61,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
+                                                onPressed: () {},
                                                 text: '',
                                                 icon: Icon(
                                                   Icons.arrow_back,
@@ -113,9 +111,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                                         ),
                                               ),
                                               FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
+                                                onPressed: () {},
                                                 text: '',
                                                 icon: Icon(
                                                   Icons.arrow_forward,
@@ -157,9 +153,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
+                                                onPressed: () {},
                                                 text: '',
                                                 icon: Icon(
                                                   Icons.arrow_back,
@@ -209,9 +203,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                                         ),
                                               ),
                                               FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
+                                                onPressed: () {},
                                                 text: '',
                                                 icon: Icon(
                                                   Icons.arrow_forward,
@@ -253,9 +245,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
+                                                onPressed: () {},
                                                 text: '',
                                                 icon: Icon(
                                                   Icons.arrow_back,
@@ -305,9 +295,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                                         ),
                                               ),
                                               FFButtonWidget(
-                                                onPressed: () {
-                                                  print('Button pressed ...');
-                                                },
+                                                onPressed: () {},
                                                 text: '',
                                                 icon: Icon(
                                                   Icons.arrow_forward,
