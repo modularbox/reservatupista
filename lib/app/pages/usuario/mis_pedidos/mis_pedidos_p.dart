@@ -74,7 +74,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             4, 0, 0, 0),
-                                    child: Container(
+                                    child: SizedBox(
                                       width: 200,
                                       child: TextFormField(
                                         controller: controller.textController,
@@ -131,11 +131,12 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                     padding: const EdgeInsets.all(2),
                                     child: FlutterFlowChoiceChips(
                                       options: const [
-                                        ChipData('Ropa', null),
-                                        ChipData('Meterial deportivo', null),
-                                        ChipData('Palas', null),
-                                        ChipData('Raquetas', null),
-                                        ChipData('Calzado', null)
+                                        ChipData('Ropa', null, null),
+                                        ChipData(
+                                            'Meterial deportivo', null, null),
+                                        ChipData('Palas', null, null),
+                                        ChipData('Raquetas', null, null),
+                                        ChipData('Calzado', null, null)
                                       ],
                                       onChanged: (val) {},
                                       selectedChipStyle: ChipStyle(
@@ -215,7 +216,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              Get.dialog(DetallesPedidoWidget());
+                              Get.dialog(const DetallesPedidoWidget());
                             },
                             child: Material(
                               color: Colors.transparent,
