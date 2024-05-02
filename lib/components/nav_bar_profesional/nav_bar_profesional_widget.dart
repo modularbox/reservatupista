@@ -162,7 +162,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 onPressed: () async {
                   Get.offNamed(Routes.MIS_SOCIOS);
                 },
-                isPage: widget.tipoDePagina == TypePage.Monedero,
+                isPage: widget.tipoDePagina == TypePage.MisSocios,
                 icon: Icons.safety_divider,
                 title: 'Mis Socios',
               ),

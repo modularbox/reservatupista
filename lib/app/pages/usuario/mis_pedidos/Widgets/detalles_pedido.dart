@@ -18,7 +18,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Align(
-          alignment: AlignmentDirectional(0, 0),
+          alignment: const AlignmentDirectional(0, 0),
           child: Material(
             color: Colors.transparent,
             elevation: 2,
@@ -28,7 +28,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
             child: Container(
               width: 370,
               height: 485,
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 570,
               ),
               decoration: BoxDecoration(
@@ -39,17 +39,17 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                   width: 2,
                 ),
               ),
-              alignment: AlignmentDirectional(0, 0),
+              alignment: const AlignmentDirectional(0, 0),
               child: Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(2),
+                                  padding: const EdgeInsets.all(2),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(40),
                                     child: Image.network(
@@ -80,10 +80,10 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                 ),
                               ),
                               Stack(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: 120,
                                       height: 4,
@@ -101,8 +101,8 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                       color: LightModeTheme().reservaPendiente,
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Icon(
+                                    alignment: const AlignmentDirectional(0, 0),
+                                    child: const Icon(
                                       Icons.keyboard_double_arrow_right_rounded,
                                       color: Colors.black,
                                       size: 32,
@@ -122,7 +122,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(2),
+                                  padding: const EdgeInsets.all(2),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(40),
                                     child: Image.network(
@@ -134,11 +134,12 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(width: 16)),
+                            ].divide(const SizedBox(width: 16)),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +157,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                               letterSpacing: 0,
                                             ),
                                   ),
-                                ].divide(SizedBox(height: 4)),
+                                ].divide(const SizedBox(height: 4)),
                               ),
                             ],
                           ),
@@ -177,7 +178,8 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                               ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'adrian@reservatupista.com',
                             textAlign: TextAlign.end,
@@ -194,7 +196,8 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                           color: LightModeTheme().reservaPendiente,
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 15),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 15),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,14 +215,15 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                                 letterSpacing: 0,
                                               ),
                                     ),
-                                  ].divide(SizedBox(height: 4)),
+                                  ].divide(const SizedBox(height: 4)),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -230,7 +234,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
                                     children: [
-                                      TextSpan(
+                                      const TextSpan(
                                         text: 'Estado\n',
                                         style: TextStyle(),
                                       ),
@@ -260,7 +264,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
                                     children: [
-                                      TextSpan(
+                                      const TextSpan(
                                         text: 'Método de pago\n',
                                         style: TextStyle(),
                                       ),
@@ -283,11 +287,12 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(width: 12)),
+                            ].divide(const SizedBox(width: 12)),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -298,7 +303,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
                                     children: [
-                                      TextSpan(
+                                      const TextSpan(
                                         text: 'Dirección\n',
                                         style: TextStyle(),
                                       ),
@@ -327,7 +332,7 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
                                     children: [
-                                      TextSpan(
+                                      const TextSpan(
                                         text: 'Fecha de compra\n\n',
                                         style: TextStyle(),
                                       ),
@@ -350,18 +355,19 @@ class _DetallesPedidoWidgetState extends State<DetallesPedidoWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(width: 12)),
+                            ].divide(const SizedBox(width: 12)),
                           ),
                         ),
                       ]
-                          .divide(SizedBox(height: 4))
-                          .addToEnd(SizedBox(height: 12)),
+                          .divide(const SizedBox(height: 4))
+                          .addToEnd(const SizedBox(height: 12)),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(1, -1),
+                    alignment: const AlignmentDirectional(1, -1),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
                       child: FlutterFlowIconButton(
                         borderColor: LightModeTheme().error,
                         borderRadius: 20,

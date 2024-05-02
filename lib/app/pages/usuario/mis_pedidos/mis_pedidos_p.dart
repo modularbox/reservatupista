@@ -3,7 +3,6 @@ import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/Widgets/detalles_p
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
