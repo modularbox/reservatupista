@@ -580,7 +580,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                       Container(
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
-                                              .accent2,
+                                              .aguamarina,
                                         ),
                                         child: Padding(
                                           padding:
@@ -810,7 +810,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                         ),
                                         border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryBackground,
                                         ),
                                       ),
                                       child: Column(
@@ -873,7 +873,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                           ),
                                           border: Border.all(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                                .secondaryBackground,
                                             width: 2,
                                           ),
                                         ),
@@ -988,8 +988,8 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                               ),
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color:
-                                                      LightModeTheme().accent2,
+                                                  color: LightModeTheme()
+                                                      .aguamarina,
                                                 ),
                                                 child: Column(
                                                   mainAxisSize:
@@ -1377,7 +1377,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                         ),
                                         border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryBackground,
                                         ),
                                       ),
                                       child: Column(
@@ -1440,7 +1440,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                           ),
                                           border: Border.all(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                                .secondaryBackground,
                                             width: 2,
                                           ),
                                         ),
@@ -1688,8 +1688,8 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                               ),
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color:
-                                                      LightModeTheme().accent2,
+                                                  color: LightModeTheme()
+                                                      .aguamarina,
                                                 ),
                                                 child: Column(
                                                   mainAxisSize:
@@ -1912,7 +1912,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                         ),
                                         border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryBackground,
                                         ),
                                       ),
                                       child: Column(
@@ -1975,7 +1975,7 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                           ),
                                           border: Border.all(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                                .secondaryBackground,
                                             width: 2,
                                           ),
                                         ),
@@ -2129,8 +2129,8 @@ class _TarifasWidgetState extends GetView<_TarifasWidgetState> {
                                               ),
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color:
-                                                      LightModeTheme().accent2,
+                                                  color: LightModeTheme()
+                                                      .aguamarina,
                                                 ),
                                                 child: Column(
                                                   mainAxisSize:

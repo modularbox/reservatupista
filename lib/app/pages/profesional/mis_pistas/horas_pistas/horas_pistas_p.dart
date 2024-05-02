@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class HorasPistasWidget extends GetView<_HorasPistasWidgetState> {
   const HorasPistasWidget({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(
         title: 'Horas Pistas',

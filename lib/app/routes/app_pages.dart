@@ -125,6 +125,7 @@ abstract class Routes {
   static const HAZTE_SOCIO = '/hazte_socio';
   static const TARIFAS_PROVEEDOR = '/tarifas';
   static const HORAS_PISTAS = '/horas_pistas';
+  static const PEDIDOS = '/pedidos';
 }
 
 /// Get Routes
@@ -352,5 +353,10 @@ class AppPages {
       page: () => FacturaProveedorWidget(),
       binding: HorasPistasBinding(),
     ),
+    // GetPage(
+    //   name: Routes.PEDIDOS,
+    //   page: () => ListaPedidosWidget(),
+    //   binding: MisPedidosBinding(),
+    // ),
   ];
 }
