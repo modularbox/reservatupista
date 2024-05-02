@@ -64,7 +64,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                                       16.0, 16.0, 0.0, 0.0),
                                   child: Text(
                                     'Datos de facturación',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: LightModeTheme()
                                         .labelLarge
                                         .copyWith(color: Colors.black),
                                   ),
@@ -80,7 +80,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                                       16.0, 16.0, 0.0, 0.0),
                                   child: Text(
                                     'Datos de pago/cobro',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: LightModeTheme()
                                         .labelLarge
                                         .copyWith(color: Colors.black),
                                   ),
@@ -95,7 +95,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                                       16.0, 16.0, 0.0, 0.0),
                                   child: Text(
                                     'Datos de contacto',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: LightModeTheme()
                                         .labelLarge
                                         .copyWith(color: Colors.black),
                                   ),
@@ -132,7 +132,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                                       16.0, 16.0, 0.0, 0.0),
                                   child: Text(
                                     'Datos ubicación',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: LightModeTheme()
                                         .labelLarge
                                         .copyWith(color: Colors.black),
                                   ),
@@ -324,11 +324,10 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                         counterText: '',
                         errorStyle: const TextStyle(fontSize: 0),
                         labelText: propertiesTextField.labelText,
-                        hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Readex Pro',
-                                  color: const Color(0xFF95A1AC),
-                                ),
+                        hintStyle: LightModeTheme().bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              color: const Color(0xFF95A1AC),
+                            ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Colores().proveedor.primary,
@@ -352,14 +351,14 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
+                            color: LightModeTheme().error,
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
+                            color: LightModeTheme().error,
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
@@ -367,12 +366,11 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                         filled: true,
                         contentPadding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 12.0),
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                        fillColor: LightModeTheme().secondaryBackground,
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      style: LightModeTheme().bodyMedium,
                       validator: propertiesTextField.validateTextField,
-                      cursorColor: FlutterFlowTheme.of(context).primary,
+                      cursorColor: LightModeTheme().primary,
                       readOnly: true,
                       enabled: false,
                       onTap: () => SelectInputRegistrar(
@@ -400,11 +398,10 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                           counterText: '',
                           errorStyle: const TextStyle(fontSize: 0),
                           labelText: propertiesTextField.labelText,
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: const Color(0xFF95A1AC),
-                                  ),
+                          hintStyle: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                color: const Color(0xFF95A1AC),
+                              ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: lineColor,
@@ -428,26 +425,25 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
+                              color: LightModeTheme().error,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
+                              color: LightModeTheme().error,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           suffixIcon: propertiesTextField.suffixIcon,
                           filled: true,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          fillColor: LightModeTheme().secondaryBackground,
                           contentPadding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 12.0),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: LightModeTheme().bodyMedium,
                         inputFormatters: propertiesTextField.inputFormatters,
                         enabled: false,
                         onChanged: propertiesTextField.onChange,
@@ -467,7 +463,7 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
         counterText: '',
         errorStyle: const TextStyle(fontSize: 0),
         labelText: propertiesTextField.labelText,
-        hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+        hintStyle: LightModeTheme().bodyMedium.override(
               fontFamily: 'Readex Pro',
               color: const Color(0xFF95A1AC),
             ),
@@ -487,14 +483,14 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: FlutterFlowTheme.of(context).error,
+            color: LightModeTheme().error,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: FlutterFlowTheme.of(context).error,
+            color: LightModeTheme().error,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(8.0),
@@ -533,11 +529,11 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                 ))
             : const SizedBox.shrink()),
         filled: true,
-        fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+        fillColor: LightModeTheme().secondaryBackground,
         contentPadding:
             const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
       ),
-      style: FlutterFlowTheme.of(context).bodyMedium,
+      style: LightModeTheme().bodyMedium,
       readOnly: true,
       enableInteractiveSelection: false,
       validator: self.imageFileCertificado.value == null

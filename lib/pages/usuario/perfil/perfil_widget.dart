@@ -375,6 +375,16 @@ class _PerfilWidgetState extends State<PerfilWidget> {
           },
         ),
         ButtonPerfil(
+          title: 'Mis Pedidos',
+          icon: Icons.sell_outlined,
+          top: top,
+          height: height,
+          padding: padding,
+          onPressed: () async {
+            Get.toNamed(Routes.MIS_BONOS);
+          },
+        ),
+        ButtonPerfil(
           title: 'Mis Clubes',
           icon: Icons.payment,
           top: top,
