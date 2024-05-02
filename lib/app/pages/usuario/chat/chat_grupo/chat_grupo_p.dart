@@ -34,7 +34,7 @@ class _ChatGrupoWidgetState extends State<ChatGrupoWidget> {
               size: 30,
             ),
             onPressed: () async {
-              Get.to(ChatPage());
+              Get.back();
             },
           ),
           title: Align(
@@ -327,21 +327,21 @@ class _ChatGrupoWidgetState extends State<ChatGrupoWidget> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0x00000000),
+                                    color: LightModeTheme().usuario,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0x00000000),
+                                    color: LightModeTheme().usuario,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0x00000000),
+                                    color: LightModeTheme().usuario,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(20),
