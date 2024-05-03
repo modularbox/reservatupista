@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -16,15 +15,15 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0, 0),
+      alignment: const AlignmentDirectional(0, 0),
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Container(
           width: 300,
           height: 150,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 blurRadius: 3,
                 color: Color(0x33000000),
@@ -39,17 +38,18 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
               width: 2,
             ),
           ),
-          alignment: AlignmentDirectional(0, 0),
+          alignment: const AlignmentDirectional(0, 0),
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.all(4),
+                padding: const EdgeInsets.all(4),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,8 +59,8 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 8, 0),
                                 child: Container(
                                   width: 40,
                                   height: 40,
@@ -69,7 +69,7 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
                                         .primaryBackground,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.person,
                                     color: Color(0xFF4B39EF),
                                     size: 24,
@@ -91,7 +91,8 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 8),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 8),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -122,9 +123,9 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.94, -0.84),
+                alignment: const AlignmentDirectional(0.94, -0.84),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                   child: FlutterFlowIconButton(
                     borderColor: FlutterFlowTheme.of(context).errorGeneral,
                     borderRadius: 20,

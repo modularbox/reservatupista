@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
@@ -7,7 +6,6 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/smoth_page/page_view_sliding_indicator.dart';
 import '../../../routes/app_pages.dart';
-import '../../../widgets/text_inputters/inputter_registro.dart';
 import './login_usuario_c.dart';
 import '../../../../components/navbar_login.dart';
 import '/components/app_bar_login_widget.dart';

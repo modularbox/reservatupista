@@ -1246,8 +1246,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                   ),
                                 ),
                               ],
-                              carouselController: _model.carouselController ??=
-                                  CarouselController(),
+                              carouselController: _model.carouselController,
                               options: CarouselOptions(
                                 initialPage: 1,
                                 viewportFraction: 0.5,
@@ -1327,8 +1326,7 @@ class _InicioWidgetState extends State<InicioWidget> {
                                 ),
                               ),
                             ],
-                            carouselController: _model.carouselController ??=
-                                CarouselController(),
+                            carouselController: _model.carouselController,
                             options: CarouselOptions(
                               initialPage: 1,
                               viewportFraction: 0.5,

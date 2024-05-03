@@ -20,19 +20,11 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {}
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF1F4F8),
+        backgroundColor: const Color(0xFFF1F4F8),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
@@ -41,7 +33,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
               floating: true,
               snap: true,
               backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: IconThemeData(color: Color(0xFFFF0000)),
+              iconTheme: const IconThemeData(color: Color(0xFFFF0000)),
               automaticallyImplyLeading: false,
               leading: FlutterFlowIconButton(
                 borderColor: Colors.transparent,
@@ -54,15 +46,16 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                   size: 30,
                 ),
                 onPressed: () async {
-                  Get.to(PerfilWidget());
+                  Get.to(const PerfilWidget());
                 },
               ),
               title: Stack(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(-1, 0),
+                    alignment: const AlignmentDirectional(-1, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                       child: Text(
                         'Añadir Amigos',
                         textAlign: TextAlign.center,
@@ -75,13 +68,14 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(1, 0),
+                    alignment: const AlignmentDirectional(1, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
                           child: badges.Badge(
                             badgeContent: Text(
                               '1',
@@ -97,7 +91,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                             shape: badges.BadgeShape.circle,
                             badgeColor: FlutterFlowTheme.of(context).primary,
                             elevation: 4,
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             position: badges.BadgePosition.topEnd(),
                             animationType: badges.BadgeAnimationType.scale,
                             toAnimate: true,
@@ -105,7 +99,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8, 0, 0, 0),
                                   child: Icon(
                                     Icons.notifications_none,
@@ -115,7 +109,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8, 0, 0, 0),
                                   child: Icon(
                                     Icons.chat_bubble_outline_outlined,
@@ -132,7 +126,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                           width: 40,
                           height: 40,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: Image.asset(
@@ -158,7 +152,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -167,8 +162,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                           // Tomas los usuarios de la tabla reservas de la base de datos
                           Expanded(
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 5, 0),
                               child: TextFormField(
                                 autofocus: true,
                                 obscureText: false,
@@ -178,7 +173,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF57636C),
+                                        color: const Color(0xFF57636C),
                                         fontSize: 14,
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.normal,
@@ -200,14 +195,14 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0xFFFF5963),
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0xFFFF5963),
                                       width: 2,
                                     ),
@@ -220,7 +215,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF14181B),
+                                      color: const Color(0xFF14181B),
                                       fontSize: 14,
                                       letterSpacing: 0,
                                       fontWeight: FontWeight.normal,
@@ -230,19 +225,19 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
-                              Get.to(AmigosPage());
+                              Get.to(const AmigosPage());
                             },
                             text: 'Amigos',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.person_sharp,
                               size: 15,
                             ),
                             options: FFButtonOptions(
                               height: 40,
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                              iconPadding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  5, 0, 5, 0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 0),
                               color: FlutterFlowTheme.of(context).usuario,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -252,7 +247,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     letterSpacing: 0,
                                   ),
                               elevation: 3,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
                               ),
@@ -263,7 +258,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
                       child: ListView(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -271,14 +267,14 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                         scrollDirection: Axis.vertical,
                         children: [
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 4, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x32000000),
@@ -295,8 +291,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                 ),
                               ),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -313,8 +309,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(12, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -324,26 +320,27 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickUno',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF14181B),
-                                                        fontSize: 14,
-                                                        letterSpacing: 0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color:
+                                                        const Color(0xFF14181B),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '4.00',
                                                     style: FlutterFlowTheme.of(
@@ -352,8 +349,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF57636C),
+                                                          color: const Color(
+                                                              0xFF57636C),
                                                           fontSize: 14,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -368,18 +365,15 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                       ),
                                     ),
                                     FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
-                                      },
+                                      onPressed: () {},
                                       text: 'Añadir',
                                       options: FFButtonOptions(
                                         width: 70,
                                         height: 36,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .usuario,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -392,7 +386,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                               fontWeight: FontWeight.normal,
                                             ),
                                         elevation: 2,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -405,14 +399,14 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 4, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x32000000),
@@ -429,8 +423,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                 ),
                               ),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -447,8 +441,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(12, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -458,26 +452,27 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickDos',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF14181B),
-                                                        fontSize: 14,
-                                                        letterSpacing: 0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color:
+                                                        const Color(0xFF14181B),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '3.25',
                                                     style: FlutterFlowTheme.of(
@@ -486,8 +481,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF57636C),
+                                                          color: const Color(
+                                                              0xFF57636C),
                                                           fontSize: 14,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -502,18 +497,15 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                       ),
                                     ),
                                     FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
-                                      },
+                                      onPressed: () {},
                                       text: 'Añadir',
                                       options: FFButtonOptions(
                                         width: 70,
                                         height: 36,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .usuario,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -526,7 +518,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                               fontWeight: FontWeight.normal,
                                             ),
                                         elevation: 2,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -539,14 +531,14 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 4, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x32000000),
@@ -563,8 +555,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                 ),
                               ),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -581,8 +573,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(12, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -592,26 +584,27 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickTres',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF14181B),
-                                                        fontSize: 14,
-                                                        letterSpacing: 0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color:
+                                                        const Color(0xFF14181B),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '3.00',
                                                     style: FlutterFlowTheme.of(
@@ -620,8 +613,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF57636C),
+                                                          color: const Color(
+                                                              0xFF57636C),
                                                           fontSize: 14,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -643,11 +636,10 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                       options: FFButtonOptions(
                                         width: 70,
                                         height: 36,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .usuario,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -660,7 +652,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                               fontWeight: FontWeight.normal,
                                             ),
                                         elevation: 2,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -673,15 +665,15 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 4, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 boxShadow: [
-                                  BoxShadow(
+                                  const BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x32000000),
                                     offset: Offset(
@@ -697,8 +689,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                 ),
                               ),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -715,8 +707,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(12, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -726,26 +718,27 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickCuatro',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF14181B),
-                                                        fontSize: 14,
-                                                        letterSpacing: 0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color:
+                                                        const Color(0xFF14181B),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '4.25',
                                                     style: FlutterFlowTheme.of(
@@ -754,8 +747,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF57636C),
+                                                          color: const Color(
+                                                              0xFF57636C),
                                                           fontSize: 14,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -777,11 +770,10 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                       options: FFButtonOptions(
                                         width: 70,
                                         height: 36,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .usuario,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -794,7 +786,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                               fontWeight: FontWeight.normal,
                                             ),
                                         elevation: 2,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -807,15 +799,15 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 4, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 boxShadow: [
-                                  BoxShadow(
+                                  const BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x32000000),
                                     offset: Offset(
@@ -831,8 +823,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                 ),
                               ),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    8, 0, 8, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -849,8 +841,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(12, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -860,26 +852,27 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickCinco',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF14181B),
-                                                        fontSize: 14,
-                                                        letterSpacing: 0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color:
+                                                        const Color(0xFF14181B),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 4, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '4.75',
                                                     style: FlutterFlowTheme.of(
@@ -888,8 +881,8 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                         .override(
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF57636C),
+                                                          color: const Color(
+                                                              0xFF57636C),
                                                           fontSize: 14,
                                                           letterSpacing: 0,
                                                           fontWeight:
@@ -911,11 +904,10 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                       options: FFButtonOptions(
                                         width: 70,
                                         height: 36,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
+                                        iconPadding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .usuario,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -928,7 +920,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                               fontWeight: FontWeight.normal,
                                             ),
                                         elevation: 2,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
                                         ),
@@ -940,7 +932,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(height: 10)),
+                        ].divide(const SizedBox(height: 10)),
                       ),
                     ),
                   ],
