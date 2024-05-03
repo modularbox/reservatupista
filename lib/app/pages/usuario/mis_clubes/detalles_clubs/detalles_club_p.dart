@@ -3,6 +3,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/Widgets/popup_correo.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/Widgets/popup_telefono.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
@@ -1045,33 +1047,8 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                                   Colors
                                                                       .transparent,
                                                               onTap: () async {
-                                                                await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (dialogContext) {
-                                                                    return Dialog(
-                                                                      elevation:
-                                                                          0,
-                                                                      insetPadding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      alignment: const AlignmentDirectional(
-                                                                              0,
-                                                                              0)
-                                                                          .resolve(
-                                                                              Directionality.of(context)),
-                                                                      child:
-                                                                          GestureDetector(
-                                                                        onTap:
-                                                                            () {},
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                );
+                                                                Get.dialog(
+                                                                    TelefonoComponenteWidget());
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1103,31 +1080,8 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                                   Colors
                                                                       .transparent,
                                                               onTap: () async {
-                                                                await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (dialogContext) {
-                                                                    return Dialog(
-                                                                      elevation:
-                                                                          0,
-                                                                      insetPadding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      alignment: const AlignmentDirectional(
-                                                                              0,
-                                                                              0)
-                                                                          .resolve(
-                                                                              Directionality.of(context)),
-                                                                      child: GestureDetector(
-                                                                          onTap:
-                                                                              () {}),
-                                                                    );
-                                                                  },
-                                                                );
+                                                                Get.dialog(
+                                                                    CorreoComponenteWidget());
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1159,31 +1113,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                                   Colors
                                                                       .transparent,
                                                               onTap: () async {
-                                                                await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (dialogContext) {
-                                                                    return Dialog(
-                                                                      elevation:
-                                                                          0,
-                                                                      insetPadding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      alignment: const AlignmentDirectional(
-                                                                              0,
-                                                                              0)
-                                                                          .resolve(
-                                                                              Directionality.of(context)),
-                                                                      child: GestureDetector(
-                                                                          onTap:
-                                                                              () {}),
-                                                                    );
-                                                                  },
-                                                                );
+                                                                //Popup mapa
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
