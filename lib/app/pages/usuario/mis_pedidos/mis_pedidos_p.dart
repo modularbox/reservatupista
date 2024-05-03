@@ -133,7 +133,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                       options: const [
                                         ChipData('Ropa', null, null),
                                         ChipData(
-                                            'Meterial deportivo', null, null),
+                                            'Material deportivo', null, null),
                                         ChipData('Palas', null, null),
                                         ChipData('Raquetas', null, null),
                                         ChipData('Calzado', null, null)
