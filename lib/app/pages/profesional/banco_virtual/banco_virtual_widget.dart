@@ -117,7 +117,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                 width: double.infinity,
                 height: 120.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondary,
+                  color: LightModeTheme().secondary,
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 4.0,
@@ -135,8 +135,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                         width: 250.0,
                         height: 65.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: LightModeTheme().secondaryBackground,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 4.0,
@@ -152,7 +151,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 28.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
@@ -168,9 +167,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                                 0.0, 8.0, 0.0, 0.0),
                             child: Text(
                               '${FormatNumber.formatNumberWithTwoDecimals(FFAppState().moneyBancoVirtual).toString()} €',
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineLarge
-                                  .override(
+                              style: LightModeTheme().headlineLarge.override(
                                     fontFamily: 'Outfit',
                                     color: Color(0xFF14181B),
                                     fontSize: 30.0,
@@ -206,14 +203,10 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color:
-                                  FlutterFlowTheme.of(context).successGeneral,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
+                              color: LightModeTheme().successGeneral,
+                              textStyle: LightModeTheme().titleSmall.override(
                                     fontFamily: 'Readex Pro',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                   ),
                               elevation: 3.0,
                               borderSide: BorderSide(
@@ -258,12 +251,11 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).successGeneral,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
+                      color: LightModeTheme().successGeneral,
+                      textStyle: LightModeTheme().titleSmall.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().primaryText,
+                          ),
                       elevation: 3.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -280,7 +272,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                             : 'Todo');
                     return Text(
                       tipoText,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
                             color: LightModeTheme().primaryText,
                             fontSize: 14.0,
@@ -371,7 +363,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           maxWidth: 570.0,
         ),
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             width: 2.0,
@@ -426,16 +418,15 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                             TextSpan(
                               text: '',
                               style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: LightModeTheme().primary,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
                           ],
-                          style:
-                              FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 18.0,
-                                  ),
+                          style: LightModeTheme().bodyLarge.override(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18.0,
+                              ),
                         ),
                       ),
                       Padding(
@@ -445,14 +436,14 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           FFLocalizations.of(context).getText(
                             '25j5609z' /* Lunes 3 Enero 2024 */,
                           ),
-                          style: FlutterFlowTheme.of(context).labelMedium,
+                          style: LightModeTheme().labelMedium,
                         ),
                       ),
                       Text(
                         FFLocalizations.of(context).getText(
                           'bp9a1059' /* Hora: 11:34 */,
                         ),
-                        style: FlutterFlowTheme.of(context).labelMedium,
+                        style: LightModeTheme().labelMedium,
                       ),
                     ],
                   ),
@@ -465,7 +456,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                   Text(
                     '+ 1,50 €',
                     textAlign: TextAlign.end,
-                    style: FlutterFlowTheme.of(context).headlineSmall.override(
+                    style: LightModeTheme().headlineSmall.override(
                           fontFamily: 'Outfit',
                           color: Color(0xFF00BC13),
                           fontSize: 18.0,
@@ -474,7 +465,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                   Container(
                     height: 15.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                     ),
                   ),
                   Text(
@@ -484,9 +475,9 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                       ,
                     ),
                     textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: LightModeTheme().primary,
                         ),
                   ),
                 ],
@@ -507,7 +498,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           maxWidth: 570.0,
         ),
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             // color: Color(0xFF00BC13),
@@ -560,16 +551,15 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                             TextSpan(
                               text: '',
                               style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: LightModeTheme().primary,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
                           ],
-                          style:
-                              FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 18.0,
-                                  ),
+                          style: LightModeTheme().bodyLarge.override(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18.0,
+                              ),
                         ),
                       ),
                       Padding(
@@ -579,14 +569,14 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                           FFLocalizations.of(context).getText(
                             'hqviv308' /* Lunes 8 Enero 2024 */,
                           ),
-                          style: FlutterFlowTheme.of(context).labelMedium,
+                          style: LightModeTheme().labelMedium,
                         ),
                       ),
                       Text(
                         FFLocalizations.of(context).getText(
                           'lmsv2yhg' /* Hora: 11:34 */,
                         ),
-                        style: FlutterFlowTheme.of(context).labelMedium,
+                        style: LightModeTheme().labelMedium,
                       ),
                     ],
                   ),
@@ -602,21 +592,20 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                     child: Text(
                       '- 100,00 €',
                       textAlign: TextAlign.end,
-                      style:
-                          FlutterFlowTheme.of(context).headlineSmall.override(
-                                fontFamily: 'Outfit',
-                                color: Color(0xFFE74C3C),
-                                fontSize: 18.0,
-                              ),
+                      style: LightModeTheme().headlineSmall.override(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFFE74C3C),
+                            fontSize: 18.0,
+                          ),
                     ),
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.0, 0.0),
                     child: Text(
                       'Transferencia',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                           ),
                     ),
                   ),

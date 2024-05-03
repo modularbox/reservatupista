@@ -25,7 +25,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: Column(
@@ -41,10 +41,10 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                     width: double.infinity,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).usuario,
+                        color: LightModeTheme().usuario,
                         width: 2,
                       ),
                     ),
@@ -57,7 +57,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
@@ -78,23 +78,17 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                             children: [
                               Text(
                                 'Alicia',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
+                                style: LightModeTheme().titleMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
                               Text(
                                 '¿Que dia quedamos para jugar?',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
+                                style: LightModeTheme().bodySmall.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -116,10 +110,10 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                     width: double.infinity,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).successGeneral,
+                        color: LightModeTheme().successGeneral,
                         width: 2,
                       ),
                     ),
@@ -132,7 +126,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
@@ -153,23 +147,17 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                             children: [
                               Text(
                                 'Grupo Colegas',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
+                                style: LightModeTheme().titleMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
                               Text(
                                 '¿Quien está para el Martes?',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
+                                style: LightModeTheme().bodySmall.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -191,7 +179,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                     width: double.infinity,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: LightModeTheme().aguamarina,
@@ -207,7 +195,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
@@ -228,23 +216,17 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                             children: [
                               Text(
                                 'Partida 01/04',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
+                                style: LightModeTheme().titleMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
                               Text(
                                 '¿Confirmamos que todos estamos a esa hora?',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
+                                style: LightModeTheme().bodySmall.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -266,10 +248,10 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                     width: double.infinity,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).warning,
+                        color: LightModeTheme().warning,
                         width: 2,
                       ),
                     ),
@@ -282,7 +264,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
@@ -303,23 +285,17 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                             children: [
                               Text(
                                 'ReservaTuPista',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
+                                style: LightModeTheme().titleMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
                               Text(
                                 'Tu suscripción va a caducar',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
+                                style: LightModeTheme().bodySmall.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
@@ -341,10 +317,10 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                     width: double.infinity,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).errorGeneral,
+                        color: LightModeTheme().errorGeneral,
                         width: 2,
                       ),
                     ),
@@ -357,7 +333,7 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
@@ -378,23 +354,17 @@ class _ChatWidgetState extends GetView<_ChatWidgetState> {
                             children: [
                               Text(
                                 'Ayto Riolobos',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
+                                style: LightModeTheme().titleMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
                               Text(
                                 'La pista permanecerá cerrada todo el dia',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
+                                style: LightModeTheme().bodySmall.override(
                                       fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       letterSpacing: 0,
                                     ),
                               ),
