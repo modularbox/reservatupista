@@ -218,6 +218,11 @@ class UsuarioNode {
       int id, String token, List<String> listTypes) async {
     try {
       final url = Uri.parse('${DatosServer().urlServer}/usuario/datos');
+      print({
+        "Authorization": "Bearer $token",
+        "idusuario": id.toString(),
+        "datos": listTypes.join(', ')
+      });
       // Crear una solicitud multipart
       final response = await http.get(url, headers: {
         "Authorization": "Bearer $token",

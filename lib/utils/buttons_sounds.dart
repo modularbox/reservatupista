@@ -5,8 +5,6 @@ class ButtonsSounds {
   static AudioPlayer audioPlayer = AudioPlayer();
   // Función para reproducir el sonido
   static void playSound({String? sound}) async {
-    print(
-        "--------------------------------------------------------------------------------------------");
     final soundPath = sound ?? "assets/sounds/click_button.mp3";
     print(soundPath);
     try {

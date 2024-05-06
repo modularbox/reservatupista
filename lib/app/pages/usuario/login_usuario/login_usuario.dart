@@ -83,7 +83,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   ),
                   Container(
                     width: MediaQuery.sizeOf(context).width * kWidthPercentage,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       minWidth: 500, // Ajusta este valor según tus necesidades
                     ),
                     child: Column(
@@ -185,8 +185,6 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     required dynamic Function()? onPressed,
     required Key formKey,
   }) {
-    //db.getDatosUsuarioMoney();
-
     return Form(
       key: formKey,
       child: Column(
@@ -386,7 +384,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: BtnIcon(
                     onPressed: () async {
                       Get.toNamed(Routes.OLVIDE_CONTRASENA,

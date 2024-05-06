@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
-import 'package:reservatu_pista/app/ui/pages/monederovirtual_page/monederovirtual_c.dart';
 import 'package:reservatu_pista/backend/server_node.dart/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
