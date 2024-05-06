@@ -57,8 +57,7 @@ class DatosWidget extends GetView<DatosController> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 3.0,
@@ -78,12 +77,10 @@ class DatosWidget extends GetView<DatosController> {
                                         width: 90.0,
                                         height: 90.0,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent2,
+                                          color: LightModeTheme().accent2,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
+                                            color: LightModeTheme().secondary,
                                             width: 2.0,
                                           ),
                                         ),
@@ -98,8 +95,7 @@ class DatosWidget extends GetView<DatosController> {
                                           padding: EdgeInsets.all(0),
                                           borderWidth: 3,
                                           borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
+                                              LightModeTheme().secondary,
                                           fillColor: Color.fromARGB(
                                               255, 255, 255, 255),
                                           hoverColor: const Color.fromARGB(
@@ -125,7 +121,7 @@ class DatosWidget extends GetView<DatosController> {
                               FFLocalizations.of(context).getText(
                                 'jgqax4kd' /* Datos Personales */,
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: LightModeTheme()
                                   .labelLarge
                                   .copyWith(color: Colors.black),
                             ),
@@ -143,7 +139,7 @@ class DatosWidget extends GetView<DatosController> {
                               FFLocalizations.of(context).getText(
                                 'azrws2b9' /* Datos Ubicacion */,
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: LightModeTheme()
                                   .labelLarge
                                   .copyWith(color: Colors.black),
                             ),
@@ -161,7 +157,7 @@ class DatosWidget extends GetView<DatosController> {
                               FFLocalizations.of(context).getText(
                                 'h6ok3a23' /* Datos de Juego */,
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: LightModeTheme()
                                   .labelLarge
                                   .copyWith(color: Colors.black),
                             ),
@@ -184,13 +180,13 @@ class DatosWidget extends GetView<DatosController> {
                           //           EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           //       iconPadding:
                           //           EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                          //       color: FlutterFlowTheme.of(context).primary,
-                          //       textStyle: FlutterFlowTheme.of(context)
+                          //       color: LightModeTheme().primary,
+                          //       textStyle: LightModeTheme()
                           //           .bodyMedium
                           //           .override(
                           //             fontFamily: 'Readex Pro',
                           //             color:
-                          //                 FlutterFlowTheme.of(context).tertiary,
+                          //                 LightModeTheme().tertiary,
                           //           ),
                           //       elevation: 2,
                           //       borderSide: BorderSide(
@@ -216,12 +212,11 @@ class DatosWidget extends GetView<DatosController> {
                       height: 40,
                       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).tertiary,
-                              ),
+                      color: LightModeTheme().primary,
+                      textStyle: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().tertiary,
+                          ),
                       elevation: 2,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -259,53 +254,51 @@ class DatosWidget extends GetView<DatosController> {
                       counterText: '',
                       errorStyle: const TextStyle(fontSize: 0),
                       labelText: propertiesTextField.labelText,
-                      labelStyle: FlutterFlowTheme.of(context).titleSmall,
-                      hintStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: Color(0xFF95A1AC),
-                              ),
+                      labelStyle: LightModeTheme().titleSmall,
+                      hintStyle: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: Color(0xFF95A1AC),
+                          ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).lineColor,
+                          color: LightModeTheme().lineColor,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: LightModeTheme().primary,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
+                          color: LightModeTheme().error,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
+                          color: LightModeTheme().error,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
+                      fillColor: LightModeTheme().secondaryBackground,
                       contentPadding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 0.0, 24.0),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
+                    style: LightModeTheme().bodyMedium,
                     validator: (val) => self.validateTextField(
                         val,
                         propertiesTextField.anim,
                         propertiesTextField.focusNode,
                         propertiesTextField.labelText),
-                    cursorColor: FlutterFlowTheme.of(context).primary,
+                    cursorColor: LightModeTheme().primary,
                     readOnly: true,
                     onTap: () => SelectInputRegistrar(
                       context: context,
@@ -327,45 +320,45 @@ class DatosWidget extends GetView<DatosController> {
                     counterText: '',
                     errorStyle: const TextStyle(fontSize: 0),
                     labelText: propertiesTextField.labelText,
-                    labelStyle: FlutterFlowTheme.of(context).titleSmall,
-                    hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                    labelStyle: LightModeTheme().titleSmall,
+                    hintStyle: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           color: Color(0xFF95A1AC),
                         ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).lineColor,
+                        color: LightModeTheme().lineColor,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     filled: true,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    fillColor: LightModeTheme().secondaryBackground,
                     contentPadding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 0.0, 24.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: LightModeTheme().bodyMedium,
                   validator: (val) => self.validateTextField(
                       val,
                       propertiesTextField.anim,

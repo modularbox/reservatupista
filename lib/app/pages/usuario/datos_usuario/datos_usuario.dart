@@ -250,7 +250,7 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 3.0,
@@ -268,9 +268,8 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
               children: [
                 Text(
                   'Selecciona tu foto de perfil',
-                  style: FlutterFlowTheme.of(Get.context!)
-                      .labelLarge
-                      .copyWith(color: Colors.black),
+                  style:
+                      LightModeTheme().labelLarge.copyWith(color: Colors.black),
                 ),
                 Container(
                   width: 90.0,
@@ -335,8 +334,8 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                   height: 60,
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  color: FlutterFlowTheme.of(Get.context!).primaryBackground,
-                  textStyle: FlutterFlowTheme.of(Get.context!).bodyLarge,
+                  color: LightModeTheme().primaryBackground,
+                  textStyle: LightModeTheme().bodyLarge,
                   elevation: 2,
                   splashColor: const Color.fromARGB(65, 0, 0, 0),
                   borderSide: const BorderSide(

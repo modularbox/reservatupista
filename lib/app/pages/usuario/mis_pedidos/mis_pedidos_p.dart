@@ -3,10 +3,8 @@ import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/Widgets/detalles_p
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 
 class ListaPedidosWidget extends GetView<MisPedidosController> {
@@ -216,10 +214,8 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                                     .titleLarge
                                                     .override(
                                                       fontFamily: 'Outfit',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .reservaPendiente,
+                                                      color: LightModeTheme()
+                                                          .reservaPendiente,
                                                       letterSpacing: 0,
                                                     ),
                                               ),

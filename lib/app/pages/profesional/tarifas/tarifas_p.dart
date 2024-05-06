@@ -1,12 +1,8 @@
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:reservatu_pista/app/pages/profesional/facturas/factura_detalle_p.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class TarifasWidget extends StatefulWidget {
   const TarifasWidget({super.key});
@@ -23,18 +19,19 @@ class _TarifasWidgetState extends State<TarifasWidget> {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0, 0),
+            alignment: const AlignmentDirectional(0, 0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 25, 10, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 25, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -45,7 +42,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                             child: Stack(
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 40),
                                   child: PageView(
                                     scrollDirection: Axis.horizontal,
@@ -56,34 +53,30 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
+                                            onPressed: () {},
                                             text: '',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.arrow_back,
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 12, 0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 12, 0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                              color: LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0,
+                                                  ),
                                               elevation: 3,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -94,7 +87,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           Text(
                                             'Febrero',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -104,34 +97,30 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                                 ),
                                           ),
                                           FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
+                                            onPressed: () {},
                                             text: '',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.arrow_forward,
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 12, 0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 12, 0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                              color: LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0,
+                                                  ),
                                               elevation: 3,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -147,34 +136,30 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
+                                            onPressed: () {},
                                             text: '',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.arrow_back,
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 12, 0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 12, 0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                              color: LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0,
+                                                  ),
                                               elevation: 3,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -185,7 +170,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           Text(
                                             'Marzo',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -195,34 +180,30 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                                 ),
                                           ),
                                           FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
+                                            onPressed: () {},
                                             text: '',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.arrow_forward,
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 12, 0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 12, 0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                              color: LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0,
+                                                  ),
                                               elevation: 3,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -238,34 +219,30 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
+                                            onPressed: () {},
                                             text: '',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.arrow_back,
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 12, 0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 12, 0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                              color: LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0,
+                                                  ),
                                               elevation: 3,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -276,7 +253,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           Text(
                                             'Abril',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -286,34 +263,30 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                                 ),
                                           ),
                                           FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
+                                            onPressed: () {},
                                             text: '',
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.arrow_forward,
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 12, 0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 12, 0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 0),
+                                              color: LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0,
+                                                  ),
                                               elevation: 3,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
                                               ),
@@ -334,14 +307,15 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 30),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 30),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -349,20 +323,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 20, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             ' ',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -373,12 +347,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             'Club',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -389,12 +362,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             'Pistas',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -405,12 +377,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             'Reservas',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -421,12 +392,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 10),
                                           child: Text(
                                             'Pagos',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -440,20 +410,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 20, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             'Unidad',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -464,12 +434,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             ' 1',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -480,12 +449,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             '2',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -496,12 +464,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             '52',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -512,12 +479,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 10),
                                           child: Text(
                                             '200,00€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -532,12 +498,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent2,
+                                      color: LightModeTheme().aguamarina,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 10, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -546,9 +512,8 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 20),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 20),
                                             child: Text(
                                               'Precio',
                                               style: FlutterFlowTheme.of(
@@ -563,71 +528,59 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 20),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 20),
                                             child: Text(
                                               ' 20,00€',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 18,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 20),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 20),
                                             child: Text(
                                               '2,50€',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 18,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 20),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 20),
                                             child: Text(
                                               '0,40€',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 18,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 10),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 10),
                                             child: Text(
                                               '3%',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 18,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -635,20 +588,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             'Total',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -659,12 +612,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             '20,00€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -674,12 +626,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             '5,00€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -689,12 +640,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 20),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 20),
                                           child: Text(
                                             '27,20€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -704,12 +654,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 0, 10),
                                           child: Text(
                                             '14.40€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -730,14 +679,15 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 50),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(15, 0, 15, 50),
                     child: Container(
-                      height: 80,
+                      height: 90,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: LightModeTheme().primaryText,
                           width: 2,
                         ),
                       ),
@@ -745,19 +695,17 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            height: 100,
+                            height: 80,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.only(
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(8),
                                 bottomRight: Radius.circular(0),
                                 topLeft: Radius.circular(8),
                                 topRight: Radius.circular(0),
                               ),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                               ),
                             ),
                             child: Column(
@@ -765,27 +713,22 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                               children: [
                                 Text(
                                   'Pistas',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
                                       ),
                                 ),
                                 SizedBox(
-                                  width: 100,
+                                  width: 80,
                                   child: Divider(
                                     thickness: 1,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                   ),
                                 ),
                                 Text(
                                   'Precio',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
@@ -795,30 +738,28 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                             ),
                           ),
                           SizedBox(
-                            height: 100,
+                            height: 80,
                             child: VerticalDivider(
                               thickness: 1,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 15, 0),
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 0.65,
-                              height: 100,
+                              width: MediaQuery.sizeOf(context).width * 0.6,
+                              height: 80,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.only(
+                                color: LightModeTheme().secondaryBackground,
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(0),
                                   bottomRight: Radius.circular(8),
                                   topLeft: Radius.circular(0),
                                   topRight: Radius.circular(8),
                                 ),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   width: 2,
                                 ),
                               ),
@@ -829,13 +770,13 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '1',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -848,13 +789,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '3,00€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -866,21 +806,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '2',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -893,13 +832,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '2,50€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -911,24 +849,22 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent2,
+                                        color: LightModeTheme().aguamarina,
                                       ),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '3',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -941,13 +877,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '2,00€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -959,21 +894,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '4',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -986,13 +920,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '1,50€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1004,21 +937,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '5',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1031,13 +963,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '1,00€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1049,21 +980,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '6',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1076,13 +1006,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,50€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1094,21 +1023,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '7',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1121,13 +1049,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,20€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1139,21 +1066,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '8',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1166,13 +1092,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,10€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1184,21 +1109,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '9',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1211,13 +1135,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,05€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1238,14 +1161,15 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 50),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(15, 0, 15, 50),
                     child: Container(
-                      height: 80,
+                      height: 90,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: LightModeTheme().primaryText,
                           width: 2,
                         ),
                       ),
@@ -1253,19 +1177,17 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            height: 100,
+                            height: 80,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.only(
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(8),
                                 bottomRight: Radius.circular(0),
                                 topLeft: Radius.circular(8),
                                 topRight: Radius.circular(0),
                               ),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                               ),
                             ),
                             child: Column(
@@ -1273,27 +1195,22 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                               children: [
                                 Text(
                                   'Reservas',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
                                       ),
                                 ),
                                 SizedBox(
-                                  width: 100,
+                                  width: 80,
                                   child: Divider(
                                     thickness: 1,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                   ),
                                 ),
                                 Text(
                                   'Precio',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
@@ -1303,30 +1220,28 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                             ),
                           ),
                           SizedBox(
-                            height: 100,
+                            height: 80,
                             child: VerticalDivider(
                               thickness: 1,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 15, 0),
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 0.65,
-                              height: 100,
+                              width: MediaQuery.sizeOf(context).width * 0.6,
+                              height: 80,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.only(
+                                color: LightModeTheme().secondaryBackground,
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(0),
                                   bottomRight: Radius.circular(8),
                                   topLeft: Radius.circular(0),
                                   topRight: Radius.circular(8),
                                 ),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   width: 2,
                                 ),
                               ),
@@ -1337,13 +1252,13 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '25',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1356,13 +1271,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,50€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1374,21 +1288,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '50',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1401,13 +1314,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,40€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1419,24 +1331,22 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent2,
+                                        color: LightModeTheme().aguamarina,
                                       ),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '75',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1449,13 +1359,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,35€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1467,21 +1376,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
-                                            '100',
-                                            style: FlutterFlowTheme.of(context)
+                                            '80',
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1494,13 +1402,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,25€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1512,21 +1419,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '200',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1539,13 +1445,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,20€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1557,21 +1462,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '300',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1584,13 +1488,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,15€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1602,21 +1505,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '400',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1629,13 +1531,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,10€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1647,21 +1548,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '500',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1674,13 +1574,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,10€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1692,21 +1591,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '600',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1719,13 +1617,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '0,05€',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1746,14 +1643,15 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 50),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(15, 0, 15, 50),
                     child: Container(
-                      height: 80,
+                      height: 90,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: LightModeTheme().primaryText,
                           width: 2,
                         ),
                       ),
@@ -1761,19 +1659,17 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            height: 100,
+                            height: 80,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.only(
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(8),
                                 bottomRight: Radius.circular(0),
                                 topLeft: Radius.circular(8),
                                 topRight: Radius.circular(0),
                               ),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                               ),
                             ),
                             child: Column(
@@ -1781,27 +1677,22 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                               children: [
                                 Text(
                                   'Pagos',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
                                       ),
                                 ),
                                 SizedBox(
-                                  width: 100,
+                                  width: 80,
                                   child: Divider(
                                     thickness: 1,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: LightModeTheme().primaryText,
                                   ),
                                 ),
                                 Text(
                                   'Precio',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 20,
                                         letterSpacing: 0,
@@ -1811,30 +1702,28 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                             ),
                           ),
                           SizedBox(
-                            height: 100,
+                            height: 80,
                             child: VerticalDivider(
                               thickness: 1,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 15, 0),
                             child: Container(
-                              width: MediaQuery.sizeOf(context).width * 0.65,
-                              height: 100,
+                              width: MediaQuery.sizeOf(context).width * 0.6,
+                              height: 80,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.only(
+                                color: LightModeTheme().secondaryBackground,
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(0),
                                   bottomRight: Radius.circular(8),
                                   topLeft: Radius.circular(0),
                                   topRight: Radius.circular(8),
                                 ),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   width: 2,
                                 ),
                               ),
@@ -1845,13 +1734,13 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '25',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1864,13 +1753,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '3%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1882,21 +1770,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '50',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1909,13 +1796,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '2,75%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1927,24 +1813,22 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent2,
+                                        color: LightModeTheme().aguamarina,
                                       ),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '75',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1957,13 +1841,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '2,5%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -1975,21 +1858,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
-                                            '100',
-                                            style: FlutterFlowTheme.of(context)
+                                            '80',
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2002,13 +1884,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '2,25%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2020,21 +1901,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '200',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2047,13 +1927,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '2%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2065,21 +1944,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '300',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2092,13 +1970,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '1,75%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2110,21 +1987,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '400',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2137,13 +2013,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '1,50%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2155,21 +2030,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '500',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2182,13 +2056,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '1,25%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2200,21 +2073,20 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 100,
+                                      height: 80,
                                       child: VerticalDivider(
                                         thickness: 1,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                       ),
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
                                             '600',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2227,13 +2099,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                             child: Divider(
                                               thickness: 1,
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                  LightModeTheme().primaryText,
                                             ),
                                           ),
                                           Text(
                                             '1%',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -2254,14 +2125,14 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        Get.to(FacturaProveedorWidget());
+                        Get.to(const FacturaProveedorWidget());
                       },
                       child: Material(
                         color: Colors.transparent,
@@ -2273,13 +2144,12 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                           width: 130,
                           height: 40,
                           decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            color: LightModeTheme().primaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                offset: Offset(
+                                color: LightModeTheme().primaryText,
+                                offset: const Offset(
                                   0,
                                   2,
                                 ),
@@ -2287,7 +2157,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                             ],
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                             ),
                           ),
                           child: Row(
@@ -2295,12 +2165,10 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Text(
                                   'Facturas',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: LightModeTheme().bodyMedium.override(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 18,
                                         letterSpacing: 0,
@@ -2308,12 +2176,11 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    5, 0, 0, 0),
                                 child: Icon(
                                   Icons.event_note_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: LightModeTheme().primaryText,
                                   size: 30,
                                 ),
                               ),

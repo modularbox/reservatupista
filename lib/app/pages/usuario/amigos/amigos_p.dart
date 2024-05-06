@@ -52,7 +52,7 @@ class _AmigosPageState extends State<AmigosPage> {
               pinned: true,
               floating: true,
               snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+              backgroundColor: LightModeTheme().secondaryBackground,
               iconTheme: const IconThemeData(color: Color(0xFFFF0000)),
               automaticallyImplyLeading: false,
               leading: FlutterFlowIconButton(
@@ -62,7 +62,7 @@ class _AmigosPageState extends State<AmigosPage> {
                 buttonSize: 61,
                 icon: Icon(
                   Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: LightModeTheme().primaryText,
                   size: 30,
                 ),
                 onPressed: () async {
@@ -79,7 +79,7 @@ class _AmigosPageState extends State<AmigosPage> {
                       child: Text(
                         'Amigos',
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        style: LightModeTheme().bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               fontSize: 20,
                               letterSpacing: 0,
@@ -98,9 +98,7 @@ class _AmigosPageState extends State<AmigosPage> {
                           child: badges.Badge(
                             badgeContent: Text(
                               '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
                                     color: Colors.white,
                                     letterSpacing: 0,
@@ -108,7 +106,7 @@ class _AmigosPageState extends State<AmigosPage> {
                             ),
                             showBadge: true,
                             shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
+                            badgeColor: LightModeTheme().primary,
                             elevation: 4,
                             padding: EdgeInsets.all(8),
                             position: badges.BadgePosition.topEnd(),
@@ -122,8 +120,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                       8, 0, 0, 0),
                                   child: Icon(
                                     Icons.notifications_none,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
+                                    color: LightModeTheme().secondaryText,
                                     size: 24,
                                   ),
                                 ),
@@ -132,8 +129,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                       8, 0, 0, 0),
                                   child: Icon(
                                     Icons.chat_bubble_outline_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
+                                    color: LightModeTheme().secondaryText,
                                     size: 24,
                                   ),
                                 ),
@@ -192,19 +188,17 @@ class _AmigosPageState extends State<AmigosPage> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText: 'Buscar amigos...',
-                                              labelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF57636C),
-                                                        fontSize: 14,
-                                                        letterSpacing: 0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              labelStyle: LightModeTheme()
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color: Color(0xFF57636C),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: FlutterFlowTheme.of(
@@ -245,7 +239,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                               filled: true,
                                               fillColor: Colors.white,
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily:
@@ -278,16 +272,14 @@ class _AmigosPageState extends State<AmigosPage> {
                                           iconPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 0, 0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .usuario,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: Colors.white,
-                                                    letterSpacing: 0,
-                                                  ),
+                                          color: LightModeTheme().usuario,
+                                          textStyle: LightModeTheme()
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color: Colors.white,
+                                                letterSpacing: 0,
+                                              ),
                                           elevation: 3,
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
@@ -330,9 +322,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .usuario,
+                                              color: LightModeTheme().usuario,
                                               width: 2,
                                             ),
                                           ),
@@ -462,7 +452,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                                                 children: [
                                                                   FlutterFlowIconButton(
                                                                     borderColor:
-                                                                        FlutterFlowTheme.of(context)
+                                                                        LightModeTheme()
                                                                             .usuario,
                                                                     borderRadius:
                                                                         20,
@@ -584,9 +574,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .usuario,
+                                              color: LightModeTheme().usuario,
                                               width: 2,
                                             ),
                                           ),
@@ -831,9 +819,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .usuario,
+                                              color: LightModeTheme().usuario,
                                               width: 2,
                                             ),
                                           ),
@@ -1078,9 +1064,7 @@ class _AmigosPageState extends State<AmigosPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .usuario,
+                                              color: LightModeTheme().usuario,
                                               width: 2,
                                             ),
                                           ),
