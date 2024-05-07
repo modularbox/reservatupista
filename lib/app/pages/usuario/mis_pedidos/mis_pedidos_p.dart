@@ -3,8 +3,11 @@ import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/Widgets/detalles_p
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+import 'package:standard_searchbar/new/standard_search_anchor.dart';
+import 'package:standard_searchbar/new/standard_search_bar.dart';
+import 'package:standard_searchbar/new/standard_suggestion.dart';
+import 'package:standard_searchbar/new/standard_suggestions.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
 class ListaPedidosWidget extends GetView<MisPedidosController> {
@@ -50,71 +53,22 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                         color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: LightModeTheme().alternate,
+                          color: LightModeTheme().usuario,
+                          width: 2,
                         ),
                       ),
-                      child: Column(
+                      child: const Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 0, 12, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Icon(
-                                  Icons.search_rounded,
-                                  color: LightModeTheme().secondaryText,
-                                  size: 24,
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            4, 0, 0, 0),
-                                    child: SizedBox(
-                                      width: 200,
-                                      child: TextFormField(
-                                        controller: controller.textController,
-                                        focusNode:
-                                            controller.textFieldFocusNode,
-                                        autofocus: false,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: 'Buscar pedidos...',
-                                          labelStyle: LightModeTheme()
-                                              .labelMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                          hintStyle: LightModeTheme()
-                                              .labelMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                          enabledBorder: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          errorBorder: InputBorder.none,
-                                          focusedErrorBorder: InputBorder.none,
-                                          filled: true,
-                                          fillColor: LightModeTheme()
-                                              .secondaryBackground,
-                                        ),
-                                        style: LightModeTheme()
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
-                                        validator: controller
-                                            .textControllerValidator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                          StandardSearchAnchor(
+                            searchBar: StandardSearchBar(
+                              bgColor: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                            suggestions: StandardSuggestions(
+                              suggestions: [
+                                StandardSuggestion(text: 'Pedido #12345'),
+                                StandardSuggestion(text: 'Pedido #67890'),
+                                StandardSuggestion(text: 'Pedido #24680'),
                               ],
                             ),
                           ),
@@ -123,7 +77,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                     ),
                   ),
                 ),
-                Padding(
+                Container(
                   padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 4),
                   child: Text(
                     'Pedidos Recientes',
@@ -161,7 +115,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                                   color: LightModeTheme().secondaryBackground,
                                   borderRadius: BorderRadius.circular(16),
                                   border: Border.all(
-                                    color: LightModeTheme().primaryText,
+                                    color: LightModeTheme().reservaPendiente,
                                     width: 2,
                                   ),
                                 ),
@@ -258,7 +212,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                               color: LightModeTheme().secondaryBackground,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: LightModeTheme().primaryText,
+                                color: LightModeTheme().successGeneral,
                                 width: 2,
                               ),
                             ),
@@ -352,7 +306,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                               color: LightModeTheme().secondaryBackground,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: LightModeTheme().primaryText,
+                                color: LightModeTheme().errorGeneral,
                                 width: 2,
                               ),
                             ),

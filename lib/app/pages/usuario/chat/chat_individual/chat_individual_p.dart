@@ -1,5 +1,4 @@
 import 'package:get/route_manager.dart';
-import 'package:reservatu_pista/app/pages/usuario/chat/chat.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';

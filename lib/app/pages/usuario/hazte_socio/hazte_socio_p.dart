@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';

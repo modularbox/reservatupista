@@ -13,6 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   aligned_dialog: 0.0.6
+  standard_searchbar: ^2.0.0
   calendar_date_picker2: ^0.5.3
   auto_size_text: 3.0.0
   badges: 2.0.2

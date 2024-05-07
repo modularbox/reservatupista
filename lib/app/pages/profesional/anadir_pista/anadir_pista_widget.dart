@@ -64,12 +64,11 @@ class AnadirPistaWidget extends StatelessWidget {
                           24.0, 0.0, 24.0, 0.0),
                       iconPadding: const EdgeInsetsDirectional.fromSTEB(
                           0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).successGeneral,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
+                      color: LightModeTheme().successGeneral,
+                      textStyle: LightModeTheme().titleSmall.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().primaryText,
+                          ),
                       elevation: 3.0,
                       borderRadius: BorderRadius.circular(8.0),
                     ),

@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
@@ -25,7 +26,7 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(
@@ -41,21 +42,20 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                     decoration: InputDecoration(
                       labelText: 'Buscar partidas...',
                       hintText: 'Introduce el nombre de la partida...',
-                      hintStyle:
-                          FlutterFlowTheme.of(context).bodyLarge.override(
-                                fontFamily: 'Readex Pro',
-                                letterSpacing: 0,
-                              ),
+                      hintStyle: LightModeTheme().bodyLarge.override(
+                            fontFamily: 'Readex Pro',
+                            letterSpacing: 0,
+                          ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).usuario,
+                          color: LightModeTheme().usuario,
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).usuario,
+                          color: LightModeTheme().usuario,
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(8),
@@ -72,7 +72,7 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0,
                         ),
@@ -82,11 +82,11 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                   padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
                   child: Text(
                     'Historial de Partidas',
-                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    style: LightModeTheme().headlineMedium.override(
                         fontFamily: 'Outfit', letterSpacing: 0, fontSize: 20),
                   ),
                 ),
-                Padding(
+                Container(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -96,10 +96,12 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                width: 2,
+                                color: LightModeTheme().usuario,
+                              )),
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
@@ -118,19 +120,18 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                     children: [
                                       Text(
                                         'Partida 1',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
+                                        style:
+                                            LightModeTheme().bodyLarge.override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
                                           'Fecha: 2024-04-15',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .labelMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -144,12 +145,11 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                 Text(
                                   '15.00€',
                                   textAlign: TextAlign.end,
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineSmall
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        letterSpacing: 0,
-                                      ),
+                                  style:
+                                      LightModeTheme().headlineSmall.override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0,
+                                          ),
                                 ),
                               ],
                             ),
@@ -161,10 +161,12 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: LightModeTheme().usuario,
+                                width: 2,
+                              )),
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
@@ -183,19 +185,18 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                     children: [
                                       Text(
                                         'Partida 2',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
+                                        style:
+                                            LightModeTheme().bodyLarge.override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
                                           'Fecha: 2024-04-10',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .labelMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -209,12 +210,11 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                 Text(
                                   '20.00€',
                                   textAlign: TextAlign.end,
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineSmall
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        letterSpacing: 0,
-                                      ),
+                                  style:
+                                      LightModeTheme().headlineSmall.override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0,
+                                          ),
                                 ),
                               ],
                             ),
@@ -226,10 +226,12 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: LightModeTheme().usuario,
+                                width: 2,
+                              )),
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
@@ -248,19 +250,18 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                     children: [
                                       Text(
                                         'Partida 3',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
+                                        style:
+                                            LightModeTheme().bodyLarge.override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
                                           'Fecha: 2024-04-05',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .labelMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -274,12 +275,11 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                 Text(
                                   '30.00€',
                                   textAlign: TextAlign.end,
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineSmall
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        letterSpacing: 0,
-                                      ),
+                                  style:
+                                      LightModeTheme().headlineSmall.override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0,
+                                          ),
                                 ),
                               ],
                             ),
@@ -291,10 +291,12 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                              color: LightModeTheme().secondaryBackground,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: LightModeTheme().usuario,
+                                width: 2,
+                              )),
                           child: Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
@@ -313,19 +315,18 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                     children: [
                                       Text(
                                         'Partida 4',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0,
-                                            ),
+                                        style:
+                                            LightModeTheme().bodyLarge.override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0,
+                                                ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
                                           'Fecha: 2024-03-30',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .labelMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -339,12 +340,11 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                                 Text(
                                   '25.00€',
                                   textAlign: TextAlign.end,
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineSmall
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        letterSpacing: 0,
-                                      ),
+                                  style:
+                                      LightModeTheme().headlineSmall.override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0,
+                                          ),
                                 ),
                               ],
                             ),

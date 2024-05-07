@@ -38,7 +38,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                         Expanded(
                           child: Container(
                             width: double.infinity,
-                            height: 80,
+                            height: 90,
                             child: Stack(
                               children: [
                                 Padding(
@@ -67,7 +67,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                               iconPadding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
-                                              color: LightModeTheme().primary,
+                                              color: LightModeTheme().proveedor,
                                               textStyle: LightModeTheme()
                                                   .titleSmall
                                                   .override(
@@ -111,7 +111,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                               iconPadding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
-                                              color: LightModeTheme().primary,
+                                              color: LightModeTheme().proveedor,
                                               textStyle: LightModeTheme()
                                                   .titleSmall
                                                   .override(
@@ -150,7 +150,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                               iconPadding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
-                                              color: LightModeTheme().primary,
+                                              color: LightModeTheme().proveedor,
                                               textStyle: LightModeTheme()
                                                   .titleSmall
                                                   .override(
@@ -194,7 +194,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                               iconPadding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
-                                              color: LightModeTheme().primary,
+                                              color: LightModeTheme().proveedor,
                                               textStyle: LightModeTheme()
                                                   .titleSmall
                                                   .override(
@@ -233,7 +233,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                               iconPadding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
-                                              color: LightModeTheme().primary,
+                                              color: LightModeTheme().proveedor,
                                               textStyle: LightModeTheme()
                                                   .titleSmall
                                                   .override(
@@ -277,7 +277,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                                               iconPadding:
                                                   const EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
-                                              color: LightModeTheme().primary,
+                                              color: LightModeTheme().proveedor,
                                               textStyle: LightModeTheme()
                                                   .titleSmall
                                                   .override(
