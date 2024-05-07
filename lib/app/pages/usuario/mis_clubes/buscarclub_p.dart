@@ -12,7 +12,7 @@ class BuscarClubWidget extends GetView<BuscarClubController> {
 
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
-        title: 'Mis clubes',
+        title: 'Añadir club',
         page: TypePage.None,
         child: Expanded(child: _BuscarClubWidgetState()));
   }
@@ -33,9 +33,6 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
         child: Obx(() => Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                //
-                //Implementar buscador
-                //
                 ...List.generate(controller.clubes.length,
                     (i) => buildClub(context, controller.clubes[i])),
               ],
@@ -142,11 +139,11 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
                     alignment: Alignment.topRight,
                     child: IconButton(
                         onPressed: () {
-                          club.esFavorito = !club.esFavorito;
+                          club.esFavorito.value = !club.esFavorito.value;
                         },
                         iconSize: 50,
                         color: Colors.amber,
-                        icon: club.esFavorito
+                        icon: club.esFavorito.value
                             ? Icon(Icons.star)
                             : Icon(Icons.star_border))),
               ],

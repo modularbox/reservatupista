@@ -36,38 +36,41 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                 children: [
                   Align(
                     alignment: const AlignmentDirectional(1, 1),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ...List.generate(controller.clubes.length,
-                            (i) => buildClub(context, controller.clubes[i])),
-                        Flexible(
-                          child: Align(
-                            alignment: const AlignmentDirectional(1, 1),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 10, 60),
-                              child: FlutterFlowIconButton(
-                                borderColor: LightModeTheme().primaryBackground,
-                                borderRadius: 100,
-                                borderWidth: 0,
-                                buttonSize: 70,
-                                fillColor: LightModeTheme().secondaryText,
-                                icon: Icon(
-                                  Icons.add,
-                                  color: LightModeTheme().primaryBackground,
-                                  size: 40,
+                    child: Obx(() => Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ...List.generate(
+                                controller.clubes.length,
+                                (i) =>
+                                    buildClub(context, controller.clubes[i])),
+                            Flexible(
+                              child: Align(
+                                alignment: const AlignmentDirectional(1, 1),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 10, 60),
+                                  child: FlutterFlowIconButton(
+                                    borderColor:
+                                        LightModeTheme().primaryBackground,
+                                    borderRadius: 100,
+                                    borderWidth: 0,
+                                    buttonSize: 70,
+                                    fillColor: LightModeTheme().secondaryText,
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: LightModeTheme().primaryBackground,
+                                      size: 40,
+                                    ),
+                                    onPressed: () async {
+                                      Get.to(BuscarClubWidget());
+                                    },
+                                  ),
                                 ),
-                                onPressed: () async {
-                                  Get.to(BuscarClubWidget());
-                                },
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          ],
+                        )),
                   ),
                 ],
               ),
@@ -79,7 +82,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
   }
 
   Padding buildClub(BuildContext context, Club club) {
-    if (club.esFavorito) {
+    if (club.esFavorito.value) {
       String miembroDesde = 'Miembro desde hace ${club.antiguedad} años';
       return Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
