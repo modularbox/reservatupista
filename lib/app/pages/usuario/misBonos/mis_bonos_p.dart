@@ -71,25 +71,21 @@ class _MisBonosWidgetState extends GetView<MisBonosController> {
                               ),
                               child: Stack(
                                 children: [
-                                  Opacity(
-                                    opacity: 0.8,
-                                    child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0, -1),
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(0),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                        ),
-                                        child: Image.network(
-                                          'https://images.unsplash.com/photo-1646649853703-7645147474ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMnx8cGFkZWx8ZW58MHx8fHwxNzExNTM0MTgyfDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                          width:
-                                              MediaQuery.sizeOf(context).width,
-                                          height: 70,
-                                          fit: BoxFit.cover,
-                                        ),
+                                  Align(
+                                    alignment:
+                                        const AlignmentDirectional(0, -1),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(0),
+                                        bottomRight: Radius.circular(0),
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                      child: Image.network(
+                                        'https://images.unsplash.com/photo-1646649853703-7645147474ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMnx8cGFkZWx8ZW58MHx8fHwxNzExNTM0MTgyfDA&ixlib=rb-4.0.3&q=80&w=1080',
+                                        width: MediaQuery.sizeOf(context).width,
+                                        height: 80,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),

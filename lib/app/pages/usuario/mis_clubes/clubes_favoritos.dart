@@ -11,7 +11,7 @@ class ClubesFavoritos {
     ),
     Club(
       2,
-      "Cácers Pádel",
+      "Cáceres Pádel",
       "Cáceres",
       3,
       'https://images.unsplash.com/photo-1574379989050-bfd9e1a8a543?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxNXx8cGFkZWx8ZW58MHx8fHwxNzExMzk5MjQ4fDA&ixlib=rb-4.0.3&q=80&w=1080',

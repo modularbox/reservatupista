@@ -28,15 +28,91 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: LightModeTheme().primaryBackground,
-      body: SafeArea(
-        top: true,
-        child: Obx(() => Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ...List.generate(controller.clubes.length,
-                    (i) => buildClub(context, controller.clubes[i])),
-              ],
-            )),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Obx(() => Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                    child: SearchAnchor(
+                        viewConstraints: const BoxConstraints(
+                            minHeight: 100, maxHeight: 325),
+                        isFullScreen: false,
+                        viewSurfaceTintColor:
+                            LightModeTheme().secondaryBackground,
+                        viewBackgroundColor:
+                            LightModeTheme().secondaryBackground,
+                        builder: (BuildContext context,
+                            SearchController controller) {
+                          return SearchBar(
+                            hintText: "Buscar club...",
+                            backgroundColor: MaterialStateProperty.all(
+                                LightModeTheme().secondaryBackground),
+                            controller: controller,
+                            surfaceTintColor: MaterialStateProperty.all(
+                                LightModeTheme().secondaryBackground),
+                            overlayColor:
+                                MaterialStateColor.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return LightModeTheme().primaryBackground;
+                              }
+                              return LightModeTheme().secondaryBackground;
+                            }),
+                            padding: const MaterialStatePropertyAll<EdgeInsets>(
+                                EdgeInsets.symmetric(horizontal: 16.0)),
+                            onTap: () {
+                              controller.openView();
+                            },
+                            onChanged: (_) {
+                              controller.openView();
+                            },
+                            leading: const Icon(Icons.search),
+                          );
+                        },
+                        suggestionsBuilder: (BuildContext context,
+                            SearchController suggestcontroller) {
+                          return List.generate(
+                              controller.clubes.length,
+                              (i) => Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Material(
+                                      elevation: 2,
+                                      color: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(24)),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                          border:
+                                              Border.all(color: Colors.black),
+                                          color: LightModeTheme()
+                                              .primaryBackground,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Text(
+                                            controller.clubes[i].nombre,
+                                            style: LightModeTheme().bodyLarge,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ));
+                        }),
+                  ),
+                  ...List.generate(controller.clubes.length,
+                      (i) => buildClub(context, controller.clubes[i])),
+                  Container(
+                    height: 70,
+                  )
+                ],
+              )),
+        ),
       ),
     );
   }
