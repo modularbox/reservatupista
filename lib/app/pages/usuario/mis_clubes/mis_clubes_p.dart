@@ -49,7 +49,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                 alignment: const AlignmentDirectional(1, 1),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 60),
+                                      0, 35, 30, 60),
                                   child: FlutterFlowIconButton(
                                     borderColor:
                                         LightModeTheme().primaryBackground,

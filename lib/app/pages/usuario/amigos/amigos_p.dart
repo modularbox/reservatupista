@@ -58,7 +58,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 5, 0),
                                           child: TextFormField(
-                                            autofocus: true,
+                                            autofocus: false,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText: 'Buscar amigos...',
