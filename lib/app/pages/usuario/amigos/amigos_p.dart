@@ -1,164 +1,38 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
-import 'package:reservatu_pista/app/routes/index.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-class AmigosPage extends StatefulWidget {
+class AmigosPage extends GetView<AmigosController> {
   const AmigosPage({super.key});
 
   @override
-  State<AmigosPage> createState() => _AmigosPageState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Amigos',
+        page: TypePage.None,
+        child: Expanded(child: _AmigosPageState()));
+  }
 }
 
-class _AmigosPageState extends State<AmigosPage> {
-  // final AmigosModel _model;
-
+class _AmigosPageState extends GetView<AmigosController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    // _model.textController ??= TextEditingController();
-    // _model.textFieldFocusNode ??= FocusNode();
-  }
-
-  @override
-  void dispose() {
-    // _model.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      //  onTap: () => _model.unfocusNode.canRequestFocus
-      //    ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-      //    : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF1F4F8),
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (context, _) => [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: LightModeTheme().secondaryBackground,
-              iconTheme: const IconThemeData(color: Color(0xFFFF0000)),
-              automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 61,
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: LightModeTheme().primaryText,
-                  size: 30,
-                ),
-                onPressed: () async {
-                  Get.to(PerfilWidget());
-                },
-              ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: Text(
-                        'Amigos',
-                        textAlign: TextAlign.center,
-                        style: LightModeTheme().bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              letterSpacing: 0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-                          child: badges.Badge(
-                            badgeContent: Text(
-                              '1',
-                              style: LightModeTheme().bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            showBadge: true,
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: LightModeTheme().primary,
-                            elevation: 4,
-                            padding: EdgeInsets.all(8),
-                            position: badges.BadgePosition.topEnd(),
-                            animationType: badges.BadgeAnimationType.scale,
-                            toAnimate: true,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: LightModeTheme().secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.chat_bubble_outline_outlined,
-                                    color: LightModeTheme().secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_reservatupista.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
-            )
-          ],
+          headerSliverBuilder: (context, _) => [],
           body: Builder(
             builder: (context) {
               return Stack(

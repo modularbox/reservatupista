@@ -1,22 +1,27 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
-import 'package:reservatu_pista/app/routes/index.dart';
+import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_c.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-class AnadirAmigos extends StatefulWidget {
+class AnadirAmigos extends GetView<AnadirAmigosController> {
   const AnadirAmigos({super.key});
 
   @override
-  State<AnadirAmigos> createState() => _BuscadorAmigoWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarUsuario(
+        title: 'Añadir Amigos',
+        page: TypePage.None,
+        child: Expanded(child: _BuscadorAmigoWidgetState()));
+  }
 }
 
-class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
+class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,123 +32,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
         backgroundColor: const Color(0xFFF1F4F8),
         body: NestedScrollView(
           floatHeaderSlivers: true,
-          headerSliverBuilder: (context, _) => [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: const IconThemeData(color: Color(0xFFFF0000)),
-              automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 61,
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 30,
-                ),
-                onPressed: () async {
-                  Get.to(const PerfilWidget());
-                },
-              ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(-1, 0),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                      child: Text(
-                        'Añadir Amigos',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 20,
-                              letterSpacing: 0,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(1, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
-                          child: badges.Badge(
-                            badgeContent: Text(
-                              '1',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    letterSpacing: 0,
-                                  ),
-                            ),
-                            showBadge: true,
-                            shape: badges.BadgeShape.circle,
-                            badgeColor: FlutterFlowTheme.of(context).primary,
-                            elevation: 4,
-                            padding: const EdgeInsets.all(8),
-                            position: badges.BadgePosition.topEnd(),
-                            animationType: badges.BadgeAnimationType.scale,
-                            toAnimate: true,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.chat_bubble_outline_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/images/logo_reservatupista.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
-            )
-          ],
+          headerSliverBuilder: (context, _) => [],
           body: Builder(
             builder: (context) {
               return SingleChildScrollView(
