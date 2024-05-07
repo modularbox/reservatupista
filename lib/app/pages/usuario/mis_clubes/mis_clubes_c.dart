@@ -1,3 +1,28 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/modelos/club.dart';
 
-class MisClubesController extends GetxController {}
+class MisClubesController extends GetxController {
+  List clubes = [
+    Club(
+        1,
+        "Ayto Riolobos",
+        "Riolobos",
+        4,
+        'https://images.unsplash.com/photo-1612534847738-b3af9bc31f0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxwYWRlbHxlbnwwfHx8fDE3MTEzOTkyNDh8MA&ixlib=rb-4.0.3&q=80&w=1080',
+        true),
+    Club(
+        2,
+        "Cácers Pádel",
+        "Cáceres",
+        3,
+        'https://images.unsplash.com/photo-1574379989050-bfd9e1a8a543?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxNXx8cGFkZWx8ZW58MHx8fHwxNzExMzk5MjQ4fDA&ixlib=rb-4.0.3&q=80&w=1080',
+        false),
+    Club(
+        3,
+        "Ayto Calzada",
+        "Calzada",
+        1,
+        'https://images.unsplash.com/photo-1601646761285-65bfa67cd7a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw0fHxwYWRlbHxlbnwwfHx8fDE3MTEzOTkyNDh8MA&ixlib=rb-4.0.3&q=80&w=400',
+        true),
+  ];
+}

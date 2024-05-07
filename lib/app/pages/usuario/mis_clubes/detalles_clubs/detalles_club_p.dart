@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/hazte_socio/hazte_socio_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/Widgets/popup_correo.dart';
@@ -118,7 +117,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                     ],
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   width: double.infinity,
                                   height: 120,
                                   child: CarouselSlider(
@@ -273,8 +272,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Padel',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -309,8 +307,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Tenis',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -345,8 +342,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Badminton',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -381,8 +377,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'P.Climatizada',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -417,8 +412,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Piscina',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -453,8 +447,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Baloncesto',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -489,8 +482,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Fútbol sala',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -525,8 +517,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Fútbol 7',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -561,8 +552,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Fútbol 11',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -597,8 +587,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Pickleball',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -633,8 +622,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Squash',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -669,8 +657,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Tenis de mesa',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -705,8 +692,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Frontón',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -741,8 +727,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Balonmano',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -777,8 +762,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Rugby',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -813,8 +797,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                               ),
                                                               Text(
                                                                 'Multideporte',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -1048,7 +1031,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                                       .transparent,
                                                               onTap: () async {
                                                                 Get.dialog(
-                                                                    TelefonoComponenteWidget());
+                                                                    const TelefonoComponenteWidget());
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1081,7 +1064,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                                       .transparent,
                                                               onTap: () async {
                                                                 Get.dialog(
-                                                                    CorreoComponenteWidget());
+                                                                    const CorreoComponenteWidget());
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
@@ -1141,7 +1124,9 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                                             highlightColor:
                                                                 Colors
                                                                     .transparent,
-                                                            onTap: () async {},
+                                                            onTap: () async {
+                                                              abrirChat();
+                                                            },
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -1181,7 +1166,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                               10, 0, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () {
-                                          Get.to(ComprarBonosWidget());
+                                          Get.to(const ComprarBonosWidget());
                                         },
                                         text: 'Comprar bonos',
                                         icon: const Icon(
@@ -1217,7 +1202,7 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
                                     ),
                                     FFButtonWidget(
                                       onPressed: () {
-                                        Get.to(HazteSocioWidget());
+                                        Get.to(const HazteSocioWidget());
                                       },
                                       text: 'Hacerte socio',
                                       icon: const Icon(
@@ -1264,5 +1249,9 @@ class _DetalleClubWidgetState extends GetView<DetallesClubController> {
         ),
       ),
     );
+  }
+
+  void abrirChat() {
+    Get.to(const ChatIndividualWidget());
   }
 }

@@ -18,8 +18,8 @@ import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_b.dart'
 import 'package:reservatu_pista/app/pages/usuario/misBonos/comprar_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/misBonos/mis_bonos_p.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_b.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_clubes/anadirclub_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/buscarclub_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/buscarclub_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_b.dart';
@@ -116,7 +116,7 @@ abstract class Routes {
   static const AMIGOS = '/amigos_usuario';
   static const MIS_BONOS = '/bonos';
   static const ANADIR_AMIGOS = '/anadir_amigos';
-  static const ANADIR_CLUB = '/anadir_club';
+  static const BUSCAR_CLUB = '/buscar_club';
   static const HISTORIAL_USUARIO = '/historial_usuario';
   static const MIS_CLUBES = '/mis_clubes';
   static const COMPRAR_BONOS = '/comprar_bonos';
@@ -306,9 +306,9 @@ class AppPages {
       binding: AnadirAmigosBinding(),
     ),
     GetPage(
-      name: Routes.ANADIR_CLUB,
+      name: Routes.BUSCAR_CLUB,
       page: () => BuscarClubWidget(),
-      binding: AnadirClubBinding(),
+      binding: BuscarClubBinding(),
     ),
     GetPage(
       name: Routes.HISTORIAL_USUARIO,
