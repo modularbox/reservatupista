@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/backend/server_node/datos_server.dart';
-import 'package:reservatu_pista/backend/server_node/subir_image_node.dart';
-import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
+import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
+import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
@@ -15,8 +16,7 @@ import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
-import '../../../routes/database.dart';
-import '../../../routes/models/usuario_model.dart';
+import '../../../data/models/usuario_model.dart';
 import 'package:image/image.dart' as img;
 
 enum ImagenType { network, file, asset }
@@ -98,7 +98,7 @@ class DatosUsuarioController extends GetxController
 
   /// Variable usada para ver los cambios en la lista
   UsuarioModel? usuarioModel;
-  DatabaseController db = Get.find();
+  DBService db = Get.find();
 
   @override
   void onInit() {
@@ -112,7 +112,7 @@ class DatosUsuarioController extends GetxController
   void onOpenDialogEliminarCuenta() async {
     final storage = await SharedPreferences.getInstance();
     final String parametros =
-        '?id=${storage.idUsuario.read()}&user=0&token=${storage.token.read()}&email=${emailController.text}';
+        '?id=${storage.idUsuario.read()}&user=0&token=${storage.tokenUsuario.read()}&email=${emailController.text}';
     Get.dialog(LinkDialog(
       alertTitle: richTitleLink(
           '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
@@ -126,35 +126,35 @@ class DatosUsuarioController extends GetxController
   getDatosUsuario() async {
     try {
       final storage = await SharedPreferences.getInstance();
-      final List<TypeDatosServer> listTypes = [
-        TypeDatosServer.apellidos,
-        TypeDatosServer.nombre,
-        TypeDatosServer.nick,
-        TypeDatosServer.nivel,
-        TypeDatosServer.nombre,
-        TypeDatosServer.apellidos,
-        TypeDatosServer.sexo,
-        TypeDatosServer.DNI,
-        TypeDatosServer.lada,
-        TypeDatosServer.telefono,
-        TypeDatosServer.email,
-        TypeDatosServer.empadronamiento,
-        TypeDatosServer.comunidad_de_vecinos,
-        TypeDatosServer.direccion,
-        TypeDatosServer.codigo_postal,
-        TypeDatosServer.localidad,
-        TypeDatosServer.provincia,
-        TypeDatosServer.comunidad,
-        TypeDatosServer.nick,
-        TypeDatosServer.nivel,
-        TypeDatosServer.posicion,
-        TypeDatosServer.marca_pala,
-        TypeDatosServer.modelo_pala,
-        TypeDatosServer.juegos_semana,
-        TypeDatosServer.foto,
+      final List<String> listTypes = [
+        'apellidos',
+        'nombre',
+        'nick',
+        'nivel',
+        'nombre',
+        'apellidos',
+        'sexo',
+        'DNI',
+        'lada',
+        'telefono',
+        'email',
+        'empadronamiento',
+        'comunidad_de_vecinos',
+        'direccion',
+        'codigo_postal',
+        'localidad',
+        'provincia',
+        'comunidad',
+        'nick',
+        'nivel',
+        'posicion',
+        'marca_pala',
+        'modelo_pala',
+        'juegos_semana',
+        'foto',
       ];
-      final result =
-          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
+      final result = await UsuarioProvider()
+          .getUsuario(storage.idUsuario.read(), listTypes);
       // final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
         final List<String> listLada = [
@@ -480,7 +480,7 @@ class DatosUsuarioController extends GetxController
           final result = await UsuarioNode().modificarUsuarioNode(
               usuarioModel!.idUsuario, datosSQL, datosModificados);
           if (result.code == 2000) {
-            await Get.dialog(RichAlertDialog(
+            await Get.dialog(ChangeDialogGeneral(
               alertTitle: richTitle("Datos usuario"),
               alertSubtitle: richSubtitle(result.message),
               textButton: "Aceptar",
@@ -489,7 +489,7 @@ class DatosUsuarioController extends GetxController
             ));
             seModificaronDatos = true;
           } else {
-            await Get.dialog(RichAlertDialog(
+            await Get.dialog(ChangeDialogGeneral(
               alertTitle: richTitle("Datos usuario"),
               alertSubtitle: richSubtitle(result.messageError()),
               textButton: "Aceptar",
@@ -498,7 +498,7 @@ class DatosUsuarioController extends GetxController
             ));
           }
         } else {
-          await Get.dialog(RichAlertDialog(
+          await Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Datos usuario"),
             alertSubtitle: richSubtitle(
                 "Los datos del usuario\nse han modificado correctamente."),
@@ -551,11 +551,11 @@ class DatosUsuarioController extends GetxController
         print("Actualizar Imagen");
 
         /// Actualizar Image
-        db.imageServer.value =
+        db.fotoServer =
             '${UsuarioNode().getImageNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
 
         final storage = await SharedPreferences.getInstance();
-        storage.foto.write(db.imageServer.value);
+        storage.fotoUsuario.write(db.fotoServer);
         print('Seactualizo');
       } catch (e) {
         print(e);

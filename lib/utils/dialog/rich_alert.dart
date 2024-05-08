@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../sizer.dart';
 
-class RichAlertDialog extends StatefulWidget {
+class ChangeDialogGeneral extends StatefulWidget {
   /// The title of the dialog is displayed in a large font at the top
   /// of the dialog.
   ///
@@ -38,7 +38,7 @@ class RichAlertDialog extends StatefulWidget {
   final void Function()? onPressed;
   final String textButton;
 
-  RichAlertDialog({
+  ChangeDialogGeneral({
     Key? key,
     required this.alertTitle,
     required this.alertSubtitle,
@@ -51,10 +51,10 @@ class RichAlertDialog extends StatefulWidget {
     this.dialogIcon,
   }) : super(key: key);
 
-  createState() => _RichAlertDialogState();
+  createState() => _ChangeDialogGeneralState();
 }
 
-class _RichAlertDialogState extends State<RichAlertDialog> {
+class _ChangeDialogGeneralState extends State<ChangeDialogGeneral> {
   Map<int, AssetImage> _typeAsset = {
     RichAlertType.ERROR: AssetImage("assets/images/error.png"),
     RichAlertType.SUCCESS: AssetImage("assets/images/success.png"),

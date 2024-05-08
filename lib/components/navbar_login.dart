@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
-import '../app/routes/database.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,9 +12,7 @@ extension SizedBoxExt on double {
 }
 
 class NavBarLogin extends StatelessWidget {
-  NavBarLogin({super.key});
-
-  DatabaseController db = Get.find();
+  const NavBarLogin({super.key});
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -40,8 +37,8 @@ class NavBarLogin extends StatelessWidget {
 
   void launchWhatsApp() async {
     String url = "https://wa.me/34653483483";
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       throw 'No se pudo abrir WhatsApp.';
     }
@@ -53,16 +50,19 @@ class NavBarLogin extends StatelessWidget {
       children: [
         Positioned(
           bottom: 90,
-          left: 75,
-          child: Container(
-            width: MediaQuery.of(context).size.width - (155),
-            constraints: const BoxConstraints(maxWidth: 300),
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Text(
-                'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelSmall,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              width: MediaQuery.of(context).size.width - (155),
+              height: 40,
+              constraints: const BoxConstraints(maxWidth: 300),
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Text(
+                  'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).labelSmall,
+                ),
               ),
             ),
           ),
@@ -88,11 +88,11 @@ class NavBarLogin extends StatelessWidget {
             width: 60.0,
             height: 60.0,
             decoration: BoxDecoration(
-              color: Color(0xFF00E676),
+              color: const Color(0xFF00E676),
               borderRadius: BorderRadius.circular(50.0),
             ),
             child: BtnIcon(
-              hoverColor: Color.fromARGB(117, 0, 0, 0),
+              hoverColor: const Color.fromARGB(117, 0, 0, 0),
               borderRadius: 30,
               onPressed: () =>
                   _launchInBrowser(Uri.parse("https://wa.me/34653483483")),
@@ -132,38 +132,7 @@ class NavBarLogin extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Material(
-                                color: Colors.transparent,
-                                child: Versions(
-                                  getWidth: Get.width,
-                                  onPressed: Get.back,
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          'Version ${db.version}',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                fontSize: 10,
-                                fontStyle: FontStyle.italic,
-                              ),
-                        ),
-                      ),
+                      Versions(),
                       BtnIcon(
                         hoverColor: const Color.fromARGB(144, 255, 255, 255),
                         padding: const EdgeInsets.all(0),

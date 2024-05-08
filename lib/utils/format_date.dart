@@ -44,7 +44,18 @@ class FormatDate {
   }
 
   static String traduceMes(String mesAndYear) {
-    final split = mesAndYear.split(" ");
-    return "${split[0].toUpperCase()} ${split[2]}";
+    try {
+      final split = mesAndYear.split(" ");
+      // Esto si el idioma esta en ingles
+      if (split.length == 2) {
+        return "${mesesES[split[0]]} ${split[1]}";
+      }
+      // Esto si el idioma esta en ingles
+      if (split.length == 3) {
+        return "${split[0].toUpperCase()} ${split[2]}";
+      }
+      // ignore: empty_catches
+    } catch (e) {}
+    return mesAndYear;
   }
 }

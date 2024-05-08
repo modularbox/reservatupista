@@ -4,10 +4,9 @@ import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:reservatu_pista/app/routes/models/geonames_model.dart';
-import 'package:reservatu_pista/backend/server_node/geonames_node.dart';
-import '../../../../backend/server_node/proveedor_node.dart';
-import '../../../../backend/server_node/subir_image_node.dart';
+import 'package:reservatu_pista/app/data/models/geonames_model.dart';
+import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
+import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
@@ -52,7 +51,7 @@ class RegistrarProveedorController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    // onInitForm();
+    onInitForm();
     //Inicializar los botones
     btns = ButtonsPage(controller: this);
     // Inicializar la animacion de terminos y condiciones
@@ -82,6 +81,8 @@ class RegistrarProveedorController extends GetxController
     tc.contrasena.text = '12345678';
     tc.contrasenaComprobar.text = '12345678';
     tc.certificadoCuenta.text = 'djfhisdfh';
+    tc.foto.text = '1706914357922';
+    imageFile.value = '1706914357922';
   }
 
   /// Subir los datos al servidor
@@ -97,14 +98,16 @@ class RegistrarProveedorController extends GetxController
         final String formattedDate =
             DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 
-        String nameFoto = now.millisecondsSinceEpoch.toString();
+        // String nameFoto = now.millisecondsSinceEpoch.toString();
+        String nameFoto = tc.foto.text;
+
         // Subir Imagen en nodejs y reducir su tamano
-        await subirImageNode(await imageResize(imageFile.value!),
-            destination: 'proveedores', nameFoto: nameFoto);
+        // await subirImageNode(await imageResize(imageFile.value!),
+        //     destination: 'proveedores', nameFoto: nameFoto);
 
         // Subir Imagen del certificado
-        await subirImageNode(await imageResize(imageFileCertificado.value!),
-            destination: 'proveedores', nameFoto: '${nameFoto}_CC');
+        // await subirImageNode(await imageResize(imageFileCertificado.value!),
+        //     destination: 'proveedores', nameFoto: '${nameFoto}_CC');
 
         /// Insertar los datos en SQL en la tabla
         List<int> bytes = utf8.encode(tc.contrasena.text);
@@ -146,11 +149,11 @@ class RegistrarProveedorController extends GetxController
         ];
 
         /// Subir los datos al servidor
-        final result = await ProveedorNode().anadirProveedorNode(
+        final result = await ProveedorProvider().registrarProveedor(
             datosSQLProveedor, datosSQLClub, datosSQLocalidades);
         if (result.code == 2000) {
           /// Regresar al inicio y enviar el email.
-          await Get.dialog(RichAlertDialog(
+          await Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog
             alertTitle: richTitle("Registro proveedor"),
             alertSubtitle: richSubtitle(result.message),
@@ -162,7 +165,7 @@ class RegistrarProveedorController extends GetxController
           ));
         } else {
           /// Regresar al inicio y enviar el email.
-          await Get.dialog(RichAlertDialog(
+          await Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog
             alertTitle: richTitle("Registro proveedor"),
             alertSubtitle: richSubtitle(result.messageError()),
@@ -189,7 +192,8 @@ class RegistrarProveedorController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostalFiscal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        final direccion =
+            await GeoNamesProvider().getLocalizacion(codigoPostal);
         if (direccion is GeoNamesModel) {
           tc.localidadFiscal.text = direccion.localidad;
           tc.comunidadFiscal.text = direccion.comunidad;
@@ -216,7 +220,8 @@ class RegistrarProveedorController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        final direccion =
+            await GeoNamesProvider().getLocalizacion(codigoPostal);
         if (direccion is GeoNamesModel) {
           tc.localidad.text = direccion.localidad;
           tc.comunidad.text = direccion.comunidad;

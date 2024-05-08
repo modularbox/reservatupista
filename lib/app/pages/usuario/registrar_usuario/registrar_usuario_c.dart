@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+// import 'package:image_picker_web/image_picker_web.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/app/routes/models/geonames_model.dart';
-import 'package:reservatu_pista/backend/server_node/geonames_node.dart';
-import '../../../../backend/server_node/subir_image_node.dart';
-import '../../../../backend/server_node/usuario_node.dart';
+import 'package:reservatu_pista/app/data/models/geonames_model.dart';
+import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
+import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
+import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dialog/rich_alert.dart';
@@ -44,13 +45,15 @@ class RegistrarUsuarioController extends GetxController
   late AnimationController animTerminos;
   // Guardar imagen del usuario
   final imageFile = Rxn<String>();
+  // Obtener imagen en Web
+  final imageWeb = Rxn<Uint8List>();
   // Botones para las peticiones de cambiar imagen
   late ButtonsPage btns;
 
   @override
   void onInit() {
     super.onInit();
-    // onInitForm();
+    onInitForm();
     apiExisteNick.empty();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
@@ -71,7 +74,7 @@ class RegistrarUsuarioController extends GetxController
     tc.dni.text = '12345678D';
     tc.lada.text = '🇪🇸 +34';
     tc.telefono.text = '999999999';
-    tc.email.text = 'app@reservatupista.com';
+    tc.email.text = 'ya3@ya3.com';
     tc.direccion.text = 'Direccion';
     tc.codigoPostal.text = '12345';
     tc.localidad.text = 'Localidad';
@@ -97,7 +100,7 @@ class RegistrarUsuarioController extends GetxController
     // Muestra el estado de carga
     apiExisteNick.loading();
     try {
-      final existe = await UsuarioNode().getUsuarioExisteNick(nick);
+      final existe = await UsuarioProvider().getUsuarioExisteNick(nick);
       apiExisteNick.success(existe);
     } catch (error) {
       // En caso de error, muestra el mensaje de error
@@ -111,7 +114,8 @@ class RegistrarUsuarioController extends GetxController
       // Muestra el estado de carga
       apiCodigoPostal.changeStatus(RxStatusDemo.loading());
       try {
-        final direccion = await GeoNamesNode().getLocalizacion(codigoPostal);
+        final direccion =
+            await GeoNamesProvider().getLocalizacion(codigoPostal);
         if (direccion is GeoNamesModel) {
           tc.localidad.text = direccion.localidad;
           tc.comunidad.text = direccion.comunidad;
@@ -139,20 +143,19 @@ class RegistrarUsuarioController extends GetxController
         // Obtener la fecha actual
         final DateTime now = DateTime.now();
         // Formatear la fecha en el formato deseado
-        final String formattedDate =
-            DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
         String nameFoto = now.millisecondsSinceEpoch.toString();
-        if (imageFile.value![0] == '@') {
-          // Nombre de la foto
-          nameFoto = now.millisecondsSinceEpoch.toString();
+        if (imageWeb.value != null) {
+          print(
+              '=================== Subir imagen en bytres =====================');
+          // Subir Imagen en nodejs y reducir su tamano en bytes
+          await subirImageNodeBytes(await imageResizeBytes(imageWeb.value!));
+        } else if (imageFile.value![0] == '@') {
           // Subir Imagen en nodejs y copiarAssetLocal
           await subirImageNode(
               await copiarAssetAFile(imageFile.value!.substring(1)),
               destination: 'usuarios',
               nameFoto: nameFoto);
         } else {
-          // Nombre de la foto
-          nameFoto = now.millisecondsSinceEpoch.toString();
           // Subir Imagen en nodejs y reducir su tamano
           await subirImageNode(await imageResize(imageFile.value!),
               destination: 'usuarios', nameFoto: nameFoto);
@@ -183,7 +186,6 @@ class RegistrarUsuarioController extends GetxController
         final juegos_semana = tc.juegoPorSemana.text;
         final contrasena = hashConstrasena;
         final foto = nameFoto;
-        final fecha_registro = formattedDate;
 
         final datosSQL = [
           nombre,
@@ -207,23 +209,31 @@ class RegistrarUsuarioController extends GetxController
           modelo_pala,
           juegos_semana,
           contrasena,
-          foto,
-          fecha_registro
+          foto
         ];
-        await UsuarioNode().anadirUsuarioNode(datosSQL);
 
-        /// Regresar al inicio y enviar el email.
-        await Get.dialog(RichAlertDialog(
-          //uses the custom alert dialog
-          alertTitle: richTitle("Registro usuario"),
-          alertSubtitle:
-              richSubtitle("Compruebe su correo para finalizar el registro."),
-          textButton: "Ir a Login",
-          alertType: RichAlertType.SUCCESS,
-          onPressed: () {
-            Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
-          },
-        ));
+        /// Registrar al registrar al usuario
+        // final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
+        // if (registrar) {
+        //   await Get.dialog(ChangeDialogGeneral(
+        //     alertTitle: richTitle("Registro usuario"),
+        //     alertSubtitle:
+        //         richSubtitle("Compruebe su correo para finalizar el registro."),
+        //     textButton: "Ir a Login",
+        //     alertType: RichAlertType.SUCCESS,
+        //     onPressed: () {
+        //       Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
+        //     },
+        //   ));
+        // } else {
+        //   await Get.dialog(ChangeDialogGeneral(
+        //     alertTitle: richTitle("Registro usuario"),
+        //     alertSubtitle: richSubtitle("Error al registrar al usuario."),
+        //     textButton: "Cerrar",
+        //     alertType: RichAlertType.WARNING,
+        //     onPressed: Get.back,
+        //   ));
+        // }
       } catch (e) {
         print(e);
       }
@@ -247,6 +257,26 @@ class RegistrarUsuarioController extends GetxController
     // Regresar la imagen comprimida
     return File(path)
       ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 60));
+  }
+
+  /// Reducir imagen en bytes
+  Future<Uint8List> imageResizeBytes(Uint8List imageData) async {
+    // Decodificar la imagen desde Uint8List
+    img.Image image = img.decodeImage(imageData)!;
+
+    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
+    img.Image compressedImage = img.copyResize(
+      image,
+      width: 150,
+      height: 300,
+    );
+
+    // Codificar la imagen como Uint8List
+    Uint8List compressedImageData =
+        Uint8List.fromList(img.encodeJpg(compressedImage, quality: 60));
+
+    // Devolver la imagen comprimida
+    return compressedImageData;
   }
 
   Future<File> copiarAssetAFile(String path) async {
@@ -341,7 +371,11 @@ class RegistrarUsuarioController extends GetxController
     } else {
       final pickedFile = await ImagePicker().pickImage(source: source);
       if (pickedFile != null) {
-        imageFile.value = pickedFile.path;
+        if (isWeb) {
+          imageWeb.value = await pickedFile.readAsBytes();
+        } else {
+          imageFile.value = pickedFile.path;
+        }
         tc.foto.text = 'IMG';
       }
     }

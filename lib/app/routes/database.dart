@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node/datos_server.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../backend/server_node/proveedor_node.dart';
-import '../../backend/server_node/usuario_node.dart';
-import 'models/club_model.dart';
-import 'models/datos_reservas_pista.dart';
-import 'models/proveedor_model.dart';
-import 'models/usuario_model.dart';
+import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
+import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
+import '../data/models/club_model.dart';
+import '../data/models/datos_reservas_pista.dart';
+import '../data/models/proveedor_model.dart';
+import '../data/models/usuario_model.dart';
 
 class DatabaseBinding implements Bindings {
   @override
@@ -79,7 +79,7 @@ class DatabaseController extends GetxController {
   Future<void> getImageServer() async {
     try {
       final storage = await SharedPreferences.getInstance();
-      imageServer.value = storage.foto.read();
+      imageServer.value = storage.fotoUsuario.read();
     } catch (e) {
       print(e);
     }
@@ -88,15 +88,15 @@ class DatabaseController extends GetxController {
   Future<bool> getDatosUsuarioId() async {
     try {
       final storage = await SharedPreferences.getInstance();
-      final List<TypeDatosServer> listTypes = [
-        TypeDatosServer.apellidos,
-        TypeDatosServer.nombre,
-        TypeDatosServer.nick,
-        TypeDatosServer.nivel,
-        TypeDatosServer.foto
+      final List<String> listTypes = [
+        'apellidos',
+        'nombre',
+        'nick',
+        'nivel',
+        'foto'
       ];
-      final result =
-          await UsuarioNode().getUsuario(storage.idUsuario.read(), listTypes);
+      final result = await UsuarioProvider()
+          .getUsuario(storage.idUsuario.read(), listTypes);
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageNode(result.foto);
         datosUsuarioPerfil = result;
@@ -112,12 +112,7 @@ class DatabaseController extends GetxController {
 
   Future<void> getDatosClubId() async {
     try {
-      final storage = await SharedPreferences.getInstance();
-      final List<TypeDatosServerClub> listTypes = [
-        TypeDatosServerClub.nombre,
-      ];
-      final result =
-          await ProveedorNode().getClub(storage.idClub.read(), listTypes);
+      final result = await ProveedorProvider().getClub(['nombre']);
       if (result is ClubModel) {
         datosPerfilClub.success(result);
       }

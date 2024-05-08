@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node/image_server_node.dart';
+import 'package:reservatu_pista/app/data/models/mis_pistas_model.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
-import '../../../routes/models/mis_pistas_model.dart';
 import './mis_pistas_c.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -33,37 +34,40 @@ class MisPistasPage extends GetView<MisPistasController> {
         title: 'Mis Pistas',
         page: TypePage.MisReservas,
         child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Obx(() => SizedBox(
-                          height: 50,
-                          child: PageView(
-                            controller: self.pageViewController ??=
-                                PageController(initialPage: 1),
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: buildListFecha(),
-                          ),
-                        )),
-                    Obx(() => SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: buildListDeportes())
-                              .animateOnPageLoad(self.animationPistaDeporte),
-                        )),
-                  ],
-                ),
-                5.0.sh,
-                buildPistas(),
-              ],
+          child: ResponsiveWeb(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Obx(() => SizedBox(
+                            height: 50,
+                            child: PageView(
+                              controller: self.pageViewController ??=
+                                  PageController(initialPage: 1),
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: buildListFecha(),
+                            ),
+                          )),
+                      Obx(() => SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: buildListDeportes())
+                                .animateOnPageLoad(self.animationPistaDeporte),
+                          )),
+                    ],
+                  ),
+                  5.0.sh,
+                  buildPistas(),
+                ],
+              ),
             ),
           ),
         ));
@@ -152,8 +156,9 @@ class MisPistasPage extends GetView<MisPistasController> {
             children: [
               SizedBox(
                 height: 50,
+                width: 50,
                 child: Image.network(
-                  'https://www.adslzone.net/app/uploads-adslzone.net/2022/02/${e.image}.png',
+                  DatosServer.online(e.image),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -170,11 +175,11 @@ class MisPistasPage extends GetView<MisPistasController> {
         BtnIcon(
           onPressed: () => self.onPressDeporte(e.nombre),
           padding: const EdgeInsets.all(0.0),
-          hoverColor: Colores().proveedor.primary69,
+          hoverColor: Colores.proveedor.primary69,
           borderRadius: 10,
           borderWidth: self.deporte == e.nombre ? 1 : null,
           borderColor:
-              self.deporte == e.nombre ? Colores().proveedor.primary : null,
+              self.deporte == e.nombre ? Colores.proveedor.primary : null,
           icon: Container(
             height: 70,
             width: self.deportesWidth.value[index],
@@ -244,7 +249,7 @@ class MisPistasPage extends GetView<MisPistasController> {
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
-          border: Border.all(width: 1, color: Colores().grisClaro),
+          border: Border.all(width: 1, color: Colores.grisClaro),
         ),
         child: Align(
           alignment: const AlignmentDirectional(0, 0),
@@ -264,8 +269,7 @@ class MisPistasPage extends GetView<MisPistasController> {
                         topRight: Radius.circular(0),
                       ),
                       child: Image.network(
-                        ImageServerNetwork.pista(pista.imagenPatrocinador)
-                            .urlImage,
+                        DatosServer.pista(pista.imagenPatrocinador),
                         width: 50,
                         height: 50,
                         fit: BoxFit.fill,
@@ -339,15 +343,15 @@ class MisPistasPage extends GetView<MisPistasController> {
       buildPartida(
           title: 'Libre',
           numPartidas: totalLibre.toString(),
-          color: Colores().sucessGeneral),
+          color: Colores.sucessGeneral),
       buildPartida(
           title: 'Abierta',
           numPartidas: totalAbierta.toString(),
-          color: Colores().orange),
+          color: Colores.orange),
       buildPartida(
           title: 'Cerrada',
           numPartidas: totalCerrada.toString(),
-          color: Colores().rojo),
+          color: Colores.rojo),
       buildPartida(
           title: 'Total', numPartidas: '0/$total', color: Colors.black),
     ];

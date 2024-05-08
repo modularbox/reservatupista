@@ -94,14 +94,14 @@ class BuildInput extends GetView<RegistrarProveedorController> {
                             ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colores().proveedor.primary,
+                            color: Colores.proveedor.primary,
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colores().proveedor.primary160,
+                            color: Colores.proveedor.primary160,
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
@@ -159,21 +159,21 @@ class BuildInput extends GetView<RegistrarProveedorController> {
                               ),
                           disabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colores().proveedor.primary160,
+                              color: Colores.proveedor.primary160,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colores().proveedor.primary,
+                              color: Colores.proveedor.primary,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colores().proveedor.primary,
+                              color: Colores.proveedor.primary,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),

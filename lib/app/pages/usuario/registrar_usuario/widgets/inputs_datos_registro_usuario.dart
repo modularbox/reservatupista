@@ -152,6 +152,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           maxLength: 5,
           inputFormatters: [SinEspaciosInputFormatter(), SoloNumeros()],
           isFocusNode: true,
+          isRequired: false,
           suffixIcon: self.apiCodigoPostal.obx(
               (state) => state!
                   ? const Icon(
@@ -338,7 +339,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
             visibility.value
                 ? Icons.visibility_outlined
                 : Icons.visibility_off_outlined,
-            color: Colores().usuario.primary,
+            color: Colores.usuario.primary,
             size: 22,
           ),
         ),

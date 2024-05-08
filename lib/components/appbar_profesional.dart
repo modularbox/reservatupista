@@ -50,7 +50,7 @@ class AppbarProfesional extends StatelessWidget {
       return [
         BtnIcon(
           borderColor: Colors.transparent,
-          hoverColor: Colores().proveedor.primary69,
+          hoverColor: Colores.proveedor.primary69,
           borderRadius: 30.0,
           borderWidth: 1.0,
           buttonSize: 55.0,
@@ -96,7 +96,7 @@ class AppbarProfesional extends StatelessWidget {
                   borderRadius: 30,
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
-                  hoverColor: Colores().proveedor.primary69,
+                  hoverColor: Colores.proveedor.primary69,
                   iconSize: 24,
                   icon: badges.Badge(
                     badgeContent: Text(
@@ -108,7 +108,7 @@ class AppbarProfesional extends StatelessWidget {
                     ),
                     showBadge: true,
                     shape: badges.BadgeShape.circle,
-                    badgeColor: Colores().proveedor.primary,
+                    badgeColor: Colores.proveedor.primary,
                     elevation: 4,
                     padding: EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
@@ -126,7 +126,7 @@ class AppbarProfesional extends StatelessWidget {
                   borderRadius: 30,
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
-                  hoverColor: Colores().proveedor.primary69,
+                  hoverColor: Colores.proveedor.primary69,
                   iconSize: 24,
                   icon: badges.Badge(
                     badgeContent: Text(
@@ -138,7 +138,7 @@ class AppbarProfesional extends StatelessWidget {
                     ),
                     showBadge: true,
                     shape: badges.BadgeShape.circle,
-                    badgeColor: Colores().proveedor.primary,
+                    badgeColor: Colores.proveedor.primary,
                     elevation: 4,
                     padding: EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
@@ -157,7 +157,7 @@ class AppbarProfesional extends StatelessWidget {
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
                   iconSize: 24,
-                  hoverColor: Colores().usuario.primary69,
+                  hoverColor: Colores.usuario.primary69,
                   icon: Container(
                       width: 40,
                       height: 40,

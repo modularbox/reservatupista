@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-class Colores {
-  final ColoresProveedor proveedor = ColoresProveedor();
-  final ColoresUsuario usuario = ColoresUsuario();
-  final Color rojo = const Color(0xFFF77066);
-  final Color orange = const Color(0xFFFFA500);
-  final Color grisClaro = const Color.fromRGBO(220, 220, 220, 1.0);
-  final Color sucessGeneral = const Color(0xFF46EF98);
+abstract final class Colores {
+  static final ColoresProveedor proveedor = ColoresProveedor();
+  static final ColoresUsuario usuario = ColoresUsuario();
+  static const Color rojo = Color(0xFFF77066);
+  static const Color orange = Color(0xFFFFA500);
+  static const Color grisClaro = Color.fromRGBO(220, 220, 220, 1.0);
+  static const Color sucessGeneral = Color(0xFF46EF98);
 }
 
 class ColoresProveedor {

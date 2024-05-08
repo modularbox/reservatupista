@@ -208,7 +208,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       opacity: _fadeOpacity,
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(color: Colores().proveedor.primary, width: 2),
+            border: Border.all(color: Colores.proveedor.primary, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(

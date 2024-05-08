@@ -1,3 +1,5 @@
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/components/nav_bar_usuario/nav_bar_usuario_widget.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '/backend/schema/enums/enums.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'appbar_usuario.dart';
 
-class NavbarYAppbarUsuario extends StatelessWidget {
+class NavbarYAppbarUsuario extends GetView<DBService> {
   const NavbarYAppbarUsuario({
     super.key,
     required this.child,

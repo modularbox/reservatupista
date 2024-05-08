@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '/backend/schema/enums/enums.dart';
@@ -32,52 +33,56 @@ class AnadirPistaPage extends GetView<AnadirPistaController> {
       child: Expanded(
         child: SingleChildScrollView(
           controller: self.scrollController,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Form(
-                key: self.formKey,
-                autovalidateMode: AutovalidateMode.disabled,
-                child: const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: SingleChildScrollView(child: ListInputs()),
+          child: ResponsiveWeb(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Form(
+                  key: self.formKey,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  child: const Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    child: SingleChildScrollView(child: ListInputs()),
+                  ),
                 ),
-              ),
-              10.0.sh,
-              Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
-                child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      // _model.formKey.currentState!.validate();
-                      // anims.horaInicio.forward();
-                      self.crearPista();
-                      // anadirPistaNode();
-                    },
-                    text: 'Crear Pista',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          24.0, 0.0, 24.0, 0.0),
-                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).successGeneral,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                      elevation: 3.0,
-                      borderRadius: BorderRadius.circular(8.0),
+                10.0.sh,
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 10.0, 0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        // _model.formKey.currentState!.validate();
+                        // anims.horaInicio.forward();
+                        self.crearPista();
+                        // anadirPistaNode();
+                      },
+                      text: 'Crear Pista',
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).successGeneral,
+                        textStyle: FlutterFlowTheme.of(context)
+                            .titleSmall
+                            .override(
+                              fontFamily: 'Readex Pro',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                        elevation: 3.0,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              80.0.sh
-            ],
+                80.0.sh
+              ],
+            ),
           ),
         ),
       ),

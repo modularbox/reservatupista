@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/backend/server_node/pista_node.dart';
+import 'package:reservatu_pista/app/data/provider/pista_node.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/format_date.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
-import '../../../routes/models/mis_pistas_model.dart';
+import '../../../data/models/mis_pistas_model.dart';
 
 extension FechaExt on DateTime {
   String get formatFecha => FormatDate.dateToString(this);
+  String get formatReserva => DateFormat('yyyy-MM-dd').format(this);
   String get letraDia => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
 }
 
@@ -80,18 +82,16 @@ class MisPistasController extends GetxController
     super.onInit();
     // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 200), () {
-        // Verifica si el contexto de la GlobalKey es nulo
-        final List<double> newDeportesWidth = [];
-        for (var i = 0; i < deporteKey.length; i++) {
-          if (deporteKey[i].currentContext != null) {
-            // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
-            double width = deporteKey[i].currentContext!.size!.width;
-            newDeportesWidth.add(width);
-          }
+      // Verifica si el contexto de la GlobalKey es nulo
+      final List<double> newDeportesWidth = [];
+      for (var i = 0; i < deporteKey.length; i++) {
+        if (deporteKey[i].currentContext != null) {
+          // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
+          double width = deporteKey[i].currentContext!.size!.width;
+          newDeportesWidth.add(width);
         }
-        deportesWidth.value = newDeportesWidth;
-      });
+      }
+      deportesWidth.value = newDeportesWidth;
     });
     // Cambiar la fecha cuando se actualice y mover el pageview
     debounce(_fechaNextPrevious, (val) => val ? nextPage() : previousPage(),
@@ -105,7 +105,8 @@ class MisPistasController extends GetxController
   void cargarDatos() async {
     misPistas.loading();
     try {
-      final result = await PistaNode().getMisPista(deporte, fecha.letraDia);
+      final result = await PistaNode()
+          .getMisPista(deporte, fecha.letraDia, fecha.formatReserva);
       if (result is MisPistas) {
         if (result.misPistas.isEmpty) {
           misPistas.empty();

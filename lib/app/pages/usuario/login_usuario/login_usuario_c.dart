@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/routes/models/message_error.dart';
-import 'package:reservatu_pista/backend/server_node/usuario_node.dart';
+import 'package:reservatu_pista/app/data/models/message_error.dart';
+import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
+import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog_movil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../backend/server_node/proveedor_node.dart';
 import '../../../../backend/storage/storage.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../routes/app_pages.dart';
-import '../../../routes/database.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
-import '../../../routes/models/proveedor_model.dart';
-import '../../../routes/models/usuario_model.dart';
+import '../../../data/models/proveedor_model.dart';
+import '../../../data/models/usuario_model.dart';
 
 class LoginUsuarioController extends GetxController
     with GetTickerProviderStateMixin {
@@ -64,7 +64,7 @@ class LoginUsuarioController extends GetxController
   late AnimationController animTerminosProveedor;
 
   // Controller datos locales
-  DatabaseController db = Get.find();
+  DBService db = Get.find();
 
   // Iniciar Los datos guardados
   late SharedPreferences storage;
@@ -72,6 +72,7 @@ class LoginUsuarioController extends GetxController
   @override
   void onInit() async {
     super.onInit();
+    print('Get.previousRoute login ${Get.previousRoute}');
     // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
@@ -135,7 +136,7 @@ class LoginUsuarioController extends GetxController
         List<int> bytes = utf8.encode(passwordUsuarioController.text);
         String hashConstrasena = sha1.convert(bytes).toString();
         // Llamar a la api de reservatupista
-        final result = await UsuarioNode().iniciarSesion([
+        final result = await UsuarioProvider().iniciarSesion([
           emailUsuarioController.text,
           emailUsuarioController.text,
           hashConstrasena
@@ -144,9 +145,15 @@ class LoginUsuarioController extends GetxController
           // Si el usuario existe guardamos el id para futuras peticiones
           storage.idUsuario.write(result.idUsuario);
           // Guardar el token
-          storage.token.write(result.token);
+          storage.tokenUsuario.write(result.token);
           // Guardar el foto
-          storage.foto.write(UsuarioNode().getImageNode(result.foto));
+          storage.fotoUsuario.write(UsuarioNode().getImageNode(result.foto));
+          // Guardamos el dinero total del proveedor
+          storage.dineroTotal.write(result.dineroTotal);
+          storage.nick.write(result.nick);
+          storage.nombre.write(result.nombre);
+          storage.apellidos.write(result.apellidos);
+          db.nick = result.nick;
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
             await storage.passwordUsuario.write(passwordUsuarioController.text);
@@ -155,7 +162,7 @@ class LoginUsuarioController extends GetxController
             storage.passwordUsuario.remove();
             storage.emailUsuario.remove();
           }
-          db.setDatosUsuario(result);
+          await db.getDB();
           Get.toNamed(Routes.INICIO);
         } else if (result is MessageError) {
           Get.dialog(ChangeDialogGeneral(
@@ -171,7 +178,7 @@ class LoginUsuarioController extends GetxController
     }
   }
 
-  // Iniciar sesion P
+  // Iniciar sesion Proveedor
   void onPressedProveedor() async {
     if (formProveedorKey.currentState!.validate()) {
       bool isUserPrueba =
@@ -184,18 +191,18 @@ class LoginUsuarioController extends GetxController
       } else {
         List<int> bytes = utf8.encode(passwordProveedorController.text);
         String hashConstrasena = sha1.convert(bytes).toString();
-        final result = await ProveedorNode()
+        final result = await ProveedorProvider()
             .iniciarSesion([emailProveedorController.text, hashConstrasena]);
         if (result is ProveedorModel) {
           // Si el usuario existe guardamos el id para futuras peticiones
           storage.idProveedor.write(result.idProveedor);
           // Guardar el token
-          storage.token.write(result.token);
-          print(result.idClub);
+          storage.tokenProveedor.write(result.token);
+          // Guardamos el id del club
           storage.idClub.write(result.idClub);
-
           // Guardar el foto
-          storage.foto.write(ProveedorNode().getImageNode(result.foto));
+          storage.fotoProveedor
+              .write(ProveedorNode().getImageNode(result.foto));
           // Si es recordar contrasena
           if (checkboxValueRecordarProveedor.value) {
             storage.passwordProveedor.write(passwordProveedorController.text);
@@ -204,8 +211,8 @@ class LoginUsuarioController extends GetxController
             storage.passwordProveedor.remove();
             storage.emailProveedor.remove();
           }
-          db.setDatosProveedor(result);
-          Get.toNamed(Routes.INICIOPROFESIONAL);
+          await db.getDB();
+          Get.toNamed(Routes.INICIO_PROVEEDOR);
         } else if (result is MessageError) {
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Proveedor"),

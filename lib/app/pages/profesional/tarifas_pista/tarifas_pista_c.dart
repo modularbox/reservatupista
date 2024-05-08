@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../../../routes/models/tarifas_model.dart';
+import '../../../data/models/tarifas_model.dart';
 
 class TarifasPistaController extends GetxController {
   List<List<Tarifa>> listTarifas = [];

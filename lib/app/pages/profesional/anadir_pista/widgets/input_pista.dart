@@ -83,7 +83,7 @@ class InputPista extends FormField<String> {
                               ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colores().proveedor.primary69,
+                        color: Colores.proveedor.primary69,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -92,7 +92,7 @@ class InputPista extends FormField<String> {
                       borderSide: BorderSide(
                         color: isValidate
                             ? FlutterFlowTheme.of(context).error
-                            : Colores().proveedor.primary160,
+                            : Colores.proveedor.primary160,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -101,7 +101,7 @@ class InputPista extends FormField<String> {
                       borderSide: BorderSide(
                         color: isValidate
                             ? FlutterFlowTheme.of(context).error
-                            : Colores().proveedor.primary,
+                            : Colores.proveedor.primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -447,7 +447,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       opacity: _fadeOpacity,
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(color: Colores().proveedor.primary, width: 2),
+            border: Border.all(color: Colores.proveedor.primary, width: 2),
             borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(
@@ -465,7 +465,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                     height: 200,
                     child: ScrollbarTheme(
                         data: ScrollbarThemeData(
-                          thumbColor: MaterialStateProperty.all(Colores()
+                          thumbColor: MaterialStateProperty.all(Colores
                               .proveedor
                               .primary), // Color del thumb del scrollbar
                         ),

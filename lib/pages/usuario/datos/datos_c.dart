@@ -2,12 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-
 import '../../../utils/dialog/rich_alert.dart';
-
-// import '../../../../utils/dialog/rich_alert.dart';
-// import '../../../routes/app_pages.dart';
 
 class DatosController extends GetxController with GetTickerProviderStateMixin {
   ///  State fields for stateful widgets in this page.
@@ -421,7 +416,7 @@ class DatosController extends GetxController with GetTickerProviderStateMixin {
         // if (imageFile.value != null) {
         //   await GetStorage().write('pathPhoto', imageFile.value!);
         // }
-        await Get.dialog(RichAlertDialog(
+        await Get.dialog(ChangeDialogGeneral(
           //uses the custom alert dialog
           alertTitle: richTitle("Datos modificados"),
           alertSubtitle: richSubtitle("Los datos se modificaron correctamente"),

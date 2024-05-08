@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/database.dart';
@@ -83,7 +84,7 @@ class _MyAppState extends State<MyApp> {
           Locale('es'),
           Locale('en'),
         ],
-        initialBinding: DatabaseBinding(),
+        initialBinding: DBBinding(),
         initialRoute: Routes.LOGIN_USUARIO,
         getPages: AppPages.routes,
       );

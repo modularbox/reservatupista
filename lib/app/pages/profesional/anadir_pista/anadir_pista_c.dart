@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:reservatu_pista/app/routes/models/pistas_model.dart';
-import 'package:reservatu_pista/backend/server_node/pista_node.dart';
-import 'package:reservatu_pista/backend/server_node/subir_image_node.dart';
+import 'package:reservatu_pista/app/data/models/pistas_model.dart';
+import 'package:reservatu_pista/app/data/provider/pista_node.dart';
+import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import '../../../../app_state.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import 'package:image/image.dart' as img;
@@ -13,7 +13,7 @@ import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
-import '../../../routes/models/tarifas_model.dart';
+import '../../../data/models/tarifas_model.dart';
 import '../tarifas_pista/tarifas_pista_c.dart';
 
 extension SioNo on String {
@@ -46,6 +46,8 @@ class AnadirPistaController extends GetxController
   late InputController deporte;
   // Input Controller techada
   late InputController techada;
+  // Input Controller capacidad
+  late InputController capacidad;
   // Input Controller iluminacion
   late InputController iluminacion;
   // Input Controller tipo
@@ -146,6 +148,7 @@ class AnadirPistaController extends GetxController
 
     deporte = InputController(animVibrate(vsync: this));
     techada = InputController(animVibrate(vsync: this));
+    capacidad = InputController(animVibrate(vsync: this));
     iluminacion = InputController(animVibrate(vsync: this));
     tipo = InputController(animVibrate(vsync: this));
     cesped = InputController(animVibrate(vsync: this));
@@ -172,7 +175,7 @@ class AnadirPistaController extends GetxController
     bono = InputController(animVibrate(vsync: this));
     reservatupista = InputController(animVibrate(vsync: this));
     animTerminos = animVibrate(vsync: this);
-    // onInitForm();
+    onInitForm();
   }
 
   void onInitForm() {
@@ -229,6 +232,7 @@ class AnadirPistaController extends GetxController
           deporte: deporte.controller.text.de,
           numPista: int.parse(nPistaController.text),
           techada: techada.controller.text.sn,
+          capacidad: int.parse(capacidad.controller.text),
           iluminacion: iluminacion.controller.text.sn,
           tipo: tipo.controller.text,
           cesped: cesped.controller.text,
@@ -273,15 +277,16 @@ class AnadirPistaController extends GetxController
         });
         // Regresar la respuesta
         if (result.code == 2000) {
-          await Get.dialog(RichAlertDialog(
+          await Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle('Crear Pista'),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: 'Aceptar',
             alertType: RichAlertType.SUCCESS,
-            onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
+            onPressed: Get.back,
+            // onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
           ));
         } else {
-          await Get.dialog(RichAlertDialog(
+          await Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle('Crear Pista'),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: 'Aceptar',
@@ -328,6 +333,9 @@ class AnadirPistaController extends GetxController
 
   onChangeDeporte(String val) async {
     if (val.isNotEmpty) {
+      if (val.de == 'Padel') {
+        capacidad.controller.text = '4';
+      }
       final result = await PistaNode().getCountPistas(val.de);
       deporte.isValidate.value = false;
       if (val.isNotEmpty) {
@@ -510,7 +518,7 @@ class AnadirPistaController extends GetxController
         final maxImages = images.length > 5;
         if (maxImages) {
           /// Si el limite es mayor, mensaje de error
-          await Get.dialog(RichAlertDialog(
+          await Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog
             alertTitle: richTitle("Imagenes pista"),
             alertSubtitle: richSubtitle(

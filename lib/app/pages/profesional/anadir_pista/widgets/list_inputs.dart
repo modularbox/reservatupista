@@ -6,7 +6,7 @@ import '../../../../../utils/colores.dart';
 import '../../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../../utils/loader/color_loader.dart';
 import '../../../../../utils/btn_icon.dart';
-import '../../../../widgets/seleccion_imagen_widget.dart';
+import '../../../../widgets/seleccionar_imagen/seleccion_imagen.dart';
 import '../../../../widgets/text_inputters/inputter_registro.dart';
 import '../anadir_pista_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -27,7 +27,7 @@ class ListInputs extends StatefulWidget {
 }
 
 class _ListInputsState extends State<ListInputs> {
-  AnadirPistaController self = Get.find();
+  AnadirPistaController get self => Get.find();
   @override
   void initState() {
     super.initState();
@@ -87,9 +87,7 @@ class _ListInputsState extends State<ListInputs> {
                   autofocus: true,
                   obscureText: false,
                   decoration: InputDecoration(
-                    labelText: FFLocalizations.of(context).getText(
-                      'y7pf20ni' /* Nº de pista */,
-                    ),
+                    labelText: 'Nº de pista',
                     labelStyle: GoogleFonts.getFont(
                       'Readex Pro',
                       color: const Color.fromARGB(165, 117, 117, 117),
@@ -98,7 +96,56 @@ class _ListInputsState extends State<ListInputs> {
                     ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colores().proveedor.primary69,
+                        color: Colores.proveedor.primary69,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primary,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 12.0, 16.0, 12.0),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  cursorColor: FlutterFlowTheme.of(context).primary,
+                ),
+              ),
+              Flexible(
+                child: TextFormField(
+                  controller: self.capacidad.controller,
+                  enabled: false,
+                  autofocus: true,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Capacidad',
+                    labelStyle: GoogleFonts.getFont(
+                      'Readex Pro',
+                      color: const Color.fromARGB(165, 117, 117, 117),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14.0,
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colores.proveedor.primary69,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -390,7 +437,7 @@ class _ListInputsState extends State<ListInputs> {
                   iconPadding:
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: !self.isValidBtnTarifas.value
-                      ? Colores().grisClaro
+                      ? Colores.grisClaro
                       : FlutterFlowTheme.of(context).alternate,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'Readex Pro',
@@ -499,9 +546,9 @@ class _ListInputsState extends State<ListInputs> {
                       borderColor: self.imagesPista.action == 'validate'
                           ? FlutterFlowTheme.of(context).error
                           : state!.isEmpty
-                              ? Colores().proveedor.primary
-                              : Colores().proveedor.primary160,
-                      hoverColor: Colores().proveedor.primary69,
+                              ? Colores.proveedor.primary
+                              : Colores.proveedor.primary160,
+                      hoverColor: Colores.proveedor.primary69,
                       borderWidth: 2,
                       height: 45,
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -516,7 +563,7 @@ class _ListInputsState extends State<ListInputs> {
                                 Icons.add_a_photo_rounded,
                                 color: self.imagesPista.action == 'validate'
                                     ? FlutterFlowTheme.of(context).error
-                                    : Colores().proveedor.primary,
+                                    : Colores.proveedor.primary,
                                 size: 25.0,
                               ),
                               Padding(
@@ -572,8 +619,8 @@ class _ListInputsState extends State<ListInputs> {
                     ),
                 onLoading: BtnIcon(
                     borderRadius: 12,
-                    borderColor: Colores().proveedor.primary,
-                    hoverColor: Colores().proveedor.primary69,
+                    borderColor: Colores.proveedor.primary,
+                    hoverColor: Colores.proveedor.primary69,
                     borderWidth: 2,
                     height: 45,
                     padding: const EdgeInsets.all(8.0),
@@ -596,7 +643,7 @@ class _ListInputsState extends State<ListInputs> {
                     borderSide: BorderSide(
                       color: self.descripcion.isValidate.value
                           ? FlutterFlowTheme.of(context).error
-                          : Colores().proveedor.primary160,
+                          : Colores.proveedor.primary160,
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
@@ -605,7 +652,7 @@ class _ListInputsState extends State<ListInputs> {
                     borderSide: BorderSide(
                       color: self.descripcion.isValidate.value
                           ? FlutterFlowTheme.of(context).error
-                          : Colores().proveedor.primary,
+                          : Colores.proveedor.primary,
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
@@ -643,7 +690,7 @@ class _ListInputsState extends State<ListInputs> {
           TerminosCondicionesDialog(
               self.animTerminos,
               self.checkboxTerminos,
-              Colores().proveedor.primary,
+              Colores.proveedor.primary,
               self.checkboxTerminos,
               FlutterFlowTheme.of(Get.context!).primaryText),
         ].divide(const SizedBox(height: 10.0)),
@@ -672,7 +719,7 @@ class _ListInputsState extends State<ListInputs> {
                   borderSide: BorderSide(
                     color: self.foto.isValidate.value
                         ? FlutterFlowTheme.of(context).error
-                        : Colores().proveedor.primary160,
+                        : Colores.proveedor.primary160,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(12.0),
@@ -681,7 +728,7 @@ class _ListInputsState extends State<ListInputs> {
                   borderSide: BorderSide(
                     color: self.foto.isValidate.value
                         ? FlutterFlowTheme.of(context).error
-                        : Colores().proveedor.primary,
+                        : Colores.proveedor.primary,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(12.0),
@@ -706,7 +753,7 @@ class _ListInputsState extends State<ListInputs> {
                     Icons.add_a_photo_rounded,
                     color: self.foto.isValidate.value
                         ? FlutterFlowTheme.of(context).error
-                        : Colores().proveedor.primary,
+                        : Colores.proveedor.primary,
                     size: 25.0,
                   ),
                 ),
@@ -747,7 +794,7 @@ class _ListInputsState extends State<ListInputs> {
               style: FlutterFlowTheme.of(context).bodyMedium,
               readOnly: true,
               onTap: () {
-                Get.dialog(SeleccionImagenWidget(
+                Get.dialog(SeleccionImagen(
                   onPressed: self.pickImagePatrocinador,
                   isProveedor: true,
                 ));

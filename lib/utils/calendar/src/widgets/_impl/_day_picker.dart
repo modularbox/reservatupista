@@ -130,7 +130,7 @@ class _DayPickerState extends State<_DayPicker> {
     final TextStyle dayStyle = textTheme.bodySmall!;
     final Color enabledDayColor = colorScheme.onSurface.withOpacity(0.87);
     final Color disabledDayColor = colorScheme.onSurface.withOpacity(0.38);
-    final Color selectedDayColor = Colores().usuario.primary;
+    final Color selectedDayColor = Colores.usuario.primary;
     final Color selectedDayBackground = colorScheme.primary;
 
     final int year = widget.displayedMonth.year;
@@ -333,7 +333,6 @@ class _DayPickerState extends State<_DayPicker> {
             child: dayWidget,
           );
         } else {
-          print("gjhhjjh");
           final int cont = contador;
           dayWidget = InkResponse(
             focusNode: _dayFocusNodes[day - 1],

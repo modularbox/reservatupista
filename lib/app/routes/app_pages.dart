@@ -1,35 +1,37 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_b.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_reservas_page/mis_reservas_p.dart';
-import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_b.dart';
-import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_p.dart';
-import 'package:reservatu_pista/pages/profesional/perfil_profesional/perfil_profesional_widget.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
+import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.dart';
+import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_p.dart';
+import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_b.dart';
+import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_p.dart';
+import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional_widget.dart';
+import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_b.dart';
+import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_p.dart';
+import 'package:reservatu_pista/pages/usuario/inicio/inicio_b.dart';
+import 'package:reservatu_pista/pages/usuario/inicio/inicio_p.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
-// import '../../pages/profesional/datos_profesional/datos_profesional_widget.dart';
-// import '../../pages/profesional/login_profesional/login_profesional_widget.dart';
-// import '../../pages/profesional/registro_profesional/registro_profesional_widget.dart';
-// import '../../pages/usuario/datos/datos_widget.dart';
-// import '../../pages/usuario/mis_reservas/mis_reservas_widget.dart';
-// import '../../pages/usuario/perfil/perfil_widget.dart';
-// import '../../pages/usuario/registro_usuario/registro_usuario_widget.dart';
-// import '../../pages/usuario/reservar_pista/reservar_pista_widget.dart';
-import '../../pages/usuario/datos/ldatos_b.dart';
+import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_p.dart';
+import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_widget.dart';
+import 'package:reservatu_pista/pages/usuario/perfil/perfil_b.dart';
+import 'package:reservatu_pista/pages/usuario/perfil/perfil_p.dart';
 import '../pages/profesional/anadir_pista/anadir_pista_b.dart';
 import '../pages/usuario/login_usuario/login_usuario.dart';
 import '../pages/usuario/login_usuario/login_usuario_b.dart';
-import '../pages/usuario/registrar_usuario/registrar_usuario.dart';
+import '../pages/usuario/registrar_usuario/registrar_usuario_p.dart';
 import '../pages/usuario/registrar_usuario/registrar_usuario_b.dart';
 import '../ui/pages/pagotpv_page/pagotpv_b.dart';
 import '../ui/pages/pagotpv_page/pagotpv_p.dart';
-import './index.dart';
 import '../pages/usuario/reservar_pista/reservar_pista.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
-import '../pages/profesional/registro_proveedor/registrar_proveedor.dart';
+import '../pages/profesional/registro_proveedor/registrar_proveedor_p.dart';
 import '../pages/profesional/registro_proveedor/registrar_proveedor_b.dart';
 import '../pages/Profesional/mis_socios/mis_socios.dart';
 import '../pages/Profesional/mis_socios/mis_socios_b.dart';
-import '../pages/Profesional/datos_proveedor/datos_proveedor.dart';
+import '../pages/Profesional/datos_proveedor/datos_proveedor_p.dart';
 import '../pages/Profesional/datos_proveedor/datos_proveedor_b.dart';
 import '../pages/Profesional/prueba_proveedor/prueba_proveedor.dart';
 import '../pages/Profesional/prueba_proveedor/prueba_proveedor_b.dart';
@@ -41,7 +43,7 @@ import '../pages/profesional/chat_proveedor/chat_proveedor.dart';
 import '../pages/profesional/chat_proveedor/chat_proveedor_b.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_p.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_b.dart';
-import '../pages/usuario/datos_usuario/datos_usuario.dart';
+import '../pages/usuario/datos_usuario/datos_usuario_p.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena_b.dart';
@@ -54,13 +56,8 @@ abstract class Routes {
   static const LOGIN_USUARIO = '/login_usuario';
   static const REGISTRAR_USUARIO = '/registrar_usuario';
   static const PERFIL = '/perfil';
-  static const LOGINPROFESIONAL = '/loginProfesional';
-  static const RESERVARPISTA = '/reservarPista';
   static const MIS_RESERVAS = '/mis_reservas';
   static const DATOS = '/datos';
-  static const DATOSPROFESIONAL = '/datosProfesional';
-  static const REGISTROUSUARIO = '/registroUsuario';
-  static const REGISTROPROFESIONAL = '/registroProfesional';
   static const PERFIL_PROVEEDOR = '/perfil_proveedor';
   static const MONEDERO = '/monedero';
   static const CAJA = '/caja';
@@ -69,9 +66,8 @@ abstract class Routes {
   static const MIS_PISTAS = '/mis_pistas';
   static const NOTIFICACIONES = '/notificaciones';
   static const NOTIFICACIONES_PROVEEDOR = '/notificaciones_proveedor';
-  static const INICIOPROFESIONAL = '/inicioProfesional';
+  static const INICIO_PROVEEDOR = '/inicio_profesional';
   static const INICIO = '/inicio';
-  static const LOGIN_PROFESIONAL = '/login_profesional';
   static const RESERVAR_PISTA = '/reservar_pista';
   static const PAGOS_TARJETA = '/pagos_tarjeta';
   static const REGISTRAR_PROVEEDOR = '/registrar_proveedor';
@@ -93,162 +89,176 @@ abstract class Routes {
 class AppPages {
   static const INITIAL = Routes.LOGIN_USUARIO;
   static final routes = [
-    GetPage(
-      name: Routes.PRUEBAS,
-      page: () => PruebasPage(),
-      binding: PruebasBinding(),
-    ),
+    /// Login Usuario
     GetPage(
       name: Routes.LOGIN_USUARIO,
       page: () => LoginUsuarioPage(),
       binding: LoginUsuarioBinding(),
     ),
+
+    /// Registrar Usuario
     GetPage(
       name: Routes.REGISTRAR_USUARIO,
       page: () => RegistrarUsuarioPage(),
       binding: RegistrarUsuarioBinding(),
     ),
+
+    /// Registrar Proveedor
     GetPage(
-      name: Routes.REGISTRAR_USUARIO,
-      page: () => RegistrarUsuarioPage(),
-      binding: RegistrarUsuarioBinding(),
+      name: Routes.REGISTRAR_PROVEEDOR,
+      page: () => RegistrarProveedorPage(),
+      binding: RegistrarProveedorBinding(),
     ),
+
+    /// Inicio Usuario
     GetPage(
-      name: Routes.PERFIL,
-      page: () => PerfilWidget(),
+      name: Routes.INICIO,
+      binding: InicioBinding(),
+      page: () => InicioPage(),
       transition: Transition.noTransition,
     ),
-    GetPage(
-      name: Routes.PERFIL_PROVEEDOR,
-      page: () => PerfilProfesionalWidget(),
-      transition: Transition.noTransition,
-    ),
-    // GetPage(
-    //   name: '/loginProfesional',
-    //   page: () => LoginProfesionalWidget(),
-    // ),
-    GetPage(
-      name: '/reservarPista',
-      page: () => ReservarPistaWidget(),
-      transition: Transition.noTransition,
-    ),
+
+    /// Mis Reservas
     GetPage(
       name: Routes.MIS_RESERVAS,
       page: () => MisReservasPage(),
       binding: MisReservasBinding(),
       transition: Transition.noTransition,
     ),
-    GetPage(
-      name: '/datos',
-      page: () => DatosWidget(),
-      binding: DatosBinding(),
-    ),
-    GetPage(
-      name: '/datosProfesional',
-      page: () => DatosProfesionalWidget(),
-    ),
-    GetPage(
-      name: '/registroProfesional',
-      page: () => RegistroProfesionalWidget(),
-    ),
-    GetPage(
-      name: Routes.MONEDERO,
-      page: () => MonederoVirtualWidget(),
-      binding: MonederoBinding(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: Routes.CAJA,
-      page: () => BancoVirtualWidget(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: Routes.ANADIR_PISTA,
-      page: () => AnadirPistaPage(),
-      binding: AnadirPistaBinding(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-        name: Routes.NOTIFICACIONES,
-        page: () => NotificacionesWidget(),
-        transition: Transition.zoom),
-    GetPage(
-      name: Routes.NOTIFICACIONES_PROVEEDOR,
-      page: () => NotificacionesProfesionalWidget(),
-    ),
-    GetPage(
-      name: '/inicioProfesional',
-      page: () => InicioProfesionalWidget(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: '/inicio',
-      page: () => InicioWidget(),
-      transition: Transition.noTransition,
-    ),
+
+    /// Reservar pista
     GetPage(
       name: Routes.RESERVAR_PISTA,
       page: () => ReservarPistaPage(),
       binding: ReservarPistaBinding(),
       transition: Transition.noTransition,
     ),
+
+    /// Monedero
     GetPage(
-      name: Routes.REGISTRAR_PROVEEDOR,
-      page: () => RegistrarProveedorPage(),
-      binding: RegistrarProveedorBinding(),
-    ),
-    GetPage(
-      name: Routes.MIS_SOCIOS,
-      page: () => MisSociosPage(),
-      binding: MisSociosBinding(),
+      name: Routes.MONEDERO,
+      page: () => const MonederoPage(),
+      binding: MonederoBinding(),
       transition: Transition.noTransition,
     ),
+
+    /// Perfil Usuario
     GetPage(
-      name: Routes.DATOS_PROVEEDOR,
-      page: () => DatosProveedorPage(),
-      binding: DatosProveedorBinding(),
+      name: Routes.PERFIL,
+      binding: PerfilBinding(),
+      page: () => PerfilPage(),
+      transition: Transition.noTransition,
     ),
+
+    /// Datos Usuario
     GetPage(
-      name: Routes.PRUEBA_PROVEEDOR,
-      page: () => PruebaProveedorPage(),
-      binding: PruebaProveedorBinding(),
+      name: Routes.DATOS_USUARIO,
+      page: () => DatosUsuarioPage(),
+      binding: DatosUsuarioBinding(),
     ),
+
+    /// Notificaciones Usuario
+    GetPage(
+        name: Routes.NOTIFICACIONES,
+        page: () => const NotificacionesWidget(),
+        transition: Transition.zoom),
+
+    /// Chat Usuario
     GetPage(
       name: Routes.CHAT,
       page: () => ChatPage(),
       binding: ChatBinding(),
     ),
+
+    /// Inicio Proveedor
     GetPage(
-      name: Routes.RESULTADOS_ESTADISTICAS,
-      page: () => ResultadosEstadisticasPage(),
-      binding: ResultadosEstadisticasBinding(),
+      name: Routes.INICIO_PROVEEDOR,
+      binding: InicioProveedorBinding(),
+      page: () => InicioProveedorPage(),
+      transition: Transition.noTransition,
     ),
-    GetPage(
-      name: Routes.CHAT_PROVEEDOR,
-      page: () => ChatProveedorPage(),
-      binding: ChatProveedorBinding(),
-    ),
+
+    /// Mis Pistas
     GetPage(
       name: Routes.MIS_PISTAS,
       page: () => MisPistasPage(),
       binding: MisPistasBinding(),
       transition: Transition.noTransition,
     ),
+
+    /// Anadir Pista
     GetPage(
-      name: Routes.DATOS_USUARIO,
-      page: () => DatosUsuarioPage(),
-      binding: DatosUsuarioBinding(),
+      name: Routes.ANADIR_PISTA,
+      page: () => AnadirPistaPage(),
+      binding: AnadirPistaBinding(),
+      transition: Transition.noTransition,
     ),
+
+    /// Mis Socios
+    GetPage(
+      name: Routes.MIS_SOCIOS,
+      page: () => MisSociosPage(),
+      binding: MisSociosBinding(),
+      transition: Transition.noTransition,
+    ),
+
+    /// Perfil Proveedor
+    GetPage(
+      name: Routes.PERFIL_PROVEEDOR,
+      binding: PerfilProveedorBinding(),
+      page: () => PerfilProveedorPage(),
+      transition: Transition.noTransition,
+    ),
+
+    /// Datos Proveedor
+    GetPage(
+        name: Routes.DATOS_PROVEEDOR,
+        binding: DatosProveedorBinding(),
+        page: () => DatosProveedorPage()),
+
+    /// Caja
+    GetPage(
+      name: Routes.CAJA,
+      binding: BancoVirtualBinding(),
+      page: () => BancoVirtualPage(),
+      transition: Transition.noTransition,
+    ),
+
+    /// Notificaciones Proveedor
+    GetPage(
+      name: Routes.NOTIFICACIONES_PROVEEDOR,
+      page: () => const NotificacionesProfesionalWidget(),
+    ),
+
+    /// Resultados Estadisticas
+    GetPage(
+      name: Routes.RESULTADOS_ESTADISTICAS,
+      page: () => ResultadosEstadisticasPage(),
+      binding: ResultadosEstadisticasBinding(),
+    ),
+
+    /// Chat Proveedor
+    GetPage(
+      name: Routes.CHAT_PROVEEDOR,
+      page: () => ChatProveedorPage(),
+      binding: ChatProveedorBinding(),
+    ),
+
+    /// Olvide Contrasena
     GetPage(
       name: Routes.OLVIDE_CONTRASENA,
       page: () => OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
     ),
+
+    /// Tarifas pista
     GetPage(
       name: Routes.TARIFAS_PISTA,
-      page: () => TarifasPistaPage(),
+      page: () => const TarifasPistaPage(),
       binding: TarifasPistaBinding(),
     ),
+
+    /// Pago TPV
     GetPage(
       name: Routes.PAGO_TPV,
       page: () => PagoTpvPage(),

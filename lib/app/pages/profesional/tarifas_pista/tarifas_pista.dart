@@ -68,7 +68,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
               width: 100.w / 7,
               height: 45,
               padding: const EdgeInsets.all(2.5),
-              hoverColor: Colores().proveedor.primary69,
+              hoverColor: Colores.proveedor.primary69,
               onPressed: () => self.changeDia(index),
               icon: CircleAvatar(
                   backgroundColor: self.indexDias.value == index
@@ -119,7 +119,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                     return TableCell(
                       child: BtnIcon(
                         padding: const EdgeInsets.all(0),
-                        hoverColor: Colores().proveedor.primary69,
+                        hoverColor: Colores.proveedor.primary69,
                         onPressed: self.onChangeAllActive,
                         icon: Text(
                           titleTable[index],
@@ -135,7 +135,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                     return TableCell(
                       child: BtnIcon(
                         padding: const EdgeInsets.all(0),
-                        hoverColor: Colores().proveedor.primary69,
+                        hoverColor: Colores.proveedor.primary69,
                         onPressed: self.onChangeAllClase,
                         icon: Text(
                           titleTable[index],
@@ -151,7 +151,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                     return TableCell(
                       child: BtnIcon(
                         padding: const EdgeInsets.all(0),
-                        hoverColor: Colores().proveedor.primary69,
+                        hoverColor: Colores.proveedor.primary69,
                         onPressed: self.onChangeAllLuz,
                         icon: Text(
                           titleTable[index],
@@ -204,7 +204,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                       verticalAlignment: TableCellVerticalAlignment.middle,
                       child: BtnIcon(
                         padding: const EdgeInsets.all(0),
-                        hoverColor: Colores().proveedor.primary69,
+                        hoverColor: Colores.proveedor.primary69,
                         onPressed: () =>
                             self.onChangeActive(activeOrDesactive, index),
                         icon: Text(

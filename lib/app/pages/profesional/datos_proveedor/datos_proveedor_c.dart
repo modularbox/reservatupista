@@ -3,20 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reservatu_pista/app/routes/models/club_model.dart';
-import 'package:reservatu_pista/backend/server_node/datos_server.dart';
+import 'package:reservatu_pista/app/data/models/club_model.dart';
+import 'package:reservatu_pista/app/data/models/proveedor_model.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
+import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
+import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
-import '../../../../backend/server_node/proveedor_node.dart';
-import '../../../../backend/server_node/subir_image_node.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image/image.dart' as img;
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
-import '../../../routes/database.dart';
-import '../../../routes/models/proveedor_model.dart';
 import '../../../widgets/text_inputters/inputter_registro.dart';
 
 class DatosProveedorController extends GetxController
@@ -59,7 +59,7 @@ class DatosProveedorController extends GetxController
   TextEditingController fechaRegistroController = TextEditingController();
   // El texto se guarda en un array en codigo Iban, de acuerdo al Widget
   List<String> listCodigoIban = ['', '', '', '', '', ''];
-  DatabaseController db = Get.find();
+  DBService db = Get.find();
 
   /// Initialization and disposal methods.
   @override
@@ -73,7 +73,7 @@ class DatosProveedorController extends GetxController
   void onOpenDialogEliminarCuenta() async {
     final storage = await SharedPreferences.getInstance();
     final String parametros =
-        '?id=${storage.idProveedor.read()}&user=0&token=${storage.token.read()}&email=${emailController.text}';
+        '?id=${storage.idProveedor.read()}&user=0&token=${storage.tokenProveedor.read()}&email=${emailController.text}';
     Get.dialog(LinkDialog(
       alertTitle: richTitleLink(
           '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
@@ -144,16 +144,15 @@ class DatosProveedorController extends GetxController
 
         /// Obtener los datos del club
 
-        final List<TypeDatosServerClub> listTypes = [
-          TypeDatosServerClub.nombre,
-          TypeDatosServerClub.codigo_postal,
-          TypeDatosServerClub.direccion,
-          TypeDatosServerClub.localidad,
-          TypeDatosServerClub.provincia,
-          TypeDatosServerClub.comunidad
+        final List<String> listTypes = [
+          'nombre',
+          'codigo_postal',
+          'direccion',
+          'localidad',
+          'provincia',
+          'comunidad'
         ];
-        final resultClub =
-            await ProveedorNode().getClub(storage.idClub.read(), listTypes);
+        final resultClub = await ProveedorProvider().getClub(listTypes);
         if (resultClub is ClubModel) {
           nombreComercialController.text = resultClub.nombre;
           direccionController.text = resultClub.direccion;
@@ -353,13 +352,13 @@ class DatosProveedorController extends GetxController
       try {
         // Subir Imagen en nodejs y ajustar tamano
         await subirImageNode(await imageResize(pathImage),
-            destination: 'proveedores', nameFoto: db.datosProveedor!.foto);
+            destination: 'proveedores', nameFoto: db.fotoProveedor);
         print("Actualizar ImagenProveedor");
 
         /// Actualizar Image
-        db.imageServer.value =
-            '${ProveedorNode().getImageNode(db.datosProveedor!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
-        print(db.imageServer);
+        db.fotoServer =
+            '${ProveedorNode().getImageNode(db.fotoProveedor)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+
         print('Seactualizo');
       } catch (e) {
         print(e);
@@ -376,9 +375,8 @@ class DatosProveedorController extends GetxController
       try {
         print("Actualizar ImagenProveedor");
 
-        /// Actualizar Image
-        imageFileCertificado.value =
-            '${ProveedorNode().getImageNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+        // imageFileCertificado.value =
+        //     '${ProveedorNode().getImageNode(db.datosProveedor!.certificadoCuenta)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
 
         print('Seactualizo');
       } catch (e) {

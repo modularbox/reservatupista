@@ -145,7 +145,7 @@ class BuildInput extends GetView<RegistrarUsuarioController> {
                         ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colores().usuario.primary160,
+                        color: Colores.usuario.primary160,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
@@ -197,7 +197,7 @@ class BuildInput extends GetView<RegistrarUsuarioController> {
 
   String? validateTextField(String? text) {
     if (text == null || text.isEmpty) {
-       if (isFocusNode) {
+      if (isFocusNode) {
         focusNode.requestFocus();
         showOkAlertDialog(
           context: Get.context!,

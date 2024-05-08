@@ -168,14 +168,14 @@ class CodigoIban extends GetView<DatosProveedorController> {
         counterText: '',
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colores().proveedor.primary,
+            color: Colores.proveedor.primary,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colores().proveedor.primary69,
+            color: Colores.proveedor.primary69,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(8.0),

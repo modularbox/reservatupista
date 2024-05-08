@@ -49,7 +49,7 @@ class AppbarUsuario extends StatelessWidget {
       return [
         BtnIcon(
           borderColor: Colors.transparent,
-          hoverColor: Colores().usuario.primary69,
+          hoverColor: Colores.usuario.primary69,
           borderRadius: 30.0,
           borderWidth: 1.0,
           buttonSize: 55.0,
@@ -98,7 +98,7 @@ class AppbarUsuario extends StatelessWidget {
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
                   iconSize: 24,
-                  hoverColor: Colores().usuario.primary69,
+                  hoverColor: Colores.usuario.primary69,
                   icon: badges.Badge(
                     badgeContent: Text(
                       '1',
@@ -128,7 +128,7 @@ class AppbarUsuario extends StatelessWidget {
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
                   iconSize: 24,
-                  hoverColor: Colores().usuario.primary69,
+                  hoverColor: Colores.usuario.primary69,
                   icon: badges.Badge(
                     badgeContent: Text(
                       '1',
@@ -158,14 +158,14 @@ class AppbarUsuario extends StatelessWidget {
                   buttonSize: 55,
                   iconColor: FlutterFlowTheme.of(context).secondaryText,
                   iconSize: 24,
-                  hoverColor: Colores().usuario.primary69,
+                  hoverColor: Colores.usuario.primary69,
                   icon: Container(
                       width: 40,
                       height: 40,
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: isPage ? Colores().usuario.primary160 : null,
+                          color: isPage ? Colores.usuario.primary160 : null,
                           border: Border.all(
                               color: FlutterFlowTheme.of(context).secondary)),
                       child: ImageServer()),

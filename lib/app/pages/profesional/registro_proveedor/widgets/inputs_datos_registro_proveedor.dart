@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/widgets/seleccionar_imagen/seleccionar_imagen_widget.dart';
+import 'package:reservatu_pista/app/widgets/seleccionar_imagen/seleccionar_imagen.dart';
 import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
@@ -124,7 +124,7 @@ class InputsDatosRegistroProveedor
         prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Icon(Icons.edit_square,
-                color: Colores().proveedor.primary, size: 40)),
+                color: Colores.proveedor.primary, size: 40)),
         suffixIcon: Obx(() => self.imageFileCertificado.value != null
             ? BtnIcon(
                 onPressed: () {
@@ -155,7 +155,7 @@ class InputsDatosRegistroProveedor
             : const SizedBox.shrink()),
         enableInteractiveSelection: false,
         onTap: () {
-          Get.dialog(SeleccionarImagenWidget(
+          Get.dialog(SeleccionarImagen(
             camera: self.btns.cameraCertificado,
             galeria: self.btns.galeriaCertificado,
             imageLocal: self.btns.imageLocalCertificado,
@@ -353,14 +353,14 @@ class InputsDatosRegistroProveedor
         prefixIcon: Icon(
           visibility.value ? Icons.lock_open : Icons.lock,
         ),
-        prefixIconColor: Colores().proveedor.primary,
+        prefixIconColor: Colores.proveedor.primary,
         suffixIcon: InkWell(
           onTap: () => visibility.toggle(),
           child: Icon(
             visibility.value
                 ? Icons.visibility_outlined
                 : Icons.visibility_off_outlined,
-            color: Colores().proveedor.primary,
+            color: Colores.proveedor.primary,
             size: 22,
           ),
         ),

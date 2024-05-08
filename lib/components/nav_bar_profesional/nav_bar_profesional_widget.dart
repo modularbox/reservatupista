@@ -1,5 +1,4 @@
 import 'package:get/route_manager.dart';
-
 import '../../app/routes/app_pages.dart';
 import '../../utils/btn_icon.dart';
 import '../../utils/colores.dart';
@@ -10,7 +9,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:provider/provider.dart';
 import 'nav_bar_profesional_model.dart';
 export 'nav_bar_profesional_model.dart';
 
@@ -134,13 +132,11 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
             children: [
               buildIconButtonMin(
                 onPressed: () async {
-                  Get.offNamed(Routes.INICIOPROFESIONAL);
+                  Get.offNamed(Routes.INICIO_PROVEEDOR);
                 },
                 isPage: widget.tipoDePagina == TypePage.Inicio,
                 icon: Icons.home_rounded,
-                title: FFLocalizations.of(context).getText(
-                  'x6w02hml' /* Inicio */,
-                ),
+                title: 'Inicio',
               ),
               buildIconButtonMin(
                 onPressed: () async {
@@ -196,8 +192,8 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                   borderRadius: 25.0,
                   borderWidth: 1.0,
                   buttonSize: 45.0,
-                  fillColor: Colores().proveedor.primary,
-                  hoverColor: Colores().proveedor.primary69,
+                  fillColor: Colores.proveedor.primary,
+                  hoverColor: Colores.proveedor.primary69,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
@@ -209,7 +205,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
               : BtnIcon(
                   borderColor: Colors.transparent,
                   borderRadius: 25.0,
-                  hoverColor: Colores().proveedor.primary69,
+                  hoverColor: Colores.proveedor.primary69,
                   borderWidth: 1.0,
                   buttonSize: 45.0,
                   fillColor: const Color(0xFF9299A1),
@@ -226,7 +222,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Readex Pro',
                   color: isPage
-                      ? Colores().proveedor.primary
+                      ? Colores.proveedor.primary
                       : FlutterFlowTheme.of(context).primaryText,
                   fontSize: 10.0,
                 ),
@@ -245,7 +241,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
       padding: const EdgeInsetsDirectional.only(top: 10),
       child: BtnIcon(
         onPressed: onPressed,
-        hoverColor: Colores().proveedor.primary69,
+        hoverColor: Colores.proveedor.primary69,
         borderRadius: 12,
         icon: Column(
           mainAxisSize: MainAxisSize.min,
@@ -253,7 +249,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
             isPage
                 ? Icon(
                     icon,
-                    color: Colores().proveedor.primary,
+                    color: Colores.proveedor.primary,
                     size: 24.0,
                   ).animateOnPageLoad(
                     animationsMap['iconButtonOnPageLoadAnimation1']!)
@@ -267,7 +263,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Readex Pro',
                     color: isPage
-                        ? Colores().proveedor.primary
+                        ? Colores.proveedor.primary
                         : FlutterFlowTheme.of(context).primaryText,
                     fontSize: 10.0,
                   ),

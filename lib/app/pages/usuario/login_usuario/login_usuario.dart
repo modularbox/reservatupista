@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
 import '../../../../utils/btn_icon.dart';
@@ -71,65 +72,77 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                       movilPequeno: movilPequeno,
                     ),
                   ),
-                  PageViewSlidingIndicator(
-                    widthButtons: MediaQuery.of(context).size.width * 0.45,
-                    pageCount: self.initialPage,
-                    controller: self.pageViewController,
+                  ResponsiveWeb(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.sizeOf(context).width <= 640
+                              ? 0.0
+                              : 70),
+                      child: PageViewSlidingIndicator(
+                        widthButtons: MediaQuery.sizeOf(context).width <= 640
+                            ? MediaQuery.sizeOf(context).width * 0.45
+                            : 250,
+                        pageCount: self.initialPage,
+                        controller: self.pageViewController,
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    height: 450,
-                    child: PageView(
-                      controller: self.pageViewController,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        buildInputsLogin(
-                            context,
-                            formKey: self.formUsuarioKey,
-                            self.emailUsuarioController,
-                            self.passwordUsuarioController,
-                            self.emailUsuarioFocusNode,
-                            self.passwordUsuarioFocusNode,
-                            self.passwordVisibility,
-                            'Usuario',
-                            'Disfruta de todos tus\ndeportes con un click.',
-                            self.checkboxValueRecordarUsuario,
-                            self.checkboxValueTerminosUsuario,
-                            Routes.INICIO,
-                            Routes.REGISTRAR_USUARIO,
-                            self.animTerminosUsuario,
-                            self.validateTerminosUsuario,
-                            lineColor: lineColorUsuario,
-                            focusedColor: focusedColorUsuario,
-                            typeUser: 0,
-                            palomita: Colors.white,
-                            onPressed: self.onPressedUsuario),
-                        buildInputsLogin(
-                            context,
-                            formKey: self.formProveedorKey,
-                            self.emailProveedorController,
-                            self.passwordProveedorController,
-                            self.emailProveedorFocusNode,
-                            self.passwordProveedorFocusNode,
-                            self.passwordProveedorVisibility,
-                            'Proveedor',
-                            'Clubs, Ayuntamiento, \nComunidad, Asociación.',
-                            self.checkboxValueRecordarProveedor,
-                            self.checkboxValueTerminosProveedor,
-                            Routes.INICIOPROFESIONAL,
-                            Routes.REGISTRAR_PROVEEDOR,
-                            self.animTerminosProveedor,
-                            self.validateTerminosProveedor,
-                            lineColor: lineColorProfesional,
-                            focusedColor: focusedColorProfesional,
-                            typeUser: 1,
-                            palomita: Colors.black,
-                            onPressed: self.onPressedProveedor),
-                      ],
+                  ResponsiveWeb(
+                    child: SizedBox(
+                      height: 450,
+                      child: PageView(
+                        controller: self.pageViewController,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          buildInputsLogin(
+                              context,
+                              formKey: self.formUsuarioKey,
+                              self.emailUsuarioController,
+                              self.passwordUsuarioController,
+                              self.emailUsuarioFocusNode,
+                              self.passwordUsuarioFocusNode,
+                              self.passwordVisibility,
+                              'Usuario',
+                              'Disfruta de todos tus\ndeportes con un click.',
+                              self.checkboxValueRecordarUsuario,
+                              self.checkboxValueTerminosUsuario,
+                              Routes.INICIO,
+                              Routes.REGISTRAR_USUARIO,
+                              self.animTerminosUsuario,
+                              self.validateTerminosUsuario,
+                              lineColor: lineColorUsuario,
+                              focusedColor: focusedColorUsuario,
+                              typeUser: 0,
+                              palomita: Colors.white,
+                              onPressed: self.onPressedUsuario),
+                          buildInputsLogin(
+                              context,
+                              formKey: self.formProveedorKey,
+                              self.emailProveedorController,
+                              self.passwordProveedorController,
+                              self.emailProveedorFocusNode,
+                              self.passwordProveedorFocusNode,
+                              self.passwordProveedorVisibility,
+                              'Proveedor',
+                              'Clubs, Ayuntamiento, \nComunidad, Asociación.',
+                              self.checkboxValueRecordarProveedor,
+                              self.checkboxValueTerminosProveedor,
+                              Routes.INICIO_PROVEEDOR,
+                              Routes.REGISTRAR_PROVEEDOR,
+                              self.animTerminosProveedor,
+                              self.validateTerminosProveedor,
+                              lineColor: lineColorProfesional,
+                              focusedColor: focusedColorProfesional,
+                              typeUser: 1,
+                              palomita: Colors.black,
+                              onPressed: self.onPressedProveedor),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-              NavBarLogin()
+              const NavBarLogin()
             ],
           ),
         ),
@@ -360,7 +373,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: BtnIcon(
                     onPressed: () async {
                       Get.toNamed(Routes.OLVIDE_CONTRASENA,
@@ -380,45 +393,52 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                FFButtonWidget(
-                  onPressed: onPressed,
-                  text: 'Acceder',
-                  options: FFButtonOptions(
-                    width: MediaQuery.sizeOf(context).width * 0.4,
-                    height: 40,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: focusedColor,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).tertiary,
-                        ),
-                    elevation: 2,
-                    borderRadius: BorderRadius.circular(12),
+                Expanded(
+                  child: FFButtonWidget(
+                    onPressed: onPressed,
+                    text: 'Acceder',
+                    options: FFButtonOptions(
+                      height: 40,
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: focusedColor,
+                      textStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                color: FlutterFlowTheme.of(context).tertiary,
+                              ),
+                      elevation: 2,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
-                FFButtonWidget(
-                  onPressed: () => Get.toNamed(registroPage),
-                  text: 'Registrate',
-                  options: FFButtonOptions(
-                    width: MediaQuery.sizeOf(context).width * 0.4,
-                    height: 40,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: focusedColor,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).tertiary,
-                        ),
-                    elevation: 2,
-                    borderRadius: BorderRadius.circular(12),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: FFButtonWidget(
+                    onPressed: () => Get.toNamed(registroPage),
+                    text: 'Registrate',
+                    options: FFButtonOptions(
+                      height: 40,
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: focusedColor,
+                      textStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                color: FlutterFlowTheme.of(context).tertiary,
+                              ),
+                      elevation: 2,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
               ],

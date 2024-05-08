@@ -9,13 +9,14 @@ import 'package:url_launcher/url_launcher.dart';
 class TerminosCondicionesDialog extends StatelessWidget {
   const TerminosCondicionesDialog(this.animTerminos, this.checkboxTerminos,
       this.focusedColor, this.validateTerminos, this.palomita,
-      {super.key, this.paddingTop});
+      {super.key, this.paddingTop, this.saltoLinea = false});
   final AnimationController animTerminos;
   final double? paddingTop;
   final RxBool checkboxTerminos;
   final Color focusedColor;
   final RxBool validateTerminos;
   final Color palomita;
+  final bool saltoLinea;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,9 @@ class TerminosCondicionesDialog extends StatelessWidget {
               borderRadius: 12,
               padding: const EdgeInsets.all(0),
               icon: Text(
-                'He leído y acepto los\nTérminos y Condiciones de Servicio.',
+                MediaQuery.of(context).size.width <= 600
+                    ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
+                    : 'He leído y acepto los Términos y Condiciones de Servicio.',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Readex Pro',

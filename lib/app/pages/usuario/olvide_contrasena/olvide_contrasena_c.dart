@@ -21,10 +21,10 @@ class OlvideContrasenaController extends GetxController {
 
     if (typeUser == 0) {
       lineColor = Color.fromARGB(160, 43, 120, 220);
-      focusedColor = Colores().usuario.primary;
+      focusedColor = Colores.usuario.primary;
     } else {
       lineColor = Color.fromARGB(160, 70, 239, 152);
-      focusedColor = Colores().proveedor.primary;
+      focusedColor = Colores.proveedor.primary;
     }
   }
 
@@ -51,7 +51,7 @@ class OlvideContrasenaController extends GetxController {
       } catch (e) {
         print("wetyufufui");
         print(e.toString());
-        // Get.dialog(RichAlertDialog(
+        // Get.dialog(ChangeDialogGeneral(
         //   alertTitle: richTitle("Recuperar Contraseña"),
         //   alertSubtitle: richSubtitle(
         //       "Error: Algo ocurrio al enviar el email. Vuelva a intentarlo mas tarde."),

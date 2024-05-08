@@ -143,7 +143,7 @@ class _LinkDialogState extends State<LinkDialog> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 2.0,
-          backgroundColor: Colores().sucessGeneral,
+          backgroundColor: Colores.sucessGeneral,
         ),
         onPressed: () async {
           final urlPoliticaPrivacidad = Uri.parse(widget.urlLink);

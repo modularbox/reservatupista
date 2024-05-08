@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/routes/database.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 class DatosVersion {
@@ -12,38 +11,51 @@ class DatosVersion {
   final String fecha;
 }
 
-class Versions extends GetView<DatabaseController> {
-  final double getWidth;
-  final void Function()? onPressed;
-  Versions({super.key, required this.getWidth, required this.onPressed});
-  final List<DatosVersion> arrayVersion2 = [
-    DatosVersion(
-        v: '2.2.8',
-        info: '''Claves de proposito para los usuarios.''',
-        fecha: '22/04/2024'),
-    DatosVersion(
-        v: '2.2.7',
-        info: '''Datos no obligatorios en Registro de Usuario y Proveedor.''',
-        fecha: '17/04/2024'),
-    DatosVersion(
-        v: '2.2.6',
-        info: '''Datos no obligatorios en Registro de Usuario y Proveedor.''',
-        fecha: '15/04/2024'),
-    DatosVersion(
-        v: '2.2.5', info: '''Eliminar cuentas.''', fecha: '11/04/2024'),
-    DatosVersion(
-        v: '2.2.4', info: '''Mostrar y agregar pistas.''', fecha: '04/04/2024'),
-    DatosVersion(
-        v: '2.2.3', info: '''Detalles en la interfaz.''', fecha: '01/04/2024'),
-    DatosVersion(
-        v: '2.2.2', info: '''Mensajes para el usuario.''', fecha: '28/03/2024'),
-    DatosVersion(
-        v: '2.2.1',
-        info: '''Registro visualización interactiva.''',
-        fecha: '27/03/2024'),
-    DatosVersion(
-        v: '2.2.0', info: '''Aplicación adactiva.''', fecha: '26/03/2024'),
-  ];
+class Versions extends StatelessWidget {
+  Versions({
+    super.key,
+  });
+  final DBService db = Get.find();
+  List<DatosVersion> arrayVersion2() => [
+        DatosVersion(
+            v: db.version,
+            info: '''Claves de proposito para los usuarios.''',
+            fecha: '02/05/2024'),
+        DatosVersion(
+            v: '2.2.8',
+            info: '''Claves de proposito para los usuarios.''',
+            fecha: '22/04/2024'),
+        DatosVersion(
+            v: '2.2.7',
+            info:
+                '''Datos no obligatorios en Registro de Usuario y Proveedor.''',
+            fecha: '17/04/2024'),
+        DatosVersion(
+            v: '2.2.6',
+            info:
+                '''Datos no obligatorios en Registro de Usuario y Proveedor.''',
+            fecha: '15/04/2024'),
+        DatosVersion(
+            v: '2.2.5', info: '''Eliminar cuentas.''', fecha: '11/04/2024'),
+        DatosVersion(
+            v: '2.2.4',
+            info: '''Mostrar y agregar pistas.''',
+            fecha: '04/04/2024'),
+        DatosVersion(
+            v: '2.2.3',
+            info: '''Detalles en la interfaz.''',
+            fecha: '01/04/2024'),
+        DatosVersion(
+            v: '2.2.2',
+            info: '''Mensajes para el usuario.''',
+            fecha: '28/03/2024'),
+        DatosVersion(
+            v: '2.2.1',
+            info: '''Registro visualización interactiva.''',
+            fecha: '27/03/2024'),
+        DatosVersion(
+            v: '2.2.0', info: '''Aplicación adactiva.''', fecha: '26/03/2024'),
+      ];
   final List<DatosVersion> arrayVersionCambios = [
     DatosVersion(
         v: '2.1.10',
@@ -223,7 +235,7 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 - Ajusted del diseño."""
     },
   ];
-  Widget buildContainerVersion(BuildContext context, DatosVersion data) {
+  Widget buildContainerVersion(DatosVersion data) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
       child: Material(
@@ -263,9 +275,7 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
                             Text(
                               data.v,
                               textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyLarge
-                                  .override(
+                              style: LightModeTheme().bodyLarge.override(
                                     fontFamily: 'Plus Jakarta Sans',
                                     color: Color(0xFF15161E),
                                     fontSize: 16,
@@ -278,9 +288,7 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
                             Text(
                               data.fecha,
                               textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .labelSmall
-                                  .override(
+                              style: LightModeTheme().labelSmall.override(
                                     fontFamily: 'Outfit',
                                     color: Color(0xFF606A85),
                                     fontSize: 12,
@@ -294,9 +302,7 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
                           child: Text(
                             data.info,
                             textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
+                            style: LightModeTheme().labelMedium.override(
                                   fontFamily: 'Outfit',
                                   color: Color(0xFF606A85),
                                   fontSize: 14,
@@ -316,18 +322,48 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
     );
   }
 
-  List<Widget> buildVersions(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () async {
+        await showDialog(
+          context: context,
+          builder: (dialogContext) {
+            return Material(
+              color: Colors.transparent,
+              child: buildAlertVersion(),
+            );
+          },
+        );
+      },
+      child: Text(
+        'Version ${db.version}',
+        textAlign: TextAlign.center,
+        style: FlutterFlowTheme.of(context).bodyMedium.override(
+              fontFamily: 'Readex Pro',
+              color: FlutterFlowTheme.of(context).tertiary,
+              fontSize: 10,
+              fontStyle: FontStyle.italic,
+            ),
+      ),
+    );
+  }
+
+  List<Widget> buildVersions() {
     final List<Widget> result = [
       // Generated code for this Container Widget...
     ];
-    for (var element in arrayVersion2) {
-      result.add(buildContainerVersion(context, element));
+    for (var element in arrayVersion2()) {
+      result.add(buildContainerVersion(element));
     }
     return result;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildAlertVersion() {
     return Scaffold(
       body: Column(
         children: [
@@ -359,7 +395,7 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
                         color: Colors.black),
                     children: [
                       TextSpan(
-                        text: controller.version,
+                        text: db.version,
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             decoration: TextDecoration.none,
@@ -375,17 +411,17 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
             child: SingleChildScrollView(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: buildVersions(context)),
+                  children: buildVersions()),
             ),
           ),
           Center(
             child: SizedBox(
-              width: getWidth * 0.5,
+              width: Get.width * 0.5,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: ElevatedButton(
-                  onPressed: onPressed,
+                  onPressed: Get.back,
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                         const Color(0xff4285d0)),
@@ -401,7 +437,7 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
                   child: const FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      "Regresar",
+                      "Cerrar",
                       style: TextStyle(
                           fontSize: 25,
                           color: Color.fromARGB(239, 255, 255, 255),
@@ -417,7 +453,6 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
     );
   }
 }
-
 // [
 //                         buildVersion(
 //                             version: '1.2.35',

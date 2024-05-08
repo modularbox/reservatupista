@@ -297,6 +297,8 @@ extension FFStringExt on String {
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
+
+  String get formatHora => substring(0, 5);
 }
 
 extension ListFilterExt<T> on Iterable<T?> {
@@ -332,4 +334,9 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
       setState(fn);
     }
   }
+}
+
+extension ExtIntDinero on int {
+  String get euro =>
+      '${(this / 100).toStringAsFixed(2).replaceAll('.', ',')} €';
 }

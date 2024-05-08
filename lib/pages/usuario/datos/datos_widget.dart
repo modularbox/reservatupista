@@ -4,7 +4,7 @@ import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../app/pages/usuario/registrar_usuario/widgets/input_registrar.dart';
 import '../../../app/widgets/appbar_general.dart';
-import '../../../app/widgets/seleccionar_imagen/seleccionar_imagen_widget.dart';
+import '../../../app/widgets/seleccionar_imagen/seleccionar_imagen.dart';
 import '../../../flutter_flow/flutter_flow_widgets.dart';
 import '../../../utils/animations/get_image.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -88,8 +88,8 @@ class DatosWidget extends GetView<DatosController> {
                                           ),
                                         ),
                                         child: BtnIcon(
-                                          onPressed: () => Get.dialog(
-                                              SeleccionarImagenWidget(
+                                          onPressed: () =>
+                                              Get.dialog(SeleccionarImagen(
                                             camera: self.btns.camera,
                                             galeria: self.btns.galeria,
                                             imageLocal: self.btns.imageLocal,

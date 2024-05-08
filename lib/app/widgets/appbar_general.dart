@@ -81,7 +81,7 @@ class AppbarGeneral extends StatelessWidget {
             color: FlutterFlowTheme.of(context).primaryText,
             size: 30.0,
           ),
-          onPressed: onBack ?? Get.back,
+          onPressed: onBack ?? (Get.back),
         ),
         SizedBox(
           height: 55,
