@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 class BuscarClubWidget extends GetView<BuscarClubController> {
   const BuscarClubWidget({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
         title: 'Añadir club',
@@ -30,7 +31,7 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
       backgroundColor: LightModeTheme().primaryBackground,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: Obx(() => Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -105,6 +106,9 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
                                   ));
                         }),
                   ),
+                  //
+                  //Choice chips
+                  //
                   ...List.generate(controller.clubes.length,
                       (i) => buildClub(context, controller.clubes[i])),
                   Container(
@@ -220,8 +224,8 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
                         iconSize: 50,
                         color: Colors.amber,
                         icon: club.esFavorito.value
-                            ? Icon(Icons.star)
-                            : Icon(Icons.star_border))),
+                            ? const Icon(Icons.star)
+                            : const Icon(Icons.star_border))),
               ],
             ),
           ),
