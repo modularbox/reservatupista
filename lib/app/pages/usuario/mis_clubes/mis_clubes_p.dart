@@ -49,7 +49,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                 alignment: const AlignmentDirectional(1, 1),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 35, 30, 60),
+                                      0, 20, 10, 20),
                                   child: FlutterFlowIconButton(
                                     borderColor:
                                         LightModeTheme().primaryBackground,
@@ -69,6 +69,9 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                 ),
                               ),
                             ),
+                            Container(
+                              height: 50,
+                            )
                           ],
                         )),
                   ),
@@ -85,7 +88,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
     if (club.esFavorito.value) {
       String miembroDesde = 'Miembro desde hace ${club.antiguedad} años';
       return Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
+        padding: const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 0),
         child: Material(
           color: Colors.transparent,
           elevation: 4,
@@ -183,7 +186,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
         ),
       );
     } else {
-      return Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0));
+      return const Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0));
     }
   }
 }
