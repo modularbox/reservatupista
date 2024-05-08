@@ -1,17 +1,26 @@
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/route_manager.dart';
 import 'package:reservatu_pista/app/pages/profesional/facturas/factura_detalle_p.dart';
+import 'package:reservatu_pista/app/pages/profesional/tarifas/tarifas_c.dart';
+import 'package:reservatu_pista/backend/schema/enums/enums.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 
-class TarifasWidget extends StatefulWidget {
+class TarifasWidget extends GetView<TarifasController> {
   const TarifasWidget({super.key});
 
   @override
-  State<TarifasWidget> createState() => _TarifasWidgetState();
+  Widget build(BuildContext context) {
+    return NavbarYAppbarProfesional(
+        title: 'Tarifas',
+        page: TypePage.None,
+        child: Expanded(child: _TarifasWidgetState()));
+  }
 }
 
-class _TarifasWidgetState extends State<TarifasWidget> {
+class _TarifasWidgetState extends GetView<TarifasController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,20 +39,19 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10, 25, 10, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
                           child: Container(
                             width: double.infinity,
-                            height: 90,
+                            height: 60,
                             child: Stack(
                               children: [
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 40),
+                                      0, 0, 0, 20),
                                   child: PageView(
                                     scrollDirection: Axis.horizontal,
                                     children: [
@@ -2190,6 +2198,7 @@ class _TarifasWidgetState extends State<TarifasWidget> {
                       ),
                     ),
                   ),
+                  Container(height: 45)
                 ],
               ),
             ),

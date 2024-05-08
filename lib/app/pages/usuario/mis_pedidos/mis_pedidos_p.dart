@@ -53,7 +53,7 @@ class _ListaPedidosWidgetState extends GetView<MisPedidosController> {
                         color: LightModeTheme().secondaryBackground,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: LightModeTheme().usuario,
+                          color: LightModeTheme().secondaryBackground,
                           width: 2,
                         ),
                       ),

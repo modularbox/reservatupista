@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-
 import 'menu_privacidad_model.dart';
 export 'menu_privacidad_model.dart';
 
