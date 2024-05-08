@@ -581,6 +581,20 @@ class DBAlvaroController extends GetxController {
       rethrow;
     }
   }
+
+  Future<http.Response?> obtenerHistorialReservas(int idUsuario) async {
+    try {
+      var url = '${DatosServer.urlServer}/usuario/obtener_historial_reservas';
+      var result = await http.post(Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({'id_usuario': idUsuario}));
+      return result;
+    } catch (error) {
+      print('errorrrrr: $error');
+      return null;
+    }
+  }
+
 /*
 Future<String> obtenerHorariosPista(String dia, String id_pista) async {
   try {

@@ -1,5 +1,6 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
 import 'package:reservatu_pista/components/alert_recargar/alert_recargar_widget.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/constants.dart';
@@ -14,8 +15,9 @@ import 'package:flutter/services.dart';
 import 'monedero_c.dart';
 
 class MonederoPage extends GetView<MonederoController> {
-  const MonederoPage({super.key});
+  MonederoPage({super.key});
   MonederoController get self => controller;
+  DBAlvaroController db2 = Get.find();
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -36,6 +38,7 @@ class MonederoPage extends GetView<MonederoController> {
       return FFButtonWidget(
           text: title,
           onPressed: () {
+            self.mostrarHistorialReservas();
             controller.type = typeHistorial;
           },
           options: FFButtonOptions(

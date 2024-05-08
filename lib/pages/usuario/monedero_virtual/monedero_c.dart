@@ -7,6 +7,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
@@ -20,6 +21,7 @@ class MonederoController extends GetxController
     with GetTickerProviderStateMixin {
   // Conexion a la base de datos local
   DBService db = Get.find();
+  DBAlvaroController db2 = Get.find();
 
   // Tipo en historial
   final Rx<TypeHistorial> _type = TypeHistorial.all.obs;
@@ -144,6 +146,13 @@ class MonederoController extends GetxController
       print(stack);
       rethrow;
     }
+  }
+
+  Future<List<Map<String, dynamic>>> mostrarHistorialReservas() async {
+    http.Response? response = await db2.obtenerHistorialReservas(db.idUsuario);
+    return [
+      {'': 3}
+    ];
   }
 
   String generarNumeroOperacionUnico(
