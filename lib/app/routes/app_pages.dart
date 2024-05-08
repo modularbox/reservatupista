@@ -137,7 +137,7 @@ class AppPages {
     /// Monedero
     GetPage(
       name: Routes.MONEDERO,
-      page: () => const MonederoPage(),
+      page: () => MonederoPage(),
       binding: MonederoBinding(),
       transition: Transition.noTransition,
     ),
