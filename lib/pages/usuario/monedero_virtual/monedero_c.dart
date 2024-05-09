@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/models/mis_pistas_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
@@ -14,15 +15,19 @@ import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
 import 'dart:math';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:http/http.dart' as http;
+import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
-enum TypeHistorial { reserva, tranferencia, all }
+enum TypeHistorial { reserva, recarga, tranferencia, all }
 
 class MonederoController extends GetxController
     with GetTickerProviderStateMixin {
   // Conexion a la base de datos local
   DBService db = Get.find();
   DBAlvaroController db2 = Get.find();
-
+  // ignore: non_constant_identifier_names
+  final historial_reservas = StateRx(Rx<List<dynamic>>([]));
+  final historial_recargas = StateRx(Rx<List<dynamic>>([]));
+  final historial_todo = StateRx(Rx<List<dynamic>>([]));
   // Tipo en historial
   final Rx<TypeHistorial> _type = TypeHistorial.all.obs;
   get type => _type.value;
@@ -148,11 +153,46 @@ class MonederoController extends GetxController
     }
   }
 
-  Future<List<Map<String, dynamic>>> mostrarHistorialReservas() async {
-    http.Response? response = await db2.obtenerHistorialReservas(db.idUsuario);
-    return [
-      {'': 3}
-    ];
+  Future<void> mostrarHistorialTodo() async {
+    print('Mostrar historial mostrarHistorialReservasRecargas');
+    try {
+      historial_todo.loading();
+      dynamic response = await db2.obtenerHistorialTodo(db.idUsuario);
+      historial_todo.success(response);
+      print('Future historial_reservas_y_recargas ${historial_todo}');
+    } catch (e, stack) {
+      print(e);
+      print(stack);
+      historial_todo.empty();
+    }
+  }
+
+  Future<void> mostrarHistorialReservas() async {
+    print('Mostrar historial reservas');
+    try {
+      historial_reservas.loading();
+      dynamic response = await db2.obtenerHistorialReservas(db.idUsuario);
+      historial_reservas.success(response);
+      print('Future ${response}');
+    } catch (e, stack) {
+      print(e);
+      print(stack);
+      historial_reservas.empty();
+    }
+  }
+
+  Future<void> mostrarHistorialRecargas() async {
+    print('Mostrar historial recagas');
+    try {
+      historial_recargas.loading();
+      dynamic response = await db2.obtenerHistorialRecargas(db.idUsuario);
+      historial_recargas.success(response);
+      print('Future ${response}');
+    } catch (e, stack) {
+      print(e);
+      print(stack);
+      historial_recargas.empty();
+    }
   }
 
   String generarNumeroOperacionUnico(

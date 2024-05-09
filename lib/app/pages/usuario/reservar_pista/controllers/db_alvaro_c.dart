@@ -582,13 +582,42 @@ class DBAlvaroController extends GetxController {
     }
   }
 
-  Future<http.Response?> obtenerHistorialReservas(int idUsuario) async {
+  Future<dynamic> obtenerHistorialReservas(int idUsuario) async {
     try {
       var url = '${DatosServer.urlServer}/usuario/obtener_historial_reservas';
       var result = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({'id_usuario': idUsuario}));
-      return result;
+      print('resultttttt response ${json.decode(result.body)}');
+      return json.decode(result.body);
+    } catch (error) {
+      print('errorrrrr: $error');
+      return null;
+    }
+  }
+
+  Future<dynamic> obtenerHistorialRecargas(int idUsuario) async {
+    try {
+      var url = '${DatosServer.urlServer}/usuario/obtener_historial_recargas';
+      var result = await http.post(Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({'id_usuario': idUsuario}));
+      print('resultttttt response recargas ${json.decode(result.body)}');
+      return json.decode(result.body);
+    } catch (error) {
+      print('errorrrrr: $error');
+      return null;
+    }
+  }
+
+  Future<dynamic> obtenerHistorialTodo(int idUsuario) async {
+    try {
+      var url = '${DatosServer.urlServer}/usuario/obtener_historial_todo';
+      var result = await http.post(Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({'id_usuario': idUsuario}));
+      print('resultttttt response recargas ${json.decode(result.body)}');
+      return json.decode(result.body);
     } catch (error) {
       print('errorrrrr: $error');
       return null;
