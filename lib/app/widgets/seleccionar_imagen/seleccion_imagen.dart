@@ -144,32 +144,36 @@ class SeleccionImagen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-            child: FFButtonWidget(
-              onPressed: () async => onPressed(
-                  await cargarImagen(ImageSource.camera), TipoImagen.file),
-              text: 'Camara',
-              icon: const Icon(
-                Icons.camera_alt,
-                size: 25,
-              ),
-              options: FFButtonOptions(
-                width: double.infinity,
-                height: 60,
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).bodyLarge,
-                elevation: 2,
-                splashColor: const Color.fromARGB(65, 0, 0, 0),
-                borderSide: const BorderSide(
-                  color: Colors.transparent,
-                  width: 1,
+          isWeb
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                  child: FFButtonWidget(
+                    onPressed: () async => onPressed(
+                        await cargarImagen(ImageSource.camera),
+                        TipoImagen.file),
+                    text: 'Camara',
+                    icon: const Icon(
+                      Icons.camera_alt,
+                      size: 25,
+                    ),
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      height: 60,
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      textStyle: FlutterFlowTheme.of(context).bodyLarge,
+                      elevation: 2,
+                      splashColor: const Color.fromARGB(65, 0, 0, 0),
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
