@@ -3,18 +3,15 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'app/routes/app_pages.dart';
-import 'app/routes/database.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  usePathUrlStrategy();
   await FFLocalizations.initialize();
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -46,10 +43,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
-    // _appStateNotifier = AppStateNotifier.instance;
-    // Future.delayed(Duration(milliseconds: 5),
-    //     () => setState(() => _appStateNotifier.stopShowingSplashImage()));
   }
 
   void setLocale(String language) {

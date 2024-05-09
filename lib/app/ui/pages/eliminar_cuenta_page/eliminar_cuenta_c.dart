@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/message_error.dart';
+import 'package:reservatu_pista/app/data/models/proveedor_model.dart';
+import 'package:reservatu_pista/app/data/models/usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
-import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/widgets/alert_eliminar_cuenta_p.dart';
 import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../backend/storage/storage.dart';
 import '../../../../utils/animations/list_animations.dart';
-import '../../../routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
-import '../../../data/models/proveedor_model.dart';
-import '../../../data/models/usuario_model.dart';
 
-class LoginUsuarioController extends GetxController
+class EliminarCuentaController extends GetxController
     with GetTickerProviderStateMixin {
   /// Obtener la pagina 0 Usuario, 1 Proveedor
   int? initialPage = Get.arguments;
@@ -42,11 +39,9 @@ class LoginUsuarioController extends GetxController
   RxBool passwordVisibility = false.obs;
   String? Function(BuildContext, String?)? passwordProveedorControllerValidator;
   // State field(s) for Checkbox widget.
-  RxBool checkboxValueRecordarUsuario = false.obs;
-  // State field(s) for Checkbox widget.
   RxBool checkboxValueTerminosUsuario = false.obs;
   // State field(s) for Checkbox widget.
-  RxBool checkboxValueRecordarProveedor = false.obs;
+  RxBool checkboxEliminarCuenta = false.obs;
   // State field(s) for Checkbox widget.
   RxBool checkboxValueTerminosProveedor = false.obs;
 
@@ -62,71 +57,71 @@ class LoginUsuarioController extends GetxController
   late AnimationController animTerminosUsuario;
   late AnimationController animTerminosProveedor;
 
-  // Controller datos locales
-  DBService db = Get.find();
-
-  // Iniciar Los datos guardados
-  late SharedPreferences storage;
+  String id = '';
+  String token = '';
 
   @override
   void onInit() async {
     super.onInit();
-    print('Get.previousRoute login ${Get.previousRoute}');
     // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
     animTerminosProveedor = animVibrate(vsync: this);
-    storage = await SharedPreferences.getInstance();
-    recordarContrasena();
     debounce(passwordVisibility, (_) => passwordVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
-    debounce(passwordProveedorVisibility,
-        (_) => passwordProveedorVisibility.value = false,
-        time: const Duration(seconds: 3, milliseconds: 30));
-  }
-
-  /// Verificar si el usuario o proveedor a solicitado recordar la contrasena
-  void recordarContrasena() async {
-    try {
-      // Usuario
-      if (storage.passwordUsuario.exitsValue()) {
-        passwordUsuarioController.text = storage.passwordUsuario.read();
-        checkboxValueRecordarUsuario.value = true;
-      }
-      if (storage.emailUsuario.exitsValue()) {
-        emailUsuarioController.text = storage.emailUsuario.read();
-        checkboxValueRecordarUsuario.value = true;
-      }
-      // Proveedor
-      if (storage.passwordProveedor.exitsValue()) {
-        passwordProveedorController.text = storage.passwordProveedor.read();
-        checkboxValueRecordarProveedor.value = true;
-      }
-      if (storage.emailProveedor.exitsValue()) {
-        emailProveedorController.text = storage.emailProveedor.read();
-        checkboxValueRecordarProveedor.value = true;
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   // Pruebas para la app
   void onInitForm() {
     emailUsuarioController.text = 'app@reservatupista.com';
     emailProveedorController.text = 'app@reservatupista.com';
-    passwordProveedorController.text = '12345678';
     passwordUsuarioController.text = '12345678';
+  }
+
+  void onEliminarUser(int user) async {
+    // Usuario 0, Proveedor 1
+    // Llamar a la api de reservatupista
+    final result = await UsuarioNode()
+        .delete(id, token, user == 0 ? 'usuario' : 'proveedor');
+    if (result is MessageError) {
+      if (result.code == 2000) {
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Eliminar Cuenta"),
+          alertSubtitle: richSubtitle(result.messageError()),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.SUCCESS,
+          // onPressed: () => {html.window.location.reload()},
+        ));
+      } else {
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Eliminar Cuenta"),
+          alertSubtitle: richSubtitle(result.messageError()),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.WARNING,
+          onPressed: () => {Get.back(), Get.back(), Get.back()},
+        ));
+      }
+    }
   }
 
   // Iniciar Sesion Usuario
   void onPressedUsuario() async {
     if (formUsuarioKey.currentState!.validate()) {
       bool isUserPrueba =
-          (emailUsuarioController.text == 'app@reservatupista.com' ||
-                  emailUsuarioController.text == 'email@ficticio.com') &&
+          emailUsuarioController.text == 'app@reservatupista.com' &&
               passwordUsuarioController.text == '12345678';
+      if (isUserPrueba) {
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Login Proveedor"),
+          alertSubtitle:
+              richSubtitle('No es posible eliminar una cuenta privada.'),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.WARNING,
+          onPressed: () => Get.back(),
+        ));
+        return;
+      }
       if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
         validateTerminosUsuario.value = true;
         animTerminosUsuario.forward();
@@ -141,28 +136,9 @@ class LoginUsuarioController extends GetxController
           hashConstrasena
         ]);
         if (result is UsuarioModel) {
-          // Si el usuario existe guardamos el id para futuras peticiones
-          storage.idUsuario.write(result.idUsuario);
-          // Guardar el token
-          storage.tokenUsuario.write(result.token);
-          // Guardar el foto
-          storage.fotoUsuario.write(UsuarioNode().getImageNode(result.foto));
-          // Guardamos el dinero total del proveedor
-          storage.dineroTotal.write(result.dineroTotal);
-          storage.nick.write(result.nick);
-          storage.nombre.write(result.nombre);
-          storage.apellidos.write(result.apellidos);
-          db.nick = result.nick;
-          // Si es recordar contrasena
-          if (checkboxValueRecordarUsuario.value) {
-            await storage.passwordUsuario.write(passwordUsuarioController.text);
-            await storage.emailUsuario.write(emailUsuarioController.text);
-          } else {
-            storage.passwordUsuario.remove();
-            storage.emailUsuario.remove();
-          }
-          await db.getDB();
-          Get.toNamed(Routes.INICIO);
+          id = result.idUsuario.toString();
+          token = result.token;
+          Get.dialog(AlertEliminarCuentaWidget(user: 0));
         } else if (result is MessageError) {
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Usuario"),
@@ -177,41 +153,35 @@ class LoginUsuarioController extends GetxController
     }
   }
 
-  // Iniciar sesion Proveedor
+  // Iniciar sesion P
   void onPressedProveedor() async {
     if (formProveedorKey.currentState!.validate()) {
       bool isUserPrueba =
-          (emailUsuarioController.text == 'app@reservatupista.com' ||
-                  emailUsuarioController.text == 'email@ficticio.com') &&
+          emailProveedorController.text == 'app@reservatupista.com' &&
               passwordProveedorController.text == '12345678';
+      if (isUserPrueba) {
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Login Proveedor"),
+          alertSubtitle:
+              richSubtitle('No es posible eliminar una cuenta privada.'),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.WARNING,
+          onPressed: () => Get.back(),
+        ));
+        return;
+      }
       if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
         validateTerminosProveedor.value = true;
         animTerminosProveedor.forward();
       } else {
         List<int> bytes = utf8.encode(passwordProveedorController.text);
         String hashConstrasena = sha1.convert(bytes).toString();
-        final result = await ProveedorProvider()
+        final result = await ProveedorNode()
             .iniciarSesion([emailProveedorController.text, hashConstrasena]);
         if (result is ProveedorModel) {
-          // Si el usuario existe guardamos el id para futuras peticiones
-          storage.idProveedor.write(result.idProveedor);
-          // Guardar el token
-          storage.tokenProveedor.write(result.token);
-          // Guardamos el id del club
-          storage.idClub.write(result.idClub);
-          // Guardar el foto
-          storage.fotoProveedor
-              .write(ProveedorNode().getImageNode(result.foto));
-          // Si es recordar contrasena
-          if (checkboxValueRecordarProveedor.value) {
-            storage.passwordProveedor.write(passwordProveedorController.text);
-            storage.emailProveedor.write(emailProveedorController.text);
-          } else {
-            storage.passwordProveedor.remove();
-            storage.emailProveedor.remove();
-          }
-          await db.getDB();
-          Get.toNamed(Routes.INICIO_PROVEEDOR);
+          id = result.idProveedor.toString();
+          token = result.token;
+          Get.dialog(AlertEliminarCuentaWidget(user: 1));
         } else if (result is MessageError) {
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Login Proveedor"),

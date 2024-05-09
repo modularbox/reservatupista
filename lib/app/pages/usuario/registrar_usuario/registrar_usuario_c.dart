@@ -149,9 +149,9 @@ class RegistrarUsuarioController extends GetxController
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
       try {
         // final imagenSubida = await image.convertirSubirImagen('usuarios');
-        Get.dialog(ColorLoader3());
-        await Future.delayed(Duration(seconds: 3));
-        Get.back();
+        // Get.dialog(ColorLoader3());
+        // await Future.delayed(Duration(seconds: 3));
+        // Get.back();
         // if (imagenSubida) {
         //   print("Se subio la imagen");
         // } else {
