@@ -41,7 +41,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                   isTitleBack: true,
                   title: 'Registro Usuario',
                 ),
-                buildSelectImage(),
+                Get.width > 640 ? buildSelectImage() : 0.0.empty,
                 Form(
                   key: self.formKey,
                   child: Expanded(
@@ -51,13 +51,14 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Get.width <= 640 ? buildSelectImage() : 0.0.empty,
                             const InputsDatosRegistroUsuario(),
                             TerminosCondicionesDialog(
                                 self.animTerminos,
                                 self.checkboxTerminos,
                                 Colores.proveedor.primary,
                                 self.checkboxTerminos,
-                                FlutterFlowTheme.of(Get.context!).primaryText),
+                                LightModeTheme().primaryText),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
