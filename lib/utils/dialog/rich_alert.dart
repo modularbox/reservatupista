@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../sizer.dart';
@@ -38,8 +40,8 @@ class ChangeDialogGeneral extends StatefulWidget {
   final void Function()? onPressed;
   final String textButton;
 
-  ChangeDialogGeneral({
-    Key? key,
+  const ChangeDialogGeneral({
+    super.key,
     required this.alertTitle,
     required this.alertSubtitle,
     required this.alertType,
@@ -49,19 +51,20 @@ class ChangeDialogGeneral extends StatefulWidget {
     this.blurValue = 3.0,
     this.backgroundOpacity = 0.2,
     this.dialogIcon,
-  }) : super(key: key);
+  });
 
+  @override
   createState() => _ChangeDialogGeneralState();
 }
 
 class _ChangeDialogGeneralState extends State<ChangeDialogGeneral> {
-  Map<int, AssetImage> _typeAsset = {
-    RichAlertType.ERROR: AssetImage("assets/images/error.png"),
-    RichAlertType.SUCCESS: AssetImage("assets/images/success.png"),
-    RichAlertType.WARNING: AssetImage("assets/images/warning.png"),
+  final Map<int, AssetImage> _typeAsset = {
+    RichAlertType.ERROR: const AssetImage("assets/images/error.png"),
+    RichAlertType.SUCCESS: const AssetImage("assets/images/success.png"),
+    RichAlertType.WARNING: const AssetImage("assets/images/warning.png"),
   };
 
-  Map<int, Color> _typeColor = {
+  final Map<int, Color> _typeColor = {
     RichAlertType.ERROR: Colors.red,
     RichAlertType.SUCCESS: Colors.green,
     RichAlertType.WARNING: Colors.blue,
@@ -72,7 +75,7 @@ class _ChangeDialogGeneralState extends State<ChangeDialogGeneral> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQueryData(),
+      data: const MediaQueryData(),
       child: BackdropFilter(
         filter: ImageFilter.blur(
           sigmaX: widget.blurValue,
@@ -92,11 +95,11 @@ class _ChangeDialogGeneralState extends State<ChangeDialogGeneral> {
                   children: <Widget>[
                     Positioned(
                       bottom: (100.h / 2) - (dialogHeight / 2),
-                      child: Container(
+                      child: SizedBox(
                         height: dialogHeight,
                         width: 90.w,
                         child: Card(
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(20.0),
                             ),
@@ -133,12 +136,10 @@ class _ChangeDialogGeneralState extends State<ChangeDialogGeneral> {
     );
   }
 
-  Container _buildActions() {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: widget.actions,
-      ),
+  Row _buildActions() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: widget.actions,
     );
   }
 
@@ -175,7 +176,7 @@ Container defaultAction(Color? color, void Function()? onPressed, String text) {
 Text richTitle(String title) {
   return Text(
     title,
-    style: TextStyle(fontSize: 24.0),
+    style: const TextStyle(fontSize: 24.0),
   );
 }
 
@@ -183,7 +184,7 @@ Text richSubtitle(String subtitle) {
   return Text(
     subtitle,
     textAlign: TextAlign.center,
-    style: TextStyle(
+    style: const TextStyle(
       color: Colors.grey,
     ),
   );

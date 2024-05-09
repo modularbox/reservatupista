@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog_movil.dart';
 import 'package:reservatu_pista/utils/dialog/general_dialog_web.dart';
@@ -48,4 +50,21 @@ class TypeGeneralDialog {
 
   /// Indicates a warning dialog by providing a warning icon.
   static const int WARNING = 2;
+}
+
+Text richTitle(String title) {
+  return Text(
+    title,
+    style: const TextStyle(fontSize: 24.0),
+  );
+}
+
+Text richSubtitle(String subtitle) {
+  return Text(
+    subtitle,
+    textAlign: TextAlign.center,
+    style: const TextStyle(
+      color: Colors.grey,
+    ),
+  );
 }

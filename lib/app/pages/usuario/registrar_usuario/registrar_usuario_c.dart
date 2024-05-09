@@ -2,14 +2,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
-import 'package:reservatu_pista/app/data/provider/execute_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
-import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
-import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/app/routes/app_pages.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import '../../../../utils/animations/list_animations.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
@@ -126,17 +125,39 @@ class RegistrarUsuarioController extends GetxController
     }
   }
 
+  void prueba() async {
+    try {
+      Get.dialog(ColorLoader3());
+      await Future.delayed(const Duration(seconds: 3));
+      Get.back();
+      await Get.dialog(ChangeDialogGeneral(
+        alertTitle: richTitle("Registro usuario"),
+        alertSubtitle:
+            richSubtitle("Compruebe su correo para finalizar el registro."),
+        textButton: "Ir a Login",
+        alertType: TypeGeneralDialog.SUCCESS,
+        onPressed: () {
+          Get.back();
+          // Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
+        },
+      ));
+    } catch (e) {}
+  }
+
   /// Registrar Usuario
   void onPressedRegistrar() async {
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
       try {
-        final imagenSubida = await image.convertirSubirImagen('usuarios');
-        if (imagenSubida) {
-          print("Se subio la imagen");
-        } else {
-          print("No se subio la imagen :/");
-        }
-        return;
+        // final imagenSubida = await image.convertirSubirImagen('usuarios');
+        Get.dialog(ColorLoader3());
+        await Future.delayed(Duration(seconds: 3));
+        Get.back();
+        // if (imagenSubida) {
+        //   print("Se subio la imagen");
+        // } else {
+        //   print("No se subio la imagen :/");
+        // }
+        // return;
         // Nombre de la imagen en el servidor
         final DateTime now = DateTime.now();
         // Formatear la fecha en el formato deseado
@@ -194,27 +215,27 @@ class RegistrarUsuarioController extends GetxController
         ];
 
         /// Registrar al registrar al usuario
-        // final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
-        // if (registrar) {
-        //   await Get.dialog(ChangeDialogGeneral(
-        //     alertTitle: richTitle("Registro usuario"),
-        //     alertSubtitle:
-        //         richSubtitle("Compruebe su correo para finalizar el registro."),
-        //     textButton: "Ir a Login",
-        //     alertType: RichAlertType.SUCCESS,
-        //     onPressed: () {
-        //       Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
-        //     },
-        //   ));
-        // } else {
-        //   await Get.dialog(ChangeDialogGeneral(
-        //     alertTitle: richTitle("Registro usuario"),
-        //     alertSubtitle: richSubtitle("Error al registrar al usuario."),
-        //     textButton: "Cerrar",
-        //     alertType: RichAlertType.WARNING,
-        //     onPressed: Get.back,
-        //   ));
-        // }
+        final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
+        if (registrar) {
+          await Get.dialog(ChangeDialogGeneral(
+            alertTitle: richTitle("Registro usuario"),
+            alertSubtitle:
+                richSubtitle("Compruebe su correo para finalizar el registro."),
+            textButton: "Ir a Login",
+            alertType: TypeGeneralDialog.SUCCESS,
+            onPressed: () {
+              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
+            },
+          ));
+        } else {
+          await Get.dialog(ChangeDialogGeneral(
+            alertTitle: richTitle("Registro usuario"),
+            alertSubtitle: richSubtitle("Error al registrar al usuario."),
+            textButton: "Cerrar",
+            alertType: TypeGeneralDialog.WARNING,
+            onPressed: Get.back,
+          ));
+        }
       } catch (e) {
         print(e);
       }

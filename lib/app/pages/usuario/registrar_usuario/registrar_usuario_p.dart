@@ -42,6 +42,18 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                   title: 'Registro Usuario',
                 ),
                 Get.width > 640 ? buildSelectImage() : 0.0.empty,
+                MaterialButton(
+                  color: Colors.blue,
+                  onPressed: self.prueba,
+                  splashColor: Colors.blueGrey,
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
                 Form(
                   key: self.formKey,
                   child: Expanded(
