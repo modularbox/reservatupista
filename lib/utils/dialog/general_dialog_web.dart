@@ -40,8 +40,8 @@ class GeneralDialogWeb extends StatefulWidget {
   final void Function()? onPressed;
   final String textButton;
 
-  GeneralDialogWeb({
-    Key? key,
+  const GeneralDialogWeb({
+    super.key,
     required this.alertTitle,
     required this.alertSubtitle,
     required this.alertType,
@@ -51,8 +51,9 @@ class GeneralDialogWeb extends StatefulWidget {
     this.blurValue = 3.0,
     this.backgroundOpacity = 0.2,
     this.dialogIcon,
-  }) : super(key: key);
+  });
 
+  @override
   createState() => _GeneralDialogWebState();
 }
 
@@ -134,12 +135,10 @@ class _GeneralDialogWebState extends State<GeneralDialogWeb> {
     );
   }
 
-  Container _buildActions() {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: widget.actions,
-      ),
+  Row _buildActions() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: widget.actions,
     );
   }
 
@@ -169,23 +168,6 @@ Container defaultAction(Color? color, void Function()? onPressed, String text) {
         text,
         style: const TextStyle(color: Colors.white),
       ),
-    ),
-  );
-}
-
-Text richTitle(String title) {
-  return Text(
-    title,
-    style: const TextStyle(fontSize: 24.0),
-  );
-}
-
-Text richSubtitle(String subtitle) {
-  return Text(
-    subtitle,
-    textAlign: TextAlign.center,
-    style: const TextStyle(
-      color: Colors.grey,
     ),
   );
 }

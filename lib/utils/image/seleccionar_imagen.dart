@@ -1,18 +1,23 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
-import '../../../../utils/animations/add_animation_widget.dart';
-import '../../../backend/schema/enums/tipo_imagen.dart';
+import '../animations/add_animation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/sizer.dart';
+import '../sizer.dart';
 
-class SeleccionImagen extends StatelessWidget {
-  const SeleccionImagen(
-      {super.key, required this.onPressed, this.isProveedor = false});
-  final void Function(String?, TipoImagen) onPressed;
+class SeleccionarImagen extends StatelessWidget {
+  const SeleccionarImagen(
+      {super.key,
+      required this.pickImage,
+      // this.galeria,
+      // this.imageLocal,
+      this.isProveedor = false});
+  final Future<void> Function(ImageSource, {String? path}) pickImage;
+  // final void Function()? galeria;
+  // final void Function(String)? imageLocal;
   final bool isProveedor;
   @override
   Widget build(BuildContext context) {
@@ -39,32 +44,49 @@ class SeleccionImagen extends StatelessWidget {
       ],
       ['icon_sport_wistle', '', '']
     ];
+    final listaIconsGrid = [
+      'icon_sport_padel',
+      'icon_sport_sports_women',
+      'icon_sport_sports_men',
+      'icon_sport_baseball',
+      'icon_sport_basketball',
+      'icon_sport_football',
+      'icon_sport_rugby',
+      'icon_sport_sports_bottle',
+      'icon_sport_swimming',
+      'icon_sport_table_tennis',
+      'icon_sport_tennis',
+      'icon_sport_trophy',
+      'icon_sport_wistle',
+    ];
+
     Widget buildListIcons() {
-      return SingleChildScrollView(
-        child: Column(
-            children: List.generate(
-          listaIcons.length,
-          (i) => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                3,
-                (j) => listaIcons[i][j] == ''
-                    ? const SizedBox()
-                    : BtnIcon(
-                        onPressed: () =>
-                            onPressed(listaIcons[i][j], TipoImagen.asset),
-                        padding: const EdgeInsets.all(0),
-                        borderColor: const Color.fromARGB(255, 226, 6, 255),
-                        borderWidth: 3,
-                        borderRadius: 30,
-                        hoverColor: const Color.fromARGB(255, 226, 6, 255),
-                        icon: Image.asset(
-                            'assets/images/${listaIcons[i][j]}.png',
-                            height: 30.w,
-                            width: 30.w),
-                      ),
-              ).divide(5.0.sw)),
-        ).divide(10.0.sh)),
+      return Expanded(
+        child: GridView(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            childAspectRatio: 1,
+          ),
+          scrollDirection: Axis.vertical,
+          children: List.generate(
+            listaIconsGrid.length,
+            (i) => BtnIcon(
+              onPressed: () =>
+                  pickImage(ImageSource.camera, path: listaIconsGrid[i]),
+              padding: const EdgeInsets.all(0),
+              borderColor: const Color.fromARGB(255, 226, 6, 255),
+              borderWidth: 3,
+              borderRadius: 30,
+              hoverColor: const Color.fromARGB(255, 226, 6, 255),
+              icon: Image.asset(
+                'assets/images/${listaIconsGrid[i]}.png',
+              ),
+            ),
+          ),
+        ),
       );
     }
 
@@ -94,7 +116,7 @@ class SeleccionImagen extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: isiOS ? 40 : 20),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -116,19 +138,6 @@ class SeleccionImagen extends StatelessWidget {
     );
   }
 
-  Future<String?> cargarImagen(ImageSource source) async {
-    try {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        return pickedFile.path;
-      }
-      return null;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
   Widget buildBtnsImage(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -139,9 +148,7 @@ class SeleccionImagen extends StatelessWidget {
               : Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                   child: FFButtonWidget(
-                    onPressed: () async => onPressed(
-                        await cargarImagen(ImageSource.camera),
-                        TipoImagen.file),
+                    onPressed: () => pickImage(ImageSource.camera),
                     text: 'Camara',
                     icon: const Icon(
                       Icons.camera_alt,
@@ -167,8 +174,7 @@ class SeleccionImagen extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
             child: FFButtonWidget(
-              onPressed: () async => onPressed(
-                  await cargarImagen(ImageSource.gallery), TipoImagen.file),
+              onPressed: () => pickImage(ImageSource.gallery),
               text: 'Galería',
               icon: const Icon(
                 Icons.collections,

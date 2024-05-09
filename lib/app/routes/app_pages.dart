@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
+import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.dart';
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_p.dart';
 import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_b.dart';
@@ -83,6 +85,7 @@ abstract class Routes {
   static const TARIFAS_PISTA = '/tarifas_pista';
   static const PAGO_TPV = '/pago_tpv';
   static const PRUEBAS = '/pruebas';
+  static const ELIMINAR_CUENTA = '/eliminar_cuenta';
 }
 
 /// Get Routes
@@ -263,6 +266,13 @@ class AppPages {
       name: Routes.PAGO_TPV,
       page: () => PagoTpvPage(),
       binding: PagoTpvBinding(),
+    ),
+
+    /// Eliminar cuenta, ya sea de usuario o proveedor
+    GetPage(
+      name: Routes.ELIMINAR_CUENTA,
+      page: () => EliminarCuentaPage(),
+      binding: EliminarCuentaBinding(),
     ),
   ];
 }

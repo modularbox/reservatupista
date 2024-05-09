@@ -6,7 +6,7 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../widgets/appbar_general.dart';
-import '../../../widgets/seleccionar_imagen/seleccionar_imagen.dart';
+import '../../../../utils/image/seleccionar_imagen.dart';
 import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -41,7 +41,19 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                   isTitleBack: true,
                   title: 'Registro Usuario',
                 ),
-                buildSelectImage(),
+                Get.width > 640 ? buildSelectImage() : 0.0.empty,
+                MaterialButton(
+                  color: Colors.blue,
+                  onPressed: self.prueba,
+                  splashColor: Colors.blueGrey,
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
                 Form(
                   key: self.formKey,
                   child: Expanded(
@@ -51,13 +63,14 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Get.width <= 640 ? buildSelectImage() : 0.0.empty,
                             const InputsDatosRegistroUsuario(),
                             TerminosCondicionesDialog(
                                 self.animTerminos,
                                 self.checkboxTerminos,
                                 Colores.proveedor.primary,
                                 self.checkboxTerminos,
-                                FlutterFlowTheme.of(Get.context!).primaryText),
+                                LightModeTheme().primaryText),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
@@ -151,10 +164,11 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                         enableInteractiveSelection: false,
                         readOnly: true,
                         validator: (val) {
-                          if (self.imageFile.value == null) {
-                            return '';
+                          if (self.image.imageFile.value != null ||
+                              self.image.imageBytes.value != null) {
+                            return null;
                           }
-                          return null;
+                          return '';
                         },
                       ),
                     ),
@@ -166,33 +180,13 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                       ),
                       child: BtnIcon(
                         onPressed: () {
-                          Get.dialog(SeleccionarImagen(
-                              camera: self.btns.camera,
-                              galeria: self.btns.galeria,
-                              imageLocal: self.btns.imageLocal));
+                          Get.dialog(self.image.selectionImage());
                         },
                         borderRadius: 50,
                         padding: const EdgeInsets.all(0),
                         fillColor: Colors.transparent,
                         hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                        icon: Obx(() {
-                          if (self.imageWeb.value != null) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: Image.memory(
-                                self.imageWeb.value!,
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          }
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(60),
-                            child: getImage(self.imageFile.value,
-                                isRegristro: true),
-                          );
-                        }),
+                        icon: Obx(self.image.getImageWidget),
                       ),
                     ),
                   ],
