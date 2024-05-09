@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../animations/add_animation_widget.dart';
@@ -43,90 +44,96 @@ class SeleccionarImagen extends StatelessWidget {
       ],
       ['icon_sport_wistle', '', '']
     ];
+    final listaIconsGrid = [
+      'icon_sport_padel',
+      'icon_sport_sports_women',
+      'icon_sport_sports_men',
+      'icon_sport_baseball',
+      'icon_sport_basketball',
+      'icon_sport_football',
+      'icon_sport_rugby',
+      'icon_sport_sports_bottle',
+      'icon_sport_swimming',
+      'icon_sport_table_tennis',
+      'icon_sport_tennis',
+      'icon_sport_trophy',
+      'icon_sport_wistle',
+    ];
+
     Widget buildListIcons() {
       return Expanded(
-        child: SingleChildScrollView(
-          child: Column(
-              children: List.generate(
-            listaIcons.length,
-            (i) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  3,
-                  (j) => listaIcons[i][j] == ''
-                      ? const SizedBox()
-                      : BtnIcon(
-                          onPressed: () => pickImage(ImageSource.camera,
-                              path: listaIcons[i][j]),
-                          padding: const EdgeInsets.all(0),
-                          borderColor: const Color.fromARGB(255, 226, 6, 255),
-                          borderWidth: 3,
-                          borderRadius: 30,
-                          hoverColor: const Color.fromARGB(255, 226, 6, 255),
-                          icon: Image.asset(
-                              'assets/images/${listaIcons[i][j]}.png',
-                              height: 30.w,
-                              width: 30.w),
-                        ),
-                ).divide(5.0.sw)),
-          ).divide(10.0.sh)),
+        child: GridView(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            childAspectRatio: 1,
+          ),
+          scrollDirection: Axis.vertical,
+          children: List.generate(
+            listaIconsGrid.length,
+            (i) => BtnIcon(
+              onPressed: () =>
+                  pickImage(ImageSource.camera, path: listaIconsGrid[i]),
+              padding: const EdgeInsets.all(0),
+              borderColor: const Color.fromARGB(255, 226, 6, 255),
+              borderWidth: 3,
+              borderRadius: 30,
+              hoverColor: const Color.fromARGB(255, 226, 6, 255),
+              icon: Image.asset(
+                'assets/images/${listaIconsGrid[i]}.png',
+              ),
+            ),
+          ),
         ),
       );
     }
 
     return SizedBox(
       height: 100.h,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: AddAnimationWidget(
-                  height: isProveedor ? 350 : 50.h,
-                  child: Container(
-                    width: 100.w,
-                    height: isProveedor ? 350 : 100.h,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: Color(0x3B1D2429),
-                          offset: Offset(0, -3),
-                        )
-                      ],
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: isiOS ? 40 : 20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Elige la foto',
-                            style: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .copyWith(decoration: TextDecoration.none),
-                          ),
-                          5.0.sh,
-                          isProveedor ? 0.0.sh : buildListIcons(),
-                          buildBtnsImage(context),
-                        ],
-                      ),
-                    ),
+      width: Get.width,
+      child: Center(
+        child: AddAnimationWidget(
+          height: isProveedor ? 350 : 50.h,
+          child: Container(
+            width: 100.w,
+            height: isProveedor ? 350 : 100.h,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Color(0x3B1D2429),
+                  offset: Offset(0, -3),
+                )
+              ],
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: isiOS ? 40 : 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'Elige la foto',
+                    style: FlutterFlowTheme.of(context)
+                        .titleLarge
+                        .copyWith(decoration: TextDecoration.none),
                   ),
-                ),
+                  5.0.sh,
+                  isProveedor ? 0.0.sh : buildListIcons(),
+                  buildBtnsImage(context),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

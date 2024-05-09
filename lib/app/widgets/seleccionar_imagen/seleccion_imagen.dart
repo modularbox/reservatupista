@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '../../../../utils/animations/add_animation_widget.dart';
@@ -39,89 +40,78 @@ class SeleccionImagen extends StatelessWidget {
       ['icon_sport_wistle', '', '']
     ];
     Widget buildListIcons() {
-      return Expanded(
-        child: SingleChildScrollView(
-          child: Column(
+      return SingleChildScrollView(
+        child: Column(
+            children: List.generate(
+          listaIcons.length,
+          (i) => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-            listaIcons.length,
-            (i) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  3,
-                  (j) => listaIcons[i][j] == ''
-                      ? const SizedBox()
-                      : BtnIcon(
-                          onPressed: () =>
-                              onPressed(listaIcons[i][j], TipoImagen.asset),
-                          padding: const EdgeInsets.all(0),
-                          borderColor: const Color.fromARGB(255, 226, 6, 255),
-                          borderWidth: 3,
-                          borderRadius: 30,
-                          hoverColor: const Color.fromARGB(255, 226, 6, 255),
-                          icon: Image.asset(
-                              'assets/images/${listaIcons[i][j]}.png',
-                              height: 30.w,
-                              width: 30.w),
-                        ),
-                ).divide(5.0.sw)),
-          ).divide(10.0.sh)),
-        ),
+                3,
+                (j) => listaIcons[i][j] == ''
+                    ? const SizedBox()
+                    : BtnIcon(
+                        onPressed: () =>
+                            onPressed(listaIcons[i][j], TipoImagen.asset),
+                        padding: const EdgeInsets.all(0),
+                        borderColor: const Color.fromARGB(255, 226, 6, 255),
+                        borderWidth: 3,
+                        borderRadius: 30,
+                        hoverColor: const Color.fromARGB(255, 226, 6, 255),
+                        icon: Image.asset(
+                            'assets/images/${listaIcons[i][j]}.png',
+                            height: 30.w,
+                            width: 30.w),
+                      ),
+              ).divide(5.0.sw)),
+        ).divide(10.0.sh)),
       );
     }
 
     return SizedBox(
       height: 100.h,
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: AddAnimationWidget(
-                  height: isProveedor ? 350 : 50.h,
-                  child: Container(
-                    width: 100.w,
-                    height: isProveedor ? 350 : 100.h,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: Color(0x3B1D2429),
-                          offset: Offset(0, -3),
-                        )
-                      ],
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Elige la foto',
-                            style: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .copyWith(decoration: TextDecoration.none),
-                          ),
-                          5.0.sh,
-                          isProveedor ? 0.0.sh : buildListIcons(),
-                          buildBtnsImage(context),
-                        ],
-                      ),
-                    ),
+      width: Get.width,
+      child: Center(
+        child: AddAnimationWidget(
+          height: isProveedor ? 350 : 50.h,
+          child: Container(
+            width: 100.w,
+            height: isProveedor ? 350 : 100.h,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Color(0x3B1D2429),
+                  offset: Offset(0, -3),
+                )
+              ],
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'Elige la foto',
+                    style: FlutterFlowTheme.of(context)
+                        .titleLarge
+                        .copyWith(decoration: TextDecoration.none),
                   ),
-                ),
+                  5.0.sh,
+                  isProveedor ? 0.0.sh : buildListIcons(),
+                  buildBtnsImage(context),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
