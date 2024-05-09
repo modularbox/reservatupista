@@ -1,23 +1,18 @@
 // ignore_for_file: non_constant_identifier_names
-import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-// import 'package:image_picker_web/image_picker_web.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
+import 'package:reservatu_pista/app/data/provider/execute_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import '../../../../utils/animations/list_animations.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
-import '../../../routes/app_pages.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
-import 'package:image/image.dart' as img;
 import 'class/text_input_controller.dart';
 
 class RegistrarUsuarioController extends GetxController
@@ -43,19 +38,14 @@ class RegistrarUsuarioController extends GetxController
   RxString email = ''.obs;
   // Animacion de los terminos y condiciones
   late AnimationController animTerminos;
-  // Guardar imagen del usuario
-  final imageFile = Rxn<String>();
-  // Obtener imagen en Web
-  final imageWeb = Rxn<Uint8List>();
-  // Botones para las peticiones de cambiar imagen
-  late ButtonsPage btns;
+  // Clase para la imagen
+  final image = FuncionesImage();
 
   @override
   void onInit() {
     super.onInit();
     onInitForm();
     apiExisteNick.empty();
-    btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
     debounce(contrasenaVisibility, (_) => contrasenaVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
@@ -140,26 +130,17 @@ class RegistrarUsuarioController extends GetxController
   void onPressedRegistrar() async {
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
       try {
-        // Obtener la fecha actual
+        final imagenSubida = await image.convertirSubirImagen('usuarios');
+        if (imagenSubida) {
+          print("Se subio la imagen");
+        } else {
+          print("No se subio la imagen :/");
+        }
+        return;
+        // Nombre de la imagen en el servidor
         final DateTime now = DateTime.now();
         // Formatear la fecha en el formato deseado
         String nameFoto = now.millisecondsSinceEpoch.toString();
-        if (imageWeb.value != null) {
-          print(
-              '=================== Subir imagen en bytres =====================');
-          // Subir Imagen en nodejs y reducir su tamano en bytes
-          await subirImageNodeBytes(await imageResizeBytes(imageWeb.value!));
-        } else if (imageFile.value![0] == '@') {
-          // Subir Imagen en nodejs y copiarAssetLocal
-          await subirImageNode(
-              await copiarAssetAFile(imageFile.value!.substring(1)),
-              destination: 'usuarios',
-              nameFoto: nameFoto);
-        } else {
-          // Subir Imagen en nodejs y reducir su tamano
-          await subirImageNode(await imageResize(imageFile.value!),
-              destination: 'usuarios', nameFoto: nameFoto);
-        }
 
         /// Insertar los datos en SQL en la tabla
         List<int> bytes = utf8.encode(tc.contrasena.text);
@@ -244,59 +225,6 @@ class RegistrarUsuarioController extends GetxController
     }
   }
 
-  /// Reducir imagen
-  Future<File> imageResize(String path) async {
-    // Imagen decoded
-    img.Image image = img.decodeImage(File(path).readAsBytesSync())!;
-    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
-    img.Image compressedImage = img.copyResize(
-      image,
-      width: 150,
-      height: 300,
-    );
-    // Regresar la imagen comprimida
-    return File(path)
-      ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 60));
-  }
-
-  /// Reducir imagen en bytes
-  Future<Uint8List> imageResizeBytes(Uint8List imageData) async {
-    // Decodificar la imagen desde Uint8List
-    img.Image image = img.decodeImage(imageData)!;
-
-    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
-    img.Image compressedImage = img.copyResize(
-      image,
-      width: 150,
-      height: 300,
-    );
-
-    // Codificar la imagen como Uint8List
-    Uint8List compressedImageData =
-        Uint8List.fromList(img.encodeJpg(compressedImage, quality: 60));
-
-    // Devolver la imagen comprimida
-    return compressedImageData;
-  }
-
-  Future<File> copiarAssetAFile(String path) async {
-    try {
-      // Especifica el path relativo del activo
-      String pathAsset = 'assets/images/$path.png';
-      // Obtiene el contenido del activo como bytes
-      List<int> bytes = await rootBundle
-          .load(pathAsset)
-          .then((byteData) => byteData.buffer.asUint8List());
-      // Obtiene el directorio temporal del sistema
-      Directory tempDir = await getTemporaryDirectory();
-      // Crea un archivo temporal con el contenido del activo
-      File tempFile = File('${tempDir.path}/image_asset.png');
-      return await tempFile.writeAsBytes(bytes);
-    } catch (error) {
-      throw ('Error al copiar el activo a un archivo: $error');
-    }
-  }
-
   String? validateTextField(BuildContext context, String? text,
       AnimationController anim, FocusNode focusNode, String nameData) {
     if (text == null || text.isEmpty) {
@@ -365,22 +293,6 @@ class RegistrarUsuarioController extends GetxController
     return null;
   }
 
-  Future<void> pickImage(ImageSource source, {String? path}) async {
-    if (path != null) {
-      imageFile.value = '@$path';
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        if (isWeb) {
-          imageWeb.value = await pickedFile.readAsBytes();
-        } else {
-          imageFile.value = pickedFile.path;
-        }
-        tc.foto.text = 'IMG';
-      }
-    }
-  }
-
   @override
   void onClose() {
     tc.unfocusNode.dispose();
@@ -406,23 +318,23 @@ class RegistrarUsuarioController extends GetxController
   }
 }
 
-class ButtonsPage {
-  late RegistrarUsuarioController controller;
-  ButtonsPage({required this.controller});
-  camera() {
-    controller.pickImage(ImageSource.camera);
-    Get.back();
-  }
+// class ButtonsPage {
+//   late RegistrarUsuarioController controller;
+//   ButtonsPage({required this.controller});
+//   camera() {
+//     controller.pickImage(ImageSource.camera);
+//     Get.back();
+//   }
 
-  galeria() {
-    controller.pickImage(ImageSource.gallery);
-    Get.back();
-  }
+//   galeria() {
+//     controller.pickImage(ImageSource.gallery);
+//     Get.back();
+//   }
 
-  imageLocal(String path) {
-    controller.pickImage(ImageSource.camera, path: path);
-    Get.back();
-  }
+//   imageLocal(String path) {
+//     controller.pickImage(ImageSource.camera, path: path);
+//     Get.back();
+//   }
 
-  cancel() {}
-}
+//   cancel() {}
+// }
