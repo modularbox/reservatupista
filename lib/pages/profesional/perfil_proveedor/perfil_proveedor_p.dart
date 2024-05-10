@@ -1,10 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
-import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
-import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_profesional.dart';
@@ -17,10 +16,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
-import './perfil_proveedor_c.dart';
 
-class PerfilProveedorPage extends GetView<PerfilProveedorController> {
-  PerfilProveedorController get self => controller;
+class PerfilProveedorPage extends GetView<DBService> {
+  DBService get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
   PerfilProveedorPage({super.key});
@@ -41,53 +39,25 @@ class PerfilProveedorPage extends GetView<PerfilProveedorController> {
         page: TypePage.Perfil,
         isTitle: true,
         child: Expanded(
-            child: self.nombreClub.obx(
-                (nombreClub) => Stack(
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: 100.h <= 745
-                                ? datosPerfil(
-                                    space: spaceSizedBoxBtnCerrarRes(),
-                                    subAppBar:
-                                        subAppBar(true, nombreClub ?? ''),
-                                    height: 50,
-                                    top: 10,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2))
-                                : datosPerfil(
-                                    space: spaceSizedBoxBtnCerrar(),
-                                    subAppBar:
-                                        subAppBar(false, nombreClub ?? ''))),
-                        buildBtnCerrar()
-                      ],
-                    ),
-                onLoading: Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: Center(
-                    child: SizedBox(
-                        width: 100,
-                        child: ColorLoader(
-                          radius: 12,
-                          padding: const EdgeInsets.only(right: 10),
-                        )),
-                  ),
-                ),
-                onEmpty: Center(
-                  child: Text('\nNo se encontraron pistas.',
-                      style: LightModeTheme().bodyMedium.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16)),
-                ))));
-  }
-
-  Widget scrollPerfil({required Widget child}) {
-    if (isWeb) {
-      return SingleChildScrollView(child: child);
-    } else {
-      return child;
-    }
+          child: Stack(
+            children: [
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: 100.h <= 745
+                      ? datosPerfil(
+                          space: spaceSizedBoxBtnCerrarRes(),
+                          subAppBar: subAppBar(true, self.nombreClub),
+                          height: 50,
+                          top: 10,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2))
+                      : datosPerfil(
+                          space: spaceSizedBoxBtnCerrar(),
+                          subAppBar: subAppBar(false, self.nombreClub))),
+              buildBtnCerrar()
+            ],
+          ),
+        ));
   }
 
   Widget subAppBar(bool responsive, String nombreClub) {
@@ -388,7 +358,7 @@ class PerfilProveedorPage extends GetView<PerfilProveedorController> {
           ),
           child: BtnIcon(
             onPressed: () async {
-              Get.offAllNamed(Routes.LOGIN_USUARIO);
+              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
             },
             hoverColor: Colores.usuario.primary69,
             borderRadius: 12,

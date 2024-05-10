@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
+import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
@@ -35,7 +37,7 @@ class DatosUsuarioController extends GetxController
 
   ///  State fields for stateful widgets in this page.
   final unfocusNode = FocusNode();
-// State field(s) for nick widget.
+  // State field(s) for nick widget.
   FocusNode nickFocusNode = FocusNode();
   TextEditingController nickController = TextEditingController();
   // State field(s) for nombre widget.
@@ -91,13 +93,15 @@ class DatosUsuarioController extends GetxController
 
   RxString nick = ''.obs;
   late AnimationController animTerminos;
-  Rx<TiposImagenes?> imageFile = Rx<TiposImagenes?>(null);
   late ButtonsPage btns;
   bool isFocusNode = false;
 
   /// Variable usada para ver los cambios en la lista
   UsuarioModel? usuarioModel;
   DBService db = Get.find();
+
+  /// Controlador para cambiar la imagen del servidor
+  final image = FuncionesImage();
 
   @override
   void onInit() {
@@ -106,6 +110,28 @@ class DatosUsuarioController extends GetxController
     getDatosUsuario();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
+    everAll([image.imageBytes, image.imageFile], changeImage);
+  }
+
+  dynamic changeImage(dynamic callback) async {
+    try {
+      final imagenSubida =
+          await image.convertirSubirImagen('usuarios', usuarioModel!.foto);
+      if (imagenSubida) {
+        print("Se subio la imagen");
+
+        /// Actualizar Imagen
+        db.fotoServer = DatosServer.usuario(usuarioModel!.foto);
+        db.storage.fotoUsuario.write(db.fotoServer);
+      } else {
+        print("No se subio la imagen :/");
+        throw "Error al subir imagen";
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      Get.back();
+    }
   }
 
   void onOpenDialogEliminarCuenta() async {
@@ -188,9 +214,6 @@ class DatosUsuarioController extends GetxController
         palaController.text = result.marcaPala;
         modeloController.text = result.modeloPala;
         juegoPorSemanaController.text = result.juegosSemana;
-        imageFile.value = result.foto[0] == '@'
-            ? TiposImagenes(result.foto, ImagenType.file)
-            : TiposImagenes(result.foto, ImagenType.network);
         // datosUsuario.value.change(true, RxStatusDemo.success());
         apidatosUsuario.change(true, RxStatusDemo.success());
         // datosUsuario.refresh();
@@ -551,7 +574,7 @@ class DatosUsuarioController extends GetxController
 
         /// Actualizar Image
         db.fotoServer =
-            '${UsuarioNode().getImageNode(db.datosUsuario!.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+            '${UsuarioNode().getImageNode(db.datosUsuario.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
 
         final storage = await SharedPreferences.getInstance();
         storage.fotoUsuario.write(db.fotoServer);

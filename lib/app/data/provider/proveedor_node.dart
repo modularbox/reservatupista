@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:get/get_connect/connect.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/app/data/models/club_model.dart';
 import 'package:reservatu_pista/app/data/models/message_error.dart';
@@ -24,6 +24,7 @@ class ProveedorProvider extends GetConnect {
   Future<ClubModel?> getClub(List<String> listTypes) async {
     try {
       await initialize();
+      printError(info: listTypes.join(', '));
       final response = await get('$url/proveedor/club', headers: {
         "Authorization": "Bearer $token",
         "id": idClub.toString(),

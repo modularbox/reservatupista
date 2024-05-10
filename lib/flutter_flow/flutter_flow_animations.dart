@@ -98,7 +98,8 @@ class TiltEffect extends Effect<Offset> {
 }
 
 class VibratingWidget extends StatelessWidget {
-  VibratingWidget({required this.child, required this.controller});
+  const VibratingWidget(
+      {super.key, required this.child, required this.controller});
 
   final Widget child;
   final AnimationController controller;

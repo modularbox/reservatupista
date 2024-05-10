@@ -18,17 +18,28 @@ class CodigoIban extends GetView<DatosProveedorController> {
 
   @override
   Widget build(BuildContext context) {
-    final insertarText = self.codigoIbanController.text;
     final lengthTextField = [2, 2, 4, 4, 2, 10];
-
-    final controllersCodigo = [
-      TextEditingController(text: insertarText.substring(0, 2)),
-      TextEditingController(text: insertarText.substring(2, 4)),
-      TextEditingController(text: insertarText.substring(4, 8)),
-      TextEditingController(text: insertarText.substring(8, 12)),
-      TextEditingController(text: insertarText.substring(12, 14)),
-      TextEditingController(text: insertarText.substring(14, 24)),
-    ];
+    List<TextEditingController> controllersCodigo = [];
+    if (self.codigoIbanController.text != '') {
+      final insertarText = self.codigoIbanController.text;
+      controllersCodigo = [
+        TextEditingController(text: insertarText.substring(0, 2)),
+        TextEditingController(text: insertarText.substring(2, 4)),
+        TextEditingController(text: insertarText.substring(4, 8)),
+        TextEditingController(text: insertarText.substring(8, 12)),
+        TextEditingController(text: insertarText.substring(12, 14)),
+        TextEditingController(text: insertarText.substring(14, 24)),
+      ];
+    } else {
+      controllersCodigo = [
+        TextEditingController(),
+        TextEditingController(),
+        TextEditingController(),
+        TextEditingController(),
+        TextEditingController(),
+        TextEditingController(),
+      ];
+    }
     final focusNodeCodigo = [
       FocusNode(),
       FocusNode(),

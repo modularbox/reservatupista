@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names
 abstract final class DatosServer {
   static const String urlPruebas = 'http://localhost:3000';
-  // static const String urlServer = 'http://localhost:3000';
-  static const String urlServer = 'https://apidevelop.reservatupista.com';
+  static const String urlServer = 'http://localhost:3000';
+  // static const String urlServer = 'https://apidevelop.reservatupista.com';
   static const String urlImageUsuario = '$urlServer/images_usuario';
   static const String urlImageProveedor = '$urlServer/images_proveedor';
   static const String urlImagePistas = '$urlServer/images_pista';
@@ -21,11 +21,11 @@ abstract final class DatosServer {
   }
 
   static String usuario(String imageName) {
-    return '$urlImageUsuario/$imageName.png';
+    return '$urlImageUsuario/$imageName.png?timestamp=${DateTime.now().millisecondsSinceEpoch}';
   }
 
   static String proveedor(String imageName) {
-    return '$urlImageProveedor/$imageName.png';
+    return '$urlImageProveedor/$imageName.png?timestamp=${DateTime.now().millisecondsSinceEpoch}';
   }
 
   static String online(String imageName) {
@@ -141,15 +141,3 @@ const id_tarifa_especifca = 'id_tarifa_especifca';
 const coste_total_reserva = 'coste_total_reserva';
 const referencia = 'referencia';
 const reservas_pistas = 'reservas_pistas';
-// final reservas_pistas = {
-//   "id_pista": 0,
-//   "fecha_reserva": "2024-04-20",
-//   "timestamp": "2024-04-22 09:35:17",
-//   "hora_inicio": "04:00:00",
-//   "hora_fin": "04:00:00",
-//   "id_tarifa": 0,
-//   "id_tarifa_general": null,
-//   "id_tarifa_especifca": null,
-//   "coste_total_reserva": 0,
-//   "referencia": 'egiauisgfui'
-// };

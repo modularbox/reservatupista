@@ -18,8 +18,10 @@ class FuncionesImage {
   final imageBytes = Rxn<Uint8List>();
   // Controllador para ver el cambio de estado de la imagen
   final controller = TextEditingController();
-  // Obtener imagen en Web
+  // Las imagenes son del proveedor
   final bool isProveedor;
+  // Obtener la imagen del servidor
+  final imageNetwork = Rxn<String>();
 
   /// Reducir imagen
   Future<File> imageResize(String path) async {
@@ -98,6 +100,27 @@ class FuncionesImage {
       }
     }
     return false;
+  }
+
+  Future<String> subirMultiplesImagenes(
+      String destination, String nameFoto, List<dynamic> imagenesPista) async {
+    String nombreImagePista = '';
+    // Subir imagenes de las fotos de la pista
+    for (var i = 0; i < imagenesPista.length; i++) {
+      final nombrePista = '${nameFoto}_pi$i';
+      if (i != 0) {
+        nombreImagePista += ', ';
+      }
+      nombreImagePista += nombrePista;
+      if (isWeb) {
+        await ImageNodeProvider.subirImageBytes(imagenesPista[i],
+            destination: destination, nameFoto: nombrePista);
+      } else {
+        await ImageNodeProvider.subirImageFile(imagenesPista[i],
+            destination: destination, nameFoto: nombrePista);
+      }
+    }
+    return nombreImagePista;
   }
 
   Future<void> pickImage(ImageSource source, {String? path}) async {
@@ -192,13 +215,14 @@ class FuncionesImage {
 
   /// Validator para TextEditingController
   String? validatorImage(String? val) {
-    print(imageFile.value != null || imageBytes.value != null ? null : '');
     return imageFile.value != null || imageBytes.value != null ? null : '';
   }
 
   /// Existe imagen
   bool existeImagen() {
-    return imageFile.value != null || imageBytes.value != null;
+    return imageFile.value != null ||
+        imageBytes.value != null ||
+        imageNetwork.value != null;
   }
 
   /// Widget para mostrar la imagen en file o en bytes
@@ -208,11 +232,16 @@ class FuncionesImage {
     final BoxFit? fit,
   }) {
     if (imageFile.value != null) {
-      Image.file(File(imageFile.value!),
+      return Image.file(File(imageFile.value!),
           height: height, width: width, fit: fit);
     }
     if (imageBytes.value != null) {
-      Image.memory(imageBytes.value!, height: height, width: width, fit: fit);
+      return Image.memory(imageBytes.value!,
+          height: height, width: width, fit: fit);
+    }
+    if (imageNetwork.value != null) {
+      return Image.network(imageNetwork.value!,
+          height: height, width: width, fit: fit);
     }
     return const SizedBox.shrink();
   }
@@ -220,12 +249,15 @@ class FuncionesImage {
   /// Widget para mostrar la imagen en file o en bytes
   ImageProvider<Object>? widgetBackgroundImage() {
     if (imageFile.value != null) {
-      FileImage(
+      return FileImage(
         File(imageFile.value!),
       );
     }
     if (imageBytes.value != null) {
-      MemoryImage(imageBytes.value!);
+      return MemoryImage(imageBytes.value!);
+    }
+    if (imageNetwork.value != null) {
+      return NetworkImage(imageNetwork.value!);
     }
     return null;
   }

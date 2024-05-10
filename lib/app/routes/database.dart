@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,7 +99,6 @@ class DatabaseController extends GetxController {
       if (result is UsuarioModel) {
         imageServer.value = UsuarioNode().getImageNode(result.foto);
         datosUsuarioPerfil = result;
-        print(result.toJson());
         datosPerfilUsuario.success(result);
         return true;
       }

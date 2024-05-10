@@ -6,6 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:reservatu_pista/app/data/models/pistas_model.dart';
 import 'package:reservatu_pista/app/data/provider/pista_node.dart';
 import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/utils/image/funciones_image.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import '../../../../app_state.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import 'package:image/image.dart' as img;
@@ -111,13 +114,15 @@ class AnadirPistaController extends GetxController
   // Validar si se han creado las tarifas al momento de crear la pista
   RxBool validarTarifas = false.obs;
   // Imagen del patrocinador
-  Rx<File?> imagePatrocinador = Rx<File?>(null);
+  // Rx<File?> imagePatrocinador = Rx<File?>(null);
   // Imagenes de la pistas
-  StateRx<List<File>?> imagesPista = StateRx(Rxn<List<File>>());
+  final imagesPista = StateRx(Rx<List<dynamic>>([]));
   // Lista de los horarios para crear las tarifas
   Rx<List<String>> listaHorarios = Rx<List<String>>([]);
   // Lista de las tarifas
   List<List<Tarifa>> listaTarifas = [];
+  // Imagen del patrocinador
+  final imagePatrocinador = FuncionesImage(isProveedor: true);
   @override
   void onInit() {
     super.onInit();
@@ -209,8 +214,26 @@ class AnadirPistaController extends GetxController
 
   /// Crear la pista y subirla al servidor
   void crearPista() async {
+    Get.dialog(ColorLoader3());
+    // Poner nombre en base a la fecha para que no se repita
+    String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
+    final imagenesPista = await imagePatrocinador.subirMultiplesImagenes(
+        'pistas', nameFoto, imagesPista.rx.value);
+
+    final imagenSubida =
+        await imagePatrocinador.convertirSubirImagen('pistas', nameFoto);
+    if (imagenSubida) {
+      print("Se subio la imagen");
+    } else {
+      print("No se subio la imagen :/");
+      // throw "Error al subir imagen";
+    }
+    Get.back();
+
+    print(imagenesPista);
+    return;
     bool validarAnterior = true;
-    if (imagesPista.rx.value!.isEmpty) {
+    if (imagesPista.rx.value.isEmpty) {
       validarAnterior = false;
       imagesPista.changeActions('validate');
     }
@@ -227,7 +250,11 @@ class AnadirPistaController extends GetxController
       print("Todos los campos estan completos");
 
       try {
-        final imagenesPista = await subirImagenesServer();
+        // Poner nombre en base a la fecha para que no se repita
+        String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
+        final imagenesPista = await imagePatrocinador.subirMultiplesImagenes(
+            'pistas', nameFoto, imagesPista.rx.value);
+        print(imagenesPista);
         final pistaDatos = PistasModel(
           deporte: deporte.controller.text.de,
           numPista: int.parse(nPistaController.text),
@@ -251,10 +278,10 @@ class AnadirPistaController extends GetxController
           precioSinLuzNoSocio: noSocioPrecioSinLuz.controller.text.pc,
           descripcion: descripcion.controller.text,
           nombrePatrocinador: nombrePatrocinador.controller.text,
-          imagenPatrocinador: imagenesPista.patrocinador,
+          // imagenPatrocinador: imagenesPista.patrocinador,
           vestuario: vestuario.controller.text.sn,
           duchas: duchas.controller.text.sn,
-          imagenesPista: imagenesPista.pista,
+          // imagenesPista: imagenesPista.pista,
           efectivo: efectivo.controller.text.sn,
           tarjeta: tarjeta.controller.text.sn,
           bono: bono.controller.text.sn,
@@ -301,30 +328,6 @@ class AnadirPistaController extends GetxController
         print(e);
       }
     }
-  }
-
-  /// Subir imagenes al servidor
-  Future<ImagenesPista> subirImagenesServer() async {
-    // Obtener la fecha actual
-    final DateTime now = DateTime.now();
-
-    String nameFoto = now.millisecondsSinceEpoch.toString();
-    String nombreImagePatrocinador = '${nameFoto}_p';
-    String nombreImagePista = '';
-    // Subir Imagen del patrocinador
-    await subirImageNode(imagePatrocinador.value!,
-        destination: 'pistas', nameFoto: nombreImagePatrocinador);
-    // Subir imagenes de las fotos de la pista
-    for (var i = 0; i < imagesPista.rx.value!.length; i++) {
-      final nombrePista = '${nameFoto}_pi$i';
-      if (i != 0) {
-        nombreImagePista += ', ';
-      }
-      nombreImagePista += nombrePista;
-      await subirImageNode(imagesPista.rx.value![i],
-          destination: 'pistas', nameFoto: nombrePista);
-    }
-    return ImagenesPista(nombreImagePatrocinador, nombreImagePista);
   }
 
   AnimationController getAnimVibrate() {
@@ -499,14 +502,24 @@ class AnadirPistaController extends GetxController
     return tarifasDate;
   }
 
-  /// Cargar la imagen del patrocinador
-  void pickImagePatrocinador(String? path, TipoImagen tipoImagen) async {
-    if (path is String) {
-      imagePatrocinador.value = await imageResize(path);
-      foto.isValidate.value = false;
-      foto.controller.text = 'Foto';
-    }
-    Get.back();
+  /// Reducir imagen en bytes
+  Future<Uint8List> imageResizeBytes(Uint8List imageData) async {
+    // Decodificar la imagen desde Uint8List
+    img.Image image = img.decodeImage(imageData)!;
+
+    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
+    img.Image compressedImage = img.copyResize(
+      image,
+      width: 150,
+      height: 300,
+    );
+
+    // Codificar la imagen como Uint8List
+    Uint8List compressedImageData =
+        Uint8List.fromList(img.encodeJpg(compressedImage, quality: 60));
+
+    // Devolver la imagen comprimida
+    return compressedImageData;
   }
 
   /// Cargar las imagenes de la pista
@@ -514,7 +527,7 @@ class AnadirPistaController extends GetxController
     try {
       List<XFile> images = await ImagePicker().pickMultiImage();
       if (images.isNotEmpty) {
-        imagesPista.change(null, RxStatusDemo.loading());
+        imagesPista.loading();
         final maxImages = images.length > 5;
         if (maxImages) {
           /// Si el limite es mayor, mensaje de error
@@ -528,16 +541,27 @@ class AnadirPistaController extends GetxController
             onPressed: Get.back,
           ));
         } else {
-          List<File> imagesResize = [];
+          List<File> imagesResizeFile = [];
+          List<Uint8List> imagesResizeBytes = [];
           for (XFile img in images) {
-            imagesResize.add(await imageResize(img.path));
+            if (isWeb) {
+              imagesResizeBytes
+                  .add(await imageResizeBytes(await img.readAsBytes()));
+            } else {
+              imagesResizeFile.add(await imageResize(img.path));
+            }
           }
-          imagesPista.change(imagesResize, RxStatusDemo.success(),
-              newAction: '');
+          if (isWeb) {
+            imagesPista.change(imagesResizeBytes, RxStatusDemo.success(),
+                newAction: '');
+          } else {
+            imagesPista.change(imagesResizeFile, RxStatusDemo.success(),
+                newAction: '');
+          }
         }
       }
     } catch (e) {
-      imagesPista.change([], RxStatusDemo.success());
+      imagesPista.success([]);
       print(e);
     }
   }
@@ -607,10 +631,4 @@ class AnadirPistaController extends GetxController
     // duchasController!.dispose();
     // duchasFocusNode!.dispose();
   }
-}
-
-class ImagenesPista {
-  String patrocinador;
-  String pista;
-  ImagenesPista(this.patrocinador, this.pista);
 }

@@ -1,12 +1,9 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../../utils/colores.dart';
 import '../../../../../utils/dialog/terminos_condiciones_dialog.dart';
-import '../../../../../utils/loader/color_loader.dart';
 import '../../../../../utils/btn_icon.dart';
-import '../../../../widgets/seleccionar_imagen/seleccion_imagen.dart';
 import '../../../../widgets/text_inputters/inputter_registro.dart';
 import '../anadir_pista_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -15,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'imagenes_pista.dart';
 import 'input_pista.dart';
 
 class ListInputs extends StatefulWidget {
@@ -103,21 +101,21 @@ class _ListInputsState extends State<ListInputs> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -125,8 +123,8 @@ class _ListInputsState extends State<ListInputs> {
                     contentPadding: const EdgeInsetsDirectional.fromSTEB(
                         16.0, 12.0, 16.0, 12.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  cursorColor: FlutterFlowTheme.of(context).primary,
+                  style: LightModeTheme().bodyMedium,
+                  cursorColor: LightModeTheme().primary,
                 ),
               ),
               Flexible(
@@ -152,21 +150,21 @@ class _ListInputsState extends State<ListInputs> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -174,8 +172,8 @@ class _ListInputsState extends State<ListInputs> {
                     contentPadding: const EdgeInsetsDirectional.fromSTEB(
                         16.0, 12.0, 16.0, 12.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  cursorColor: FlutterFlowTheme.of(context).primary,
+                  style: LightModeTheme().bodyMedium,
+                  cursorColor: LightModeTheme().primary,
                 ),
               ),
             ],
@@ -405,7 +403,6 @@ class _ListInputsState extends State<ListInputs> {
             ],
           ),
           buildContainerSocioNew(
-            context: context,
             title: 'Socio',
             tiempoReserva: self.socioTiempoReserva,
             tiempoCancelacion: self.socioTiempoCancelacion,
@@ -413,14 +410,13 @@ class _ListInputsState extends State<ListInputs> {
             precioSinLuz: self.socioPrecioSinLuz,
           ),
           buildContainerSocioNew(
-            context: context,
             title: 'No Socio',
             tiempoReserva: self.noSocioTiempoReserva,
             tiempoCancelacion: self.noSocioTiempoCancelacion,
             precioConLuz: self.noSocioPrecioConLuz,
             precioSinLuz: self.noSocioPrecioSinLuz,
           ),
-          buildContainerMetodoPago(context: context),
+          buildContainerMetodoPago(),
           Obx(() => FFButtonWidget(
                 onPressed: !self.isValidBtnTarifas.value
                     ? null
@@ -438,8 +434,8 @@ class _ListInputsState extends State<ListInputs> {
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: !self.isValidBtnTarifas.value
                       ? Colores.grisClaro
-                      : FlutterFlowTheme.of(context).alternate,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                      : LightModeTheme().alternate,
+                  textStyle: LightModeTheme().titleSmall.override(
                         fontFamily: 'Readex Pro',
                         color: !self.isValidBtnTarifas.value
                             ? Colors.black
@@ -483,7 +479,7 @@ class _ListInputsState extends State<ListInputs> {
               ),
               4.0.sw,
               Expanded(
-                child: buildUploadImage(context: context),
+                child: buildUploadImage(),
               ),
             ],
           ),
@@ -538,94 +534,7 @@ class _ListInputsState extends State<ListInputs> {
               ),
             ],
           ),
-          VibratingWidget(
-            controller: self.imagenesPistaAnim,
-            child: self.imagesPista.obx(
-                (state) => BtnIcon(
-                      borderRadius: 12,
-                      borderColor: self.imagesPista.action == 'validate'
-                          ? FlutterFlowTheme.of(context).error
-                          : state!.isEmpty
-                              ? Colores.proveedor.primary
-                              : Colores.proveedor.primary160,
-                      hoverColor: Colores.proveedor.primary69,
-                      borderWidth: 2,
-                      height: 45,
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      onPressed: self.pickImagesPista,
-                      icon: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Icon(
-                                Icons.add_a_photo_rounded,
-                                color: self.imagesPista.action == 'validate'
-                                    ? FlutterFlowTheme.of(context).error
-                                    : Colores.proveedor.primary,
-                                size: 25.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  state!.isEmpty
-                                      ? 'Subir imagenes de la pista'
-                                      : 'Fotos',
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                ),
-                              ),
-                            ],
-                          ),
-                          state.isEmpty
-                              ? const SizedBox.shrink()
-                              : Row(
-                                  children: state
-                                      .map((e) => BtnIcon(
-                                          onPressed: () {
-                                            Get.dialog(
-                                              GestureDetector(
-                                                onTap: () => Get.back(),
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 10),
-                                                  child: Image.file(
-                                                    e,
-                                                    width: 300.0,
-                                                    fit: BoxFit.fitWidth,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          borderRadius: 30,
-                                          padding: const EdgeInsets.all(0),
-                                          fillColor: Colors.transparent,
-                                          hoverColor: const Color.fromARGB(
-                                              68, 255, 255, 255),
-                                          icon: CircleAvatar(
-                                            radius: 20,
-                                            backgroundImage: FileImage(
-                                              e,
-                                            ),
-                                          )))
-                                      .toList()),
-                        ],
-                      ),
-                    ),
-                onLoading: BtnIcon(
-                    borderRadius: 12,
-                    borderColor: Colores.proveedor.primary,
-                    hoverColor: Colores.proveedor.primary69,
-                    borderWidth: 2,
-                    height: 45,
-                    padding: const EdgeInsets.all(8.0),
-                    icon: ColorLoader())),
-          ),
+          const ImagenesPista(),
           VibratingWidget(
             controller: self.descripcion.anim,
             child: Obx(
@@ -637,12 +546,12 @@ class _ListInputsState extends State<ListInputs> {
                 decoration: InputDecoration(
                   counterText: '',
                   labelText: 'Descripción',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  labelStyle: LightModeTheme().labelMedium,
+                  hintStyle: LightModeTheme().labelMedium,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: self.descripcion.isValidate.value
-                          ? FlutterFlowTheme.of(context).error
+                          ? LightModeTheme().error
                           : Colores.proveedor.primary160,
                       width: 2.0,
                     ),
@@ -651,7 +560,7 @@ class _ListInputsState extends State<ListInputs> {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: self.descripcion.isValidate.value
-                          ? FlutterFlowTheme.of(context).error
+                          ? LightModeTheme().error
                           : Colores.proveedor.primary,
                       width: 2.0,
                     ),
@@ -659,14 +568,14 @@ class _ListInputsState extends State<ListInputs> {
                   ),
                   errorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
+                      color: LightModeTheme().error,
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
+                      color: LightModeTheme().error,
                       width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
@@ -674,8 +583,8 @@ class _ListInputsState extends State<ListInputs> {
                   contentPadding: const EdgeInsetsDirectional.fromSTEB(
                       16.0, 24.0, 16.0, 12.0),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
-                cursorColor: FlutterFlowTheme.of(context).primary,
+                style: LightModeTheme().bodyMedium,
+                cursorColor: LightModeTheme().primary,
                 maxLines: 4,
                 inputFormatters: [MaxLinesTextInputFormatter(4)],
                 onChanged: (val) => self.descripcion.isValidate.value = false,
@@ -692,16 +601,14 @@ class _ListInputsState extends State<ListInputs> {
               self.checkboxTerminos,
               Colores.proveedor.primary,
               self.checkboxTerminos,
-              FlutterFlowTheme.of(Get.context!).primaryText),
+              LightModeTheme().primaryText),
         ].divide(const SizedBox(height: 10.0)),
       ),
     );
   }
 
 // Construir para crear imagen
-  Widget buildUploadImage({
-    required BuildContext context,
-  }) {
+  Widget buildUploadImage() {
     return VibratingWidget(
         controller: self.foto.anim,
         child: Obx(() => TextFormField(
@@ -711,14 +618,14 @@ class _ListInputsState extends State<ListInputs> {
                 counterText: '',
                 errorStyle: const TextStyle(fontSize: 0),
                 labelText: 'Foto',
-                hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                hintStyle: LightModeTheme().bodyMedium.override(
                       fontFamily: 'Readex Pro',
                       color: const Color(0xFF95A1AC),
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: self.foto.isValidate.value
-                        ? FlutterFlowTheme.of(context).error
+                        ? LightModeTheme().error
                         : Colores.proveedor.primary160,
                     width: 2.0,
                   ),
@@ -727,7 +634,7 @@ class _ListInputsState extends State<ListInputs> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: self.foto.isValidate.value
-                        ? FlutterFlowTheme.of(context).error
+                        ? LightModeTheme().error
                         : Colores.proveedor.primary,
                     width: 2.0,
                   ),
@@ -735,14 +642,14 @@ class _ListInputsState extends State<ListInputs> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
+                    color: LightModeTheme().error,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
+                    color: LightModeTheme().error,
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(12.0),
@@ -752,62 +659,54 @@ class _ListInputsState extends State<ListInputs> {
                   child: Icon(
                     Icons.add_a_photo_rounded,
                     color: self.foto.isValidate.value
-                        ? FlutterFlowTheme.of(context).error
+                        ? LightModeTheme().error
                         : Colores.proveedor.primary,
                     size: 25.0,
                   ),
                 ),
-                suffixIcon: Obx(() => self.imagePatrocinador.value != null
-                    ? BtnIcon(
-                        onPressed: () {
-                          Get.dialog(
-                            GestureDetector(
-                              onTap: () => Get.back(),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Image.file(
-                                  self.imagePatrocinador.value!,
-                                  width: 300.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        borderRadius: 30,
-                        padding: const EdgeInsets.all(0),
-                        fillColor: Colors.transparent,
-                        hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                        icon: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: FileImage(
-                            self.imagePatrocinador.value!,
-                          ),
-                        ))
-                    : const SizedBox.shrink()),
+                suffixIcon: Obx(buildImageFotoPatrocinador),
                 filled: true,
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                fillColor: LightModeTheme().secondaryBackground,
                 contentPadding: const EdgeInsetsDirectional.fromSTEB(
                     16.0, 12.0, 16.0, 12.0),
               ),
-              style: FlutterFlowTheme.of(context).bodyMedium,
+              style: LightModeTheme().bodyMedium,
               readOnly: true,
-              onTap: () {
-                Get.dialog(SeleccionImagen(
-                  onPressed: self.pickImagePatrocinador,
-                  isProveedor: true,
-                ));
-              },
+              onTap: self.imagePatrocinador.dialogSeleccionarImage,
               enableInteractiveSelection: false,
               validator: (val) => self.validarInputController(
                   val, self.foto.isValidate, self.foto.anim, self.foto.key),
             )));
   }
 
+  //Imagen del patrocinador
+  Widget buildImageFotoPatrocinador() => self.imagePatrocinador.existeImagen()
+      ? BtnIcon(
+          onPressed: () {
+            Get.dialog(GestureDetector(
+                onTap: Get.back,
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      self.imagePatrocinador.widgetImage(
+                        width: 200,
+                        height: 400,
+                      )
+                    ])));
+          },
+          borderRadius: 30,
+          padding: const EdgeInsets.all(0),
+          fillColor: Colors.transparent,
+          hoverColor: const Color.fromARGB(68, 255, 255, 255),
+          icon: CircleAvatar(
+            radius: 20,
+            backgroundImage: self.imagePatrocinador.widgetBackgroundImage(),
+          ))
+      : const SizedBox.shrink();
+
 // Build inputs del socio o no socio
   Widget buildContainerSocioNew({
-    required BuildContext context,
     required String title,
     required InputController tiempoReserva,
     required InputController tiempoCancelacion,
@@ -817,7 +716,7 @@ class _ListInputsState extends State<ListInputs> {
     return Container(
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           border: Border.all(
             color: const Color.fromRGBO(43, 120, 220, 1),
           ),
@@ -837,9 +736,9 @@ class _ListInputsState extends State<ListInputs> {
                     const EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
                 child: Text(
                   title,
-                  style: FlutterFlowTheme.of(context).labelLarge.override(
+                  style: LightModeTheme().labelLarge.override(
                         fontFamily: 'Readex Pro',
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: LightModeTheme().primaryText,
                       ),
                 ),
               ),
@@ -990,13 +889,11 @@ class _ListInputsState extends State<ListInputs> {
   }
 
 // Build inputs de metodo de pago
-  Widget buildContainerMetodoPago({
-    required BuildContext context,
-  }) {
+  Widget buildContainerMetodoPago() {
     return Container(
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           border: Border.all(
             color: const Color.fromRGBO(43, 120, 220, 1),
           ),
@@ -1013,9 +910,9 @@ class _ListInputsState extends State<ListInputs> {
             children: [
               Text(
                 'Metodos de Pago',
-                style: FlutterFlowTheme.of(context).labelLarge.override(
+                style: LightModeTheme().labelLarge.override(
                       fontFamily: 'Readex Pro',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: LightModeTheme().primaryText,
                     ),
               ),
               Row(
@@ -1026,9 +923,9 @@ class _ListInputsState extends State<ListInputs> {
                     child: Text(
                       'En Club',
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                      style: LightModeTheme().labelLarge.override(
                             fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: LightModeTheme().primaryText,
                           ),
                     ),
                   ),
@@ -1037,9 +934,9 @@ class _ListInputsState extends State<ListInputs> {
                     child: Text(
                       'Monedero',
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                      style: LightModeTheme().labelLarge.override(
                             fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: LightModeTheme().primaryText,
                           ),
                     ),
                   ),

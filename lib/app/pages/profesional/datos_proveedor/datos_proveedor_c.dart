@@ -11,6 +11,7 @@ import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
+import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../utils/animations/list_animations.dart';
@@ -28,8 +29,13 @@ class DatosProveedorController extends GetxController
   // Traer datos de la api de codigo postal Nominatim
   StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Rx<String?> imageFile = Rx<String?>(null);
-  Rx<String?> imageFileCertificado = Rx<String?>(null);
+  String? imageProveedorModel;
+  String? imageCertificadoModel;
+  // Rx<String?> imageFileCertificado = Rx<String?>(null);
+  // Clase para la imagen del proveedor
+  final imageProveedor = FuncionesImage(isProveedor: true);
+  // Clase para la imagen del certificado
+  final imageCertificado = FuncionesImage(isProveedor: true);
   late ButtonsPage btns;
   late AnimationController animTerminos;
 
@@ -68,6 +74,32 @@ class DatosProveedorController extends GetxController
     getDatosProveedor();
     btns = ButtonsPage(controller: this);
     animTerminos = animVibrate(vsync: this);
+    everAll([imageProveedor.imageBytes, imageProveedor.imageFile], changeImage);
+  }
+
+  dynamic changeImage(dynamic callback) async {
+    if (imageProveedorModel != null) {
+      try {
+        final imagenSubida = await imageProveedor.convertirSubirImagen(
+            'proveedores', imageProveedorModel!);
+        if (imagenSubida) {
+          print("Se subio la imagen");
+
+          /// Actualizar Imagen
+          db.fotoServer = DatosServer.proveedor(imageProveedorModel!);
+          db.storage.fotoProveedor.write(db.fotoServer);
+        } else {
+          print("No se subio la imagen del proveedor :/");
+          throw "Error al subir imagen proveedor";
+        }
+      } catch (e) {
+        print(e);
+      } finally {
+        Get.back();
+      }
+    } else {
+      Get.back();
+    }
   }
 
   void onOpenDialogEliminarCuenta() async {
@@ -85,7 +117,7 @@ class DatosProveedorController extends GetxController
   }
 
   getDatosProveedor() async {
-    apiDatosProveedor.initStatus(RxStatusDemo.loading());
+    apiDatosProveedor.loading();
     try {
       final storage = await SharedPreferences.getInstance();
       final List<TypeDatosServerProveedor> listTypes = [
@@ -139,18 +171,18 @@ class DatosProveedorController extends GetxController
         ladaController.text = lada;
         telefonoController.text = result.telefono;
         fotoController.text = result.foto;
-        imageFile.value = result.foto;
-        imageFileCertificado.value = result.certificadoCuenta;
+        imageProveedorModel = result.foto;
+        imageCertificado.imageNetwork.value =
+            DatosServer.proveedor(result.certificadoCuenta);
 
         /// Obtener los datos del club
-
         final List<String> listTypes = [
-          'nombre',
-          'codigo_postal',
-          'direccion',
-          'localidad',
-          'provincia',
-          'comunidad'
+          nombre,
+          codigo_postal,
+          direccion,
+          localidad,
+          provincia,
+          comunidad
         ];
         final resultClub = await ProveedorProvider().getClub(listTypes);
         if (resultClub is ClubModel) {
@@ -158,14 +190,13 @@ class DatosProveedorController extends GetxController
           direccionController.text = resultClub.direccion;
           codigoPostalController.text = resultClub.codigoPostal;
           localidadController.text = resultClub.localidad;
-          // provinciaController.text = resultClub.provincia;
-          // comunidadController.text = resultClub.comunidad;
+          provinciaController.text = resultClub.provincia;
+          comunidadController.text = resultClub.comunidad;
         }
-        apiDatosProveedor.change(true, RxStatusDemo.success());
+        apiDatosProveedor.success(true);
       }
     } catch (e) {
-      apiDatosProveedor.change(
-          null, RxStatusDemo.error('No se encontraron datos.'));
+      apiDatosProveedor.error('No se encontraron datos.');
     }
   }
 

@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/pages/usuario/perfil/perfil_c.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import '../../../app/routes/app_pages.dart';
@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
-class PerfilPage extends GetView<PerfilController> {
-  PerfilController get self => controller;
+class PerfilPage extends GetView<DBService> {
+  DBService get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
   PerfilPage({super.key});
@@ -60,21 +60,12 @@ class PerfilPage extends GetView<PerfilController> {
         ));
   }
 
-  Widget scrollPerfil({required Widget child}) {
-    return SingleChildScrollView(child: child);
-    if (isWeb) {
-      return SingleChildScrollView(child: child);
-    } else {
-      return child;
-    }
-  }
-
   Widget subAppBar(bool responsive) {
-    final nombre = self.db.nombre;
-    final apellidos = self.db.apellidos;
-    final nick = self.db.nick;
+    final nombre = self.nombre;
+    final apellidos = self.apellidos;
+    final nick = self.nick;
     final nivel =
-        self.db.datosUsuario.nivel == '' ? '0.0' : self.db.datosUsuario.nivel;
+        self.datosUsuario.nivel == '' ? '0.0' : self.datosUsuario.nivel;
     if (responsive) {
       return Container(
         width: double.infinity,
@@ -109,7 +100,7 @@ class PerfilPage extends GetView<PerfilController> {
                   child: BtnIcon(
                     onPressed: () {
                       Get.dialog(GestureDetector(
-                          onTap: () => Get.back(),
+                          onTap: Get.back,
                           child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,

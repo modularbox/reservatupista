@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/message_error.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
@@ -146,13 +147,14 @@ class LoginUsuarioController extends GetxController
           // Guardar el token
           storage.tokenUsuario.write(result.token);
           // Guardar el foto
-          storage.fotoUsuario.write(UsuarioNode().getImageNode(result.foto));
-          // Guardamos el dinero total del proveedor
+          storage.fotoUsuario.write(DatosServer.usuario(result.foto));
+          // Guardamos el dinero total del usuario
           storage.dineroTotal.write(result.dineroTotal);
           storage.nick.write(result.nick);
           storage.nombre.write(result.nombre);
           storage.apellidos.write(result.apellidos);
-          db.nick = result.nick;
+          // Guardar si es proveedor
+          storage.isProveedor.write(false);
           // Si es recordar contrasena
           if (checkboxValueRecordarUsuario.value) {
             await storage.passwordUsuario.write(passwordUsuarioController.text);
@@ -199,9 +201,12 @@ class LoginUsuarioController extends GetxController
           storage.tokenProveedor.write(result.token);
           // Guardamos el id del club
           storage.idClub.write(result.idClub);
+          // Guardamos el id del club
+          storage.nombreClub.write(result.nombre);
           // Guardar el foto
-          storage.fotoProveedor
-              .write(ProveedorNode().getImageNode(result.foto));
+          storage.fotoProveedor.write(DatosServer.proveedor(result.foto));
+          // Guardar si es proveedor
+          storage.isProveedor.write(true);
           // Si es recordar contrasena
           if (checkboxValueRecordarProveedor.value) {
             storage.passwordProveedor.write(passwordProveedorController.text);
@@ -237,7 +242,6 @@ class LoginUsuarioController extends GetxController
   void onChangeTextField(String text) {
     if (isValidateForms && text.isNotEmpty) {
       isValidateForms = false;
-      // !formKey.currentState!.validate();
     }
   }
 

@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
-import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/usuario_model.dart';
@@ -12,6 +11,8 @@ class DBService extends GetxService {
   final version = '2.2.9';
   // Base de datos en web
   late SharedPreferences storage;
+  // Verificar si es proveedor
+  bool isProveedor = false;
   // Variable para almacenar el servicio
   /// Datos del usuario
   int idUsuario = 0;
@@ -42,8 +43,6 @@ class DBService extends GetxService {
   set fotoServer(String value) => _fotoServer.value = value;
 
   // Todos los datos del usuario
-  // late UsuarioModel datosUsuario;
-
   final _datosUsuario = Rx<UsuarioModel>(UsuarioModel());
   UsuarioModel get datosUsuario => _datosUsuario.value;
   set datosUsuario(UsuarioModel value) => _datosUsuario.value = value;
@@ -58,24 +57,29 @@ class DBService extends GetxService {
   }
 
   // Método para incrementar el contador
-  Future<void> getDB() async {
+  Future<void> getDB({final bool isUsuario = true}) async {
     try {
       storage = await SharedPreferences.getInstance();
-      idUsuario = storage.idUsuario.read() ?? idUsuario;
-      idProveedor = storage.idProveedor.read() ?? idProveedor;
-      tokenUsuario = storage.tokenUsuario.read() ?? tokenUsuario;
-      tokenProveedor = storage.tokenProveedor.read() ?? tokenProveedor;
-      fotoProveedor = storage.fotoProveedor.read() ?? fotoProveedor;
-      fotoUsuario = storage.fotoUsuario.read() ?? fotoUsuario;
-      nombre = storage.nombre.read() ?? nombre;
-      apellidos = storage.apellidos.read() ?? apellidos;
-      nick = storage.nick.read() ?? nick;
-      // Cambiar la foto
-      if (fotoProveedor != '') {
-        fotoServer = fotoProveedor;
-      }
-      if (fotoUsuario != '') {
-        fotoServer = fotoUsuario;
+      isProveedor = storage.isProveedor.read() ?? isProveedor;
+      if (!isProveedor) {
+        idUsuario = storage.idUsuario.read() ?? idUsuario;
+        tokenUsuario = storage.tokenUsuario.read() ?? tokenUsuario;
+        fotoUsuario = storage.fotoUsuario.read() ?? fotoUsuario;
+        nombre = storage.nombre.read() ?? nombre;
+        apellidos = storage.apellidos.read() ?? apellidos;
+        nick = storage.nick.read() ?? nick;
+        if (fotoUsuario != '') {
+          fotoServer = fotoUsuario;
+        }
+      } else {
+        idProveedor = storage.idProveedor.read() ?? idProveedor;
+        tokenProveedor = storage.tokenProveedor.read() ?? tokenProveedor;
+        fotoProveedor = storage.fotoProveedor.read() ?? fotoProveedor;
+        nombreClub = storage.nombreClub.read() ?? nombreClub;
+        // Cambiar la foto
+        if (fotoProveedor != '') {
+          fotoServer = fotoProveedor;
+        }
       }
       cargarVariables = false;
       Get.forceAppUpdate();

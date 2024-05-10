@@ -7,6 +7,9 @@ class ClubModel {
   String codigoPostal;
   String localidad;
   String direccion;
+  String provincia;
+  String comunidad;
+  String pais;
   int idProveedor;
 
   ClubModel(
@@ -16,6 +19,9 @@ class ClubModel {
       this.codigoPostal = '',
       this.localidad = '',
       this.direccion = '',
+      this.provincia = '',
+      this.comunidad = '',
+      this.pais = '',
       this.idProveedor = 0});
 
   factory ClubModel.fromRawJson(String str) =>
@@ -30,6 +36,9 @@ class ClubModel {
         codigoPostal: json["codigo_postal"] ?? '',
         localidad: json["localidad"] ?? '',
         direccion: json["direccion"] ?? '',
+        provincia: json["provincia"] ?? '',
+        comunidad: json["comunidad"] ?? '',
+        pais: json["pais"] ?? '',
         idProveedor: json["id_proveedor"] ?? 0,
       );
 
@@ -40,5 +49,8 @@ class ClubModel {
         "codigo_postal": codigoPostal,
         "localidad": localidad,
         "direccion": direccion,
+        "provincia": provincia,
+        "comunidad": comunidad,
+        "pais": pais,
       };
 }
