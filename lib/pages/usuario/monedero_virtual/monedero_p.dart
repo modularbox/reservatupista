@@ -1,11 +1,11 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
-import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/components/alert_recargar/alert_recargar_widget.dart';
 import 'package:reservatu_pista/components/navbar_login.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
@@ -187,17 +187,17 @@ class MonederoPage extends GetView<MonederoController> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 25, 8, 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    buildBtnOption('Reservas', TypeHistorial.reserva),
-                    buildBtnOption('Recargas', TypeHistorial.recarga),
-                    buildBtnOption('Todo', TypeHistorial.all),
-                  ].divide(const SizedBox(width: 10.0)),
-                ),
+                child: Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        buildBtnOption('Reservas', TypeHistorial.reserva),
+                        buildBtnOption('Recargas', TypeHistorial.recarga),
+                        buildBtnOption('Todo', TypeHistorial.all),
+                      ].divide(const SizedBox(width: 10.0)),
+                    )),
               ),
               Expanded(
                   child: Align(
@@ -257,7 +257,7 @@ class MonederoPage extends GetView<MonederoController> {
           ),
         ),
         onEmpty: Center(
-          child: Text('\nNo se encontraron pistas.',
+          child: Text('\nNo se encontraron Reservas ni Recargas.',
               style: LightModeTheme().bodyMedium.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -287,7 +287,7 @@ class MonederoPage extends GetView<MonederoController> {
           ),
         ),
         onEmpty: Center(
-          child: Text('\nNo se encontraron pistas.',
+          child: Text('\nNo se encontraron Reservas.',
               style: LightModeTheme().bodyMedium.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -352,9 +352,9 @@ class MonederoPage extends GetView<MonederoController> {
                       RichText(
                         text: TextSpan(
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: 'Reserva',
-                              style: const TextStyle(),
+                              style: TextStyle(),
                             ),
                             TextSpan(
                               text: '',
@@ -379,7 +379,7 @@ class MonederoPage extends GetView<MonederoController> {
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
-                        'Hora: ${hora_inicio}',
+                        'Hora: $hora_inicio',
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
@@ -427,7 +427,6 @@ class MonederoPage extends GetView<MonederoController> {
   }
 
   Widget buildRecargas() {
-    print('entra buildRecargas');
     return self.historial_recargas.obx(
         (state) => SingleChildScrollView(
               child: Column(
@@ -449,7 +448,7 @@ class MonederoPage extends GetView<MonederoController> {
           ),
         ),
         onEmpty: Center(
-          child: Text('\nNo se encontraron recargas.',
+          child: Text('\nNo se encontraron Recargas.',
               style: LightModeTheme().bodyMedium.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -459,9 +458,7 @@ class MonederoPage extends GetView<MonederoController> {
 
   Widget buildRecarga(Map<String, dynamic> state) {
     final int dinero_pagado = state['cantidad'];
-    print('diiiiiinerrrro pagado ${dinero_pagado}');
     final String fecha = state['fecha_reserva'];
-    final String tipo_recarga = state['tipo_recarga'];
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
       child: Container(
@@ -512,29 +509,19 @@ class MonederoPage extends GetView<MonederoController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Recarga',
-                              style: const TextStyle(),
+                      Text(
+                        'Recarga',
+                        style: LightModeTheme().bodyLarge.override(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18.0,
                             ),
-                            TextSpan(
-                              text: '',
-                              style: TextStyle(
-                                color: LightModeTheme().primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                          style: LightModeTheme().bodyLarge.override(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18.0,
-                              ),
-                        ),
                       ),
                       Text(
                         'Fecha: ${fecha.substring(0, 10)}',
+                        style: LightModeTheme().labelMedium,
+                      ),
+                      Text(
+                        'Hora: ${fecha.substring(11, 18)}',
                         style: LightModeTheme().labelMedium,
                       ),
                     ],
@@ -549,7 +536,7 @@ class MonederoPage extends GetView<MonederoController> {
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         0.0, 0.0, 0.0, 12.0),
                     child: Text(
-                      '- ${dinero_pagado.euro}',
+                      dinero_pagado.euro,
                       textAlign: TextAlign.end,
                       style: LightModeTheme().headlineSmall.override(
                             fontFamily: 'Outfit',
@@ -567,143 +554,6 @@ class MonederoPage extends GetView<MonederoController> {
                             color: LightModeTheme().primary,
                           ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildTransferencia(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
-      child: Container(
-        width: double.infinity,
-        constraints: const BoxConstraints(
-          maxWidth: 570.0,
-        ),
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: const Color(0xFFE74C3C),
-            width: 2.0,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            2.0, 0.0, 2.0, 0.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/icon_monedero_virtual.png',
-                            width: 30.0,
-                            height: 30.0,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: FFLocalizations.of(context).getText(
-                                '3vndv0eb' /* Reserva de pista */,
-                              ),
-                              style: const TextStyle(),
-                            ),
-                            TextSpan(
-                              text: '',
-                              style: TextStyle(
-                                color: LightModeTheme().primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                          style: LightModeTheme().bodyLarge.override(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18.0,
-                              ),
-                        ),
-                      ),
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          '088p3ttw' /* Pista Padel #1 */,
-                        ),
-                        style: LightModeTheme().labelMedium,
-                      ),
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          'gz0qmisy' /* Lunes 3 Enero 2024 */,
-                        ),
-                        style: LightModeTheme().labelMedium,
-                      ),
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          '3rydlm4r' /* Hora: 11:34 */,
-                        ),
-                        style: LightModeTheme().labelMedium,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    FFLocalizations.of(context).getText(
-                      'tgp5papj' /* - 1,50 € */,
-                    ),
-                    textAlign: TextAlign.end,
-                    style: LightModeTheme().headlineSmall.override(
-                          fontFamily: 'Outfit',
-                          color: const Color(0xFFE74C3C),
-                          fontSize: 18.0,
-                        ),
-                  ),
-                  Container(
-                    height: 15.0,
-                    decoration: BoxDecoration(
-                      color: LightModeTheme().secondaryBackground,
-                    ),
-                  ),
-                  Text(
-                    FFLocalizations.of(context).getText(
-                      'b8mc21qx' /* Monedero
-                      Virtual */
-                      ,
-                    ),
-                    textAlign: TextAlign.center,
-                    style: LightModeTheme().bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: LightModeTheme().primary,
-                        ),
                   ),
                 ],
               ),

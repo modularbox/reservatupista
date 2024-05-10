@@ -44,23 +44,21 @@ class PerfilProveedorPage extends GetView<PerfilProveedorController> {
             child: self.nombreClub.obx(
                 (nombreClub) => Stack(
                       children: [
-                        Expanded(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: 100.h <= 745
-                                  ? datosPerfil(
-                                      space: spaceSizedBoxBtnCerrarRes(),
-                                      subAppBar:
-                                          subAppBar(true, nombreClub ?? ''),
-                                      height: 50,
-                                      top: 10,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 2))
-                                  : datosPerfil(
-                                      space: spaceSizedBoxBtnCerrar(),
-                                      subAppBar:
-                                          subAppBar(false, nombreClub ?? ''))),
-                        ),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: 100.h <= 745
+                                ? datosPerfil(
+                                    space: spaceSizedBoxBtnCerrarRes(),
+                                    subAppBar:
+                                        subAppBar(true, nombreClub ?? ''),
+                                    height: 50,
+                                    top: 10,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 2))
+                                : datosPerfil(
+                                    space: spaceSizedBoxBtnCerrar(),
+                                    subAppBar:
+                                        subAppBar(false, nombreClub ?? ''))),
                         buildBtnCerrar()
                       ],
                     ),

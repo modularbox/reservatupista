@@ -43,7 +43,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    onInitForm();
+    // onInitForm();
     apiExisteNick.empty();
     animTerminos = animVibrate(vsync: this);
     debounce(contrasenaVisibility, (_) => contrasenaVisibility.value = false,
@@ -148,20 +148,17 @@ class RegistrarUsuarioController extends GetxController
   void onPressedRegistrar() async {
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
       try {
-        // final imagenSubida = await image.convertirSubirImagen('usuarios');
-        // Get.dialog(ColorLoader3());
-        // await Future.delayed(Duration(seconds: 3));
-        // Get.back();
-        // if (imagenSubida) {
-        //   print("Se subio la imagen");
-        // } else {
-        //   print("No se subio la imagen :/");
-        // }
-        // return;
-        // Nombre de la imagen en el servidor
-        final DateTime now = DateTime.now();
-        // Formatear la fecha en el formato deseado
-        String nameFoto = now.millisecondsSinceEpoch.toString();
+        Get.dialog(ColorLoader3());
+        // Poner nombre en base a la fecha para que no se repita
+        String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
+        final imagenSubida =
+            await image.convertirSubirImagen('usuarios', nameFoto);
+        if (imagenSubida) {
+          print("Se subio la imagen");
+        } else {
+          print("No se subio la imagen :/");
+          throw "Error al subir imagen";
+        }
 
         /// Insertar los datos en SQL en la tabla
         List<int> bytes = utf8.encode(tc.contrasena.text);
@@ -216,8 +213,9 @@ class RegistrarUsuarioController extends GetxController
 
         /// Registrar al registrar al usuario
         final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
+        Get.back();
         if (registrar) {
-          await Get.dialog(ChangeDialogGeneral(
+          Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Registro usuario"),
             alertSubtitle:
                 richSubtitle("Compruebe su correo para finalizar el registro."),
@@ -228,7 +226,7 @@ class RegistrarUsuarioController extends GetxController
             },
           ));
         } else {
-          await Get.dialog(ChangeDialogGeneral(
+          Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Registro usuario"),
             alertSubtitle: richSubtitle("Error al registrar al usuario."),
             textButton: "Cerrar",
@@ -237,6 +235,7 @@ class RegistrarUsuarioController extends GetxController
           ));
         }
       } catch (e) {
+        Get.back();
         print(e);
       }
     } else {

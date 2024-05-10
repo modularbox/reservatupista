@@ -41,21 +41,19 @@ class PerfilPage extends GetView<PerfilController> {
         child: Expanded(
           child: Stack(
             children: [
-              Expanded(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: 100.h <= 745
-                        ? datosPerfil(
-                            space: spaceSizedBoxBtnCerrarRes(),
-                            subAppBar: subAppBar(true),
-                            height: 50,
-                            top: 10,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2))
-                        : datosPerfil(
-                            space: spaceSizedBoxBtnCerrar(),
-                            subAppBar: subAppBar(false))),
-              ),
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: 100.h <= 745
+                      ? datosPerfil(
+                          space: spaceSizedBoxBtnCerrarRes(),
+                          subAppBar: subAppBar(true),
+                          height: 50,
+                          top: 10,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2))
+                      : datosPerfil(
+                          space: spaceSizedBoxBtnCerrar(),
+                          subAppBar: subAppBar(false))),
               buildBtnCerrar()
             ],
           ),

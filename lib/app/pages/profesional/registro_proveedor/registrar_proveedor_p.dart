@@ -5,10 +5,8 @@ import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import 'registrar_proveedor_c.dart';
-import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../widgets/appbar_general.dart';
-import '../../../widgets/seleccionar_imagen/seleccionar_imagen.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -37,15 +35,18 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
         builder: (context) {
           return SafeArea(
             top: true,
-            child: Column(
-              children: [
-                const AppbarGeneral(
-                  isTitleBack: true,
-                  title: 'Registro Proveedor',
-                ),
-                Form(
-                  key: self.formKey,
-                  child: Expanded(
+            child: Form(
+              key: self.formKey,
+              child: Column(
+                children: [
+                  const AppbarGeneral(
+                    isTitleBack: true,
+                    title: 'Registro Proveedor',
+                  ),
+                  Get.width > 640
+                      ? buildSelectImage()
+                      : const SizedBox.shrink(),
+                  Expanded(
                     child: SingleChildScrollView(
                       controller: self.scrollController,
                       child: ResponsiveWeb(
@@ -53,7 +54,9 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            buildSelectImage(),
+                            Get.width <= 640
+                                ? buildSelectImage()
+                                : const SizedBox.shrink(),
                             const InputsDatosRegistroProveedor(),
                             TerminosCondicionesDialog(
                                 self.animTerminos,
@@ -95,8 +98,8 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -136,6 +139,7 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                     SizedBox(
                       width: 90,
                       child: TextFormField(
+                        controller: self.imageProveedor.controller,
                         decoration: InputDecoration(
                             errorStyle: const TextStyle(fontSize: 0),
                             errorBorder: OutlineInputBorder(
@@ -156,12 +160,7 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                                 const EdgeInsets.symmetric(vertical: 34)),
                         enableInteractiveSelection: false,
                         readOnly: true,
-                        validator: (val) {
-                          if (self.imageFile.value == null) {
-                            return '';
-                          }
-                          return null;
-                        },
+                        validator: self.imageProveedor.validatorImage,
                       ),
                     ),
                     Container(
@@ -171,24 +170,12 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                         shape: BoxShape.circle,
                       ),
                       child: BtnIcon(
-                        onPressed: () {
-                          Get.dialog(SeleccionarImagen(
-                            camera: self.btns.camera,
-                            galeria: self.btns.galeria,
-                            imageLocal: self.btns.imageLocal,
-                            isProveedor: true,
-                          ));
-                        },
+                        onPressed: self.imageProveedor.dialogSeleccionarImage,
                         borderRadius: 50,
                         padding: const EdgeInsets.all(0),
                         fillColor: Colors.transparent,
                         hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                        icon: Obx(() => ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: getImage(self.imageFile.value,
-                                  color: Colores.proveedor.primary,
-                                  isRegristro: true),
-                            )),
+                        icon: Obx(self.imageProveedor.getImageWidget),
                       ),
                     ),
                   ],

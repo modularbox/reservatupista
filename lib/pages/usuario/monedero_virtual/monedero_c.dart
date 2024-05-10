@@ -1,11 +1,10 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/data/models/mis_pistas_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
@@ -24,7 +23,6 @@ class MonederoController extends GetxController
   // Conexion a la base de datos local
   DBService db = Get.find();
   DBAlvaroController db2 = Get.find();
-  // ignore: non_constant_identifier_names
   final historial_reservas = StateRx(Rx<List<dynamic>>([]));
   final historial_recargas = StateRx(Rx<List<dynamic>>([]));
   final historial_todo = StateRx(Rx<List<dynamic>>([]));
@@ -95,6 +93,7 @@ class MonederoController extends GetxController
     super.onInit();
     try {
       await db.getMoney();
+      await mostrarHistorialTodo();
       copiaDineroTotal = db.dineroTotal;
       stopTimer();
     } catch (e) {
@@ -158,7 +157,11 @@ class MonederoController extends GetxController
     try {
       historial_todo.loading();
       dynamic response = await db2.obtenerHistorialTodo(db.idUsuario);
-      historial_todo.success(response);
+      if (response.length == 0) {
+        historial_todo.empty();
+      } else {
+        historial_todo.success(response);
+      }
       print('Future historial_reservas_y_recargas ${historial_todo}');
     } catch (e, stack) {
       print(e);
@@ -172,7 +175,11 @@ class MonederoController extends GetxController
     try {
       historial_reservas.loading();
       dynamic response = await db2.obtenerHistorialReservas(db.idUsuario);
-      historial_reservas.success(response);
+      if (response.length == 0) {
+        historial_reservas.empty();
+      } else {
+        historial_reservas.success(response);
+      }
       print('Future ${response}');
     } catch (e, stack) {
       print(e);
@@ -186,7 +193,11 @@ class MonederoController extends GetxController
     try {
       historial_recargas.loading();
       dynamic response = await db2.obtenerHistorialRecargas(db.idUsuario);
-      historial_recargas.success(response);
+      if (response.length == 0) {
+        historial_recargas.empty();
+      } else {
+        historial_recargas.success(response);
+      }
       print('Future ${response}');
     } catch (e, stack) {
       print(e);

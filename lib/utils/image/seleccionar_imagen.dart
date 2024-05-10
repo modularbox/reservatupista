@@ -21,29 +21,6 @@ class SeleccionarImagen extends StatelessWidget {
   final bool isProveedor;
   @override
   Widget build(BuildContext context) {
-    final listaIcons = [
-      [
-        'icon_sport_padel',
-        'icon_sport_sports_women',
-        'icon_sport_sports_men',
-      ],
-      [
-        'icon_sport_baseball',
-        'icon_sport_basketball',
-        'icon_sport_football',
-      ],
-      [
-        'icon_sport_rugby',
-        'icon_sport_sports_bottle',
-        'icon_sport_swimming',
-      ],
-      [
-        'icon_sport_table_tennis',
-        'icon_sport_tennis',
-        'icon_sport_trophy',
-      ],
-      ['icon_sport_wistle', '', '']
-    ];
     final listaIconsGrid = [
       'icon_sport_padel',
       'icon_sport_sports_women',
@@ -108,12 +85,14 @@ class SeleccionarImagen extends StatelessWidget {
                   offset: Offset(0, -3),
                 )
               ],
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(0),
-                bottomRight: Radius.circular(0),
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
+              borderRadius: isProveedor
+                  ? const BorderRadius.all(Radius.circular(16))
+                  : const BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: isiOS ? 40 : 20),

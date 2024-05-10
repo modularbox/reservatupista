@@ -167,6 +167,11 @@ class MisReservasPage extends GetView<MisReservasController> {
 
   /// Reserva
   Widget buildReserva(MisReservasUsuarioModel state) {
+    // Verificar si la reserva esta cerrada
+    print(
+        'state.reservasUsuarios.plazasReservadasTotales ${state.reservasUsuarios!.plazasReservadasTotales}');
+    final isCerrada =
+        state.reservasUsuarios!.plazasReservadasTotales == state.capacidad;
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
@@ -184,7 +189,7 @@ class MisReservasPage extends GetView<MisReservasController> {
           ],
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(
-            color: Colores.orange,
+            color: isCerrada ? Colores.rojo : Colores.orange,
             width: 2,
           ),
         ),

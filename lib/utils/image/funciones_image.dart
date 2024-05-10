@@ -1,20 +1,25 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/data/provider/image_node.dart';
+import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/image/seleccionar_imagen.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 
 class FuncionesImage {
+  FuncionesImage({this.isProveedor = false});
   // Guardar imagen del usuario
   final imageFile = Rxn<String>();
   // Obtener imagen en Web
   final imageBytes = Rxn<Uint8List>();
+  // Controllador para ver el cambio de estado de la imagen
+  final controller = TextEditingController();
+  // Obtener imagen en Web
+  final bool isProveedor;
 
   /// Reducir imagen
   Future<File> imageResize(String path) async {
@@ -70,14 +75,8 @@ class FuncionesImage {
     }
   }
 
-  Future<bool> convertirSubirImagen(String destination) async {
-    // Obtener la fecha actual
-    final DateTime now = DateTime.now();
-    // Formatear la fecha en el formato deseado
-    String nameFoto = now.millisecondsSinceEpoch.toString();
+  Future<bool> convertirSubirImagen(String destination, String nameFoto) async {
     if (imageBytes.value != null) {
-      print(
-          '=================== Subir convertirSubirImagen en bytres =====================');
       // Subir Imagen en nodejs y reducir su tamano en bytes
       return ImageNodeProvider.subirImageBytes(
           await imageResizeBytes(imageBytes.value!),
@@ -131,7 +130,8 @@ class FuncionesImage {
     }
     return ClipRRect(
       borderRadius: BorderRadius.circular(60),
-      child: getImageOrAsset(imageFile.value, isRegristro: true),
+      child: getImageOrAsset(imageFile.value,
+          isRegristro: true, isProveedor: isProveedor),
     );
   }
 
@@ -140,7 +140,6 @@ class FuncionesImage {
       bool isProveedor = false,
       double? width,
       double? height,
-      Color? color,
       IconData? icon}) {
     if (isRegristro) {
       return nameFile != null
@@ -158,7 +157,10 @@ class FuncionesImage {
                   fit: BoxFit.cover,
                 )
           : Icon(icon ?? Icons.edit_square,
-              color: color ?? const Color(0xFF5A9BEE), size: 40);
+              color: isProveedor
+                  ? Colores.proveedor.primary
+                  : Colores.usuario.primary,
+              size: 40);
     } else {
       return nameFile != null
           ? nameFile[0] == '@'
@@ -185,7 +187,46 @@ class FuncionesImage {
     }
   }
 
-  Widget selectionImage() {
-    return SeleccionarImagen(pickImage: pickImage);
+  void dialogSeleccionarImage() => Get.dialog(
+      SeleccionarImagen(pickImage: pickImage, isProveedor: isProveedor));
+
+  /// Validator para TextEditingController
+  String? validatorImage(String? val) {
+    print(imageFile.value != null || imageBytes.value != null ? null : '');
+    return imageFile.value != null || imageBytes.value != null ? null : '';
+  }
+
+  /// Existe imagen
+  bool existeImagen() {
+    return imageFile.value != null || imageBytes.value != null;
+  }
+
+  /// Widget para mostrar la imagen en file o en bytes
+  Widget widgetImage({
+    final double? width,
+    final double? height,
+    final BoxFit? fit,
+  }) {
+    if (imageFile.value != null) {
+      Image.file(File(imageFile.value!),
+          height: height, width: width, fit: fit);
+    }
+    if (imageBytes.value != null) {
+      Image.memory(imageBytes.value!, height: height, width: width, fit: fit);
+    }
+    return const SizedBox.shrink();
+  }
+
+  /// Widget para mostrar la imagen en file o en bytes
+  ImageProvider<Object>? widgetBackgroundImage() {
+    if (imageFile.value != null) {
+      FileImage(
+        File(imageFile.value!),
+      );
+    }
+    if (imageBytes.value != null) {
+      MemoryImage(imageBytes.value!);
+    }
+    return null;
   }
 }

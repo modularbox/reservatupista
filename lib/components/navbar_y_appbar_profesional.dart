@@ -34,29 +34,30 @@ class NavbarYAppbarProfesional extends StatelessWidget {
     EdgeInsets padding = MediaQuery.of(context).padding;
     double paddingTop = padding.top;
     return Scaffold(
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                paddingTop.sh,
-                AppbarProfesional(
-                  title: title,
-                  isTitle: isTitle,
-                  isTitleBack: isTitleBack,
-                ),
-                child,
-              ],
-            ),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: NavBarProfesionalWidget(
-                  tipoDePagina: page,
-                )).visible(isNavBar),
-          ],
-        ),
-        bottomNavigationBar: Container(
-          height: 0.0,
-          margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
-        ));
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              paddingTop.sh,
+              AppbarProfesional(
+                title: title,
+                isTitle: isTitle,
+                isTitleBack: isTitleBack,
+              ),
+              child,
+            ],
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: NavBarProfesionalWidget(
+                tipoDePagina: page,
+              )).visible(isNavBar),
+        ],
+      ),
+      // bottomNavigationBar: Container(
+      //   height: 0.0,
+      //   margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
+      // )
+    );
   }
 }

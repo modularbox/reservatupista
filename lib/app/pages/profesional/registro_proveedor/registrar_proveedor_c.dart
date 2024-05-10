@@ -1,17 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
+import 'package:reservatu_pista/utils/image/funciones_image.dart';
+import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import '../../../../utils/animations/list_animations.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image/image.dart' as img;
-import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import '../../../routes/app_pages.dart';
 import 'class/text_input_controller.dart';
 
@@ -31,12 +29,6 @@ class RegistrarProveedorController extends GetxController
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Verificar si el form esta validado
   bool isValidateForms = false;
-  // Obtener imagen del proveedor
-  Rx<String?> imageFile = Rx<String?>(null);
-  // Obtener imagen del certificado de cuenta
-  Rx<String?> imageFileCertificado = Rx<String?>(null);
-  // Botones para seleccionar imagenes
-  late ButtonsPage btns;
   // Checkbox de terminos y condiciones
   RxBool checkboxTerminos = false.obs;
   // Visibilidad las contrasenas
@@ -46,14 +38,16 @@ class RegistrarProveedorController extends GetxController
   late AnimationController animTerminos;
   // El texto se guarda en un array en codigo Iban, de acuerdo al Widget COmo el controlador
   List<String> listCodigoIban = ['', '', '', '', '', ''];
+  // Clase para la imagen del proveedor
+  final imageProveedor = FuncionesImage(isProveedor: true);
+  // Clase para la imagen del certificado de cuenta
+  final imageCertificado = FuncionesImage(isProveedor: true);
 
   /// Initialization and disposal methods.
   @override
   void onInit() {
     super.onInit();
     onInitForm();
-    //Inicializar los botones
-    btns = ButtonsPage(controller: this);
     // Inicializar la animacion de terminos y condiciones
     animTerminos = animVibrate(vsync: this);
   }
@@ -61,7 +55,7 @@ class RegistrarProveedorController extends GetxController
   // Esto es para pruebas
   void onInitForm() {
     tc.tipo.text = 'Club';
-    tc.cifNif.text = 'N1234567N';
+    tc.cifNif.text = 'N1234568N';
     tc.direccionFiscal.text = 'Direccion';
     tc.codigoPostalFiscal.text = '123456';
     tc.localidadFiscal.text = 'Localidad';
@@ -70,44 +64,50 @@ class RegistrarProveedorController extends GetxController
     tc.nombre.text = 'Nombre Ficticio';
     tc.apellidos.text = 'Apellido Ficticio';
     tc.fijo.text = '123456789';
-    tc.email.text = 'app@reservatupista.com';
+    tc.email.text = 'app@reservatupista3.com';
     tc.telefono.text = '123456789';
     tc.nombreComercial.text = 'Nombre Comercio';
     tc.direccion.text = 'Direccion';
-    tc.codigoPostal.text = '123456';
+    tc.codigoPostal.text = '12345';
     tc.localidad.text = 'Localidad';
     tc.provincia.text = 'Provincia';
     tc.comunidad.text = 'Comunidad';
     tc.contrasena.text = '12345678';
     tc.contrasenaComprobar.text = '12345678';
-    tc.certificadoCuenta.text = 'djfhisdfh';
-    tc.foto.text = '1706914357922';
-    imageFile.value = '1706914357922';
   }
 
   /// Subir los datos al servidor
   void onPressedRegistrar() async {
-    // moveScroll();
+    // Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
+    // return;
     isValidateForms = true;
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
       try {
-        // Obtener la fecha actual
-        final DateTime now = DateTime.now();
-
-        // Formatear la fecha en el formato deseado
-        final String formattedDate =
-            DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-
-        // String nameFoto = now.millisecondsSinceEpoch.toString();
-        String nameFoto = tc.foto.text;
-
-        // Subir Imagen en nodejs y reducir su tamano
-        // await subirImageNode(await imageResize(imageFile.value!),
-        //     destination: 'proveedores', nameFoto: nameFoto);
-
-        // Subir Imagen del certificado
-        // await subirImageNode(await imageResize(imageFileCertificado.value!),
-        //     destination: 'proveedores', nameFoto: '${nameFoto}_CC');
+        Get.dialog(ColorLoader3());
+        // Poner nombre en base a la fecha para que no se repita
+        String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
+        if (imageProveedor.existeImagen()) {
+          final imagenProveedorSubida = await imageProveedor
+              .convertirSubirImagen('proveedores', nameFoto);
+          if (imagenProveedorSubida) {
+            print("Se subio la imagen");
+          } else {
+            print("No se subio la imagen :/");
+            throw "Error al subir imagen";
+          }
+        } else {
+          throw "No estan las imagenes";
+        }
+        if (imageCertificado.existeImagen()) {
+          final imagenCertficadoSubida = await imageCertificado
+              .convertirSubirImagen('proveedores', '${nameFoto}_CC');
+          if (imagenCertficadoSubida) {
+            print("Se subio la imagen");
+          } else {
+            print("No se subio la imagen :/");
+            throw "Error al subir imagen";
+          }
+        }
 
         /// Insertar los datos en SQL en la tabla
         List<int> bytes = utf8.encode(tc.contrasena.text);
@@ -130,7 +130,6 @@ class RegistrarProveedorController extends GetxController
           tc.comunidadFiscal.text,
           hashConstrasena,
           nameFoto,
-          formattedDate,
           tc.codigoPostalFiscal.text,
         ];
 
@@ -151,32 +150,35 @@ class RegistrarProveedorController extends GetxController
         /// Subir los datos al servidor
         final result = await ProveedorProvider().registrarProveedor(
             datosSQLProveedor, datosSQLClub, datosSQLocalidades);
+        Get.back();
+
         if (result.code == 2000) {
           /// Regresar al inicio y enviar el email.
-          await Get.dialog(ChangeDialogGeneral(
+          Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog
             alertTitle: richTitle("Registro proveedor"),
             alertSubtitle: richSubtitle(result.message),
             textButton: "Ir a Login",
-            alertType: RichAlertType.SUCCESS,
+            alertType: TypeGeneralDialog.SUCCESS,
             onPressed: () {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
             },
           ));
         } else {
           /// Regresar al inicio y enviar el email.
-          await Get.dialog(ChangeDialogGeneral(
+          Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog
             alertTitle: richTitle("Registro proveedor"),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Aceptar",
-            alertType: RichAlertType.WARNING,
+            alertType: TypeGeneralDialog.WARNING,
             onPressed: () {
               Get.back();
             },
           ));
         }
       } catch (e) {
+        Get.back();
         print(e);
       }
     } else {
@@ -300,45 +302,6 @@ class RegistrarProveedorController extends GetxController
     return null;
   }
 
-  Future<void> pickImage(ImageSource source, {String? path}) async {
-    if (path != null) {
-      imageFile.value = '@$path';
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        imageFile.value = pickedFile.path;
-      }
-    }
-  }
-
-  Future<void> pickImageCertificado(ImageSource source, {String? path}) async {
-    if (path != null) {
-      tc.certificadoCuenta.text = 'foto';
-      imageFileCertificado.value = '@$path';
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        tc.certificadoCuenta.text = 'foto';
-        imageFileCertificado.value = pickedFile.path;
-      }
-    }
-  }
-
-  /// Reducir imagen
-  Future<File> imageResize(String path) async {
-    // Imagen decoded
-    img.Image image = img.decodeImage(File(path).readAsBytesSync())!;
-    // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
-    img.Image compressedImage = img.copyResize(
-      image,
-      width: 150,
-      height: 300,
-    );
-    // Regresar la imagen comprimida
-    return File(path)
-      ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 60));
-  }
-
   String? validateTextField(BuildContext context, String? text,
       AnimationController anim, FocusNode focusNode, String nameData) {
     if (text == null || text.isEmpty) {
@@ -348,40 +311,4 @@ class RegistrarProveedorController extends GetxController
     }
     return null;
   }
-}
-
-class ButtonsPage {
-  late RegistrarProveedorController controller;
-  ButtonsPage({required this.controller});
-  camera() {
-    controller.pickImage(ImageSource.camera);
-    Get.back();
-  }
-
-  galeria() {
-    controller.pickImage(ImageSource.gallery);
-    Get.back();
-  }
-
-  imageLocal(String path) {
-    controller.pickImage(ImageSource.camera, path: path);
-    Get.back();
-  }
-
-  cameraCertificado() {
-    controller.pickImageCertificado(ImageSource.camera);
-    Get.back();
-  }
-
-  galeriaCertificado() {
-    controller.pickImageCertificado(ImageSource.gallery);
-    Get.back();
-  }
-
-  imageLocalCertificado(String path) {
-    controller.pickImageCertificado(ImageSource.camera, path: path);
-    Get.back();
-  }
-
-  cancel() {}
 }

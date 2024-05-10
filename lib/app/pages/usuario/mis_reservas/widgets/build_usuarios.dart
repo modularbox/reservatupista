@@ -69,6 +69,8 @@ class BuildUsuarios extends GetView<MisReservasController> {
   }
 
   Widget buildUsuario(ReservaUsuario user, bool isPlazaReservada) {
+    // Verificar si la partida esta cerrada
+    final isCerrada = capacidad == reservasUsuarios!.plazasReservadasTotales;
     return Row(
         mainAxisAlignment: mainAxisAlignment,
         children: List.generate(
@@ -82,8 +84,9 @@ class BuildUsuarios extends GetView<MisReservasController> {
                 size: const Size(50, 50),
                 borderWidth: 2,
                 hoverColor: Colores.usuario.primary69,
-                borderColor:
-                    isPlazaReservada ? Colores.orange : Colores.usuario.primary,
+                borderColor: isPlazaReservada
+                    ? (isCerrada ? Colores.rojo : Colores.orange)
+                    : Colores.usuario.primary,
                 fillColor: Colors.white,
                 icon: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(30.0)),

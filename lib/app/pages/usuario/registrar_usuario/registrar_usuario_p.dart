@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import '../../../../utils/animations/get_image.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../widgets/appbar_general.dart';
-import '../../../../utils/image/seleccionar_imagen.dart';
 import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -35,79 +33,68 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
         key: scaffoldKey,
         body: SafeArea(
             top: true,
-            child: Column(
-              children: [
-                const AppbarGeneral(
-                  isTitleBack: true,
-                  title: 'Registro Usuario',
-                ),
-                Get.width > 640 ? buildSelectImage() : 0.0.empty,
-                MaterialButton(
-                  color: Colors.blue,
-                  onPressed: self.prueba,
-                  splashColor: Colors.blueGrey,
-                  child: Text(
-                    'OK',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+            child: Form(
+                key: self.formKey,
+                child: Column(
+                  children: [
+                    const AppbarGeneral(
+                      isTitleBack: true,
+                      title: 'Registro Usuario',
                     ),
-                  ),
-                ),
-                Form(
-                  key: self.formKey,
-                  child: Expanded(
-                    child: SingleChildScrollView(
-                      child: ResponsiveWeb(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Get.width <= 640 ? buildSelectImage() : 0.0.empty,
-                            const InputsDatosRegistroUsuario(),
-                            TerminosCondicionesDialog(
-                                self.animTerminos,
-                                self.checkboxTerminos,
-                                Colores.proveedor.primary,
-                                self.checkboxTerminos,
-                                LightModeTheme().primaryText),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: FFButtonWidget(
-                                onPressed: self.onPressedRegistrar,
-                                text: 'Registrate',
-                                options: FFButtonOptions(
-                                  width: MediaQuery.sizeOf(context).width * 0.4,
-                                  height: 40,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 0),
-                                  iconPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 0),
-                                  color: LightModeTheme().primary,
-                                  textStyle:
-                                      LightModeTheme().bodyMedium.override(
-                                            fontFamily: 'Readex Pro',
-                                            color: LightModeTheme().tertiary,
-                                          ),
-                                  elevation: 2,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
+                    Get.width > 640 ? buildSelectImage() : 0.0.empty,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ResponsiveWeb(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Get.width <= 640 ? buildSelectImage() : 0.0.empty,
+                              const InputsDatosRegistroUsuario(),
+                              TerminosCondicionesDialog(
+                                  self.animTerminos,
+                                  self.checkboxTerminos,
+                                  Colores.proveedor.primary,
+                                  self.checkboxTerminos,
+                                  LightModeTheme().primaryText),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: FFButtonWidget(
+                                  onPressed: self.onPressedRegistrar,
+                                  text: 'Registrate',
+                                  options: FFButtonOptions(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.4,
+                                    height: 40,
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
+                                    color: LightModeTheme().primary,
+                                    textStyle:
+                                        LightModeTheme().bodyMedium.override(
+                                              fontFamily: 'Readex Pro',
+                                              color: LightModeTheme().tertiary,
+                                            ),
+                                    elevation: 2,
+                                    borderSide: const BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            )));
+                  ],
+                ))));
   }
 
   Widget buildSelectImage() {
@@ -163,13 +150,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                                 const EdgeInsets.symmetric(vertical: 34)),
                         enableInteractiveSelection: false,
                         readOnly: true,
-                        validator: (val) {
-                          if (self.image.imageFile.value != null ||
-                              self.image.imageBytes.value != null) {
-                            return null;
-                          }
-                          return '';
-                        },
+                        validator: self.image.validatorImage,
                       ),
                     ),
                     Container(
@@ -179,9 +160,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                         shape: BoxShape.circle,
                       ),
                       child: BtnIcon(
-                        onPressed: () {
-                          Get.dialog(self.image.selectionImage());
-                        },
+                        onPressed: self.image.dialogSeleccionarImage,
                         borderRadius: 50,
                         padding: const EdgeInsets.all(0),
                         fillColor: Colors.transparent,

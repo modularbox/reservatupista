@@ -37,31 +37,32 @@ class NavbarYAppbarUsuario extends GetView<DBService> {
     EdgeInsets padding = MediaQuery.of(context).padding;
     double paddingTop = padding.top;
     return Scaffold(
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                paddingTop.sh,
-                AppbarUsuario(
-                  title: title,
-                  isTitle: isTitle,
-                  isTitleBack: isTitleBack,
-                  isPage: page == TypePage.Perfil,
-                ),
-                child,
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: NavBarUsuarioWidget(
-                tipoDePagina: page,
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              paddingTop.sh,
+              AppbarUsuario(
+                title: title,
+                isTitle: isTitle,
+                isTitleBack: isTitleBack,
+                isPage: page == TypePage.Perfil,
               ),
-            ).visible(isNavBar)
-          ],
-        ),
-        bottomNavigationBar: Container(
-          height: 0.0,
-          margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
-        ));
+              child,
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: NavBarUsuarioWidget(
+              tipoDePagina: page,
+            ),
+          ).visible(isNavBar)
+        ],
+      ),
+      // bottomNavigationBar: Container(
+      //   height: 0.0,
+      //   margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
+      // )
+    );
   }
 }

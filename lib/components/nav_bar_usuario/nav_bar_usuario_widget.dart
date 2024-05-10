@@ -79,7 +79,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 65.0,
+      height: isiOS ? 75.0 : 65.0,
       child: Stack(
         children: [
           Column(
@@ -179,7 +179,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
+      padding: EdgeInsets.only(bottom: isiOS ? 15.0 : 5.0),
       child: Column(
         children: [
           isPage

@@ -11,7 +11,7 @@ abstract class ImageNodeProvider {
       {required String destination, required String nameFoto}) async {
     try {
       final url = Uri.parse(
-          '${DatosServer.urlPruebas}/subir_imagen'); // Reemplaza con la URL del servidor
+          '${DatosServer.urlServer}/subir_imagen'); // Reemplaza con la URL del servidor
 
       // Crear una solicitud multipart
       var request = http.MultipartRequest(
@@ -64,7 +64,7 @@ abstract class ImageNodeProvider {
 
       // Realizar la solicitud POST al servidor
       final response = await GetConnect().post(
-        '${DatosServer.urlPruebas}/subir_imagen_bytes',
+        '${DatosServer.urlServer}/subir_imagen_bytes',
         body,
       );
 

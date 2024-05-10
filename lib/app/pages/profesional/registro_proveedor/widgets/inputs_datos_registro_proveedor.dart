@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/widgets/seleccionar_imagen/seleccionar_imagen.dart';
 import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
@@ -117,7 +115,7 @@ class InputsDatosRegistroProveedor
       ),
       BuildInput(
         labelText: 'Certificado de Cuenta',
-        textEditingController: self.tc.certificadoCuenta,
+        textEditingController: self.imageCertificado.controller,
         anim: anim,
         maxLength: 20,
         isRequired: false,
@@ -125,45 +123,40 @@ class InputsDatosRegistroProveedor
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Icon(Icons.edit_square,
                 color: Colores.proveedor.primary, size: 40)),
-        suffixIcon: Obx(() => self.imageFileCertificado.value != null
-            ? BtnIcon(
-                onPressed: () {
-                  Get.dialog(
-                    GestureDetector(
-                      onTap: () => Get.back(),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Image.file(
-                          File(self.imageFileCertificado.value!),
-                          width: 250.0,
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                borderRadius: 30,
-                padding: const EdgeInsets.all(0),
-                fillColor: Colors.transparent,
-                hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                icon: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: FileImage(
-                    File(self.imageFileCertificado.value!),
-                  ),
-                ))
-            : const SizedBox.shrink()),
+        suffixIcon: Obx(buildImageCertificado),
         enableInteractiveSelection: false,
-        onTap: () {
-          Get.dialog(SeleccionarImagen(
-            camera: self.btns.cameraCertificado,
-            galeria: self.btns.galeriaCertificado,
-            imageLocal: self.btns.imageLocalCertificado,
-            isProveedor: true,
-          ));
-        },
+        onTap: self.imageCertificado.dialogSeleccionarImage,
       ),
     ];
+  }
+
+  /// Construir la imagen del certificado
+  Widget buildImageCertificado() {
+    return self.imageCertificado.existeImagen()
+        ? BtnIcon(
+            onPressed: () {
+              Get.dialog(
+                GestureDetector(
+                  onTap: Get.back,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: self.imageCertificado.widgetImage(
+                      width: 250.0,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
+              );
+            },
+            borderRadius: 30,
+            padding: const EdgeInsets.all(0),
+            fillColor: Colors.transparent,
+            hoverColor: const Color.fromARGB(68, 255, 255, 255),
+            icon: CircleAvatar(
+              radius: 20,
+              backgroundImage: self.imageCertificado.widgetBackgroundImage(),
+            ))
+        : const SizedBox.shrink();
   }
 
   /// Construir la lista de datos del juego
