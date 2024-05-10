@@ -214,24 +214,6 @@ class AnadirPistaController extends GetxController
 
   /// Crear la pista y subirla al servidor
   void crearPista() async {
-    Get.dialog(ColorLoader3());
-    // Poner nombre en base a la fecha para que no se repita
-    String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
-    final imagenesPista = await imagePatrocinador.subirMultiplesImagenes(
-        'pistas', nameFoto, imagesPista.rx.value);
-
-    final imagenSubida =
-        await imagePatrocinador.convertirSubirImagen('pistas', nameFoto);
-    if (imagenSubida) {
-      print("Se subio la imagen");
-    } else {
-      print("No se subio la imagen :/");
-      // throw "Error al subir imagen";
-    }
-    Get.back();
-
-    print(imagenesPista);
-    return;
     bool validarAnterior = true;
     if (imagesPista.rx.value.isEmpty) {
       validarAnterior = false;
@@ -250,11 +232,20 @@ class AnadirPistaController extends GetxController
       print("Todos los campos estan completos");
 
       try {
+        Get.dialog(ColorLoader3());
         // Poner nombre en base a la fecha para que no se repita
         String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
         final imagenesPista = await imagePatrocinador.subirMultiplesImagenes(
             'pistas', nameFoto, imagesPista.rx.value);
-        print(imagenesPista);
+
+        final imagenSubida =
+            await imagePatrocinador.convertirSubirImagen('pistas', nameFoto);
+        if (imagenSubida) {
+          print("Se subio la imagen");
+        } else {
+          print("No se subio la imagen :/");
+          // throw "Error al subir imagen";
+        }
         final pistaDatos = PistasModel(
           deporte: deporte.controller.text.de,
           numPista: int.parse(nPistaController.text),
@@ -278,10 +269,10 @@ class AnadirPistaController extends GetxController
           precioSinLuzNoSocio: noSocioPrecioSinLuz.controller.text.pc,
           descripcion: descripcion.controller.text,
           nombrePatrocinador: nombrePatrocinador.controller.text,
-          // imagenPatrocinador: imagenesPista.patrocinador,
+          imagenPatrocinador: nameFoto,
           vestuario: vestuario.controller.text.sn,
           duchas: duchas.controller.text.sn,
-          // imagenesPista: imagenesPista.pista,
+          imagenesPista: imagenesPista,
           efectivo: efectivo.controller.text.sn,
           tarjeta: tarjeta.controller.text.sn,
           bono: bono.controller.text.sn,
@@ -302,6 +293,8 @@ class AnadirPistaController extends GetxController
           'tarifas': datosTarifas,
           'tarifas_keys': datosTarifasKeys
         });
+        Get.back();
+
         // Regresar la respuesta
         if (result.code == 2000) {
           await Get.dialog(ChangeDialogGeneral(
@@ -309,8 +302,7 @@ class AnadirPistaController extends GetxController
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: 'Aceptar',
             alertType: RichAlertType.SUCCESS,
-            onPressed: Get.back,
-            // onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
+            onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
           ));
         } else {
           await Get.dialog(ChangeDialogGeneral(
@@ -324,6 +316,7 @@ class AnadirPistaController extends GetxController
 
         print(result);
       } catch (e, stack) {
+        Get.back();
         print(stack);
         print(e);
       }
@@ -525,6 +518,7 @@ class AnadirPistaController extends GetxController
   /// Cargar las imagenes de la pista
   void pickImagesPista() async {
     try {
+      Get.dialog(ColorLoader3());
       List<XFile> images = await ImagePicker().pickMultiImage();
       if (images.isNotEmpty) {
         imagesPista.loading();
@@ -560,8 +554,10 @@ class AnadirPistaController extends GetxController
           }
         }
       }
+      Get.back();
     } catch (e) {
       imagesPista.success([]);
+      Get.back();
       print(e);
     }
   }

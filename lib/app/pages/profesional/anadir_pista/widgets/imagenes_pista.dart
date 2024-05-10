@@ -77,9 +77,10 @@ class ImagenesPista extends GetView<AnadirPistaController> {
     final generarListaImagenes = state!
         .map((e) => e is File
             ? buildBtnImagen(
-                Image.file(e, width: 300.0, fit: BoxFit.fitWidth), FileImage(e))
+                Image.file(e, width: 200, height: 400, fit: BoxFit.fitWidth),
+                FileImage(e))
             : buildBtnImagen(
-                Image.memory(e, width: 300.0, fit: BoxFit.fitWidth),
+                Image.memory(e, width: 200, height: 400, fit: BoxFit.fitWidth),
                 MemoryImage(e)))
         .toList();
     return state.isEmpty
@@ -91,15 +92,12 @@ class ImagenesPista extends GetView<AnadirPistaController> {
           Widget imageDialog, ImageProvider<Object>? imageBackground) =>
       BtnIcon(
           onPressed: () {
-            Get.dialog(
-              GestureDetector(
+            Get.dialog(GestureDetector(
                 onTap: Get.back,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: imageDialog,
-                ),
-              ),
-            );
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [imageDialog])));
           },
           borderRadius: 30,
           padding: const EdgeInsets.all(0),
