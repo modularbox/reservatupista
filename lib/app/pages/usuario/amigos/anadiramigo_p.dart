@@ -3,6 +3,10 @@ import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+import 'package:standard_searchbar/new/standard_search_anchor.dart';
+import 'package:standard_searchbar/new/standard_search_bar.dart';
+import 'package:standard_searchbar/new/standard_suggestion.dart';
+import 'package:standard_searchbar/new/standard_suggestions.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -46,69 +50,21 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          // Te aparecen solo los que ya han jugado contigo.
-                          //
-                          // Tomas los usuarios de la tabla reservas de la base de datos
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 5, 0),
-                              child: TextFormField(
-                                autofocus: false,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Buscar',
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: const Color(0xFF57636C),
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).usuario,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).usuario,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFFF5963),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFFF5963),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF14181B),
-                                      fontSize: 14,
-                                      letterSpacing: 0,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                          Container(
+                            width: 250,
+                            padding: const EdgeInsetsDirectional.only(end: 30),
+                            child: const StandardSearchAnchor(
+                              searchBar: StandardSearchBar(
+                                bgColor: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              suggestions: StandardSuggestions(
+                                suggestions: [
+                                  StandardSuggestion(text: 'Nick1'),
+                                  StandardSuggestion(text: 'Nick2'),
+                                  StandardSuggestion(text: 'Nick3'),
+                                  StandardSuggestion(text: 'Nick4'),
+                                  StandardSuggestion(text: 'Nick5'),
+                                ],
                               ),
                             ),
                           ),
@@ -289,7 +245,7 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 4, 16, 0),
+                                .16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,

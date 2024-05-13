@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/amigos_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/amigos/anadiramigo_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/chat/chat_individual/chat_individual_p.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+import 'package:standard_searchbar/new/standard_search_anchor.dart';
+import 'package:standard_searchbar/new/standard_search_bar.dart';
+import 'package:standard_searchbar/new/standard_suggestion.dart';
+import 'package:standard_searchbar/new/standard_suggestions.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -29,7 +34,7 @@ class _AmigosPageState extends GetView<AmigosController> {
     return GestureDetector(
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF1F4F8),
+        backgroundColor: const Color(0xFFF1F4F8),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [],
@@ -47,105 +52,47 @@ class _AmigosPageState extends GetView<AmigosController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16, 12, 16, 12),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 5, 0),
-                                          child: TextFormField(
-                                            autofocus: false,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelText: 'Buscar amigos...',
-                                              labelStyle: LightModeTheme()
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily:
-                                                        'Plus Jakarta Sans',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14,
-                                                    letterSpacing: 0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .usuario,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .usuario,
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Color(0xFFFF5963),
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Color(0xFFFF5963),
-                                                  width: 2,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              ),
-                                              filled: true,
-                                              fillColor: Colors.white,
-                                            ),
-                                            style: LightModeTheme()
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
-                                                  color: Color(0xFF14181B),
-                                                  fontSize: 14,
-                                                  letterSpacing: 0,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                            // validator: _modelflu
-                                            //     .textControllerValidator
-                                            //     .asValidator(context),
+                                      Container(
+                                        width: 200,
+                                        padding:
+                                            const EdgeInsetsDirectional.only(
+                                                end: 20),
+                                        child: const StandardSearchAnchor(
+                                          searchBar: StandardSearchBar(
+                                            bgColor: Color.fromARGB(
+                                                255, 255, 255, 255),
+                                          ),
+                                          suggestions: StandardSuggestions(
+                                            suggestions: [
+                                              StandardSuggestion(text: 'Nick1'),
+                                              StandardSuggestion(text: 'Nick2'),
+                                              StandardSuggestion(text: 'Nick3'),
+                                              StandardSuggestion(text: 'Nick4'),
+                                            ],
                                           ),
                                         ),
                                       ),
                                       FFButtonWidget(
                                         onPressed: () async {
-                                          Get.to(AnadirAmigos());
+                                          Get.to(const AnadirAmigos());
                                         },
                                         text: 'Añadir amigos',
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.person_sharp,
                                           size: 15,
                                         ),
                                         options: FFButtonOptions(
                                           height: 40,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 5, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(5, 0, 5, 0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 0),
                                           color: LightModeTheme().usuario,
                                           textStyle: LightModeTheme()
                                               .titleSmall
@@ -155,7 +102,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                 letterSpacing: 0,
                                               ),
                                           elevation: 3,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Colors.transparent,
                                             width: 1,
                                           ),
@@ -167,7 +114,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 44),
                                   child: ListView(
                                     padding: EdgeInsets.zero,
@@ -176,15 +123,15 @@ class _AmigosPageState extends GetView<AmigosController> {
                                     scrollDirection: Axis.vertical,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16, 4, 16, 8),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 4, 16, 8),
                                         child: Container(
                                           width: double.infinity,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             boxShadow: [
-                                              BoxShadow(
+                                              const BoxShadow(
                                                 blurRadius: 4,
                                                 color: Color(0x32000000),
                                                 offset: Offset(
@@ -201,9 +148,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                             ),
                                           ),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(8, 0, 0, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -223,9 +169,9 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                12, 0, 0, 0),
+                                                            12, 0, 0, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -244,7 +190,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 14,
                                                                 letterSpacing:
@@ -260,12 +206,12 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                      0,
+                                                                      4,
+                                                                      0,
+                                                                      0),
                                                               child: Text(
                                                                 '4.00',
                                                                 style: FlutterFlowTheme.of(
@@ -274,7 +220,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Plus Jakarta Sans',
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF57636C),
                                                                       fontSize:
                                                                           14,
@@ -293,8 +239,10 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 20, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0, 0, 20, 0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -304,21 +252,21 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    0, 2, 0, 0),
+                                                                0, 2, 0, 0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          50,
-                                                                          0),
+                                                                      0,
+                                                                      0,
+                                                                      50,
+                                                                      0),
                                                               child: Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -347,8 +295,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                     ),
                                                                     onPressed:
                                                                         () {
-                                                                      print(
-                                                                          'IconButton pressed ...');
+                                                                      Get.to(
+                                                                          ChatIndividualWidget());
                                                                     },
                                                                   ),
                                                                   Text(
@@ -396,8 +344,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    print(
-                                                                        'IconButton pressed ...');
+                                                                    Get.to(
+                                                                        ChatIndividualWidget());
                                                                   },
                                                                 ),
                                                                 Text(
@@ -428,15 +376,15 @@ class _AmigosPageState extends GetView<AmigosController> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16, 4, 16, 8),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 4, 16, 8),
                                         child: Container(
                                           width: double.infinity,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             boxShadow: [
-                                              BoxShadow(
+                                              const BoxShadow(
                                                 blurRadius: 4,
                                                 color: Color(0x32000000),
                                                 offset: Offset(
@@ -453,9 +401,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                             ),
                                           ),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 8, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(8, 0, 8, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -475,9 +422,9 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                12, 0, 0, 0),
+                                                            12, 0, 0, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -496,7 +443,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 14,
                                                                 letterSpacing:
@@ -512,12 +459,12 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                      0,
+                                                                      4,
+                                                                      0,
+                                                                      0),
                                                               child: Text(
                                                                 '3.00',
                                                                 style: FlutterFlowTheme.of(
@@ -526,7 +473,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Plus Jakarta Sans',
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF57636C),
                                                                       fontSize:
                                                                           14,
@@ -552,21 +499,18 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 2, 13, 0),
+                                                              0, 2, 13, 0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        50,
-                                                                        0),
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(0,
+                                                                    0, 50, 0),
                                                             child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -596,8 +540,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    print(
-                                                                        'IconButton pressed ...');
+                                                                    Get.to(
+                                                                        ChatIndividualWidget());
                                                                   },
                                                                 ),
                                                                 Text(
@@ -673,15 +617,15 @@ class _AmigosPageState extends GetView<AmigosController> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16, 4, 16, 8),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 4, 16, 8),
                                         child: Container(
                                           width: double.infinity,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             boxShadow: [
-                                              BoxShadow(
+                                              const BoxShadow(
                                                 blurRadius: 4,
                                                 color: Color(0x32000000),
                                                 offset: Offset(
@@ -698,9 +642,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                             ),
                                           ),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 8, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(8, 0, 8, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -720,9 +663,9 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                12, 0, 0, 0),
+                                                            12, 0, 0, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -741,7 +684,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 14,
                                                                 letterSpacing:
@@ -757,12 +700,12 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                      0,
+                                                                      4,
+                                                                      0,
+                                                                      0),
                                                               child: Text(
                                                                 '2.25',
                                                                 style: FlutterFlowTheme.of(
@@ -771,7 +714,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Plus Jakarta Sans',
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF57636C),
                                                                       fontSize:
                                                                           14,
@@ -797,21 +740,18 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 2, 13, 0),
+                                                              0, 2, 13, 0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        50,
-                                                                        0),
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(0,
+                                                                    0, 50, 0),
                                                             child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -841,8 +781,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    print(
-                                                                        'IconButton pressed ...');
+                                                                    Get.to(
+                                                                        ChatIndividualWidget());
                                                                   },
                                                                 ),
                                                                 Text(
@@ -918,15 +858,15 @@ class _AmigosPageState extends GetView<AmigosController> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16, 4, 16, 8),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 4, 16, 8),
                                         child: Container(
                                           width: double.infinity,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             boxShadow: [
-                                              BoxShadow(
+                                              const BoxShadow(
                                                 blurRadius: 4,
                                                 color: Color(0x32000000),
                                                 offset: Offset(
@@ -943,9 +883,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                             ),
                                           ),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 8, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(8, 0, 8, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -965,9 +904,9 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                12, 0, 0, 0),
+                                                            12, 0, 0, 0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -986,7 +925,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 14,
                                                                 letterSpacing:
@@ -1002,12 +941,12 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
+                                                                      0,
+                                                                      4,
+                                                                      0,
+                                                                      0),
                                                               child: Text(
                                                                 '2.50',
                                                                 style: FlutterFlowTheme.of(
@@ -1016,7 +955,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Plus Jakarta Sans',
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF57636C),
                                                                       fontSize:
                                                                           14,
@@ -1042,21 +981,18 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 2, 13, 0),
+                                                              0, 2, 13, 0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        50,
-                                                                        0),
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(0,
+                                                                    0, 50, 0),
                                                             child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -1086,8 +1022,8 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    print(
-                                                                        'IconButton pressed ...');
+                                                                    Get.to(
+                                                                        ChatIndividualWidget());
                                                                   },
                                                                 ),
                                                                 Text(
@@ -1129,7 +1065,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                                                   Icons.add,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .info,
+                                                                      .secondaryBackground,
                                                                   size: 24,
                                                                 ),
                                                                 onPressed: () {
@@ -1163,7 +1099,7 @@ class _AmigosPageState extends GetView<AmigosController> {
                                           ),
                                         ),
                                       ),
-                                    ].divide(SizedBox(height: 10)),
+                                    ].divide(const SizedBox(height: 10)),
                                   ),
                                 ),
                               ],
