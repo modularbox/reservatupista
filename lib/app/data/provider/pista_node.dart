@@ -215,30 +215,6 @@ class PistaNode {
       print(stack);
       return MessageError(message: 'Error al Modificar Usuario', code: 501);
     }
-    try {
-      await provider.initialize();
-      final url = Uri.parse('${DatosServer.urlServer}/usuario');
-      // Crear una solicitud multipart
-      print(usuario.toString());
-      print(datosModificados.toString());
-      var request = http.put(url,
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode(
-              {"id": id, "datos": usuario, "ids_datos": datosModificados}));
-
-      // Enviar la solicitud
-      var response = await request;
-      print(response.body);
-      if (response.statusCode == 200) {
-        print('usuario modificado correctamente');
-      } else {
-        // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario modificado. Código de estado: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error al usuario modificado: $error');
-    }
   }
 
   Future<UsuarioModel?> getUsuarioNode(String id) async {

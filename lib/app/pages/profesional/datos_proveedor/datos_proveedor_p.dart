@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
@@ -455,7 +454,6 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
     required BuildContext context,
     required PropertiesTextField propertiesTextField,
   }) {
-    print("Entro");
     return TextFormField(
       controller: propertiesTextField.controller,
       focusNode: propertiesTextField.focusNode,

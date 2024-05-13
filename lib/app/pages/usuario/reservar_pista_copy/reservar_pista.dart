@@ -1164,15 +1164,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     ));
     return list;
   }
-
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
 }
 
 class SelectionWidget extends StatelessWidget {

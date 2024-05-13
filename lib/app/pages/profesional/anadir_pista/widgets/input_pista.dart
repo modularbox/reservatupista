@@ -9,7 +9,7 @@ enum TypeInputPista { select, input }
 
 class InputPista extends FormField<String> {
   InputPista({
-    Key? key,
+    super.key,
     this.controller,
     this.icon,
     this.changeIcon = false,
@@ -48,7 +48,6 @@ class InputPista extends FormField<String> {
     String? Function(String?)? validator,
     this.onChanged,
   }) : super(
-          key: key,
           initialValue: controller!.text,
           builder: (FormFieldState<String> field) {
             final _InputPistaState state = field as _InputPistaState;
@@ -239,16 +238,6 @@ class _InputPistaState extends FormFieldState<String> {
   TextEditingController? get _effectiveController =>
       widget.controller ?? _stateController;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void _handleTap() {
     final RenderBox itemBox = context.findRenderObject() as RenderBox;
     final Rect itemRect = itemBox.localToGlobal(Offset.zero) & itemBox.size;
@@ -280,7 +269,7 @@ class _InputPistaState extends FormFieldState<String> {
       selectedIndex: -1,
       elevation: widget.elevation,
       dropdownColor: widget.dropdownColor,
-      style: widget.itemTextstyle ?? TextStyle(),
+      style: widget.itemTextstyle ?? const TextStyle(),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
 
@@ -374,13 +363,13 @@ class _DropdownMenuPainter extends CustomPainter {
 
 class _DropdownMenu<T> extends StatefulWidget {
   const _DropdownMenu({
-    Key? key,
+    super.key,
     this.padding,
     this.dropdownColor,
     this.route,
     this.isScroll = false,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   final ValueChanged<T> onChanged;
   final _DropdownRoute<T>? route;
@@ -401,13 +390,13 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     super.initState();
     _fadeOpacity = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.0, 0.25),
-      reverseCurve: Interval(0.75, 1.0),
+      curve: const Interval(0.0, 0.25),
+      reverseCurve: const Interval(0.75, 1.0),
     );
     _resize = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.25, 0.5),
-      reverseCurve: Threshold(0.0),
+      curve: const Interval(0.25, 0.5),
+      reverseCurve: const Threshold(0.0),
     );
   }
 
@@ -419,8 +408,8 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     for (int itemIndex = 0; itemIndex < route.items!.length; ++itemIndex) {
       CurvedAnimation opacity;
       if (itemIndex == route.selectedIndex) {
-        opacity =
-            CurvedAnimation(parent: route.animation!, curve: Threshold(0.0));
+        opacity = CurvedAnimation(
+            parent: route.animation!, curve: const Threshold(0.0));
       } else {
         final double start = (0.5 + (itemIndex + 1) * unit).clamp(0.0, 1.0);
         final double end = (start + 1.5 * unit).clamp(0.0, 1.0);
@@ -435,7 +424,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             child: route.items![itemIndex],
           ),
           onTap: () => {
-            widget.onChanged(route.items![itemIndex].value!),
+            widget.onChanged(route.items![itemIndex].value as T),
             Navigator.pop(
               context,
             )
@@ -564,6 +553,7 @@ class _DropdownRouteResult<T> {
   final T result;
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (other is! _DropdownRouteResult<T>) return false;
     final _DropdownRouteResult<T> typedOther = other;
@@ -649,7 +639,7 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
       bottom = math.max(buttonTop + _kMenuItemHeight, bottomPreferredLimit);
       menuTop = bottom;
     }
-    print(menuHeight);
+    // print(menuHeight);
     if (scrollController == null) {
       double scrollOffset = 0.0;
       if (preferredMenuHeight > maxMenuHeight) {
@@ -688,9 +678,5 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
         },
       ),
     );
-  }
-
-  void _dismiss() {
-    navigator?.removeRoute(this);
   }
 }
