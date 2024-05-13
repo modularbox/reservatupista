@@ -63,7 +63,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                                       size: 40,
                                     ),
                                     onPressed: () async {
-                                      Get.to(BuscarClubWidget());
+                                      Get.to(const BuscarClubWidget());
                                     },
                                   ),
                                 ),

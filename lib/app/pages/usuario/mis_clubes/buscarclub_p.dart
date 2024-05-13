@@ -1,3 +1,4 @@
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/chip_data.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/buscarclub_c.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club_p.dart';
@@ -106,9 +107,17 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
                                   ));
                         }),
                   ),
-                  //
-                  //Choice chips
-                  //
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ...List.generate(controller.chips.length,
+                            (i) => buildChips(controller.chips[i], i))
+                      ],
+                    ),
+                  ),
                   ...List.generate(controller.clubes.length,
                       (i) => buildClub(context, controller.clubes[i])),
                   Container(
@@ -231,6 +240,39 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildChips(ChipData chip, int i) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: ChipTheme(
+          data: (const ChipThemeData(selectedColor: Colors.amber)),
+          child: FilterChip(
+              onDeleted: () {
+                controller.borrarChip();
+              },
+              showCheckmark: false,
+              avatar: CircleAvatar(
+                backgroundColor: controller.selectChip == i
+                    ? LightModeTheme().primaryBackground
+                    : LightModeTheme().secondaryBackground,
+                child: Icon(controller.selectChip == i
+                    ? Icons.expand_more_outlined
+                    : Icons.expand_less_outlined),
+              ),
+              padding: const EdgeInsets.all(4),
+              backgroundColor: controller.selectChip == i
+                  ? LightModeTheme().proveedor
+                  : LightModeTheme().secondaryBackground,
+              label: Text(chip.label),
+              deleteIcon: const Icon(Icons.cancel),
+              deleteIconColor: Colors.red,
+              selectedColor: LightModeTheme().proveedor,
+              onSelected: (value) {
+                controller.selectChip = i;
+                controller.cambiarChip();
+              })),
     );
   }
 }
