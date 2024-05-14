@@ -223,7 +223,7 @@ class LoginUsuarioController extends GetxController
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Cerrar",
             alertType: TypeGeneralDialog.WARNING,
-            onPressed: () => Get.back(),
+            onPressed: Get.back,
           ));
         }
       }

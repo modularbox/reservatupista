@@ -1,4 +1,4 @@
-import 'package:get/get_connect/connect.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/app/data/models/message_error.dart';
 import 'package:reservatu_pista/app/data/models/usuario_model.dart';
@@ -10,11 +10,63 @@ class UsuarioProvider extends GetConnect {
   late String token;
   late int idUser;
   final url = DatosServer.urlServer;
+  final urlMail = DatosServer.urlMail;
+  final urlWeb = DatosServer.urlWeb;
 
   Future<void> initialize() async {
     final storage = await SharedPreferences.getInstance();
     token = storage.tokenUsuario.read();
     idUser = storage.idUsuario.read();
+  }
+
+  /// Modificar los datos del usuario
+  Future<MessageError> modificarUsuario(
+      List datos, List<String> idsDatos) async {
+    try {
+      await initialize();
+      final response = await put(
+        '$url/usuario',
+        {"id": idUser.toString(), "datos": datos, "ids_datos": idsDatos},
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+        contentType: 'application/json',
+      );
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        print(response.body);
+        return MessageError(
+            code: response.body.code,
+            message: 'Ocurrio un error al actualizar el Usuario');
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return MessageError(message: 'Error al Modificar Usuario', code: 501);
+    }
+  }
+
+  // Validar el email del usuario
+  Future<MessageError> validarEmail(String email) async {
+    try {
+      final response = await put(
+          '$url/usuario/validar_email',
+          {
+            "email": email,
+          },
+          contentType: 'application/json');
+      printError(info: response.body.toString());
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return MessageError(message: 'Error al Validar el Email.', code: 501);
+    }
   }
 
 // Registrar usuario
@@ -42,13 +94,36 @@ class UsuarioProvider extends GetConnect {
     }
   }
 
-  // Get request
-  // Future<Response> getUser(int id, List<TypeDatosServer> listTypes) =>
-  //     get('$url/usuario/datos', headers: {
-  //       "Authorization": "Bearer $token",
-  //       "idusuario": id.toString(),
-  //       "datos": DatosServer().datosParseados(listTypes)
-  //     });
+// Enviar Email usuario
+  Future<bool> enviarEmail(String email, String nombre) async {
+    print("dsfjhdsouihgfodisuhodfs");
+    try {
+      final response = await post(
+          '$urlMail/reservatupista_alta',
+          {
+            "esProveedor": 'false',
+            "correo": email,
+            "link": "$urlWeb/#/validar_email?email=$email&user=0",
+            "message":
+                "<h1> Pulsa el siguiente link para validar tu correo: <a href='$urlWeb/#/validar_email?email=$email&user=0'>link</a> </h1>",
+            "asunto": "Registro Usuario"
+          },
+          contentType: 'application/json');
+      print(response.body);
+      // Enviar la solicitud
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        // Manejar el caso en el que la carga no fue exitosa
+        print(
+            'Error al usuario anadida. Código de estado: ${response.statusCode}');
+        throw '';
+      }
+    } catch (error) {
+      print('Error al usuario anadida: $error');
+      return false;
+    }
+  }
 
   Future<bool> getUsuarioExisteNick(String nick) async {
     try {

@@ -55,7 +55,7 @@ class RegistrarProveedorController extends GetxController
   // Esto es para pruebas
   void onInitForm() {
     tc.tipo.text = 'Club';
-    tc.cifNif.text = 'N1234568N';
+    tc.cifNif.text = 'N1232443F';
     tc.direccionFiscal.text = 'Direccion';
     tc.codigoPostalFiscal.text = '123456';
     tc.localidadFiscal.text = 'Localidad';
@@ -64,7 +64,7 @@ class RegistrarProveedorController extends GetxController
     tc.nombre.text = 'Nombre Ficticio';
     tc.apellidos.text = 'Apellido Ficticio';
     tc.fijo.text = '123456789';
-    tc.email.text = 'app@reservatupista3.com';
+    tc.email.text = 'miguel@modularbox.com';
     tc.telefono.text = '123456789';
     tc.nombreComercial.text = 'Nombre Comercio';
     tc.direccion.text = 'Direccion';
@@ -153,6 +153,9 @@ class RegistrarProveedorController extends GetxController
         Get.back();
 
         if (result.code == 2000) {
+          final enviarMail = await ProveedorProvider()
+              .enviarEmail(tc.email.text, tc.nombre.text);
+
           /// Regresar al inicio y enviar el email.
           Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog

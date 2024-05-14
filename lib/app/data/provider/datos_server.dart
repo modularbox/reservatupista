@@ -3,6 +3,8 @@ abstract final class DatosServer {
   static const String urlPruebas = 'http://localhost:3000';
   // static const String urlServer = 'http://localhost:3000';
   static const String urlServer = 'https://apidevelop.reservatupista.com';
+  static const String urlWeb = 'https://app.reservatupista.com';
+  static const String urlMail = 'https://mail.modularbox.com';
   static const String urlImageUsuario = '$urlServer/images_usuario';
   static const String urlImageProveedor = '$urlServer/images_proveedor';
   static const String urlImagePistas = '$urlServer/images_pista';
@@ -21,7 +23,10 @@ abstract final class DatosServer {
   }
 
   static String usuario(String imageName) {
-    return '$urlImageUsuario/$imageName.png?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+    final splitImageName = imageName.split('@');
+    final isAssetsServer = splitImageName.length > 1;
+    final imageNameNew = isAssetsServer ? splitImageName[0] : imageName;
+    return '$urlImageUsuario/$imageNameNew.png?timestamp=${DateTime.now().millisecondsSinceEpoch}';
   }
 
   static String proveedor(String imageName) {
@@ -141,3 +146,6 @@ const id_tarifa_especifca = 'id_tarifa_especifca';
 const coste_total_reserva = 'coste_total_reserva';
 const referencia = 'referencia';
 const reservas_pistas = 'reservas_pistas';
+
+/// Tablas
+const usuarios = 'usuarios';

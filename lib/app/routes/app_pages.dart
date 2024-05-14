@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
@@ -6,6 +6,8 @@ import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.da
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
+import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_b.dart';
+import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_p.dart';
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.dart';
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_p.dart';
 import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_b.dart';
@@ -35,8 +37,6 @@ import '../pages/Profesional/mis_socios/mis_socios.dart';
 import '../pages/Profesional/mis_socios/mis_socios_b.dart';
 import '../pages/Profesional/datos_proveedor/datos_proveedor_p.dart';
 import '../pages/Profesional/datos_proveedor/datos_proveedor_b.dart';
-import '../pages/Profesional/prueba_proveedor/prueba_proveedor.dart';
-import '../pages/Profesional/prueba_proveedor/prueba_proveedor_b.dart';
 import '../pages/usuario/chat/chat.dart';
 import '../pages/usuario/chat/chat_b.dart';
 import '../pages/usuario/resultados_estadisticas/resultados_estadisticas.dart';
@@ -51,46 +51,88 @@ import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
 import '../pages/usuario/olvide_contrasena/olvide_contrasena_b.dart';
 import '../pages/profesional/tarifas_pista/tarifas_pista.dart';
 import '../pages/profesional/tarifas_pista/tarifas_pista_b.dart';
+
+extension ExtRoutesType on RoutesType {
+  String get getRoute => '/${toString().split('.').last}';
+}
+
 // End imports
+enum RoutesType {
+  login_usuario,
+  registrar_usuario,
+  perfil,
+  mis_reservas,
+  datos,
+  perfil_proveedor,
+  monedero,
+  caja,
+  anadir_pista,
+  tarifas,
+  mis_pistas,
+  notificaciones,
+  notificaciones_proveedor,
+  inicio_profesional,
+  inicio,
+  reservar_pista,
+  pagos_tarjeta,
+  registrar_proveedor,
+  mis_socios,
+  datos_proveedor,
+  prueba_proveedor,
+  chat,
+  resultados_estadisticas,
+  chat_proveedor,
+  reserva_tu_pista,
+  datos_usuario,
+  olvide_contrasena,
+  tarifas_pista,
+  pago_tpv,
+  pruebas,
+  eliminar_cuenta,
+  validar_email,
+}
 
 /// Names Routes
 abstract class Routes {
-  static const LOGIN_USUARIO = '/login_usuario';
-  static const REGISTRAR_USUARIO = '/registrar_usuario';
-  static const PERFIL = '/perfil';
-  static const MIS_RESERVAS = '/mis_reservas';
-  static const DATOS = '/datos';
-  static const PERFIL_PROVEEDOR = '/perfil_proveedor';
-  static const MONEDERO = '/monedero';
-  static const CAJA = '/caja';
-  static const ANADIR_PISTA = '/anadir_pista';
-  static const TARIFAS = '/tarifas';
-  static const MIS_PISTAS = '/mis_pistas';
-  static const NOTIFICACIONES = '/notificaciones';
-  static const NOTIFICACIONES_PROVEEDOR = '/notificaciones_proveedor';
-  static const INICIO_PROVEEDOR = '/inicio_profesional';
-  static const INICIO = '/inicio';
-  static const RESERVAR_PISTA = '/reservar_pista';
-  static const PAGOS_TARJETA = '/pagos_tarjeta';
-  static const REGISTRAR_PROVEEDOR = '/registrar_proveedor';
-  static const MIS_SOCIOS = '/mis_socios';
-  static const DATOS_PROVEEDOR = '/datos_proveedor';
-  static const PRUEBA_PROVEEDOR = '/prueba_proveedor';
-  static const CHAT = '/chat';
-  static const RESULTADOS_ESTADISTICAS = '/resultados_estadisticas';
-  static const CHAT_PROVEEDOR = '/chat_proveedor';
-  static const RESERVA_TU_PISTA = '/reserva_tu_pista';
-  static const DATOS_USUARIO = '/datos_usuario';
-  static const OLVIDE_CONTRASENA = '/olvide_contrasena';
-  static const TARIFAS_PISTA = '/tarifas_pista';
-  static const PAGO_TPV = '/pago_tpv';
-  static const PRUEBAS = '/pruebas';
-  static const ELIMINAR_CUENTA = '/eliminar_cuenta';
+  static final LOGIN_USUARIO = RoutesType.login_usuario.getRoute;
+  static final REGISTRAR_USUARIO = RoutesType.registrar_usuario.getRoute;
+  static final PERFIL = RoutesType.perfil.getRoute;
+  static final MIS_RESERVAS = RoutesType.mis_reservas.getRoute;
+  static final DATOS = RoutesType.datos.getRoute;
+  static final PERFIL_PROVEEDOR = RoutesType.perfil_proveedor.getRoute;
+  static final MONEDERO = RoutesType.monedero.getRoute;
+  static final CAJA = RoutesType.caja.getRoute;
+  static final ANADIR_PISTA = RoutesType.anadir_pista.getRoute;
+  static final TARIFAS = RoutesType.tarifas.getRoute;
+  static final MIS_PISTAS = RoutesType.mis_pistas.getRoute;
+  static final NOTIFICACIONES = RoutesType.notificaciones.getRoute;
+  static final NOTIFICACIONES_PROVEEDOR =
+      RoutesType.notificaciones_proveedor.getRoute;
+  static final INICIO_PROVEEDOR = RoutesType.inicio_profesional.getRoute;
+  static final INICIO = RoutesType.inicio.getRoute;
+  static final RESERVAR_PISTA = RoutesType.reservar_pista.getRoute;
+  static final PAGOS_TARJETA = RoutesType.pagos_tarjeta.getRoute;
+  static final REGISTRAR_PROVEEDOR = RoutesType.registrar_proveedor.getRoute;
+  static final MIS_SOCIOS = RoutesType.mis_socios.getRoute;
+  static final DATOS_PROVEEDOR = RoutesType.datos_proveedor.getRoute;
+  static final PRUEBA_PROVEEDOR = RoutesType.prueba_proveedor.getRoute;
+  static final CHAT = RoutesType.chat.getRoute;
+  static final RESULTADOS_ESTADISTICAS =
+      RoutesType.resultados_estadisticas.getRoute;
+  static final CHAT_PROVEEDOR = RoutesType.chat_proveedor.getRoute;
+  static final RESERVA_TU_PISTA = RoutesType.reserva_tu_pista.getRoute;
+  static final DATOS_USUARIO = RoutesType.datos_usuario.getRoute;
+  static final OLVIDE_CONTRASENA = RoutesType.olvide_contrasena.getRoute;
+  static final TARIFAS_PISTA = RoutesType.tarifas_pista.getRoute;
+  static final PAGO_TPV = RoutesType.pago_tpv.getRoute;
+  static final PRUEBAS = RoutesType.pruebas.getRoute;
+  static final ELIMINAR_CUENTA = RoutesType.eliminar_cuenta.getRoute;
+  static final VALIDAR_EMAIL = RoutesType.validar_email.getRoute;
 }
 
 /// Get Routes
 class AppPages {
-  static const INITIAL = Routes.LOGIN_USUARIO;
+  static final INITIAL = Routes.LOGIN_USUARIO;
   static final routes = [
     /// Login Usuario
     GetPage(
@@ -271,8 +313,15 @@ class AppPages {
     /// Eliminar cuenta, ya sea de usuario o proveedor
     GetPage(
       name: Routes.ELIMINAR_CUENTA,
-      page: () => EliminarCuentaPage(),
+      page: () => const EliminarCuentaPage(),
       binding: EliminarCuentaBinding(),
+    ),
+
+    /// Validar email
+    GetPage(
+      name: Routes.VALIDAR_EMAIL,
+      page: () => ValidarEmailPage(),
+      binding: ValidarEmailBinding(),
     ),
   ];
 }

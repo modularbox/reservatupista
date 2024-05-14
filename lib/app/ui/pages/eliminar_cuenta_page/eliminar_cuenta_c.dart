@@ -64,6 +64,7 @@ class EliminarCuentaController extends GetxController
   void onInit() async {
     super.onInit();
     // onInitForm();
+    onDatosEliminarCuenta();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animTerminosUsuario = animVibrate(vsync: this);
@@ -72,14 +73,50 @@ class EliminarCuentaController extends GetxController
         time: const Duration(seconds: 3, milliseconds: 30));
   }
 
+  void onDatosEliminarCuenta() async {
+    final param = Get.parameters;
+    final _id = param['idUsuario'];
+    final _token = param['token'];
+    final _email = param['email'];
+    final _user = param['user'];
+
+    if (_id != null && _token != null && _email != null && _user != null) {
+      print("Si hay parametros");
+      id = _id;
+      token = _token;
+      Get.dialog(AlertEliminarCuentaWidget(user: int.parse(_user)));
+    } else {
+      print("No hay datos");
+    }
+    final datosELiminar =
+        '?id=$_id&user=0&token=$_token&email=$_email&user=$_user';
+  }
+
   // Pruebas para la app
   void onInitForm() {
-    emailUsuarioController.text = 'app@reservatupista.com';
+    emailUsuarioController.text = 'ya3@ya3.com';
     emailProveedorController.text = 'app@reservatupista.com';
     passwordUsuarioController.text = '12345678';
   }
 
+  void resetAll() {
+    Get.back();
+    Get.back();
+    Get.back();
+    emailUsuarioController.text = '';
+    emailProveedorController.text = '';
+    passwordUsuarioController.text = '';
+  }
+
   void onEliminarUser(int user) async {
+    Get.dialog(ChangeDialogGeneral(
+      alertTitle: richTitle("Eliminar Cuenta"),
+      alertSubtitle: richSubtitle('result.messageError()'),
+      textButton: "Cerrar",
+      alertType: TypeGeneralDialog.SUCCESS,
+      onPressed: resetAll,
+    ));
+    return;
     // Usuario 0, Proveedor 1
     // Llamar a la api de reservatupista
     final result = await UsuarioNode()
@@ -91,7 +128,8 @@ class EliminarCuentaController extends GetxController
           alertSubtitle: richSubtitle(result.messageError()),
           textButton: "Cerrar",
           alertType: TypeGeneralDialog.SUCCESS,
-          // onPressed: () => {html.window.location.reload()},
+          onPressed: () =>
+              {Get.back(), Get.back(), Get.back(), Get.forceAppUpdate()},
         ));
       } else {
         Get.dialog(ChangeDialogGeneral(
@@ -118,7 +156,7 @@ class EliminarCuentaController extends GetxController
               richSubtitle('No es posible eliminar una cuenta privada.'),
           textButton: "Cerrar",
           alertType: TypeGeneralDialog.WARNING,
-          onPressed: () => Get.back(),
+          onPressed: Get.back,
         ));
         return;
       }
@@ -145,7 +183,7 @@ class EliminarCuentaController extends GetxController
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Cerrar",
             alertType: TypeGeneralDialog.WARNING,
-            onPressed: () => Get.back(),
+            onPressed: Get.back,
           ));
         }
       }
@@ -166,7 +204,7 @@ class EliminarCuentaController extends GetxController
               richSubtitle('No es posible eliminar una cuenta privada.'),
           textButton: "Cerrar",
           alertType: TypeGeneralDialog.WARNING,
-          onPressed: () => Get.back(),
+          onPressed: Get.back,
         ));
         return;
       }
@@ -188,7 +226,7 @@ class EliminarCuentaController extends GetxController
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Cerrar",
             alertType: TypeGeneralDialog.WARNING,
-            onPressed: () => Get.back(),
+            onPressed: Get.back,
           ));
         }
       }

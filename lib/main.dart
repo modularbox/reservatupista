@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/ui/pages/not_found_page/not_found_b.dart';
+import 'package:reservatu_pista/app/ui/pages/not_found_page/not_found_p.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'app/routes/app_pages.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -79,6 +81,12 @@ class _MyAppState extends State<MyApp> {
         ],
         initialBinding: DBBinding(),
         initialRoute: Routes.LOGIN_USUARIO,
+        // Manejo de rutas no encontradas
+        unknownRoute: GetPage(
+          name: '/not_found',
+          binding: NotFoundBinding(),
+          page: () => const NotFoundPage(),
+        ),
         getPages: AppPages.routes,
       );
     });

@@ -1,7 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+// import 'package:get_storage/get_storage.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
+// import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
@@ -43,7 +45,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    // onInitForm();
+    onInitForm();
     apiExisteNick.empty();
     animTerminos = animVibrate(vsync: this);
     debounce(contrasenaVisibility, (_) => contrasenaVisibility.value = false,
@@ -60,16 +62,16 @@ class RegistrarUsuarioController extends GetxController
     tc.nombre.text = 'Nombre Fiticio';
     tc.apellidos.text = 'Apellido Fiticio';
     tc.sexo.text = 'Hombre';
-    tc.dni.text = '12345678D';
+    tc.dni.text = '';
     tc.lada.text = '🇪🇸 +34';
     tc.telefono.text = '999999999';
-    tc.email.text = 'ya3@ya3.com';
+    tc.email.text = 'miguel@modularbox.com';
     tc.direccion.text = 'Direccion';
     tc.codigoPostal.text = '12345';
     tc.localidad.text = 'Localidad';
     tc.provincia.text = 'Provincia';
     tc.comunidad.text = 'Comunidad';
-    tc.nick.text = 'ficticio1';
+    tc.nick.text = 'mike1121';
     tc.contrasenaComprobar.text = '12345678';
     tc.contrasena.text = '12345678';
   }
@@ -125,25 +127,6 @@ class RegistrarUsuarioController extends GetxController
     }
   }
 
-  void prueba() async {
-    try {
-      Get.dialog(ColorLoader3());
-      await Future.delayed(const Duration(seconds: 3));
-      Get.back();
-      await Get.dialog(ChangeDialogGeneral(
-        alertTitle: richTitle("Registro usuario"),
-        alertSubtitle:
-            richSubtitle("Compruebe su correo para finalizar el registro."),
-        textButton: "Ir a Login",
-        alertType: TypeGeneralDialog.SUCCESS,
-        onPressed: () {
-          Get.back();
-          // Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
-        },
-      ));
-    } catch (e) {}
-  }
-
   /// Registrar Usuario
   void onPressedRegistrar() async {
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
@@ -151,6 +134,9 @@ class RegistrarUsuarioController extends GetxController
         Get.dialog(ColorLoader3());
         // Poner nombre en base a la fecha para que no se repita
         String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
+        nameFoto = image.imageAsset.value != null
+            ? '${image.imageAsset.value!}@$nameFoto'
+            : nameFoto;
         final imagenSubida =
             await image.convertirSubirImagen('usuarios', nameFoto);
         if (imagenSubida) {
@@ -215,6 +201,8 @@ class RegistrarUsuarioController extends GetxController
         final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
         Get.back();
         if (registrar) {
+          final enviarMail = await UsuarioProvider()
+              .enviarEmail(tc.email.text, tc.nombre.text);
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Registro usuario"),
             alertSubtitle:

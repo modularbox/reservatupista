@@ -107,7 +107,7 @@ class PerfilPage extends GetView<DBService> {
                               children: [
                                 ImageServer(
                                   width: 200,
-                                  height: 400,
+                                  height: 200,
                                 ),
                               ])));
                     },
@@ -185,34 +185,34 @@ class PerfilPage extends GetView<DBService> {
                       width: 3,
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: BtnIcon(
-                      onPressed: () {
-                        Get.dialog(GestureDetector(
-                            onTap: () => Get.back(),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 200,
-                                    child: ImageServer(
-                                      width: null,
-                                      height: null,
-                                      fit: BoxFit.fitWidth,
-                                    ),
+                  child: BtnIcon(
+                    onPressed: () {
+                      Get.dialog(GestureDetector(
+                          onTap: () => Get.back(),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  child: ImageServer(
+                                    width: null,
+                                    height: null,
+                                    fit: BoxFit.fitWidth,
                                   ),
-                                ])));
-                      },
-                      borderRadius: 50,
-                      padding: const EdgeInsets.all(0),
-                      fillColor: Colors.transparent,
-                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                      icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: ImageServer()),
-                    ),
+                                ),
+                              ])));
+                    },
+                    borderRadius: 45,
+                    padding: const EdgeInsets.all(0),
+                    fillColor: Colors.transparent,
+                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                    icon: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: ImageServer(
+                          width: 80,
+                          height: 80,
+                        )),
                   ),
                 ),
                 Expanded(

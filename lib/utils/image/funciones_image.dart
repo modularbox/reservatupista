@@ -16,6 +16,8 @@ class FuncionesImage {
   final imageFile = Rxn<String>();
   // Obtener imagen en Web
   final imageBytes = Rxn<Uint8List>();
+  // Obtener la imagen de los assets ya estan en el servidor
+  final imageAsset = Rxn<String>();
   // Controllador para ver el cambio de estado de la imagen
   final controller = TextEditingController();
   // Las imagenes son del proveedor
@@ -86,11 +88,8 @@ class FuncionesImage {
           nameFoto: nameFoto);
     } else if (imageFile.value != null) {
       if (imageFile.value![0] == '@') {
-        // Subir Imagen en nodejs y copiarAssetLocal
-        return await ImageNodeProvider.subirImageFile(
-            await copiarAssetAFile(imageFile.value!.substring(1)),
-            destination: destination,
-            nameFoto: nameFoto);
+        // Selecciono un asset ya guardado
+        return true;
       } else {
         // Subir Imagen en nodejs y reducir su tamano
         return await ImageNodeProvider.subirImageFile(
@@ -125,6 +124,8 @@ class FuncionesImage {
 
   Future<void> pickImage(ImageSource source, {String? path}) async {
     if (path != null) {
+      print("chasnge asset image");
+      imageAsset.value = path;
       imageFile.value = '@$path';
     } else {
       final pickedFile = await ImagePicker().pickImage(source: source);

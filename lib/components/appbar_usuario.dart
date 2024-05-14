@@ -74,7 +74,7 @@ class AppbarUsuario extends StatelessWidget {
         ),
       ];
     }
-    const String notify = Routes.NOTIFICACIONES;
+    final String notify = Routes.NOTIFICACIONES;
     return [
       Row(
         mainAxisSize: MainAxisSize.max,

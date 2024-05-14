@@ -14,11 +14,65 @@ class ProveedorProvider extends GetConnect {
   late String token;
   late int idClub;
   final url = DatosServer.urlServer;
+  final urlMail = DatosServer.urlMail;
+  final urlWeb = DatosServer.urlWeb;
 
   Future<void> initialize() async {
     final storage = await SharedPreferences.getInstance();
     token = storage.tokenProveedor.read();
     idClub = storage.idClub.read();
+  }
+
+  // Validar el email del usuario
+  Future<MessageError> validarEmail(String email) async {
+    try {
+      final response = await put(
+          '$url/proveedor/validar_email',
+          {
+            "email": email,
+          },
+          contentType: 'application/json');
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return MessageError(
+          message: 'Error al Validar Email Proveedor', code: 501);
+    }
+  }
+
+  // Enviar Email usuario
+  Future<bool> enviarEmail(String email, String nombre) async {
+    try {
+      final response = await post(
+          '$urlMail/reservatupista_alta',
+          {
+            "esProveedor": 'true',
+            "correo": email,
+            "link": "$urlWeb/#/validar_email?email=$email&user=1",
+            "message":
+                "<h1> Pulsa el siguiente link para validar tu correo: <a href='$urlWeb/#/validar_email?email=$email&user=1'>link</a> </h1>",
+            "asunto": "Registro Proveedor"
+          },
+          contentType: 'application/json');
+      print(response.body);
+      // Enviar la solicitud
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        // Manejar el caso en el que la carga no fue exitosa
+        print(
+            'Error al usuario anadida. Código de estado: ${response.statusCode}');
+        throw '';
+      }
+    } catch (error) {
+      print('Error al usuario anadida: $error');
+      return false;
+    }
   }
 
   Future<ClubModel?> getClub(List<String> listTypes) async {

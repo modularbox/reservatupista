@@ -17,6 +17,7 @@ class ImageServer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    printError(info: "Image server ${db.fotoServer}");
     return Obx(() => Image.network(
           db.fotoServer,
           width: width,

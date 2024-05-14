@@ -34,9 +34,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
               color: Colors.white,
               size: 30,
             ),
-            onPressed: () async {
-              Get.back();
-            },
+            onPressed: Get.back,
           ),
           title: Text(
             'Eliminar Cuenta',
@@ -46,7 +44,6 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                   fontSize: 22,
                 ),
           ),
-          actions: [],
           centerTitle: false,
           elevation: 2,
         ),

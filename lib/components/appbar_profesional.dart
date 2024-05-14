@@ -44,7 +44,7 @@ class AppbarProfesional extends StatelessWidget {
   }
 
   List<Widget> buildRow(BuildContext context) {
-    const String notify = Routes.NOTIFICACIONES_PROVEEDOR;
+    final String notify = Routes.NOTIFICACIONES_PROVEEDOR;
 
     if (isTitleBack) {
       return [

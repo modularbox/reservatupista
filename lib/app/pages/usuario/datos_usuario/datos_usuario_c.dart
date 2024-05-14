@@ -6,14 +6,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
-import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
-import '../../../../backend/schema/enums/tipo_imagen.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
@@ -103,6 +101,9 @@ class DatosUsuarioController extends GetxController
   /// Controlador para cambiar la imagen del servidor
   final image = FuncionesImage();
 
+  /// Servidor node peticiones usuario
+  final provider = UsuarioProvider();
+
   @override
   void onInit() {
     super.onInit();
@@ -115,21 +116,29 @@ class DatosUsuarioController extends GetxController
 
   dynamic changeImage(dynamic callback) async {
     try {
-      final imagenSubida =
-          await image.convertirSubirImagen('usuarios', usuarioModel!.foto);
-      if (imagenSubida) {
-        print("Se subio la imagen");
-
-        /// Actualizar Imagen
-        db.fotoServer = DatosServer.usuario(usuarioModel!.foto);
-        db.storage.fotoUsuario.write(db.fotoServer);
-      } else {
-        print("No se subio la imagen :/");
-        throw "Error al subir imagen";
+      String nameFoto = usuarioModel!.foto;
+      final isAssetsServer = nameFoto.split('@').length > 1;
+      if (isAssetsServer) {
+        nameFoto = nameFoto.split('@')[1];
       }
-    } catch (e) {
+      print("image.imageAsset.value ${image.imageAsset.value}");
+      if (image.imageAsset.value != null) {
+        nameFoto = '${image.imageAsset.value!}@$nameFoto';
+      } else {
+        await image.convertirSubirImagen(usuarios, nameFoto);
+      }
+      final result = await provider.modificarUsuario([nameFoto], [foto]);
+      if (result.code == 2000) {
+        printError(info: 'Foto modificada del usuario');
+        // Actualizar Imagen
+        db.fotoServer = DatosServer.usuario(nameFoto);
+        db.storage.fotoUsuario.write(db.fotoServer);
+      }
+    } catch (e, st) {
       print(e);
+      print(st);
     } finally {
+      image.imageAsset.value = null;
       Get.back();
     }
   }
@@ -144,11 +153,11 @@ class DatosUsuarioController extends GetxController
           fontSize: 20.0),
       alertSubtitle: richSubtitleLink(
           'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
-      urlLink: 'https://app.reservatupista.com/eliminar_cuenta/$parametros',
+      urlLink: '${DatosServer.urlPruebas}/eliminar_cuenta/$parametros',
     ));
   }
 
-  getDatosUsuario() async {
+  void getDatosUsuario() async {
     try {
       final storage = await SharedPreferences.getInstance();
       final List<String> listTypes = [
@@ -178,8 +187,8 @@ class DatosUsuarioController extends GetxController
         'juegos_semana',
         'foto',
       ];
-      final result = await UsuarioProvider()
-          .getUsuario(storage.idUsuario.read(), listTypes);
+      final result =
+          await provider.getUsuario(storage.idUsuario.read(), listTypes);
       // final result = await UsuarioNode().getUsuarioNode('1');
       if (result is UsuarioModel) {
         final List<String> listLada = [
@@ -215,13 +224,12 @@ class DatosUsuarioController extends GetxController
         modeloController.text = result.modeloPala;
         juegoPorSemanaController.text = result.juegosSemana;
         // datosUsuario.value.change(true, RxStatusDemo.success());
-        apidatosUsuario.change(true, RxStatusDemo.success());
+        apidatosUsuario.success(true);
         // datosUsuario.refresh();
         usuarioModel = result;
       }
     } catch (e) {
-      apidatosUsuario.change(
-          null, RxStatusDemo.error('No se encontraron datos.'));
+      apidatosUsuario.error('No se encontraron datos.');
     }
   }
 
@@ -495,9 +503,6 @@ class DatosUsuarioController extends GetxController
             datosModificados.add(_);
           }
         }
-        print(datosModificados);
-        print(datosSQL);
-
         if (datosModificados.isNotEmpty) {
           final result = await UsuarioNode().modificarUsuarioNode(
               usuarioModel!.idUsuario, datosSQL, datosModificados);
@@ -554,38 +559,6 @@ class DatosUsuarioController extends GetxController
     if (isValidateForms && text.isNotEmpty) {
       isValidateForms = false;
       !formKey.currentState!.validate();
-    }
-  }
-
-  void selectImage(String? pathImage, TipoImagen tipoImagen) async {
-    if (pathImage != null) {
-      try {
-        // Es una imagen local
-        if (tipoImagen == TipoImagen.asset) {
-          // Subir Imagen en nodejs y copiarAssetLocal
-          await subirImageNode(await copiarAssetAFile(pathImage),
-              destination: 'usuarios', nameFoto: usuarioModel!.foto);
-        } else {
-          // Subir Imagen en nodejs y ajustar tamano
-          await subirImageNode(await imageResize(pathImage),
-              destination: 'usuarios', nameFoto: usuarioModel!.foto);
-        }
-        print("Actualizar Imagen");
-
-        /// Actualizar Image
-        db.fotoServer =
-            '${UsuarioNode().getImageNode(db.datosUsuario.foto)}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
-
-        final storage = await SharedPreferences.getInstance();
-        storage.fotoUsuario.write(db.fotoServer);
-        print('Seactualizo');
-      } catch (e) {
-        print(e);
-      } finally {
-        refresh();
-        Get.back();
-        Get.back();
-      }
     }
   }
 
