@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/administrador/pagina_administrador_p.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
 import '../../../../utils/btn_icon.dart';
@@ -451,6 +452,28 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             endIndent: 20,
             color: FlutterFlowTheme.of(context).lineColor,
           ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FFButtonWidget(
+              text: "ADMIN",
+              onPressed: () {
+                Get.to(AdminPageWidget());
+              },
+              options: FFButtonOptions(
+                width: MediaQuery.sizeOf(context).width * 0.4,
+                height: 40,
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                color: focusedColor,
+                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: FlutterFlowTheme.of(context).tertiary,
+                    ),
+                elevation: 2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          )
         ],
       ),
     );
