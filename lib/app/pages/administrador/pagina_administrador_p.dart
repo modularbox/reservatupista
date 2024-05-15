@@ -36,16 +36,17 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
               floating: true,
               snap: true,
               backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              iconTheme: IconThemeData(color: Color(0xFFFF0000)),
+              iconTheme: const IconThemeData(color: Color(0xFFFF0000)),
               automaticallyImplyLeading: false,
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-1, 0),
+                      alignment: const AlignmentDirectional(-1, 0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                         child: Text(
                           'Perfil Admin',
                           textAlign: TextAlign.center,
@@ -59,14 +60,14 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1, 0),
+                      alignment: const AlignmentDirectional(1, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 8, 24, 0),
                             child: badges.Badge(
                               badgeContent: Text(
                                 '1',
@@ -82,7 +83,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               shape: badges.BadgeShape.circle,
                               badgeColor: FlutterFlowTheme.of(context).primary,
                               elevation: 4,
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               position: badges.BadgePosition.topEnd(),
                               animationType: badges.BadgeAnimationType.scale,
                               toAnimate: true,
@@ -90,8 +91,9 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
                                     child: Icon(
                                       Icons.notifications_none,
                                       color: FlutterFlowTheme.of(context)
@@ -107,7 +109,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             width: 40,
                             height: 40,
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                             child: Image.network(
@@ -121,7 +123,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                   ],
                 ),
               ),
-              actions: [],
+              actions: const [],
               centerTitle: true,
               elevation: 0,
             )
@@ -143,7 +145,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 3,
                                   color: Color(0x33000000),
@@ -155,7 +157,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               ],
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -173,7 +175,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(2),
+                                      padding: const EdgeInsets.all(2),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
                                         child: Image.network(
@@ -186,8 +188,9 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16, 0, 0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -212,8 +215,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -226,7 +229,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -240,7 +243,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -252,9 +255,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Clubes',
                                             style: FlutterFlowTheme.of(context)
@@ -267,7 +269,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -282,8 +285,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -296,7 +299,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -310,7 +313,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -322,9 +325,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Usuarios',
                                             style: FlutterFlowTheme.of(context)
@@ -349,8 +351,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -363,7 +365,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -377,7 +379,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -389,9 +391,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Partidas',
                                             style: FlutterFlowTheme.of(context)
@@ -404,7 +405,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -419,8 +421,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -433,7 +435,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -447,7 +449,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -459,9 +461,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Tarifas',
                                             style: FlutterFlowTheme.of(context)
@@ -474,7 +475,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -489,8 +491,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -503,7 +505,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -517,7 +519,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -529,9 +531,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Pedidos',
                                             style: FlutterFlowTheme.of(context)
@@ -544,7 +545,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -559,8 +561,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -573,7 +575,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -587,7 +589,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -599,9 +601,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Editar Noticias',
                                             style: FlutterFlowTheme.of(context)
@@ -614,7 +615,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -629,8 +631,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -643,7 +645,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -657,7 +659,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -669,9 +671,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Editar Ofertas',
                                             style: FlutterFlowTheme.of(context)
@@ -684,7 +685,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -699,8 +701,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 12, 16, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -713,7 +715,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -727,7 +729,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -739,9 +741,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Banco',
                                             style: FlutterFlowTheme.of(context)
@@ -754,7 +755,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: FlutterFlowTheme.of(context)
@@ -769,16 +771,16 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0, 1),
+                            alignment: const AlignmentDirectional(0, 1),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 20, 16, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16, 20, 16, 0),
                               child: Container(
                                 width: 200,
                                 height: 45,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFF77066),
-                                  boxShadow: [
+                                  color: const Color(0xFFF77066),
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 5,
                                       color: Color(0x3416202A),
@@ -792,15 +794,14 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12, 0, 0, 0),
                                           child: Text(
                                             'Cerrar Sesión',
                                             style: FlutterFlowTheme.of(context)
@@ -813,7 +814,8 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: AlignmentDirectional(0.9, 0),
+                                        alignment:
+                                            const AlignmentDirectional(0.9, 0),
                                         child: Icon(
                                           Icons.logout,
                                           color: FlutterFlowTheme.of(context)
