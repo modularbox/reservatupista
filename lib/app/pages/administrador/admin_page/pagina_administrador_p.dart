@@ -1,5 +1,5 @@
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:reservatu_pista/app/pages/administrador/pagina_administrador_c.dart';
+import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_c.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
