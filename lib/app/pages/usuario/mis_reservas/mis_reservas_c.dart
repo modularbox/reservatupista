@@ -10,6 +10,7 @@ import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_pistas/mis_pistas_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
 extension IterableExtension<E> on List<E> {
@@ -128,10 +129,39 @@ class MisReservasController extends GetxController
       final resultEliminarReserva =
           await ReservasProvider().cancelarReserva(idReserva);
       print(resultEliminarReserva);
+      if (!resultEliminarReserva) {
+        print('NOOOOOOO SE HA CANCELAD');
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Reserva NO Cancelada"),
+          alertSubtitle: richSubtitle(
+              'La reserva no se ha podido cancelar ya que el tiempo de cancelación de reservas de esta pista es inferior al tiempo que queda para la partida'),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.WARNING,
+          onPressed: () => Get.back(),
+        ));
+      } else {
+        Get.dialog(ChangeDialogGeneral(
+            alertTitle: richTitle("RESERVA CANCELADA"),
+            alertSubtitle:
+                richSubtitle('¡ENHORABUENA!. LA RESERVA SE HA CANCELADO.'),
+            textButton: "Cerrar",
+            alertType: TypeGeneralDialog.SUCCESS,
+            onPressed: () => {
+                  Get.back(),
+                  Get.back(),
+                }));
+      }
+
       await cargarDatos();
     } catch (e) {
-    } finally {
-      Get.back();
+      Get.dialog(ChangeDialogGeneral(
+        alertTitle: richTitle("Reserva NO Cancelada"),
+        alertSubtitle: richSubtitle('Ha habido un error interno en la app.'),
+        textButton: "Cerrar",
+        alertType: TypeGeneralDialog.ERROR,
+        onPressed: () => Get.back(),
+      ));
+      throw e;
     }
   }
 
