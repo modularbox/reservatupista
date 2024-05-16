@@ -4,6 +4,8 @@ import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_admini
 import 'package:reservatu_pista/app/pages/administrador/banco_admin/banco_admin_p.dart';
 import 'package:reservatu_pista/app/pages/administrador/clubes_admin/clubes_admin_p.dart';
 import 'package:reservatu_pista/app/pages/administrador/editar_noticia_admin/editar_noticia_admin_p.dart';
+import 'package:reservatu_pista/app/pages/administrador/editar_ofertas_admin/editar_ofertas_admin_p.dart';
+import 'package:reservatu_pista/app/pages/administrador/partidas_admin/partidas_admin_p.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -246,7 +248,9 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {},
+                            onTap: () async {
+                              Get.to(AdminPartidasWidget());
+                            },
                             child: Container(
                               width: double.infinity,
                               height: 60,
@@ -517,7 +521,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              Get.to(EditarNoticiasWidget);
+                              Get.to(EditarOfertaWidget());
                             },
                             child: Container(
                               width: double.infinity,
