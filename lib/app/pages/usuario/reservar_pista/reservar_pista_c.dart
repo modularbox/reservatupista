@@ -1,12 +1,19 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
+import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
+import 'package:reservatu_pista/app/routes/app_pages.dart';
+import 'package:reservatu_pista/utils/animations/list_animations.dart';
+import 'package:reservatu_pista/utils/buttons_sounds.dart';
+import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
 import '../../../../utils/sizer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -110,7 +117,11 @@ class ReservarPistaController extends GetxController
   GlobalKey keyDatos = GlobalKey();
 
   int diaHoy = 0;
-  RxBool terms = false.obs;
+  // Checar si los terminos y condiciones son aceptados
+  RxBool checkboxTerminos = false.obs;
+  RxBool validateTerminos = false.obs;
+  late AnimationController animTerminos;
+
   RxDouble totalHeight = 0.0.obs;
   RxDouble sizedBoxHeight = 0.0.obs;
   late DateTime fechaActual;
@@ -126,12 +137,16 @@ class ReservarPistaController extends GetxController
 
   // Datos de la reserva
   late DatosReservaPista datosReserva;
+  // Selection controller
+  final SelectionController selectionController = SelectionController();
+  // Anim
 
   @override
   void onInit() async {
     super.onInit();
     generarListaLocalidades();
     fechaActual = DateTime.now();
+    animTerminos = animVibrate(vsync: this);
     db.getMoney();
     debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
@@ -201,7 +216,202 @@ class ReservarPistaController extends GetxController
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
   }
 
-  void obtenerPlazasLibres() async {
+  void onConfirmar() {
+    if (selectHorario.value == null) {
+      return;
+    }
+    double precioReserva = precio_a_mostrar.value / 100; //euros
+    if (checkboxTerminos.value &&
+        selectionController.selectedOption.value != '' &&
+        selectionController.selectedOption.value != 'rellenar') {
+      final precio = db.dineroTotal - (precio_a_mostrar.value);
+      print('preciooooooooooo ${precio}'); //(0 - 4.0);
+      if (precio < 0) {
+        if (selectionController.selectedOption.value == 'tarjeta') {
+          print('preciooooooooooo tarjeta');
+          Get.dialog(RichAlertFlutterFlow(
+            alertType: TypeAlert.NONE,
+            alertTitle: 'Reservar Pista',
+            alertSubtitle: '¿Desea reservar la pista directamente con tarjeta?',
+            textButton: '',
+            acceptButton: MaterialButton(
+              color: Colors.green,
+              onPressed: () =>
+                  db2.reservarPistaConTarjeta(precio_a_mostrar.value, this),
+              splashColor: Colors.lightGreen,
+              child: const Text(
+                'Aceptar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            cancelButton: MaterialButton(
+              color: Colors.red,
+              onPressed: () => Get.back(),
+              splashColor: Colors.redAccent,
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            precio: '${precioReserva.toStringAsFixed(2)} €',
+            onPressed: () {
+              Get.back();
+            },
+          ));
+        } else {
+          Get.dialog(RichAlertFlutterFlow(
+            alertType: TypeAlert.NONE,
+            alertTitle: 'Reservar Pista',
+            alertSubtitle:
+                'No tienes saldo suficiente, debes recargar para poder reservar.',
+            textButton: 'Aceptar',
+            precio: '${precioReserva.toStringAsFixed(2)} €',
+            onPressed: () {
+              Get.back();
+            },
+          ));
+        }
+      } else {
+        if (selectionController.selectedOption.value == 'tarjeta') {
+          print('preciooooooooooo tarjeta');
+          Get.dialog(RichAlertFlutterFlow(
+            alertType: TypeAlert.NONE,
+            alertTitle: 'Reservar Pista',
+            alertSubtitle: '¿Desea reservar la pista directamente con tarjeta?',
+            textButton: '',
+            acceptButton: MaterialButton(
+              color: Colors.green,
+              onPressed: () =>
+                  db2.reservarPistaConTarjeta(precio_a_mostrar.value, this),
+              splashColor: Colors.lightGreen,
+              child: const Text(
+                'Aceptar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            cancelButton: MaterialButton(
+              color: Colors.red,
+              onPressed: () => Get.back(),
+              splashColor: Colors.redAccent,
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            precio: '${precioReserva.toStringAsFixed(2)} €',
+            onPressed: () {
+              Get.back();
+            },
+          ));
+        } else {
+          Get.dialog(RichAlertFlutterFlow(
+            alertType: TypeAlert.NONE,
+            alertTitle: 'Reservar Pista',
+            alertSubtitle: '¿Desea reservar la pista?',
+            textButton: '',
+            acceptButton: MaterialButton(
+              color: Colors.green,
+              onPressed: reservarPistaF,
+              splashColor: Colors.lightGreen,
+              child: const Text(
+                'Aceptar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            cancelButton: MaterialButton(
+              color: Colors.red,
+              onPressed: () => Get.back(),
+              splashColor: Colors.redAccent,
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            precio: '${precioReserva.toStringAsFixed(2)} €',
+            onPressed: Get.back,
+          ));
+        }
+      }
+    } else {
+      if (!checkboxTerminos.value) {
+        validateTerminos.value = true;
+        animTerminos.forward();
+      }
+    }
+    ButtonsSounds.playSound();
+  }
+
+  void reservarPistaF() async {
+    // String? referencia = await db2.reservarPista(
+    //     db.idUsuario,
+    //     precio_a_mostrar.value / 100,
+    //     fecha_seleccionada.value,
+    //     hora_inicio_reserva_seleccionada.value,
+    //     id_pista_seleccionada.value.toString(),
+    //     usuario.value.plazasReservadas);
+    final referencia = '';
+    if (referencia is String) {
+      await EmailProvider().emailReservas(
+          db.email,
+          referencia,
+          fecha_seleccionada.value.toString().substring(0, 10),
+          hora_inicio_reserva_seleccionada.value,
+          '${hora_fin_reserva_seleccionada.value}',
+          localidad_seleccionada.value,
+          deporteController.text,
+          (selectPista.value! + 1).toString(),
+          'monedero',
+          db.nombre,
+          plazas_a_reservar.value.toString());
+      Get.defaultDialog(
+        title: "Reserva exitosa",
+        middleText: "La pista se ha reservado correctamente.",
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Get.toNamed(Routes.MIS_RESERVAS);
+              Get.back();
+              Get.back();
+            },
+            child: const Text('Aceptar'),
+          ),
+        ],
+      );
+    } else {
+      Get.defaultDialog(
+        title: "Error al reservar pista",
+        middleText: "La pista no se ha podido reservar.",
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back(); // Cierra la alerta
+            },
+            child: const Text('Aceptar'),
+          ),
+        ],
+      );
+    }
+  }
+
+  Future<void> obtenerPlazasLibres() async {
     try {
       // Iniciarlizar el usuario con los datos guardados
       usuario = Rx<ReservaUsuario>(ReservaUsuario(

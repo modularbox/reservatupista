@@ -18,6 +18,7 @@ class MisReservasUsuarioModel {
   final String foto;
   final String horaFin;
   final String localidad;
+  final String tipoReserva;
   // final String luz;
   final String iluminacion;
   final int automatizada;
@@ -46,6 +47,7 @@ class MisReservasUsuarioModel {
       required this.pista,
       required this.horaFin,
       required this.duracionPartida,
+      required this.tipoReserva,
       this.reservasUsuarios});
 
   factory MisReservasUsuarioModel.fromRawJson(String str) =>
@@ -76,6 +78,7 @@ class MisReservasUsuarioModel {
         pista: json['pista'],
         horaFin: json['hora_fin'],
         duracionPartida: json['duracion_partida'],
+        tipoReserva: json['tipo_reserva'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,6 +95,7 @@ class MisReservasUsuarioModel {
         "capacidad": capacidad,
         "nombre": nombre,
         "foto": foto,
+        "tipo_reserva": tipoReserva,
         // "localidad": localidad,
         // "luz": luz,
         // "iluminacion": iluminacion,

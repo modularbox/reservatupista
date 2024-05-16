@@ -56,17 +56,14 @@ class ClonarDias extends StatelessWidget {
                                               color: self
                                                       .selectedDias.value[index]
                                                   ? const Color(0xFF46EF98)
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color: Colors.white,
-                                                        fontSize: 12.0,
-                                                      ),
+                                                  : LightModeTheme().primary,
+                                              textStyle: LightModeTheme()
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: Colors.white,
+                                                    fontSize: 12.0,
+                                                  ),
                                               elevation: 3.0,
                                               borderSide: const BorderSide(
                                                 color: Colors.transparent,

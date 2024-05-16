@@ -70,8 +70,8 @@ class CodigoIban extends GetView<RegistrarProveedorController> {
                   (index) => Text(
                         title[index],
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.copyWith(
-                              color: FlutterFlowTheme.of(context).accent1,
+                        style: LightModeTheme().bodyMedium.copyWith(
+                              color: LightModeTheme().accent1,
                             ),
                       ))),
         ]),
@@ -137,12 +137,11 @@ class CodigoIban extends GetView<RegistrarProveedorController> {
                     (index) => Text(
                           nombres[index],
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: FlutterFlowTheme.of(context).accent1,
-                                    fontSize: 9,
-                                  ),
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                color: LightModeTheme().accent1,
+                                fontSize: 9,
+                              ),
                         )))
           ],
         ),
@@ -165,8 +164,8 @@ class CodigoIban extends GetView<RegistrarProveedorController> {
       maxLength: maxLength,
       onChanged: onChanged,
       decoration: InputDecoration(
-        labelStyle: FlutterFlowTheme.of(context).labelMedium,
-        hintStyle: FlutterFlowTheme.of(context).labelMedium,
+        labelStyle: LightModeTheme().labelMedium,
+        hintStyle: LightModeTheme().labelMedium,
         counterText: '',
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -184,23 +183,23 @@ class CodigoIban extends GetView<RegistrarProveedorController> {
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: FlutterFlowTheme.of(context).error,
+            color: LightModeTheme().error,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: FlutterFlowTheme.of(context).error,
+            color: LightModeTheme().error,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         contentPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
       ),
-      style: FlutterFlowTheme.of(context).bodyMedium.override(
+      style: LightModeTheme().bodyMedium.override(
             fontFamily: 'Readex Pro',
-            color: FlutterFlowTheme.of(context).primaryText,
+            color: LightModeTheme().primaryText,
           ),
       textAlign: TextAlign.center,
       // validator: (val) {

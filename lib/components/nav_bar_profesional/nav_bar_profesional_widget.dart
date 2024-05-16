@@ -104,7 +104,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                   width: double.infinity,
                   height: 50.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    color: LightModeTheme().primaryBackground,
                     boxShadow: const [
                       BoxShadow(
                         blurRadius: 10.0,
@@ -218,11 +218,11 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
           Text(
             title,
             textAlign: TextAlign.center,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+            style: LightModeTheme().bodyMedium.override(
                   fontFamily: 'Readex Pro',
                   color: isPage
                       ? Colores.proveedor.primary
-                      : FlutterFlowTheme.of(context).primaryText,
+                      : LightModeTheme().primaryText,
                   fontSize: 10.0,
                 ),
           ),
@@ -259,11 +259,11 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                   ),
             Text(
               title,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
+              style: LightModeTheme().bodyMedium.override(
                     fontFamily: 'Readex Pro',
                     color: isPage
                         ? Colores.proveedor.primary
-                        : FlutterFlowTheme.of(context).primaryText,
+                        : LightModeTheme().primaryText,
                     fontSize: 10.0,
                   ),
             ),

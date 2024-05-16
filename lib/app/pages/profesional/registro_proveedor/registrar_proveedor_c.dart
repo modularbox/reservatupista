@@ -29,8 +29,9 @@ class RegistrarProveedorController extends GetxController
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Verificar si el form esta validado
   bool isValidateForms = false;
-  // Checkbox de terminos y condiciones
+  // Checar si los terminos y condiciones son aceptados
   RxBool checkboxTerminos = false.obs;
+  RxBool validateTerminos = false.obs;
   // Visibilidad las contrasenas
   RxBool contrasenaVisibility = false.obs;
   RxBool comprobarContrasenaVisibility = false.obs;
@@ -47,7 +48,7 @@ class RegistrarProveedorController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    onInitForm();
+    // onInitForm();
     // Inicializar la animacion de terminos y condiciones
     animTerminos = animVibrate(vsync: this);
   }
@@ -78,8 +79,6 @@ class RegistrarProveedorController extends GetxController
 
   /// Subir los datos al servidor
   void onPressedRegistrar() async {
-    // Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
-    // return;
     isValidateForms = true;
     if (formKey.currentState!.validate() && checkboxTerminos.value) {
       try {
@@ -186,6 +185,7 @@ class RegistrarProveedorController extends GetxController
       }
     } else {
       if (!checkboxTerminos.value) {
+        validateTerminos.value = true;
         animTerminos.forward();
       }
     }

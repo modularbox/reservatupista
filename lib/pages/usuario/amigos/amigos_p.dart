@@ -325,8 +325,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                     children: [
                                                       Text(
                                                         'NickUno',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
+                                                        style: LightModeTheme()
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
@@ -351,22 +350,21 @@ class AmigosPage extends GetView<AmigosController> {
                                                                     0, 4, 0, 0),
                                                             child: Text(
                                                               '4.00',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    color: const Color(
-                                                                        0xFF57636C),
-                                                                    fontSize:
-                                                                        14,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: const Color(
+                                                                            0xFF57636C),
+                                                                        fontSize:
+                                                                            14,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ],
@@ -475,8 +473,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                               ),
                                                               Text(
                                                                 'Invitar',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -562,8 +559,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                     children: [
                                                       Text(
                                                         'NickDos',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
+                                                        style: LightModeTheme()
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
@@ -588,22 +584,21 @@ class AmigosPage extends GetView<AmigosController> {
                                                                     0, 4, 0, 0),
                                                             child: Text(
                                                               '3.00',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    color: const Color(
-                                                                        0xFF57636C),
-                                                                    fontSize:
-                                                                        14,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: const Color(
+                                                                            0xFF57636C),
+                                                                        fontSize:
+                                                                            14,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ],
@@ -661,8 +656,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                               ),
                                                               Text(
                                                                 'Chat',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -688,14 +682,13 @@ class AmigosPage extends GetView<AmigosController> {
                                                               borderWidth: 1,
                                                               buttonSize: 40,
                                                               fillColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
+                                                                  LightModeTheme()
                                                                       .alternate,
                                                               icon: Icon(
                                                                 Icons.add,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent4,
+                                                                color:
+                                                                    LightModeTheme()
+                                                                        .accent4,
                                                                 size: 24,
                                                               ),
                                                               onPressed: () {
@@ -705,17 +698,17 @@ class AmigosPage extends GetView<AmigosController> {
                                                             ),
                                                             Text(
                                                               'Invitar',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    fontSize:
-                                                                        10,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        fontSize:
+                                                                            10,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ],
                                                         ),
@@ -791,8 +784,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                     children: [
                                                       Text(
                                                         'NickTres',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
+                                                        style: LightModeTheme()
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
@@ -817,22 +809,21 @@ class AmigosPage extends GetView<AmigosController> {
                                                                     0, 4, 0, 0),
                                                             child: Text(
                                                               '2.25',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    color: const Color(
-                                                                        0xFF57636C),
-                                                                    fontSize:
-                                                                        14,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: const Color(
+                                                                            0xFF57636C),
+                                                                        fontSize:
+                                                                            14,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ],
@@ -890,8 +881,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                               ),
                                                               Text(
                                                                 'Chat',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -917,14 +907,13 @@ class AmigosPage extends GetView<AmigosController> {
                                                               borderWidth: 1,
                                                               buttonSize: 40,
                                                               fillColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
+                                                                  LightModeTheme()
                                                                       .alternate,
                                                               icon: Icon(
                                                                 Icons.add,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent4,
+                                                                color:
+                                                                    LightModeTheme()
+                                                                        .accent4,
                                                                 size: 24,
                                                               ),
                                                               onPressed: () {
@@ -934,17 +923,17 @@ class AmigosPage extends GetView<AmigosController> {
                                                             ),
                                                             Text(
                                                               'Invitar',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    fontSize:
-                                                                        10,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        fontSize:
+                                                                            10,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ],
                                                         ),
@@ -1020,8 +1009,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                     children: [
                                                       Text(
                                                         'NickCuatro',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
+                                                        style: LightModeTheme()
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
@@ -1046,22 +1034,21 @@ class AmigosPage extends GetView<AmigosController> {
                                                                     0, 4, 0, 0),
                                                             child: Text(
                                                               '2.50',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    color: const Color(
-                                                                        0xFF57636C),
-                                                                    fontSize:
-                                                                        14,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: const Color(
+                                                                            0xFF57636C),
+                                                                        fontSize:
+                                                                            14,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ],
@@ -1119,8 +1106,7 @@ class AmigosPage extends GetView<AmigosController> {
                                                               ),
                                                               Text(
                                                                 'Chat',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
+                                                                style: LightModeTheme()
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
@@ -1150,9 +1136,9 @@ class AmigosPage extends GetView<AmigosController> {
                                                                       .usuario,
                                                               icon: Icon(
                                                                 Icons.add,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .info,
+                                                                color:
+                                                                    LightModeTheme()
+                                                                        .info,
                                                                 size: 24,
                                                               ),
                                                               onPressed: () {
@@ -1162,17 +1148,17 @@ class AmigosPage extends GetView<AmigosController> {
                                                             ),
                                                             Text(
                                                               'Invitar',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    fontSize:
-                                                                        10,
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        fontSize:
+                                                                            10,
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ],
                                                         ),

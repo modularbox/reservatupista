@@ -307,8 +307,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickUno',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
+                                              style: LightModeTheme()
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily:
@@ -330,8 +329,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '4.00',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                                    style: LightModeTheme()
                                                         .labelMedium
                                                         .override(
                                                           fontFamily:
@@ -438,8 +436,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickDos',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
+                                              style: LightModeTheme()
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily:
@@ -461,8 +458,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '3.25',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                                    style: LightModeTheme()
                                                         .labelMedium
                                                         .override(
                                                           fontFamily:
@@ -569,8 +565,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickTres',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
+                                              style: LightModeTheme()
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily:
@@ -592,8 +587,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '3.00',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                                    style: LightModeTheme()
                                                         .labelMedium
                                                         .override(
                                                           fontFamily:
@@ -702,8 +696,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickCuatro',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
+                                              style: LightModeTheme()
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily:
@@ -725,8 +718,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '4.25',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                                    style: LightModeTheme()
                                                         .labelMedium
                                                         .override(
                                                           fontFamily:
@@ -835,8 +827,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                           children: [
                                             Text(
                                               'NickCinco',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
+                                              style: LightModeTheme()
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily:
@@ -858,8 +849,7 @@ class _BuscadorAmigoWidgetState extends State<AnadirAmigos> {
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
                                                     '4.75',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                                    style: LightModeTheme()
                                                         .labelMedium
                                                         .override(
                                                           fontFamily:

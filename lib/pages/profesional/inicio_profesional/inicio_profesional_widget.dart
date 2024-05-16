@@ -79,7 +79,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                     maxWidth: 570,
                   ),
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: LightModeTheme().secondaryBackground,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
@@ -92,18 +92,16 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                           child: Text(
                             'Partidas Abiertas',
-                            style: FlutterFlowTheme.of(context).headlineSmall,
+                            style: LightModeTheme().headlineSmall,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
                             'Martes, Enero 18th  ||  12:30pm',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: LightModeTheme().bodyMedium.override(
                                   fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: LightModeTheme().primary,
                                 ),
                           ),
                         ),
@@ -111,7 +109,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
                           child: Text(
                             'Partido de Padel',
-                            style: FlutterFlowTheme.of(context).labelMedium,
+                            style: LightModeTheme().labelMedium,
                           ),
                         ),
 
@@ -119,7 +117,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Ofertas',
-                            style: FlutterFlowTheme.of(context).headlineMedium,
+                            style: LightModeTheme().headlineMedium,
                           ),
                         ),
                         // Generated code for this Carousel Widget...
@@ -176,7 +174,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Noticias',
-                            style: FlutterFlowTheme.of(context).headlineMedium,
+                            style: LightModeTheme().headlineMedium,
                           ),
                         ),
                         // Generated code for this Carousel Widget...
@@ -239,7 +237,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                         ),
                         Text(
                           'Amigos ',
-                          style: FlutterFlowTheme.of(context).labelLarge,
+                          style: LightModeTheme().labelLarge,
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 32),
@@ -299,7 +297,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: LightModeTheme().primary,
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 4,
@@ -309,14 +307,14 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                     ],
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: FlutterFlowTheme.of(context).accent1,
+                      color: LightModeTheme().accent1,
                       width: 2,
                     ),
                   ),
                   alignment: AlignmentDirectional(0, 0),
                   child: Text(
                     'Reservar',
-                    style: FlutterFlowTheme.of(context).titleSmall,
+                    style: LightModeTheme().titleSmall,
                   ),
                 ),
               ),

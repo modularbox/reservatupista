@@ -77,7 +77,7 @@ class SeleccionarImagen extends StatelessWidget {
             width: 100.w,
             height: isProveedor ? 350 : 100.h,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: LightModeTheme().secondaryBackground,
               boxShadow: const [
                 BoxShadow(
                   blurRadius: 5,
@@ -101,7 +101,7 @@ class SeleccionarImagen extends StatelessWidget {
                 children: [
                   Text(
                     'Elige la foto',
-                    style: FlutterFlowTheme.of(context)
+                    style: LightModeTheme()
                         .titleLarge
                         .copyWith(decoration: TextDecoration.none),
                   ),
@@ -139,8 +139,8 @@ class SeleccionarImagen extends StatelessWidget {
                       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      textStyle: FlutterFlowTheme.of(context).bodyLarge,
+                      color: LightModeTheme().primaryBackground,
+                      textStyle: LightModeTheme().bodyLarge,
                       elevation: 2,
                       splashColor: const Color.fromARGB(65, 0, 0, 0),
                       borderSide: const BorderSide(
@@ -164,8 +164,8 @@ class SeleccionarImagen extends StatelessWidget {
                 height: 60,
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                textStyle: FlutterFlowTheme.of(context).bodyLarge,
+                color: LightModeTheme().primaryBackground,
+                textStyle: LightModeTheme().bodyLarge,
                 elevation: 2,
                 splashColor: const Color.fromARGB(65, 0, 0, 0),
                 borderSide: const BorderSide(
@@ -187,10 +187,10 @@ class SeleccionarImagen extends StatelessWidget {
                 height: 60,
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                color: FlutterFlowTheme.of(context).errorGeneral,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                color: LightModeTheme().errorGeneral,
+                textStyle: LightModeTheme().titleSmall.override(
                       fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: LightModeTheme().primaryText,
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                     ),

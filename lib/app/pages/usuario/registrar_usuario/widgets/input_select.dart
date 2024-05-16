@@ -1,15 +1,15 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'dart:math' as math;
-import '../../../../../utils/colores.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 
 enum TypeInputSelect { select, input }
 
 class InputSelect extends FormField<String> {
   InputSelect({
-    Key? key,
+    super.key,
     this.controller,
     this.icon,
     this.changeIcon = false,
@@ -21,7 +21,7 @@ class InputSelect extends FormField<String> {
     this.dialogSearchHint,
     this.dialogCancelBtn,
     this.enableSearch = false,
-    this.itemsDD,
+    required this.listSelect,
     this.hint,
     this.itemTextstyle,
     this.itemWidth,
@@ -45,9 +45,9 @@ class InputSelect extends FormField<String> {
     TextInputType? keyboardType,
     int? maxLength,
     String? Function(String?)? validator,
+    this.decoration,
     this.onChanged,
   }) : super(
-          key: key,
           initialValue: controller!.text,
           builder: (FormFieldState<String> field) {
             final _InputSelectState state = field as _InputSelectState;
@@ -60,57 +60,14 @@ class InputSelect extends FormField<String> {
             }
 
             Widget buildField(lfOnTap) {
-              return Container(
+              return SizedBox(
                 height: 45,
                 child: TextFormField(
                   controller: controller,
                   focusNode: focusNode,
                   // autofocus: true,
                   obscureText: false,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    labelText: labelText,
-                    labelStyle: LightModeTheme().labelMedium,
-                    hintStyle: LightModeTheme().labelMedium,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().alternate,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colores.usuario.primary69,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
-                  ),
-                  style: LightModeTheme().bodyMedium,
+                  decoration: decoration, style: LightModeTheme().bodyMedium,
                   cursorColor: LightModeTheme().primary,
                   maxLength: maxLength,
                   keyboardType: keyboardType,
@@ -118,7 +75,7 @@ class InputSelect extends FormField<String> {
                   onTap: lfOnTap,
                   readOnly: readOnly,
                   enableInteractiveSelection: enableInteractiveSelection,
-                  enabled: itemsDD!.isNotEmpty,
+                  enabled: listSelect.isNotEmpty,
                   inputFormatters: inputFormatters,
                   validator: onValidator,
                 ),
@@ -132,6 +89,9 @@ class InputSelect extends FormField<String> {
             }
           },
         );
+
+  final InputDecoration? decoration;
+
   final String? Function(String?)? onValidator;
   final BuildContext context;
   final bool? enableInput;
@@ -164,7 +124,7 @@ class InputSelect extends FormField<String> {
   final bool enableSearch;
 
   final ValueChanged<String>? onChanged;
-  final List<String>? itemsDD;
+  final List<String> listSelect;
 
   /// printed value
 
@@ -230,9 +190,24 @@ class _InputSelectState extends FormFieldState<String> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Widget buildNivel(Size size) {
+    return SizedBox(
+      width: size.width,
+      height: size.height,
+      child: Row(
+          children: List.generate(
+              4,
+              (index) => Expanded(
+                    child: BtnIcon(
+                        borderRadius: 12,
+                        borderColor: LightModeTheme().error,
+                        hoverColor: LightModeTheme().primary,
+                        borderWidth: 2,
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        onPressed: () => {},
+                        icon: const Text('0.00')),
+                  ))),
+    );
   }
 
   void _handleTap() {
@@ -244,7 +219,7 @@ class _InputSelectState extends FormFieldState<String> {
             ? _kAlignedMenuMargin
             : _kUnalignedMenuMargin;
 
-    var _dropdownRoute = _DropdownRoute<String>(
+    var dropdownPosition = _DropdownPosition<String>(
       itemWidth: itemBox.size.width,
       onChanged: (val) {
         _effectiveController!.text = val;
@@ -256,22 +231,27 @@ class _InputSelectState extends FormFieldState<String> {
         }
       },
       items: List.generate(
-          widget.itemsDD!.length,
+          widget.listSelect.length,
           (index) => DropdownMenuItem<String>(
-                value: widget.itemsDD![index],
-                child: Text(widget.itemsDD![index],
+                value: widget.listSelect[index],
+                child: Text(widget.listSelect[index],
                     style: LightModeTheme().labelMedium),
               )),
+      // items: List.generate(
+      //     widget.listSelect.length,
+      //     (index) => DropdownMenuItem<String>(
+      //         value: widget.listSelect[index],
+      //         child: buildNivel(itemBox.size))),
       buttonRect: menuMargin.resolve(textDirection).inflateRect(itemRect),
       padding: _kMenuItemPadding.resolve(textDirection),
       selectedIndex: -1,
       elevation: widget.elevation,
       dropdownColor: widget.dropdownColor,
-      style: widget.itemTextstyle ?? TextStyle(),
+      style: widget.itemTextstyle ?? const TextStyle(),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
 
-    Navigator.push(context, _dropdownRoute);
+    Navigator.push(context, dropdownPosition);
   }
 }
 
@@ -359,27 +339,28 @@ class _DropdownMenuPainter extends CustomPainter {
   }
 }
 
-class _DropdownMenu<T> extends StatefulWidget {
-  const _DropdownMenu({
-    Key? key,
+class _DropdownLista<T> extends StatefulWidget {
+  const _DropdownLista({
+    super.key,
     this.padding,
     this.dropdownColor,
     this.route,
     this.isScroll = false,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   final ValueChanged<T> onChanged;
-  final _DropdownRoute<T>? route;
+  final _DropdownPosition<T>? route;
   final bool isScroll;
   final EdgeInsets? padding;
   final Color? dropdownColor;
 
   @override
-  _DropdownMenuState<T> createState() => _DropdownMenuState<T>();
+  _DropdownListaState<T> createState() => _DropdownListaState<T>();
 }
 
-class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
+/// Aqui genera la lista
+class _DropdownListaState<T> extends State<_DropdownLista<T>> {
   late CurvedAnimation _fadeOpacity;
   CurvedAnimation? _resize;
 
@@ -388,26 +369,26 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     super.initState();
     _fadeOpacity = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.0, 0.25),
-      reverseCurve: Interval(0.75, 1.0),
+      curve: const Interval(0.0, 0.25),
+      reverseCurve: const Interval(0.75, 1.0),
     );
     _resize = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.25, 0.5),
-      reverseCurve: Threshold(0.0),
+      curve: const Interval(0.25, 0.5),
+      reverseCurve: const Threshold(0.0),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final _DropdownRoute<T> route = widget.route!;
+    final _DropdownPosition<T> route = widget.route!;
     final double unit = 0.5 / (route.items!.length + 1.5);
     final List<Widget> children = <Widget>[];
     for (int itemIndex = 0; itemIndex < route.items!.length; ++itemIndex) {
       CurvedAnimation opacity;
       if (itemIndex == route.selectedIndex) {
-        opacity =
-            CurvedAnimation(parent: route.animation!, curve: Threshold(0.0));
+        opacity = CurvedAnimation(
+            parent: route.animation!, curve: const Threshold(0.0));
       } else {
         final double start = (0.5 + (itemIndex + 1) * unit).clamp(0.0, 1.0);
         final double end = (start + 1.5 * unit).clamp(0.0, 1.0);
@@ -422,7 +403,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             child: route.items![itemIndex],
           ),
           onTap: () => {
-            widget.onChanged(route.items![itemIndex].value!),
+            widget.onChanged(route.items![itemIndex].value as T),
             Navigator.pop(
               context,
             )
@@ -435,10 +416,11 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(color: LightModeTheme().alternate, width: 2),
-            borderRadius: BorderRadius.all(Radius.circular(5))),
+            borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(
-            color: widget.dropdownColor ?? Color.fromARGB(255, 255, 255, 255),
+            color: widget.dropdownColor ??
+                const Color.fromARGB(255, 255, 255, 255),
             elevation: 2,
             selectedIndex: route.selectedIndex,
             resize: _resize,
@@ -447,7 +429,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             type: MaterialType.transparency,
             textStyle: route.style,
             child: widget.isScroll
-                ? Container(
+                ? SizedBox(
                     height: 200,
                     child: Scrollbar(
                       thumbVisibility: true,
@@ -458,7 +440,6 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                       ),
                     ))
                 : ListView(
-                    padding: kMaterialListPadding,
                     itemExtent: _kMenuItemHeight,
                     shrinkWrap: true,
                     children: children,
@@ -509,7 +490,9 @@ class _DropdownMenuRouteLayout<T> extends SingleChildLayoutDelegate {
       final Rect container = Offset.zero & size;
       if (container.intersect(buttonRect!) == buttonRect) {
         assert(menuTop >= 0.0);
-        assert(menuTop + menuHeight <= size.height);
+        // Comentado para web falta verlo en movil
+        // assert(menuTop + menuHeight <= size.height);
+        assert(menuTop <= size.height);
       }
       return true;
     }());
@@ -538,15 +521,15 @@ class _DropdownMenuRouteLayout<T> extends SingleChildLayoutDelegate {
   }
 }
 
-class _DropdownRouteResult<T> {
-  const _DropdownRouteResult(this.result);
+class _DropdownPositionResult<T> {
+  const _DropdownPositionResult(this.result);
 
   final T result;
 
   @override
   bool operator ==(dynamic other) {
-    if (other is! _DropdownRouteResult<T>) return false;
-    final _DropdownRouteResult<T> typedOther = other;
+    if (other is! _DropdownPositionResult<T>) return false;
+    final _DropdownPositionResult<T> typedOther = other;
     return result == typedOther.result;
   }
 
@@ -554,8 +537,8 @@ class _DropdownRouteResult<T> {
   int get hashCode => result.hashCode;
 }
 
-class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
-  _DropdownRoute({
+class _DropdownPosition<T> extends PopupRoute<_DropdownPositionResult<T>> {
+  _DropdownPosition({
     this.items,
     this.itemWidth,
     this.padding,
@@ -638,7 +621,7 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
     }
 
     final TextDirection textDirection = Directionality.of(context);
-    Widget menu = _DropdownMenu<T>(
+    Widget menu = _DropdownLista<T>(
       route: this,
       padding: padding!.resolve(textDirection),
       onChanged: onChanged,
@@ -652,22 +635,15 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
       removeBottom: true,
       removeLeft: true,
       removeRight: true,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 7.0),
-        child: Builder(
-          builder: (BuildContext context) {
-            return CustomSingleChildLayout(
-              delegate: _DropdownMenuRouteLayout<T>(
-                itemWidth: itemWidth,
-                buttonRect: buttonRect,
-                menuTop: menuTop - 6,
-                menuHeight: menuHeight,
-                textDirection: textDirection,
-              ),
-              child: menu,
-            );
-          },
+      child: CustomSingleChildLayout(
+        delegate: _DropdownMenuRouteLayout<T>(
+          itemWidth: itemWidth,
+          buttonRect: buttonRect,
+          menuTop: menuTop - 6,
+          menuHeight: menuHeight,
+          textDirection: textDirection,
         ),
+        child: menu,
       ),
     );
   }

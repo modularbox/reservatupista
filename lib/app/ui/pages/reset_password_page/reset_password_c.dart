@@ -15,8 +15,10 @@ import 'package:crypto/crypto.dart';
 import '../../../data/models/proveedor_model.dart';
 import '../../../data/models/usuario_model.dart';
 
-class LoginUsuarioController extends GetxController
+class ResetPasswordController extends GetxController
     with GetTickerProviderStateMixin {
+  bool movilPequeno = false;
+
   /// Obtener la pagina 0 Usuario, 1 Proveedor
   int? initialPage = Get.arguments;
   PageController pageViewController = PageController(
@@ -153,7 +155,6 @@ class LoginUsuarioController extends GetxController
           storage.nick.write(result.nick);
           storage.nombre.write(result.nombre);
           storage.apellidos.write(result.apellidos);
-          storage.email.write(result.email);
           // Guardar si es proveedor
           storage.isProveedor.write(false);
           // Si es recordar contrasena
@@ -172,7 +173,7 @@ class LoginUsuarioController extends GetxController
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: "Cerrar",
             alertType: TypeGeneralDialog.WARNING,
-            onPressed: Get.back,
+            onPressed: () => Get.back(),
           ));
         }
       }

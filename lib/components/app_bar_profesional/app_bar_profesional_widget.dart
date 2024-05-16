@@ -73,14 +73,14 @@ class _AppBarProfesionalWidgetState extends State<AppBarProfesionalWidget> {
                       FFLocalizations.of(context).getText(
                         'p8bhem7p' /* 1 */,
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
                             color: Colors.white,
                           ),
                     ),
                     showBadge: true,
                     shape: badges.BadgeShape.circle,
-                    badgeColor: FlutterFlowTheme.of(context).primary,
+                    badgeColor: LightModeTheme().primary,
                     elevation: 4.0,
                     padding: EdgeInsets.all(8.0),
                     position: badges.BadgePosition.topEnd(),
@@ -91,7 +91,7 @@ class _AppBarProfesionalWidgetState extends State<AppBarProfesionalWidget> {
                           EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                       child: Icon(
                         Icons.chat_bubble_outline_outlined,
-                        color: FlutterFlowTheme.of(context).secondaryText,
+                        color: LightModeTheme().secondaryText,
                         size: 24.0,
                       ),
                     ),
@@ -132,7 +132,7 @@ class _AppBarProfesionalWidgetState extends State<AppBarProfesionalWidget> {
                 'Mis Reservas',
               ),
               textAlign: TextAlign.center,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
+              style: LightModeTheme().bodyMedium.override(
                     fontFamily: 'Readex Pro',
                     fontSize: 15.0,
                   ),

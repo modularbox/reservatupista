@@ -21,63 +21,78 @@ class TerminosCondicionesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 5.0, top: paddingTop ?? 0.0),
-      child: VibratingWidget(
-        controller: animTerminos,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Theme(
-              data: ThemeData(
-                checkboxTheme: CheckboxThemeData(
-                  visualDensity: VisualDensity.compact,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                unselectedWidgetColor:
-                    FlutterFlowTheme.of(context).secondaryText,
-              ),
-              child: Obx(() => Checkbox(
-                    value: checkboxTerminos.value,
-                    onChanged: (newValue) async {
-                      checkboxTerminos.value = newValue!;
-                    },
-                    activeColor: focusedColor,
-                    side: validateTerminos.value
-                        ? BorderSide(color: FlutterFlowTheme.of(context).error)
-                        : null,
-                    checkColor: palomita,
-                  )),
-            ),
-            10.0.sw,
-            BtnIcon(
-              onPressed: () async {
-                final urlPoliticaPrivacidad = Uri.parse(
-                    'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
-                final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
-                if (canLaunch) {
-                  launchUrl(urlPoliticaPrivacidad);
-                }
-              },
-              borderRadius: 12,
-              padding: const EdgeInsets.all(0),
-              icon: Text(
-                MediaQuery.of(context).size.width <= 600
-                    ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
-                    : 'He leído y acepto los Términos y Condiciones de Servicio.',
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: FlutterFlowTheme.of(context).primary,
+        padding: EdgeInsets.only(left: 5.0, top: paddingTop ?? 0.0, right: 5),
+        child: VibratingWidget(
+          controller: animTerminos,
+          child: Obx(
+            () => Container(
+              decoration: validateTerminos.value
+                  ? BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.red),
+                      borderRadius: BorderRadius.circular(10.0))
+                  : null,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Theme(
+                    data: ThemeData(
+                      checkboxTheme: CheckboxThemeData(
+                        visualDensity: VisualDensity.compact,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      unselectedWidgetColor: LightModeTheme().secondaryText,
                     ),
+                    child: Obx(buildCheckbox),
+                  ),
+                  10.0.sw,
+                  BtnIcon(
+                    onPressed: () async {
+                      final urlPoliticaPrivacidad = Uri.parse(
+                          'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                      final canLaunch =
+                          await canLaunchUrl(urlPoliticaPrivacidad);
+                      if (canLaunch) {
+                        launchUrl(urlPoliticaPrivacidad);
+                      }
+                    },
+                    borderRadius: 12,
+                    padding: const EdgeInsets.all(0),
+                    icon: Text(
+                      MediaQuery.of(context).size.width <= 600
+                          ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
+                          : 'He leído y acepto los Términos y Condiciones de Servicio.',
+                      textAlign: TextAlign.start,
+                      style: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: LightModeTheme().primary,
+                          ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        ));
+  }
+
+  Widget buildCheckbox() {
+    return Checkbox(
+      value: checkboxTerminos.value,
+      onChanged: (val) async {
+        checkboxTerminos.toggle();
+        if (validateTerminos.value) {
+          validateTerminos.toggle();
+        }
+      },
+      activeColor: focusedColor,
+      side: validateTerminos.value
+          ? BorderSide(color: LightModeTheme().error)
+          : null,
+      checkColor: palomita,
     );
   }
 }

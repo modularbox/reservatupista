@@ -91,8 +91,7 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                           maxWidth: 530.0,
                         ),
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: LightModeTheme().secondaryBackground,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 3.0,
@@ -102,8 +101,7 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                           ],
                           borderRadius: BorderRadius.circular(24.0),
                           border: Border.all(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            color: LightModeTheme().primaryBackground,
                             width: 1.0,
                           ),
                         ),
@@ -126,7 +124,7 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                                         '2a90zngi' /* Error */,
                                       ),
                                       textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
+                                      style: LightModeTheme()
                                           .headlineMedium
                                           .override(
                                             fontFamily: 'Outfit',
@@ -141,8 +139,7 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                                       FFLocalizations.of(context).getText(
                                         'dxdmmn8o' /* FlutterFlow is a visual develo... */,
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium,
+                                      style: LightModeTheme().labelMedium,
                                     ),
                                   ),
                                 ],
@@ -172,14 +169,12 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                                         iconPadding:
                                             EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: LightModeTheme()
                                             .secondaryBackground,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge,
+                                        textStyle: LightModeTheme().bodyLarge,
                                         elevation: 0.0,
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                          color: LightModeTheme().primary,
                                           width: 2.0,
                                         ),
                                         borderRadius:
@@ -201,15 +196,13 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                                       iconPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                          ),
+                                      color: LightModeTheme().primary,
+                                      textStyle:
+                                          LightModeTheme().bodyLarge.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: LightModeTheme()
+                                                    .primaryBackground,
+                                              ),
                                       elevation: 0.0,
                                       borderSide: BorderSide(
                                         color: Colors.transparent,

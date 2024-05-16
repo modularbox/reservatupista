@@ -60,7 +60,7 @@ class _NotificacionesProfesionalWidgetState
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: LightModeTheme().secondaryBackground,
                   boxShadow: const [
                     BoxShadow(
                       blurRadius: 0.0,
@@ -80,7 +80,7 @@ class _NotificacionesProfesionalWidgetState
                         width: 4.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: LightModeTheme().primary,
                           borderRadius: BorderRadius.circular(2.0),
                         ),
                       ),
@@ -93,7 +93,7 @@ class _NotificacionesProfesionalWidgetState
                               'ik9fown0' /* Pista Agregada */,
                             ),
                             textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context).bodyLarge,
+                            style: LightModeTheme().bodyLarge,
                           ),
                         ),
                       ),
@@ -105,7 +105,7 @@ class _NotificacionesProfesionalWidgetState
                             FFLocalizations.of(context).getText(
                               '28qf4mue' /* #7676742 */,
                             ),
-                            style: FlutterFlowTheme.of(context).bodyLarge,
+                            style: LightModeTheme().bodyLarge,
                           ),
                         ),
                       ),
@@ -116,7 +116,7 @@ class _NotificacionesProfesionalWidgetState
                           FFLocalizations.of(context).getText(
                             'np28hill' /* Mar 8, 2023 */,
                           ),
-                          style: FlutterFlowTheme.of(context).labelMedium,
+                          style: LightModeTheme().labelMedium,
                         ),
                       ),
                     ],
@@ -129,7 +129,7 @@ class _NotificacionesProfesionalWidgetState
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  color: LightModeTheme().primaryBackground,
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 0.0,
@@ -149,7 +149,7 @@ class _NotificacionesProfesionalWidgetState
                         width: 4.0,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: LightModeTheme().alternate,
                           borderRadius: BorderRadius.circular(2.0),
                         ),
                       ),
@@ -161,7 +161,7 @@ class _NotificacionesProfesionalWidgetState
                             FFLocalizations.of(context).getText(
                               'y21kn4ku' /* Reserva de Pista */,
                             ),
-                            style: FlutterFlowTheme.of(context).labelLarge,
+                            style: LightModeTheme().labelLarge,
                           ),
                         ),
                       ),
@@ -172,7 +172,7 @@ class _NotificacionesProfesionalWidgetState
                           FFLocalizations.of(context).getText(
                             'zv2jkx1y' /* Mar 8, 2023 */,
                           ),
-                          style: FlutterFlowTheme.of(context).labelMedium,
+                          style: LightModeTheme().labelMedium,
                         ),
                       ),
                     ],
@@ -185,7 +185,7 @@ class _NotificacionesProfesionalWidgetState
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: LightModeTheme().secondaryBackground,
                   boxShadow: const [
                     BoxShadow(
                       blurRadius: 0.0,

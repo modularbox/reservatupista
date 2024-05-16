@@ -7,7 +7,7 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/smoth_page/page_view_sliding_indicator.dart';
 import '../../../routes/app_pages.dart';
-import './login_usuario_c.dart';
+import './reset_password_c.dart';
 import '../../../../components/navbar_login.dart';
 import '/components/app_bar_login_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -15,12 +15,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
 
-class LoginUsuarioPage extends GetView<LoginUsuarioController> {
-  LoginUsuarioPage({super.key});
-  LoginUsuarioController get self => controller;
-  final Color colorProfesional = const Color(0xFF46EF98);
-  final Color colorUsuario = const Color(0xFF2B78DC);
-  bool movilPequeno = false;
+class ResetPasswordPage extends GetView<ResetPasswordController> {
+  const ResetPasswordPage({super.key});
+  ResetPasswordController get self => controller;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     final focusedColorProfesional = LightModeTheme().successGeneral;
     // Declarar si el movil es pequeno
     final height = MediaQuery.sizeOf(context).height;
-    movilPequeno = height <= 688;
+    self.movilPequeno = height <= 688;
 
     return Scaffold(
       backgroundColor: LightModeTheme().primaryText,
@@ -66,7 +63,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   Align(
                     alignment: const AlignmentDirectional(0, 0),
                     child: AppBarLoginWidget(
-                      movilPequeno: movilPequeno,
+                      movilPequeno: self.movilPequeno,
                     ),
                   ),
                   ResponsiveWeb(
@@ -174,7 +171,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: movilPequeno ? 0 : 10),
+            padding: EdgeInsets.only(top: self.movilPequeno ? 0 : 10),
             child: AutoSizeText(
               subtitle,
               textAlign: TextAlign.center,
@@ -187,7 +184,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
-                20, movilPequeno ? 5 : 10, 20, 0),
+                20, self.movilPequeno ? 5 : 10, 20, 0),
             child: VibratingWidget(
               controller: self.animUsuario,
               child: TextFormField(
@@ -256,14 +253,14 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
-                20, movilPequeno ? 10 : 16, 20, 0),
+                20, self.movilPequeno ? 10 : 16, 20, 0),
             child: Obx(() => VibratingWidget(
                   controller: self.animContrasena,
                   child: TextFormField(
                     controller: contrasena,
                     focusNode: contrasenaFocus,
                     maxLength: 15,
-                    obscureText: !passwordVisibility.value,
+                    obscureText: !self.passwordVisibility.value,
                     decoration: InputDecoration(
                       counterText: '',
                       labelText: 'Contraseña',
@@ -330,7 +327,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
-                5, movilPequeno ? 0 : 5, movilPequeno ? 0 : 5, 10),
+                5, self.movilPequeno ? 0 : 5, self.movilPequeno ? 0 : 5, 10),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -442,7 +439,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             focusedColor,
             validateTerminos,
             palomita,
-            paddingTop: movilPequeno ? 10 : 20,
+            paddingTop: self.movilPequeno ? 10 : 20,
           ),
           Divider(
             height: 2,

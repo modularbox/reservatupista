@@ -30,48 +30,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   ReservarPistaPage({super.key});
 
   ReservarPistaController get self => controller;
-  final SelectionController controller2 = SelectionController();
   final DBAlvaroController db = Get.find();
-
-  void reservarPistaF() async {
-    bool response = await db.reservarPista(
-        db.storage.idUsuario.read(),
-        self.precio_a_mostrar.value / 100,
-        self.fecha_seleccionada.value,
-        self.hora_inicio_reserva_seleccionada.value,
-        self.id_pista_seleccionada.value.toString(),
-        self.usuario.value.plazasReservadas);
-
-    if (response == true) {
-      db.getMoney();
-      Get.back();
-      Get.defaultDialog(
-        title: "Reserva exitosa",
-        middleText: "La pista se ha reservado correctamente.",
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.toNamed(Routes.MIS_RESERVAS);
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      );
-    } else {
-      Get.defaultDialog(
-        title: "Error al reservar pista",
-        middleText: "La pista no se ha podido reservar.",
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back(); // Cierra la alerta
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      );
-    }
-  }
 
   bool estaAutomatizada(idPista) {
     List pistas = self.pistas.value;
@@ -103,8 +62,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         child: SingleChildScrollView(
           controller: controller.scrollController,
           child: ResponsiveWeb(
-            // constraints: const BoxConstraints(minWidth: 300),
-            // width: Get.width * 0.3,
             child: Column(
               children: [
                 Column(
@@ -261,7 +218,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         self.id_club_seleccionado.value = idClub;
         self.selectDay.value = null;
       },
-      clubsFavoritos: [false, false],
+      clubsFavoritos: const [false, false],
       itemsDD: self.clubes.value,
     );
   }
@@ -317,25 +274,23 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
 
   // Widget Pistas
   Widget buildPistas() {
-    return self.selectDay.value == null
-        ? 0.0.empty
-        : SizedBox(
-            key: self.keyPistas,
-            height: 100,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(
-                    self.pistas.value.length,
-                    //generateLista.length,
-                    (index) => buildChip(
-                        self.pistas.value[index]['id_pista'].toString(),
-                        self.pistas.value[index]
-                            ['imagen_patrocinador'], //generateLista[index],
-                        index)).divide(3.0.sw).around(4.0.sw),
-              ),
-            ));
+    return SizedBox(
+        key: self.keyPistas,
+        height: 100,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: List.generate(
+                self.pistas.value.length,
+                //generateLista.length,
+                (index) => buildChip(
+                    self.pistas.value[index]['id_pista'].toString(),
+                    self.pistas.value[index]
+                        ['imagen_patrocinador'], //generateLista[index],
+                    index)).divide(3.0.sw).around(4.0.sw),
+          ),
+        )).visible(self.selectDay.value != null);
   }
 
   Widget buildFechasHorarios() {
@@ -580,6 +535,44 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildHorarios(List<Horario> horarios, bool verHorarios) {
+    Future<void> onPressedHorario(
+        int index, String textHorario, String termino) async {
+      self.pista_con_luces.value = horarios[index].luces;
+      self.precio_con_luz_no_socio.value =
+          horarios[index].precio_con_luz_no_socio ?? 0;
+      self.precio_con_luz_socio.value =
+          horarios[index].precio_con_luz_socio ?? 0;
+      self.precio_sin_luz_no_socio.value =
+          horarios[index].precio_sin_luz_no_socio ?? 0;
+      self.precio_sin_luz_socio.value =
+          horarios[index].precio_sin_luz_socio ?? 0;
+      self.hora_inicio_reserva_seleccionada.value = textHorario;
+      int horaHoraInicio = int.parse(
+          self.hora_inicio_reserva_seleccionada.value.substring(0, 2));
+      int minutosHoraInicio = int.parse(
+          self.hora_inicio_reserva_seleccionada.value.substring(3, 5));
+      //PARA SETEAR LA HORA FIN
+      DateTime horaInicial = DateTime(
+          self.fecha_seleccionada.value.year,
+          self.fecha_seleccionada.value.month,
+          self.fecha_seleccionada.value.day,
+          horaHoraInicio,
+          minutosHoraInicio,
+          0);
+      DateTime horaFin =
+          horaInicial.add(Duration(minutes: self.duracion_partida.value));
+      printError(info: horaFin.toString());
+      printError(info: horaFin.toString().substring(11, 16));
+      self.hora_fin_reserva_seleccionada.value =
+          horaFin.toString().substring(11, 16);
+      self.selectHorario.value = HorarioFinInicio(
+          inicio: textHorario,
+          termino: termino,
+          typeEstadoHorario: TypeEstadoHorario.abierta);
+
+      self.obtenerPlazasLibres();
+    }
+
     if (verHorarios) {
       // final widthHorario = (Get.width) / 4;
       return Column(
@@ -602,7 +595,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       child: BtnIcon(
                           padding: const EdgeInsets.all(0),
                           height: 40,
-                          // width: widthHorario,
                           fillColor: Colors.grey, //Colores().proveedor.primary,
                           borderRadius: isSelect ? 30 : null,
                           borderColor:
@@ -613,11 +605,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           icon: Center(
                               child: Text(
                             textHorario,
-                            style: FlutterFlowTheme.of(Get.context!)
-                                .bodySmall
-                                .copyWith(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 16),
+                            style: LightModeTheme().bodySmall.copyWith(
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 16),
                           ))),
                     );
                   } else if (horarios[row + i].estatus ==
@@ -626,51 +616,14 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                       child: BtnIcon(
                           padding: const EdgeInsets.all(0),
                           height: 40,
-                          // width: widthHorario,
                           fillColor: Colors.greenAccent,
                           borderRadius: isSelect ? 30 : null,
                           borderColor:
                               isSelect ? Colores.usuario.primary : Colors.white,
                           borderWidth: isSelect ? 2 : 0.5,
                           hoverColor: Colores.usuario.primary69,
-                          onPressed: () async {
-                            self.pista_con_luces.value =
-                                horarios[row + i].luces;
-                            self.precio_con_luz_no_socio.value =
-                                horarios[row + i].precio_con_luz_no_socio ?? 0;
-                            self.precio_con_luz_socio.value =
-                                horarios[row + i].precio_con_luz_socio ?? 0;
-                            self.precio_sin_luz_no_socio.value =
-                                horarios[row + i].precio_sin_luz_no_socio ?? 0;
-                            self.precio_sin_luz_socio.value =
-                                horarios[row + i].precio_sin_luz_socio ?? 0;
-                            self.hora_inicio_reserva_seleccionada.value =
-                                textHorario;
-                            int horaHoraInicio = int.parse(self
-                                .hora_inicio_reserva_seleccionada.value
-                                .substring(0, 2));
-                            int minutosHoraInicio = int.parse(self
-                                .hora_inicio_reserva_seleccionada.value
-                                .substring(3, 5));
-                            //PARA SETEAR LA HORA FIN
-                            DateTime horaInicial = DateTime(
-                                self.fecha_seleccionada.value.year,
-                                self.fecha_seleccionada.value.month,
-                                self.fecha_seleccionada.value.day,
-                                horaHoraInicio,
-                                minutosHoraInicio,
-                                0);
-                            DateTime horaFin = horaInicial.add(
-                                Duration(minutes: self.duracion_partida.value));
-                            self.hora_fin_reserva_seleccionada.value =
-                                horaFin.toString().substring(11, 16);
-                            self.selectHorario.value = HorarioFinInicio(
-                                inicio: textHorario,
-                                termino: termino,
-                                typeEstadoHorario: TypeEstadoHorario.abierta);
-
-                            self.obtenerPlazasLibres();
-                          },
+                          onPressed: () async => await onPressedHorario(
+                              row + 1, textHorario, termino),
                           icon: Center(
                               child: Text(
                             textHorario,
@@ -684,7 +637,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                     return Flexible(
                         child: Container(
                             height: 40,
-                            // width: widthHorario,
                             decoration: BoxDecoration(
                                 color: Colores.rojo,
                                 border: Border.all(
@@ -692,11 +644,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                             child: Center(
                                 child: Text(
                               textHorario,
-                              style: FlutterFlowTheme.of(Get.context!)
-                                  .bodySmall
-                                  .copyWith(
-                                      color: const Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 16),
+                              style: LightModeTheme().bodySmall.copyWith(
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: 16),
                             ))));
                     //alvaro
                   } else if (horarios[row + i].estatus ==
@@ -705,7 +655,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         child: BtnIcon(
                             padding: const EdgeInsets.all(0),
                             height: 40,
-                            // width: widthHorario,
                             fillColor: Colors
                                 .purpleAccent, //Colores().proveedor.primary,
                             borderRadius: isSelect ? 30 : null,
@@ -718,11 +667,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                             icon: Center(
                                 child: Text(
                               textHorario,
-                              style: FlutterFlowTheme.of(Get.context!)
-                                  .bodySmall
-                                  .copyWith(
-                                      color: const Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 16),
+                              style: LightModeTheme().bodySmall.copyWith(
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: 16),
                             ))));
                   } else if (horarios[row + i].estatus ==
                       TypeEstadoHorario.reservadaParcial) {
@@ -766,11 +713,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                             icon: Center(
                                 child: Text(
                               textHorario,
-                              style: FlutterFlowTheme.of(Get.context!)
-                                  .bodySmall
-                                  .copyWith(
-                                      color: const Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 16),
+                              style: LightModeTheme().bodySmall.copyWith(
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: 16),
                             ))));
                   }
                   return Flexible(
@@ -784,11 +729,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           child: Center(
                               child: Text(
                             textHorario,
-                            style: FlutterFlowTheme.of(Get.context!)
-                                .bodySmall
-                                .copyWith(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 16),
+                            style: LightModeTheme().bodySmall.copyWith(
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 16),
                           ))));
                 } else {
                   return SizedBox(
@@ -809,148 +752,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
 
   Widget buildButton() {
     return ElevatedButton(
-      onPressed: self.selectHorario.value == null
-          ? null
-          : () {
-              double precioReserva = self.precio_a_mostrar.value / 100; //euros
-              if (controller.terms.value &&
-                  controller2.selectedOption.value != '' &&
-                  controller2.selectedOption.value != 'rellenar') {
-                final precio =
-                    self.db.dineroTotal - (self.precio_a_mostrar.value);
-                print('preciooooooooooo ${precio}'); //(0 - 4.0);
-                if (precio < 0) {
-                  if (controller2.selectedOption.value == 'tarjeta') {
-                    print('preciooooooooooo tarjeta');
-                    Get.dialog(RichAlertFlutterFlow(
-                      alertType: TypeAlert.NONE,
-                      alertTitle: 'Reservar Pista',
-                      alertSubtitle:
-                          '¿Desea reservar la pista directamente con tarjeta?',
-                      textButton: '',
-                      acceptButton: MaterialButton(
-                        color: Colors.green,
-                        onPressed: () => db.reservarPistaConTarjeta(
-                            self.precio_a_mostrar.value, self),
-                        splashColor: Colors.lightGreen,
-                        child: const Text(
-                          'Aceptar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      cancelButton: MaterialButton(
-                        color: Colors.red,
-                        onPressed: () => Get.back(),
-                        splashColor: Colors.redAccent,
-                        child: const Text(
-                          'Cancelar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      precio: '${precioReserva.toStringAsFixed(2)} €',
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ));
-                  } else {
-                    print('preciooooooooooo monedero');
-                    Get.dialog(RichAlertFlutterFlow(
-                      alertType: TypeAlert.NONE,
-                      alertTitle: 'Reservar Pista',
-                      alertSubtitle:
-                          'No tienes saldo suficiente, debes recargar para poder reservar.',
-                      textButton: 'Aceptar',
-                      precio: '${precioReserva.toStringAsFixed(2)} €',
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ));
-                  }
-                } else {
-                  if (controller2.selectedOption.value == 'tarjeta') {
-                    print('preciooooooooooo tarjeta');
-                    Get.dialog(RichAlertFlutterFlow(
-                      alertType: TypeAlert.NONE,
-                      alertTitle: 'Reservar Pista',
-                      alertSubtitle:
-                          '¿Desea reservar la pista directamente con tarjeta?',
-                      textButton: '',
-                      acceptButton: MaterialButton(
-                        color: Colors.green,
-                        onPressed: () => db.reservarPistaConTarjeta(
-                            self.precio_a_mostrar.value, self),
-                        splashColor: Colors.lightGreen,
-                        child: const Text(
-                          'Aceptar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      cancelButton: MaterialButton(
-                        color: Colors.red,
-                        onPressed: () => Get.back(),
-                        splashColor: Colors.redAccent,
-                        child: const Text(
-                          'Cancelar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      precio: '${precioReserva.toStringAsFixed(2)} €',
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ));
-                  } else {
-                    Get.dialog(RichAlertFlutterFlow(
-                      alertType: TypeAlert.NONE,
-                      alertTitle: 'Reservar Pista',
-                      alertSubtitle: '¿Desea reservar la pista?',
-                      textButton: '',
-                      acceptButton: MaterialButton(
-                        color: Colors.green,
-                        onPressed: () => reservarPistaF(),
-                        splashColor: Colors.lightGreen,
-                        child: const Text(
-                          'Aceptar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      cancelButton: MaterialButton(
-                        color: Colors.red,
-                        onPressed: () => Get.back(),
-                        splashColor: Colors.redAccent,
-                        child: const Text(
-                          'Cancelar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      precio: '${precioReserva.toStringAsFixed(2)} €',
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ));
-                  }
-                }
-              }
-              ButtonsSounds.playSound();
-            },
+      onPressed: self.onConfirmar,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
             const Color.fromARGB(192, 0, 255, 123)),
@@ -1140,7 +942,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               child: SelectionWidget(
                 label: 'Monedero Virtual',
                 value: self.db.dineroTotal > 0 ? 'monedero' : '0',
-                controller: controller2,
+                controller: self.selectionController,
                 self: self,
               ),
             ),
@@ -1150,7 +952,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 value: self.capacidad_pista == self.plazas_a_reservar.value
                     ? 'tarjeta'
                     : '00',
-                controller: controller2,
+                controller: self.selectionController,
                 self: self,
               ),
             ),
@@ -1163,11 +965,11 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     ));
     list.add(
       TerminosCondicionesDialog(
-        AnimationController(vsync: self),
-        self.terms,
+        self.animTerminos,
+        self.checkboxTerminos,
         Colores.proveedor.primary,
-        self.terms,
-        FlutterFlowTheme.of(Get.context!).primaryText,
+        self.validateTerminos,
+        LightModeTheme().primaryText,
         saltoLinea: true,
       ),
     );

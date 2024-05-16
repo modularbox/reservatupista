@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-library dropdown_search;
+library dropdown_select;
 
 import 'dart:async';
 
@@ -86,7 +86,7 @@ typedef FavoriteItems<T> = List<T> Function(List<T> items);
 
 enum Mode { DIALOG, MODAL_BOTTOM_SHEET, MENU, BOTTOM_SHEET }
 
-class DropdownSearch<T> extends StatefulWidget {
+class DropdownSelect<T> extends StatefulWidget {
   ///offline items list
   final List<T> items;
 
@@ -169,7 +169,7 @@ class DropdownSearch<T> extends StatefulWidget {
   ///if the callBack return FALSE, the opening of the popup will be cancelled
   final BeforePopupOpeningMultiSelection<T>? onBeforePopupOpeningMultiSelection;
 
-  DropdownSearch({
+  DropdownSelect({
     super.key,
     this.onSaved,
     this.validator,
@@ -202,7 +202,7 @@ class DropdownSearch<T> extends StatefulWidget {
         onChangedMultiSelection = null,
         onBeforePopupOpeningMultiSelection = null;
 
-  DropdownSearch.multiSelection({
+  DropdownSelect.multiSelection({
     super.key,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.items = const [],
@@ -241,10 +241,10 @@ class DropdownSearch<T> extends StatefulWidget {
         onBeforePopupOpening = null;
 
   @override
-  DropdownSearchState<T> createState() => DropdownSearchState<T>();
+  DropdownSelectState<T> createState() => DropdownSelectState<T>();
 }
 
-class DropdownSearchState<T> extends State<DropdownSearch<T>> {
+class DropdownSelectState<T> extends State<DropdownSelect<T>> {
   final ValueNotifier<List<T>> _selectedItemsNotifier = ValueNotifier([]);
   final ValueNotifier<bool> _isFocused = ValueNotifier(false);
   final _popupStateKey = GlobalKey<SelectionWidgetState<T>>();
@@ -258,7 +258,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   }
 
   @override
-  void didUpdateWidget(DropdownSearch<T> oldWidget) {
+  void didUpdateWidget(DropdownSelect<T> oldWidget) {
     List<T> oldSelectedItems = isMultiSelectionMode
         ? oldWidget.selectedItems
         : _itemToList(oldWidget.selectedItem);

@@ -1,13 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/registrar_usuario/registrar_usuario_c.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import './input_select.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:reservatu_pista/utils/colores.dart';
-
-import 'input_registrar.dart';
 
 class BuildInput extends GetView<RegistrarUsuarioController> {
   BuildInput(
@@ -60,18 +62,20 @@ class BuildInput extends GetView<RegistrarUsuarioController> {
 
   @override
   Widget build(BuildContext context) {
-    return VibratingWidget(
-      controller: anim,
-      child: Padding(
-          padding: padding ??
-              const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
-          child: isSelect
-              ? LayoutBuilder(builder: (context, boxContrains) {
-                  return TextFormField(
+    return Stack(children: [
+      VibratingWidget(
+        controller: anim,
+        child: Padding(
+            padding: padding ??
+                const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
+            child: isSelect
+                ? InputSelect(
+                    context: context,
                     controller: textEditingController,
                     focusNode: focusNode,
                     maxLength: maxLength,
                     keyboardType: keyboardType,
+                    listSelect: listSelect!,
                     decoration: InputDecoration(
                       counterText: '',
                       errorStyle: const TextStyle(fontSize: 0),
@@ -113,86 +117,84 @@ class BuildInput extends GetView<RegistrarUsuarioController> {
                       contentPadding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 12.0, 16.0, 12.0),
                     ),
-                    style: LightModeTheme().bodyMedium,
-                    cursorColor: LightModeTheme().primary,
                     readOnly: true,
-                    onTap: () => SelectInputRegistrar(
-                      context: context,
-                      itemsDD: listSelect,
-                      paddingDialogLeft: 5,
-                      paddingSelect: const EdgeInsets.only(left: 15),
-                      onChanged: (val) => textEditingController.text = val,
-                    ).handleTap(),
                     enableInteractiveSelection: false,
                     onChanged: (val) => textEditingController.text = val,
                     validator: isRequired ? validateTextField : null,
-                  );
-                })
-              : TextFormField(
-                  controller: textEditingController,
-                  focusNode: focusNode,
-                  maxLength: maxLength,
-                  keyboardType: keyboardType,
-                  obscureText: obscureText,
-                  enabled: enabled,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    errorStyle: const TextStyle(fontSize: 0),
-                    labelText: labelText,
-                    hintStyle: LightModeTheme().bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: const Color(0xFF95A1AC),
+                  )
+                : TextFormField(
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                    maxLength: maxLength,
+                    keyboardType: keyboardType,
+                    obscureText: obscureText,
+                    enabled: enabled,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      errorStyle: const TextStyle(fontSize: 0),
+                      labelText: labelText,
+                      hintStyle: LightModeTheme().bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: const Color(0xFF95A1AC),
+                          ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colores.usuario.primary160,
+                          width: 2.0,
                         ),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colores.usuario.primary160,
-                        width: 2.0,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().primary,
-                        width: 2.0,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: LightModeTheme().primary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().primary,
-                        width: 2.0,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: LightModeTheme().primary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: LightModeTheme().error,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: LightModeTheme().error,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      suffixIcon: suffixIcon,
+                      prefixIcon: prefixIcon,
+                      prefixIconColor: prefixIconColor,
+                      filled: true,
+                      fillColor: LightModeTheme().secondaryBackground,
+                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                          16.0, 12.0, 16.0, 12.0),
                     ),
-                    suffixIcon: suffixIcon,
-                    prefixIcon: prefixIcon,
-                    prefixIconColor: prefixIconColor,
-                    filled: true,
-                    fillColor: LightModeTheme().secondaryBackground,
-                    contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                        16.0, 12.0, 16.0, 12.0),
-                  ),
-                  style: LightModeTheme().bodyMedium,
-                  inputFormatters: inputFormatters,
-                  onChanged: onChanged,
-                  validator:
-                      validator ?? (isRequired ? validateTextField : null),
-                )),
-    );
+                    style: LightModeTheme().bodyMedium,
+                    inputFormatters: inputFormatters,
+                    onChanged: onChanged,
+                    validator:
+                        validator ?? (isRequired ? validateTextField : null),
+                  )),
+      ),
+      const Positioned(
+          right: 10,
+          top: 10,
+          child: Text(
+            "*",
+            style: TextStyle(fontSize: 20, color: Colores.rojo),
+          )).visible(isRequired),
+    ]);
   }
 
   String? validateTextField(String? text) {

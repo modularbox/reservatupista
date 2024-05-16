@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
@@ -339,4 +341,8 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
 extension ExtIntDinero on int {
   String get euro =>
       '${(this / 100).toStringAsFixed(2).replaceAll('.', ',')} €';
+}
+
+extension ExtCreadasLocales on String {
+  String get hashContrasena => sha1.convert(utf8.encode(this)).toString();
 }

@@ -101,7 +101,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   width: double.infinity,
                   height: 50.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    color: LightModeTheme().primaryBackground,
                     boxShadow: const [
                       BoxShadow(
                         blurRadius: 10.0,
@@ -188,8 +188,8 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   borderRadius: 25.0,
                   borderWidth: 1.0,
                   buttonSize: 45.0,
-                  fillColor: FlutterFlowTheme.of(context).primary,
-                  hoverColor: FlutterFlowTheme.of(context).primary,
+                  fillColor: LightModeTheme().primary,
+                  hoverColor: LightModeTheme().primary,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
@@ -204,7 +204,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   borderWidth: 1.0,
                   buttonSize: 45.0,
                   fillColor: const Color(0xFF9299A1),
-                  hoverColor: FlutterFlowTheme.of(context).primary,
+                  hoverColor: LightModeTheme().primary,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
@@ -215,11 +215,11 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
           Text(
             title,
             textAlign: TextAlign.center,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+            style: LightModeTheme().bodyMedium.override(
                   fontFamily: 'Readex Pro',
                   color: isPage
-                      ? FlutterFlowTheme.of(context).primary
-                      : FlutterFlowTheme.of(context).primaryText,
+                      ? LightModeTheme().primary
+                      : LightModeTheme().primaryText,
                   fontSize: 10.0,
                 ),
           ),
@@ -245,7 +245,7 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
             isPage
                 ? Icon(
                     icon,
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: LightModeTheme().primary,
                     size: 24.0,
                   ).animateOnPageLoad(
                     animationsMap['iconButtonOnPageLoadAnimation1']!)
@@ -256,11 +256,11 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                   ),
             Text(
               title,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
+              style: LightModeTheme().bodyMedium.override(
                     fontFamily: 'Readex Pro',
                     color: isPage
-                        ? FlutterFlowTheme.of(context).primary
-                        : FlutterFlowTheme.of(context).primaryText,
+                        ? LightModeTheme().primary
+                        : LightModeTheme().primaryText,
                     fontSize: 10.0,
                   ),
             ),

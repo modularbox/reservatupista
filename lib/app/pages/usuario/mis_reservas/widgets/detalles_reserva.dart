@@ -29,7 +29,7 @@ class DetalleReserva extends GetView<MisReservasController> {
       body: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadiusDirectional.circular(30),
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: LightModeTheme().secondaryBackground,
           ),
           margin: const EdgeInsets.symmetric(vertical: 30.0),
           child: Column(

@@ -171,7 +171,7 @@ class _IbanFormFieldState extends State<IbanFormFieldBuilder> {
             errorText: errorText,
             counterText: '',
             errorStyle: const TextStyle(fontSize: 0),
-            hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+            hintStyle: LightModeTheme().bodyMedium.override(
                   fontFamily: 'Readex Pro',
                   color: Color(0xFF95A1AC),
                 ),
@@ -191,20 +191,20 @@ class _IbanFormFieldState extends State<IbanFormFieldBuilder> {
             ),
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: FlutterFlowTheme.of(context).error,
+                color: LightModeTheme().error,
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(8.0),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: FlutterFlowTheme.of(context).error,
+                color: LightModeTheme().error,
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(8.0),
             ),
             filled: true,
-            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+            fillColor: LightModeTheme().secondaryBackground,
             contentPadding: EdgeInsets.all(4));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

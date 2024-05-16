@@ -32,8 +32,8 @@ class SelectInputRegistrar {
           itemsDD!.length,
           (index) => DropdownMenuItem<String>(
                 value: itemsDD![index],
-                child: Text(itemsDD![index],
-                    style: FlutterFlowTheme.of(context).labelMedium),
+                child:
+                    Text(itemsDD![index], style: LightModeTheme().labelMedium),
               )),
       buttonRect: menuMargin.resolve(textDirection).inflateRect(itemRect),
       padding: paddingSelect ?? _kMenuItemPadding.resolve(textDirection),

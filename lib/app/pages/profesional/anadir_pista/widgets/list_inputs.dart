@@ -600,7 +600,7 @@ class _ListInputsState extends State<ListInputs> {
               self.animTerminos,
               self.checkboxTerminos,
               Colores.proveedor.primary,
-              self.checkboxTerminos,
+              self.validateTerminos,
               LightModeTheme().primaryText),
         ].divide(const SizedBox(height: 10.0)),
       ),
@@ -674,7 +674,7 @@ class _ListInputsState extends State<ListInputs> {
               readOnly: true,
               onTap: self.imagePatrocinador.dialogSeleccionarImage,
               enableInteractiveSelection: false,
-              validator: (val) => self.validarInputController(
+              validator: (val) => self.validarImage(
                   val, self.foto.isValidate, self.foto.anim, self.foto.key),
             )));
   }

@@ -379,7 +379,7 @@ class _DayPickerState extends State<_DayPicker> {
             child: Center(
               child: Text(
                 localizations.formatDecimal(day),
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: LightModeTheme().bodyMedium,
               ),
             ),
           ),

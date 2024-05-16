@@ -19,6 +19,10 @@ class Versions extends StatelessWidget {
   List<DatosVersion> arrayVersion2() => [
         DatosVersion(
             v: db.version,
+            info: '''Ajustes para beneficio de los usuarios.''',
+            fecha: '14/05/2024'),
+        DatosVersion(
+            v: '2.2.9',
             info: '''Claves de proposito para los usuarios.''',
             fecha: '02/05/2024'),
         DatosVersion(
@@ -343,9 +347,9 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
       child: Text(
         'Version ${db.version}',
         textAlign: TextAlign.center,
-        style: FlutterFlowTheme.of(context).bodyMedium.override(
+        style: LightModeTheme().bodyMedium.override(
               fontFamily: 'Readex Pro',
-              color: FlutterFlowTheme.of(context).tertiary,
+              color: LightModeTheme().tertiary,
               fontSize: 10,
               fontStyle: FontStyle.italic,
             ),
@@ -857,12 +861,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                   EdgeInsetsDirectional.fromSTEB(16, 0, 8, 0),
 //                               child: Text(
 //                                 '1.2.8',
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -881,11 +885,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 // - Mostrar la información de la reserva de pista.
 //                 ''',
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -902,12 +906,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                   EdgeInsetsDirectional.fromSTEB(16, 0, 8, 0),
 //                               child: Text(
 //                                 '1.2.7',
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -926,11 +930,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 // - Seleccionar hora de inicio y hora de fin, ya sea en 60 minutos o en 90 minutos.
 //                 ''',
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -947,12 +951,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                   EdgeInsetsDirectional.fromSTEB(16, 0, 8, 0),
 //                               child: Text(
 //                                 '1.2.6',
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -970,11 +974,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 // - Funcionalidad en la tabla de tarifas.
 // - Seleccionar clases, luz, activar o desactivar el horario''',
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -991,12 +995,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                   EdgeInsetsDirectional.fromSTEB(16, 0, 8, 0),
 //                               child: Text(
 //                                 '1.2.5',
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1012,11 +1016,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 // - Pantallas de notificaciones.
 // - Errores al contruir el apk, por uso de firebase.''',
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1033,12 +1037,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                   EdgeInsetsDirectional.fromSTEB(16, 0, 8, 0),
 //                               child: Text(
 //                                 '1.2.4',
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1053,11 +1057,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 // - Navegación entre todas las pantallas.
 // - BottomBar En profesional y en usuario.''',
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1076,12 +1080,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'rtyba43k' /* 1.2.3 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1096,11 +1100,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     '59nhvg7s' /* - Todas las pantallas pasadas ... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1119,12 +1123,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'ew0ulvuv' /* 1.2.2 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1139,11 +1143,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'xu9q1xy8' /* - Pantallas: Monedero Virtual,... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1162,12 +1166,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'zw9p3se7' /* 1.2.1 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1182,11 +1186,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     '574ol6ms' /* - Uso de la tecnología Flutter... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1205,12 +1209,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'hbndzpog' /* 1.1.15 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1225,11 +1229,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     '8kaci684' /* - Ajustes en Tarifas y En añad... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1248,12 +1252,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'xfxg24tt' /* 1.1.14 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1268,11 +1272,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     '2n8c9350' /* - Agregacion de botones de hor... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1291,12 +1295,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   '5m8wcxg3' /* 1.1.13 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1311,11 +1315,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'hk3qwmvf' /* - Agregacion de botones de hor... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1334,12 +1338,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'kxvso1oi' /* 1.1.12 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1354,11 +1358,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'uetfcf3y' /* - Ajustes en anadir pista, pre... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1377,12 +1381,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   '7hrqus3p' /* 1.1.11 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1399,11 +1403,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     ,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1422,12 +1426,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'zf4z0zyk' /* 1.1.10 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1442,11 +1446,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'j17him4b' /* - Tabla de tarifas, y datos pa... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1465,12 +1469,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'n4szz6xx' /* 1.1.9 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1485,11 +1489,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     '17ksl4u9' /* - Correciones del word en usua... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1508,12 +1512,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'wvwlcls0' /* 1.1.8 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1528,11 +1532,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'ala52fy7' /* - Correciones en el login, par... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1551,12 +1555,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'ggqdpok1' /* 1.1.7 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1573,11 +1577,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     ,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1596,12 +1600,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'bm7o47hj' /* 1.1.6 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1616,11 +1620,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'twrqovpz' /* - pantalla de inicio de profes... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1639,12 +1643,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   '3sv4nt2g' /* 1.1.5 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1661,11 +1665,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     ,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1684,12 +1688,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'ulije4t4' /* 1.1.4 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1704,11 +1708,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'z2r7zrvo' /* - Codigo postal rellenar campo... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1727,12 +1731,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'pms2gyu6' /* 1.1.3 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1747,11 +1751,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     'fro1kxe4' /* - Registro de usuario, (Nuevo ... */,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1770,12 +1774,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'x4pbsop7' /* 1.1.2 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1792,11 +1796,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     ,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
@@ -1815,12 +1819,12 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                 FFLocalizations.of(context).getText(
 //                                   'eh0oyx4v' /* 1.1.1 */,
 //                                 ),
-//                                 style: FlutterFlowTheme.of(context)
+//                                 style: LightModeTheme()
 //                                     .titleMedium
 //                                     .override(
 //                                       fontFamily: 'Readex Pro',
 //                                       color:
-//                                           FlutterFlowTheme.of(context).primary,
+//                                           LightModeTheme().primary,
 //                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                               ),
@@ -1838,11 +1842,11 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 //                                     ,
 //                                   ),
 //                                   textAlign: TextAlign.start,
-//                                   style: FlutterFlowTheme.of(context)
+//                                   style: LightModeTheme()
 //                                       .bodyMedium
 //                                       .override(
 //                                         fontFamily: 'Readex Pro',
-//                                         color: FlutterFlowTheme.of(context)
+//                                         color: LightModeTheme()
 //                                             .secondaryText,
 //                                         fontWeight: FontWeight.normal,
 //                                       ),
