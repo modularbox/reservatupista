@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
@@ -24,6 +26,7 @@ class MisReservasUsuarioModel {
   final int automatizada;
   final String pista;
   final int duracionPartida;
+  final int tiempo_cancelacion;
   ReservasUsuarios? reservasUsuarios;
 
   MisReservasUsuarioModel(
@@ -48,6 +51,7 @@ class MisReservasUsuarioModel {
       required this.horaFin,
       required this.duracionPartida,
       required this.tipoReserva,
+      required this.tiempo_cancelacion,
       this.reservasUsuarios});
 
   factory MisReservasUsuarioModel.fromRawJson(String str) =>
@@ -78,6 +82,7 @@ class MisReservasUsuarioModel {
         pista: json['pista'],
         horaFin: json['hora_fin'],
         duracionPartida: json['duracion_partida'],
+        tiempo_cancelacion: json['tiempo_cancelacion_no_socio'],
         tipoReserva: json['tipo_reserva'],
       );
 

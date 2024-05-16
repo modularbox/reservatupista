@@ -190,6 +190,21 @@ class MisReservasController extends GetxController
     }
   }
 
+  DateTime construirDatetime(DateTime fecha, String horaInicio) {
+    final hora = int.parse(horaInicio.substring(0, 2));
+    final minutos = int.parse(horaInicio.substring(3, 5));
+    DateTime fechaConHora = DateTime(
+      fecha.year,
+      fecha.month,
+      fecha.day,
+      hora, // Hora
+      minutos, // Minuto
+      0, // Segundo
+    );
+    print('fechaConHora $fechaConHora');
+    return fechaConHora;
+  }
+
   @override
   void dispose() {
     _timer.cancel();
