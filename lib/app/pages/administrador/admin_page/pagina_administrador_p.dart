@@ -6,6 +6,7 @@ import 'package:reservatu_pista/app/pages/administrador/clubes_admin/clubes_admi
 import 'package:reservatu_pista/app/pages/administrador/editar_noticia_admin/editar_noticia_admin_p.dart';
 import 'package:reservatu_pista/app/pages/administrador/editar_ofertas_admin/editar_ofertas_admin_p.dart';
 import 'package:reservatu_pista/app/pages/administrador/partidas_admin/partidas_admin_p.dart';
+import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/usuarios_admin_p.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -185,7 +186,9 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {},
+                            onTap: () async {
+                              Get.to(AdminUsuarioWidget());
+                            },
                             child: Container(
                               width: double.infinity,
                               height: 60,
