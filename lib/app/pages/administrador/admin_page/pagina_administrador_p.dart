@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_c.dart';
+import 'package:reservatu_pista/app/pages/administrador/banco_admin/banco_admin_p.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -575,7 +577,9 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {},
+                            onTap: () async {
+                              Get.to(BancoAdminWidget());
+                            },
                             child: Container(
                               width: double.infinity,
                               height: 60,
