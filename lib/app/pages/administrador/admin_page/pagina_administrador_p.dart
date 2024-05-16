@@ -21,7 +21,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: LightModeTheme().primaryBackground,
       body: Builder(
         builder: (context) {
           return SafeArea(
@@ -38,8 +38,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                         Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: LightModeTheme().secondaryBackground,
                             boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3,
@@ -60,11 +59,10 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   width: 90,
                                   height: 90,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).accent2,
+                                    color: LightModeTheme().accent2,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
+                                      color: LightModeTheme().secondary,
                                       width: 2,
                                     ),
                                   ),
@@ -92,7 +90,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                     children: [
                                       Text(
                                         'Administrador',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .headlineSmall
                                             .override(
                                               fontFamily: 'Outfit',
@@ -119,8 +117,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -141,8 +138,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.class_,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -151,7 +147,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Clubes',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -165,8 +161,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -189,8 +184,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -211,8 +205,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.person,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -221,7 +214,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Usuarios',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -232,8 +225,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                     ),
                                     Icon(
                                       Icons.arrow_forward_ios,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 18,
                                     ),
                                   ],
@@ -255,8 +247,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -277,8 +268,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.sports_baseball_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -287,7 +277,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Partidas',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -301,8 +291,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -325,8 +314,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -347,8 +335,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.wallet,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -357,7 +344,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Tarifas',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -371,8 +358,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -395,8 +381,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -417,8 +402,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.local_grocery_store,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -427,7 +411,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Pedidos',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -441,8 +425,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -465,8 +448,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -487,8 +469,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.newspaper_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -497,7 +478,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Editar Noticias',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -511,8 +492,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -535,8 +515,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -557,8 +536,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.newspaper_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -567,7 +545,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Editar Ofertas',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -581,8 +559,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -607,8 +584,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                               width: double.infinity,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -629,8 +605,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.euro,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -639,7 +614,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(12, 0, 0, 0),
                                         child: Text(
                                           'Banco',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -653,8 +628,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                        color: LightModeTheme().secondaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -698,7 +672,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                             .fromSTEB(15, 0, 0, 0),
                                         child: Text(
                                           'Cerrar Sesión',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -712,8 +686,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.logout,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 20,
                                       ),
                                     ),
