@@ -67,32 +67,32 @@ class InputReservarPista extends FormField<String> {
                   decoration: InputDecoration(
                     counterText: '',
                     labelText: labelText,
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                    labelStyle: LightModeTheme().labelMedium,
+                    hintStyle: LightModeTheme().labelMedium,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: LightModeTheme().alternate,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: LightModeTheme().primary,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(5.0),
@@ -100,8 +100,8 @@ class InputReservarPista extends FormField<String> {
                     contentPadding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  cursorColor: FlutterFlowTheme.of(context).primary,
+                  style: LightModeTheme().bodyMedium,
+                  cursorColor: LightModeTheme().primary,
                   maxLength: maxLength,
                   keyboardType: keyboardType,
                   onChanged: onChangedHandler,
@@ -241,7 +241,7 @@ class _InputReservarPistaState extends FormFieldState<String> {
           (index) => DropdownMenuItem<String>(
                 value: widget.itemsDD![index],
                 child: Text(widget.itemsDD![index],
-                    style: FlutterFlowTheme.of(context).labelMedium),
+                    style: LightModeTheme().labelMedium),
               )),
       buttonRect: menuMargin.resolve(textDirection).inflateRect(itemRect),
       padding: _kMenuItemPadding.resolve(textDirection),
@@ -415,8 +415,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       opacity: _fadeOpacity,
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-                color: FlutterFlowTheme.of(context).alternate, width: 2),
+            border: Border.all(color: LightModeTheme().alternate, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(

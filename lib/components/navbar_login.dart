@@ -61,7 +61,7 @@ class NavBarLogin extends StatelessWidget {
                 child: Text(
                   'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
                   textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).labelSmall,
+                  style: LightModeTheme().labelSmall,
                 ),
               ),
             ),
@@ -117,7 +117,7 @@ class NavBarLogin extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: 70.0,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: LightModeTheme().secondaryBackground,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -126,7 +126,7 @@ class NavBarLogin extends StatelessWidget {
                   width: MediaQuery.sizeOf(context).width * 1.0,
                   height: 30.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryText,
+                    color: LightModeTheme().primaryText,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -141,19 +141,15 @@ class NavBarLogin extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.email,
-                              color: FlutterFlowTheme.of(context)
-                                  .bottomBarLoginText,
+                              color: LightModeTheme().bottomBarLoginText,
                               size: 20.0,
                             ),
                             Text(
                               'info@reservatupista.com',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 12,
-                                    color: FlutterFlowTheme.of(context)
-                                        .bottomBarLoginText,
+                                    color: LightModeTheme().bottomBarLoginText,
                                   ),
                             ),
                           ],
@@ -168,20 +164,16 @@ class NavBarLogin extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.phone,
-                              color: FlutterFlowTheme.of(context)
-                                  .bottomBarLoginText,
+                              color: LightModeTheme().bottomBarLoginText,
                               size: 20.0,
                             ),
                             1.0.sw,
                             Text(
                               '653483483',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 12,
-                                    color: FlutterFlowTheme.of(context)
-                                        .bottomBarLoginText,
+                                    color: LightModeTheme().bottomBarLoginText,
                                   ),
                             ),
                           ],
@@ -191,9 +183,9 @@ class NavBarLogin extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '© 2023 MODULARBOX S.L.\nTODOS LOS DERECHOS RESERVADOS',
+                  '© 2023 MODULARBOX S.L.${MediaQuery.sizeOf(context).width < 500 ? '\n' : ' '}TODOS LOS DERECHOS RESERVADOS',
                   textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  style: LightModeTheme().bodyMedium.override(
                         fontFamily: 'Readex Pro',
                         fontWeight: FontWeight.w900,
                       ),

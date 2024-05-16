@@ -69,11 +69,11 @@ class InputPista extends FormField<String> {
                   decoration: InputDecoration(
                     counterText: '',
                     labelText: labelText,
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                    hintStyle: LightModeTheme().labelMedium,
                     labelStyle: enableInput == null
-                        ? FlutterFlowTheme.of(context).labelMedium
+                        ? LightModeTheme().labelMedium
                         : enableInput
-                            ? FlutterFlowTheme.of(context).labelMedium
+                            ? LightModeTheme().labelMedium
                             : GoogleFonts.getFont(
                                 'Readex Pro',
                                 color: const Color.fromARGB(165, 117, 117, 117),
@@ -90,7 +90,7 @@ class InputPista extends FormField<String> {
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: isValidate
-                            ? FlutterFlowTheme.of(context).error
+                            ? LightModeTheme().error
                             : Colores.proveedor.primary160,
                         width: 2.0,
                       ),
@@ -99,7 +99,7 @@ class InputPista extends FormField<String> {
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: isValidate
-                            ? FlutterFlowTheme.of(context).error
+                            ? LightModeTheme().error
                             : Colores.proveedor.primary,
                         width: 2.0,
                       ),
@@ -107,14 +107,14 @@ class InputPista extends FormField<String> {
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: LightModeTheme().error,
                         width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
@@ -122,8 +122,8 @@ class InputPista extends FormField<String> {
                     contentPadding: const EdgeInsetsDirectional.fromSTEB(
                         16.0, 12.0, 16.0, 12.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  cursorColor: FlutterFlowTheme.of(context).primary,
+                  style: LightModeTheme().bodyMedium,
+                  cursorColor: LightModeTheme().primary,
                   maxLength: maxLength,
                   keyboardType: keyboardType,
                   onChanged: onChangedHandler,
@@ -262,7 +262,7 @@ class _InputPistaState extends FormFieldState<String> {
           (index) => DropdownMenuItem<String>(
                 value: widget.itemsDD![index],
                 child: Text(widget.itemsDD![index],
-                    style: FlutterFlowTheme.of(context).labelMedium),
+                    style: LightModeTheme().labelMedium),
               )),
       buttonRect: menuMargin.resolve(textDirection).inflateRect(itemRect),
       padding: _kMenuItemPadding.resolve(textDirection),

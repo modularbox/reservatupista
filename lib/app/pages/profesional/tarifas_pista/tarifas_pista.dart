@@ -19,7 +19,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      backgroundColor: LightModeTheme().secondaryBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -32,7 +32,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      buildListaDeDiasSemana(),
+                      Obx(buildListaDeDiasSemana),
                       10.0.sh,
                       buildTableTarifas(context),
                       buildTableDatos(context)
@@ -58,33 +58,31 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
 
   /// Construir la lista para seleccionar el dia de la semana
   Widget buildListaDeDiasSemana() {
-    return Obx(
-      () => Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(
-            self.listDiaSemana.length,
-            (index) => BtnIcon(
-              width: 100.w / 7,
-              height: 45,
-              padding: const EdgeInsets.all(2.5),
-              hoverColor: Colores.proveedor.primary69,
-              onPressed: () => self.changeDia(index),
-              icon: CircleAvatar(
-                  backgroundColor: self.indexDias.value == index
-                      ? const Color(0xFF46EF98)
-                      : FlutterFlowTheme.of(Get.context!).primary,
-                  child: Text(
-                    self.listDiaSemana[index],
-                    style:
-                        FlutterFlowTheme.of(Get.context!).titleSmall.override(
-                              fontFamily: 'Readex Pro',
-                              color: Colors.white,
-                              fontSize: 12.0,
-                            ),
-                  )),
-            ),
-          )),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(
+        self.listDiaSemana.length,
+        (index) => BtnIcon(
+          width: 100.w / 7,
+          height: 45,
+          padding: const EdgeInsets.all(2.5),
+          hoverColor: Colores.proveedor.primary69,
+          onPressed: () => self.changeDia(index),
+          icon: CircleAvatar(
+              backgroundColor: self.indexDias.value == index
+                  ? const Color(0xFF46EF98)
+                  : LightModeTheme().primary,
+              child: Text(
+                self.listDiaSemana[index],
+                style: LightModeTheme().titleSmall.override(
+                      fontFamily: 'Readex Pro',
+                      color: Colors.white,
+                      fontSize: 12.0,
+                    ),
+              )),
+        ),
+      ),
     );
   }
 
@@ -124,7 +122,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                         icon: Text(
                           titleTable[index],
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style: LightModeTheme().bodyMedium,
                         ),
                       ),
                     );
@@ -140,7 +138,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                         icon: Text(
                           titleTable[index],
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style: LightModeTheme().bodyMedium,
                         ),
                       ),
                     );
@@ -156,7 +154,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                         icon: Text(
                           titleTable[index],
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style: LightModeTheme().bodyMedium,
                         ),
                       ),
                     );
@@ -166,7 +164,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                     child: Text(
                       titleTable[index],
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      style: LightModeTheme().bodyMedium,
                     ),
                   );
                 })
@@ -210,7 +208,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                         icon: Text(
                           activeOrDesactive ? 'Activado' : 'Desactivado',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style: LightModeTheme().bodyMedium,
                         ),
                       ),
                     ),
@@ -235,7 +233,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                               Icons.school,
                               color: self.listClase[index].value
                                   ? const Color(0xFFD241FF)
-                                  : FlutterFlowTheme.of(context).secondaryText,
+                                  : LightModeTheme().secondaryText,
                               size: 24.0,
                             ),
                           )),
@@ -260,8 +258,8 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                             child: Icon(
                               FontAwesomeIcons.solidLightbulb,
                               color: self.listLuz[index].value
-                                  ? FlutterFlowTheme.of(context).warning
-                                  : FlutterFlowTheme.of(context).secondaryText,
+                                  ? LightModeTheme().warning
+                                  : LightModeTheme().secondaryText,
                               size: 24.0,
                             ),
                           )),
@@ -271,7 +269,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                       child: Text(
                         val.horaInicio!,
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: LightModeTheme().bodyMedium,
                       ),
                     ),
                     TableCell(
@@ -288,17 +286,15 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                             obscureText: false,
                             decoration: InputDecoration(
                               counterText: '',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
-                              hintStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
+                              labelStyle: LightModeTheme().labelMedium,
+                              hintStyle: LightModeTheme().labelMedium,
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               errorBorder: InputBorder.none,
                               focusedErrorBorder: InputBorder.none,
                             ),
                             inputFormatters: [PrecioInputFormatter()],
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            style: LightModeTheme().bodyMedium,
                             textAlign: TextAlign.center,
                             onChanged: (precio) => self.onChangePrecioSocio(
                                 self.listLuz[index].value, index, precio),
@@ -318,17 +314,15 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                             obscureText: false,
                             decoration: InputDecoration(
                               counterText: '',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
-                              hintStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
+                              labelStyle: LightModeTheme().labelMedium,
+                              hintStyle: LightModeTheme().labelMedium,
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               errorBorder: InputBorder.none,
                               focusedErrorBorder: InputBorder.none,
                             ),
                             inputFormatters: [PrecioInputFormatter()],
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            style: LightModeTheme().bodyMedium,
                             textAlign: TextAlign.center,
                             onChanged: (precio) => self.onChangePrecioNoSocio(
                                 self.listLuz[index].value, index, precio),

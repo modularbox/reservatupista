@@ -75,7 +75,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
         child: Row(
           children: [
             SizedBox(
-              width: 80,
+              width: 90,
               child: BuildInput(
                 labelText: '',
                 textEditingController: self.tc.lada,

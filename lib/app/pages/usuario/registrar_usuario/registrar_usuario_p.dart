@@ -55,7 +55,8 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                                   self.animTerminos,
                                   self.checkboxTerminos,
                                   Colores.proveedor.primary,
-                                  self.checkboxTerminos,
+                                  self.validateTerminos,
+                                  paddingTop: 10.0,
                                   LightModeTheme().primaryText),
                               Padding(
                                 padding:

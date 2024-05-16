@@ -13,7 +13,6 @@ import '../../../../utils/search_droptown/dropdown_search.dart';
 import '../../../../utils/server/image_server.dart';
 import '../../../data/models/datos_reservas_pista.dart';
 import 'reservar_pista_c.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../../components/navbar_y_appbar_usuario.dart';
 import '../../../../utils/sizer.dart';
 import '../../../../utils/calendar/calendar.dart';
@@ -104,18 +103,6 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   List<Horario> generateListHorarios() {
-    //   List<Horario> list = self.selectPista.value == null
-    //       ? []
-    //       : self
-    //           .db
-    //           .datosReserva
-    //           .reservas[self.selectLocalidad.value!]
-    //           .clubs[self.selectClub.value!]
-    //           .deportes[self.selectDeporte.value!]
-    //           .semana[self.selectDay.value!]
-    //           .pistas[self.selectPista.value!]
-    //           .horarios;
-    // return list;
     return [];
   }
 
@@ -157,35 +144,32 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                               dropdownSearchDecoration: InputDecoration(
                                 labelText: 'Localidad',
                                 hintText: "Selecciona la localidad.",
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
+                                labelStyle: LightModeTheme().labelMedium,
+                                hintStyle: LightModeTheme().labelMedium,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    color: LightModeTheme().alternate,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: LightModeTheme().primary,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
+                                    color: LightModeTheme().error,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
+                                    color: LightModeTheme().error,
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(5.0),
@@ -417,7 +401,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           dayBorderRadius: const BorderRadius.all(Radius.zero),
                           currentDate: self.fechaActual,
                           selectDayConfig: self.selectDateDay.value,
-                          controlsTextStyle: FlutterFlowTheme.of(context)
+                          controlsTextStyle: LightModeTheme()
                               .titleLarge
                               .copyWith(color: Colors.white)),
                       value: self.singleDatePickerValueWithDefaultValue,
@@ -495,7 +479,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                         FormatDate.dateToString(self
                                             .tiempoReservaListaCalendar[index]),
                                         textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .bodySmall
                                             .copyWith(
                                                 fontWeight: FontWeight.bold,
@@ -621,11 +605,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                         ? 'Calle ${(index + 1)}'
                         : 'Pista ${(index + 1)}',
                     textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(Get.context!)
-                        .bodyMedium
-                        .copyWith(
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 14),
+                    style: LightModeTheme().bodyMedium.copyWith(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 14),
                   ),
                 ),
               ),
@@ -714,7 +696,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   icon: Center(
                       child: Text(
                     textHorario,
-                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                    style: LightModeTheme().bodySmall.copyWith(
                         color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 16),
                   )));
@@ -752,7 +734,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   icon: Center(
                       child: Text(
                     textHorario,
-                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                    style: LightModeTheme().bodySmall.copyWith(
                         color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 16),
                   )));
@@ -767,7 +749,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                   child: Center(
                       child: Text(
                     textHorario,
-                    style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                    style: LightModeTheme().bodySmall.copyWith(
                         color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 16),
                   )));
@@ -781,7 +763,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 child: Center(
                     child: Text(
                   textHorario,
-                  style: FlutterFlowTheme.of(Get.context!).bodySmall.copyWith(
+                  style: LightModeTheme().bodySmall.copyWith(
                       color: const Color.fromARGB(255, 0, 0, 0), fontSize: 16),
                 )));
           } else {
@@ -1033,9 +1015,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 size: const Size(130, 40),
                 icon: Text(
                   self.cancelarReserva.value ? 'Cancelar' : 'Reservar todo',
-                  style: FlutterFlowTheme.of(Get.context!)
-                      .bodyMedium
-                      .copyWith(color: Colors.white),
+                  style:
+                      LightModeTheme().bodyMedium.copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ))
@@ -1145,12 +1126,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       height: 5,
     ));
     list.add(
-      TerminosCondicionesDialog(
-          AnimationController(vsync: self),
-          self.terms,
-          Colores.proveedor.primary,
-          self.terms,
-          FlutterFlowTheme.of(Get.context!).primaryText),
+      TerminosCondicionesDialog(AnimationController(vsync: self), self.terms,
+          Colores.proveedor.primary, self.terms, LightModeTheme().primaryText),
     );
     list.add(SizedBox(
       height: 5,

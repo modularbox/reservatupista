@@ -65,7 +65,7 @@ class PerfilProveedorPage extends GetView<DBService> {
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 3,
@@ -83,10 +83,10 @@ class PerfilProveedorPage extends GetView<DBService> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(Get.context!).tertiary,
+                  color: LightModeTheme().tertiary,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: FlutterFlowTheme.of(Get.context!).secondary,
+                    color: LightModeTheme().secondary,
                     width: 3,
                   ),
                 ),
@@ -125,7 +125,7 @@ class PerfilProveedorPage extends GetView<DBService> {
                       child: AutoSizeText(
                         nombreClub,
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(Get.context!).headlineSmall,
+                        style: LightModeTheme().headlineSmall,
                       )),
                 ),
               ),
@@ -137,7 +137,7 @@ class PerfilProveedorPage extends GetView<DBService> {
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(Get.context!).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 3,
@@ -156,10 +156,10 @@ class PerfilProveedorPage extends GetView<DBService> {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(Get.context!).tertiary,
+                    color: LightModeTheme().tertiary,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: FlutterFlowTheme.of(Get.context!).secondary,
+                      color: LightModeTheme().secondary,
                       width: 3,
                     ),
                   ),
@@ -201,7 +201,7 @@ class PerfilProveedorPage extends GetView<DBService> {
                         child: AutoSizeText(
                       nombreClub,
                       textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(Get.context!).headlineSmall,
+                      style: LightModeTheme().headlineSmall,
                     )),
                   ),
                 ),

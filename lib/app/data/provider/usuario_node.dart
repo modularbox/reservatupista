@@ -20,6 +20,34 @@ class UsuarioProvider extends GetConnect {
   }
 
   /// Modificar los datos del usuario
+  Future<MessageError> modificarContrasena(
+      int id, String tokenUser, List datos, List<String> idsDatos) async {
+    try {
+      await initialize();
+      final response = await put(
+        '$url/usuario',
+        {"id": id, "datos": datos, "ids_datos": idsDatos},
+        headers: {
+          "Authorization": "Bearer $tokenUser",
+        },
+        contentType: 'application/json',
+      );
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        throw MessageError(
+            code: response.body.code,
+            message: 'Ocurrio un error al actualizar la contraseña');
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      throw MessageError(
+          message: 'Error al Modificar la Contraseña', code: 501);
+    }
+  }
+
+  /// Modificar los datos del usuario
   Future<MessageError> modificarUsuario(
       List datos, List<String> idsDatos) async {
     try {
@@ -104,8 +132,15 @@ class UsuarioProvider extends GetConnect {
             "esProveedor": 'false',
             "correo": email,
             "link": "$urlWeb/#/validar_email?email=$email&user=0",
-            "message":
-                "<h1> Pulsa el siguiente link para validar tu correo: <a href='$urlWeb/#/validar_email?email=$email&user=0'>link</a> </h1>",
+            "message": '''
+            <p style="font-size: 1.25rem;font-weight:600">
+            Bienvenido a reservatupista.com <strong>$nombre</strong>, para finalizar el registro por favor pulsa sobre este botón: 
+            </p>
+            <p>
+            <a href="$urlWeb/#/validar_email?email=$email&user=0" style="text-decoration:none; background-color: green;padding:10px 20px;border-radius:15px;color:white;">
+            CONFIRMAR
+            </a>
+            ''',
             "asunto": "Registro Usuario"
           },
           contentType: 'application/json');
@@ -170,10 +205,10 @@ class UsuarioProvider extends GetConnect {
   }
 
   // Put Modificar datos
-  Future<Response> modificarUser(int id, List datos, List<String> idsDatos) =>
+  Future<Response> modificarUser(int? id, List datos, List<String> idsDatos) =>
       put(
         '$url/usuario',
-        {"id": idUser.toString(), "datos": datos, "ids_datos": idsDatos},
+        {"id": id ?? idUser.toString(), "datos": datos, "ids_datos": idsDatos},
         headers: {
           "Authorization": "Bearer $token",
         },
@@ -291,9 +326,7 @@ class UsuarioNode {
         return MessageError.fromJson(response.body);
       } else {
         print(response.body);
-        return MessageError(
-            code: response.body.code,
-            message: 'Ocurrio un error al actualizar el Usuario');
+        return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
       print(error);

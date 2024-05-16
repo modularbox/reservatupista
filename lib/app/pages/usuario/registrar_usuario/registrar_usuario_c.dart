@@ -1,9 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-// import 'package:get_storage/get_storage.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
-// import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
@@ -30,6 +28,7 @@ class RegistrarUsuarioController extends GetxController
   bool isValidateForms = false;
   // Checar si los terminos y condiciones son aceptados
   RxBool checkboxTerminos = false.obs;
+  RxBool validateTerminos = false.obs;
   // La visibilidad de la contrasena
   RxBool contrasenaVisibility = false.obs;
   RxBool comprobarContrasenaVisibility = false.obs;
@@ -45,7 +44,7 @@ class RegistrarUsuarioController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    onInitForm();
+    // onInitForm();
     apiExisteNick.empty();
     animTerminos = animVibrate(vsync: this);
     debounce(contrasenaVisibility, (_) => contrasenaVisibility.value = false,
@@ -228,6 +227,7 @@ class RegistrarUsuarioController extends GetxController
       }
     } else {
       if (!checkboxTerminos.value) {
+        validateTerminos.value = true;
         animTerminos.forward();
       }
     }
@@ -325,24 +325,3 @@ class RegistrarUsuarioController extends GetxController
     super.onClose();
   }
 }
-
-// class ButtonsPage {
-//   late RegistrarUsuarioController controller;
-//   ButtonsPage({required this.controller});
-//   camera() {
-//     controller.pickImage(ImageSource.camera);
-//     Get.back();
-//   }
-
-//   galeria() {
-//     controller.pickImage(ImageSource.gallery);
-//     Get.back();
-//   }
-
-//   imageLocal(String path) {
-//     controller.pickImage(ImageSource.camera, path: path);
-//     Get.back();
-//   }
-
-//   cancel() {}
-// }

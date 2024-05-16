@@ -58,10 +58,10 @@ class _HistorialWidgetState extends State<HistorialWidget> {
           maxWidth: 570.0,
         ),
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: LightModeTheme().alternate,
             width: 2.0,
           ),
         ),
@@ -113,16 +113,15 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             TextSpan(
                               text: '',
                               style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: LightModeTheme().primary,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
                           ],
-                          style:
-                              FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 18.0,
-                                  ),
+                          style: LightModeTheme().bodyLarge.override(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18.0,
+                              ),
                         ),
                       ),
                       Padding(
@@ -133,7 +132,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                             widget.fecha,
                             '...',
                           ),
-                          style: FlutterFlowTheme.of(context).labelMedium,
+                          style: LightModeTheme().labelMedium,
                         ),
                       ),
                       Text(
@@ -141,7 +140,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                           widget.hora,
                           '...',
                         ),
-                        style: FlutterFlowTheme.of(context).labelMedium,
+                        style: LightModeTheme().labelMedium,
                       ),
                     ],
                   ),
@@ -159,7 +158,7 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                         'apj26th3' /* $1.50 */,
                       ),
                       textAlign: TextAlign.end,
-                      style: FlutterFlowTheme.of(context).headlineSmall,
+                      style: LightModeTheme().headlineSmall,
                     ),
                   ),
                   Align(
@@ -168,9 +167,9 @@ class _HistorialWidgetState extends State<HistorialWidget> {
                       FFLocalizations.of(context).getText(
                         'yqi62rb0' /* Tarjeta */,
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: LightModeTheme().primary,
                           ),
                     ),
                   ),

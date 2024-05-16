@@ -63,8 +63,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           brightness: Brightness.light,
           scrollbarTheme: ScrollbarThemeData(
-              thumbColor: MaterialStateProperty.all(
-                  FlutterFlowTheme.of(context).primary)),
+              thumbColor: MaterialStateProperty.all(LightModeTheme().primary)),
         ),
         themeMode: _themeMode,
         debugShowCheckedModeBanner: false,

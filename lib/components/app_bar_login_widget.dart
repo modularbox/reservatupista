@@ -43,7 +43,7 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
             child: Container(
               height: 100.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
+                color: LightModeTheme().secondaryBackground,
                 boxShadow: const [
                   BoxShadow(
                     blurRadius: 1.0,
@@ -70,9 +70,7 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
                           child: Text(
                             '.com',
                             textAlign: TextAlign.end,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: LightModeTheme().bodyMedium.override(
                                   fontFamily: 'Readex Pro',
                                   fontSize: 25.0,
                                   color: const Color(0xFF000088),
@@ -138,7 +136,7 @@ class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
     return RichText(
         text: TextSpan(
           children: generateTitle1,
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
+          style: LightModeTheme().bodyMedium.override(
                 fontFamily: 'Readex Pro',
                 color: const Color(0xFF000088),
                 fontSize: 25.0,
@@ -184,7 +182,7 @@ class _AppBarLoginWidget2State extends State<AppBarLoginWidget2> {
       child: Container(
         height: 60.0,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: LightModeTheme().secondaryBackground,
           boxShadow: const [
             BoxShadow(
               blurRadius: 1.0,
@@ -211,7 +209,7 @@ class _AppBarLoginWidget2State extends State<AppBarLoginWidget2> {
                     child: Text(
                       '.com',
                       textAlign: TextAlign.end,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
                             fontSize: 18.0,
                             color: const Color(0xFF000088),
@@ -270,7 +268,7 @@ class _AppBarLoginWidget2State extends State<AppBarLoginWidget2> {
     return RichText(
         text: TextSpan(
           children: generateTitle1,
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
+          style: LightModeTheme().bodyMedium.override(
                 fontFamily: 'Readex Pro',
                 color: const Color(0xFF000088),
                 fontSize: 18.0,

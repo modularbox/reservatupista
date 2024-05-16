@@ -85,14 +85,13 @@ class MisSociosPage extends GetView<MisSociosController> {
                                   children: [
                                     Text(
                                       'Socio 1 Miguel Angel',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: const Color(0xFF14181B),
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyLarge.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: const Color(0xFF14181B),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                     ),
                                   ],
                                 ),
@@ -107,7 +106,7 @@ class MisSociosPage extends GetView<MisSociosController> {
                                               0.0, 4.0, 0.0, 4.0),
                                       child: Text(
                                         'Enero 2024',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .labelSmall
                                             .override(
                                               fontFamily: 'Readex Pro',
@@ -123,7 +122,7 @@ class MisSociosPage extends GetView<MisSociosController> {
                                               0.0, 4.0, 0.0, 4.0),
                                       child: Text(
                                         'Reservas: 5',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: LightModeTheme()
                                             .labelSmall
                                             .override(
                                               fontFamily: 'Readex Pro',

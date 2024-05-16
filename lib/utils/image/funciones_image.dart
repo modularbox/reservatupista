@@ -124,7 +124,6 @@ class FuncionesImage {
 
   Future<void> pickImage(ImageSource source, {String? path}) async {
     if (path != null) {
-      print("chasnge asset image");
       imageAsset.value = path;
       imageFile.value = '@$path';
     } else {
@@ -216,6 +215,8 @@ class FuncionesImage {
 
   /// Validator para TextEditingController
   String? validatorImage(String? val) {
+    print(imageFile.value);
+    print(imageBytes.value);
     return imageFile.value != null || imageBytes.value != null ? null : '';
   }
 

@@ -5,11 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:reservatu_pista/app/data/models/pistas_model.dart';
 import 'package:reservatu_pista/app/data/provider/pista_node.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:image/image.dart' as img;
 import '../../../../utils/animations/list_animations.dart';
-import '../../../../utils/dialog/rich_alert.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
 import '../../../data/models/tarifas_model.dart';
@@ -99,18 +99,15 @@ class AnadirPistaController extends GetxController
   late AnimationController imagenesPistaAnim;
   // Animation Controller animTerminos
   late AnimationController animTerminos;
-  // Valida Checkbox los terminos y condiciones
-  RxBool validateCheckbox = false.obs;
   // Controller numero de pista
   TextEditingController nPistaController = TextEditingController();
 // Focus al InputController, solo a uno
   bool focusInputController = false;
-  // Validar Terminos y condiciones al momento de crear la pista
+  // Checar si los terminos y condiciones son aceptados
   RxBool checkboxTerminos = false.obs;
+  RxBool validateTerminos = false.obs;
   // Validar si se han creado las tarifas al momento de crear la pista
   RxBool validarTarifas = false.obs;
-  // Imagen del patrocinador
-  // Rx<File?> imagePatrocinador = Rx<File?>(null);
   // Imagenes de la pistas
   final imagesPista = StateRx(Rx<List<dynamic>>([]));
   // Lista de los horarios para crear las tarifas
@@ -176,7 +173,7 @@ class AnadirPistaController extends GetxController
     bono = InputController(animVibrate(vsync: this));
     reservatupista = InputController(animVibrate(vsync: this));
     animTerminos = animVibrate(vsync: this);
-    onInitForm();
+    // onInitForm();
   }
 
   void onInitForm() {
@@ -209,7 +206,7 @@ class AnadirPistaController extends GetxController
   }
 
   /// Crear la pista y subirla al servidor
-  void crearPista() async {
+  Future<void> crearPista() async {
     bool validarAnterior = true;
     if (imagesPista.rx.value.isEmpty) {
       validarAnterior = false;
@@ -217,7 +214,7 @@ class AnadirPistaController extends GetxController
     }
     if (!checkboxTerminos.value) {
       validarAnterior = false;
-      validateCheckbox.value = true;
+      validateTerminos.value = true;
       animTerminos.forward();
     }
     if (!selfTarifas.datosGuardados.value) {
@@ -297,7 +294,7 @@ class AnadirPistaController extends GetxController
             alertTitle: richTitle('Crear Pista'),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: 'Aceptar',
-            alertType: RichAlertType.SUCCESS,
+            alertType: TypeGeneralDialog.SUCCESS,
             onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
           ));
         } else {
@@ -305,7 +302,7 @@ class AnadirPistaController extends GetxController
             alertTitle: richTitle('Crear Pista'),
             alertSubtitle: richSubtitle(result.messageError()),
             textButton: 'Aceptar',
-            alertType: RichAlertType.WARNING,
+            alertType: TypeGeneralDialog.WARNING,
             onPressed: Get.back,
           ));
         }
@@ -334,6 +331,34 @@ class AnadirPistaController extends GetxController
         nPistaController.text = result.toString();
       }
     }
+  }
+
+  validarImage(
+    String? val,
+    RxBool isValidate,
+    AnimationController anim,
+    GlobalKey key,
+  ) {
+    if (imagePatrocinador.validatorImage(val) != null) {
+      isValidate.value = true;
+      anim.forward();
+      if (!focusInputController) {
+        focusInputController = true;
+        final RenderBox textFieldRenderBox =
+            key.currentContext!.findRenderObject() as RenderBox;
+        final textFieldPosition = textFieldRenderBox.localToGlobal(Offset.zero);
+        scrollController
+            .animateTo(
+              textFieldPosition.dy,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            )
+            .then((value) => focusInputController = false);
+      }
+    } else {
+      isValidate.value = false;
+    }
+    return null;
   }
 
   validarInputController(
@@ -527,7 +552,7 @@ class AnadirPistaController extends GetxController
             alertSubtitle: richSubtitle(
                 "Solo puedes seleccionar 5\nimagenes de la pista."),
             textButton: "Cerrar",
-            alertType: RichAlertType.WARNING,
+            alertType: TypeGeneralDialog.WARNING,
             onPressed: Get.back,
           ));
         } else {

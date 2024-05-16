@@ -58,7 +58,7 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
           child: Container(
             height: 300,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).tertiary,
+              color: LightModeTheme().tertiary,
               boxShadow: const [
                 BoxShadow(
                   blurRadius: 4,
@@ -79,14 +79,14 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                 Align(
                   alignment: AlignmentDirectional(0.88, -0.91),
                   child: FlutterFlowIconButton(
-                    borderColor: FlutterFlowTheme.of(context).secondaryText,
+                    borderColor: LightModeTheme().secondaryText,
                     borderRadius: 20,
                     borderWidth: 2,
                     buttonSize: 40,
-                    fillColor: FlutterFlowTheme.of(context).tertiary,
+                    fillColor: LightModeTheme().tertiary,
                     icon: Icon(
                       Icons.close,
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: LightModeTheme().primaryText,
                       size: 24,
                     ),
                     onPressed: () {
@@ -104,7 +104,7 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                     children: [
                       Text(
                         'Pagar ${FormatNumber.formatNumberWithTwoDecimals(widget.precio)} €',
-                        style: FlutterFlowTheme.of(context).headlineLarge,
+                        style: LightModeTheme().headlineLarge,
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
@@ -119,48 +119,45 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                               labelText: 'Número de Tarjeta de Crédito',
                               hintText: 'Número de Tarjeta de Crédito',
                               counterText: '',
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              hintStyle: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
                                     color: Color(0xFF95A1AC),
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).lineColor,
+                                  color: LightModeTheme().lineColor,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: LightModeTheme().primary,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
+                                  color: LightModeTheme().error,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
+                                  color: LightModeTheme().error,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              fillColor: LightModeTheme().secondaryBackground,
                               prefixIcon: Icon(
                                 Icons.credit_card,
                               ),
                             ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            style: LightModeTheme().bodyMedium,
                             inputFormatters: [MaskedTextFormatter()],
                           ),
                           Padding(
@@ -180,47 +177,41 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                                       labelText: 'MM / YY',
                                       hintText: 'MM / YY',
                                       counterText: '',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: Color(0xFF95A1AC),
-                                          ),
+                                      hintStyle:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: Color(0xFF95A1AC),
+                                              ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .lineColor,
+                                          color: LightModeTheme().lineColor,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                          color: LightModeTheme().primary,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: LightModeTheme().error,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: LightModeTheme().error,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    style: LightModeTheme().bodyMedium,
                                     inputFormatters: [MaskedMesAndYear()],
                                   ),
                                 ),
@@ -234,47 +225,41 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                                       labelText: 'CVC',
                                       hintText: 'CVC',
                                       counterText: '',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: Color(0xFF95A1AC),
-                                          ),
+                                      hintStyle:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: Color(0xFF95A1AC),
+                                              ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .lineColor,
+                                          color: LightModeTheme().lineColor,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                          color: LightModeTheme().primary,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: LightModeTheme().error,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: LightModeTheme().error,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    style: LightModeTheme().bodyMedium,
                                   ),
                                 ),
                               ],
@@ -320,13 +305,10 @@ class _PagosTarjetaPageState extends State<PagosTarjetaPage> {
                             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             iconPadding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
+                            color: LightModeTheme().primary,
+                            textStyle: LightModeTheme().titleMedium.override(
                                   fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                 ),
                             elevation: 2,
                             borderRadius: BorderRadius.circular(10),

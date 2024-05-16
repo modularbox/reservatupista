@@ -8,7 +8,7 @@ import '../provider/datos_server.dart';
 
 class DBService extends GetxService {
   // Version de la app
-  final version = '2.2.9';
+  final version = '2.2.10';
   // Base de datos en web
   late SharedPreferences storage;
   // Verificar si es proveedor
@@ -20,6 +20,7 @@ class DBService extends GetxService {
   String nick = '';
   String fotoUsuario = '';
   String nombre = '';
+  String email = '';
   String apellidos = '';
 
   /// Datos del Proveedor
@@ -68,6 +69,7 @@ class DBService extends GetxService {
         nombre = storage.nombre.read() ?? nombre;
         apellidos = storage.apellidos.read() ?? apellidos;
         nick = storage.nick.read() ?? nick;
+        email = storage.email.read() ?? email;
         if (fotoUsuario != '') {
           fotoServer = fotoUsuario;
         }

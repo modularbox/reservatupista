@@ -26,7 +26,7 @@ class AppbarUsuario extends StatelessWidget {
           width: MediaQuery.sizeOf(context).width,
           height: 55,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: LightModeTheme().secondaryBackground,
           ),
         ),
         ...buildRow(context),
@@ -55,7 +55,7 @@ class AppbarUsuario extends StatelessWidget {
           buttonSize: 55.0,
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: FlutterFlowTheme.of(context).primaryText,
+            color: LightModeTheme().primaryText,
             size: 30.0,
           ),
           onPressed: () async {
@@ -68,7 +68,7 @@ class AppbarUsuario extends StatelessWidget {
             alignment: const Alignment(0, 0),
             child: Text(
               title,
-              style: FlutterFlowTheme.of(context).bodyLarge,
+              style: LightModeTheme().bodyLarge,
             ),
           ),
         ),
@@ -84,7 +84,7 @@ class AppbarUsuario extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(start: 30),
             child: Text(
               title,
-              style: FlutterFlowTheme.of(context).bodyLarge,
+              style: LightModeTheme().bodyLarge,
             ),
           ),
           Padding(
@@ -96,20 +96,20 @@ class AppbarUsuario extends StatelessWidget {
                 BtnIcon(
                   borderRadius: 30,
                   buttonSize: 55,
-                  iconColor: FlutterFlowTheme.of(context).secondaryText,
+                  iconColor: LightModeTheme().secondaryText,
                   iconSize: 24,
                   hoverColor: Colores.usuario.primary69,
                   icon: badges.Badge(
                     badgeContent: Text(
                       '1',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           color: Colors.white,
                           fontSize: 10),
                     ),
                     showBadge: true,
                     shape: badges.BadgeShape.circle,
-                    badgeColor: FlutterFlowTheme.of(context).primary,
+                    badgeColor: LightModeTheme().primary,
                     elevation: 4,
                     padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
@@ -126,20 +126,20 @@ class AppbarUsuario extends StatelessWidget {
                 BtnIcon(
                   borderRadius: 30,
                   buttonSize: 55,
-                  iconColor: FlutterFlowTheme.of(context).secondaryText,
+                  iconColor: LightModeTheme().secondaryText,
                   iconSize: 24,
                   hoverColor: Colores.usuario.primary69,
                   icon: badges.Badge(
                     badgeContent: Text(
                       '1',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           color: Colors.white,
                           fontSize: 10),
                     ),
                     showBadge: true,
                     shape: badges.BadgeShape.circle,
-                    badgeColor: FlutterFlowTheme.of(context).primary,
+                    badgeColor: LightModeTheme().primary,
                     elevation: 4,
                     padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
@@ -156,7 +156,7 @@ class AppbarUsuario extends StatelessWidget {
                 BtnIcon(
                   borderRadius: 30,
                   buttonSize: 55,
-                  iconColor: FlutterFlowTheme.of(context).secondaryText,
+                  iconColor: LightModeTheme().secondaryText,
                   iconSize: 24,
                   hoverColor: Colores.usuario.primary69,
                   icon: Container(
@@ -166,8 +166,8 @@ class AppbarUsuario extends StatelessWidget {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: isPage ? Colores.usuario.primary160 : null,
-                          border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondary)),
+                          border:
+                              Border.all(color: LightModeTheme().secondary)),
                       child: ImageServer()),
                   onPressed: () async {
                     Get.toNamed(Routes.PERFIL);

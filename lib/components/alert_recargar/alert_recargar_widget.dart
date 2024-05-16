@@ -35,7 +35,7 @@ class AlertRecargarWidget extends GetView<MonederoController> {
           width: double.infinity,
           height: 510,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: LightModeTheme().secondaryBackground,
             boxShadow: const [
               BoxShadow(
                 blurRadius: 4,
@@ -55,7 +55,7 @@ class AlertRecargarWidget extends GetView<MonederoController> {
               10.0.sh,
               Obx(() => Text(
                     self.money.euro,
-                    style: FlutterFlowTheme.of(context).displaySmall,
+                    style: LightModeTheme().displaySmall,
                   )),
               buildBotones(),
               5.0.sh

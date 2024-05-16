@@ -54,12 +54,7 @@ class AnadirPistaPage extends GetView<AnadirPistaController> {
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         0.0, 10.0, 0.0, 0.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        // _model.formKey.currentState!.validate();
-                        // anims.horaInicio.forward();
-                        self.crearPista();
-                        // anadirPistaNode();
-                      },
+                      onPressed: self.crearPista,
                       text: 'Crear Pista',
                       options: FFButtonOptions(
                         height: 40.0,
@@ -67,12 +62,10 @@ class AnadirPistaPage extends GetView<AnadirPistaController> {
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).successGeneral,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleSmall
-                            .override(
+                        color: LightModeTheme().successGeneral,
+                        textStyle: LightModeTheme().titleSmall.override(
                               fontFamily: 'Readex Pro',
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                             ),
                         elevation: 3.0,
                         borderRadius: BorderRadius.circular(8.0),

@@ -428,7 +428,7 @@ class DBAlvaroController extends GetxController {
     }
   }
 
-  Future<bool> reservarPista(int idUsuario, double money, DateTime fecha,
+  Future<String?> reservarPista(int idUsuario, double money, DateTime fecha,
       String horaInicio, String idPista, int plazasAReservar) async {
     try {
       var url = '${DatosServer.urlServer}/usuario/reservar_pista';
@@ -446,10 +446,13 @@ class DBAlvaroController extends GetxController {
       print('fecha.toString() ${fecha.toString()}');
       print('hora_iniciohora_inicio ${horaInicio}');
       print('response.bodyresponse.body ${response.body}');
-      return true;
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+      return null;
     } catch (error) {
       print('error reservarPista $error');
-      return false;
+      return null;
     }
   }
 

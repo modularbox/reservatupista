@@ -29,7 +29,7 @@ class AppbarGeneral extends StatelessWidget {
           width: MediaQuery.sizeOf(context).width,
           height: 55,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: LightModeTheme().secondaryBackground,
           ),
         ),
         ...buildRow(context),
@@ -63,7 +63,7 @@ class AppbarGeneral extends StatelessWidget {
             alignment: const Alignment(0, 0),
             child: Text(
               title,
-              style: FlutterFlowTheme.of(context).bodyLarge,
+              style: LightModeTheme().bodyLarge,
             ),
           ),
         ),
@@ -78,7 +78,7 @@ class AppbarGeneral extends StatelessWidget {
           buttonSize: 55.0,
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: FlutterFlowTheme.of(context).primaryText,
+            color: LightModeTheme().primaryText,
             size: 30.0,
           ),
           onPressed: onBack ?? (Get.back),
@@ -89,7 +89,7 @@ class AppbarGeneral extends StatelessWidget {
             alignment: const Alignment(0, 0),
             child: Text(
               title,
-              style: FlutterFlowTheme.of(context).bodyLarge,
+              style: LightModeTheme().bodyLarge,
             ),
           ),
         ),
@@ -105,7 +105,7 @@ class AppbarGeneral extends StatelessWidget {
               padding: const EdgeInsetsDirectional.only(start: 30),
               child: Text(
                 title,
-                style: FlutterFlowTheme.of(context).bodyLarge,
+                style: LightModeTheme().bodyLarge,
               ),
             ),
             Padding(
@@ -117,19 +117,19 @@ class AppbarGeneral extends StatelessWidget {
                   BtnIcon(
                     borderRadius: 30,
                     buttonSize: 50,
-                    iconColor: FlutterFlowTheme.of(context).secondaryText,
+                    iconColor: LightModeTheme().secondaryText,
                     iconSize: 24,
                     icon: badges.Badge(
                       badgeContent: Text(
                         '1',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        style: LightModeTheme().bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               color: Colors.white,
                             ),
                       ),
                       showBadge: true,
                       shape: badges.BadgeShape.circle,
-                      badgeColor: FlutterFlowTheme.of(context).primary,
+                      badgeColor: LightModeTheme().primary,
                       elevation: 4,
                       padding: const EdgeInsets.all(8),
                       position: badges.BadgePosition.topEnd(),
@@ -146,7 +146,7 @@ class AppbarGeneral extends StatelessWidget {
                   BtnIcon(
                     borderRadius: 30,
                     buttonSize: 60,
-                    iconColor: FlutterFlowTheme.of(context).secondaryText,
+                    iconColor: LightModeTheme().secondaryText,
                     iconSize: 24,
                     icon: Container(
                       width: 40,

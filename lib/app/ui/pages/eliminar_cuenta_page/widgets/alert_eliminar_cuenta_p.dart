@@ -20,9 +20,9 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
     }
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
+          backgroundColor: LightModeTheme().primary,
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -38,7 +38,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
           ),
           title: Text(
             'Eliminar Cuenta',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
+            style: LightModeTheme().headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
                   fontSize: 22,
@@ -73,7 +73,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                         maxHeight: MediaQuery.sizeOf(context).height * 0.7,
                       ),
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: LightModeTheme().secondaryBackground,
                         boxShadow: const [
                           BoxShadow(
                             blurRadius: 4,
@@ -103,12 +103,11 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                   child: Text(
                                     'Lee esta información detenidamente. Es importante.',
                                     textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context)
-                                        .displaySmall
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          fontSize: 20,
-                                        ),
+                                    style:
+                                        LightModeTheme().displaySmall.override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 20,
+                                            ),
                                   ),
                                 ),
                               ),
@@ -127,31 +126,28 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                         TextSpan(
                                           text:
                                               'Antes de eliminar Email de tu cuenta de Reservatupista, recuerda que si lo haces ya no podrás acceder a  Reservatupista ni en movil y en Web. ',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
                                         TextSpan(
                                           text: email,
                                           style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            color: LightModeTheme().primaryText,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         )
                                       ],
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                     ),
                                   ),
                                 ),
@@ -164,8 +160,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                 child: Text(
                                   'También puede que pierdas el acceso a servicios que no pertenezcan a Reservatupista en los que se use $email  ',
                                   textAlign: TextAlign.justify,
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: LightModeTheme().bodyMedium,
                                 ),
                               ),
                             ),
@@ -175,8 +170,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                 padding: const EdgeInsets.all(12),
                                 child: Text(
                                   'Al eliminar Email, se cerrará tu cuenta, se eliminará definitivamente todo su contenido y perderás el acceso a tu cuenta.',
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: LightModeTheme().bodyMedium,
                                 ),
                               ),
                             ),
@@ -188,39 +182,35 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                   children: [
                                     TextSpan(
                                       text: 'Se eliminarán todo',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: LightModeTheme()
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            color: LightModeTheme().primaryText,
                                             fontSize: 17,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
                                     TextSpan(
                                       text: '',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                     ),
                                     TextSpan(
                                       text: '',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                     )
                                   ],
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: LightModeTheme().bodyMedium,
                                 ),
                               ),
                             ),
@@ -249,7 +239,7 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                                 ),
                                               ),
                                               unselectedWidgetColor:
-                                                  FlutterFlowTheme.of(context)
+                                                  LightModeTheme()
                                                       .secondaryText,
                                             ),
                                             child: Checkbox(
@@ -261,19 +251,15 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                                     .toggle();
                                               },
                                               activeColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              checkColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
+                                                  LightModeTheme().primary,
+                                              checkColor: LightModeTheme().info,
                                             ),
                                           )),
                                     ),
                                     Expanded(
                                       child: Text(
                                         'Sí, quiero eliminar definitivamente $email de mi cuenta de Reservatupista.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                        style: LightModeTheme().bodyMedium,
                                       ),
                                     ),
                                   ],
@@ -340,15 +326,13 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                                     .checkboxEliminarCuenta
                                                     .value
                                                 ? Colors.grey
-                                                : FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color: Colors.white,
-                                                    ),
+                                                : LightModeTheme().primary,
+                                            textStyle: LightModeTheme()
+                                                .titleSmall
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: Colors.white,
+                                                ),
                                             elevation: 3,
                                             borderSide: const BorderSide(
                                               color: Colors.transparent,
@@ -373,15 +357,13 @@ class AlertEliminarCuentaWidget extends GetView<EliminarCuentaController> {
                                       iconPadding:
                                           const EdgeInsetsDirectional.fromSTEB(
                                               0, 0, 0, 0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
+                                      color:
+                                          LightModeTheme().secondaryBackground,
+                                      textStyle:
+                                          LightModeTheme().titleSmall.override(
+                                                fontFamily: 'Readex Pro',
+                                                color: LightModeTheme().primary,
+                                              ),
                                       elevation: 0,
                                       borderSide: const BorderSide(
                                         color: Colors.transparent,

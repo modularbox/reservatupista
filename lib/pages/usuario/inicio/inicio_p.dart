@@ -160,21 +160,22 @@ class InicioPage extends GetView<InicioController> {
                                                                 0, 0),
                                                         child: Text(
                                                           'Ayto Riolobos',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: const Color(
-                                                                    0xFF14181B),
-                                                                fontSize: 16,
-                                                                letterSpacing:
-                                                                    0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: const Color(
+                                                                        0xFF14181B),
+                                                                    fontSize:
+                                                                        16,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
                                                         ),
                                                       ),
                                                     ],
@@ -188,20 +189,18 @@ class InicioPage extends GetView<InicioController> {
                                                     children: [
                                                       Text(
                                                         'Pista 1 - ModularBox',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  color: const Color(
-                                                                      0xFF14181B),
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
+                                                        style: LightModeTheme()
+                                                            .bodyLarge
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              color: const Color(
+                                                                  0xFF14181B),
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
                                                       ),
                                                     ],
                                                   ),
@@ -219,21 +218,22 @@ class InicioPage extends GetView<InicioController> {
                                                                 0, 4, 0, 4),
                                                         child: Text(
                                                           '09.00 - 10:30',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: const Color(
-                                                                    0xFF57636C),
-                                                                fontSize: 12,
-                                                                letterSpacing:
-                                                                    0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .labelSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: const Color(
+                                                                        0xFF57636C),
+                                                                    fontSize:
+                                                                        12,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
                                                         ),
                                                       ),
                                                     ],
@@ -281,9 +281,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -319,15 +319,15 @@ class InicioPage extends GetView<InicioController> {
                                                                     0, 5, 0, 0),
                                                             child: Text(
                                                               'NickUno',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ),
@@ -342,15 +342,15 @@ class InicioPage extends GetView<InicioController> {
                                                                     0, 5, 0, 0),
                                                             child: Text(
                                                               '4.25',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ),
@@ -379,9 +379,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -413,15 +413,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                         Padding(
@@ -431,15 +431,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ],
@@ -467,9 +467,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -501,15 +501,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                         Padding(
@@ -519,15 +519,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ],
@@ -550,9 +550,9 @@ class InicioPage extends GetView<InicioController> {
                                                           height: 32,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent4,
+                                                            color:
+                                                                LightModeTheme()
+                                                                    .accent4,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -563,8 +563,7 @@ class InicioPage extends GetView<InicioController> {
                                                           ),
                                                           child: Icon(
                                                             Icons.add,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
+                                                            color: LightModeTheme()
                                                                 .secondaryText,
                                                             size: 24,
                                                           ),
@@ -677,21 +676,22 @@ class InicioPage extends GetView<InicioController> {
                                                                 0, 0),
                                                         child: Text(
                                                           'Ayto Riolobos',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: const Color(
-                                                                    0xFF14181B),
-                                                                fontSize: 16,
-                                                                letterSpacing:
-                                                                    0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: const Color(
+                                                                        0xFF14181B),
+                                                                    fontSize:
+                                                                        16,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
                                                         ),
                                                       ),
                                                     ],
@@ -705,20 +705,18 @@ class InicioPage extends GetView<InicioController> {
                                                     children: [
                                                       Text(
                                                         'Pista 1 - Patrocinador',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  color: const Color(
-                                                                      0xFF14181B),
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
+                                                        style: LightModeTheme()
+                                                            .bodyLarge
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              color: const Color(
+                                                                  0xFF14181B),
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
                                                       ),
                                                     ],
                                                   ),
@@ -736,21 +734,22 @@ class InicioPage extends GetView<InicioController> {
                                                                 0, 4, 0, 4),
                                                         child: Text(
                                                           '09.00 - 10:30',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelSmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: const Color(
-                                                                    0xFF57636C),
-                                                                fontSize: 12,
-                                                                letterSpacing:
-                                                                    0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .labelSmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    color: const Color(
+                                                                        0xFF57636C),
+                                                                    fontSize:
+                                                                        12,
+                                                                    letterSpacing:
+                                                                        0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
                                                         ),
                                                       ),
                                                     ],
@@ -796,9 +795,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -834,15 +833,15 @@ class InicioPage extends GetView<InicioController> {
                                                                     0, 5, 0, 0),
                                                             child: Text(
                                                               'NickUno',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ),
@@ -857,15 +856,15 @@ class InicioPage extends GetView<InicioController> {
                                                                     0, 5, 0, 0),
                                                             child: Text(
                                                               '4.25',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    letterSpacing:
-                                                                        0,
-                                                                  ),
+                                                              style:
+                                                                  LightModeTheme()
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Readex Pro',
+                                                                        letterSpacing:
+                                                                            0,
+                                                                      ),
                                                             ),
                                                           ),
                                                         ),
@@ -894,9 +893,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -928,15 +927,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                         Padding(
@@ -946,15 +945,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ],
@@ -982,9 +981,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -1016,15 +1015,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             'NickDos',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                         Padding(
@@ -1034,15 +1033,15 @@ class InicioPage extends GetView<InicioController> {
                                                                   0, 5, 0, 0),
                                                           child: Text(
                                                             '4.00',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
-                                                                  letterSpacing:
-                                                                      0,
-                                                                ),
+                                                            style:
+                                                                LightModeTheme()
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Readex Pro',
+                                                                      letterSpacing:
+                                                                          0,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ],
@@ -1065,9 +1064,9 @@ class InicioPage extends GetView<InicioController> {
                                                           height: 32,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent4,
+                                                            color:
+                                                                LightModeTheme()
+                                                                    .accent4,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -1078,9 +1077,9 @@ class InicioPage extends GetView<InicioController> {
                                                             height: 32,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .accent4,
+                                                              color:
+                                                                  LightModeTheme()
+                                                                      .accent4,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -1092,8 +1091,7 @@ class InicioPage extends GetView<InicioController> {
                                                             ),
                                                             child: Icon(
                                                               Icons.add,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
+                                                              color: LightModeTheme()
                                                                   .secondaryText,
                                                               size: 24,
                                                             ),
@@ -1107,15 +1105,15 @@ class InicioPage extends GetView<InicioController> {
                                                                 0, 5, 0, 0),
                                                         child: Text(
                                                           '',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                letterSpacing:
-                                                                    0,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    letterSpacing:
+                                                                        0,
+                                                                  ),
                                                         ),
                                                       ),
                                                       Padding(
@@ -1125,15 +1123,15 @@ class InicioPage extends GetView<InicioController> {
                                                                 0, 5, 0, 0),
                                                         child: Text(
                                                           '',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                letterSpacing:
-                                                                    0,
-                                                              ),
+                                                          style:
+                                                              LightModeTheme()
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    letterSpacing:
+                                                                        0,
+                                                                  ),
                                                         ),
                                                       ),
                                                     ],

@@ -47,8 +47,8 @@ import '../pages/profesional/mis_pistas/mis_pistas_p.dart';
 import '../pages/profesional/mis_pistas/mis_pistas_b.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_p.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
-import '../pages/usuario/olvide_contrasena/olvide_contrasena.dart';
-import '../pages/usuario/olvide_contrasena/olvide_contrasena_b.dart';
+import '../ui/pages/olvide_contrasena/olvide_contrasena_p.dart';
+import '../ui/pages/olvide_contrasena/olvide_contrasena_b.dart';
 import '../pages/profesional/tarifas_pista/tarifas_pista.dart';
 import '../pages/profesional/tarifas_pista/tarifas_pista_b.dart';
 

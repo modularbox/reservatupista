@@ -147,7 +147,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, _) => [
@@ -155,7 +155,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
               pinned: true,
               floating: true,
               snap: true,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+              backgroundColor: LightModeTheme().secondaryBackground,
               iconTheme: IconThemeData(color: Color(0xFFFF0000)),
               automaticallyImplyLeading: false,
               leading: FlutterFlowIconButton(
@@ -165,7 +165,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                 buttonSize: 61.0,
                 icon: Icon(
                   Icons.arrow_back_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: LightModeTheme().primaryText,
                   size: 30.0,
                 ),
                 onPressed: () async {
@@ -176,7 +176,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                 FFLocalizations.of(context).getText(
                   'zm14rpko' /* Datos Profesional */,
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: LightModeTheme().bodyMedium,
               ),
               actions: [],
               centerTitle: true,
@@ -202,8 +202,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: LightModeTheme().secondaryBackground,
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 3.0,
@@ -223,13 +222,10 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                           width: 90.0,
                                           height: 90.0,
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .accent2,
+                                            color: LightModeTheme().accent2,
                                             shape: BoxShape.circle,
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
+                                              color: LightModeTheme().secondary,
                                               width: 2.0,
                                             ),
                                           ),
@@ -260,7 +256,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                 FFLocalizations.of(context).getText(
                                   '6yixzxnh' /* Datos Club */,
                                 ),
-                                style: FlutterFlowTheme.of(context).labelLarge,
+                                style: LightModeTheme().labelLarge,
                               ),
                             ),
                             Padding(
@@ -275,55 +271,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'ea75i48s' /* Nombre del Club */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'fidyr11f' /* Mike */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController1Validator
                                     .asValidator(context),
@@ -341,55 +333,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'c098k3l2' /* CIF/NIF */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'a1syawox' /* Miguel Angel */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController2Validator
                                     .asValidator(context),
@@ -407,55 +395,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     '3npdvyv5' /* Persona Responsable */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'ude41jvo' /* Hernandez Martinez */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController3Validator
                                     .asValidator(context),
@@ -473,55 +457,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'nu7yp2fm' /* Tipo */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'f07x8emt' /* Hombre */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController4Validator
                                     .asValidator(context),
@@ -539,55 +519,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'u94cuqku' /* Nombre Comercial */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'ciqgdv94' /* 12345678A */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController5Validator
                                     .asValidator(context),
@@ -605,55 +581,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'r2rb3qj7' /* Telefono */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     '9uh36uoi' /* 12345678A */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController6Validator
                                     .asValidator(context),
@@ -671,50 +643,46 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'dosq9svt' /* Email */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'qlm70wjm' /* 12345678A */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
@@ -722,7 +690,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                     Icons.email,
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController7Validator
                                     .asValidator(context),
@@ -740,55 +708,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'o9607510' /* Numero de cuenta */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'f2jzaxqf' /* ... */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController8Validator
                                     .asValidator(context),
@@ -806,55 +770,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     '1qdqtwv4' /* Certificado de cuenta */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'u6mf4jyc' /* ... */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController9Validator
                                     .asValidator(context),
@@ -867,7 +827,7 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                 FFLocalizations.of(context).getText(
                                   'io4i3a5c' /* Datos Ubicacion */,
                                 ),
-                                style: FlutterFlowTheme.of(context).labelLarge,
+                                style: LightModeTheme().labelLarge,
                               ),
                             ),
                             Padding(
@@ -882,55 +842,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'io6nryg8' /* Direccion */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     '1hxeuw06' /* ... */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController10Validator
                                     .asValidator(context),
@@ -948,55 +904,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'zindbfjv' /* Codigo Postal */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'qyzn0tlz' /* ... */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController11Validator
                                     .asValidator(context),
@@ -1014,55 +966,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'f7mp1cvn' /* Localidad */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'ota7oiuo' /* ... */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController12Validator
                                     .asValidator(context),
@@ -1080,55 +1028,51 @@ class _DatosProfesionalWidgetState extends State<DatosProfesionalWidget> {
                                       FFLocalizations.of(context).getText(
                                     'nw0q2ncp' /* Provincia */,
                                   ),
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).titleSmall,
+                                  labelStyle: LightModeTheme().titleSmall,
                                   hintText: FFLocalizations.of(context).getText(
                                     'apw43y3z' /* ... */,
                                   ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: Color(0xFF95A1AC),
-                                      ),
+                                  hintStyle:
+                                      LightModeTheme().bodyMedium.override(
+                                            fontFamily: 'Readex Pro',
+                                            color: Color(0xFF95A1AC),
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .lineColor,
+                                      color: LightModeTheme().lineColor,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: LightModeTheme().primary,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
+                                      color: LightModeTheme().error,
                                       width: 2.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:
+                                      LightModeTheme().secondaryBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           16.0, 24.0, 0.0, 24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: LightModeTheme().bodyMedium,
                                 validator: _model
                                     .emailAddressController13Validator
                                     .asValidator(context),

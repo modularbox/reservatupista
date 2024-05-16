@@ -58,7 +58,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       boxShadow: const [
                         BoxShadow(
                           blurRadius: 0.0,
@@ -78,7 +78,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                             width: 4.0,
                             height: 50.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: LightModeTheme().primary,
                               borderRadius: BorderRadius.circular(2.0),
                             ),
                           ),
@@ -89,7 +89,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                               child: Text(
                                 'Reserva de Pista',
                                 textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context).bodyLarge,
+                                style: LightModeTheme().bodyLarge,
                               ),
                             ),
                           ),
@@ -101,7 +101,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                                 FFLocalizations.of(context).getText(
                                   '35v8vko4' /* #7676742 */,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyLarge,
+                                style: LightModeTheme().bodyLarge,
                               ),
                             ),
                           ),
@@ -112,7 +112,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                               FFLocalizations.of(context).getText(
                                 'rplav8al' /* Mar 8, 2023 */,
                               ),
-                              style: FlutterFlowTheme.of(context).labelMedium,
+                              style: LightModeTheme().labelMedium,
                             ),
                           ),
                         ],
@@ -125,7 +125,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      color: LightModeTheme().primaryBackground,
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 0.0,
@@ -145,7 +145,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                             width: 4.0,
                             height: 50.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: LightModeTheme().alternate,
                               borderRadius: BorderRadius.circular(2.0),
                             ),
                           ),
@@ -155,7 +155,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'Reserva de Pista',
-                                style: FlutterFlowTheme.of(context).labelLarge,
+                                style: LightModeTheme().labelLarge,
                               ),
                             ),
                           ),
@@ -166,7 +166,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                               FFLocalizations.of(context).getText(
                                 '0lln34us' /* Mar 8, 2023 */,
                               ),
-                              style: FlutterFlowTheme.of(context).labelMedium,
+                              style: LightModeTheme().labelMedium,
                             ),
                           ),
                         ],
@@ -179,7 +179,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: LightModeTheme().secondaryBackground,
                       boxShadow: const [
                         BoxShadow(
                           blurRadius: 0.0,

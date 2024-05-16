@@ -124,8 +124,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondary)),
+                                    color: LightModeTheme().secondary)),
                             child: ImageServer(
                               height: 32,
                               width: 32,
@@ -133,9 +132,8 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                       ),
                       Text(
                         '4.00 €',
-                        style: FlutterFlowTheme.of(context)
-                            .bodySmall
-                            .copyWith(fontSize: 10),
+                        style:
+                            LightModeTheme().bodySmall.copyWith(fontSize: 10),
                       )
                     ],
                   ),
@@ -174,8 +172,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondary)),
+                        border: Border.all(color: LightModeTheme().secondary)),
                     width: 32.0,
                     height: 32.0,
                     child: listaDeImagenesPath[index],
@@ -183,9 +180,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                 ),
                 Text(
                   '4.00 €',
-                  style: FlutterFlowTheme.of(context)
-                      .bodySmall
-                      .copyWith(fontSize: 10),
+                  style: LightModeTheme().bodySmall.copyWith(fontSize: 10),
                 )
               ],
             ),
@@ -248,25 +243,23 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                         children: [
                           Text(
                             'Padel Bel',
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Color(0xFF14181B),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            style: LightModeTheme().bodyLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Color(0xFF14181B),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                           Text(
                             FFLocalizations.of(context).getText(
                               'wv5tlwap' /* # 1 */,
                             ),
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Color(0xFF14181B),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            style: LightModeTheme().bodyLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Color(0xFF14181B),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                         ],
                       ),
@@ -282,9 +275,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                                 0.0, 4.0, 0.0, 4.0),
                             child: Text(
                               fecha,
-                              style: FlutterFlowTheme.of(context)
-                                  .labelSmall
-                                  .override(
+                              style: LightModeTheme().labelSmall.override(
                                     fontFamily: 'Readex Pro',
                                     color: Color(0xFF57636C),
                                     fontSize: 12.0,
@@ -297,9 +288,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                                 0.0, 4.0, 0.0, 4.0),
                             child: Text(
                               '16.00 €',
-                              style: FlutterFlowTheme.of(context)
-                                  .labelSmall
-                                  .override(
+                              style: LightModeTheme().labelSmall.override(
                                     fontFamily: 'Readex Pro',
                                     color: Color(0xFF57636C),
                                     fontSize: 12.0,
@@ -322,9 +311,7 @@ class _MisReservasWidgetState extends State<MisReservasWidget>
                           ),
                           Text(
                             'Tarjeta',
-                            style: FlutterFlowTheme.of(context)
-                                .labelSmall
-                                .override(
+                            style: LightModeTheme().labelSmall.override(
                                   fontFamily: 'Readex Pro',
                                   color: Color(0xFF57636C),
                                   fontSize: 12.0,

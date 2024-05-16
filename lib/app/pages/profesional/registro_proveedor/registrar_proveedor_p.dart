@@ -14,7 +14,6 @@ import 'package:flutter/services.dart';
 
 class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
   RegistrarProveedorPage({super.key});
-
   RegistrarProveedorController get self => controller;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -62,8 +61,8 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                                 self.animTerminos,
                                 self.checkboxTerminos,
                                 Colores.proveedor.primary,
-                                self.checkboxTerminos,
-                                FlutterFlowTheme.of(Get.context!).primaryText),
+                                self.validateTerminos,
+                                LightModeTheme().primaryText),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10.0),
