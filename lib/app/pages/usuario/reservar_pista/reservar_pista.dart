@@ -537,6 +537,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   Widget buildHorarios(List<Horario> horarios, bool verHorarios) {
     Future<void> onPressedHorario(
         int index, String textHorario, String termino) async {
+      print("onPressedHorario ------------");
       self.pista_con_luces.value = horarios[index].luces;
       self.precio_con_luz_no_socio.value =
           horarios[index].precio_con_luz_no_socio ?? 0;
@@ -561,20 +562,17 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           0);
       DateTime horaFin =
           horaInicial.add(Duration(minutes: self.duracion_partida.value));
-      printError(info: horaFin.toString());
-      printError(info: horaFin.toString().substring(11, 16));
       self.hora_fin_reserva_seleccionada.value =
-          horaFin.toString().substring(11, 16);
+          horaFin.toString().substring(11, 19);
       self.selectHorario.value = HorarioFinInicio(
           inicio: textHorario,
           termino: termino,
           typeEstadoHorario: TypeEstadoHorario.abierta);
 
-      self.obtenerPlazasLibres();
+      await self.obtenerPlazasLibres();
     }
 
     if (verHorarios) {
-      // final widthHorario = (Get.width) / 4;
       return Column(
           children: List.generate(1, (col) {
         final List<Widget> rows = [];
@@ -708,6 +706,29 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                   termino: termino,
                                   typeEstadoHorario: TypeEstadoHorario.abierta);
 
+                              self.hora_inicio_reserva_seleccionada.value =
+                                  textHorario;
+                              int horaHoraInicio = int.parse(self
+                                  .hora_inicio_reserva_seleccionada.value
+                                  .substring(0, 2));
+                              int minutosHoraInicio = int.parse(self
+                                  .hora_inicio_reserva_seleccionada.value
+                                  .substring(3, 5));
+                              //PARA SETEAR LA HORA FIN
+                              DateTime horaInicial = DateTime(
+                                  self.fecha_seleccionada.value.year,
+                                  self.fecha_seleccionada.value.month,
+                                  self.fecha_seleccionada.value.day,
+                                  horaHoraInicio,
+                                  minutosHoraInicio,
+                                  0);
+                              DateTime horaFin = horaInicial.add(Duration(
+                                  minutes: self.duracion_partida.value));
+                              printError(info: horaFin.toString());
+                              printError(
+                                  info: horaFin.toString().substring(11, 19));
+                              self.hora_fin_reserva_seleccionada.value =
+                                  horaFin.toString().substring(11, 18);
                               self.obtenerPlazasLibres();
                             },
                             icon: Center(
@@ -842,7 +863,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       luz ? 'Si' : 'No',
       automatizada ? 'Si' : 'No',
       fechaHoraInicio.toString().substring(0, 16),
-      fechaHoraFin.toString().substring(0, 16),
+      '${fechaHoraFin.toString().substring(0, 10)} ${self.hora_fin_reserva_seleccionada.value.formatHora}',
       '${duracionPartida.toString()} minutos.',
       '${double.parse((self.precio_a_mostrar.value / 100).toString())} €',
       "code"

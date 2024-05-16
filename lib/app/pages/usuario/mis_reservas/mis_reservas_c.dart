@@ -65,6 +65,11 @@ class MisReservasController extends GetxController
   // Mostrar el width una vez que cargue la pantalla
   Rx<List<double>> deportesWidth =
       Rx<List<double>>(List.generate(16, (index) => 30.0));
+  late Timer _timer;
+
+  final _fecha = Rx<DateTime>(DateTime.now());
+  DateTime get fecha => _fecha.value;
+  set fecha(DateTime value) => _fecha.value = value;
 
   @override
   void onReady() async {
@@ -97,6 +102,9 @@ class MisReservasController extends GetxController
     // Mandar llamar a la api cargar datos cada vez que se cambie el estado del deporte
     debounce(_deporte, (val) => cargarDatos(),
         time: const Duration(milliseconds: 100));
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      fecha = DateTime.now();
+    });
   }
 
   /// Método para cargar datos
@@ -116,6 +124,7 @@ class MisReservasController extends GetxController
               element.fechaReserva.formatReserva,
               element.horaInicio);
         }
+
         misReservasUsuario.success(result);
       }
     } catch (e) {}
@@ -179,5 +188,11 @@ class MisReservasController extends GetxController
       print(e);
       return null;
     }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 }

@@ -360,21 +360,20 @@ class ReservarPistaController extends GetxController
   }
 
   void reservarPistaF() async {
-    // String? referencia = await db2.reservarPista(
-    //     db.idUsuario,
-    //     precio_a_mostrar.value / 100,
-    //     fecha_seleccionada.value,
-    //     hora_inicio_reserva_seleccionada.value,
-    //     id_pista_seleccionada.value.toString(),
-    //     usuario.value.plazasReservadas);
-    final referencia = '';
+    String? referencia = await db2.reservarPista(
+        db.idUsuario,
+        precio_a_mostrar.value / 100,
+        fecha_seleccionada.value,
+        hora_inicio_reserva_seleccionada.value,
+        id_pista_seleccionada.value.toString(),
+        usuario.value.plazasReservadas);
     if (referencia is String) {
       await EmailProvider().emailReservas(
           db.email,
           referencia,
           fecha_seleccionada.value.toString().substring(0, 10),
           hora_inicio_reserva_seleccionada.value,
-          '${hora_fin_reserva_seleccionada.value}',
+          hora_fin_reserva_seleccionada.value,
           localidad_seleccionada.value,
           deporteController.text,
           (selectPista.value! + 1).toString(),

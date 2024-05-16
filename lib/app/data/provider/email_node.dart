@@ -94,7 +94,6 @@ class EmailProvider extends GetConnect {
         'nombre': nombre,
         'num_participantes': numParticipantes,
       });
-      return;
       final response = await post(
           '$url/email/reserva_monedero',
           {

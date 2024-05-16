@@ -54,7 +54,17 @@ class DetalleReserva extends GetView<MisReservasController> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                    child: buildDetalles(),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text('Tiempo cancelacion'),
+                            Obx(buildTextHorario)
+                          ],
+                        ),
+                        buildDetalles(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -102,6 +112,7 @@ class DetalleReserva extends GetView<MisReservasController> {
       ['Comienza', state.horaInicio.formatHora],
       ['Finaliza', state.horaFin.formatHora],
       ['Duración', '${state.duracionPartida} Minutos'],
+      ['Para cancelar con antelacion', '24 horas'],
     ];
     List<Widget> titles = [];
     List<Widget> descripcion = [];
@@ -145,5 +156,20 @@ class DetalleReserva extends GetView<MisReservasController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: descripcion)
         ]);
+  }
+
+  Widget buildTextHorario() {
+    final hour = self.fecha.hour.toString().padLeft(2, '0');
+    final minute = self.fecha.minute.toString().padLeft(2, '0');
+    final second = self.fecha.second.toString().padLeft(2, '0');
+    return Text(
+      '$hour:$minute:$second',
+      style: LightModeTheme().displayMedium.override(
+            fontFamily: 'Outfit',
+            color: LightModeTheme().accent1,
+            fontSize: 12,
+            letterSpacing: 0,
+          ),
+    );
   }
 }

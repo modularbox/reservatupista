@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
@@ -34,7 +35,7 @@ class BuildUsuarios extends GetView<MisReservasController> {
               .divide(divide.sw),
         ),
       ),
-    ]);
+    ]).visible(reservasUsuarios != null);
   }
 
   Widget buildButton(
@@ -89,12 +90,8 @@ class BuildUsuarios extends GetView<MisReservasController> {
                     : Colores.usuario.primary,
                 fillColor: Colors.white,
                 icon: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                  child: ImageServer(
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
+                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                    child: buildImagen(user.imagen)),
               ),
               Text(user.nick),
               Text(user.nivel),
@@ -102,6 +99,10 @@ class BuildUsuarios extends GetView<MisReservasController> {
             ],
           ),
         ).divide(divide.sw));
+  }
+
+  Widget buildImagen(imageName) {
+    return Image.network(DatosServer.usuario(imageName), width: 50, height: 50);
   }
 
   Widget buildReservasAbiertas(ReservasUsuarios reservasUsuarios) {
