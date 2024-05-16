@@ -1,5 +1,8 @@
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/editar_noticia_admin/editar_noticia_admin_c.dart';
+import 'package:reservatu_pista/app/pages/administrador/editar_noticia_admin/noticia_detalle_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/inicio/noticias/detalle_noticia_p.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -151,51 +154,63 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                               ],
                                             ),
                                           ),
-                                          Container(
-                                            width: 120,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .reservaPendiente,
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              shape: BoxShape.rectangle,
-                                              border: Border.all(
+                                          GestureDetector(
+                                            onTap: () {
+                                              {
+                                                Get.to(
+                                                    EditarDetallesNoticiaWidget());
+                                              }
+                                              ;
+                                            },
+                                            child: Container(
+                                              width: 120,
+                                              height: 40,
+                                              decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'Editar',
-                                                  style: FlutterFlowTheme.of(
+                                                        .reservaPendiente,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                shape: BoxShape.rectangle,
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 16,
-                                                        letterSpacing: 0,
-                                                      ),
+                                                      .primaryText,
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
-                                                  child: Icon(
-                                                    Icons.settings_sharp,
-                                                    color: FlutterFlowTheme.of(
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Editar',
+                                                    style: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryText,
-                                                    size: 24,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          fontSize: 16,
+                                                          letterSpacing: 0,
+                                                        ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                5, 0, 0, 0),
+                                                    child: Icon(
+                                                      Icons.settings_sharp,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 24,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],
