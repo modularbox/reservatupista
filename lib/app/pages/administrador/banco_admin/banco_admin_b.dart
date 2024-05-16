@@ -4,6 +4,6 @@ import 'package:reservatu_pista/app/pages/administrador/banco_admin/banco_admin_
 class BancoAdminBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<BancoAdminController>(() => BancoAdminController());
+    Get.lazyPut<AdminBancoController>(() => AdminBancoController());
   }
 }

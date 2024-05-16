@@ -1,3 +1,3 @@
 import 'package:get/get.dart';
 
-class BancoAdminController extends GetxController {}
+class AdminBancoController extends GetxController {}

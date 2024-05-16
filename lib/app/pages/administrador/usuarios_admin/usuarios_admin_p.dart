@@ -1,14 +1,9 @@
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/usuarios_admin_c.dart';
-
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class AdminUsuarioWidget extends GetView<AdminUsuariosController> {
   const AdminUsuarioWidget({super.key});
@@ -40,13 +35,14 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(16, 12, 8, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16, 12, 8, 0),
                           child: TextFormField(
                             controller: _model.searchBarTextController,
                             focusNode: _model.searchBarFocusNode,
@@ -91,24 +87,25 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0xFFFF5963),
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0xFFFF5963),
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               filled: true,
-                              fillColor: Color(0xFFF1F4F8),
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                  24, 24, 20, 24),
-                              prefixIcon: Icon(
+                              fillColor: const Color(0xFFF1F4F8),
+                              contentPadding:
+                                  const EdgeInsetsDirectional.fromSTEB(
+                                      24, 24, 20, 24),
+                              prefixIcon: const Icon(
                                 Icons.search,
                                 color: Color(0xFF57636C),
                                 size: 16,
@@ -118,7 +115,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF14181B),
+                                  color: const Color(0xFF14181B),
                                   fontSize: 14,
                                   letterSpacing: 0,
                                   fontWeight: FontWeight.normal,
@@ -133,9 +130,10 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                 ),
                 Flexible(
                   child: Align(
-                    alignment: AlignmentDirectional(0, 1),
+                    alignment: const AlignmentDirectional(0, 1),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -145,16 +143,16 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                               print('Button pressed ...');
                             },
                             text: 'Correo',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.mail,
                               size: 15,
                             ),
                             options: FFButtonOptions(
                               height: 40,
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                              iconPadding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 0),
                               color: FlutterFlowTheme.of(context).primaryText,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -164,7 +162,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                     letterSpacing: 0,
                                   ),
                               elevation: 3,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
                               ),
@@ -176,16 +174,16 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                               print('Button pressed ...');
                             },
                             text: 'Mensaje',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.message_sharp,
                               size: 15,
                             ),
                             options: FFButtonOptions(
                               height: 40,
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                              iconPadding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 10, 0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 0),
                               color: FlutterFlowTheme.of(context).primaryText,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -195,7 +193,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                     letterSpacing: 0,
                                   ),
                               elevation: 3,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
                               ),
@@ -208,7 +206,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
+                    padding: const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -219,7 +217,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         height: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4,
                               color: Color(0x230E151B),
@@ -238,10 +236,11 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-0.96, -1.32),
+                              alignment:
+                                  const AlignmentDirectional(-0.96, -1.32),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 15, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 15, 0, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(24),
                                   child: Image.network(
@@ -254,9 +253,9 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0, -0.61),
+                              alignment: const AlignmentDirectional(0, -0.61),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     60, 0, 12, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -274,7 +273,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
-                                                color: Color(0xFF14181B),
+                                                color: const Color(0xFF14181B),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w500,
@@ -330,9 +329,8 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(5, 0, 0, 0),
                                           child: Text(
                                             'app@reservatupista.com',
                                             style: FlutterFlowTheme.of(context)
@@ -357,7 +355,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                       ),
                     )),
                 Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
+                    padding: const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -368,7 +366,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         height: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4,
                               color: Color(0x230E151B),
@@ -387,10 +385,11 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-0.96, -1.32),
+                              alignment:
+                                  const AlignmentDirectional(-0.96, -1.32),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 15, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 15, 0, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(24),
                                   child: Image.network(
@@ -403,9 +402,9 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0, -0.61),
+                              alignment: const AlignmentDirectional(0, -0.61),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     60, 0, 12, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -423,7 +422,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
-                                                color: Color(0xFF14181B),
+                                                color: const Color(0xFF14181B),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w500,
@@ -479,9 +478,8 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(5, 0, 0, 0),
                                           child: Text(
                                             'app@reservatupista.com',
                                             style: FlutterFlowTheme.of(context)
@@ -506,7 +504,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                       ),
                     )),
                 Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
+                    padding: const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -517,7 +515,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         height: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4,
                               color: Color(0x230E151B),
@@ -536,10 +534,11 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-0.96, -1.32),
+                              alignment:
+                                  const AlignmentDirectional(-0.96, -1.32),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 15, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 15, 0, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(24),
                                   child: Image.network(
@@ -552,9 +551,9 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0, -0.61),
+                              alignment: const AlignmentDirectional(0, -0.61),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     60, 0, 12, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -572,7 +571,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
-                                                color: Color(0xFF14181B),
+                                                color: const Color(0xFF14181B),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w500,
@@ -628,9 +627,8 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(5, 0, 0, 0),
                                           child: Text(
                                             'app@reservatupista.com',
                                             style: FlutterFlowTheme.of(context)
@@ -655,7 +653,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                       ),
                     )),
                 Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
+                    padding: const EdgeInsetsDirectional.fromSTEB(7, 10, 7, 10),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -666,7 +664,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         height: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4,
                               color: Color(0x230E151B),
@@ -685,10 +683,11 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-0.96, -1.32),
+                              alignment:
+                                  const AlignmentDirectional(-0.96, -1.32),
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 15, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 15, 0, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(24),
                                   child: Image.network(
@@ -701,9 +700,9 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0, -0.61),
+                              alignment: const AlignmentDirectional(0, -0.61),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     60, 0, 12, 0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -721,7 +720,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Readex Pro',
-                                                color: Color(0xFF14181B),
+                                                color: const Color(0xFF14181B),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w500,
@@ -777,9 +776,8 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(5, 0, 0, 0),
                                           child: Text(
                                             'app@reservatupista.com',
                                             style: FlutterFlowTheme.of(context)
