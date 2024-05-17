@@ -16,14 +16,6 @@ import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-// class DBAlvaroBinding implements Bindings {
-//   @override
-//   void dependencies() {
-//     Get.put<DBAlvaroController>(DBAlvaroController());
-//     Get.lazyPut(() => ReservarPistaController());
-//   }
-// }
-
 class DBAlvaroController extends GetxController {
   // Iniciarlizar la db
   late SharedPreferences storage;
@@ -385,6 +377,59 @@ class DBAlvaroController extends GetxController {
             reservarPistaController.hora_fin_reserva_seleccionada.value,
             storage.idUsuario.read(),
             reservarPistaController.id_pista_seleccionada.value,
+            reservaConTarjeta: true);
+        await launchURL(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
+        Get.back();
+        Get.back();
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //es igual que recargarMonedero
+  Future<void> reservarPistaCompartida(
+      {required int dinero,
+      required int id_pista_seleccionada,
+      required DateTime fecha_seleccionada,
+      required String hora_inicio_reserva_seleccionada,
+      required String hora_fin_reserva_seleccionada,
+      required int capacidad_pista,
+      required int plazasLibres}) async {
+    try {
+      var numOperacion = '';
+      var response = await comprobarExistenciaReservas(id_pista_seleccionada,
+          fecha_seleccionada, hora_inicio_reserva_seleccionada);
+      if (response['existeReserva'] && response['esReservaEnProceso']) {
+        Get.dialog(const AlertDialog(
+          title: Text("Alguien está en proceso de reservar esta pista."),
+          content: Text("Intente reservar en 10 minutos."),
+        ));
+        // Get.dialog(AlertDialog(
+        //   title: Text("Error. Ya existe una reserva para esta pista."),
+        //   content: Text("Elija otra hora, fecha o pista."),
+        // ));
+      } else {
+        if (plazasLibres == capacidad_pista) {
+          numOperacion = generarNumeroOperacionUnico(esReservaConTarjeta: true);
+          print('NOOOOOO PISAAAAAA ');
+        } else {
+          print('SIIIIII PISAAAAAA ');
+          numOperacion = generarNumeroOperacionUnico(
+              esReservaConTarjeta: true, pisarReserva: true);
+        }
+
+        print(
+            'reservarPistaController.hora_fin_reserva_seleccionada.value ${hora_fin_reserva_seleccionada}');
+        guardarUsuarioOperacion(
+            numOperacion,
+            dinero,
+            fecha_seleccionada,
+            hora_inicio_reserva_seleccionada,
+            hora_fin_reserva_seleccionada,
+            storage.idUsuario.read(),
+            id_pista_seleccionada,
             reservaConTarjeta: true);
         await launchURL(
             'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');

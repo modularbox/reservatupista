@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_p.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
 import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_b.dart';
@@ -90,6 +92,7 @@ enum RoutesType {
   pruebas,
   eliminar_cuenta,
   validar_email,
+  reserva_compartida,
 }
 
 /// Names Routes
@@ -128,6 +131,7 @@ abstract class Routes {
   static final PRUEBAS = RoutesType.pruebas.getRoute;
   static final ELIMINAR_CUENTA = RoutesType.eliminar_cuenta.getRoute;
   static final VALIDAR_EMAIL = RoutesType.validar_email.getRoute;
+  static final RESERVA_COMPARTIDA = RoutesType.reserva_compartida.getRoute;
 }
 
 /// Get Routes
@@ -200,6 +204,13 @@ class AppPages {
       name: Routes.DATOS_USUARIO,
       page: () => DatosUsuarioPage(),
       binding: DatosUsuarioBinding(),
+    ),
+
+    /// Reserva Compartida por Usuario
+    GetPage(
+      name: Routes.RESERVA_COMPARTIDA,
+      page: () => ReservaCompartidaPage(),
+      binding: ReservaCompartidaBinding(),
     ),
 
     /// Notificaciones Usuario

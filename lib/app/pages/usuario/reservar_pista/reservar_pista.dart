@@ -1152,15 +1152,13 @@ class SelectionWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                value == 'monedero'
-                    ? Text(
-                        self.db.dineroTotal.euro,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
-                      )
-                    : const SizedBox()
+                Text(
+                  self.db.dineroTotal.euro,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
+                ).visible(value == 'monedero')
               ],
             ),
           ),
