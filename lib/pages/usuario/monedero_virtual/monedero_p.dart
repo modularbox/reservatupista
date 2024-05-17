@@ -375,11 +375,11 @@ class MonederoPage extends GetView<MonederoController> {
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
-                        'Fecha: ${fecha.substring(0, 10)}',
+                        'Fecha: ${fecha.formatFechaTimestamp.formatDiaMesAnio}',
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
-                        'Hora: $hora_inicio',
+                        'Hora: ${hora_inicio.formatHora}',
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
@@ -459,6 +459,7 @@ class MonederoPage extends GetView<MonederoController> {
   Widget buildRecarga(Map<String, dynamic> state) {
     final int dinero_pagado = state['cantidad'];
     final String fecha = state['fecha_reserva'];
+    print('$fecha');
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
       child: Container(
@@ -517,11 +518,11 @@ class MonederoPage extends GetView<MonederoController> {
                             ),
                       ),
                       Text(
-                        'Fecha: ${fecha.substring(0, 10)}',
+                        'Fecha: ${fecha.formatFechaTimestamp.formatDiaMesAnio}',
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
-                        'Hora: ${fecha.substring(11, 18)}',
+                        'Hora: ${fecha.formatHoraTimestamp}',
                         style: LightModeTheme().labelMedium,
                       ),
                     ],
