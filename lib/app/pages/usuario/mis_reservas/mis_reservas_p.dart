@@ -197,23 +197,24 @@ class MisReservasPage extends GetView<MisReservasController> {
           hoverColor: Colores.usuario.primary69,
           borderRadius: 10,
           onPressed: () async {
-            DateTime fechaInicioPartida =
-                self.construirDatetime(state.fechaReserva, state.horaInicio);
-            DateTime fechaActual = DateTime.now();
-            DateTime fechaTiempoCancelacion = fechaInicioPartida
-                .subtract(Duration(hours: state.tiempo_cancelacion));
-            print(fechaActual);
-            print(fechaTiempoCancelacion);
-            Duration tiempoRestanteD =
-                fechaTiempoCancelacion.difference(fechaActual);
-            if (fechaActual < fechaTiempoCancelacion) {
-              int tiempoRestante =
-                  fechaTiempoCancelacion.millisecondsSinceEpoch -
-                      fechaActual.millisecondsSinceEpoch;
-              self.empezarFechaRestante(
-                  DateTime(tiempoRestante), tiempoRestanteD);
-            } else {
-              self.terminoFechaRestante();
+            try {
+              DateTime fechaInicioPartida =
+                  self.construirDatetime(state.fechaReserva, state.horaInicio);
+              DateTime fechaActual = DateTime.now();
+              DateTime fechaTiempoCancelacion = fechaInicioPartida
+                  .subtract(Duration(hours: state.tiempo_cancelacion));
+              print(fechaActual);
+              print(fechaTiempoCancelacion);
+              if (fechaActual < fechaTiempoCancelacion) {
+                Duration tiempoRestanteD =
+                    fechaTiempoCancelacion.difference(fechaActual);
+                self.empezarFechaRestante(tiempoRestanteD);
+              } else {
+                self.terminoFechaRestante();
+              }
+            } catch (e, st) {
+              print(e);
+              print(st);
             }
             Get.dialog(ResponsiveWeb(
                 child: DetalleReserva(
