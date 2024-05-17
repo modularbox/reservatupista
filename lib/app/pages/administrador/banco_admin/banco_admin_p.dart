@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/banco_admin/banco_admin_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
