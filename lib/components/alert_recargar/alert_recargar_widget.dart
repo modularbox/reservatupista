@@ -27,40 +27,37 @@ class AlertRecargarWidget extends GetView<MonederoController> {
         ),
       );
     }
-    return GestureDetector(
-      onTap: () => {},
-      child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-        child: Container(
-          width: double.infinity,
-          height: 510,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 4,
-                color: Color(0x320E151B),
-                offset: Offset(0, 1),
-              )
-            ],
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              5.0.sh,
-              buildTitle(),
-              buildBilletes(),
-              10.0.sh,
-              Obx(() => Text(
-                    self.money.euro,
-                    style: LightModeTheme().displaySmall,
-                  )),
-              buildBotones(),
-              5.0.sh
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+      child: Container(
+        width: double.infinity,
+        height: 510,
+        decoration: BoxDecoration(
+          color: LightModeTheme().secondaryBackground,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 4,
+              color: Color(0x320E151B),
+              offset: Offset(0, 1),
+            )
+          ],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            5.0.sh,
+            buildTitle(),
+            buildBilletes(),
+            10.0.sh,
+            Obx(() => Text(
+                  self.money.euro,
+                  style: LightModeTheme().displaySmall,
+                )),
+            buildBotones(),
+            5.0.sh
+          ],
         ),
       ),
     );

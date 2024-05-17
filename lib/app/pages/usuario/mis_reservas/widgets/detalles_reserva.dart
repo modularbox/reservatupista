@@ -37,14 +37,18 @@ class DetalleReserva extends GetView<MisReservasController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Text(
-                  'Detalles Reserva',
-                  textAlign: TextAlign.center,
-                  style: LightModeTheme().bodyLarge.copyWith(fontSize: 30),
-                ),
-              ),
+              10.0.sh,
+              buildTitle('Detalles Reserva'),
+              10.0.sh,
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 15.0),
+              //   child: Text(
+              //     'Detalles Reserva',
+              //     textAlign: TextAlign.center,
+              //     style: LightModeTheme().bodyLarge.copyWith(fontSize: 30),
+              //   ),
+              // ),
+
               BuildUsuarios(
                 capacidad: capacidad,
                 reservasUsuarios: reservasUsuarios,
@@ -75,6 +79,38 @@ class DetalleReserva extends GetView<MisReservasController> {
               20.0.sh,
             ],
           )),
+    );
+  }
+
+  Widget buildTitle(String title) {
+    return SizedBox(
+      width: 100.w - 45,
+      child: Stack(
+        children: [
+          Center(
+            child: Text(
+              title,
+              style: LightModeTheme().displaySmall,
+            ),
+          ),
+          Align(
+            alignment: const AlignmentDirectional(0.9, 0),
+            child: BtnIcon(
+              borderColor: const Color.fromARGB(255, 0, 0, 0),
+              borderRadius: 12,
+              borderWidth: 3,
+              fillColor: const Color(0xFFF77066),
+              buttonSize: 45,
+              icon: const Icon(
+                Icons.close_rounded,
+                color: Color.fromARGB(255, 0, 0, 0),
+                size: 30,
+              ),
+              onPressed: Get.back,
+            ),
+          )
+        ],
+      ),
     );
   }
 
