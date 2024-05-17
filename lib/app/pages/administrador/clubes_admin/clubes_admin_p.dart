@@ -32,6 +32,9 @@ class _ClubesAdminState extends GetView<BuscarClubController> {
           child: Obx(() => Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Container(
+                    height: 50,
+                  ),
                   Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),

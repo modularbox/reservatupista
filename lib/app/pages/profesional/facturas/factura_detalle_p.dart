@@ -1,4 +1,5 @@
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/profesional/facturas/factura_detalle_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -6,7 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 
-class FacturaProveedorWidget extends GetView<_FacturaProveedorWidgetState> {
+class FacturaProveedorWidget extends GetView<FacturaDetalleController> {
   const FacturaProveedorWidget({super.key});
 
   Widget build(BuildContext context) {
@@ -17,8 +18,7 @@ class FacturaProveedorWidget extends GetView<_FacturaProveedorWidgetState> {
   }
 }
 
-class _FacturaProveedorWidgetState
-    extends GetView<_FacturaProveedorWidgetState> {
+class _FacturaProveedorWidgetState extends GetView<FacturaDetalleController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

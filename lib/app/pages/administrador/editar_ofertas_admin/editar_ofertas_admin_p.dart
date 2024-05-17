@@ -30,6 +30,9 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Container(
+                    height: 50,
+                  ),
                   Align(
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(

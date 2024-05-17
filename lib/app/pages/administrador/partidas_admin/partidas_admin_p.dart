@@ -38,6 +38,9 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Container(
+                      height: 50,
+                    ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [

@@ -33,6 +33,9 @@ class _AdminTarifasWidgetState extends GetView<AdminTarifasController> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Container(
+                    height: 50,
+                  ),
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child: Row(
