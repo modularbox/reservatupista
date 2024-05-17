@@ -7,6 +7,7 @@ import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../mis_reservas_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,8 @@ class DetalleReserva extends GetView<MisReservasController> {
                 children: [
                   buildCancelarReserva(),
                   20.0.sw,
-                  buildWhatsappButton(),
+                  buildWhatsappButton(state.idReserva).visible(
+                      (reservasUsuarios!.plazasReservadasTotales != capacidad)),
                 ],
               ),
               20.0.sh,
@@ -169,14 +171,29 @@ class DetalleReserva extends GetView<MisReservasController> {
     );
   }
 
-  Widget buildWhatsappButton() {
+  Future<void> compartirReservaWhatsapp(int id_reserva) async {
+    String message = "https://app.reservatupista.com?id_reserva=$id_reserva";
+    String phoneNumber =
+        "34653483483"; // Número de teléfono al que se enviará el mensaje
+
+    var whatsappUrl =
+        "https://wa.me/$phoneNumber/?text=${Uri.encodeFull(message)}";
+    if (!await launchUrl(
+      Uri.parse(whatsappUrl),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $whatsappUrl');
+    }
+  }
+
+  Widget buildWhatsappButton(int id_reserva) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BtnIcon(
           onPressed: () async {
-            //await self.eliminarReserva(idReserva);
+            await compartirReservaWhatsapp(id_reserva);
           },
           icon: Row(children: [
             Text(
@@ -303,7 +320,7 @@ class DetalleReserva extends GetView<MisReservasController> {
     final hour = (self.tiempo_restante / 1000 / 60 / 60).floor();
     int nuevoTiempoRestante = self.tiempo_restante - (hour * 1000 * 60 * 60);
     //tiempoRestante = tiempoRestante - (hour * 1000 * 60 * 60);
-    final minute = ((self.tiempo_restante / 1000 / 60) % 60).floor();
+    final minute = ((nuevoTiempoRestante / 1000 / 60) % 60).floor();
     nuevoTiempoRestante = nuevoTiempoRestante - (minute * 1000 * 60);
     final second = (nuevoTiempoRestante / 1000).floor();
     print('tiempoRestante $self.tiempo_restante');
