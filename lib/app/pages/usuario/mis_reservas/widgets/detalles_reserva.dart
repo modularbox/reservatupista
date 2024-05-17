@@ -16,11 +16,13 @@ class DetalleReserva extends GetView<MisReservasController> {
       required this.capacidad,
       required this.reservasUsuarios,
       required this.idReserva,
-      required this.state});
+      required this.state,
+      required this.tiempoRestante});
   final int capacidad;
   final ReservasUsuarios? reservasUsuarios;
   final String idReserva;
   final MisReservasUsuarioModel state;
+  final int tiempoRestante;
   MisReservasController get self => controller;
   @override
   Widget build(BuildContext context) {
@@ -125,29 +127,8 @@ class DetalleReserva extends GetView<MisReservasController> {
     ];
     List<Widget> titles = [];
     List<Widget> descripcion = [];
-
-    /// Agregar tiempo de cancelacion
-    titles.add(
-      Text(
-        'Tiempo cancelación:',
-        style: LightModeTheme().bodyMedium.override(
-              fontFamily: 'Readex Pro',
-              letterSpacing: 0,
-              fontWeight: FontWeight.w800,
-            ),
-      ),
-    );
-    titles.add(10.0.sh);
-    descripcion.add(
-      Obx(() => Text(
-            buildTextHorario(),
-            style: LightModeTheme().bodyMedium.override(
-                  fontFamily: 'Readex Pro',
-                  letterSpacing: 0,
-                ),
-          )),
-    );
-    descripcion.add(10.0.sh);
+    print('state.horaInicio.formatHora ${state.horaInicio.formatHora}');
+    print('state.horaFin.formatHora ${state.horaFin.formatHora}');
 
     /// Terminar de agregar tiempo de cancelacion
     for (final element in detalles) {
@@ -173,6 +154,23 @@ class DetalleReserva extends GetView<MisReservasController> {
       );
       descripcion.add(10.0.sh);
     }
+
+    /// Agregar tiempo de cancelacion
+    titles.add(
+      Text(
+        'Tiempo cancelación:',
+        style: LightModeTheme().bodyMedium.override(
+              fontFamily: 'Readex Pro',
+              letterSpacing: 0,
+              fontWeight: FontWeight.w800,
+            ),
+      ),
+    );
+    titles.add(10.0.sh);
+    descripcion.add(
+      Obx(buildTextHorario),
+    );
+    descripcion.add(10.0.sh);
     // detalles
     return Row(
         mainAxisSize: MainAxisSize.max,
@@ -205,18 +203,29 @@ class DetalleReserva extends GetView<MisReservasController> {
   //     return '0';
   //   }
   // }
-  String buildTextHorario() {
-    final duracion = self.duracion;
-    final fecha = DateTime(0).add(duracion);
-    if (fecha is DateTime) {
-      final dias = fecha.day;
-      final hour = fecha.hour.toString().padLeft(2, '0');
-      final minute = fecha.minute.toString().padLeft(2, '0');
-      final second = fecha.second.toString().padLeft(2, '0');
 
-      return 'Días $dias, $hour:$minute:$second';
-    } else {
-      return '0';
-    }
+  Widget buildTextHorario() {
+    final days = ((self.tiempo_restante / 1000 / 60 / 60) / 24).floor();
+    final hour = (self.tiempo_restante / 1000 / 60 / 60).floor();
+    int nuevoTiempoRestante = self.tiempo_restante - (hour * 1000 * 60 * 60);
+    //tiempoRestante = tiempoRestante - (hour * 1000 * 60 * 60);
+    final minute = ((self.tiempo_restante / 1000 / 60) % 60).floor();
+    nuevoTiempoRestante = nuevoTiempoRestante - (minute * 1000 * 60);
+    final second = (nuevoTiempoRestante / 1000).floor();
+    print('tiempoRestante $self.tiempo_restante');
+    print('hour $hour');
+    print('minute $minute');
+    print('second $second');
+    return Text(
+      self.tiempo_restante == 0
+          ? 'Ya no se puede cancelar'
+          : 'Quedan $days Días, $hour horas, $minute minutos, $second segundos',
+      style: LightModeTheme().displayMedium.override(
+            fontFamily: 'Outfit',
+            color: LightModeTheme().accent1,
+            fontSize: 12,
+            letterSpacing: 0,
+          ),
+    );
   }
 }

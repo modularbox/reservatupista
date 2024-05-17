@@ -92,6 +92,7 @@ class MisReservasUsuarioModel {
         "id_usuario": idUsuario,
         "id_pista": idPista,
         "hora_inicio": horaInicio,
+        "horaFin": horaFin,
         "fecha_reserva": fechaReserva,
         "referencia": referencia,
         "deporte": deporte,
@@ -106,7 +107,7 @@ class MisReservasUsuarioModel {
         // "iluminacion": iluminacion,
         // "automatizada": automatizada,
         // "pista": pista,
-        // "horaFin": horaFin,
+
         // "duracionPartida": duracionPartida,
       };
 }

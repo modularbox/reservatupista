@@ -168,8 +168,7 @@ class MisReservasPage extends GetView<MisReservasController> {
   /// Reserva
   Widget buildReserva(MisReservasUsuarioModel state) {
     // Verificar si la reserva esta cerrada
-    print(
-        'state.reservasUsuarios.plazasReservadasTotales ${state.reservasUsuarios!.plazasReservadasTotales}');
+    print('state.toJson() ${state.toJson()}');
     final isCerrada =
         state.reservasUsuarios!.plazasReservadasTotales == state.capacidad;
     return Padding(
@@ -197,30 +196,47 @@ class MisReservasPage extends GetView<MisReservasController> {
           hoverColor: Colores.usuario.primary69,
           borderRadius: 10,
           onPressed: () async {
-            DateTime fechaInicioPartida =
-                self.construirDatetime(state.fechaReserva, state.horaInicio);
-            DateTime fechaActual = DateTime.now();
-            DateTime fechaTiempoCancelacion = fechaInicioPartida
-                .subtract(Duration(hours: state.tiempo_cancelacion));
-            print(fechaActual);
-            print(fechaTiempoCancelacion);
-            Duration tiempoRestanteD =
-                fechaTiempoCancelacion.difference(fechaActual);
-            if (fechaActual < fechaTiempoCancelacion) {
-              int tiempoRestante =
-                  fechaTiempoCancelacion.millisecondsSinceEpoch -
-                      fechaActual.millisecondsSinceEpoch;
-              self.empezarFechaRestante(
-                  DateTime(tiempoRestante), tiempoRestanteD);
-            } else {
-              self.terminoFechaRestante();
+            int tiempoRestante = 0;
+            try {
+              DateTime fechaInicioPartida =
+                  self.construirDatetime(state.fechaReserva, state.horaInicio);
+              DateTime fechaActual = DateTime.now();
+              DateTime fechaTiempoCancelacion = fechaInicioPartida
+                  .subtract(Duration(hours: state.tiempo_cancelacion));
+              print('tiempoCancelacion ${state.tiempo_cancelacion}');
+              print('fechaInicioPartida $fechaInicioPartida');
+              print('fechaActual $fechaActual');
+              print('fechaTiempoCancelacion $fechaTiempoCancelacion');
+
+              print(
+                  ' fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch ${fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch}');
+              if (fechaActual < fechaTiempoCancelacion) {
+                tiempoRestante = fechaTiempoCancelacion.millisecondsSinceEpoch -
+                    fechaActual.millisecondsSinceEpoch;
+                print('tiempoRestante $tiempoRestante');
+
+                int horasRestantes = (tiempoRestante / 1000 / 60 / 60).floor();
+                int minutosRestantes =
+                    ((tiempoRestante / 1000 / 60) % 60).floor();
+                int segundosRestantes = ((tiempoRestante / 1000) % 60).floor();
+
+                print('horasRestantes $horasRestantes');
+                print('minutosRestantes $minutosRestantes');
+                print('segundosRestantes $segundosRestantes');
+                self.empezarFechaRestante(tiempoRestante);
+              }
+            } catch (e, st) {
+              print('eeeeeee $e');
+              print('eeeeeee stack $st');
             }
             Get.dialog(ResponsiveWeb(
                 child: DetalleReserva(
-                    idReserva: state.idReserva.toString(),
-                    capacidad: state.capacidad,
-                    state: state,
-                    reservasUsuarios: state.reservasUsuarios)));
+              idReserva: state.idReserva.toString(),
+              capacidad: state.capacidad,
+              state: state,
+              reservasUsuarios: state.reservasUsuarios,
+              tiempoRestante: tiempoRestante,
+            )));
           },
           icon: Column(
             children: [

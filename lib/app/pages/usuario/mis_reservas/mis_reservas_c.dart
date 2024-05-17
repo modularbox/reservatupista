@@ -67,12 +67,9 @@ class MisReservasController extends GetxController
       Rx<List<double>>(List.generate(16, (index) => 30.0));
   late Timer _timer;
 
-  final _fecha = Rxn<DateTime>();
-  DateTime? get fecha => _fecha.value;
-  set fecha(DateTime? value) => _fecha.value = value;
-  final _duracion = Rx<Duration>(const Duration());
-  Duration get duracion => _duracion.value;
-  set duracion(Duration value) => _duracion.value = value;
+  final _tiempo_restante = 0.obs;
+  int get tiempo_restante => _tiempo_restante.value;
+  set tiempo_restante(int value) => _tiempo_restante.value = value;
 
   @override
   void onReady() async {
@@ -133,27 +130,19 @@ class MisReservasController extends GetxController
     } catch (e) {}
   }
 
-  void empezarFechaRestante(DateTime fechaRestante, Duration tiempoRestante) {
-    printError(info: fechaRestante.toString());
+  void empezarFechaRestante(int tiempoRestante) {
     try {
       _timer.cancel();
     } catch (e) {}
 
-    duracion = tiempoRestante;
+    tiempo_restante = tiempoRestante;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      duracion = duracion - const Duration(seconds: 1);
+      tiempo_restante = tiempo_restante - 1000;
     });
     // fecha = fechaRestante;
     // _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
     //   fecha = fecha!.subtract(const Duration(seconds: 1));
     // });
-  }
-
-  void terminoFechaRestante() {
-    try {
-      _timer.cancel();
-    } catch (e) {}
-    fecha = null;
   }
 
   /// Ver cuando pulsa en algun deporte
