@@ -33,7 +33,7 @@ class _EditarDetallesNoticiaWidgetState
                   Image.network(
                     'https://cdn-icons-png.flaticon.com/512/2/2120.png',
                     width: MediaQuery.sizeOf(context).width,
-                    height: 230,
+                    height: 180,
                     fit: BoxFit.contain,
                   ),
                   Padding(

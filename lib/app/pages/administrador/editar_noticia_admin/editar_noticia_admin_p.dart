@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/editar_noticia_admin/editar_noticia_admin_c.dart';
 import 'package:reservatu_pista/app/pages/administrador/editar_noticia_admin/noticia_detalle_p.dart';
-import 'package:reservatu_pista/app/pages/usuario/inicio/noticias/detalle_noticia_p.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -156,11 +154,8 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              {
-                                                Get.to(
-                                                    EditarDetallesNoticiaWidget());
-                                              }
-                                              ;
+                                              Get.to(
+                                                  EditarDetallesNoticiaWidget());
                                             },
                                             child: Container(
                                               width: 120,
