@@ -207,6 +207,7 @@ class DetalleReserva extends GetView<MisReservasController> {
       ['Nivel', 'Libre'],
       ['Total precio', state.dineroPagado.euro],
       ['Localidad', state.localidad],
+      [state.tipoProveedor, state.nombrePatrocinador],
       ['Deporte', state.deporte],
       ['Nº de Pista', state.numPista.toString()],
       ['Luz', 'Si'],

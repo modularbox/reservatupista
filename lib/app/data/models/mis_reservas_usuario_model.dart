@@ -26,7 +26,9 @@ class MisReservasUsuarioModel {
   final int automatizada;
   final String pista;
   final int duracionPartida;
+  final String tipoProveedor;
   final int tiempo_cancelacion;
+
   ReservasUsuarios? reservasUsuarios;
 
   MisReservasUsuarioModel(
@@ -51,6 +53,7 @@ class MisReservasUsuarioModel {
       required this.horaFin,
       required this.duracionPartida,
       required this.tipoReserva,
+      required this.tipoProveedor,
       required this.tiempo_cancelacion,
       this.reservasUsuarios});
 
@@ -83,6 +86,7 @@ class MisReservasUsuarioModel {
         horaFin: json['hora_fin'],
         duracionPartida: json['duracion_partida'],
         tiempo_cancelacion: json['tiempo_cancelacion_no_socio'],
+        tipoProveedor: json['tipo'],
         tipoReserva: json['tipo_reserva'],
       );
 
@@ -101,6 +105,8 @@ class MisReservasUsuarioModel {
         "capacidad": capacidad,
         "nombre": nombre,
         "foto": foto,
+        "localidad": localidad,
+        "tipo_proveedor": tipoProveedor,
         "tipo_reserva": tipoReserva,
         // "localidad": localidad,
         // "luz": luz,
