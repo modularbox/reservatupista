@@ -486,7 +486,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Icon(
-                                      Icons.newspaper_sharp,
+                                      Icons.local_offer_sharp,
                                       color: LightModeTheme().secondaryText,
                                       size: 24,
                                     ),

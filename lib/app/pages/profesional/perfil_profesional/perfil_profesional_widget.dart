@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
@@ -325,7 +327,7 @@ class _PerfilProfesionalWidgetState extends State<PerfilProfesionalWidget> {
         height: height,
         padding: padding,
         onPressed: () async {
-          Get.toNamed(Routes.MIS_PISTAS);
+          Get.to(DetalleClubWidget());
         },
       ),
       ButtonPerfil(
