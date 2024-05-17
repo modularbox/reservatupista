@@ -301,6 +301,12 @@ extension FFStringExt on String {
           : this;
 
   String get formatHora => substring(0, 5);
+  String get formatHoraTimestamp => substring(11, 16);
+  String get formatFechaTimestamp => substring(0, 10);
+
+  /// COnvertir 2024-05-16' - 16-05-2024'
+  String get formatDiaMesAnio =>
+      '${substring(length - 2, length)}${substring(4, 8)}${substring(0, 4)}';
 }
 
 extension ListFilterExt<T> on Iterable<T?> {

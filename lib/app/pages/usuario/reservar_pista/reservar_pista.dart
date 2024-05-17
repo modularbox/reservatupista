@@ -4,8 +4,6 @@ import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import './widgets/build_usuarios.dart';
-import 'package:reservatu_pista/app/routes/app_pages.dart';
-import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/calendar/src/models/calendar_config.dart';
 import 'package:reservatu_pista/utils/calendar/src/widgets/calendar_date_picker2.dart';
@@ -13,7 +11,6 @@ import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/buttons_sounds.dart';
 import '../../../../utils/colores.dart';
-import '../../../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../../utils/search_droptown/dropdown_search.dart';
 import './reservar_pista_c.dart';
@@ -294,99 +291,91 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   Widget buildFechasHorarios() {
-    final List<Widget> buildFechaHorarios = List.generate(1, (index) {
-      return Column(
-        children: [
-          Container(
-            // width: Get.width * 0.3,
-            color: Colors.green,
-            child: Row(
-              children: [
-                index == 0
-                    ? const SizedBox(
-                        width: 25,
-                      )
-                    : BtnIcon(
-                        onPressed: () {
-                          self.pageViewController.previousPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.linear);
-                        },
-                        hoverColor: Colores.usuario.primary69,
-                        borderRadius: 25,
-                        icon: const Icon(Icons.arrow_back_ios,
-                            color: Colors.white, size: 25),
-                      ),
-                Expanded(
-                  child: Text(
-                    self.selectDateDay.value != null
-                        ? FormatDate.dateToString(DateTime(
-                            self.selectDateDay.value!.year,
-                            self.selectDateDay.value!.month,
-                            self.selectDateDay.value!.day))
-                        : FormatDate.dateToString(DateTime(DateTime.now().year,
-                            DateTime.now().month, DateTime.now().day)),
-                    textAlign: TextAlign.center,
-                    style: LightModeTheme().bodySmall.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 18),
-                  ),
+    final Widget buildFechaHorarios = Column(
+      children: [
+        Container(
+          // width: Get.width * 0.3,
+          color: Colors.green,
+          child: Row(
+            children: [
+              BtnIcon(
+                onPressed: () {
+                  self.pageViewController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.linear);
+                },
+                hoverColor: Colores.usuario.primary69,
+                borderRadius: 25,
+                icon: const Icon(Icons.arrow_back_ios,
+                    color: Colors.white, size: 25),
+              ),
+              Expanded(
+                child: Text(
+                  self.selectDateDay.value != null
+                      ? FormatDate.dateToString(DateTime(
+                          self.selectDateDay.value!.year,
+                          self.selectDateDay.value!.month,
+                          self.selectDateDay.value!.day))
+                      : FormatDate.dateToString(DateTime(DateTime.now().year,
+                          DateTime.now().month, DateTime.now().day)),
+                  textAlign: TextAlign.center,
+                  style: LightModeTheme().bodySmall.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 18),
                 ),
-                BtnIcon(
-                  onPressed: () {
-                    self.pageViewController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.linear);
-                  },
-                  hoverColor: Colores.usuario.primary69,
-                  borderRadius: 28,
-                  icon: const Icon(Icons.arrow_forward_ios,
-                      color: Colors.white, size: 28),
-                ),
-              ],
-            ),
+              ),
+              BtnIcon(
+                onPressed: () {
+                  self.pageViewController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.linear);
+                },
+                hoverColor: Colores.usuario.primary69,
+                borderRadius: 28,
+                icon: const Icon(Icons.arrow_forward_ios,
+                    color: Colors.white, size: 28),
+              ),
+            ],
           ),
-          FutureBuilder<Widget>(
-            future: enviarHorarios(
-                self.id_pista_seleccionada.value,
-                DateTime(
-                    self.fecha_seleccionada.value.year,
-                    self.fecha_seleccionada.value.month,
-                    self.fecha_seleccionada.value
-                        .day)), // Aquí debes pasar el id de la pista correcto
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                print(111111);
-                // Mientras se carga la lista de widgets
-                return const CircularProgressIndicator(); // Puedes mostrar un indicador de carga
-              } else if (snapshot.hasError) {
-                print(11111111);
-                // Si hay un error al cargar la lista de widgets
-                return Text('Errorr: ${snapshot.error}');
-              } else {
-                print(11111111111);
-                return snapshot.data!;
-              }
-            },
-          ),
-        ],
-      );
-    });
+        ),
+        FutureBuilder<Widget>(
+          future: enviarHorarios(
+              self.id_pista_seleccionada.value,
+              DateTime(
+                  self.fecha_seleccionada.value.year,
+                  self.fecha_seleccionada.value.month,
+                  self.fecha_seleccionada.value
+                      .day)), // Aquí debes pasar el id de la pista correcto
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              print(111111);
+              // Mientras se carga la lista de widgets
+              return const CircularProgressIndicator(); // Puedes mostrar un indicador de carga
+            } else if (snapshot.hasError) {
+              print(11111111);
+              // Si hay un error al cargar la lista de widgets
+              return Text('Errorr: ${snapshot.error}');
+            } else {
+              print(11111111111);
+              return snapshot.data!;
+            }
+          },
+        ),
+      ],
+    );
 
     return Container(
       key: self.keyHorarios,
-      child: self.selectDay.value == null
-          ? 0.0.empty
-          : SizedBox(
-              width: 100.w,
-              height: 170,
-              child: PageView(
-                controller: self.pageViewController,
-                scrollDirection: Axis.horizontal,
-                children: buildFechaHorarios,
-              ),
-            ),
+      child: SizedBox(
+        width: 100.w,
+        height: 210,
+        child: PageView(
+          controller: self.pageViewController,
+          scrollDirection: Axis.horizontal,
+          children: [buildFechaHorarios],
+        ),
+      ).visible(self.selectDay.value != null),
     );
   }
 
@@ -581,7 +570,8 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           rows.add(Obx(() => Row(
                   children: List<Widget>.generate(4, (row) {
                 if ((row + i) < horarios.length) {
-                  final String textHorario = horarios[row + i].horario;
+                  final String textHorario =
+                      horarios[row + i].horario.formatHora;
                   final isSelect =
                       self.hora_inicio_reserva_seleccionada.value ==
                           textHorario;
@@ -755,9 +745,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 fontSize: 16),
                           ))));
                 } else {
-                  return SizedBox(
-                    height: 40,
-                    width: 90.w / 4,
+                  return const Flexible(
+                    child: SizedBox(
+                      height: 40,
+                    ),
                   );
                 }
               }))));
