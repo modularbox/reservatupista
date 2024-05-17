@@ -23,7 +23,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
       onTap: () {},
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: Stack(
@@ -31,10 +31,14 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Container(
+                    height: 50,
+                  ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -45,13 +49,12 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: MediaQuery.sizeOf(context).height * 0.15,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: LightModeTheme().secondaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                offset: Offset(
+                                color: LightModeTheme().primaryText,
+                                offset: const Offset(
                                   0,
                                   2,
                                 ),
@@ -59,7 +62,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                             ],
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                               width: 2,
                             ),
                           ),
@@ -79,7 +82,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment:
@@ -87,19 +90,19 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                   children: [
                                     Text(
                                       'Apertura pista Riolobos',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: LightModeTheme()
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            color: LightModeTheme().primaryText,
                                             fontSize: 18,
                                             letterSpacing: 0,
                                           ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 30, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 30, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -110,15 +113,13 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .errorGeneral,
+                                                  LightModeTheme().errorGeneral,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -139,8 +140,9 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.remove_circle,
                                                     color: FlutterFlowTheme.of(
@@ -155,15 +157,14 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                           GestureDetector(
                                             onTap: () {
                                               Get.to(
-                                                  EditarDetallesNoticiaWidget());
+                                                  const EditarDetallesNoticiaWidget());
                                             },
                                             child: Container(
                                               width: 120,
                                               height: 40,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .reservaPendiente,
+                                                color: LightModeTheme()
+                                                    .reservaPendiente,
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 shape: BoxShape.rectangle,
@@ -192,9 +193,9 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                5, 0, 0, 0),
+                                                            5, 0, 0, 0),
                                                     child: Icon(
                                                       Icons.settings_sharp,
                                                       color:
@@ -221,9 +222,10 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -234,13 +236,12 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: MediaQuery.sizeOf(context).height * 0.15,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: LightModeTheme().secondaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                offset: Offset(
+                                color: LightModeTheme().primaryText,
+                                offset: const Offset(
                                   0,
                                   2,
                                 ),
@@ -248,7 +249,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                             ],
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                               width: 2,
                             ),
                           ),
@@ -268,7 +269,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment:
@@ -276,19 +277,19 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                   children: [
                                     Text(
                                       'Clausura club Cáceres',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: LightModeTheme()
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            color: LightModeTheme().primaryText,
                                             fontSize: 18,
                                             letterSpacing: 0,
                                           ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 30, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 30, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -299,15 +300,13 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .errorGeneral,
+                                                  LightModeTheme().errorGeneral,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -328,8 +327,9 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.remove_circle,
                                                     color: FlutterFlowTheme.of(
@@ -345,16 +345,14 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                             width: 120,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .reservaPendiente,
+                                              color: LightModeTheme()
+                                                  .reservaPendiente,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -375,8 +373,9 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.settings_sharp,
                                                     color: FlutterFlowTheme.of(
@@ -401,9 +400,10 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -414,13 +414,12 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: MediaQuery.sizeOf(context).height * 0.15,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: LightModeTheme().secondaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                offset: Offset(
+                                color: LightModeTheme().primaryText,
+                                offset: const Offset(
                                   0,
                                   2,
                                 ),
@@ -428,7 +427,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                             ],
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: LightModeTheme().primaryText,
                               width: 2,
                             ),
                           ),
@@ -448,7 +447,7 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment:
@@ -456,19 +455,19 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                   children: [
                                     Text(
                                       'Torneo de padel Cáceres',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: LightModeTheme()
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                            color: LightModeTheme().primaryText,
                                             fontSize: 18,
                                             letterSpacing: 0,
                                           ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 30, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 30, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -479,15 +478,13 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .errorGeneral,
+                                                  LightModeTheme().errorGeneral,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -508,8 +505,9 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.remove_circle,
                                                     color: FlutterFlowTheme.of(
@@ -525,16 +523,14 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                             width: 120,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .reservaPendiente,
+                                              color: LightModeTheme()
+                                                  .reservaPendiente,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -555,8 +551,9 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5, 0, 0, 0),
                                                   child: Icon(
                                                     Icons.settings_sharp,
                                                     color: FlutterFlowTheme.of(
@@ -583,18 +580,18 @@ class _EditarNoticiasWidgetState extends GetView<EditarNoticiasController> {
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional(1, 1),
+                alignment: const AlignmentDirectional(1, 1),
                 child: Padding(
-                  padding: EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(24),
                   child: FlutterFlowIconButton(
-                    borderColor: FlutterFlowTheme.of(context).primaryText,
+                    borderColor: LightModeTheme().primaryText,
                     borderRadius: 40,
                     borderWidth: 2,
                     buttonSize: 50,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    fillColor: LightModeTheme().secondaryBackground,
                     icon: Icon(
                       Icons.add_sharp,
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: LightModeTheme().primaryText,
                       size: 30,
                     ),
                     onPressed: () {

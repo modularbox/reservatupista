@@ -24,9 +24,6 @@ class _EditarDetallesNoticiaWidgetState
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 50,
-            ),
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
