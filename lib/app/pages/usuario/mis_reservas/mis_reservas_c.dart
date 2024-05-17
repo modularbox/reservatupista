@@ -133,7 +133,10 @@ class MisReservasController extends GetxController
   void empezarFechaRestante(int tiempoRestante) {
     try {
       _timer.cancel();
-    } catch (e) {}
+    } catch (e, st) {
+      print('e: $e');
+      print('st $st');
+    }
 
     tiempo_restante = tiempoRestante;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {

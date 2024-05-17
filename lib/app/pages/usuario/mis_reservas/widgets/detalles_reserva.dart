@@ -51,7 +51,6 @@ class DetalleReserva extends GetView<MisReservasController> {
                 divide: 20.0,
               ),
               20.0.sh,
-              buildCancelarReserva(),
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -64,6 +63,16 @@ class DetalleReserva extends GetView<MisReservasController> {
                   ),
                 ),
               ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildCancelarReserva(),
+                  20.0.sw,
+                  buildWhatsappButton(),
+                ],
+              ),
+              20.0.sh,
             ],
           )),
     );
@@ -101,6 +110,38 @@ class DetalleReserva extends GetView<MisReservasController> {
           padding: const EdgeInsets.all(10.0),
           hoverColor: Colores.usuario.primary69,
           borderColor: Colores.rojo,
+          borderWidth: 1,
+          borderRadius: 8.0,
+        ),
+      ],
+    );
+  }
+
+  Widget buildWhatsappButton() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        BtnIcon(
+          onPressed: () async {
+            //await self.eliminarReserva(idReserva);
+          },
+          icon: Row(children: [
+            Text(
+              'Compartir',
+              style: LightModeTheme().bodyMedium.copyWith(fontSize: 18),
+            ),
+            5.0.sw,
+            Image.asset(
+              "assets/images/icon_whatsapp.png",
+              width: 20,
+              height: 20,
+            )
+          ]),
+          fillColor: LightModeTheme().successGeneral,
+          padding: const EdgeInsets.all(10.0),
+          hoverColor: Colores.usuario.primary69,
+          borderColor: Colores.sucessGeneral,
           borderWidth: 1,
           borderRadius: 8.0,
         ),
@@ -222,7 +263,9 @@ class DetalleReserva extends GetView<MisReservasController> {
           : 'Quedan $days Días, $hour horas, $minute minutos, $second segundos',
       style: LightModeTheme().displayMedium.override(
             fontFamily: 'Outfit',
-            color: LightModeTheme().accent1,
+            color: self.tiempo_restante == 0
+                ? LightModeTheme().error
+                : LightModeTheme().accent1,
             fontSize: 12,
             letterSpacing: 0,
           ),
