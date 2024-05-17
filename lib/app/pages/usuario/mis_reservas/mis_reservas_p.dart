@@ -199,29 +199,22 @@ class MisReservasPage extends GetView<MisReservasController> {
           onPressed: () async {
             DateTime fechaInicioPartida =
                 self.construirDatetime(state.fechaReserva, state.horaInicio);
-            DateTime fechaActual = self.fecha;
+            DateTime fechaActual = DateTime.now();
             DateTime fechaTiempoCancelacion = fechaInicioPartida
                 .subtract(Duration(hours: state.tiempo_cancelacion));
-            print('fechaActual $fechaActual');
-            print('fechaTiempoCancelacion $fechaTiempoCancelacion');
+            print(fechaActual);
+            print(fechaTiempoCancelacion);
+            Duration tiempoRestanteD =
+                fechaTiempoCancelacion.difference(fechaActual);
             if (fechaActual < fechaTiempoCancelacion) {
               int tiempoRestante =
                   fechaTiempoCancelacion.millisecondsSinceEpoch -
                       fechaActual.millisecondsSinceEpoch;
-              print('tiempoRestante $tiempoRestante');
-              int horasRestantes =
-                  int.parse((tiempoRestante / 1000 / 60 / 60).toString());
-              int minutosRestantes =
-                  int.parse(((tiempoRestante / 1000) % 60).toString());
-              double segundosRestantes =
-                  double.parse((tiempoRestante / 1000).toString());
-
-              print('horasRestantes $horasRestantes');
-              print('minRestantes $minutosRestantes');
-              print('horasRestantes $segundosRestantes');
+              self.empezarFechaRestante(
+                  DateTime(tiempoRestante), tiempoRestanteD);
+            } else {
+              self.terminoFechaRestante();
             }
-
-            //fechaActual - (fecha(fecha_reserva + hora_inicio) - tiempo_Cancelacion)
             Get.dialog(ResponsiveWeb(
                 child: DetalleReserva(
                     idReserva: state.idReserva.toString(),

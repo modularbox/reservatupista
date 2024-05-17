@@ -81,19 +81,6 @@ class EmailProvider extends GetConnect {
     String numParticipantes,
   ) async {
     try {
-      print({
-        'correo': correo,
-        'num_referencia': numReferencia,
-        'fecha': fecha,
-        'hora_inicio': fechaInicio,
-        'hora_fin': fechaFin,
-        'ubicacion': ubicacion,
-        'deporte': deporte,
-        'num_pista': numPista,
-        'metodo_pago': 'Monedero',
-        'nombre': nombre,
-        'num_participantes': numParticipantes,
-      });
       final response = await post(
           '$url/email/reserva_monedero',
           {

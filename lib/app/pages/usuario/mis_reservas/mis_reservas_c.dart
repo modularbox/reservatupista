@@ -67,9 +67,12 @@ class MisReservasController extends GetxController
       Rx<List<double>>(List.generate(16, (index) => 30.0));
   late Timer _timer;
 
-  final _fecha = Rx<DateTime>(DateTime.now());
-  DateTime get fecha => _fecha.value;
-  set fecha(DateTime value) => _fecha.value = value;
+  final _fecha = Rxn<DateTime>();
+  DateTime? get fecha => _fecha.value;
+  set fecha(DateTime? value) => _fecha.value = value;
+  final _duracion = Rx<Duration>(const Duration());
+  Duration get duracion => _duracion.value;
+  set duracion(Duration value) => _duracion.value = value;
 
   @override
   void onReady() async {
@@ -102,9 +105,9 @@ class MisReservasController extends GetxController
     // Mandar llamar a la api cargar datos cada vez que se cambie el estado del deporte
     debounce(_deporte, (val) => cargarDatos(),
         time: const Duration(milliseconds: 100));
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      fecha = DateTime.now();
-    });
+    // _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   fecha = DateTime.now();
+    // });
   }
 
   /// Método para cargar datos
@@ -130,6 +133,29 @@ class MisReservasController extends GetxController
     } catch (e) {}
   }
 
+  void empezarFechaRestante(DateTime fechaRestante, Duration tiempoRestante) {
+    printError(info: fechaRestante.toString());
+    try {
+      _timer.cancel();
+    } catch (e) {}
+
+    duracion = tiempoRestante;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      duracion = duracion - const Duration(seconds: 1);
+    });
+    // fecha = fechaRestante;
+    // _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   fecha = fecha!.subtract(const Duration(seconds: 1));
+    // });
+  }
+
+  void terminoFechaRestante() {
+    try {
+      _timer.cancel();
+    } catch (e) {}
+    fecha = null;
+  }
+
   /// Ver cuando pulsa en algun deporte
   void onPressDeporte(String val) => {deporte = val};
 
@@ -146,7 +172,7 @@ class MisReservasController extends GetxController
               'La reserva no se ha podido cancelar ya que el tiempo de cancelación de reservas de esta pista es inferior al tiempo que queda para la partida'),
           textButton: "Cerrar",
           alertType: TypeGeneralDialog.WARNING,
-          onPressed: () => Get.back(),
+          onPressed: Get.back,
         ));
       } else {
         Get.dialog(ChangeDialogGeneral(

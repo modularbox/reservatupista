@@ -56,12 +56,6 @@ class DetalleReserva extends GetView<MisReservasController> {
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Text('Tiempo cancelacion'),
-                            Obx(buildTextHorario)
-                          ],
-                        ),
                         buildDetalles(),
                       ],
                     ),
@@ -131,6 +125,31 @@ class DetalleReserva extends GetView<MisReservasController> {
     ];
     List<Widget> titles = [];
     List<Widget> descripcion = [];
+
+    /// Agregar tiempo de cancelacion
+    titles.add(
+      Text(
+        'Tiempo cancelación:',
+        style: LightModeTheme().bodyMedium.override(
+              fontFamily: 'Readex Pro',
+              letterSpacing: 0,
+              fontWeight: FontWeight.w800,
+            ),
+      ),
+    );
+    titles.add(10.0.sh);
+    descripcion.add(
+      Obx(() => Text(
+            buildTextHorario(),
+            style: LightModeTheme().bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  letterSpacing: 0,
+                ),
+          )),
+    );
+    descripcion.add(10.0.sh);
+
+    /// Terminar de agregar tiempo de cancelacion
     for (final element in detalles) {
       titles.add(
         Text(
@@ -173,18 +192,31 @@ class DetalleReserva extends GetView<MisReservasController> {
         ]);
   }
 
-  Widget buildTextHorario() {
-    final hour = self.fecha.hour.toString().padLeft(2, '0');
-    final minute = self.fecha.minute.toString().padLeft(2, '0');
-    final second = self.fecha.second.toString().padLeft(2, '0');
-    return Text(
-      '$hour:$minute:$second',
-      style: LightModeTheme().displayMedium.override(
-            fontFamily: 'Outfit',
-            color: LightModeTheme().accent1,
-            fontSize: 12,
-            letterSpacing: 0,
-          ),
-    );
+  // String buildTextHorario() {
+  //   final fecha = self.fecha;
+  //   if (fecha is DateTime) {
+  //     final dias = fecha.day;
+  //     final hour = fecha.hour.toString().padLeft(2, '0');
+  //     final minute = fecha.minute.toString().padLeft(2, '0');
+  //     final second = fecha.second.toString().padLeft(2, '0');
+
+  //     return 'Días $dias, $hour:$minute:$second';
+  //   } else {
+  //     return '0';
+  //   }
+  // }
+  String buildTextHorario() {
+    final duracion = self.duracion;
+    final fecha = DateTime(0).add(duracion);
+    if (fecha is DateTime) {
+      final dias = fecha.day;
+      final hour = fecha.hour.toString().padLeft(2, '0');
+      final minute = fecha.minute.toString().padLeft(2, '0');
+      final second = fecha.second.toString().padLeft(2, '0');
+
+      return 'Días $dias, $hour:$minute:$second';
+    } else {
+      return '0';
+    }
   }
 }

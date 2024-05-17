@@ -102,6 +102,12 @@ class BuildUsuarios extends GetView<MisReservasController> {
   }
 
   Widget buildImagen(imageName) {
+    if (imageName == self.db.fotoUsuario) {
+      return ImageServer(
+        width: 50,
+        height: 50,
+      );
+    }
     return Image.network(DatosServer.usuario(imageName), width: 50, height: 50);
   }
 
