@@ -5,6 +5,7 @@ import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/build_usu
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../mis_reservas_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -26,6 +27,7 @@ class DetalleReserva extends GetView<MisReservasController> {
   MisReservasController get self => controller;
   @override
   Widget build(BuildContext context) {
+    print('statestatestate ${state.toJson()}');
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -99,17 +101,31 @@ class DetalleReserva extends GetView<MisReservasController> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BtnIcon(
-          onPressed: () async {
-            await self.eliminarReserva(idReserva);
-          },
+          onPressed: state.tipoReserva == 'tarjeta'
+              ? null
+              : () async {
+                  if (self.tiempo_restante <= 0) {
+                    Get.dialog(ChangeDialogGeneral(
+                      alertTitle: richTitle("Reserva NO Cancelada"),
+                      alertSubtitle: richSubtitle(
+                          'La reserva no se ha podido cancelar ya que el tiempo de cancelación de reservas de esta pista es inferior al tiempo que queda para la partida.'),
+                      textButton: "Cerrar",
+                      alertType: TypeGeneralDialog.ERROR,
+                      onPressed: () => Get.back(),
+                    ));
+                  } else {
+                    await self.eliminarReserva(idReserva);
+                  }
+                },
           icon: Text(
             'Cancelar Reserva',
             style: LightModeTheme().bodyMedium.copyWith(fontSize: 18),
           ),
-          fillColor: LightModeTheme().error,
+          fillColor: state.tipoReserva == 'tarjeta'
+              ? LightModeTheme().accent1
+              : LightModeTheme().error,
           padding: const EdgeInsets.all(10.0),
           hoverColor: Colores.usuario.primary69,
-          borderColor: Colores.rojo,
           borderWidth: 1,
           borderRadius: 8.0,
         ),

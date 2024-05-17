@@ -168,7 +168,7 @@ class MisReservasPage extends GetView<MisReservasController> {
   /// Reserva
   Widget buildReserva(MisReservasUsuarioModel state) {
     // Verificar si la reserva esta cerrada
-    print('state.toJson() ${state.toJson()}');
+    print('state.() ${state.toJson()}');
     final isCerrada =
         state.reservasUsuarios!.plazasReservadasTotales == state.capacidad;
     return Padding(
