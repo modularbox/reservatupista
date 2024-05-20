@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/registrar_usuario/registrar_usuario_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
@@ -119,7 +117,8 @@ class BuildInput extends GetView<RegistrarUsuarioController> {
                     ),
                     readOnly: true,
                     enableInteractiveSelection: false,
-                    onChanged: (val) => textEditingController.text = val,
+                    onChanged:
+                        onChanged ?? (val) => textEditingController.text = val,
                     validator: isRequired ? validateTextField : null,
                   )
                 : TextFormField(
