@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dart';
@@ -9,6 +11,7 @@ import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../registrar_usuario_c.dart';
+import '../../../../../app/data/provider/usuario_node.dart';
 import 'build_input.dart';
 
 class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
@@ -20,6 +23,8 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
   get anim => animVibrate(vsync: self);
 
   /// Contruir la lista de inputs
+  ///
+
   List<Widget> buildListDatosPersonales() {
     return [
       BuildInput(
@@ -245,39 +250,20 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           anim: anim,
           maxLength: 50,
           isRequired: false),
-      BuildInput(
+      Obx(() => BuildInput(
           labelText: 'Marca de pala',
           textEditingController: self.tc.pala,
           anim: anim,
           isSelect: true,
-          listSelect: const [
-            'ADIDAS',
-            'AKKERON',
-            'AES',
-            'BABOLAT',
-            'BLACK CROW',
-            'BULLPADEL',
-            'DROP SHOT',
-            'DUNLOP',
-            'ECLYPSE',
-            'ENEBE',
-            'HEAD',
-            'J`AYBER',
-            'JOMA',
-            'KELME'
-                'LEGEND',
-            'MUNICH',
-            'NOX',
-            'SET',
-            'SIUX',
-            'STARTVIE',
-            'STARVIE',
-            'VARLION',
-            'VIBORA',
-            'WILSON'
-          ],
+          onChanged: (variable) {
+            print('llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+            print('p0variable $variable');
+          },
+          listSelect: self.marcasPalas.map((e) {
+            return e['marca'] ?? '';
+          }).toList(),
           maxLength: 50,
-          isRequired: false),
+          isRequired: false)),
       BuildInput(
           labelText: 'Modelo de pala',
           textEditingController: self.tc.modelo,
@@ -315,6 +301,23 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
     ];
   }
 
+  Future<void> buildMarcasPalas() async {
+    print('llega a buildMarcasPalas');
+    UsuarioProvider provider = new UsuarioProvider();
+    final response = await provider.getMarcasPalas();
+    List<dynamic> data = response.body;
+    self.marcasPalas.clear();
+    data.forEach((element) {
+      print('llega a buildMarcasPalas element ${jsonEncode(element)}');
+      //self.marcasPalas.add(element);
+      self.marcasPalas.add({
+        'marca': element['marca'].toString(),
+        'id': element['id'].toString()
+      });
+    });
+    print('llega a buildMarcasPalas ${self.marcasPalas}');
+  }
+
   /// Construir el input contrasena
   Widget buildContrasena(
       {required String labelText,
@@ -322,6 +325,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
       required RxBool visibility,
       required TextEditingController textEditingController,
       required String? Function(AnimationController, FocusNode) validator}) {
+    buildMarcasPalas();
     return Obx(() => BuildInput(
         labelText: labelText,
         anim: anim,
@@ -357,7 +361,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
         buildSubtitle('Datos de Juego'),
         ...buildListDatosDeJuego(),
         buildSubtitle('Datos de contraseña'),
-        ...buildListContrasena(),
+        ...buildListContrasena()
       ],
     );
   }

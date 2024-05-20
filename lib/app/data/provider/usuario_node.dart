@@ -19,6 +19,28 @@ class UsuarioProvider extends GetConnect {
     idUser = storage.idUsuario.read();
   }
 
+  //para obtener las marcas de las palas
+  Future<Response<dynamic>> getMarcasPalas() async {
+    try {
+      final response = await get(
+        '$url/usuario/obtener_marcas_palas',
+        contentType: 'application/json',
+      );
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw MessageError(
+            code: response.body.code,
+            message: 'Ocurrio un error al actualizar la contraseña');
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      throw MessageError(
+          message: 'Error al Modificar la Contraseña', code: 501);
+    }
+  }
+
   /// Modificar los datos del usuario
   Future<MessageError> modificarContrasena(
       int id, String tokenUser, List datos, List<String> idsDatos) async {

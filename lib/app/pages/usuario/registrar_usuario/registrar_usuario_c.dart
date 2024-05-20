@@ -22,6 +22,9 @@ class RegistrarUsuarioController extends GetxController
   final apiExisteNick = StateRx(Rxn<bool>());
   // Controlladores para los inputs
   final tc = TextInputController();
+  List<Map<String, String>> marcasPalas = [
+    {'': ''}
+  ].obs;
   // Global key para el form de los inputs
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Si el form esta validado
