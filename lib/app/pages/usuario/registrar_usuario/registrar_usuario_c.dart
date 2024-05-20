@@ -25,6 +25,7 @@ class RegistrarUsuarioController extends GetxController
   List<Map<String, String>> marcasPalas = [
     {'': ''}
   ].obs;
+  final marcasPalasMap = Rx<Map<String, String>>({});
   // Global key para el form de los inputs
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Si el form esta validado

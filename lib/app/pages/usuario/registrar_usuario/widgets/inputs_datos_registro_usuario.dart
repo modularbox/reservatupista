@@ -257,10 +257,10 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           onChanged: (variable) {
             print('llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
             print('p0variable $variable');
+
+            print(self.marcasPalasMap.value[variable]);
           },
-          listSelect: self.marcasPalas.map((e) {
-            return e['marca'] ?? '';
-          }).toList(),
+          listSelect: self.marcasPalasMap.value.keys.toList(),
           maxLength: 50,
           isRequired: false)),
       BuildInput(
@@ -306,14 +306,17 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
     final response = await provider.getMarcasPalas();
     List<dynamic> data = response.body;
     self.marcasPalas.clear();
+    Map<String, String> newMapa = {};
     data.forEach((element) {
       print('llega a buildMarcasPalas element ${jsonEncode(element)}');
       //self.marcasPalas.add(element);
+      newMapa[element['marca']] = element['id'].toString();
       self.marcasPalas.add({
         'marca': element['marca'].toString(),
         'id': element['id'].toString()
       });
     });
+    self.marcasPalasMap.value = newMapa;
     print('llega a buildMarcasPalas ${self.marcasPalas}');
   }
 
