@@ -184,7 +184,7 @@ class UsuarioProvider extends GetConnect {
             CONFIRMAR
             </a>
             ''',
-            "asunto": "Registro Usuario"
+            "asunto": "Registro Usuario ReservaTupista.com"
           },
           contentType: 'application/json');
       print(response.body);

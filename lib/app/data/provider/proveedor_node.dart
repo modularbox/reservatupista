@@ -116,7 +116,7 @@ class ProveedorProvider extends GetConnect {
             CONFIRMAR
             </a>
             ''',
-            "asunto": "Registro Proveedor"
+            "asunto": "Registro Proveedor Reservatupista.com"
           },
           contentType: 'application/json');
       print(response.body);
