@@ -31,6 +31,9 @@ class DBService extends GetxService {
   /// Datos del club
   String nombreClub = '';
 
+  /// Datos de la reserva
+  String idReserva = '';
+
   /// Obtener el dinero total que cambia
   final _dineroTotal = 0.obs;
   int get dineroTotal => _dineroTotal.value;
@@ -70,6 +73,7 @@ class DBService extends GetxService {
         apellidos = storage.apellidos.read() ?? apellidos;
         nick = storage.nick.read() ?? nick;
         email = storage.email.read() ?? email;
+        idReserva = storage.idReserva.read() ?? idReserva;
         if (fotoUsuario != '') {
           fotoServer = fotoUsuario;
         }

@@ -10,7 +10,6 @@ import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
-import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/buttons_sounds.dart';
 import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';

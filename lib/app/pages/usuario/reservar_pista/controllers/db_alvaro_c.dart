@@ -25,12 +25,6 @@ class DBAlvaroController extends GetxController {
   UsuarioModel? datosUsuario;
   ProveedorModel? datosProveedor;
   RxDouble money = 0.0.obs;
-  // late Storage storageIdUsuario;
-  // late Storage storageIdProveedor;
-  // late Storage storageTokenUsuario;
-  // late Storage storageTokenProveedor;
-  // int dineroTotal = 0;
-
   final _dineroTotal = 0.obs;
   get dineroTotal => _dineroTotal.value;
   set dineroTotal(value) => _dineroTotal.value = value;

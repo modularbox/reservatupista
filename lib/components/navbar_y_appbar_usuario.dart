@@ -59,10 +59,6 @@ class NavbarYAppbarUsuario extends GetView<DBService> {
           ).visible(isNavBar)
         ],
       ),
-      // bottomNavigationBar: Container(
-      //   height: 0.0,
-      //   margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
-      // )
     );
   }
 }

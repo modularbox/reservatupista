@@ -14,10 +14,10 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
   ReservaCompartidaController get self => controller;
   // Precio de la reserva
   int get precio => self.pista_con_luces.value
-      ? self.precio_con_luz_no_socio.value
-      : self.precio_sin_luz_no_socio.value;
+      ? self.detallesReserva.precioConLuzNoSocio
+      : self.detallesReserva.precioSinLuzNoSocio;
   // Capacidad de la pista
-  int get capacidad => self.pistas.value[self.selectPista.value!]['capacidad'];
+  int get capacidad => self.detallesReserva.capacidad;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
   ) {
     return Row(
       children: [
-        buildUsuario(self.usuario.value, false),
+        buildUsuario(self.usuario.value!, false),
         self.cancelarReserva.value
             ? const SizedBox.shrink()
             : Row(
@@ -59,7 +59,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
                             BtnIcon(
                                 onPressed: () {
                                   self.precio_elegido.value = precio;
-                                  self.usuario.value.plazasReservadas += 1;
+                                  self.usuario.value!.plazasReservadas += 1;
                                   self.plazas_a_reservar.value += 1;
                                   if (self.plazas_a_reservar.value ==
                                       (capacidad)) {
@@ -73,7 +73,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
                                   }
 
                                   final precio_a_mostrar = precio *
-                                      self.usuario.value.plazasReservadas;
+                                      self.usuario.value!.plazasReservadas;
                                   self.precio_a_mostrar.value =
                                       precio_a_mostrar;
                                   self.usuario.refresh();
@@ -111,15 +111,16 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
                     if (self.totalMisReservas) {
                       self.totalMisReservas = false;
                     }
-                    final isMenorZero = self.usuario.value.plazasReservadas - 1;
+                    final isMenorZero =
+                        self.usuario.value!.plazasReservadas - 1;
                     if (isMenorZero < 0) {
                       return;
                     }
-                    self.usuario.value.plazasReservadas -= 1;
+                    self.usuario.value!.plazasReservadas -= 1;
                     self.plazas_a_reservar.value -= 1;
                     // ignore: non_constant_identifier_names
                     final precio_a_mostrar =
-                        precio * self.usuario.value.plazasReservadas;
+                        precio * self.usuario.value!.plazasReservadas;
                     self.precio_a_mostrar.value = precio_a_mostrar;
                     if (self.plazas_a_reservar <= capacidad) {
                       self.cancelarReserva.value = false;
@@ -168,7 +169,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
         ? capacidad
         : (capacidad -
             (self.reservas_usuarios.value!.plazasReservadasTotales +
-                self.usuario.value.plazasReservadas));
+                self.usuario.value!.plazasReservadas));
     return self.reservas_usuarios.value == null
         ? const SizedBox.shrink()
         : buildButton(
@@ -185,7 +186,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
         : BtnIcon(
             onPressed: () {
               if (self.cancelarReserva.isTrue || self.totalMisReservas) {
-                self.usuario.value.plazasReservadas = 1;
+                self.usuario.value!.plazasReservadas = 1;
                 self.plazas_a_reservar.value = 1;
                 self.cancelarReserva.value = false;
                 self.totalMisReservas = false;
@@ -199,18 +200,18 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
                     final reservasPendientes = capacidad -
                         self.reservas_usuarios.value!.plazasReservadasTotales;
                     self.plazas_a_reservar.value = reservasPendientes;
-                    self.usuario.value.plazasReservadas = reservasPendientes;
+                    self.usuario.value!.plazasReservadas = reservasPendientes;
                     self.totalMisReservas = true;
                   } else {
                     // ignore: non_constant_identifier_names
                     self.plazas_a_reservar.value = capacidad;
-                    self.usuario.value.plazasReservadas = capacidad;
+                    self.usuario.value!.plazasReservadas = capacidad;
                     self.cancelarReserva.value = true;
                   }
                 }
               }
               self.precio_a_mostrar.value = self.precio_elegido.value *
-                  self.usuario.value.plazasReservadas;
+                  self.usuario.value!.plazasReservadas;
               self.usuario.refresh();
             },
             fillColor: changeColor ? Colores.rojo : Colores.usuario.primary,
@@ -227,7 +228,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
 
   /// Verificar si todas las reservas son del usuario y si tiene alguna pendiente
   bool todasMisReservas2() {
-    if (self.usuario.value.plazasReservadas == capacidad) {
+    if (self.usuario.value!.plazasReservadas == capacidad) {
       print("tisdinkdfmldmfldfd");
       return true;
     }
@@ -235,7 +236,7 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
       return false;
     }
     print("TodasMisReservas");
-    final idUsuario = self.usuario.value.idUsuario;
+    final idUsuario = self.usuario.value!.idUsuario;
     print(idUsuario);
     print(self.reservas_usuarios.value!.usuarios);
     int total = 0;

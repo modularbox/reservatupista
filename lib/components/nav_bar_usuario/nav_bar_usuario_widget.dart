@@ -1,4 +1,5 @@
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import '../../app/routes/app_pages.dart';
 import '../../utils/btn_icon.dart';
 import '/backend/schema/enums/enums.dart';
@@ -8,8 +9,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'nav_bar_usuario_model.dart';
-export 'nav_bar_usuario_model.dart';
 
 class NavBarUsuarioWidget extends StatefulWidget {
   const NavBarUsuarioWidget({
@@ -20,13 +19,12 @@ class NavBarUsuarioWidget extends StatefulWidget {
   final TypePage? tipoDePagina;
 
   @override
-  _NavBarUsuarioWidgetState createState() => _NavBarUsuarioWidgetState();
+  NavBarUsuarioWidgetState createState() => NavBarUsuarioWidgetState();
 }
 
-class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
+class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
     with TickerProviderStateMixin {
-  late NavBarUsuarioModel _model;
-
+  DBService db = Get.find();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -51,15 +49,13 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
   };
 
   @override
-  void setState(VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
+  void setState(VoidCallback fn) {
+    super.setState(fn);
   }
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NavBarUsuarioModel());
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -67,12 +63,6 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
           !anim.applyInitialState),
       this,
     );
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-    super.dispose();
   }
 
   @override
@@ -144,7 +134,11 @@ class _NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
               ),
               buildIconCenter(
                 onPressed: () async {
-                  Get.offNamed(Routes.RESERVAR_PISTA);
+                  if (db.idReserva != '') {
+                    Get.offAllNamed(Routes.RESERVA_COMPARTIDA);
+                  } else {
+                    Get.offNamed(Routes.RESERVAR_PISTA);
+                  }
                 },
                 isPage: widget.tipoDePagina == TypePage.ReservarPista,
                 icon: Icons.add,

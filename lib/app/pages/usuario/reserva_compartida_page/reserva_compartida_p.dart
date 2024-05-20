@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
@@ -24,51 +25,47 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
       page: TypePage.ReservarPista,
       child: Expanded(
         child: SingleChildScrollView(
-          controller: controller.scrollController,
-          child: ResponsiveWeb(
-            child: Column(
-              children: [
-                SizedBox(
-                  key: controller.keyDatos,
-                  child: Obx(
-                    () => Opacity(
-                      opacity: self.selectHorario.value == null ? 0.0 : 1.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.black)),
-                        child: Column(children: [
-                          ..._buildDatos(
-                              self.localidad_seleccionada.value,
-                              self.deporte_seleccionado.value,
-                              self.id_pista_seleccionada.value,
-                              self.pista_con_luces.value,
-                              self.pista_automatizada.value,
-                              DateTime(
-                                  self.fecha_seleccionada.value.year,
-                                  self.fecha_seleccionada.value.month,
-                                  self.fecha_seleccionada.value.day,
-                                  int.parse(self
-                                      .hora_inicio_reserva_seleccionada.value
-                                      .substring(0, 2)),
-                                  int.parse(self
-                                      .hora_inicio_reserva_seleccionada.value
-                                      .substring(3, 5))),
-                              self.fecha_seleccionada.value,
-                              self.duracion_partida.value,
-                              self.precio_con_luz_no_socio.value,
-                              self.precio_con_luz_socio.value,
-                              self.precio_sin_luz_no_socio.value,
-                              self.precio_sin_luz_socio.value),
-                        ]),
-                      ),
-                    ).visible(self.selectHorario.value != null),
-                  ),
-                ),
-                Obx(() => self.sizedBoxHeight.value.sh),
-                50.0.sh,
-              ],
-            ),
-          ),
+            controller: controller.scrollController,
+            child: Obx(buildReservaCompartida)),
+      ),
+    );
+  }
+
+  Widget buildReservaCompartida() {
+    return ResponsiveWeb(
+      child: Column(
+        children: [
+          buildTodosDatos(),
+          Obx(() => self.sizedBoxHeight.value.sh),
+          50.0.sh,
+        ],
+      ),
+    ).visible(self.usuario.value != null);
+  }
+
+  Widget buildTodosDatos() {
+    return SizedBox(
+      key: controller.keyDatos,
+      child: Obx(
+        () => Container(
+          decoration:
+              BoxDecoration(border: Border.all(width: 1, color: Colors.black)),
+          child: Column(children: [
+            ..._buildDatos(
+                self.detallesReserva.localidad,
+                self.detallesReserva.deporte,
+                self.detallesReserva.numPista,
+                self.detallesReserva.iluminacion.sn,
+                self.detallesReserva.automatizada.toString().sn,
+                self.detallesReserva.fechaReserva,
+                self.detallesReserva.horaInicio,
+                self.detallesReserva.horaFin,
+                self.detallesReserva.duracionPartida,
+                self.detallesReserva.precioConLuzNoSocio,
+                self.detallesReserva.precioConLuzSocio,
+                self.detallesReserva.precioSinLuzNoSocio,
+                self.detallesReserva.precioSinLuzSocio),
+          ]),
         ),
       ),
     );
@@ -80,8 +77,9 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
       int numPista,
       bool luz,
       bool automatizada,
-      DateTime fechaHoraInicio,
-      DateTime fechaHoraFin,
+      DateTime fechaReserva,
+      String fechaHoraInicio,
+      String fechaHoraFin,
       int duracionPartida,
       int precioConLuzNoSocio,
       int precioConLuzSocio,
@@ -91,7 +89,7 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
 
     int precioReserva = luz ? precioConLuzNoSocio : precioSinLuzNoSocio;
     self.precio_a_mostrar.value =
-        precioReserva * self.usuario.value.plazasReservadas;
+        precioReserva * self.usuario.value!.plazasReservadas;
 
     final datos = [
       "Localidad",
@@ -112,10 +110,10 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
       numPista.toString(),
       luz ? 'Si' : 'No',
       automatizada ? 'Si' : 'No',
-      fechaHoraInicio.toString().substring(0, 16),
-      '${fechaHoraFin.toString().substring(0, 10)} ${self.hora_fin_reserva_seleccionada.value.formatHora}',
+      '${fechaReserva.toString().substring(0, 10)} ${fechaHoraInicio.formatHora}',
+      '${fechaReserva.toString().substring(0, 10)} ${fechaHoraFin.formatHora}',
       '${duracionPartida.toString()} minutos.',
-      '${double.parse((self.precio_a_mostrar.value / 100).toString())} €',
+      self.precio_a_mostrar.value.euro,
       "code"
     ];
     list.add(SizedBox(width: 100.w, child: const SelectedUsuariosCompartido()));
@@ -168,7 +166,6 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
       } else {
         list.add(
           Container(
-            // width: Get.width * 0.3,
             height: 20,
             margin: const EdgeInsets.symmetric(horizontal: 5),
             child: Row(
@@ -183,8 +180,7 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
                 ),
                 Expanded(
                   child: datos[i] == 'Precio'
-                      ? Obx(() => Text(
-                          '${double.parse((self.precio_a_mostrar.value / 100).toString())} €',
+                      ? Obx(() => Text(self.precio_a_mostrar.value.euro,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: fontSize,

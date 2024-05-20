@@ -79,6 +79,11 @@ class LoginUsuarioController extends GetxController
     animTerminosUsuario = animVibrate(vsync: this);
     animTerminosProveedor = animVibrate(vsync: this);
     storage = await SharedPreferences.getInstance();
+    if (Get.parameters['id_reserva'] != null) {
+      storage.idReserva.write(Get.parameters['id_reserva']);
+    } else if (storage.idReserva.exitsValue()) {
+      storage.idReserva.remove();
+    }
     recordarContrasena();
     debounce(passwordVisibility, (_) => passwordVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));

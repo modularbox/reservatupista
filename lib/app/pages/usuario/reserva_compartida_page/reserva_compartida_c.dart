@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
+import 'package:reservatu_pista/app/data/models/reserva_compartida_model.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/email_node.dart';
@@ -13,7 +14,6 @@ import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/buttons_sounds.dart';
 import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
-import '../../../../utils/sizer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -43,20 +43,9 @@ class ReservaCompartidaController extends GetxController
   /// Reservas Usuario
 
   /// Datos usuarios a reservar
-  late Rx<ReservaUsuario> usuario;
+  final usuario = Rxn<ReservaUsuario>();
   DBAlvaroController db2 = Get.find();
   DBService db = Get.find();
-  //variable que almacena todas las localidades existentes.
-  Rx<List<String>> localidades = Rx<List<String>>([]);
-  Map<String, String> mapLocalidades = {};
-  Rx<String> cod_postal = Rx<String>('');
-  Rx<List<String>> clubes = Rx<List<String>>([]);
-  Rx<String> id_club_seleccionado = Rx<String>('');
-  Map<String, String> mapClubes = {};
-  Rx<List<String>> deportes = Rx<List<String>>([]);
-  Map<String, String> mapDeportes = {};
-  Rx<String> deporte_seleccionado = Rx<String>('');
-
   Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
   Rx<int> id_pista_seleccionada = Rx<int>(0);
   Rx<bool> pista_automatizada = Rx<bool>(false);
@@ -80,13 +69,13 @@ class ReservaCompartidaController extends GetxController
   Rx<int?> selectPista = Rx<int?>(null);
   Rx<int?> selectDay = Rx<int?>(null);
   Rx<String?> selectedItemDeporte = Rx<String?>(null);
-  Rx<int> precio_con_luz_socio = Rx<int>(0);
-  Rx<int> precio_con_luz_no_socio = Rx<int>(0);
-  Rx<int> precio_sin_luz_socio = Rx<int>(0);
-  Rx<int> precio_sin_luz_no_socio = Rx<int>(0);
+  final precio_con_luz_socio = 0;
+  final precio_con_luz_no_socio = 0;
+  final precio_sin_luz_socio = 0;
+  final precio_sin_luz_no_socio = 0;
   Rx<int> precio_elegido = Rx<int>(0);
-  Rx<int> precio_a_mostrar = Rx<int>(
-      0); //PRECIO QUE SE MOSTRARÁ AL USUARIO A LA HORA DE RESERVAR ALGUNA PISTA. Se calcula multiplicando el precio obtenido de la reserva por las plazas que se va a reservar
+  Rx<int> precio_a_mostrar = 0
+      .obs; //PRECIO QUE SE MOSTRARÁ AL USUARIO A LA HORA DE RESERVAR ALGUNA PISTA. Se calcula multiplicando el precio obtenido de la reserva por las plazas que se va a reservar
   // late SharedPreferences storage;
   // Cancelar la reserva
   final cancelarReserva = false.obs;
@@ -94,7 +83,6 @@ class ReservaCompartidaController extends GetxController
   Rx<HorarioFinInicio?> selectHorario = Rx<HorarioFinInicio?>(null);
   final ScrollController scrollController = ScrollController();
   Rx<DateTime?> selectDateDay = Rx<DateTime?>(null);
-  late List<DateTime?> singleDatePickerValueWithDefaultValue;
   RxList<bool> listReservas = [false, false, false, false].obs;
   TextEditingController localidadController = TextEditingController();
   FocusNode localidadFocusNode = FocusNode();
@@ -134,89 +122,50 @@ class ReservaCompartidaController extends GetxController
   // Verificar si las reservas son abiertas y si ha solicitado todas las reservas siendo el mismo
   bool totalMisReservas = false;
 
-  // Datos de la reserva
-  late DatosReservaPista datosReserva;
   // Selection controller
   final SelectionController selectionController = SelectionController();
+
+  late ReservasCompartidas detallesReserva;
   // Anim
 
   @override
   void onInit() async {
     super.onInit();
-    generarListaLocalidades();
-    fechaActual = DateTime.now();
     animTerminos = animVibrate(vsync: this);
+    await inicializarDatos();
+
+    fechaActual = DateTime.now();
     db.getMoney();
-    debounce(sizedBoxHeight, (callback) {
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }, time: const Duration(milliseconds: 50));
-    debounce(selectDay, (callback) {
-      if (callback != null) {
-        final sizeCalendar = (keyCalendar.currentContext != null
-            ? keyCalendar.currentContext!.size!.height
-            : 0.0);
-        final sizeHorarios = (keyHorarios.currentContext != null
-            ? keyHorarios.currentContext!.size!.height
-            : 0.0);
-        final sizePistas = (keyPistas.currentContext != null
-            ? keyPistas.currentContext!.size!.height
-            : 0.0);
-        final newSize = (100.h -
-            (sizeCalendar + sizePistas + appBarAndNavBar + sizeHorarios));
-        if (newSize < 0) {
-          scrollController.animateTo(
-            scrollController.position.maxScrollExtent + newSize,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        } else {
-          if (sizedBoxHeight.value == newSize) {
-            sizedBoxHeight.refresh();
-          } else {
-            sizedBoxHeight.value = newSize;
-          }
-        }
+  }
+
+  Future<void> inicializarDatos() async {
+    try {
+      await db.getDB();
+      final result = await ReservasProvider().reservaCompartida(db.idReserva);
+      if (result is ReservasCompartidas) {
+        detallesReserva = result;
+        id_pista_seleccionada.value = result.idPista;
+        fecha_seleccionada.value = result.fechaReserva;
+        hora_inicio_reserva_seleccionada.value = result.horaInicio;
+
+        await obtenerPlazasLibres();
+        // Iniciarlizar el usuario con los datos guardados
+        usuario.value = ReservaUsuario(
+            idUsuario: db.idUsuario,
+            nick: db.nick,
+            imagen: db.fotoUsuario,
+            plazasReservadas: 1);
       }
-    }, time: const Duration(milliseconds: 50));
-    debounce(selectHorario, (callback) async {
-      if (callback != null) {
-        final sizeDatos = (keyDatos.currentContext != null
-            ? keyDatos.currentContext!.size!.height
-            : 0.0);
-        final sizePistas = (keyPistas.currentContext != null
-            ? keyPistas.currentContext!.size!.height
-            : 0.0);
-        final newSize = (100.h -
-            (sizePistas +
-                appBarAndNavBar +
-                keyHorarios.currentContext!.size!.height +
-                sizeDatos));
-        if (newSize < 0) {
-          // sizedBoxHeight.refresh();
-          scrollController.animateTo(
-            scrollController.position.maxScrollExtent + newSize,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        } else {
-          if (sizedBoxHeight.value == newSize) {
-            sizedBoxHeight.refresh();
-          } else {
-            sizedBoxHeight.value = newSize;
-          }
-        }
-      }
-    }, time: const Duration(milliseconds: 50));
-    singleDatePickerValueWithDefaultValue = [fechaActual];
-    diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
+    } catch (e, st) {
+      print('onInit Error $e');
+      print('onInit Stack $st');
+    }
   }
 
   void onConfirmar() {
-    if (selectHorario.value == null) {
+    if (!checkboxTerminos.value) {
+      validateTerminos.value = true;
+      animTerminos.forward();
       return;
     }
     double precioReserva = precio_a_mostrar.value / 100; //euros
@@ -365,11 +314,6 @@ class ReservaCompartidaController extends GetxController
           ));
         }
       }
-    } else {
-      if (!checkboxTerminos.value) {
-        validateTerminos.value = true;
-        animTerminos.forward();
-      }
     }
     ButtonsSounds.playSound();
   }
@@ -381,7 +325,7 @@ class ReservaCompartidaController extends GetxController
         fecha_seleccionada.value,
         hora_inicio_reserva_seleccionada.value,
         id_pista_seleccionada.value.toString(),
-        usuario.value.plazasReservadas);
+        usuario.value!.plazasReservadas);
     if (referencia is String) {
       await EmailProvider().emailReservas(
           db.email,
@@ -426,49 +370,22 @@ class ReservaCompartidaController extends GetxController
   }
 
   Future<void> obtenerPlazasLibres() async {
-    try {
-      // Iniciarlizar el usuario con los datos guardados
-      usuario = Rx<ReservaUsuario>(ReservaUsuario(
-          idUsuario: db.idUsuario,
-          nick: db.nick,
-          imagen: db.fotoUsuario,
-          plazasReservadas: 1));
-      final idPista = id_pista_seleccionada.value.toString();
-      final fecha = fecha_seleccionada.value.formatDate;
-      final horaInicio = hora_inicio_reserva_seleccionada.value;
-      final result = await ReservasProvider()
-          .obtenerPlazasLibres(idPista, fecha, horaInicio);
-      if (result is ReservasUsuarios) {
-        /// refrescar todo
-        reservas_usuarios.value = result;
-        plazasLibres = capacidad_pista - result.plazasReservadasTotales;
-        usuario.value.plazasReservadas = 1;
-        cancelarReserva.value = false;
-        totalMisReservas = false;
-        usuario.refresh();
-        print('plazaslibressss $plazasLibres');
-        print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+    final idPista = id_pista_seleccionada.value.toString();
+    final fecha = fecha_seleccionada.value.formatDate;
+    final horaInicio = hora_inicio_reserva_seleccionada.value;
+    final result = await ReservasProvider()
+        .obtenerPlazasLibres(idPista, fecha, horaInicio);
+    if (result is ReservasUsuarios) {
+      reservas_usuarios.value = result;
 
-  Future<void> generarListaLocalidades() async {
-    try {
-      String localidadesJson = await obtenerLocalidades();
-      // Convertir la cadena JSON en una lista de mapas
-      List<dynamic> localidadesData = json.decode(localidadesJson);
-      mapLocalidades = Map.fromEntries(localidadesData.map(
-          (e) => MapEntry<String, String>(e['localidad'], e['cod_postal'])));
-
-      List<String> listaLocalidades = localidadesData
-          .map<String>((localidad) => localidad['localidad'] as String)
-          .toList();
-      localidades.value = listaLocalidades;
-      return;
-    } catch (error) {
-      rethrow;
+      /// refrescar todo
+      reservas_usuarios.value = result;
+      plazasLibres = capacidad_pista - result.plazasReservadasTotales;
+      cancelarReserva.value = false;
+      totalMisReservas = false;
+      usuario.refresh();
+      print('plazaslibressss $plazasLibres');
+      print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
     }
   }
 
@@ -479,71 +396,6 @@ class ReservaCompartidaController extends GetxController
       return response.body.toString();
     } catch (error) {
       print('eeeeeeeeerrrrooor: $error');
-      rethrow;
-    }
-  }
-
-  //funcion para obtener los clubes que hay en cada localidad
-  Future<void> generarListaClubes(String cod_postal) async {
-    try {
-      //resets
-      clubController.text = '';
-      deporteController.text = '';
-      clubes.value = [];
-      deportes.value = [];
-      /*//seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
-      selectDay.value = null;*/
-      //deporte_seleccionado.value = '';
-      String clubesJson = await db2.obtenerClubes(cod_postal);
-      print('clubesssJson $clubesJson');
-      if (clubesJson == '[]') {
-        //falta cambiar
-        print('pruebaaaaaaaaaaaaaaaa');
-        return;
-      }
-      List<dynamic> clubesData = json.decode(clubesJson);
-
-      for (var i = 0; i < clubesData.length; i++) {
-        mapClubes[clubesData[i]['nombre']] =
-            clubesData[i]['id_club'].toString();
-      }
-
-      List<String> listaClubes =
-          clubesData.map<String>((club) => club['nombre'] as String).toList();
-      clubes.value = listaClubes;
-      return;
-    } catch (error, stack) {
-      print('stack: ${stack}');
-      print('errorr $error');
-      rethrow;
-    }
-  }
-
-  //funcion para obtener los deportes que hay en cada pista de los clubes
-  Future<void> generarListaDeportes(String id_club) async {
-    //deporteController.text = '';
-    deporte_seleccionado.value = '';
-    try {
-      String deportesJson = await db2.obtenerDeportes(id_club);
-      print('deportesJson $deportesJson');
-      if (deportesJson == '{}') {
-        deportes.value = [];
-        return;
-      }
-      List<dynamic> deportesData = json.decode(deportesJson);
-
-      //print('deportesData $deportesData');
-      //print('deportesData[0] ${deportesData[0]['deporte']}');
-
-      List<String> listaDeportes = deportesData
-          .map<String>((deporte) => deporte['deporte'] as String)
-          .toList();
-      print('listaDeportes $listaDeportes');
-      deportes.value = listaDeportes;
-      return;
-    } catch (error, stack) {
-      print('stack: ${stack}');
-      print('errorrrrrrrr $error');
       rethrow;
     }
   }
