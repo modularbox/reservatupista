@@ -19,6 +19,27 @@ class UsuarioProvider extends GetConnect {
     idUser = storage.idUsuario.read();
   }
 
+//para obtener los modelos de las palas
+  Future<Response<dynamic>> getModelosPalas(int id_marca) async {
+    try {
+      final response = await get(
+        '$url/usuario/obtener_modelos_pala?id_marca=$id_marca',
+        contentType: 'application/json',
+      );
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw MessageError(
+            code: response.body.code,
+            message: 'Ocurrio un error al getModelosPalas');
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      throw MessageError(message: 'Error al getModelosPalas', code: 501);
+    }
+  }
+
   //para obtener las marcas de las palas
   Future<Response<dynamic>> getMarcasPalas() async {
     try {

@@ -257,18 +257,26 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           onChanged: (variable) {
             print('llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
             print('p0variable $variable');
-
-            print(self.marcasPalasMap.value[variable]);
+            var marcaElegida = self.marcasPalas.firstWhere((e) {
+              return e['marca'] == variable;
+            }, orElse: () => {'': ''});
+            print('marcaElegida $marcaElegida');
+            buildModelosPalas(int.parse(marcaElegida['id'] ?? ''));
           },
-          listSelect: self.marcasPalasMap.value.keys.toList(),
+          listSelect:
+              self.marcasPalas.map((e) => e['marca'].toString()).toList(),
           maxLength: 50,
           isRequired: false)),
-      BuildInput(
+      Obx(() => BuildInput(
           labelText: 'Modelo de pala',
-          textEditingController: self.tc.modelo,
+          textEditingController: TextEditingController(text: ''),
           anim: anim,
           maxLength: 50,
-          isRequired: false),
+          listSelect: self.modelosPalas
+              .map((e) => e['modelo'] != null ? e['modelo'].toString() : '')
+              .toList(),
+          isSelect: true,
+          isRequired: false)),
       BuildInput(
           labelText: 'Juegos por semana',
           textEditingController: self.tc.juegoPorSemana,
@@ -316,8 +324,24 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
         'id': element['id'].toString()
       });
     });
-    self.marcasPalasMap.value = newMapa;
-    print('llega a buildMarcasPalas ${self.marcasPalas}');
+    //self.marcasPalasMap.value = newMapa;
+  }
+
+  Future<void> buildModelosPalas(int id_marca) async {
+    print('llega a buildModelosPalas $id_marca');
+    UsuarioProvider provider = new UsuarioProvider();
+    final response = await provider.getModelosPalas(id_marca);
+    List<dynamic> data = response.body;
+    print('responseresponse ${jsonEncode(data)}');
+
+    self.modelosPalas.clear();
+    data.forEach((element) {
+      self.modelosPalas.add({
+        'modelo': element['modelo'].toString(),
+        'id': element['id_marca_pala'].toString()
+      });
+    });
+    print('self.modelosPalas ${self.modelosPalas}');
   }
 
   /// Construir el input contrasena
