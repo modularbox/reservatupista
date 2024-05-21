@@ -105,8 +105,6 @@ class ReservaCompartidaController extends GetxController
 
   int diaHoy = 0;
   // Checar si los terminos y condiciones son aceptados
-  RxBool checkboxTerminos = false.obs;
-  RxBool validateTerminos = false.obs;
   late AnimationController animTerminos;
 
   RxDouble totalHeight = 0.0.obs;
@@ -163,14 +161,8 @@ class ReservaCompartidaController extends GetxController
   }
 
   void onConfirmar() {
-    if (!checkboxTerminos.value) {
-      validateTerminos.value = true;
-      animTerminos.forward();
-      return;
-    }
     double precioReserva = precio_a_mostrar.value / 100; //euros
-    if (checkboxTerminos.value &&
-        selectionController.selectedOption.value != '' &&
+    if (selectionController.selectedOption.value != '' &&
         selectionController.selectedOption.value != 'rellenar') {
       final precio = db.dineroTotal - (precio_a_mostrar.value);
       print('preciooooooooooo ${precio}'); //(0 - 4.0);

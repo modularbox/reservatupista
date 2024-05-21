@@ -51,13 +51,6 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                             children: [
                               Get.width <= 640 ? buildSelectImage() : 0.0.empty,
                               const InputsDatosRegistroUsuario(),
-                              TerminosCondicionesDialog(
-                                  self.animTerminos,
-                                  self.checkboxTerminos,
-                                  Colores.proveedor.primary,
-                                  self.validateTerminos,
-                                  paddingTop: 10.0,
-                                  LightModeTheme().primaryText),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),

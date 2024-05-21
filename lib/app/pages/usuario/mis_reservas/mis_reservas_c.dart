@@ -13,15 +13,6 @@ import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
-extension IterableExtension<E> on List<E> {
-  Iterable<T> mapIndexed<T>(T Function(E e, int index) f) sync* {
-    var index = 0;
-    for (final element in this) {
-      yield f(element, index++);
-    }
-  }
-}
-
 class MisReservasController extends GetxController
     with GetSingleTickerProviderStateMixin {
   /// Base de datos local

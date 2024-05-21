@@ -45,9 +45,6 @@ class EliminarCuentaController extends GetxController
   // State field(s) for Checkbox widget.
   RxBool checkboxValueTerminosProveedor = false.obs;
 
-  // Validar los terminos y condiciones.
-  RxBool validateTerminosUsuario = false.obs;
-  RxBool validateTerminosProveedor = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isValidateForms = false;
 
@@ -161,7 +158,6 @@ class EliminarCuentaController extends GetxController
         return;
       }
       if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
-        validateTerminosUsuario.value = true;
         animTerminosUsuario.forward();
       } else {
         // Encriptar contrasena
@@ -209,7 +205,6 @@ class EliminarCuentaController extends GetxController
         return;
       }
       if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
-        validateTerminosProveedor.value = true;
         animTerminosProveedor.forward();
       } else {
         List<int> bytes = utf8.encode(passwordProveedorController.text);

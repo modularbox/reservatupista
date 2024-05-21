@@ -26,6 +26,15 @@ extension WidgetExt on Widget {
   Widget visible(bool isVisible) => isVisible ? this : const SizedBox.shrink();
 }
 
+extension IterableExtension<E> on List<E> {
+  Iterable<T> mapIndexed<T>(T Function(E e, int index) f) sync* {
+    var index = 0;
+    for (final element in this) {
+      yield f(element, index++);
+    }
+  }
+}
+
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
 

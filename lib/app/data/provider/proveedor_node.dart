@@ -201,6 +201,25 @@ class ProveedorProvider extends GetConnect {
     }
   }
 
+  // Obtener los clubes de multiples localidades
+  Future<dynamic> obtenerClubes(List<String> codigosPostales) async {
+    try {
+      final response = await post(
+        '$url/usuario/obtener_clubes',
+        {"codigos_postales": codigosPostales},
+        contentType: 'application/json',
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return response.body;
+      }
+    } catch (error) {
+      return MessageError(message: 'Error al Registrar Proveedor', code: 501);
+    }
+  }
+
   // Get request
   Future<Response> deleteUser(String id, String token, String user) =>
       delete('$url/$user',

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
+import 'package:reservatu_pista/app/data/models/localidad_model.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/email_node.dart';
+import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
@@ -48,7 +50,7 @@ class ReservarPistaController extends GetxController
   DBService db = Get.find();
   //variable que almacena todas las localidades existentes.
   Rx<List<String>> localidades = Rx<List<String>>([]);
-  Map<String, String> mapLocalidades = {};
+  LocalidadModel listLocalidades = LocalidadModel(localidades: []);
   Rx<String> cod_postal = Rx<String>('');
   Rx<List<String>> clubes = Rx<List<String>>([]);
   Rx<String> id_club_seleccionado = Rx<String>('');
@@ -116,9 +118,6 @@ class ReservarPistaController extends GetxController
   GlobalKey keyDatos = GlobalKey();
 
   int diaHoy = 0;
-  // Checar si los terminos y condiciones son aceptados
-  RxBool checkboxTerminos = false.obs;
-  RxBool validateTerminos = false.obs;
   late AnimationController animTerminos;
 
   RxDouble totalHeight = 0.0.obs;
@@ -220,8 +219,7 @@ class ReservarPistaController extends GetxController
       return;
     }
     double precioReserva = precio_a_mostrar.value / 100; //euros
-    if (checkboxTerminos.value &&
-        selectionController.selectedOption.value != '' &&
+    if (selectionController.selectedOption.value != '' &&
         selectionController.selectedOption.value != 'rellenar') {
       final precio = db.dineroTotal - (precio_a_mostrar.value);
       print('preciooooooooooo ${precio}'); //(0 - 4.0);
@@ -349,11 +347,6 @@ class ReservarPistaController extends GetxController
           ));
         }
       }
-    } else {
-      if (!checkboxTerminos.value) {
-        validateTerminos.value = true;
-        animTerminos.forward();
-      }
     }
     ButtonsSounds.playSound();
   }
@@ -440,14 +433,13 @@ class ReservarPistaController extends GetxController
 
   Future<void> generarListaLocalidades() async {
     try {
-      String localidadesJson = await obtenerLocalidades();
+      dynamic localidadesJson = await obtenerLocalidades();
+      print('localidadesJson $localidadesJson');
       // Convertir la cadena JSON en una lista de mapas
-      List<dynamic> localidadesData = json.decode(localidadesJson);
-      mapLocalidades = Map.fromEntries(localidadesData.map(
-          (e) => MapEntry<String, String>(e['localidad'], e['cod_postal'])));
-
-      List<String> listaLocalidades = localidadesData
-          .map<String>((localidad) => localidad['localidad'] as String)
+      listLocalidades = LocalidadModel.fromRawJson(localidadesJson);
+      print(listLocalidades.toJson());
+      List<String> listaLocalidades = listLocalidades.localidades
+          .map<String>((localidad) => localidad.localidad)
           .toList();
       localidades.value = listaLocalidades;
       return;
@@ -456,11 +448,12 @@ class ReservarPistaController extends GetxController
     }
   }
 
-  Future<String> obtenerLocalidades() async {
+  Future<dynamic> obtenerLocalidades() async {
     try {
-      var url = '${DatosServer.urlServer}/usuario/obtener_localidades';
+      var url = '${DatosServer.urlServer}/usuario/obtener_localidades_22';
       var response = await http.get(Uri.parse(url));
-      return response.body.toString();
+
+      return response.body;
     } catch (error) {
       print('eeeeeeeeerrrrooor: $error');
       rethrow;
@@ -468,32 +461,28 @@ class ReservarPistaController extends GetxController
   }
 
   //funcion para obtener los clubes que hay en cada localidad
-  Future<void> generarListaClubes(String cod_postal) async {
+  Future<void> generarListaClubes(
+      String cod_postal, List<String> codigos_postales) async {
     try {
       //resets
       clubController.text = '';
       deporteController.text = '';
       clubes.value = [];
       deportes.value = [];
-      /*//seteo a null esta variable para que no muestre las pistas y horas cuando se cambie el club
-      selectDay.value = null;*/
-      //deporte_seleccionado.value = '';
-      String clubesJson = await db2.obtenerClubes(cod_postal);
-      print('clubesssJson $clubesJson');
-      if (clubesJson == '[]') {
-        //falta cambiar
-        print('pruebaaaaaaaaaaaaaaaa');
-        return;
-      }
-      List<dynamic> clubesData = json.decode(clubesJson);
 
-      for (var i = 0; i < clubesData.length; i++) {
-        mapClubes[clubesData[i]['nombre']] =
-            clubesData[i]['id_club'].toString();
+      List<dynamic> clubesCodPostal =
+          await ProveedorProvider().obtenerClubes(codigos_postales);
+      print('clubesCodPostal $clubesCodPostal');
+
+      for (var i = 0; i < clubesCodPostal.length; i++) {
+        mapClubes[clubesCodPostal[i]['nombre']] =
+            clubesCodPostal[i]['id_club'].toString();
       }
 
-      List<String> listaClubes =
-          clubesData.map<String>((club) => club['nombre'] as String).toList();
+      List<String> listaClubes = clubesCodPostal
+          .map<String>((club) => club['nombre'] as String)
+          .toList();
+      print('listaClubes$listaClubes');
       clubes.value = listaClubes;
       return;
     } catch (error, stack) {

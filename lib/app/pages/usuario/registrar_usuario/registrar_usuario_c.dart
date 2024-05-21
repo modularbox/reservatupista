@@ -33,9 +33,6 @@ class RegistrarUsuarioController extends GetxController
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Si el form esta validado
   bool isValidateForms = false;
-  // Checar si los terminos y condiciones son aceptados
-  RxBool checkboxTerminos = false.obs;
-  RxBool validateTerminos = false.obs;
   // La visibilidad de la contrasena
   RxBool contrasenaVisibility = false.obs;
   RxBool comprobarContrasenaVisibility = false.obs;
@@ -43,8 +40,6 @@ class RegistrarUsuarioController extends GetxController
   RxString nick = ''.obs;
   // Verificar si existe email y mandar a la api en un tiempo determinado
   RxString email = ''.obs;
-  // Animacion de los terminos y condiciones
-  late AnimationController animTerminos;
   // Clase para la imagen
   final image = FuncionesImage();
 
@@ -53,7 +48,7 @@ class RegistrarUsuarioController extends GetxController
     super.onInit();
     // onInitForm();
     apiExisteNick.empty();
-    animTerminos = animVibrate(vsync: this);
+    buildMarcasPalas();
     debounce(contrasenaVisibility, (_) => contrasenaVisibility.value = false,
         time: const Duration(seconds: 3, milliseconds: 30));
     debounce(comprobarContrasenaVisibility,
@@ -80,6 +75,44 @@ class RegistrarUsuarioController extends GetxController
     tc.nick.text = 'mike1121';
     tc.contrasenaComprobar.text = '12345678';
     tc.contrasena.text = '12345678';
+  }
+
+  /// Obtener los modelos de las palas
+  Future<void> buildModelosPalas(int id_marca) async {
+    print('llega a buildModelosPalas $id_marca');
+    UsuarioProvider provider = new UsuarioProvider();
+    final response = await provider.getModelosPalas(id_marca);
+    List<dynamic> data = response.body;
+    print('responseresponse ${jsonEncode(data)}');
+
+    modelosPalas.clear();
+    data.forEach((element) {
+      modelosPalas.add({
+        'modelo': element['modelo'].toString(),
+        'id': element['id_marca_pala'].toString()
+      });
+    });
+    print('self.modelosPalas ${modelosPalas}');
+  }
+
+  /// Obtener las marcas de la pala
+  Future<void> buildMarcasPalas() async {
+    print('llega a buildMarcasPalas');
+    UsuarioProvider provider = new UsuarioProvider();
+    final response = await provider.getMarcasPalas();
+    List<dynamic> data = response.body;
+    marcasPalas.clear();
+    Map<String, String> newMapa = {};
+    data.forEach((element) {
+      print('llega a buildMarcasPalas element ${jsonEncode(element)}');
+      //marcasPalas.add(element);
+      newMapa[element['marca']] = element['id'].toString();
+      marcasPalas.add({
+        'marca': element['marca'].toString(),
+        'id': element['id'].toString()
+      });
+    });
+    //self.marcasPalasMap.value = newMapa;
   }
 
   /// Loading Nick
@@ -135,7 +168,7 @@ class RegistrarUsuarioController extends GetxController
 
   /// Registrar Usuario
   void onPressedRegistrar() async {
-    if (formKey.currentState!.validate() && checkboxTerminos.value) {
+    if (formKey.currentState!.validate()) {
       try {
         Get.dialog(ColorLoader3());
         // Poner nombre en base a la fecha para que no se repita
@@ -231,11 +264,6 @@ class RegistrarUsuarioController extends GetxController
       } catch (e) {
         Get.back();
         print(e);
-      }
-    } else {
-      if (!checkboxTerminos.value) {
-        validateTerminos.value = true;
-        animTerminos.forward();
       }
     }
   }

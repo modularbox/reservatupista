@@ -596,12 +596,8 @@ class _ListInputsState extends State<ListInputs> {
               ),
             ),
           ),
-          TerminosCondicionesDialog(
-              self.animTerminos,
-              self.checkboxTerminos,
-              Colores.proveedor.primary,
-              self.validateTerminos,
-              LightModeTheme().primaryText),
+          TerminosCondicionesDialog(self.animTerminos,
+              Colores.proveedor.primary, LightModeTheme().primaryText),
         ].divide(const SizedBox(height: 10.0)),
       ),
     );

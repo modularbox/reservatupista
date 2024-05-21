@@ -40,7 +40,6 @@ class InputsDatosRegistroProveedor
           anim: anim,
           maxLength: 9,
           onValidate: (val) => val!.length < 9 ? '' : null,
-          isRequired: false,
           inputFormatters: [SinEspaciosInputFormatter(), CIFNIFFormatter()]),
       BuildInput(
         labelText: 'Dirección Fiscal',

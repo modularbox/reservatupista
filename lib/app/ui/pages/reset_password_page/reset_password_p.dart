@@ -103,7 +103,6 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
                               Routes.INICIO,
                               Routes.REGISTRAR_USUARIO,
                               self.animTerminosUsuario,
-                              self.validateTerminosUsuario,
                               lineColor: lineColorUsuario,
                               focusedColor: focusedColorUsuario,
                               typeUser: 0,
@@ -124,7 +123,6 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
                               Routes.INICIO_PROVEEDOR,
                               Routes.REGISTRAR_PROVEEDOR,
                               self.animTerminosProveedor,
-                              self.validateTerminosProveedor,
                               lineColor: lineColorProfesional,
                               focusedColor: focusedColorProfesional,
                               typeUser: 1,
@@ -157,8 +155,7 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
     RxBool checkboxTerminos,
     String accederPage,
     String registroPage,
-    AnimationController animTerminos,
-    RxBool validateTerminos, {
+    AnimationController animTerminos, {
     required Color lineColor,
     required Color focusedColor,
     required Color palomita,
@@ -435,9 +432,7 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
           ),
           TerminosCondicionesDialog(
             animTerminos,
-            checkboxTerminos,
             focusedColor,
-            validateTerminos,
             palomita,
             paddingTop: self.movilPequeno ? 10 : 20,
           ),

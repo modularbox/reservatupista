@@ -59,9 +59,7 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                             const InputsDatosRegistroProveedor(),
                             TerminosCondicionesDialog(
                                 self.animTerminos,
-                                self.checkboxTerminos,
                                 Colores.proveedor.primary,
-                                self.validateTerminos,
                                 LightModeTheme().primaryText),
                             Padding(
                               padding:

@@ -103,9 +103,6 @@ class AnadirPistaController extends GetxController
   TextEditingController nPistaController = TextEditingController();
 // Focus al InputController, solo a uno
   bool focusInputController = false;
-  // Checar si los terminos y condiciones son aceptados
-  RxBool checkboxTerminos = false.obs;
-  RxBool validateTerminos = false.obs;
   // Validar si se han creado las tarifas al momento de crear la pista
   RxBool validarTarifas = false.obs;
   // Imagenes de la pistas
@@ -211,11 +208,6 @@ class AnadirPistaController extends GetxController
     if (imagesPista.rx.value.isEmpty) {
       validarAnterior = false;
       imagesPista.changeActions('validate');
-    }
-    if (!checkboxTerminos.value) {
-      validarAnterior = false;
-      validateTerminos.value = true;
-      animTerminos.forward();
     }
     if (!selfTarifas.datosGuardados.value) {
       validarAnterior = false;

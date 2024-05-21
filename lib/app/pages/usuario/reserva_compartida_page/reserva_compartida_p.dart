@@ -233,9 +233,7 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
     list.add(
       TerminosCondicionesDialog(
         self.animTerminos,
-        self.checkboxTerminos,
         Colores.proveedor.primary,
-        self.validateTerminos,
         LightModeTheme().primaryText,
         saltoLinea: true,
       ),
