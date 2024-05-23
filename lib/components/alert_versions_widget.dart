@@ -19,6 +19,10 @@ class Versions extends StatelessWidget {
   List<DatosVersion> arrayVersion2() => [
         DatosVersion(
             v: db.version,
+            info: '''Agregar seccion de Administrador.''',
+            fecha: '21/05/2024'),
+        DatosVersion(
+            v: '2.2.11',
             info: '''Ajustes en envio de correo usuarios.''',
             fecha: '14/05/2024'),
         DatosVersion(

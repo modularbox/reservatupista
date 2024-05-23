@@ -450,7 +450,7 @@ class ReservarPistaController extends GetxController
 
   Future<dynamic> obtenerLocalidades() async {
     try {
-      var url = '${DatosServer.urlServer}/usuario/obtener_localidades_22';
+      var url = '${DatosServer.urlServer}/usuario/obtener_localidades';
       var response = await http.get(Uri.parse(url));
 
       return response.body;

@@ -29,9 +29,9 @@ class TiposImagenes {
 class DatosUsuarioController extends GetxController
     with GetTickerProviderStateMixin {
   // Traer datos de la api de codigo postal Nominatim
-  StateRx<bool?> apiCodigoPostal = StateRx(Rx<bool?>(null));
+  final apiCodigoPostal = StateRx(Rx<bool?>(null));
   // Datos de la api datos del usuario
-  StateRx<bool?> apidatosUsuario = StateRx(Rx<bool?>(null));
+  final apidatosUsuario = StateRx(Rx<bool?>(null));
 
   ///  State fields for stateful widgets in this page.
   final unfocusNode = FocusNode();
@@ -81,10 +81,12 @@ class DatosUsuarioController extends GetxController
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isValidateForms = false;
-  RxBool checkboxTerminos = false.obs;
-  RxBool validateCheckbox = false.obs;
-  RxBool validateExisteNick = false.obs;
-  RxBool modificarDatos = false.obs;
+  final checkboxTerminos = false.obs;
+  final validateCheckbox = false.obs;
+  final validateExisteNick = false.obs;
+  final modificarDatos = false.obs;
+  // Verificar notificaciones de noticias
+  bool noticia = false;
 
   /// Verificar si se modificaron datos para actualizar el perfil
   bool seModificaronDatos = false;
@@ -186,6 +188,7 @@ class DatosUsuarioController extends GetxController
         'modelo_pala',
         'juegos_semana',
         'foto',
+        'noticia'
       ];
       final result =
           await provider.getUsuario(storage.idUsuario.read(), listTypes);
@@ -223,7 +226,7 @@ class DatosUsuarioController extends GetxController
         palaController.text = result.marcaPala;
         modeloController.text = result.modeloPala;
         juegoPorSemanaController.text = result.juegosSemana;
-        // datosUsuario.value.change(true, RxStatusDemo.success());
+        noticia = result.noticia;
         apidatosUsuario.success(true);
         // datosUsuario.refresh();
         usuarioModel = result;
@@ -431,6 +434,12 @@ class DatosUsuarioController extends GetxController
             isRequired: false),
       );
 
+  void modificarEmailNoticia(bool? val) async {
+    noticia = val!;
+    final result = await provider.modificar([noticia], ['noticia']);
+    print(result.messageError());
+  }
+
   /// Modificar Usuario
   void onPressedGuardarCambios() async {
     if (formKey.currentState!.validate()) {
@@ -531,9 +540,7 @@ class DatosUsuarioController extends GetxController
                 "Los datos del usuario\nse han modificado correctamente."),
             textButton: "Aceptar",
             alertType: RichAlertType.SUCCESS,
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: Get.back,
           ));
         }
       } catch (e) {

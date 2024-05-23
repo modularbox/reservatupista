@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_model.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/execute_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
@@ -108,17 +109,13 @@ class MisReservasController extends GetxController
           misReservasUsuario.empty();
           return;
         }
-        for (var i = 0; i < result.length; i++) {
-          final element = result[i];
-          result[i].reservasUsuarios = await obtenerPlazasLibres(
-              element.idPista.toString(),
-              element.fechaReserva.formatReserva,
-              element.horaInicio);
-        }
-
         misReservasUsuario.success(result);
+      } else {
+        misReservasUsuario.empty();
       }
-    } catch (e) {}
+    } catch (e) {
+      misReservasUsuario.empty();
+    }
   }
 
   void empezarFechaRestante(int tiempoRestante) {
@@ -177,7 +174,7 @@ class MisReservasController extends GetxController
         alertSubtitle: richSubtitle('Ha habido un error interno en la app.'),
         textButton: "Cerrar",
         alertType: TypeGeneralDialog.ERROR,
-        onPressed: () => Get.back(),
+        onPressed: Get.back,
       ));
       throw e;
     }

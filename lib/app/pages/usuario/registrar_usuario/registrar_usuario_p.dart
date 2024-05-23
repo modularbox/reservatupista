@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
-import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../widgets/appbar_general.dart';
 import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

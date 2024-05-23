@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dart';
-import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
+import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/dialog/terminos_condiciones_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
@@ -13,23 +13,15 @@ import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../registrar_usuario_c.dart';
 import 'build_input.dart';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:reservatu_pista/utils/btn_icon.dart';
-import 'package:reservatu_pista/utils/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
   const InputsDatosRegistroUsuario({super.key});
 
   /// LLamar el controlador
   RegistrarUsuarioController get self => controller;
   // Definimos la animacion que viene directamente del controllador
-  get anim => animVibrate(vsync: self);
+  AnimationController get anim => animVibrate(vsync: self);
 
   /// Contruir la lista de inputs
-  ///
-
   List<Widget> buildListDatosPersonales() {
     return [
       BuildInput(
@@ -261,12 +253,9 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           anim: anim,
           isSelect: true,
           onChanged: (variable) {
-            print('llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-            print('p0variable $variable');
             var marcaElegida = self.marcasPalas.firstWhere((e) {
               return e['marca'] == variable;
             }, orElse: () => {'': ''});
-            print('marcaElegida $marcaElegida');
             self.buildModelosPalas(int.parse(marcaElegida['id'] ?? ''));
           },
           listSelect:
@@ -358,10 +347,16 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
         buildSubtitle('Datos de contraseña'),
         ...buildListContrasena(),
         TerminosCondicionesDialog(
-            anim,
-            Colores.proveedor.primary,
-            paddingTop: 10.0,
-            LightModeTheme().primaryText),
+            anim, Colores.usuario.primary, paddingTop: 10.0, Colors.white),
+        NoticiasCheckbox(
+          onChanged: (val) {
+            self.noticia = val!;
+          },
+          animTerminos: anim,
+          focusedColor: Colores.usuario.primary,
+          palomita: Colors.white,
+          paddingTop: 0.0,
+        ),
       ],
     );
   }

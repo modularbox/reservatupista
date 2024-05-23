@@ -67,6 +67,9 @@ class DatosProveedorController extends GetxController
   List<String> listCodigoIban = ['', '', '', '', '', ''];
   DBService db = Get.find();
 
+  // Verificar notificaciones de noticias
+  bool noticia = false;
+
   /// Initialization and disposal methods.
   @override
   void onInit() {
@@ -137,7 +140,8 @@ class DatosProveedorController extends GetxController
         TypeDatosServerProveedor.lada,
         TypeDatosServerProveedor.telefono,
         TypeDatosServerProveedor.foto,
-        TypeDatosServerProveedor.certificado_cuenta
+        TypeDatosServerProveedor.certificado_cuenta,
+        TypeDatosServerProveedor.noticia
       ];
       final result = await ProveedorNode()
           .getProveedor(storage.idProveedor.read(), listTypes);
@@ -174,6 +178,7 @@ class DatosProveedorController extends GetxController
         imageProveedorModel = result.foto;
         imageCertificado.imageNetwork.value =
             DatosServer.proveedor(result.certificadoCuenta);
+        noticia = result.noticia;
 
         /// Obtener los datos del club
         final List<String> listTypes = [

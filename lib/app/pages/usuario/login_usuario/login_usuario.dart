@@ -427,6 +427,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
               ],
             ),
           ),
@@ -435,6 +438,29 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             focusedColor,
             palomita,
             paddingTop: movilPequeno ? 10 : 20,
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          FFButtonWidget(
+            onPressed: () => Get.toNamed(Routes.ADMINISTRADOR),
+            text: 'Administrador',
+            options: FFButtonOptions(
+              height: 40,
+              width: 200,
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              color: focusedColor,
+              textStyle: LightModeTheme().bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    color: LightModeTheme().tertiary,
+                  ),
+              elevation: 2,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            height: 5.0,
           ),
           Divider(
             height: 2,

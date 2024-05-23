@@ -38,6 +38,7 @@ abstract class FlutterFlowTheme {
   late Color titleLogo;
   late Color bottomBarLoginText;
   late Color successGeneral;
+  late Color reservaPendiente;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;

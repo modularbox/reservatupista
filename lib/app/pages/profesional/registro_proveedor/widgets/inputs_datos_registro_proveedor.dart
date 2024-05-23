@@ -4,7 +4,9 @@ import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dar
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
+import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import 'package:reservatu_pista/utils/dialog/terminos_condiciones_dialog.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../registrar_proveedor_c.dart';
@@ -17,7 +19,7 @@ class InputsDatosRegistroProveedor
   // Llamar el controlador
   RegistrarProveedorController get self => controller;
   // Definimos la animacion que viene directamente del controllador
-  get anim => animVibrate(vsync: self);
+  AnimationController get anim => animVibrate(vsync: self);
 
   /// Contruir la lista de inputs
   List<Widget> buildListDatosFacturacion() {
@@ -179,6 +181,7 @@ class InputsDatosRegistroProveedor
           labelText: 'Fijo',
           textEditingController: self.tc.fijo,
           anim: anim,
+          isRequired: false,
           keyboardType: TextInputType.number,
           maxLength: 9,
           onValidate: (val) => val!.length < 9 ? '' : null,
@@ -373,6 +376,21 @@ class InputsDatosRegistroProveedor
         ...buildListDatosUbicacion(),
         buildSubtitle('Datos de contraseña'),
         ...buildListContrasena(),
+        TerminosCondicionesDialog(
+          self.animTerminos,
+          Colores.proveedor.primary,
+          LightModeTheme().primaryText,
+          paddingTop: 10.0,
+        ),
+        NoticiasCheckbox(
+          onChanged: (val) {
+            self.noticia = val!;
+          },
+          animTerminos: anim,
+          focusedColor: Colores.usuario.primary,
+          palomita: Colors.white,
+          paddingTop: 0.0,
+        ),
       ],
     );
   }

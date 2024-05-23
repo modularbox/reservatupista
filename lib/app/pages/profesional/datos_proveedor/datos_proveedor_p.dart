@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/animations/list_animations.dart';
+import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
@@ -150,6 +152,27 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                                           context: context,
                                           propertiesTextField:
                                               datosUbicacion[index])),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Email',
+                                      style: LightModeTheme()
+                                          .labelLarge
+                                          .copyWith(color: Colors.black),
+                                    ),
+                                  ),
+                                  NoticiasCheckbox(
+                                    initialValue: self.noticia,
+                                    onChanged: (val) {
+                                      self.noticia = val!;
+                                    },
+                                    animTerminos: animVibrate(vsync: self),
+                                    focusedColor: Colores.usuario.primary,
+                                    palomita: Colors.white,
+                                    paddingTop: 0.0,
+                                  ),
                                 ],
                               ),
                             ),

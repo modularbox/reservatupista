@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/usuario/datos_usuario/widgets/select_datos.dart';
-import 'package:reservatu_pista/app/widgets/seleccionar_imagen/seleccion_imagen.dart';
+import 'package:reservatu_pista/utils/animations/list_animations.dart';
+import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
@@ -234,6 +235,24 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                     (index) => buildInput(
                         context: Get.context!,
                         propertiesTextField: datosJuego.listProperty()[index])),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 16.0, 0.0, 0.0),
+                  child: Text(
+                    'Email',
+                    style: LightModeTheme()
+                        .labelLarge
+                        .copyWith(color: Colors.black),
+                  ),
+                ),
+                NoticiasCheckbox(
+                  initialValue: self.noticia,
+                  onChanged: self.modificarEmailNoticia,
+                  animTerminos: animVibrate(vsync: self),
+                  focusedColor: Colores.usuario.primary,
+                  palomita: Colors.white,
+                  paddingTop: 0.0,
+                ),
               ],
             ),
           ),

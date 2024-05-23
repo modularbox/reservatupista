@@ -2,13 +2,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
+import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
-import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
@@ -42,6 +42,8 @@ class RegistrarUsuarioController extends GetxController
   RxString email = ''.obs;
   // Clase para la imagen
   final image = FuncionesImage();
+  // Cambiar la noticia
+  bool noticia = false;
 
   @override
   void onInit() {
@@ -79,40 +81,30 @@ class RegistrarUsuarioController extends GetxController
 
   /// Obtener los modelos de las palas
   Future<void> buildModelosPalas(int id_marca) async {
-    print('llega a buildModelosPalas $id_marca');
-    UsuarioProvider provider = new UsuarioProvider();
-    final response = await provider.getModelosPalas(id_marca);
+    final response = await UsuarioProvider().getModelosPalas(id_marca);
     List<dynamic> data = response.body;
-    print('responseresponse ${jsonEncode(data)}');
-
     modelosPalas.clear();
-    data.forEach((element) {
+    for (var element in data) {
       modelosPalas.add({
         'modelo': element['modelo'].toString(),
         'id': element['id_marca_pala'].toString()
       });
-    });
-    print('self.modelosPalas ${modelosPalas}');
+    }
   }
 
   /// Obtener las marcas de la pala
   Future<void> buildMarcasPalas() async {
-    print('llega a buildMarcasPalas');
-    UsuarioProvider provider = new UsuarioProvider();
-    final response = await provider.getMarcasPalas();
+    final response = await UsuarioProvider().getMarcasPalas();
     List<dynamic> data = response.body;
     marcasPalas.clear();
     Map<String, String> newMapa = {};
-    data.forEach((element) {
-      print('llega a buildMarcasPalas element ${jsonEncode(element)}');
-      //marcasPalas.add(element);
+    for (var element in data) {
       newMapa[element['marca']] = element['id'].toString();
       marcasPalas.add({
         'marca': element['marca'].toString(),
         'id': element['id'].toString()
       });
-    });
-    //self.marcasPalasMap.value = newMapa;
+    }
   }
 
   /// Loading Nick
@@ -233,20 +225,21 @@ class RegistrarUsuarioController extends GetxController
           modelo_pala,
           juegos_semana,
           contrasena,
-          foto
+          foto,
+          noticia
         ];
 
         /// Registrar al registrar al usuario
         final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
         Get.back();
         if (registrar) {
-          final enviarMail = await UsuarioProvider()
-              .enviarEmail(tc.email.text, tc.nombre.text);
+          await EmailProvider()
+              .enviarEmailRegistro(tc.email.text, tc.nombre.text, false);
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Registro usuario"),
             alertSubtitle:
                 richSubtitle("Compruebe su correo para finalizar el registro."),
-            textButton: "Ir a Login",
+            textButton: 'Confirmar',
             alertType: TypeGeneralDialog.SUCCESS,
             onPressed: () {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
@@ -282,17 +275,10 @@ class RegistrarUsuarioController extends GetxController
       AnimationController anim, FocusNode focusNode) {
     if (tc.contrasena.text.isEmpty) {
       // if (!isFocusNode) {
-      //   isFocusNode = true;
-      //   focusNode.requestFocus();
-      // }
       anim.forward();
       return '';
     }
     if (tc.contrasena.text.length < 6) {
-      // if (!isFocusNode) {
-      //   isFocusNode = true;
-      //   focusNode.requestFocus();
-      // }
       anim.forward();
       return '';
     }
@@ -310,26 +296,14 @@ class RegistrarUsuarioController extends GetxController
   String? validateTextFieldContrasenaComprobar(
       AnimationController anim, FocusNode focusNode) {
     if (tc.contrasena.text.isEmpty) {
-      // if (!isFocusNode) {
-      //   isFocusNode = true;
-      //   focusNode.requestFocus();
-      // }
       anim.forward();
       return '';
     }
     if (tc.contrasenaComprobar.text.length < 6) {
-      // if (!isFocusNode) {
-      //   isFocusNode = true;
-      //   focusNode.requestFocus();
-      // }
       anim.forward();
       return 'La contraseña debe tener minimo 6 dígitos.';
     }
     if (tc.contrasena.text != tc.contrasenaComprobar.text) {
-      // if (!isFocusNode) {
-      //   isFocusNode = true;
-      //   focusNode.requestFocus();
-      // }
       anim.forward();
       return 'La contraseña no coinciden.';
     }

@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
@@ -93,6 +94,7 @@ enum RoutesType {
   eliminar_cuenta,
   validar_email,
   reserva_compartida,
+  administrador
 }
 
 /// Names Routes
@@ -132,6 +134,7 @@ abstract class Routes {
   static final ELIMINAR_CUENTA = RoutesType.eliminar_cuenta.getRoute;
   static final VALIDAR_EMAIL = RoutesType.validar_email.getRoute;
   static final RESERVA_COMPARTIDA = RoutesType.reserva_compartida.getRoute;
+  static final ADMINISTRADOR = RoutesType.administrador.getRoute;
 }
 
 /// Get Routes
@@ -333,6 +336,12 @@ class AppPages {
       name: Routes.VALIDAR_EMAIL,
       page: () => ValidarEmailPage(),
       binding: ValidarEmailBinding(),
+    ),
+
+    /// Validar email
+    GetPage(
+      name: Routes.ADMINISTRADOR,
+      page: () => const AdminPageWidget(),
     ),
   ];
 }
