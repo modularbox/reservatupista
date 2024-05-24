@@ -217,7 +217,6 @@ class MonederoPage extends GetView<MonederoController> {
                             (controller.type == TypeHistorial.all)
                                 ? buildReservasRegargas()
                                 : const SizedBox(),
-                            // buildTransferencia(),
                           ],
                         )),
                   ),
@@ -234,14 +233,12 @@ class MonederoPage extends GetView<MonederoController> {
     return self.historial_todo.obx(
         (state) => SingleChildScrollView(
               child: Column(
-                children: [
-                  ...List.generate(
-                    state!.length,
-                    (i) => state[i]['id_reserva'] != null
-                        ? buildReserva(state[i])
-                        : buildRecarga(state[i]),
-                  )
-                ],
+                children: List.generate(
+                  state!.length,
+                  (i) => state[i]['id_reserva'] != null
+                      ? buildReserva(state[i])
+                      : buildRecarga(state[i]),
+                ).divide(10.0.sh).addToEnd(65.0.sh),
               ),
             ),
         onLoading: Padding(

@@ -137,8 +137,7 @@ class MisPistasPage extends GetView<MisPistasController> {
 
   /// Build Deporte
   Widget buildDeporte(DatosDeporte e, int index) {
-    print(e.nombre.replaceAll(RegExp(r'\s+'), '').toLowerCase());
-    final image = e.nombre.replaceAll(RegExp(r'\s+'), '').toLowerCase();
+    final image = e.nombre.replaceAll(' ', '').toLowerCase();
     return Stack(
       children: [
         Padding(

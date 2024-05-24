@@ -169,7 +169,7 @@ class MisReservasPage extends GetView<MisReservasController> {
   List<Widget> buildListDeportes() {
     List<DatosDeporte> listDeportes = [];
     for (int i = 0; i < self.listaDeportes.length; i++) {
-      String foto = self.listaDeportes[i].trim().toLowerCase();
+      final foto = self.listaDeportes[i].replaceAll(' ', '').toLowerCase();
       listDeportes.add(DatosDeporte(self.listaDeportes[i], foto));
       print('self.listaDeportes[i] ${self.listaDeportes[i]}');
     }

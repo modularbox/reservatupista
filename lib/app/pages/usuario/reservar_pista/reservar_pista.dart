@@ -204,7 +204,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
               const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
         ),
       ),
-    ).visible(self.localidades.value.isNotEmpty);
+    );
   }
 
   /// Input de los Clubss
