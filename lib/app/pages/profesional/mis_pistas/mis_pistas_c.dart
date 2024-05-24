@@ -10,7 +10,7 @@ import '../../../data/models/mis_pistas_model.dart';
 
 extension FechaExt on DateTime {
   String get formatFecha => FormatDate.dateToString(this);
-  String get formatReserva => DateFormat('yyyy-MM-dd').format(this);
+  String get formatReserva => DateFormat.yMMMMd('es').format(this);
   String get letraDia => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
 }
 

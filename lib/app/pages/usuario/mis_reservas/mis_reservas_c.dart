@@ -41,7 +41,7 @@ class MisReservasController extends GetxController
   Timer? debounceTimer;
   double previousScrollPosition = 0.0;
   final ScrollController scrollController = ScrollController();
-
+  List<String> listaDeportes = RxList([]);
   late List<MisReservasUsuarioModel> globalResult;
   @override
   void onReady() async {
@@ -122,9 +122,11 @@ class MisReservasController extends GetxController
               element.fechaReserva.toString(),
               //element.fechaReserva.formatReserva,
               element.horaInicio);
+          if (listaDeportes.indexOf(element.deporte) == -1)
+            listaDeportes.add(element.deporte);
         }
         print('result.length ${result.length}');
-
+        print('listaDeporteslistaDeportes ${listaDeportes}');
         print(
             'missReservasUsuario.rx.value.length ${misReservasUsuario.rx.value.length}');
         misReservasUsuario.success(result);

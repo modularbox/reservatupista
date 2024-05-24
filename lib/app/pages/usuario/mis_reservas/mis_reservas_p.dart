@@ -39,12 +39,12 @@ class MisReservasPage extends GetView<MisReservasController> {
             children: [
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...buildListDeportes(),
-                    Obx(() => Text('Pista actual: ${self.currentPage}')),
-                  ],
-                ),
+                child: Obx(() => Row(
+                      children: [
+                        ...buildListDeportes(),
+                        Obx(() => Text('Pista actual: ${self.currentPage}')),
+                      ],
+                    )),
               ),
               Expanded(
                 child: Listener(
@@ -167,12 +167,13 @@ class MisReservasPage extends GetView<MisReservasController> {
   }
 
   List<Widget> buildListDeportes() {
-    final List<DatosDeporte> listDeportes = [
-      DatosDeporte('Padel', 'U1F3BE'),
-      DatosDeporte('Tenis', 'U1F3BE'),
-      // Agrega los demás deportes aquí...
-    ];
-
+    List<DatosDeporte> listDeportes = [];
+    for (int i = 0; i < self.listaDeportes.length; i++) {
+      String foto = self.listaDeportes[i].trim().toLowerCase();
+      listDeportes.add(DatosDeporte(self.listaDeportes[i], foto));
+      print('self.listaDeportes[i] ${self.listaDeportes[i]}');
+    }
+    print('listDeportes ${listDeportes}');
     return listDeportes.map((e) => buildDeporte(e)).toList();
   }
 

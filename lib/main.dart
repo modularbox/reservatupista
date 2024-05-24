@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b%20copy.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p%20copy.dart';
 import 'package:reservatu_pista/app/ui/pages/not_found_page/not_found_b.dart';
 import 'package:reservatu_pista/app/ui/pages/not_found_page/not_found_p.dart';
