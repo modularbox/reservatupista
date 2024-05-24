@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class TerminosCondicionesDialog extends StatelessWidget {
   TerminosCondicionesDialog(this.animTerminos, this.focusedColor, this.palomita,
-      {super.key, this.paddingTop, this.saltoLinea = false});
+      {super.key, this.paddingTop, this.saltoLinea = false, this.value});
   final AnimationController animTerminos;
   final double? paddingTop;
   final RxBool checkboxTerminos = false.obs;
@@ -16,6 +16,7 @@ class TerminosCondicionesDialog extends StatelessWidget {
   final RxBool validateTerminos = false.obs;
   final Color palomita;
   final bool saltoLinea;
+  final bool? value;
 
   @override
   Widget build(BuildContext context) {

@@ -27,10 +27,10 @@ class NoticiasCheckbox extends StatefulWidget {
   });
 
   @override
-  _NoticiasCheckboxState createState() => _NoticiasCheckboxState();
+  NoticiasCheckboxState createState() => NoticiasCheckboxState();
 }
 
-class _NoticiasCheckboxState extends State<NoticiasCheckbox> {
+class NoticiasCheckboxState extends State<NoticiasCheckbox> {
   late RxBool checkboxTerminos;
   final RxBool validateTerminos = false.obs;
 

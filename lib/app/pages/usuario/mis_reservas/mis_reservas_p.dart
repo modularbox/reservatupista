@@ -46,6 +46,7 @@ class MisReservasPage extends GetView<MisReservasController> {
                       ],
                     )),
               ),
+              Obx(() => Text('Pagina actual: ${self.currentPage}')),
               Expanded(
                 child: Listener(
                   onPointerSignal: (event) {

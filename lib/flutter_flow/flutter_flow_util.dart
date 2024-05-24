@@ -309,7 +309,7 @@ extension FFStringExt on String {
           ? replaceRange(maxChars, null, replacement)
           : this;
 
-  String get formatHora => substring(0, 5);
+  String get formatHora => '${substring(0, 5)}h';
   String get formatHoraTimestamp => substring(11, 16);
   String get formatFechaTimestamp => substring(0, 10);
 
