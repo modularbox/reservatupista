@@ -374,7 +374,7 @@ class MonederoPage extends GetView<MonederoController> {
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
-                        'Fecha: ${fecha.formatFechaTimestamp.formatDiaMesAnio}',
+                        'Fecha: ${DateTime.parse(fecha).formatReserva}',
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
@@ -517,7 +517,7 @@ class MonederoPage extends GetView<MonederoController> {
                             ),
                       ),
                       Text(
-                        'Fecha: ${fecha.formatFechaTimestamp.formatDiaMesAnio}',
+                        'Fecha: ${DateTime.parse(fecha).formatReserva}',
                         style: LightModeTheme().labelMedium,
                       ),
                       Text(
