@@ -137,6 +137,8 @@ class MisPistasPage extends GetView<MisPistasController> {
 
   /// Build Deporte
   Widget buildDeporte(DatosDeporte e, int index) {
+    print(e.nombre.replaceAll(RegExp(r'\s+'), '').toLowerCase());
+    final image = e.nombre.replaceAll(RegExp(r'\s+'), '').toLowerCase();
     return Stack(
       children: [
         Padding(
@@ -149,7 +151,7 @@ class MisPistasPage extends GetView<MisPistasController> {
                 height: 50,
                 width: 50,
                 child: Image.network(
-                  DatosServer.online(e.image),
+                  DatosServer.online(image),
                   fit: BoxFit.cover,
                 ),
               ),

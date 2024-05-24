@@ -42,10 +42,10 @@ class MisReservasPage extends GetView<MisReservasController> {
                 child: Row(
                   children: [
                     ...buildListDeportes(),
-                    Obx(() => Text('Pista actual: ${self.currentPage}')),
                   ],
                 ),
               ),
+              Obx(() => Text('Pagina actual: ${self.currentPage}')),
               Expanded(
                 child: Listener(
                   onPointerSignal: (event) {

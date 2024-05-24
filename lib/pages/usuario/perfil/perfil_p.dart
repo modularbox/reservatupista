@@ -54,7 +54,6 @@ class PerfilPage extends GetView<DBService> {
                       : datosPerfil(
                           space: spaceSizedBoxBtnCerrar(),
                           subAppBar: subAppBar(false))),
-              buildBtnCerrar()
             ],
           ),
         ));
