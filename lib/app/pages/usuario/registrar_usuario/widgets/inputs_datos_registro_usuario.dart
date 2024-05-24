@@ -1,16 +1,16 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
+import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import 'package:reservatu_pista/utils/dialog/terminos_condiciones_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../registrar_usuario_c.dart';
-import '../../../../../app/data/provider/usuario_node.dart';
 import 'build_input.dart';
 
 class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
@@ -19,11 +19,9 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
   /// LLamar el controlador
   RegistrarUsuarioController get self => controller;
   // Definimos la animacion que viene directamente del controllador
-  get anim => animVibrate(vsync: self);
+  AnimationController get anim => animVibrate(vsync: self);
 
   /// Contruir la lista de inputs
-  ///
-
   List<Widget> buildListDatosPersonales() {
     return [
       BuildInput(
@@ -255,13 +253,10 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           anim: anim,
           isSelect: true,
           onChanged: (variable) {
-            print('llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-            print('p0variable $variable');
             var marcaElegida = self.marcasPalas.firstWhere((e) {
               return e['marca'] == variable;
             }, orElse: () => {'': ''});
-            print('marcaElegida $marcaElegida');
-            buildModelosPalas(int.parse(marcaElegida['id'] ?? ''));
+            self.buildModelosPalas(int.parse(marcaElegida['id'] ?? ''));
           },
           listSelect:
               self.marcasPalas.map((e) => e['marca'].toString()).toList(),
@@ -308,42 +303,6 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
     ];
   }
 
-  Future<void> buildMarcasPalas() async {
-    print('llega a buildMarcasPalas');
-    UsuarioProvider provider = new UsuarioProvider();
-    final response = await provider.getMarcasPalas();
-    List<dynamic> data = response.body;
-    self.marcasPalas.clear();
-    Map<String, String> newMapa = {};
-    data.forEach((element) {
-      print('llega a buildMarcasPalas element ${jsonEncode(element)}');
-      //self.marcasPalas.add(element);
-      newMapa[element['marca']] = element['id'].toString();
-      self.marcasPalas.add({
-        'marca': element['marca'].toString(),
-        'id': element['id'].toString()
-      });
-    });
-    //self.marcasPalasMap.value = newMapa;
-  }
-
-  Future<void> buildModelosPalas(int id_marca) async {
-    print('llega a buildModelosPalas $id_marca');
-    UsuarioProvider provider = new UsuarioProvider();
-    final response = await provider.getModelosPalas(id_marca);
-    List<dynamic> data = response.body;
-    print('responseresponse ${jsonEncode(data)}');
-
-    self.modelosPalas.clear();
-    data.forEach((element) {
-      self.modelosPalas.add({
-        'modelo': element['modelo'].toString(),
-        'id': element['id_marca_pala'].toString()
-      });
-    });
-    print('self.modelosPalas ${self.modelosPalas}');
-  }
-
   /// Construir el input contrasena
   Widget buildContrasena(
       {required String labelText,
@@ -351,7 +310,6 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
       required RxBool visibility,
       required TextEditingController textEditingController,
       required String? Function(AnimationController, FocusNode) validator}) {
-    buildMarcasPalas();
     return Obx(() => BuildInput(
         labelText: labelText,
         anim: anim,
@@ -364,7 +322,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
         ),
         prefixIconColor: LightModeTheme().primary,
         suffixIcon: InkWell(
-          onTap: () => visibility.toggle(),
+          onTap: visibility.toggle,
           child: Icon(
             visibility.value
                 ? Icons.visibility_outlined
@@ -387,7 +345,18 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
         buildSubtitle('Datos de Juego'),
         ...buildListDatosDeJuego(),
         buildSubtitle('Datos de contraseña'),
-        ...buildListContrasena()
+        ...buildListContrasena(),
+        TerminosCondicionesDialog(
+            anim, Colores.usuario.primary, paddingTop: 10.0, Colors.white),
+        NoticiasCheckbox(
+          onChanged: (val) {
+            self.noticia = val!;
+          },
+          animTerminos: anim,
+          focusedColor: Colores.usuario.primary,
+          palomita: Colors.white,
+          paddingTop: 0.0,
+        ),
       ],
     );
   }

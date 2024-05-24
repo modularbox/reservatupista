@@ -45,15 +45,7 @@ class LoginUsuarioController extends GetxController
   // State field(s) for Checkbox widget.
   RxBool checkboxValueRecordarUsuario = false.obs;
   // State field(s) for Checkbox widget.
-  RxBool checkboxValueTerminosUsuario = false.obs;
-  // State field(s) for Checkbox widget.
   RxBool checkboxValueRecordarProveedor = false.obs;
-  // State field(s) for Checkbox widget.
-  RxBool checkboxValueTerminosProveedor = false.obs;
-
-  // Validar los terminos y condiciones.
-  RxBool validateTerminosUsuario = false.obs;
-  RxBool validateTerminosProveedor = false.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isValidateForms = false;
 
@@ -133,53 +125,49 @@ class LoginUsuarioController extends GetxController
           (emailUsuarioController.text == 'app@reservatupista.com' ||
                   emailUsuarioController.text == 'email@ficticio.com') &&
               passwordUsuarioController.text == '12345678';
-      if (!checkboxValueTerminosUsuario.value && !isUserPrueba) {
-        validateTerminosUsuario.value = true;
-        animTerminosUsuario.forward();
-      } else {
-        // Encriptar contrasena
-        List<int> bytes = utf8.encode(passwordUsuarioController.text);
-        String hashConstrasena = sha1.convert(bytes).toString();
-        // Llamar a la api de reservatupista
-        final result = await UsuarioProvider().iniciarSesion([
-          emailUsuarioController.text,
-          emailUsuarioController.text,
-          hashConstrasena
-        ]);
-        if (result is UsuarioModel) {
-          // Si el usuario existe guardamos el id para futuras peticiones
-          storage.idUsuario.write(result.idUsuario);
-          // Guardar el token
-          storage.tokenUsuario.write(result.token);
-          // Guardar el foto
-          storage.fotoUsuario.write(DatosServer.usuario(result.foto));
-          // Guardamos el dinero total del usuario
-          storage.dineroTotal.write(result.dineroTotal);
-          storage.nick.write(result.nick);
-          storage.nombre.write(result.nombre);
-          storage.apellidos.write(result.apellidos);
-          storage.email.write(result.email);
-          // Guardar si es proveedor
-          storage.isProveedor.write(false);
-          // Si es recordar contrasena
-          if (checkboxValueRecordarUsuario.value) {
-            await storage.passwordUsuario.write(passwordUsuarioController.text);
-            await storage.emailUsuario.write(emailUsuarioController.text);
-          } else {
-            storage.passwordUsuario.remove();
-            storage.emailUsuario.remove();
-          }
-          await db.getDB();
-          Get.toNamed(Routes.INICIO);
-        } else if (result is MessageError) {
-          Get.dialog(ChangeDialogGeneral(
-            alertTitle: richTitle("Login Usuario"),
-            alertSubtitle: richSubtitle(result.messageError()),
-            textButton: "Cerrar",
-            alertType: TypeGeneralDialog.WARNING,
-            onPressed: Get.back,
-          ));
+
+      // Encriptar contrasena
+      List<int> bytes = utf8.encode(passwordUsuarioController.text);
+      String hashConstrasena = sha1.convert(bytes).toString();
+      // Llamar a la api de reservatupista
+      final result = await UsuarioProvider().iniciarSesion([
+        emailUsuarioController.text,
+        emailUsuarioController.text,
+        hashConstrasena
+      ]);
+      if (result is UsuarioModel) {
+        // Si el usuario existe guardamos el id para futuras peticiones
+        storage.idUsuario.write(result.idUsuario);
+        // Guardar el token
+        storage.tokenUsuario.write(result.token);
+        // Guardar el foto
+        storage.fotoUsuario.write(DatosServer.usuario(result.foto));
+        // Guardamos el dinero total del usuario
+        storage.dineroTotal.write(result.dineroTotal);
+        storage.nick.write(result.nick);
+        storage.nombre.write(result.nombre);
+        storage.apellidos.write(result.apellidos);
+        storage.email.write(result.email);
+        // Guardar si es proveedor
+        storage.isProveedor.write(false);
+        // Si es recordar contrasena
+        if (checkboxValueRecordarUsuario.value) {
+          await storage.passwordUsuario.write(passwordUsuarioController.text);
+          await storage.emailUsuario.write(emailUsuarioController.text);
+        } else {
+          storage.passwordUsuario.remove();
+          storage.emailUsuario.remove();
         }
+        await db.getDB();
+        Get.toNamed(Routes.INICIO);
+      } else if (result is MessageError) {
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Login Usuario"),
+          alertSubtitle: richSubtitle(result.messageError()),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.WARNING,
+          onPressed: Get.back,
+        ));
       }
       isValidateForms = true;
     }
@@ -192,46 +180,42 @@ class LoginUsuarioController extends GetxController
           (emailUsuarioController.text == 'app@reservatupista.com' ||
                   emailUsuarioController.text == 'email@ficticio.com') &&
               passwordProveedorController.text == '12345678';
-      if (!checkboxValueTerminosProveedor.value && !isUserPrueba) {
-        validateTerminosProveedor.value = true;
-        animTerminosProveedor.forward();
-      } else {
-        List<int> bytes = utf8.encode(passwordProveedorController.text);
-        String hashConstrasena = sha1.convert(bytes).toString();
-        final result = await ProveedorProvider()
-            .iniciarSesion([emailProveedorController.text, hashConstrasena]);
-        if (result is ProveedorModel) {
-          // Si el usuario existe guardamos el id para futuras peticiones
-          storage.idProveedor.write(result.idProveedor);
-          // Guardar el token
-          storage.tokenProveedor.write(result.token);
-          // Guardamos el id del club
-          storage.idClub.write(result.idClub);
-          // Guardamos el id del club
-          storage.nombreClub.write(result.nombre);
-          // Guardar el foto
-          storage.fotoProveedor.write(DatosServer.proveedor(result.foto));
-          // Guardar si es proveedor
-          storage.isProveedor.write(true);
-          // Si es recordar contrasena
-          if (checkboxValueRecordarProveedor.value) {
-            storage.passwordProveedor.write(passwordProveedorController.text);
-            storage.emailProveedor.write(emailProveedorController.text);
-          } else {
-            storage.passwordProveedor.remove();
-            storage.emailProveedor.remove();
-          }
-          await db.getDB();
-          Get.toNamed(Routes.INICIO_PROVEEDOR);
-        } else if (result is MessageError) {
-          Get.dialog(ChangeDialogGeneral(
-            alertTitle: richTitle("Login Proveedor"),
-            alertSubtitle: richSubtitle(result.messageError()),
-            textButton: "Cerrar",
-            alertType: TypeGeneralDialog.WARNING,
-            onPressed: Get.back,
-          ));
+
+      List<int> bytes = utf8.encode(passwordProveedorController.text);
+      String hashConstrasena = sha1.convert(bytes).toString();
+      final result = await ProveedorProvider()
+          .iniciarSesion([emailProveedorController.text, hashConstrasena]);
+      if (result is ProveedorModel) {
+        // Si el usuario existe guardamos el id para futuras peticiones
+        storage.idProveedor.write(result.idProveedor);
+        // Guardar el token
+        storage.tokenProveedor.write(result.token);
+        // Guardamos el id del club
+        storage.idClub.write(result.idClub);
+        // Guardamos el id del club
+        storage.nombreClub.write(result.nombre);
+        // Guardar el foto
+        storage.fotoProveedor.write(DatosServer.proveedor(result.foto));
+        // Guardar si es proveedor
+        storage.isProveedor.write(true);
+        // Si es recordar contrasena
+        if (checkboxValueRecordarProveedor.value) {
+          storage.passwordProveedor.write(passwordProveedorController.text);
+          storage.emailProveedor.write(emailProveedorController.text);
+        } else {
+          storage.passwordProveedor.remove();
+          storage.emailProveedor.remove();
         }
+        await db.getDB();
+        Get.toNamed(Routes.INICIO_PROVEEDOR);
+      } else if (result is MessageError) {
+        Get.dialog(ChangeDialogGeneral(
+          alertTitle: richTitle("Login Proveedor"),
+          alertSubtitle: richSubtitle(result.messageError()),
+          textButton: "Cerrar",
+          alertType: TypeGeneralDialog.WARNING,
+          onPressed: Get.back,
+        ));
       }
       isValidateForms = true;
     }

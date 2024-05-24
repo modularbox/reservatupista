@@ -57,12 +57,6 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                                 ? buildSelectImage()
                                 : const SizedBox.shrink(),
                             const InputsDatosRegistroProveedor(),
-                            TerminosCondicionesDialog(
-                                self.animTerminos,
-                                self.checkboxTerminos,
-                                Colores.proveedor.primary,
-                                self.validateTerminos,
-                                LightModeTheme().primaryText),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10.0),

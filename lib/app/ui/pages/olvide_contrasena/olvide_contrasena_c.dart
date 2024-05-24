@@ -98,7 +98,7 @@ class OlvideContrasenaController extends GetxController
         if (GetUtils.isEmail(emailController.text)) {
           stateEmail.value = true;
           provider.enviarOlvideContrasena(emailController.text, typeUser != 0,
-              'nombre', 'Recuperar contraseña');
+              'nombre', 'Restablecimiento de Contraseña Reservatupista.com');
         }
       }
     } catch (e) {

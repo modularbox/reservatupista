@@ -182,7 +182,6 @@ class SmoothIndicator extends StatelessWidget {
           size: Size(800, 50),
           // rebuild the painter with the new offset every time it updates
           painter: effect.buildPainter(count, offset),
-          child: Text('Jolaskndj'),
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:reservatu_pista/app/data/models/geonames_model.dart';
+import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
@@ -29,9 +30,6 @@ class RegistrarProveedorController extends GetxController
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // Verificar si el form esta validado
   bool isValidateForms = false;
-  // Checar si los terminos y condiciones son aceptados
-  RxBool checkboxTerminos = false.obs;
-  RxBool validateTerminos = false.obs;
   // Visibilidad las contrasenas
   RxBool contrasenaVisibility = false.obs;
   RxBool comprobarContrasenaVisibility = false.obs;
@@ -43,15 +41,33 @@ class RegistrarProveedorController extends GetxController
   final imageProveedor = FuncionesImage(isProveedor: true);
   // Clase para la imagen del certificado de cuenta
   final imageCertificado = FuncionesImage(isProveedor: true);
+  // Recibir noticias
+  bool noticia = false;
 
   /// Initialization and disposal methods.
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    animTerminos = animVibrate(vsync: this);
+    // final enviarMail = await ProveedorProvider()
+    //     .enviarEmail('nutridos2@gmail.com', 'Miguel Angel');
+    // sendEmails();
     // onInitForm();
     // Inicializar la animacion de terminos y condiciones
-    animTerminos = animVibrate(vsync: this);
   }
+
+  // void sendEmails() async {
+  //   try {
+  //     await ProveedorProvider()
+  //         .enviarEmail('miguel@modularbox.com', 'Miguel Angel');
+
+  //     await ProveedorProvider()
+  //         .enviarEmail('xhmigue@outlook.com', 'Miguel Angel');
+
+  //     await ProveedorProvider()
+  //         .enviarEmail('nutridos2@gmail.com', 'Miguel Angel');
+  //   } catch (e) {}
+  // }
 
   // Esto es para pruebas
   void onInitForm() {
@@ -80,7 +96,7 @@ class RegistrarProveedorController extends GetxController
   /// Subir los datos al servidor
   void onPressedRegistrar() async {
     isValidateForms = true;
-    if (formKey.currentState!.validate() && checkboxTerminos.value) {
+    if (formKey.currentState!.validate()) {
       try {
         Get.dialog(ColorLoader3());
         // Poner nombre en base a la fecha para que no se repita
@@ -130,6 +146,7 @@ class RegistrarProveedorController extends GetxController
           hashConstrasena,
           nameFoto,
           tc.codigoPostalFiscal.text,
+          noticia
         ];
 
         final datosSQLClub = [
@@ -152,15 +169,15 @@ class RegistrarProveedorController extends GetxController
         Get.back();
 
         if (result.code == 2000) {
-          final enviarMail = await ProveedorProvider()
-              .enviarEmail(tc.email.text, tc.nombre.text);
+          await EmailProvider()
+              .enviarEmailRegistro(tc.email.text, tc.nombre.text, true);
 
           /// Regresar al inicio y enviar el email.
           Get.dialog(ChangeDialogGeneral(
             //uses the custom alert dialog
             alertTitle: richTitle("Registro proveedor"),
             alertSubtitle: richSubtitle(result.message),
-            textButton: "Ir a Login",
+            textButton: "Confirmar",
             alertType: TypeGeneralDialog.SUCCESS,
             onPressed: () {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
@@ -169,24 +186,16 @@ class RegistrarProveedorController extends GetxController
         } else {
           /// Regresar al inicio y enviar el email.
           Get.dialog(ChangeDialogGeneral(
-            //uses the custom alert dialog
-            alertTitle: richTitle("Registro proveedor"),
-            alertSubtitle: richSubtitle(result.messageError()),
-            textButton: "Aceptar",
-            alertType: TypeGeneralDialog.WARNING,
-            onPressed: () {
-              Get.back();
-            },
-          ));
+              //uses the custom alert dialog
+              alertTitle: richTitle("Registro proveedor"),
+              alertSubtitle: richSubtitle(result.messageError()),
+              textButton: "Aceptar",
+              alertType: TypeGeneralDialog.WARNING,
+              onPressed: Get.back));
         }
       } catch (e) {
         Get.back();
         print(e);
-      }
-    } else {
-      if (!checkboxTerminos.value) {
-        validateTerminos.value = true;
-        animTerminos.forward();
       }
     }
   }

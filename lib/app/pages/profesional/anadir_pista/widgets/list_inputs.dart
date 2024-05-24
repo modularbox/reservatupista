@@ -239,7 +239,7 @@ class _ListInputsState extends State<ListInputs> {
                       focusNode: self.tipo.focus,
                       context: context,
                       labelText: 'Tipo',
-                      itemsDD: const ['Cristal', 'Hormigo'],
+                      itemsDD: const ['Cristal', 'Hormigon'],
                       onChanged: (val) => self.tipo.isValidate.value = false,
                       isValidate: self.tipo.isValidate.value,
                       onValidator: (val) => self.validarInputController(val,
@@ -596,12 +596,8 @@ class _ListInputsState extends State<ListInputs> {
               ),
             ),
           ),
-          TerminosCondicionesDialog(
-              self.animTerminos,
-              self.checkboxTerminos,
-              Colores.proveedor.primary,
-              self.validateTerminos,
-              LightModeTheme().primaryText),
+          TerminosCondicionesDialog(self.animTerminos,
+              Colores.proveedor.primary, LightModeTheme().primaryText),
         ].divide(const SizedBox(height: 10.0)),
       ),
     );

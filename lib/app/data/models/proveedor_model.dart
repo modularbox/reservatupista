@@ -22,30 +22,31 @@ class ProveedorModel {
   String contrasena;
   String foto;
   DateTime? fechaRegistro;
+  bool noticia;
 
-  ProveedorModel({
-    this.token = '',
-    this.idProveedor = 0,
-    this.idClub = 0,
-    this.tipo = '',
-    this.cifNif = '',
-    this.direccionFiscal = '',
-    this.codigoPostalFiscal = '',
-    this.localidadFiscal = '',
-    this.provinciaFiscal = '',
-    this.comunidadFiscal = '',
-    this.codigoIban = '',
-    this.certificadoCuenta = '',
-    this.nombre = '',
-    this.apellidos = '',
-    this.fijo = 0,
-    this.email = '',
-    this.lada = '',
-    this.telefono = '',
-    this.contrasena = '',
-    this.foto = '',
-    this.fechaRegistro,
-  });
+  ProveedorModel(
+      {this.token = '',
+      this.idProveedor = 0,
+      this.idClub = 0,
+      this.tipo = '',
+      this.cifNif = '',
+      this.direccionFiscal = '',
+      this.codigoPostalFiscal = '',
+      this.localidadFiscal = '',
+      this.provinciaFiscal = '',
+      this.comunidadFiscal = '',
+      this.codigoIban = '',
+      this.certificadoCuenta = '',
+      this.nombre = '',
+      this.apellidos = '',
+      this.fijo = 0,
+      this.email = '',
+      this.lada = '',
+      this.telefono = '',
+      this.contrasena = '',
+      this.foto = '',
+      this.fechaRegistro,
+      this.noticia = false});
 
   factory ProveedorModel.fromRawJson(String str) =>
       ProveedorModel.fromJson(json.decode(str));
@@ -76,6 +77,7 @@ class ProveedorModel {
         fechaRegistro: json["fecha_registro"] != null
             ? DateTime.parse(json["fecha_registro"])
             : null,
+        noticia: json["noticia"] == 1,
       );
 
   Map<String, dynamic> toJson() => {

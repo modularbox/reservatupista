@@ -19,6 +19,30 @@ class UsuarioProvider extends GetConnect {
     idUser = storage.idUsuario.read();
   }
 
+  Future<MessageError> modificar(List datos, List<String> idsDatos) async {
+    try {
+      await initialize();
+      final response = await put(
+        '$url/usuario',
+        {"id": idUser.toString(), "datos": datos, "ids_datos": idsDatos},
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+        contentType: 'application/json',
+      );
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        print(response.body);
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return MessageError(message: 'Error al Modificar Usuario', code: 501);
+    }
+  }
+
 //para obtener los modelos de las palas
   Future<Response<dynamic>> getModelosPalas(int id_marca) async {
     try {
@@ -167,7 +191,6 @@ class UsuarioProvider extends GetConnect {
 
 // Enviar Email usuario
   Future<bool> enviarEmail(String email, String nombre) async {
-    print("dsfjhdsouihgfodisuhodfs");
     try {
       final response = await post(
           '$urlMail/reservatupista_alta',
@@ -184,7 +207,7 @@ class UsuarioProvider extends GetConnect {
             CONFIRMAR
             </a>
             ''',
-            "asunto": "Registro Usuario"
+            "asunto": "Registro Usuario ReservaTupista.com"
           },
           contentType: 'application/json');
       print(response.body);
@@ -295,11 +318,7 @@ class UsuarioProvider extends GetConnect {
   Future<UsuarioModel?> getUsuario(int id, List<String> listTypes) async {
     try {
       await initialize();
-      print({
-        "Authorization": "Bearer $token",
-        "idusuario": id.toString(),
-        "datos": listTypes.join(', ')
-      });
+
       final response = await get('$url/usuario/datos', headers: {
         "Authorization": "Bearer $token",
         "idusuario": id.toString(),

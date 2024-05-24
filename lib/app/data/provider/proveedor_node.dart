@@ -101,6 +101,7 @@ class ProveedorProvider extends GetConnect {
   // Enviar Email usuario
   Future<bool> enviarEmail(String email, String nombre) async {
     try {
+      print('Send Email');
       final response = await post(
           '$urlMail/reservatupista_alta',
           {
@@ -108,15 +109,144 @@ class ProveedorProvider extends GetConnect {
             "correo": email,
             "link": "$urlWeb/#/validar_email?email=$email&user=1",
             "message": '''
-            <p style="font-size: 1.25rem;font-weight:600">
-            Bienvenido a reservatupista.com <strong>$nombre</strong>, para finalizar el registro por favor pulsa sobre este botón: 
-            </p>
-            <p>
-            <a href="$urlWeb/#/validar_email?email=$email&user=1" style="text-decoration:none; background-color: green;padding:10px 20px;border-radius:15px;color:white;">
-            CONFIRMAR
-            </a>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bienvenido a ReservaTuPista</title>
+    <style>
+      body {
+          font-family: monospace, Helvetica, Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        padding: 10px 0;
+        background-color: #007bff;
+        color: #ffffff;
+        border-radius: 8px 8px 0 0;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .content {
+        margin: 20px 0;
+      }
+      .content p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333333;
+      }
+      .button {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        padding: 15px;
+        text-align: center;
+        background-color: #007bff;
+        color: #ffffff !important;
+        text-decoration: none;
+        border-radius: 5px;
+
+      }
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #999999;
+        margin: 20px 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>¡Bienvenido a Reservatupista!</h1>
+      </div>
+      <div class="content">
+        <p>Hola $nombre,</p>
+        <p>
+          Gracias por registrarte en Reservatupista. Estamos encantados de
+          tenerte con nosotros. Ahora puedes reservar tus pistas de deportes
+          favoritas de manera rápida y sencilla.
+        </p>
+        <p>
+          Para empezar, por favor verifica tu cuenta haciendo clic en el
+          siguiente botón:
+        </p>
+        <a href="$urlWeb/#/validar_email?email=$email&user=1" class="button">Verificar Cuenta</a>
+        <p>
+          Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.
+        </p>
+        <p>¡Nos vemos en la pista!</p>
+        <p>Saludos,<br />El equipo de ReservaTuPista</p>
+      </div>
+
+      <p style="font-weight: 900;"> Este es un mensaje automático, por favor no responda a este correo.</p>
+      <p
+        style="
+          color: #708c91;
+          text-decoration: none;
+          font-size: 16px;
+          text-align: center;
+        "
+      >
+        <a
+          href="https://web.reservatupista.com/#descarga"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-auth="NotApplicable"
+          title="
+Descárgate la app
+"
+          style="text-decoration: none !important; color: #2dbeff"
+          data-linkindex="7"
+          >Descárgate la app </a
+        >
+     
+      </p>
+      <p
+        style="
+          color: #708c91;
+          text-decoration: none;
+          font-size: 12px;
+        "
+      >
+       Te informamos de que seguirás recibiendo mensajes relacionados
+        con tus reservas de pistas o cuando tengas notificaciones de la app. Para saber más sobre la forma
+        en la que usamos tu información, puedes consultar nuestra política de
+        protección de datos personales
+        <a
+          href="https://web.reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-auth="NotApplicable"
+          title="date de baja aquí"
+          style="text-decoration: none !important; color: #2dbeff"
+          data-linkindex="11"
+          >aquí</a
+        >. <br style="" /><br style="" />
+      </p>
+      <div class="footer">
+        <p>&copy; 2024 Reservatupista. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </body>
+</html>
             ''',
-            "asunto": "Registro Proveedor"
+            "asunto": "Registro Proveedor Reservatupista.com"
           },
           contentType: 'application/json');
       print(response.body);
@@ -195,6 +325,25 @@ class ProveedorProvider extends GetConnect {
         return MessageError.fromJson(response.body);
       } else {
         return MessageError.fromJson(response.body);
+      }
+    } catch (error) {
+      return MessageError(message: 'Error al Registrar Proveedor', code: 501);
+    }
+  }
+
+  // Obtener los clubes de multiples localidades
+  Future<dynamic> obtenerClubes(List<String> codigosPostales) async {
+    try {
+      final response = await post(
+        '$url/usuario/obtener_clubes',
+        {"codigos_postales": codigosPostales},
+        contentType: 'application/json',
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return response.body;
       }
     } catch (error) {
       return MessageError(message: 'Error al Registrar Proveedor', code: 501);

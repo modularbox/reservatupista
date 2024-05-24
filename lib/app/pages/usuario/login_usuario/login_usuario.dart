@@ -56,21 +56,21 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
               end: const AlignmentDirectional(0, 1),
             ),
           ),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: AppBarLoginWidget(
-                      movilPequeno: movilPequeno,
+          child: ResponsiveWeb(
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: const AlignmentDirectional(0, 0),
+                      child: AppBarLoginWidget(
+                        movilPequeno: movilPequeno,
+                      ),
                     ),
-                  ),
-                  ResponsiveWeb(
-                    child: Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.sizeOf(context).width <= 640
                               ? 0.0
@@ -83,9 +83,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                         controller: self.pageViewController,
                       ),
                     ),
-                  ),
-                  ResponsiveWeb(
-                    child: SizedBox(
+                    SizedBox(
                       height: 450,
                       child: PageView(
                         controller: self.pageViewController,
@@ -102,16 +100,15 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                               'Usuario',
                               'Disfruta de todos tus\ndeportes con un click.',
                               self.checkboxValueRecordarUsuario,
-                              self.checkboxValueTerminosUsuario,
                               Routes.INICIO,
                               Routes.REGISTRAR_USUARIO,
                               self.animTerminosUsuario,
-                              self.validateTerminosUsuario,
                               lineColor: lineColorUsuario,
                               focusedColor: focusedColorUsuario,
                               typeUser: 0,
                               palomita: Colors.white,
-                              onPressed: self.onPressedUsuario),
+                              onPressed: self.onPressedUsuario,
+                              isProveedor: false),
                           buildInputsLogin(
                               context,
                               formKey: self.formProveedorKey,
@@ -123,24 +120,23 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                               'Proveedor',
                               'Clubs, Ayuntamiento, \nComunidad, Asociación.',
                               self.checkboxValueRecordarProveedor,
-                              self.checkboxValueTerminosProveedor,
                               Routes.INICIO_PROVEEDOR,
                               Routes.REGISTRAR_PROVEEDOR,
                               self.animTerminosProveedor,
-                              self.validateTerminosProveedor,
                               lineColor: lineColorProfesional,
                               focusedColor: focusedColorProfesional,
                               typeUser: 1,
                               palomita: Colors.black,
-                              onPressed: self.onPressedProveedor),
+                              onPressed: self.onPressedProveedor,
+                              isProveedor: true),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const NavBarLogin()
-            ],
+                  ],
+                ),
+                const NavBarLogin()
+              ],
+            ),
           ),
         ),
       ),
@@ -148,27 +144,25 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
   }
 
   Widget buildInputsLogin(
-    BuildContext context,
-    TextEditingController email,
-    TextEditingController contrasena,
-    FocusNode emailFocus,
-    FocusNode contrasenaFocus,
-    RxBool passwordVisibility,
-    String title,
-    String subtitle,
-    RxBool checkboxRecordar,
-    RxBool checkboxTerminos,
-    String accederPage,
-    String registroPage,
-    AnimationController animTerminos,
-    RxBool validateTerminos, {
-    required Color lineColor,
-    required Color focusedColor,
-    required Color palomita,
-    required int typeUser,
-    required dynamic Function()? onPressed,
-    required Key formKey,
-  }) {
+      BuildContext context,
+      TextEditingController email,
+      TextEditingController contrasena,
+      FocusNode emailFocus,
+      FocusNode contrasenaFocus,
+      RxBool passwordVisibility,
+      String title,
+      String subtitle,
+      RxBool checkboxRecordar,
+      String accederPage,
+      String registroPage,
+      AnimationController animTerminos,
+      {required Color lineColor,
+      required Color focusedColor,
+      required Color palomita,
+      required int typeUser,
+      required dynamic Function()? onPressed,
+      required Key formKey,
+      required isProveedor}) {
     return Form(
       key: formKey,
       child: Column(
@@ -433,16 +427,40 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
               ],
             ),
           ),
           TerminosCondicionesDialog(
             animTerminos,
-            checkboxTerminos,
             focusedColor,
-            validateTerminos,
             palomita,
             paddingTop: movilPequeno ? 10 : 20,
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          FFButtonWidget(
+            onPressed: () => Get.toNamed(Routes.ADMINISTRADOR),
+            text: 'Administrador',
+            options: FFButtonOptions(
+              height: 40,
+              width: 200,
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+              color: focusedColor,
+              textStyle: LightModeTheme().bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    color: LightModeTheme().tertiary,
+                  ),
+              elevation: 2,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ).visible(isProveedor),
+          const SizedBox(
+            height: 5.0,
           ),
           Divider(
             height: 2,

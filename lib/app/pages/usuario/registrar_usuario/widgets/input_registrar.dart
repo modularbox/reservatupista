@@ -39,7 +39,7 @@ class SelectInputRegistrar {
       selectedIndex: -1,
       // elevation: widget.elevation,
       // dropdownColor: widget.dropdownColor,
-      style: TextStyle(),
+      style: const TextStyle(),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
 
@@ -432,7 +432,7 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
     );
   }
 
-  void _dismiss() {
+  void dismiss() {
     navigator?.removeRoute(this);
   }
 }

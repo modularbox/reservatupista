@@ -15,15 +15,6 @@ import '../../../../flutter_flow/flutter_flow_theme.dart';
 import './mis_pistas_c.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-extension IterableExtension<E> on List<E> {
-  Iterable<T> mapIndexed<T>(T Function(E e, int index) f) sync* {
-    var index = 0;
-    for (final element in this) {
-      yield f(element, index++);
-    }
-  }
-}
-
 class MisPistasPage extends GetView<MisPistasController> {
   MisPistasPage({super.key});
   MisPistasController get self => controller;

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
-import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../widgets/appbar_general.dart';
 import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -51,13 +50,6 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                             children: [
                               Get.width <= 640 ? buildSelectImage() : 0.0.empty,
                               const InputsDatosRegistroUsuario(),
-                              TerminosCondicionesDialog(
-                                  self.animTerminos,
-                                  self.checkboxTerminos,
-                                  Colores.proveedor.primary,
-                                  self.validateTerminos,
-                                  paddingTop: 10.0,
-                                  LightModeTheme().primaryText),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),

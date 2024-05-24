@@ -79,7 +79,8 @@ class BuildInput extends GetView<RegistrarProveedorController> {
                 const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 0.0),
             child: LayoutBuilder(builder: (context, boxContrains) {
               return isSelect
-                  ? TextFormField(
+                  ? InputSelect(
+                      context: context,
                       controller: textEditingController,
                       focusNode: focusNode,
                       maxLength: maxLength,
@@ -125,21 +126,11 @@ class BuildInput extends GetView<RegistrarProveedorController> {
                         contentPadding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 12.0),
                       ),
-                      style: LightModeTheme().bodyMedium,
-                      cursorColor: LightModeTheme().primary,
+                      listSelect: listSelect!,
                       readOnly: true,
-                      onTap: () => SelectInputRegistrar(
-                        context: context,
-                        itemsDD: listSelect,
-                        paddingDialogLeft: 5,
-                        paddingSelect: const EdgeInsets.only(left: 15),
-                        onChanged: (val) => textEditingController.text = val,
-                      ).handleTap(),
                       enableInteractiveSelection: isSelect,
                       onChanged: (val) => textEditingController.text = val,
-                      validator: isRequired
-                          ? ((val) => validateTextField(val, context))
-                          : null,
+                      validator: isRequired ? validateTextField : null,
                     )
                   : LayoutBuilder(builder: (context, boxContrains) {
                       return TextFormField(
@@ -206,15 +197,69 @@ class BuildInput extends GetView<RegistrarProveedorController> {
                         onTap: onTap,
                         enableInteractiveSelection: enableInteractiveSelection,
                         validator: validator ??
-                            (isRequired
-                                ? ((val) => validateTextField(val, context))
-                                : null),
+                            (isRequired ? validateTextField : null),
                       );
                     });
             })));
   }
 
-  String? validateTextField(String? text, BuildContext context) {
+  Widget buildSelect(BuildContext context) {
+    return InputSelect(
+      context: context,
+      controller: textEditingController,
+      focusNode: focusNode,
+      maxLength: maxLength,
+      keyboardType: keyboardType,
+      listSelect: listSelect!,
+      decoration: InputDecoration(
+        counterText: '',
+        errorStyle: const TextStyle(fontSize: 0),
+        labelText: labelText,
+        hintStyle: LightModeTheme().bodyMedium.override(
+              fontFamily: 'Readex Pro',
+              color: const Color(0xFF95A1AC),
+            ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: LightModeTheme().primary,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: LightModeTheme().primary,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: LightModeTheme().error,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: LightModeTheme().error,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        filled: true,
+        fillColor: LightModeTheme().secondaryBackground,
+        contentPadding:
+            const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+      ),
+      readOnly: true,
+      enableInteractiveSelection: false,
+      onChanged: onChanged ?? (val) => textEditingController.text = val,
+      validator: isRequired ? validateTextField : null,
+    );
+  }
+
+  String? validateTextField(String? text) {
     if (text == null || text.isEmpty) {
       if (isFocusNode) {
         focusNode.requestFocus();

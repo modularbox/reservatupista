@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
+import 'package:reservatu_pista/app/data/models/localidad_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import './widgets/build_usuarios.dart';
@@ -64,7 +65,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                 Column(
                   key: controller.keyInputs,
                   children: [
-                    buildInputLocalidades(),
+                    buildLocalidades(),
                     5.0.sh,
                     Obx(buildInputClubs),
                     5.0.sh,
@@ -128,77 +129,82 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
   }
 
   /// Input de las pistas
-  Widget buildInputLocalidades() {
+  Widget buildLocalidades() {
     return Padding(
-      padding: const EdgeInsets.only(top: 5.0),
-      child: SizedBox(
-        height: 45,
-        child: Obx(() => self.localidades.value.isEmpty
-            ? const SizedBox.shrink()
-            : DropdownSearch<String>(
-                onChanged: (value) {
-                  if (value != null) {
-                    self.cod_postal.value = self.mapLocalidades[value] ?? '';
-                    self.localidad_seleccionada.value = value;
-                    self.deporte_seleccionado.value = '';
-                    self.selectDay.value = null;
-                    self.selectHorario.value = null;
-                    print(
-                        'self.selectNombreLocalidad.value ${self.localidad_seleccionada.value}');
-                    self.generarListaClubes(self.cod_postal.value);
-                    print('self.clubes.value ${self.clubes.value}');
-                    //self.generarListaClubes(self.cod_postal.value);
-                  }
-                },
-                popupProps: PopupProps.menu(
-                  emptyBuilder: (context, searchEntry) =>
-                      const Center(child: Text('No se encontraron resultados')),
-                  showSelectedItems: true,
-                  showSearchBox: true,
-                  disabledItemFn: (String s) => s.startsWith('I'),
-                ),
-                items: self.localidades.value,
-                dropdownDecoratorProps: DropDownDecoratorProps(
-                  dropdownSearchDecoration: InputDecoration(
-                    labelText: 'Localidad',
-                    hintText: "Selecciona la localidad.",
-                    labelStyle: LightModeTheme().labelMedium,
-                    hintStyle: LightModeTheme().labelMedium,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().alternate,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: LightModeTheme().error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                        16.0, 12.0, 16.0, 12.0),
-                  ),
-                ),
-              )),
+        padding: const EdgeInsets.only(top: 5.0),
+        child: SizedBox(
+          height: 45,
+          child: Obx(buildInputLocalidad),
+        ));
+  }
+
+  /// Construir el input de la localidad
+  Widget buildInputLocalidad() {
+    return DropdownSearch<String>(
+      onChanged: (value) {
+        if (value != null) {
+          print(self.listLocalidades.localidades);
+          print(value);
+          List<Localidad> codigosPostales = self.listLocalidades.localidades
+              .where((element) => element.localidad == value)
+              .toList();
+          self.localidad_seleccionada.value = value;
+          self.deporte_seleccionado.value = '';
+          self.selectDay.value = null;
+          self.selectHorario.value = null;
+          print('self.selectNombreLocalidad.value ${self.cod_postal.value}');
+          self.generarListaClubes(
+              self.cod_postal.value, codigosPostales[0].codPostal);
+          print('self.clubes.value ${self.clubes.value}');
+        }
+      },
+      popupProps: PopupProps.menu(
+        emptyBuilder: (context, searchEntry) =>
+            const Center(child: Text('No se encontraron resultados')),
+        showSelectedItems: true,
+        showSearchBox: true,
+        disabledItemFn: (String s) => s.startsWith('I'),
       ),
-    );
+      items: self.localidades.value,
+      dropdownDecoratorProps: DropDownDecoratorProps(
+        dropdownSearchDecoration: InputDecoration(
+          labelText: 'Localidad',
+          hintText: "Selecciona la localidad.",
+          labelStyle: LightModeTheme().labelMedium,
+          hintStyle: LightModeTheme().labelMedium,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: LightModeTheme().alternate,
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: LightModeTheme().primary,
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: LightModeTheme().error,
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: LightModeTheme().error,
+              width: 2.0,
+            ),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          contentPadding:
+              const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+        ),
+      ),
+    ).visible(self.localidades.value.isNotEmpty);
   }
 
   /// Input de los Clubss
@@ -208,6 +214,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       focusNode: self.clubFocusNode,
       context: Get.context!,
       labelText: 'Club',
+      enableInput: self.clubes.value.isEmpty,
       onChanged: (val, favorito) {
         self.deporteController.text = '';
         String idClub = self.mapClubes[val] ?? '';
@@ -215,7 +222,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
         self.id_club_seleccionado.value = idClub;
         self.selectDay.value = null;
       },
-      clubsFavoritos: const [false, false],
+      clubsFavoritos: List.generate(self.clubes.value.length, (index) => false),
       itemsDD: self.clubes.value,
     );
   }
@@ -978,9 +985,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
     list.add(
       TerminosCondicionesDialog(
         self.animTerminos,
-        self.checkboxTerminos,
         Colores.proveedor.primary,
-        self.validateTerminos,
         LightModeTheme().primaryText,
         saltoLinea: true,
       ),

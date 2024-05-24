@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -48,26 +49,24 @@ class NavBarLogin extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          bottom: 90,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
+          bottom: (MediaQuery.sizeOf(context).height < 600 ||
+                  MediaQuery.sizeOf(context).width > 450)
+              ? 53
+              : 75,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 68.0),
             child: Container(
-              width: MediaQuery.of(context).size.width - (155),
-              height: 40,
-              constraints: const BoxConstraints(maxWidth: 300),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Text(
-                  'Premio a la Creación en la Industria del\nSoftware para la Provincia de Cáceres',
-                  textAlign: TextAlign.center,
-                  style: LightModeTheme().labelSmall,
-                ),
-              ),
+              height: 50,
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: buildResponsiveText(context),
             ),
           ),
         ),
         Positioned(
-          bottom: 75,
+          bottom: (MediaQuery.sizeOf(context).height < 600 ||
+                  MediaQuery.sizeOf(context).width > 450)
+              ? 53
+              : 75,
           left: 5,
           child: Container(
             width: 60.0,
@@ -81,7 +80,10 @@ class NavBarLogin extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 75,
+          bottom: (MediaQuery.sizeOf(context).height < 600 ||
+                  MediaQuery.sizeOf(context).width > 450)
+              ? 53
+              : 75,
           right: 5,
           child: Container(
             width: 60.0,
@@ -114,7 +116,10 @@ class NavBarLogin extends StatelessWidget {
           alignment: const AlignmentDirectional(0.0, 1.0),
           child: Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
-            height: 70.0,
+            height: (MediaQuery.sizeOf(context).height < 600 ||
+                    MediaQuery.sizeOf(context).width > 450)
+                ? 50
+                : 70.0,
             decoration: BoxDecoration(
               color: LightModeTheme().secondaryBackground,
             ),
@@ -194,6 +199,36 @@ class NavBarLogin extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildResponsiveText(BuildContext context) {
+    final double fontSize =
+        MediaQuery.sizeOf(context).width < 450 ? 12.0 : 16.0;
+    // final double fontSize =
+    //     MediaQuery.sizeOf(context).width < 400 ? 12.0 : 16.0;
+    if (MediaQuery.sizeOf(context).width < 450) {
+      return Align(
+        alignment: Alignment.center,
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            'Premio a la Creación en la\nIndustria del Software para la\nProvincia de Cáceres',
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            style: LightModeTheme().labelSmall.copyWith(fontSize: fontSize),
+          ),
+        ),
+      );
+    }
+    return Align(
+      alignment: Alignment.center,
+      child: AutoSizeText(
+        'Premio a la Creación en la Industria del Software para la Provincia de Cáceres',
+        textAlign: TextAlign.center,
+        maxLines: 2,
+        style: LightModeTheme().labelSmall.copyWith(fontSize: fontSize),
+      ),
     );
   }
 }

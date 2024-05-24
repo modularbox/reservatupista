@@ -44,18 +44,10 @@ class DBAlvaroController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    // Muestra el estado de carga
-    // datosPerfilUsuario.changeStatus(RxStatusDemo.loading());
-    // getUserId();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
 
-      // // final getStorage = await SharedPreferences.getInstance();
-      // // // Guardar archivos temporales
-      // // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      // await getVariablesGuardadas();
-      // await getMoney();
       storage = await SharedPreferences.getInstance();
     } catch (e) {
       print(e);
@@ -63,13 +55,6 @@ class DBAlvaroController extends GetxController {
     print("sd");
   }
 
-  Future<void> getVariablesGuardadas() async {
-    // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-    // idUsuario = storageIdUsuario.read();
-    // storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-    // storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
-    // storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
-  }
   Future<void> getImageUsuario(String? changeImage) async {
     try {
       if (changeImage != null) {
@@ -117,33 +102,6 @@ class DBAlvaroController extends GetxController {
     }
     return false;
   }
-
-  /*Future<bool> getDatosUsuarioMoney() async {
-    final getStorage = await SharedPreferences.getInstance();
-    final storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-
-    try {
-      final List<TypeDatosServer> listTypes = [
-        TypeDatosServer.dinero_total,
-        TypeDatosServer.nombre
-      ];
-
-      final result = await UsuarioNode().getUsuario(
-          storageIdUsuario.read(), storageTokenUsuario.read(), listTypes);
-      print('result: ${result!.dineroTotal}');
-      if (result is UsuarioModel) {
-        imageServer.value = UsuarioNode().getImageNode(result.foto);
-        datosPerfilUsuario.change(result, RxStatusDemo.success());
-        datosUsuario = result;
-        dineroTotal = result.dineroTotal;
-        dineroTotalEuros = 2;
-        return true;
-      }
-    } catch (e) {
-      print(e);
-    }
-    return false;
-  }*/
 
   Future<void> getMoney() async {
     try {

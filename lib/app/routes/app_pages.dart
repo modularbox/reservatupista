@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
@@ -8,6 +9,8 @@ import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserv
 import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_p.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
+import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_b.dart';
+import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_p.dart';
 import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_b.dart';
 import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_p.dart';
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.dart';
@@ -93,6 +96,7 @@ enum RoutesType {
   eliminar_cuenta,
   validar_email,
   reserva_compartida,
+  administrador
 }
 
 /// Names Routes
@@ -132,6 +136,7 @@ abstract class Routes {
   static final ELIMINAR_CUENTA = RoutesType.eliminar_cuenta.getRoute;
   static final VALIDAR_EMAIL = RoutesType.validar_email.getRoute;
   static final RESERVA_COMPARTIDA = RoutesType.reserva_compartida.getRoute;
+  static final ADMINISTRADOR = RoutesType.administrador.getRoute;
 }
 
 /// Get Routes
@@ -334,5 +339,17 @@ class AppPages {
       page: () => ValidarEmailPage(),
       binding: ValidarEmailBinding(),
     ),
+
+    /// Validar email
+    GetPage(
+      name: Routes.ADMINISTRADOR,
+      page: () => const AdminPageWidget(),
+    ),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.PRUEBAS,
+        page: () => PruebasPage(),
+        binding: PruebasBinding()),
   ];
 }

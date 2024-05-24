@@ -91,7 +91,8 @@ enum TypeDatosServerProveedor {
   foto,
   fecha_registro,
   validate_email,
-  codigo_postal_fiscal
+  codigo_postal_fiscal,
+  noticia
 }
 
 enum TypeDatosServerClub {

@@ -28,6 +28,8 @@ class MisReservasUsuarioModel {
   final int duracionPartida;
   final String tipoProveedor;
   final int tiempo_cancelacion;
+  final int plazasReservadasTotales;
+  final List<ReservaUsuario> usuarios;
 
   ReservasUsuarios? reservasUsuarios;
 
@@ -55,6 +57,8 @@ class MisReservasUsuarioModel {
       required this.tipoReserva,
       required this.tipoProveedor,
       required this.tiempo_cancelacion,
+      required this.plazasReservadasTotales,
+      required this.usuarios,
       this.reservasUsuarios});
 
   factory MisReservasUsuarioModel.fromRawJson(String str) =>
@@ -64,31 +68,39 @@ class MisReservasUsuarioModel {
 
   factory MisReservasUsuarioModel.fromJson(Map<String, dynamic> json) =>
       MisReservasUsuarioModel(
-        idReserva: json["id_reserva"],
-        dineroPagado: json["dinero_pagado"],
-        idUsuario: json["id_usuario"],
-        idPista: json["id_pista"],
-        horaInicio: json["hora_inicio"],
-        fechaReserva:
-            DateTime.parse(json["fecha_reserva"]).add(const Duration(days: 1)),
-        referencia: json["referencia"],
-        deporte: json["deporte"],
-        numPista: json["num_pista"],
-        nombrePatrocinador: json["nombre_patrocinador"],
-        capacidad: json["capacidad"],
-        nombre: json["nombre"],
-        foto: json["foto"],
-        localidad: json["localidad"],
-        // luz: json['iluminacion'],
-        iluminacion: json['iluminacion'],
-        automatizada: json['automatizada'],
-        pista: json['pista'],
-        horaFin: json['hora_fin'],
-        duracionPartida: json['duracion_partida'],
-        tiempo_cancelacion: json['tiempo_cancelacion_no_socio'],
-        tipoProveedor: json['tipo'],
-        tipoReserva: json['tipo_reserva'],
-      );
+          idReserva: json["id_reserva"],
+          dineroPagado: json["dinero_pagado"],
+          idUsuario: json["id_usuario"],
+          idPista: json["id_pista"],
+          horaInicio: json["hora_inicio"],
+          fechaReserva: DateTime.parse(json["fecha_reserva"]),
+          referencia: json["referencia"],
+          deporte: json["deporte"],
+          numPista: json["num_pista"],
+          nombrePatrocinador: json["nombre_patrocinador"],
+          capacidad: json["capacidad"],
+          nombre: json["nombre"],
+          foto: json["foto"],
+          localidad: json["localidad"],
+          // luz: json['iluminacion'],
+          iluminacion: json['iluminacion'],
+          automatizada: json['automatizada'],
+          pista: json['pista'],
+          horaFin: json['hora_fin'],
+          duracionPartida: json['duracion_partida'],
+          tiempo_cancelacion: json['tiempo_cancelacion_no_socio'],
+          tipoProveedor: json['tipo'],
+          tipoReserva: json['tipo_reserva'],
+          reservasUsuarios: ReservasUsuarios.fromJson({
+            'plazas_reservadas_totales': json['plazas_reservadas_totales'],
+            'usuarios': json["usuarios"],
+            'message': json['message']
+          }),
+          plazasReservadasTotales: json['plazas_reservadas_totales'],
+          usuarios: json["plazas_reservadas_totales"] == 0
+              ? []
+              : List<ReservaUsuario>.from(
+                  json["usuarios"].map((x) => ReservaUsuario.fromJson(x))));
 
   Map<String, dynamic> toJson() => {
         "id_reserva": idReserva,
