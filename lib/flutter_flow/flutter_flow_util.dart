@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
+import 'package:reservatu_pista/utils/format_date.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
@@ -21,6 +22,12 @@ export 'dart:convert' show jsonEncode, jsonDecode;
 export 'package:intl/intl.dart';
 export 'package:page_transition/page_transition.dart';
 export 'internationalization.dart' show FFLocalizations;
+
+extension FechaExt on DateTime {
+  String get formatFecha => FormatDate.dateToString(this);
+  String get formatReserva => DateFormat.yMMMMd('es').format(this);
+  String get letraDia => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
+}
 
 extension WidgetExt on Widget {
   Widget visible(bool isVisible) => isVisible ? this : const SizedBox.shrink();

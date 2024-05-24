@@ -8,12 +8,6 @@ import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../data/models/mis_pistas_model.dart';
 
-extension FechaExt on DateTime {
-  String get formatFecha => FormatDate.dateToString(this);
-  String get formatReserva => DateFormat.yMMMMd('es').format(this);
-  String get letraDia => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
-}
-
 class MisPistasController extends GetxController
     with GetSingleTickerProviderStateMixin {
   /// Obtencion de los datos de la api

@@ -42,7 +42,6 @@ class MisReservasPage extends GetView<MisReservasController> {
                 child: Obx(() => Row(
                       children: [
                         ...buildListDeportes(),
-                        Obx(() => Text('Pista actual: ${self.currentPage}')),
                       ],
                     )),
               ),
