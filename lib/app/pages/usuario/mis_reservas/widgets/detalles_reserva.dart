@@ -74,10 +74,12 @@ class DetalleReserva extends GetView<MisReservasController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildCancelarReserva(),
+                  buildCancelarReserva()
+                      .visible(state.fechaReserva >= DateTime.now()),
                   20.0.sw,
                   buildWhatsappButton(state.idReserva).visible(
-                      (reservasUsuarios!.plazasReservadasTotales != capacidad)),
+                      (reservasUsuarios!.plazasReservadasTotales != capacidad ||
+                          state.fechaReserva >= DateTime.now())),
                 ],
               ),
               20.0.sh,
@@ -266,23 +268,27 @@ class DetalleReserva extends GetView<MisReservasController> {
       descripcion.add(10.0.sh);
     }
 
-    /// Agregar tiempo de cancelacion
-    titles.add(
-      Text(
-        'Tiempo cancelación:',
-        style: LightModeTheme().bodyMedium.override(
-              fontFamily: 'Readex Pro',
-              letterSpacing: 0,
-              fontWeight: FontWeight.w800,
-            ),
-      ),
-    );
-    titles.add(10.0.sh);
-    descripcion.add(
-      Obx(buildTextHorario),
-    );
-    descripcion.add(10.0.sh);
-    // detalles
+    print('state.tipoReserva ${state.tipoReserva}');
+    if (state.tipoReserva == 'monedero') {
+      /// Agregar tiempo de cancelacion
+      titles.add(
+        Text(
+          'Tiempo cancelación:',
+          style: LightModeTheme().bodyMedium.override(
+                fontFamily: 'Readex Pro',
+                letterSpacing: 0,
+                fontWeight: FontWeight.w800,
+              ),
+        ),
+      );
+      titles.add(10.0.sh);
+      descripcion.add(
+        Obx(buildTextHorario),
+      );
+      descripcion.add(10.0.sh);
+      // detalles
+    }
+
     return Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,

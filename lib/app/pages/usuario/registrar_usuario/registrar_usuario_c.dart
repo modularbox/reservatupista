@@ -213,7 +213,7 @@ class RegistrarUsuarioController extends GetxController
             alertTitle: richTitle("Registro usuario"),
             alertSubtitle:
                 richSubtitle("Compruebe su correo para finalizar el registro."),
-            textButton: "Ir a Login",
+            textButton: "Confirmar",
             alertType: TypeGeneralDialog.SUCCESS,
             onPressed: () {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);

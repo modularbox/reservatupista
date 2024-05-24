@@ -336,7 +336,7 @@ class UsuarioNode {
         return false;
       }
     } catch (error, stack) {
-      print('Error al saber si el usuario existe: $error');
+      print('Error al saber si el usuario existeee: $error');
       print(stack);
       return false;
     }

@@ -146,7 +146,7 @@ class OlvideContrasenaController extends GetxController
         Get.dialog(ChangeDialogGeneral(
           alertTitle: richTitle("Restablecer Contraseña"),
           alertSubtitle: richSubtitle('Contraseña Restablecida Correctamente'),
-          textButton: "Ir al login",
+          textButton: "Confirmar",
           alertType: TypeGeneralDialog.SUCCESS,
           onPressed: () => Get.offAllNamed(Routes.LOGIN_USUARIO),
         ));
@@ -157,7 +157,7 @@ class OlvideContrasenaController extends GetxController
           alertTitle: richTitle("Restablecer Contraseña"),
           alertSubtitle: richSubtitle(
               'Ocurrio un error al restablecer la contrase ña, intentalo mas tarde.'),
-          textButton: "Ir al login",
+          textButton: "Confirmar",
           alertType: TypeGeneralDialog.WARNING,
           onPressed: Get.back,
         ));

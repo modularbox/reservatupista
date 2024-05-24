@@ -12,7 +12,7 @@ class ReservasProvider extends GetConnect {
 
   Future<void> initialize() async {
     final storage = await SharedPreferences.getInstance();
-    idUser = storage.idUsuario.read();
+    idUser = storage.idUsuario.read() ?? 0;
   }
 
   Future<ReservasCompartidas?> reservaCompartida(String idReserva) async {
@@ -66,7 +66,7 @@ class ReservasProvider extends GetConnect {
         return false;
       }
     } catch (error, stack) {
-      print('Error al saber si el usuario existe: $error');
+      print('Error al saber si el usuario existee: $error');
       print(stack);
       return false;
     }
