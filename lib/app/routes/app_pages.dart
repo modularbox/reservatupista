@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
@@ -97,6 +98,18 @@ enum RoutesType {
   validar_email,
   reserva_compartida,
   administrador
+}
+
+class RouteRedirectMiddleware extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    print('rooute: ${Get.arguments}');
+    // Lógica de redirección
+    // if (route == Routes.OLVIDE_CONTRASENA) {
+    //   return RouteSettings(name: Routes.LOGIN_USUARIO);
+    // }
+    return null; // No redirigir si no cumple la condición
+  }
 }
 
 /// Names Routes
@@ -310,6 +323,7 @@ class AppPages {
       name: Routes.OLVIDE_CONTRASENA,
       page: () => OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
+      middlewares: [RouteRedirectMiddleware()],
     ),
 
     /// Tarifas pista

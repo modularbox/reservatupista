@@ -1,12 +1,21 @@
+import 'dart:async';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
+import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_pistas/mis_pistas_c.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c copy.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/detalles_reserva.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
-import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
@@ -14,81 +23,163 @@ import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
-import 'mis_reservas_c.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'widgets/build_usuarios.dart';
 
 class MisReservasPage extends GetView<MisReservasController> {
-  MisReservasPage({super.key});
+  MisReservasPage({Key? key}) : super(key: key);
   MisReservasController get self => controller;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
-        title: 'Mis Reservas',
-        page: TypePage.MisReservas,
-        child: Expanded(
-          child: ResponsiveWeb(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Obx(() => SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: buildListDeportes())
-                                .animateOnPageLoad(self.animationPistaDeporte),
-                          )),
-                    ],
+      title: 'Mis Reservas',
+      page: TypePage.MisReservas,
+      child: Expanded(
+        child: ResponsiveWeb(
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...buildListDeportes(),
+                    Obx(() => Text('Pista actual: ${self.currentPage}')),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Listener(
+                  onPointerSignal: (event) {
+                    //Timer(Duration(milliseconds: 500), () {
+                    print('self.isThrottling.value ${self.isThrottling.value}');
+                    if (event is PointerScrollEvent &&
+                        !self.isThrottling.value) {
+                      self.isThrottling.value = true; // Activar la bandera
+                      print(
+                          'self.currentPageself.currentPageee ${self.currentPage}');
+                      if (event.scrollDelta.dy < 0 &&
+                          self.previousScrollPosition == 0 &&
+                          self.currentPage > 1) {
+                        print('Haciendo scroll hacia arriba');
+                        /*if (self.currentPage != self.lastPageSelected) {
+                                self.lastPageSelected = self.currentPage;
+                                return;
+                              } */
+                        self.currentPage -= 1;
+                        self.pageHaschanged.value = true;
+                        print(
+                            'entraaaaaaaaaaaaaaaaaaaaaaaa self.currentPage ${self.currentPage}');
+                        self.previousScrollPosition = 0;
+                        if (self.currentPage < 1) self.currentPage = 1;
+                        self.loadMoreData();
+                      } else if (event.scrollDelta.dy > 0) {
+                        print('Haciendo scroll hacia abajo');
+                      }
+                      if (self.currentPage < 1) self.currentPage = 1;
+                      print('event.position ${event.scrollDelta.dy}');
+                      // Desactivar la bandera después de un corto tiempo
+                      Future.delayed(Duration(milliseconds: 1500), () {
+                        self.isThrottling.value = false;
+                      });
+                    }
+                    //});
+                  },
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (ScrollNotification scrollInfo) {
+                      print(
+                          'self.currentPageself.currentPage ${self.currentPage}');
+                      print('self.isLoading.value ${self.isLoading.value}');
+                      print(
+                          'self.currentPage * self.itemsPerPage ${self.currentPage * self.itemsPerPage}');
+                      print(
+                          'self.misReservasUsuario.rx.value.length ${self.misReservasUsuario.rx.value.length}');
+                      bool hacia_abajo = false;
+                      if (scrollInfo.metrics.pixels >
+                          self.previousScrollPosition) {
+                        /*if (scrollInfo.metrics.pixels >= 20) {
+                              hacia_abajo = false;
+                            } else {
+                              hacia_abajo = true;
+                            }*/
+                        hacia_abajo = true;
+                        print("Scrolling Down"); // Scroll hacia abajo
+                      } else if (scrollInfo.metrics.pixels <
+                          self.previousScrollPosition) {
+                        print(
+                            "Scrolling Up ${scrollInfo.metrics.pixels}  self.previous ${self.previousScrollPosition}"); // Scroll hacia arriba
+                        hacia_abajo = false;
+                      }
+                      self.previousScrollPosition = scrollInfo.metrics.pixels;
+                      if (!self.isLoading.value &&
+                          scrollInfo.metrics.pixels ==
+                              scrollInfo.metrics.maxScrollExtent &&
+                          hacia_abajo) {
+                        if (self.currentPage * self.itemsPerPage <
+                            (self.initialLength)) {
+                          if (self.debounceTimer?.isActive ?? false)
+                            self.debounceTimer!.cancel();
+                          self.debounceTimer =
+                              Timer(Duration(milliseconds: 500), () {
+                            self.currentPage += 1;
+                            print('entraaaaaaaaaaaa dentro');
+                            print(
+                                'entraaaaaaaaaaaa self.currentPage + ${self.currentPage}');
+                            self.previousScrollPosition = 0;
+
+                            self.loadMoreData();
+                          });
+                        }
+                        return true;
+                      } else if (!self.isLoading.value &&
+                          scrollInfo.metrics.pixels ==
+                              scrollInfo.metrics.minScrollExtent &&
+                          !hacia_abajo) {
+                        print('entraaaaaaaaaaaa inicio');
+                        if (self.currentPage != self.lastPageSelected) {
+                          self.lastPageSelected = self.currentPage;
+                          return false;
+                        }
+                        // Al llegar al inicio del scroll
+                        if (self.currentPage > 1) {
+                          if (self.debounceTimer?.isActive ?? false)
+                            self.debounceTimer!.cancel();
+                          self.debounceTimer =
+                              Timer(Duration(milliseconds: 500), () {
+                            self.currentPage -= 1;
+                            print(
+                                'entraaaaaaaaaaaa self.currentPage ${self.currentPage}');
+                            self.previousScrollPosition = 0;
+                            self.loadMoreData();
+                          });
+                        }
+                        return true;
+                      }
+                      return false;
+                    },
+                    child: buildReservas(),
                   ),
                 ),
-                5.0.sh,
-                buildReservas()
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
-  /// Lista de deportes
   List<Widget> buildListDeportes() {
-    final listDeportes = [
+    final List<DatosDeporte> listDeportes = [
       DatosDeporte('Padel', 'U1F3BE'),
       DatosDeporte('Tenis', 'U1F3BE'),
-      DatosDeporte('Badminton', 'U1F3F8'),
-      DatosDeporte('P. climatizada', 'person-swimming_1f3ca'),
-      DatosDeporte('Piscina', 'person-swimming_1f3ca'),
-      DatosDeporte('Baloncesto', 'U1F3C0'),
-      DatosDeporte('Futbol sala', 'U26BD'),
-      DatosDeporte('Futbol 7', 'U26BD'),
-      DatosDeporte('Futbol 11', 'U26BD'),
-      DatosDeporte('Pickleball', 'U1F94D'),
-      DatosDeporte('Squash', 'U1F3F8'),
-      DatosDeporte('Tenis de mesa', 'U1F3D3'),
-      DatosDeporte('Fronton', 'U1F3BE'),
-      DatosDeporte('Balomano', 'U26BD'),
-      DatosDeporte('Rugby', 'U1F3C8'),
-      DatosDeporte('Multideporte', 'U1F938'),
+      // Agrega los demás deportes aquí...
     ];
-    return listDeportes
-        .mapIndexed((e, index) => buildDeporte(e, index))
-        .toList();
+
+    return listDeportes.map((e) => buildDeporte(e)).toList();
   }
 
-  /// Deporte
-  Widget buildDeporte(DatosDeporte e, int index) {
+  Widget buildDeporte(DatosDeporte e) {
     return Stack(
       children: [
         Padding(
-          key: self.deporteKey[index],
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -103,10 +194,10 @@ class MisReservasPage extends GetView<MisReservasController> {
               ),
               Text(
                 e.nombre,
-                style: LightModeTheme().bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      letterSpacing: 0,
-                    ),
+                style: TextStyle(
+                  fontFamily: 'Readex Pro',
+                  letterSpacing: 0,
+                ),
               ),
             ],
           ),
@@ -121,7 +212,7 @@ class MisReservasPage extends GetView<MisReservasController> {
               self.deporte == e.nombre ? Colores.proveedor.primary : null,
           icon: Container(
             height: 70,
-            width: self.deportesWidth.value[index],
+            width: 70,
             clipBehavior: Clip.antiAlias,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -132,44 +223,64 @@ class MisReservasPage extends GetView<MisReservasController> {
     );
   }
 
-  /// Lista Reservas
   Widget buildReservas() {
+    print('self.misReservasUsuario ${self.misReservasUsuario}');
     return self.misReservasUsuario.obx(
-        (state) => Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    state!.length,
-                    (i) => buildReserva(state[i]),
-                  ).divide(10.0.sh).addToEnd(65.0.sh),
-                ),
-              ),
+      (state) => ListView.builder(
+        itemCount: state!.length + 1, // Aumenta el itemCount en 1
+        itemBuilder: (context, index) {
+          if (index == state.length) {
+            // Este es el último elemento, añade un SizedBox para forzar el scroll
+            return SizedBox(
+                height: 100); // Ajusta la altura según sea necesario
+          } else if (index == state.length - 1) {
+            return Column(
+              children: [
+                buildReserva(state[index]),
+                self.isLoading.value
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: ColorLoader(),
+                      )
+                    : const SizedBox(),
+              ],
+            );
+          } else {
+            return buildReserva(state[index]);
+          }
+        },
+      ),
+      onLoading: Padding(
+        padding: const EdgeInsets.only(top: 30.0),
+        child: Center(
+          child: SizedBox(
+            width: 100,
+            child: ColorLoader(
+              radius: 12,
+              padding: const EdgeInsets.only(right: 10),
             ),
-        onLoading: Padding(
-          padding: const EdgeInsets.only(top: 30.0),
-          child: Center(
-            child: SizedBox(
-                width: 100,
-                child: ColorLoader(
-                  radius: 12,
-                  padding: const EdgeInsets.only(right: 10),
-                )),
           ),
         ),
-        onEmpty: Center(
-          child: Text('\nNo se encontraron reservas.',
-              style: LightModeTheme().bodyMedium.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16)),
-        ));
+      ),
+      onEmpty: Center(
+        child: Text(
+          '\nNo se encontraron reservas.',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
   }
 
   /// Reserva
   Widget buildReserva(MisReservasUsuarioModel state) {
     // Verificar si la reserva esta cerrada
     print('state.() ${state.toJson()}');
-    final isCerrada =
+
+    final isCerrada = state.reservasUsuarios != null &&
         state.reservasUsuarios!.plazasReservadasTotales == state.capacidad;
     return Padding(
       padding: const EdgeInsets.all(5),

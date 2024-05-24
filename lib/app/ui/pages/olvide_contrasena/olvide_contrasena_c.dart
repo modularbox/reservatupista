@@ -14,7 +14,7 @@ import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
 class OlvideContrasenaController extends GetxController
     with GetTickerProviderStateMixin {
   final pageViewController = PageController(initialPage: 0);
-  int typeUser = Get.arguments;
+  int typeUser = 0;
   final emailController = TextEditingController();
   GlobalKey<FormState> formKey0 = GlobalKey();
   GlobalKey<FormState> formKeyOTP = GlobalKey();
@@ -51,6 +51,12 @@ class OlvideContrasenaController extends GetxController
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    if (Get.parameters['tipo_usuario'] == null) {
+      Get.toNamed(Routes.LOGIN_USUARIO);
+      return;
+    } else {
+      typeUser = int.parse(Get.parameters['tipo_usuario']!);
+    }
     animEmail = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
     animContrasenaComprobar = animVibrate(vsync: this);

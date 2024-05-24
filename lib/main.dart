@@ -78,10 +78,10 @@ class _MyAppState extends State<MyApp> {
           Locale('es'),
           Locale('en'),
         ],
-        initialBinding: MisReservasBinding2(),
-        home: MisReservasPage2(),
-        //initialBinding: DBBinding(),
-        //initialRoute: Routes.LOGIN_USUARIO,
+        // initialBinding: DBService(),
+        // home: Routes.LOGIN_USUARIO,
+        initialBinding: DBBinding(),
+        initialRoute: Routes.LOGIN_USUARIO,
         // Manejo de rutas no encontradas
         unknownRoute: GetPage(
           name: '/not_found',

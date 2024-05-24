@@ -365,7 +365,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   child: BtnIcon(
                     onPressed: () async {
                       Get.toNamed(Routes.OLVIDE_CONTRASENA,
-                          arguments: typeUser);
+                          parameters: {'tipo_usuario': typeUser.toString()});
                     },
                     borderRadius: 12,
                     icon: Text(

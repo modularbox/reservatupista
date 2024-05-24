@@ -14,7 +14,7 @@ class ExecuteProvider extends GetConnect {
       {int page = 1, int itemsPerPage = 10}) async {
     try {
       print({
-        'id_usuario': 46, //db.idUsuario.toString(),
+        'id_usuario': db.idUsuario.toString(),
         'deporte': deporte,
         'page': page.toString(),
         'itemsPerPage': itemsPerPage.toString(),
@@ -23,7 +23,7 @@ class ExecuteProvider extends GetConnect {
       final response = await get(
         '$url/reserva',
         query: {
-          'id_usuario': '46',
+          'id_usuario': db.idUsuario.toString(),
           'itemsPerPage': itemsPerPage.toString(),
           'page': page.toString()
         },
@@ -55,7 +55,7 @@ class ExecuteProvider extends GetConnect {
       print('obtenerTotalReservas');
       final response = await get(
         '$url/reserva/obtener_reservas_totales',
-        query: {'id_usuario': '46'},
+        query: {'id_usuario': db.idUsuario.toString()},
         contentType: 'application/json',
       );
       print('misReservasResponse2');
