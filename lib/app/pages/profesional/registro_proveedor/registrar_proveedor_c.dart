@@ -170,7 +170,7 @@ class RegistrarProveedorController extends GetxController
 
         if (result.code == 2000) {
           await EmailProvider()
-              .enviarEmailRegistro(tc.email.text, tc.nombre.text, true);
+              .enviarEmailRegistro(tc.email.text, tc.nombre.text, '1');
 
           /// Regresar al inicio y enviar el email.
           Get.dialog(ChangeDialogGeneral(

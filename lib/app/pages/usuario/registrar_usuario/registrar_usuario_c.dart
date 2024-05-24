@@ -160,6 +160,9 @@ class RegistrarUsuarioController extends GetxController
 
   /// Registrar Usuario
   void onPressedRegistrar() async {
+    await EmailProvider()
+        .enviarEmailRegistro('miguel@modularbox.com', ' tc.nombre.text', '0');
+    return;
     if (formKey.currentState!.validate()) {
       try {
         Get.dialog(ColorLoader3());
@@ -234,7 +237,7 @@ class RegistrarUsuarioController extends GetxController
         Get.back();
         if (registrar) {
           await EmailProvider()
-              .enviarEmailRegistro(tc.email.text, tc.nombre.text, false);
+              .enviarEmailRegistro(tc.email.text, tc.nombre.text, '0');
           Get.dialog(ChangeDialogGeneral(
             alertTitle: richTitle("Registro usuario"),
             alertSubtitle:

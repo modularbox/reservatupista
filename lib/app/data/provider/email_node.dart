@@ -11,8 +11,7 @@ class EmailProvider extends GetConnect {
 
   // Enviar Email usuario
   Future<bool> enviarEmailRegistro(
-      String email, String nombre, bool esProveedor) async {
-    final tipoUsuario = esProveedor ? '1' : '0';
+      String email, String nombre, String tipoUsuario) async {
     try {
       print('Send Email');
       final response = await post(
@@ -22,7 +21,6 @@ class EmailProvider extends GetConnect {
             "correo": email,
             "link": "$urlWeb/#/validar_email?email=$email&user=$tipoUsuario",
             "message": '''
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -100,7 +98,7 @@ class EmailProvider extends GetConnect {
           Para empezar, por favor verifica tu cuenta haciendo clic en el
           siguiente botón:
         </p>
-        <a href="$urlWeb/#/validar_email?email=$email&user=1" class="button">Verificar Cuenta</a>
+        <a href="$urlWeb/#/validar_email?email=$email&user=$tipoUsuario" class="button">Verificar Cuenta</a>
         <p>
           Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.
         </p>
