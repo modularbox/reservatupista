@@ -20,6 +20,10 @@ class Versions extends StatelessWidget {
         DatosVersion(
             v: db.version,
             info: '''Agregar seccion de Administrador.''',
+            fecha: '24/05/2024'),
+        DatosVersion(
+            v: '2.2.12',
+            info: '''Agregar seccion de Administrador.''',
             fecha: '21/05/2024'),
         DatosVersion(
             v: '2.2.11',

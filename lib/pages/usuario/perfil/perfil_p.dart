@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
@@ -54,7 +55,6 @@ class PerfilPage extends GetView<DBService> {
                       : datosPerfil(
                           space: spaceSizedBoxBtnCerrar(),
                           subAppBar: subAppBar(false))),
-              buildBtnCerrar()
             ],
           ),
         ));
@@ -99,17 +99,22 @@ class PerfilPage extends GetView<DBService> {
                   padding: const EdgeInsets.all(2.0),
                   child: BtnIcon(
                     onPressed: () {
-                      Get.dialog(GestureDetector(
-                          onTap: Get.back,
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ImageServer(
-                                  width: 200,
-                                  height: 200,
-                                ),
-                              ])));
+                      Get.dialog(Scaffold(
+                        body: GestureDetector(
+                            onTap: Get.back,
+                            child: SizedBox(
+                              height: 30,
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ImageServer(
+                                      width: 200,
+                                      height: 200,
+                                    ),
+                                  ]),
+                            )),
+                      ));
                     },
                     borderRadius: 50,
                     padding: const EdgeInsets.all(0),
@@ -194,10 +199,8 @@ class PerfilPage extends GetView<DBService> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  width: 200,
+                                  width: 300,
                                   child: ImageServer(
-                                    width: null,
-                                    height: null,
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
@@ -323,13 +326,68 @@ class PerfilPage extends GetView<DBService> {
                 },
               ),
               ButtonPerfil(
-                title: 'Detalles Club',
-                icon: Icons.people,
+                title: 'Amigos',
+                icon: Icons.person_add,
                 top: top,
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.toNamed(Routes.NOTIFICACIONES);
+                  Get.toNamed(Routes.AMIGOS);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Mis Bonos',
+                icon: Icons.book,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.MIS_BONOS);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Mis Pedidos',
+                icon: Icons.sell_outlined,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.PEDIDOS);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Mis Clubes',
+                icon: Icons.payment,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.MIS_CLUBES);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Historial Partidas',
+                icon: Icons.bar_chart_outlined,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.HISTORIAL_USUARIO);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Privacidad',
+                icon: Icons.private_connectivity_rounded,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  final urlPoliticaPrivacidad = Uri.parse(
+                      'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                  final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
+                  if (canLaunch) {
+                    launchUrl(urlPoliticaPrivacidad);
+                  }
                 },
               ),
               ButtonPerfil(
@@ -339,12 +397,12 @@ class PerfilPage extends GetView<DBService> {
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.dialog(LinkDialog(
-                    alertTitle: richTitleLink('¿Deseas ir al enlace externo?',
-                        fontSize: 20.0),
-                    alertSubtitle: richSubtitleLink(
-                        'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
-                  ));
+                  final urlPoliticaPrivacidad = Uri.parse(
+                      'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                  final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
+                  if (canLaunch) {
+                    launchUrl(urlPoliticaPrivacidad);
+                  }
                 },
               ),
               ButtonPerfil(
@@ -359,6 +417,7 @@ class PerfilPage extends GetView<DBService> {
                   );
                 },
               ),
+              buildBtnCerrar(),
               100.0.sh
             ],
           ),
@@ -369,54 +428,49 @@ class PerfilPage extends GetView<DBService> {
   }
 
   Widget buildBtnCerrar() {
-    return SizedBox(
-      width: Get.width,
-      child: Align(
-        alignment: Get.width >= 1000
-            ? const Alignment(0.9, -0.9)
-            : Alignment.bottomCenter,
-        child: Container(
-          width: 200,
-          height: 50,
-          margin: EdgeInsets.only(
-              bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF77066),
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 5,
-                color: Color(0x3416202A),
-                offset: Offset(0, 2),
-              )
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        width: 200,
+        height: 50,
+        margin: EdgeInsets.only(
+            bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF77066),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 5,
+              color: Color(0x3416202A),
+              offset: Offset(0, 2),
+            )
+          ],
+          borderRadius: BorderRadius.circular(12),
+          shape: BoxShape.rectangle,
+        ),
+        child: BtnIcon(
+          onPressed: () async {
+            Get.offAllNamed(Routes.LOGIN_USUARIO);
+          },
+          hoverColor: Colores.usuario.primary69,
+          borderRadius: 12,
+          icon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                child: Text(
+                  'Cerrar Sesión',
+                  style: LightModeTheme().bodyLarge,
+                ),
+              ),
+              const Align(
+                alignment: AlignmentDirectional(0.9, 0),
+                child: Icon(
+                  Icons.logout,
+                  size: 20,
+                ),
+              ),
             ],
-            borderRadius: BorderRadius.circular(12),
-            shape: BoxShape.rectangle,
-          ),
-          child: BtnIcon(
-            onPressed: () async {
-              Get.offAllNamed(Routes.LOGIN_USUARIO);
-            },
-            hoverColor: Colores.usuario.primary69,
-            borderRadius: 12,
-            icon: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                  child: Text(
-                    'Cerrar Sesión',
-                    style: LightModeTheme().bodyLarge,
-                  ),
-                ),
-                const Align(
-                  alignment: AlignmentDirectional(0.9, 0),
-                  child: Icon(
-                    Icons.logout,
-                    size: 20,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

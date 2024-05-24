@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_b.dart';
@@ -21,6 +23,8 @@ import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_prov
 import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional_widget.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_b.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_p.dart';
+import 'package:reservatu_pista/pages/usuario/amigos/amigos_b.dart';
+import 'package:reservatu_pista/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/pages/usuario/inicio/inicio_b.dart';
 import 'package:reservatu_pista/pages/usuario/inicio/inicio_p.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
@@ -97,7 +101,12 @@ enum RoutesType {
   eliminar_cuenta,
   validar_email,
   reserva_compartida,
-  administrador
+  administrador,
+  amigos,
+  mis_bonos,
+  pedidos,
+  mis_clubes,
+  historial_usuario,
 }
 
 class RouteRedirectMiddleware extends GetMiddleware {
@@ -150,6 +159,11 @@ abstract class Routes {
   static final VALIDAR_EMAIL = RoutesType.validar_email.getRoute;
   static final RESERVA_COMPARTIDA = RoutesType.reserva_compartida.getRoute;
   static final ADMINISTRADOR = RoutesType.administrador.getRoute;
+  static final AMIGOS = RoutesType.amigos.getRoute;
+  static final MIS_BONOS = RoutesType.mis_bonos.getRoute;
+  static final PEDIDOS = RoutesType.pedidos.getRoute;
+  static final MIS_CLUBES = RoutesType.mis_clubes.getRoute;
+  static final HISTORIAL_USUARIO = RoutesType.historial_usuario.getRoute;
 }
 
 /// Get Routes
@@ -359,6 +373,18 @@ class AppPages {
       name: Routes.ADMINISTRADOR,
       page: () => const AdminPageWidget(),
     ),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.AMIGOS,
+        page: () => AmigosPage(),
+        binding: AmigosBinding()),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.MIS_BONOS,
+        page: () => const MisBonosPage(),
+        binding: MisBonosBinding()),
 
     /// Pagina para pruebas
     GetPage(
