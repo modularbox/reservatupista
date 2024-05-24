@@ -56,21 +56,21 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
               end: const AlignmentDirectional(0, 1),
             ),
           ),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: AppBarLoginWidget(
-                      movilPequeno: movilPequeno,
+          child: ResponsiveWeb(
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: const AlignmentDirectional(0, 0),
+                      child: AppBarLoginWidget(
+                        movilPequeno: movilPequeno,
+                      ),
                     ),
-                  ),
-                  ResponsiveWeb(
-                    child: Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.sizeOf(context).width <= 640
                               ? 0.0
@@ -83,9 +83,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                         controller: self.pageViewController,
                       ),
                     ),
-                  ),
-                  ResponsiveWeb(
-                    child: SizedBox(
+                    SizedBox(
                       height: 450,
                       child: PageView(
                         controller: self.pageViewController,
@@ -109,7 +107,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                               focusedColor: focusedColorUsuario,
                               typeUser: 0,
                               palomita: Colors.white,
-                              onPressed: self.onPressedUsuario),
+                              onPressed: self.onPressedUsuario,
+                              isProveedor: false),
                           buildInputsLogin(
                               context,
                               formKey: self.formProveedorKey,
@@ -128,15 +127,16 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                               focusedColor: focusedColorProfesional,
                               typeUser: 1,
                               palomita: Colors.black,
-                              onPressed: self.onPressedProveedor),
+                              onPressed: self.onPressedProveedor,
+                              isProveedor: true),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const NavBarLogin()
-            ],
+                  ],
+                ),
+                const NavBarLogin()
+              ],
+            ),
           ),
         ),
       ),
@@ -144,25 +144,25 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
   }
 
   Widget buildInputsLogin(
-    BuildContext context,
-    TextEditingController email,
-    TextEditingController contrasena,
-    FocusNode emailFocus,
-    FocusNode contrasenaFocus,
-    RxBool passwordVisibility,
-    String title,
-    String subtitle,
-    RxBool checkboxRecordar,
-    String accederPage,
-    String registroPage,
-    AnimationController animTerminos, {
-    required Color lineColor,
-    required Color focusedColor,
-    required Color palomita,
-    required int typeUser,
-    required dynamic Function()? onPressed,
-    required Key formKey,
-  }) {
+      BuildContext context,
+      TextEditingController email,
+      TextEditingController contrasena,
+      FocusNode emailFocus,
+      FocusNode contrasenaFocus,
+      RxBool passwordVisibility,
+      String title,
+      String subtitle,
+      RxBool checkboxRecordar,
+      String accederPage,
+      String registroPage,
+      AnimationController animTerminos,
+      {required Color lineColor,
+      required Color focusedColor,
+      required Color palomita,
+      required int typeUser,
+      required dynamic Function()? onPressed,
+      required Key formKey,
+      required isProveedor}) {
     return Form(
       key: formKey,
       child: Column(
@@ -458,7 +458,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
               elevation: 2,
               borderRadius: BorderRadius.circular(12),
             ),
-          ),
+          ).visible(isProveedor),
           const SizedBox(
             height: 5.0,
           ),

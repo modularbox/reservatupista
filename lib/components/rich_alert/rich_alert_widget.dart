@@ -120,9 +120,7 @@ class _RichAlertWidgetState extends State<RichAlertWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        '2a90zngi' /* Error */,
-                                      ),
+                                      'Error',
                                       textAlign: TextAlign.center,
                                       style: LightModeTheme()
                                           .headlineMedium

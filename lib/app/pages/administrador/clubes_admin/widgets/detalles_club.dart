@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

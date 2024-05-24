@@ -35,31 +35,15 @@ class DatabaseController extends GetxController {
     super.onInit();
     // Muestra el estado de carga
     datosPerfilUsuario.loading();
-    // Muestra el estado de carga
-    // datosPerfilProveedor.changeStatus(RxStatusDemo.loading());
-    // Muestra el estado de carga
     datosPerfilClub.loading();
     try {
       datosReserva = datosReservaPistaFromJson(jsonEncode(
           {"clubsFavoritos": [], "tiempoReserva": 7, "reservas": generate()}));
-
-      // final getStorage = await SharedPreferences.getInstance();
-      // // Guardar archivos temporales
-      // storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-      // getVariablesGuardadas();
     } catch (e) {
       print(e);
     }
     print("sd");
   }
-
-  // void getVariablesGuardadas() async {
-  //   final getStorage = await SharedPreferences.getInstance();
-  //   storageIdUsuario = Storage(TypeStorage.idUsuario, getStorage);
-  //   storageIdProveedor = Storage(TypeStorage.idProveedor, getStorage);
-  //   storageTokenUsuario = Storage(TypeStorage.tokenUsuario, getStorage);
-  //   storageTokenProveedor = Storage(TypeStorage.tokenProveedor, getStorage);
-  // }
 
   Future<bool> getDatosUsuario() async {
     try {

@@ -51,7 +51,6 @@ class DetalleReserva extends GetView<MisReservasController> {
               //     style: LightModeTheme().bodyLarge.copyWith(fontSize: 30),
               //   ),
               // ),
-
               BuildUsuarios(
                 capacidad: capacidad,
                 reservasUsuarios: reservasUsuarios,
@@ -300,20 +299,6 @@ class DetalleReserva extends GetView<MisReservasController> {
               children: descripcion)
         ]);
   }
-
-  // String buildTextHorario() {
-  //   final fecha = self.fecha;
-  //   if (fecha is DateTime) {
-  //     final dias = fecha.day;
-  //     final hour = fecha.hour.toString().padLeft(2, '0');
-  //     final minute = fecha.minute.toString().padLeft(2, '0');
-  //     final second = fecha.second.toString().padLeft(2, '0');
-
-  //     return 'Días $dias, $hour:$minute:$second';
-  //   } else {
-  //     return '0';
-  //   }
-  // }
 
   Widget buildTextHorario() {
     final days = ((self.tiempo_restante / 1000 / 60 / 60) / 24).floor();

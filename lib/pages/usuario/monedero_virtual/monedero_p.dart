@@ -51,7 +51,6 @@ class MonederoPage extends GetView<MonederoController> {
             } else if (typeHistorial == TypeHistorial.all) {
               self.mostrarHistorialTodo();
             }
-
             controller.type = typeHistorial;
           },
           options: FFButtonOptions(

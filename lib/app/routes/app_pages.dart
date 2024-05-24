@@ -9,6 +9,8 @@ import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserv
 import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_p.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
+import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_b.dart';
+import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_p.dart';
 import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_b.dart';
 import 'package:reservatu_pista/app/ui/pages/validar_email_page/validar_email_p.dart';
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.dart';
@@ -343,5 +345,11 @@ class AppPages {
       name: Routes.ADMINISTRADOR,
       page: () => const AdminPageWidget(),
     ),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.PRUEBAS,
+        page: () => PruebasPage(),
+        binding: PruebasBinding()),
   ];
 }

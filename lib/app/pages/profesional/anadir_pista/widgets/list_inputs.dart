@@ -239,7 +239,7 @@ class _ListInputsState extends State<ListInputs> {
                       focusNode: self.tipo.focus,
                       context: context,
                       labelText: 'Tipo',
-                      itemsDD: const ['Cristal', 'Hormigo'],
+                      itemsDD: const ['Cristal', 'Hormigon'],
                       onChanged: (val) => self.tipo.isValidate.value = false,
                       isValidate: self.tipo.isValidate.value,
                       onValidator: (val) => self.validarInputController(val,

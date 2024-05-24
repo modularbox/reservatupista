@@ -86,7 +86,7 @@ class _NoticiasCheckboxState extends State<NoticiasCheckbox> {
                         ),
                         unselectedWidgetColor: LightModeTheme().secondaryText,
                       ),
-                      child: Obx(() => buildCheckbox()),
+                      child: Obx(buildCheckbox),
                     ),
                     10.0.sw,
                     BtnIcon(
@@ -105,7 +105,7 @@ class _NoticiasCheckboxState extends State<NoticiasCheckbox> {
                           : MediaQuery.sizeOf(context).width,
                       padding: const EdgeInsets.all(0),
                       icon: Text(
-                        'Permítanos mantenerle informado. ¿Acepta recibir nuestras noticias y actualizaciones por correo?.',
+                        'Deseo recibir nuestras noticias y actualizaciones por correo.',
                         maxLines: 4,
                         textAlign: TextAlign.start,
                         style: LightModeTheme().bodyMedium.override(

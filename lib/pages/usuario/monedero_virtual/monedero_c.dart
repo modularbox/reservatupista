@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -83,8 +82,11 @@ class MonederoController extends GetxController
   set money(int value) => _money.value = value;
   // Copia dinero total
   late int copiaDineroTotal;
+
   // Pedir el precio una vez haciendo la compra
   late Timer timer;
+  // Limite de peticiones para cambiar el estado del monedero
+  final peticiones = 0.obs;
 
   /// Todo del alert recargas
   @override
@@ -95,7 +97,6 @@ class MonederoController extends GetxController
       await db.getMoney();
       await mostrarHistorialTodo();
       copiaDineroTotal = db.dineroTotal;
-      stopTimer();
     } catch (e) {
       print(e);
     }
@@ -109,6 +110,20 @@ class MonederoController extends GetxController
       final newController = AnimationController(vsync: this);
       element.value.animation.controller = newController;
     }
+    debounce(peticiones, (val) async {
+      print(val);
+      if (val > 0) {
+        await db.getMoney();
+        if (copiaDineroTotal != db.dineroTotal) {
+          peticiones.value = 0;
+        }
+        if (val > 9) {
+          peticiones.value = 0;
+          return;
+        }
+        peticiones.value++;
+      }
+    }, time: const Duration(seconds: 30));
   }
 
   void onConfirmar() {
@@ -139,7 +154,8 @@ class MonederoController extends GetxController
         db.idUsuario,
         reservarPistaController.id_pista_seleccionada.value,
       );
-      startTimer();
+      // Iniciar peticiones
+      peticiones.value = 1;
       await launchURL(
           'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
       Get.back();
@@ -280,24 +296,6 @@ class MonederoController extends GetxController
 
   String _padNumber(int number) {
     return number.toString().padLeft(2, '0');
-  }
-
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      print("Obtener precio cada segundo");
-      try {
-        await db.getMoney();
-        if (copiaDineroTotal != db.dineroTotal) {
-          stopTimer();
-        }
-      } catch (e) {
-        print(e);
-      }
-    });
-  }
-
-  void stopTimer() {
-    timer.cancel();
   }
 }
 

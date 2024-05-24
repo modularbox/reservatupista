@@ -49,21 +49,24 @@ class NavBarLogin extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          bottom: 75,
-          child: SizedBox(
-            width: MediaQuery.sizeOf(context).width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 68.0),
-              child: Container(
-                height: 50,
-                constraints: const BoxConstraints(maxWidth: 500),
-                child: buildResponsiveText(context),
-              ),
+          bottom: (MediaQuery.sizeOf(context).height < 600 ||
+                  MediaQuery.sizeOf(context).width > 450)
+              ? 53
+              : 75,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 68.0),
+            child: Container(
+              height: 50,
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: buildResponsiveText(context),
             ),
           ),
         ),
         Positioned(
-          bottom: 75,
+          bottom: (MediaQuery.sizeOf(context).height < 600 ||
+                  MediaQuery.sizeOf(context).width > 450)
+              ? 53
+              : 75,
           left: 5,
           child: Container(
             width: 60.0,
@@ -77,7 +80,10 @@ class NavBarLogin extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 75,
+          bottom: (MediaQuery.sizeOf(context).height < 600 ||
+                  MediaQuery.sizeOf(context).width > 450)
+              ? 53
+              : 75,
           right: 5,
           child: Container(
             width: 60.0,
@@ -110,7 +116,10 @@ class NavBarLogin extends StatelessWidget {
           alignment: const AlignmentDirectional(0.0, 1.0),
           child: Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
-            height: 70.0,
+            height: (MediaQuery.sizeOf(context).height < 600 ||
+                    MediaQuery.sizeOf(context).width > 450)
+                ? 50
+                : 70.0,
             decoration: BoxDecoration(
               color: LightModeTheme().secondaryBackground,
             ),
