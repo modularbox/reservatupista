@@ -317,7 +317,7 @@ extension FFStringExt on String {
           : this;
 
   String get formatHora => '${substring(0, 5)}h';
-  String get formatHoraTimestamp => substring(11, 16);
+  String get formatHoraTimestamp => '${substring(11, 16)}h';
   String get formatFechaTimestamp => substring(0, 10);
 
   /// COnvertir 2024-05-16' - 16-05-2024'

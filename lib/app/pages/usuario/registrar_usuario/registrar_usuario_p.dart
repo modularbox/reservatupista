@@ -91,8 +91,7 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
   }
 
   Widget buildSelectImage() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
+    return ResponsiveWeb(
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(

@@ -15,9 +15,16 @@ import '../../../routes/app_pages.dart';
 import '../../../data/models/tarifas_model.dart';
 import '../tarifas_pista/tarifas_pista_c.dart';
 
-extension SioNo on String {
+String getDeporte(String val) {
+  final split = val.split(' ');
+  split.removeAt(0);
+  return split.join(' ');
+}
+
+extension ExtConvertTextField on String {
   bool get sn => this == 'Si' ? true : false;
-  String get de => substring(3);
+  String get de => getDeporte(this);
+
   int get dp => this == '60 Minutos' ? 60 : 90;
   String get tm => '$this:00';
   int get trOtc => int.parse(split(' ')[0]);
@@ -314,9 +321,62 @@ class AnadirPistaController extends GetxController
 
   onChangeDeporte(String val) async {
     if (val.isNotEmpty) {
-      if (val.de == 'Padel') {
-        capacidad.controller.text = '4';
+      int getSportCapacity(String sport) {
+        switch (sport.de) {
+          case 'Padel':
+            // '4 jugadores (2 por equipo)';
+            return 4;
+          case 'Tenis':
+            // '2 jugadores (individual) o 4 jugadores (dobles)';
+            return 2;
+          case 'Badminton':
+            // '2 jugadores (individual) o 4 jugadores (dobles)';
+            return 4;
+          case 'P. climatizada':
+            return 1;
+          case 'Piscina':
+            // 'Capacidad variable, dependiendo del evento o uso';
+            return 1;
+          case 'Baloncesto':
+            // '10 jugadores (5 por equipo)';
+            return 10;
+          case 'Futbol sala':
+            // '10 jugadores (5 por equipo)';
+            return 5;
+          case 'Futbol 7':
+            // '14 jugadores (7 por equipo)';
+            return 7;
+          case 'Futbol 11':
+            // '22 jugadores (11 por equipo)';
+            return 11;
+          case 'Pickleball':
+            // '4 jugadores (2 por equipo)';
+            return 2;
+          case 'Squash':
+            // '2 jugadores';
+            return 2;
+          case 'Tenis de mesa':
+            // '2 jugadores (individual) o 4 jugadores (dobles)';
+            return 2;
+          case 'Fronton':
+            // '2 jugadores (individual) o 4 jugadores (dobles)';
+            return 2;
+          case 'Balomano':
+            // '14 jugadores (7 por equipo)';
+            return 7;
+          case 'Rugby':
+            // '30 jugadores (15 por equipo) o 14 jugadores (7 por equipo) para rugby 7';
+            return 7;
+          case 'Multideporte':
+            // 'Capacidad variable, dependiendo del deporte específico';
+            return 2;
+          default:
+            return 0;
+        }
       }
+
+      capacidad.controller.text = getSportCapacity(val).toString();
+
       final result = await PistaNode().getCountPistas(val.de);
       deporte.isValidate.value = false;
       if (val.isNotEmpty) {

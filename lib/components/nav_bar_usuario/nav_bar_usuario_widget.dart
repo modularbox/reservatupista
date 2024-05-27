@@ -89,7 +89,7 @@ class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                 ),
                 child: Container(
                   width: double.infinity,
-                  height: 50.0,
+                  height: isiOS ? 60.0 : 50.0,
                   decoration: BoxDecoration(
                     color: LightModeTheme().primaryBackground,
                     boxShadow: const [
@@ -228,7 +228,9 @@ class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(top: 10),
+      padding: isiOS
+          ? const EdgeInsets.only(bottom: 8.0)
+          : const EdgeInsets.only(top: 10.0),
       child: BtnIcon(
         onPressed: onPressed,
         hoverColor: const Color.fromARGB(69, 43, 120, 220),

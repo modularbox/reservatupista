@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
@@ -22,7 +26,7 @@ import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_p.dart';
 import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_b.dart';
 import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_p.dart';
-import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional_widget.dart';
+import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_b.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_p.dart';
 import 'package:reservatu_pista/pages/usuario/amigos/amigos_b.dart';
@@ -317,7 +321,7 @@ class AppPages {
     /// Notificaciones Proveedor
     GetPage(
       name: Routes.NOTIFICACIONES_PROVEEDOR,
-      page: () => const NotificacionesProfesionalWidget(),
+      page: () => const NotificacionesProfesionalPage(),
     ),
 
     /// Resultados Estadisticas
@@ -370,29 +374,41 @@ class AppPages {
       binding: ValidarEmailBinding(),
     ),
 
-    /// Validar email
+    /// Pagina para Administrador
     GetPage(
       name: Routes.ADMINISTRADOR,
       page: () => const AdminPageWidget(),
     ),
 
-    /// Pagina para pruebas
+    /// Pagina para Amigos
     GetPage(
         name: Routes.AMIGOS,
         page: () => AmigosPage(),
         binding: AmigosBinding()),
 
-    /// Pagina para pruebas
+    /// Pagina para Mis Bonos
     GetPage(
         name: Routes.MIS_BONOS,
         page: () => const MisBonosPage(),
         binding: MisBonosBinding()),
 
-    /// Pagina para pruebas
+    /// Pagina para Mis Pedidos
     GetPage(
         name: Routes.MIS_PEDIDOS,
         page: () => const MisPedidosPage(),
         binding: MisPedidosBinding()),
+
+    /// Pagina para Mis Clubes
+    GetPage(
+        name: Routes.MIS_CLUBES,
+        page: () => const MisClubesPage(),
+        binding: MisClubesBinding()),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.HISTORIAL_USUARIO,
+        page: () => const HistorialPage(),
+        binding: HistorialBinding()),
 
     /// Pagina para pruebas
     GetPage(

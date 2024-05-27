@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
-import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../app/routes/app_pages.dart';
@@ -67,121 +66,27 @@ class PerfilPage extends GetView<DBService> {
     final nivel =
         self.datosUsuario.nivel == '' ? '0.0' : self.datosUsuario.nivel;
     if (responsive) {
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 3,
-              color: Color(0x33000000),
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: LightModeTheme().tertiary,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: LightModeTheme().secondary,
-                    width: 3,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(Scaffold(
-                        body: GestureDetector(
-                            onTap: Get.back,
-                            child: SizedBox(
-                              height: 30,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ImageServer(
-                                      width: 200,
-                                      height: 200,
-                                    ),
-                                  ]),
-                            )),
-                      ));
-                    },
-                    borderRadius: 50,
-                    padding: const EdgeInsets.all(0),
-                    fillColor: Colors.transparent,
-                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                    icon: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: ImageServer()),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        child: AutoSizeText(
-                      '$nombre $apellidos',
-                      textAlign: TextAlign.center,
-                      style: LightModeTheme().headlineSmall,
-                    )),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 4.0, 0.0, 0.0),
-                      child: SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            datos('Nick', nick),
-                            5.0.sw,
-                            datos('Nivel', nivel),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+      return ResponsiveWeb(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: LightModeTheme().secondaryBackground,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0x33000000),
+                offset: Offset(0, 1),
+              )
             ],
           ),
-        ),
-      );
-    } else {
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 3,
-              color: Color(0x33000000),
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
-        child: ResponsiveWeb(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: 90,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: LightModeTheme().tertiary,
                     shape: BoxShape.circle,
@@ -190,59 +95,157 @@ class PerfilPage extends GetView<DBService> {
                       width: 3,
                     ),
                   ),
-                  child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(GestureDetector(
-                          onTap: () => Get.back(),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 300,
-                                  child: ImageServer(
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                              ])));
-                    },
-                    borderRadius: 45,
-                    padding: const EdgeInsets.all(0),
-                    fillColor: Colors.transparent,
-                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                    icon: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: ImageServer(
-                          width: 80,
-                          height: 80,
-                        )),
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AutoSizeText(
-                          '$nombre $apellidos',
-                          textAlign: TextAlign.center,
-                          style: LightModeTheme().headlineSmall,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            datos('Nick', nick),
-                            20.0.sw,
-                            datos('Nivel', nivel),
-                          ],
-                        ),
-                      ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: BtnIcon(
+                      onPressed: () {
+                        Get.dialog(Scaffold(
+                          body: GestureDetector(
+                              onTap: Get.back,
+                              child: SizedBox(
+                                height: 30,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ImageServer(
+                                        width: 200,
+                                        height: 200,
+                                      ),
+                                    ]),
+                              )),
+                        ));
+                      },
+                      borderRadius: 50,
+                      padding: const EdgeInsets.all(0),
+                      fillColor: Colors.transparent,
+                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                      icon: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: ImageServer()),
                     ),
                   ),
                 ),
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          child: AutoSizeText(
+                        '$nombre $apellidos',
+                        textAlign: TextAlign.center,
+                        style: LightModeTheme().headlineSmall,
+                      )),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 4.0, 0.0, 0.0),
+                        child: SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              datos('Nick', nick),
+                              5.0.sw,
+                              datos('Nivel', nivel),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return ResponsiveWeb(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: LightModeTheme().secondaryBackground,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0x33000000),
+                offset: Offset(0, 1),
+              )
+            ],
+          ),
+          child: ResponsiveWeb(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: LightModeTheme().tertiary,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: LightModeTheme().secondary,
+                        width: 3,
+                      ),
+                    ),
+                    child: BtnIcon(
+                      onPressed: () {
+                        Get.dialog(GestureDetector(
+                            onTap: () => Get.back(),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 300,
+                                    child: ImageServer(
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                ])));
+                      },
+                      borderRadius: 45,
+                      padding: const EdgeInsets.all(0),
+                      fillColor: Colors.transparent,
+                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                      icon: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: ImageServer(
+                            width: 80,
+                            height: 80,
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            '$nombre $apellidos',
+                            textAlign: TextAlign.center,
+                            style: LightModeTheme().headlineSmall,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              datos('Nick', nick),
+                              20.0.sw,
+                              datos('Nivel', nivel),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -434,6 +437,7 @@ class PerfilPage extends GetView<DBService> {
         width: 200,
         height: 50,
         margin: EdgeInsets.only(
+            top: 10.0,
             bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
         decoration: BoxDecoration(
           color: const Color(0xFFF77066),

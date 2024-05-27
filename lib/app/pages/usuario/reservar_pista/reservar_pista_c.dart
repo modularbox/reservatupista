@@ -425,6 +425,7 @@ class ReservarPistaController extends GetxController
         usuario.value.plazasReservadas = 1;
         cancelarReserva.value = false;
         totalMisReservas = false;
+        plazas_a_reservar.value = 0;
         usuario.refresh();
         print('plazaslibressss $plazasLibres');
         print('reservas_usuarios.valueeee ${reservas_usuarios.value}');

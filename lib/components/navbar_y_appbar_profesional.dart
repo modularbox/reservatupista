@@ -1,3 +1,4 @@
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../components/appbar_profesional.dart';
 import '/backend/schema/enums/enums.dart';
@@ -39,25 +40,25 @@ class NavbarYAppbarProfesional extends StatelessWidget {
           Column(
             children: [
               paddingTop.sh,
-              AppbarProfesional(
-                title: title,
-                isTitle: isTitle,
-                isTitleBack: isTitleBack,
+              ResponsiveWeb(
+                child: AppbarProfesional(
+                  title: title,
+                  isTitle: isTitle,
+                  isTitleBack: isTitleBack,
+                ),
               ),
               child,
             ],
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: NavBarProfesionalWidget(
-                tipoDePagina: page,
-              )).visible(isNavBar),
+          ResponsiveWeb(
+              child: Align(
+            alignment: Alignment.bottomCenter,
+            child: NavBarProfesionalWidget(
+              tipoDePagina: page,
+            ),
+          )).visible(isNavBar),
         ],
       ),
-      // bottomNavigationBar: Container(
-      //   height: 0.0,
-      //   margin: isiOS ? const EdgeInsets.only(bottom: 10.0) : null,
-      // )
     );
   }
 }
