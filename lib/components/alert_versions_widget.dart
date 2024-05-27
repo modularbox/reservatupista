@@ -18,7 +18,13 @@ class Versions extends StatelessWidget {
   final DBService db = Get.find();
   List<DatosVersion> arrayVersion2() => [
         DatosVersion(
-            v: db.version,
+            v: db.version, info: '''Bugs y errores.''', fecha: '27/05/2024'),
+        DatosVersion(
+            v: '2.2.13',
+            info: '''Agregar seccion de Administrador.''',
+            fecha: '24/05/2024'),
+        DatosVersion(
+            v: '2.2.12',
             info: '''Agregar seccion de Administrador.''',
             fecha: '21/05/2024'),
         DatosVersion(

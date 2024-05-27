@@ -9,8 +9,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'nav_bar_profesional_model.dart';
-export 'nav_bar_profesional_model.dart';
 
 class NavBarProfesionalWidget extends StatefulWidget {
   const NavBarProfesionalWidget({
@@ -28,8 +26,6 @@ class NavBarProfesionalWidget extends StatefulWidget {
 
 class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
     with TickerProviderStateMixin {
-  late NavBarProfesionalModel _model;
-
   final animationsMap = {
     'iconButtonOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -56,13 +52,11 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
-    _model.onUpdate();
   }
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NavBarProfesionalModel());
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -74,7 +68,6 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
 
   @override
   void dispose() {
-    _model.maybeDispose();
     super.dispose();
   }
 
@@ -102,7 +95,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 child: Container(
                   width: double.infinity,
-                  height: 50.0,
+                  height: isiOS ? 60.0 : 50.0,
                   decoration: BoxDecoration(
                     color: LightModeTheme().primaryBackground,
                     boxShadow: const [
@@ -237,7 +230,9 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(top: 10),
+      padding: isiOS
+          ? const EdgeInsets.only(bottom: 8.0)
+          : const EdgeInsets.only(top: 10.0),
       child: BtnIcon(
         onPressed: onPressed,
         hoverColor: Colores.proveedor.primary69,

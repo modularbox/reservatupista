@@ -67,12 +67,12 @@ class MonederoPage extends GetView<MonederoController> {
       title: 'Monedero Virtual',
       page: TypePage.Monedero,
       child: Expanded(
-        child: ResponsiveWeb(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ResponsiveWeb(
+              child: Padding(
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
                 child: Container(
@@ -184,28 +184,30 @@ class MonederoPage extends GetView<MonederoController> {
                 ).animateOnPageLoad(
                     controller.animationsMap['containerOnPageLoadAnimation']!),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 25, 8, 10),
-                child: Obx(() => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        buildBtnOption('Reservas', TypeHistorial.reserva),
-                        buildBtnOption('Recargas', TypeHistorial.recarga),
-                        buildBtnOption('Todo', TypeHistorial.all),
-                      ].divide(const SizedBox(width: 10.0)),
-                    )),
-              ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      0.0, 12.0, 0.0, 24.0),
-                  child: SingleChildScrollView(
-                    child: Obx(() => Column(
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 25, 8, 10),
+              child: Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      buildBtnOption('Reservas', TypeHistorial.reserva),
+                      buildBtnOption('Recargas', TypeHistorial.recarga),
+                      buildBtnOption('Todo', TypeHistorial.all),
+                    ].divide(const SizedBox(width: 10.0)),
+                  )),
+            ),
+            Expanded(
+                child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
+                child: SingleChildScrollView(
+                  child: Obx(() => ResponsiveWeb(
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             (controller.type == TypeHistorial.reserva)
@@ -218,12 +220,12 @@ class MonederoPage extends GetView<MonederoController> {
                                 ? buildReservasRegargas()
                                 : const SizedBox(),
                           ],
-                        )),
-                  ),
+                        ),
+                      )),
                 ),
-              )),
-            ],
-          ),
+              ),
+            )),
+          ],
         ),
       ),
     );

@@ -22,6 +22,7 @@ class TerminosCondicionesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       TextFormField(
+        enabled: false,
         validator: (value) {
           if (!checkboxTerminos.value) {
             validateTerminos.value = true;

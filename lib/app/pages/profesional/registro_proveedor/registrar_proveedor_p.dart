@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/registro_proveedor/widgets/inputs_datos_registro_proveedor.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
-import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import 'registrar_proveedor_c.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../widgets/appbar_general.dart';
@@ -101,8 +100,7 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
   }
 
   Widget buildSelectImage() {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
+    return ResponsiveWeb(
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(

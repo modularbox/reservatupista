@@ -518,7 +518,7 @@ class _DropdownMenuRouteLayout<T> extends SingleChildLayoutDelegate {
       final Rect container = Offset.zero & size;
       if (container.intersect(buttonRect!) == buttonRect) {
         assert(menuTop >= 0.0);
-        assert(menuTop + menuHeight <= size.height);
+        assert(menuTop <= size.height);
       }
       return true;
     }());

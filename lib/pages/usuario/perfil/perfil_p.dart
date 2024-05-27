@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
-import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_usuario.dart';
@@ -54,7 +54,6 @@ class PerfilPage extends GetView<DBService> {
                       : datosPerfil(
                           space: spaceSizedBoxBtnCerrar(),
                           subAppBar: subAppBar(false))),
-              buildBtnCerrar()
             ],
           ),
         ));
@@ -67,6 +66,7 @@ class PerfilPage extends GetView<DBService> {
     final nivel =
         self.datosUsuario.nivel == '' ? '0.0' : self.datosUsuario.nivel;
     if (responsive) {
+<<<<<<< HEAD
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -139,32 +139,29 @@ class PerfilPage extends GetView<DBService> {
                   ],
                 ),
               ),
+=======
+      return ResponsiveWeb(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: LightModeTheme().secondaryBackground,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0x33000000),
+                offset: Offset(0, 1),
+              )
+>>>>>>> cc3730f1b2531d946e436d02b4489d8ed7c8393c
             ],
           ),
-        ),
-      );
-    } else {
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 3,
-              color: Color(0x33000000),
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
-        child: ResponsiveWeb(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: 90,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: LightModeTheme().tertiary,
                     shape: BoxShape.circle,
@@ -173,6 +170,7 @@ class PerfilPage extends GetView<DBService> {
                       width: 3,
                     ),
                   ),
+<<<<<<< HEAD
                   child: BtnIcon(
                     onPressed: buildDialogImage,
                     borderRadius: 45,
@@ -208,10 +206,159 @@ class PerfilPage extends GetView<DBService> {
                           ],
                         ),
                       ],
+=======
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: BtnIcon(
+                      onPressed: () {
+                        Get.dialog(Scaffold(
+                          body: GestureDetector(
+                              onTap: Get.back,
+                              child: SizedBox(
+                                height: 30,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ImageServer(
+                                        width: 200,
+                                        height: 200,
+                                      ),
+                                    ]),
+                              )),
+                        ));
+                      },
+                      borderRadius: 50,
+                      padding: const EdgeInsets.all(0),
+                      fillColor: Colors.transparent,
+                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                      icon: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: ImageServer()),
+>>>>>>> cc3730f1b2531d946e436d02b4489d8ed7c8393c
                     ),
                   ),
                 ),
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          child: AutoSizeText(
+                        '$nombre $apellidos',
+                        textAlign: TextAlign.center,
+                        style: LightModeTheme().headlineSmall,
+                      )),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 4.0, 0.0, 0.0),
+                        child: SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              datos('Nick', nick),
+                              5.0.sw,
+                              datos('Nivel', nivel),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return ResponsiveWeb(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: LightModeTheme().secondaryBackground,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0x33000000),
+                offset: Offset(0, 1),
+              )
+            ],
+          ),
+          child: ResponsiveWeb(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: LightModeTheme().tertiary,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: LightModeTheme().secondary,
+                        width: 3,
+                      ),
+                    ),
+                    child: BtnIcon(
+                      onPressed: () {
+                        Get.dialog(GestureDetector(
+                            onTap: () => Get.back(),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 300,
+                                    child: ImageServer(
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                ])));
+                      },
+                      borderRadius: 45,
+                      padding: const EdgeInsets.all(0),
+                      fillColor: Colors.transparent,
+                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                      icon: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: ImageServer(
+                            width: 80,
+                            height: 80,
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            '$nombre $apellidos',
+                            textAlign: TextAlign.center,
+                            style: LightModeTheme().headlineSmall,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              datos('Nick', nick),
+                              20.0.sw,
+                              datos('Nivel', nivel),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -330,13 +477,68 @@ class PerfilPage extends GetView<DBService> {
                 },
               ),
               ButtonPerfil(
-                title: 'Detalles Club',
-                icon: Icons.people,
+                title: 'Amigos',
+                icon: Icons.person_add,
                 top: top,
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.toNamed(Routes.NOTIFICACIONES);
+                  Get.toNamed(Routes.AMIGOS);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Mis Bonos',
+                icon: Icons.book,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.MIS_BONOS);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Mis Pedidos',
+                icon: Icons.sell_outlined,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.MIS_PEDIDOS);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Mis Clubes',
+                icon: Icons.payment,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.MIS_CLUBES);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Historial Partidas',
+                icon: Icons.bar_chart_outlined,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  Get.toNamed(Routes.HISTORIAL_USUARIO);
+                },
+              ),
+              ButtonPerfil(
+                title: 'Privacidad',
+                icon: Icons.private_connectivity_rounded,
+                top: top,
+                height: height,
+                padding: padding,
+                onPressed: () async {
+                  final urlPoliticaPrivacidad = Uri.parse(
+                      'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                  final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
+                  if (canLaunch) {
+                    launchUrl(urlPoliticaPrivacidad);
+                  }
                 },
               ),
               ButtonPerfil(
@@ -346,12 +548,12 @@ class PerfilPage extends GetView<DBService> {
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.dialog(LinkDialog(
-                    alertTitle: richTitleLink('¿Deseas ir al enlace externo?',
-                        fontSize: 20.0),
-                    alertSubtitle: richSubtitleLink(
-                        'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
-                  ));
+                  final urlPoliticaPrivacidad = Uri.parse(
+                      'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                  final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
+                  if (canLaunch) {
+                    launchUrl(urlPoliticaPrivacidad);
+                  }
                 },
               ),
               ButtonPerfil(
@@ -366,6 +568,7 @@ class PerfilPage extends GetView<DBService> {
                   );
                 },
               ),
+              buildBtnCerrar(),
               100.0.sh
             ],
           ),
@@ -376,54 +579,50 @@ class PerfilPage extends GetView<DBService> {
   }
 
   Widget buildBtnCerrar() {
-    return SizedBox(
-      width: Get.width,
-      child: Align(
-        alignment: Get.width >= 1000
-            ? const Alignment(0.9, -0.9)
-            : Alignment.bottomCenter,
-        child: Container(
-          width: 200,
-          height: 50,
-          margin: EdgeInsets.only(
-              bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF77066),
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 5,
-                color: Color(0x3416202A),
-                offset: Offset(0, 2),
-              )
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        width: 200,
+        height: 50,
+        margin: EdgeInsets.only(
+            top: 10.0,
+            bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF77066),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 5,
+              color: Color(0x3416202A),
+              offset: Offset(0, 2),
+            )
+          ],
+          borderRadius: BorderRadius.circular(12),
+          shape: BoxShape.rectangle,
+        ),
+        child: BtnIcon(
+          onPressed: () async {
+            Get.offAllNamed(Routes.LOGIN_USUARIO);
+          },
+          hoverColor: Colores.usuario.primary69,
+          borderRadius: 12,
+          icon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                child: Text(
+                  'Cerrar Sesión',
+                  style: LightModeTheme().bodyLarge,
+                ),
+              ),
+              const Align(
+                alignment: AlignmentDirectional(0.9, 0),
+                child: Icon(
+                  Icons.logout,
+                  size: 20,
+                ),
+              ),
             ],
-            borderRadius: BorderRadius.circular(12),
-            shape: BoxShape.rectangle,
-          ),
-          child: BtnIcon(
-            onPressed: () async {
-              Get.offAllNamed(Routes.LOGIN_USUARIO);
-            },
-            hoverColor: Colores.usuario.primary69,
-            borderRadius: 12,
-            icon: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                  child: Text(
-                    'Cerrar Sesión',
-                    style: LightModeTheme().bodyLarge,
-                  ),
-                ),
-                const Align(
-                  alignment: AlignmentDirectional(0.9, 0),
-                  child: Icon(
-                    Icons.logout,
-                    size: 20,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

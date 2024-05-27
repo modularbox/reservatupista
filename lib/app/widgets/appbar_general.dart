@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import '../../utils/btn_icon.dart';
 import '../routes/app_pages.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -23,34 +24,36 @@ class AppbarGeneral extends StatelessWidget {
   final String? imagePath;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: 55,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
-          ),
-        ),
-        ...buildRow(context),
-        Positioned(
-          bottom: 0,
-          child: Container(
+    return ResponsiveWeb(
+      child: Stack(
+        children: [
+          Container(
             width: MediaQuery.sizeOf(context).width,
-            height: 1,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(67, 0, 0, 0),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 1,
-                  color: Color(0x33000000),
-                  offset: Offset(0, 2),
-                )
-              ],
+            height: 55,
+            decoration: BoxDecoration(
+              color: LightModeTheme().secondaryBackground,
             ),
           ),
-        ),
-      ],
+          ...buildRow(context),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              width: MediaQuery.sizeOf(context).width,
+              height: 1,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(67, 0, 0, 0),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 1,
+                    color: Color(0x33000000),
+                    offset: Offset(0, 2),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

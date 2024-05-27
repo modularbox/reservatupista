@@ -8,7 +8,7 @@ import '../provider/datos_server.dart';
 
 class DBService extends GetxService {
   // Version de la app
-  final version = '2.2.12';
+  final version = '2.2.14';
   // Base de datos en web
   late SharedPreferences storage;
   // Verificar si es proveedor

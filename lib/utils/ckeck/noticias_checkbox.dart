@@ -44,6 +44,7 @@ class NoticiasCheckboxState extends State<NoticiasCheckbox> {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       TextFormField(
+        enabled: false,
         validator: (value) {
           if (!checkboxTerminos.value) {
             validateTerminos.value = true;
@@ -90,19 +91,7 @@ class NoticiasCheckboxState extends State<NoticiasCheckbox> {
                     ),
                     10.0.sw,
                     BtnIcon(
-                      onPressed: () async {
-                        final urlPoliticaPrivacidad = Uri.parse(
-                            'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
-                        final canLaunch =
-                            await canLaunchUrl(urlPoliticaPrivacidad);
-                        if (canLaunch) {
-                          launchUrl(urlPoliticaPrivacidad);
-                        }
-                      },
                       borderRadius: 12,
-                      width: MediaQuery.sizeOf(context).width >= 600
-                          ? 460
-                          : MediaQuery.sizeOf(context).width,
                       padding: const EdgeInsets.all(0),
                       icon: Text(
                         'Deseo recibir nuestras noticias y actualizaciones por correo.',

@@ -92,7 +92,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 ..._buildDatos(
                                     self.localidad_seleccionada.value,
                                     self.deporte_seleccionado.value,
-                                    self.id_pista_seleccionada.value,
+                                    self.selectPista.value! + 1,
                                     self.pista_con_luces.value,
                                     self.pista_automatizada.value,
                                     DateTime(
@@ -247,33 +247,30 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
 
   // Widget Calendar
   Widget buildCalendar() {
-    return self.deporte_seleccionado.value == ''
-        ? 0.0.empty
-        : Calendar(
-            key: self.keyCalendar,
-            config: CalendarConfig(
-                dayBorderRadius: const BorderRadius.all(Radius.zero),
-                currentDate: DateTime.now(),
-                selectDayConfig: self.selectDateDay.value,
-                controlsTextStyle:
-                    LightModeTheme().titleLarge.copyWith(color: Colors.white)),
-            value: [DateTime.now()],
-            onValueChanged: (position, dayDate) {
-              self.fecha_seleccionada.value =
-                  DateTime(dayDate.year, dayDate.month, dayDate.day);
-              self.selectHorario.value = null;
-              self.selectDateDay.value = dayDate;
-              self.selectDay.value = position;
-              if (self.selectPista.value == 0) {
-                self.selectPista.refresh();
-              } else {
-                self.selectPista.value = 0;
-              }
-              print(
-                  'cambia self.selectDateDay.value ${self.selectDateDay.value}');
-              print('cambia self.selectDay.value ${self.selectDay.value}');
-            },
-          );
+    return Calendar(
+      key: self.keyCalendar,
+      config: CalendarConfig(
+          dayBorderRadius: const BorderRadius.all(Radius.zero),
+          currentDate: DateTime.now(),
+          selectDayConfig: self.selectDateDay.value,
+          controlsTextStyle:
+              LightModeTheme().titleLarge.copyWith(color: Colors.white)),
+      value: [DateTime.now()],
+      onValueChanged: (position, dayDate) {
+        self.fecha_seleccionada.value =
+            DateTime(dayDate.year, dayDate.month, dayDate.day);
+        self.selectHorario.value = null;
+        self.selectDateDay.value = dayDate;
+        self.selectDay.value = position;
+        if (self.selectPista.value == 0) {
+          self.selectPista.refresh();
+        } else {
+          self.selectPista.value = 0;
+        }
+        print('cambia self.selectDateDay.value ${self.selectDateDay.value}');
+        print('cambia self.selectDay.value ${self.selectDay.value}');
+      },
+    ).visible(self.deporte_seleccionado.value != '');
   }
 
   // Widget Pistas
@@ -564,7 +561,49 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
           inicio: textHorario,
           termino: termino,
           typeEstadoHorario: TypeEstadoHorario.abierta);
+      self.selectionController.selectedOption.value = '';
+      await self.obtenerPlazasLibres();
+    }
 
+    Future<void> onPressedHorarioReservaParcial(
+        int index, String textHorario, String termino) async {
+      self.hora_inicio_reserva_seleccionada.value = textHorario;
+      self.pista_con_luces.value = horarios[index].luces;
+      self.precio_con_luz_no_socio.value =
+          horarios[index].precio_con_luz_no_socio ?? 0;
+      self.precio_con_luz_socio.value =
+          horarios[index].precio_con_luz_socio ?? 0;
+      self.precio_sin_luz_no_socio.value =
+          horarios[index].precio_sin_luz_no_socio ?? 0;
+      self.precio_sin_luz_socio.value =
+          horarios[index].precio_sin_luz_socio ?? 0;
+
+      self.hora_inicio_reserva_seleccionada.value = textHorario;
+      self.selectHorario.value = HorarioFinInicio(
+          inicio: textHorario,
+          termino: termino,
+          typeEstadoHorario: TypeEstadoHorario.abierta);
+
+      self.hora_inicio_reserva_seleccionada.value = textHorario;
+      int horaHoraInicio = int.parse(
+          self.hora_inicio_reserva_seleccionada.value.substring(0, 2));
+      int minutosHoraInicio = int.parse(
+          self.hora_inicio_reserva_seleccionada.value.substring(3, 5));
+      //PARA SETEAR LA HORA FIN
+      DateTime horaInicial = DateTime(
+          self.fecha_seleccionada.value.year,
+          self.fecha_seleccionada.value.month,
+          self.fecha_seleccionada.value.day,
+          horaHoraInicio,
+          minutosHoraInicio,
+          0);
+      DateTime horaFin =
+          horaInicial.add(Duration(minutes: self.duracion_partida.value));
+      printError(info: horaFin.toString());
+      printError(info: horaFin.toString().substring(11, 19));
+      self.hora_fin_reserva_seleccionada.value =
+          horaFin.toString().substring(11, 18);
+      self.selectionController.selectedOption.value = '';
       await self.obtenerPlazasLibres();
     }
 
@@ -618,7 +657,7 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                           borderWidth: isSelect ? 2 : 0.5,
                           hoverColor: Colores.usuario.primary69,
                           onPressed: () async => await onPressedHorario(
-                              row + 1, textHorario, termino),
+                              row + i, textHorario, termino),
                           icon: Center(
                               child: Text(
                             textHorario,
@@ -680,54 +719,9 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
                                 : Colors.white,
                             borderWidth: isSelect ? 2 : 0.5,
                             hoverColor: Colores.usuario.primary69,
-                            onPressed: () async {
-                              self.hora_inicio_reserva_seleccionada.value =
-                                  textHorario;
-                              self.pista_con_luces.value =
-                                  horarios[row + i].luces;
-                              self.precio_con_luz_no_socio.value =
-                                  horarios[row + i].precio_con_luz_no_socio ??
-                                      0;
-                              self.precio_con_luz_socio.value =
-                                  horarios[row + i].precio_con_luz_socio ?? 0;
-                              self.precio_sin_luz_no_socio.value =
-                                  horarios[row + i].precio_sin_luz_no_socio ??
-                                      0;
-                              self.precio_sin_luz_socio.value =
-                                  horarios[row + i].precio_sin_luz_socio ?? 0;
-
-                              self.hora_inicio_reserva_seleccionada.value =
-                                  textHorario;
-                              self.selectHorario.value = HorarioFinInicio(
-                                  inicio: textHorario,
-                                  termino: termino,
-                                  typeEstadoHorario: TypeEstadoHorario.abierta);
-
-                              self.hora_inicio_reserva_seleccionada.value =
-                                  textHorario;
-                              int horaHoraInicio = int.parse(self
-                                  .hora_inicio_reserva_seleccionada.value
-                                  .substring(0, 2));
-                              int minutosHoraInicio = int.parse(self
-                                  .hora_inicio_reserva_seleccionada.value
-                                  .substring(3, 5));
-                              //PARA SETEAR LA HORA FIN
-                              DateTime horaInicial = DateTime(
-                                  self.fecha_seleccionada.value.year,
-                                  self.fecha_seleccionada.value.month,
-                                  self.fecha_seleccionada.value.day,
-                                  horaHoraInicio,
-                                  minutosHoraInicio,
-                                  0);
-                              DateTime horaFin = horaInicial.add(Duration(
-                                  minutes: self.duracion_partida.value));
-                              printError(info: horaFin.toString());
-                              printError(
-                                  info: horaFin.toString().substring(11, 19));
-                              self.hora_fin_reserva_seleccionada.value =
-                                  horaFin.toString().substring(11, 18);
-                              self.obtenerPlazasLibres();
-                            },
+                            onPressed: () async =>
+                                onPressedHorarioReservaParcial(
+                                    row + i, textHorario, termino),
                             icon: Center(
                                 child: Text(
                               textHorario,
@@ -860,10 +854,10 @@ class ReservarPistaPage extends GetView<ReservarPistaController> {
       numPista.toString(),
       luz ? 'Si' : 'No',
       automatizada ? 'Si' : 'No',
-      fechaHoraInicio.toString().substring(0, 16),
-      '${fechaHoraFin.toString().substring(0, 10)} ${self.hora_fin_reserva_seleccionada.value.formatHora}',
+      '${fechaHoraInicio.toString().substring(0, 10).formatDiaMesAnio} ${fechaHoraInicio.toString().substring(11, 16)}h',
+      '${fechaHoraFin.toString().substring(0, 10).formatDiaMesAnio} ${self.hora_fin_reserva_seleccionada.value.formatHora}',
       '${duracionPartida.toString()} minutos.',
-      '${double.parse((self.precio_a_mostrar.value / 100).toString())} €',
+      self.precio_a_mostrar.value.euro,
       "code"
     ];
     list.add(SizedBox(width: 100.w, child: const SelectedUsuarios()));

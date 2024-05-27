@@ -36,6 +36,7 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
     }
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: Colors.white,
       body: SafeArea(
           top: true,
           child: Column(
@@ -51,31 +52,56 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                   )),
             ],
           )),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(bottom: isiOS ? 20.0 : 0.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Obx(() => Padding(
+      bottomNavigationBar: SizedBox(
+        height: 80,
+        width: 640,
+        child: ResponsiveWeb(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: isiOS ? 20.0 : 0.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Obx(() => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: FFButtonWidget(
+                        onPressed: () {
+                          if (self.modificarDatos.value) {
+                            self.onPressedGuardarCambios();
+                          }
+                          self.modificarDatos.toggle();
+                          self.apidatosUsuario.rx.refresh();
+                        },
+                        text: self.modificarDatos.value
+                            ? 'Guardar Cambios'
+                            : 'Modificar Datos',
+                        options: FFButtonOptions(
+                          height: 40,
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          iconPadding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          color: LightModeTheme().primary,
+                          textStyle: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                color: LightModeTheme().tertiary,
+                              ),
+                          elevation: 2,
+                          borderSide: const BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    )),
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      if (self.modificarDatos.value) {
-                        self.onPressedGuardarCambios();
-                      }
-                      self.modificarDatos.toggle();
-                      self.apidatosUsuario.rx.refresh();
-                    },
-                    text: self.modificarDatos.value
-                        ? 'Guardar Cambios'
-                        : 'Modificar Datos',
+                    onPressed: self.onOpenDialogEliminarCuenta,
+                    text: 'Eliminar Cuenta',
                     options: FFButtonOptions(
-                      width: 45.0.w,
                       height: 40,
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                      color: LightModeTheme().primary,
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      color: Colores.rojo,
                       textStyle: LightModeTheme().bodyMedium.override(
                             fontFamily: 'Readex Pro',
                             color: LightModeTheme().tertiary,
@@ -88,32 +114,10 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                )),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: FFButtonWidget(
-                onPressed: self.onOpenDialogEliminarCuenta,
-                text: 'Eliminar Cuenta',
-                options: FFButtonOptions(
-                  width: 45.0.w,
-                  height: 40,
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  color: Colores.rojo,
-                  textStyle: LightModeTheme().bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        color: LightModeTheme().tertiary,
-                      ),
-                  elevation: 2,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

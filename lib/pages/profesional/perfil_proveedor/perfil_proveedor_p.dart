@@ -54,7 +54,6 @@ class PerfilProveedorPage extends GetView<DBService> {
                       : datosPerfil(
                           space: spaceSizedBoxBtnCerrar(),
                           subAppBar: subAppBar(false, self.nombreClub))),
-              buildBtnCerrar()
             ],
           ),
         ));
@@ -62,99 +61,27 @@ class PerfilProveedorPage extends GetView<DBService> {
 
   Widget subAppBar(bool responsive, String nombreClub) {
     if (responsive) {
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 3,
-              color: Color(0x33000000),
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: LightModeTheme().tertiary,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: LightModeTheme().secondary,
-                    width: 3,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(GestureDetector(
-                          onTap: () => Get.back(),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ImageServer(
-                                  width: 200,
-                                  height: 400,
-                                ),
-                              ])));
-                    },
-                    borderRadius: 50,
-                    padding: const EdgeInsets.all(0),
-                    fillColor: Colors.transparent,
-                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                    icon: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: ImageServer()),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                child: Center(
-                  child: SizedBox(
-                      width: 100.w - 138,
-                      child: AutoSizeText(
-                        nombreClub,
-                        textAlign: TextAlign.center,
-                        style: LightModeTheme().headlineSmall,
-                      )),
-                ),
-              ),
+      return ResponsiveWeb(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: LightModeTheme().secondaryBackground,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0x33000000),
+                offset: Offset(0, 1),
+              )
             ],
           ),
-        ),
-      );
-    } else {
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 3,
-              color: Color(0x33000000),
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
-        child: ResponsiveWeb(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  width: 90,
-                  height: 90,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: LightModeTheme().tertiary,
                     shape: BoxShape.circle,
@@ -173,13 +100,9 @@ class PerfilProveedorPage extends GetView<DBService> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
+                                  ImageServer(
                                     width: 200,
-                                    child: ImageServer(
-                                      width: null,
-                                      height: null,
-                                      fit: BoxFit.fitWidth,
-                                    ),
+                                    height: 400,
                                   ),
                                 ])));
                       },
@@ -198,14 +121,94 @@ class PerfilProveedorPage extends GetView<DBService> {
                       const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: Center(
                     child: SizedBox(
+                        width: 100.w - 138,
                         child: AutoSizeText(
-                      nombreClub,
-                      textAlign: TextAlign.center,
-                      style: LightModeTheme().headlineSmall,
-                    )),
+                          nombreClub,
+                          textAlign: TextAlign.center,
+                          style: LightModeTheme().headlineSmall,
+                        )),
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return ResponsiveWeb(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: LightModeTheme().secondaryBackground,
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0x33000000),
+                offset: Offset(0, 1),
+              )
+            ],
+          ),
+          child: ResponsiveWeb(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    width: 90,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: LightModeTheme().tertiary,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: LightModeTheme().secondary,
+                        width: 3,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: BtnIcon(
+                        onPressed: () {
+                          Get.dialog(GestureDetector(
+                              onTap: () => Get.back(),
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 200,
+                                      child: ImageServer(
+                                        width: null,
+                                        height: null,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                    ),
+                                  ])));
+                        },
+                        borderRadius: 50,
+                        padding: const EdgeInsets.all(0),
+                        fillColor: Colors.transparent,
+                        hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                        icon: ClipRRect(
+                            borderRadius: BorderRadius.circular(40),
+                            child: ImageServer()),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 0.0, 0.0, 0.0),
+                    child: Center(
+                      child: SizedBox(
+                          child: AutoSizeText(
+                        nombreClub,
+                        textAlign: TextAlign.center,
+                        style: LightModeTheme().headlineSmall,
+                      )),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -324,6 +327,7 @@ class PerfilProveedorPage extends GetView<DBService> {
                 );
               },
             ),
+            buildBtnCerrar(),
             100.0.sh
           ]),
         ),
@@ -336,13 +340,12 @@ class PerfilProveedorPage extends GetView<DBService> {
     return SizedBox(
       width: Get.width,
       child: Align(
-        alignment: Get.width >= 1000
-            ? const Alignment(0.9, -0.9)
-            : Alignment.bottomCenter,
+        alignment: Alignment.center,
         child: Container(
           width: 200,
           height: 50,
           margin: EdgeInsets.only(
+              top: 10.0,
               bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
           decoration: BoxDecoration(
             color: const Color(0xFFF77066),

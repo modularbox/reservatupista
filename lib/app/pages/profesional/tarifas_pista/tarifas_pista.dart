@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../components/appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
@@ -23,8 +24,10 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
       body: SafeArea(
         child: Column(
           children: [
-            const AppbarProfesional(
-                title: 'Tarifas', isTitle: false, isTitleBack: true),
+            const ResponsiveWeb(
+              child: AppbarProfesional(
+                  title: 'Tarifas', isTitle: false, isTitleBack: true),
+            ),
             10.0.sh,
             Builder(
               builder: (context) {
@@ -32,9 +35,9 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Obx(buildListaDeDiasSemana),
+                      ResponsiveWeb(child: Obx(buildListaDeDiasSemana)),
                       10.0.sh,
-                      buildTableTarifas(context),
+                      ResponsiveWeb(child: buildTableTarifas(context)),
                       buildTableDatos(context)
                     ],
                   ),
@@ -64,7 +67,6 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
       children: List.generate(
         self.listDiaSemana.length,
         (index) => BtnIcon(
-          width: 100.w / 7,
           height: 45,
           padding: const EdgeInsets.all(2.5),
           hoverColor: Colores.proveedor.primary69,
@@ -77,7 +79,9 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                 self.listDiaSemana[index],
                 style: LightModeTheme().titleSmall.override(
                       fontFamily: 'Readex Pro',
-                      color: Colors.white,
+                      color: self.indexDias.value == index
+                          ? Colors.black
+                          : Colors.white,
                       fontSize: 12.0,
                     ),
               )),
@@ -184,154 +188,160 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
     };
     return Expanded(
       child: SingleChildScrollView(
-        child: Obx(() => Table(
-            columnWidths: columnWidth,
-            border: TableBorder.all(width: 1, color: const Color(0xFF5A9BEE)),
-            children: List.generate(
-              self.listTarifas[self.indexDias.value].length,
-              (index) {
-                final val = self.listTarifas[self.indexDias.value][index];
-                final activeOrDesactive = self.listActive.value[index];
-                return TableRow(
-                  decoration: activeOrDesactive
-                      ? const BoxDecoration(color: Color(0xFF93EF93))
-                      : null,
-                  children: [
-                    // Datos Activado
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: BtnIcon(
-                        padding: const EdgeInsets.all(0),
-                        hoverColor: Colores.proveedor.primary69,
-                        onPressed: () =>
-                            self.onChangeActive(activeOrDesactive, index),
-                        icon: Text(
-                          activeOrDesactive ? 'Activado' : 'Desactivado',
+        child: ResponsiveWeb(
+          child: Obx(() => Table(
+              columnWidths: columnWidth,
+              border: TableBorder.all(width: 1, color: const Color(0xFF5A9BEE)),
+              children: List.generate(
+                self.listTarifas[self.indexDias.value].length,
+                (index) {
+                  final val = self.listTarifas[self.indexDias.value][index];
+                  final activeOrDesactive = self.listActive.value[index];
+                  return TableRow(
+                    decoration: activeOrDesactive
+                        ? const BoxDecoration(color: Color(0xFF93EF93))
+                        : null,
+                    children: [
+                      // Datos Activado
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: BtnIcon(
+                          padding: const EdgeInsets.all(0),
+                          hoverColor: Colores.proveedor.primary69,
+                          onPressed: () =>
+                              self.onChangeActive(activeOrDesactive, index),
+                          icon: Text(
+                            activeOrDesactive ? 'Activado' : 'Desactivado',
+                            textAlign: TextAlign.center,
+                            style: LightModeTheme().bodyMedium,
+                          ),
+                        ),
+                      ),
+                      // Datos Clases
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Obx(() => ElevatedButton(
+                              onPressed: () =>
+                                  self.onChangeClase(activeOrDesactive, index),
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStatePropertyAll(
+                                      activeOrDesactive
+                                          ? const Color.fromARGB(60, 0, 0, 0)
+                                          : Colors.transparent),
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Colors.transparent),
+                                  shadowColor: const MaterialStatePropertyAll(
+                                      Colors.transparent),
+                                  padding: const MaterialStatePropertyAll(
+                                      EdgeInsets.zero)),
+                              child: Icon(
+                                Icons.school,
+                                color: self.listClase[index].value
+                                    ? const Color(0xFFD241FF)
+                                    : LightModeTheme().secondaryText,
+                                size: 24.0,
+                              ),
+                            )),
+                      ),
+                      // Datos Luz
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Obx(() => ElevatedButton(
+                              onPressed: () =>
+                                  self.onChangeLuz(activeOrDesactive, index),
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStatePropertyAll(
+                                      activeOrDesactive
+                                          ? const Color.fromARGB(60, 0, 0, 0)
+                                          : Colors.transparent),
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Colors.transparent),
+                                  shadowColor: const MaterialStatePropertyAll(
+                                      Colors.transparent),
+                                  padding: const MaterialStatePropertyAll(
+                                      EdgeInsets.zero)),
+                              child: Icon(
+                                FontAwesomeIcons.solidLightbulb,
+                                color: self.listLuz[index].value
+                                    ? LightModeTheme().warning
+                                    : LightModeTheme().secondaryText,
+                                size: 24.0,
+                              ),
+                            )),
+                      ),
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Text(
+                          val.horaInicio!,
                           textAlign: TextAlign.center,
                           style: LightModeTheme().bodyMedium,
                         ),
                       ),
-                    ),
-                    // Datos Clases
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Obx(() => ElevatedButton(
-                            onPressed: () =>
-                                self.onChangeClase(activeOrDesactive, index),
-                            style: ButtonStyle(
-                                overlayColor: MaterialStatePropertyAll(
-                                    activeOrDesactive
-                                        ? const Color.fromARGB(60, 0, 0, 0)
-                                        : Colors.transparent),
-                                backgroundColor: const MaterialStatePropertyAll(
-                                    Colors.transparent),
-                                shadowColor: const MaterialStatePropertyAll(
-                                    Colors.transparent),
-                                padding: const MaterialStatePropertyAll(
-                                    EdgeInsets.zero)),
-                            child: Icon(
-                              Icons.school,
-                              color: self.listClase[index].value
-                                  ? const Color(0xFFD241FF)
-                                  : LightModeTheme().secondaryText,
-                              size: 24.0,
-                            ),
-                          )),
-                    ),
-                    // Datos Luz
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Obx(() => ElevatedButton(
-                            onPressed: () =>
-                                self.onChangeLuz(activeOrDesactive, index),
-                            style: ButtonStyle(
-                                overlayColor: MaterialStatePropertyAll(
-                                    activeOrDesactive
-                                        ? const Color.fromARGB(60, 0, 0, 0)
-                                        : Colors.transparent),
-                                backgroundColor: const MaterialStatePropertyAll(
-                                    Colors.transparent),
-                                shadowColor: const MaterialStatePropertyAll(
-                                    Colors.transparent),
-                                padding: const MaterialStatePropertyAll(
-                                    EdgeInsets.zero)),
-                            child: Icon(
-                              FontAwesomeIcons.solidLightbulb,
-                              color: self.listLuz[index].value
-                                  ? LightModeTheme().warning
-                                  : LightModeTheme().secondaryText,
-                              size: 24.0,
-                            ),
-                          )),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Text(
-                        val.horaInicio!,
-                        textAlign: TextAlign.center,
-                        style: LightModeTheme().bodyMedium,
+                      TableCell(
+                        child: Obx(() => TextFormField(
+                              maxLength: 7,
+                              controller: TextEditingController(
+                                  text: self.listClase[index].value
+                                      ? '0.00 €'
+                                      : self.listLuz[index].value
+                                          ? val.precioConLuzSocio
+                                          : val.precioSinLuzSocio),
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                counterText: '',
+                                labelStyle: LightModeTheme().labelMedium,
+                                hintStyle: LightModeTheme().labelMedium,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                              ),
+                              inputFormatters: [PrecioInputFormatter()],
+                              style: LightModeTheme().bodyMedium,
+                              textAlign: TextAlign.center,
+                              onChanged: (precio) => self.onChangePrecioSocio(
+                                  self.listLuz[index].value, index, precio),
+                            )),
                       ),
-                    ),
-                    TableCell(
-                      child: Obx(() => TextFormField(
-                            maxLength: 7,
-                            controller: TextEditingController(
-                                text: self.listClase[index].value
-                                    ? '0.00 €'
-                                    : self.listLuz[index].value
-                                        ? val.precioConLuzSocio
-                                        : val.precioSinLuzSocio),
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              counterText: '',
-                              labelStyle: LightModeTheme().labelMedium,
-                              hintStyle: LightModeTheme().labelMedium,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              focusedErrorBorder: InputBorder.none,
-                            ),
-                            inputFormatters: [PrecioInputFormatter()],
-                            style: LightModeTheme().bodyMedium,
-                            textAlign: TextAlign.center,
-                            onChanged: (precio) => self.onChangePrecioSocio(
-                                self.listLuz[index].value, index, precio),
-                          )),
-                    ),
-                    TableCell(
-                      child: Obx(() => TextFormField(
-                            maxLength: 7,
-                            controller: TextEditingController(
-                                text: self.listClase[index].value
-                                    ? '0.00 €'
-                                    : self.listLuz[index].value
-                                        ? val.precioConLuzNoSocio
-                                        : val.precioSinLuzNoSocio),
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              counterText: '',
-                              labelStyle: LightModeTheme().labelMedium,
-                              hintStyle: LightModeTheme().labelMedium,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              focusedErrorBorder: InputBorder.none,
-                            ),
-                            inputFormatters: [PrecioInputFormatter()],
-                            style: LightModeTheme().bodyMedium,
-                            textAlign: TextAlign.center,
-                            onChanged: (precio) => self.onChangePrecioNoSocio(
-                                self.listLuz[index].value, index, precio),
-                          )),
-                    ),
-                  ],
-                );
-              },
-            ))),
+                      TableCell(
+                        child: Obx(() => TextFormField(
+                              maxLength: 7,
+                              controller: TextEditingController(
+                                  text: self.listClase[index].value
+                                      ? '0.00 €'
+                                      : self.listLuz[index].value
+                                          ? val.precioConLuzNoSocio
+                                          : val.precioSinLuzNoSocio),
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: true),
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                counterText: '',
+                                labelStyle: LightModeTheme().labelMedium,
+                                hintStyle: LightModeTheme().labelMedium,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                              ),
+                              inputFormatters: [PrecioInputFormatter()],
+                              style: LightModeTheme().bodyMedium,
+                              textAlign: TextAlign.center,
+                              onChanged: (precio) => self.onChangePrecioNoSocio(
+                                  self.listLuz[index].value, index, precio),
+                            )),
+                      ),
+                    ],
+                  );
+                },
+              ))),
+        ),
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/buttons_sounds.dart';
 import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
@@ -146,70 +147,72 @@ class ReservarPistaController extends GetxController
     fechaActual = DateTime.now();
     animTerminos = animVibrate(vsync: this);
     db.getMoney();
-    /*debounce(sizedBoxHeight, (callback) {
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }, time: const Duration(milliseconds: 50));*/
-    debounce(selectDay, (callback) {
-      if (callback != null) {
-        final sizeCalendar = (keyCalendar.currentContext != null
-            ? keyCalendar.currentContext!.size!.height
-            : 0.0);
-        final sizeHorarios = (keyHorarios.currentContext != null
-            ? keyHorarios.currentContext!.size!.height
-            : 0.0);
-        final sizePistas = (keyPistas.currentContext != null
-            ? keyPistas.currentContext!.size!.height
-            : 0.0);
-        final newSize = (100.h -
-            (sizeCalendar + sizePistas + appBarAndNavBar + sizeHorarios));
-        if (newSize < 0) {
-          /*scrollController.animateTo(
-            scrollController.position.maxScrollExtent + newSize,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );*/
-        } else {
-          if (sizedBoxHeight.value == newSize) {
-            sizedBoxHeight.refresh();
+    if (!isWeb) {
+      debounce(sizedBoxHeight, (callback) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }, time: const Duration(milliseconds: 50));
+      debounce(selectDay, (callback) {
+        if (callback != null) {
+          final sizeCalendar = (keyCalendar.currentContext != null
+              ? keyCalendar.currentContext!.size!.height
+              : 0.0);
+          final sizeHorarios = (keyHorarios.currentContext != null
+              ? keyHorarios.currentContext!.size!.height
+              : 0.0);
+          final sizePistas = (keyPistas.currentContext != null
+              ? keyPistas.currentContext!.size!.height
+              : 0.0);
+          final newSize = (100.h -
+              (sizeCalendar + sizePistas + appBarAndNavBar + sizeHorarios));
+          if (newSize < 0) {
+            scrollController.animateTo(
+              scrollController.position.maxScrollExtent + newSize,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
           } else {
-            sizedBoxHeight.value = newSize;
+            if (sizedBoxHeight.value == newSize) {
+              sizedBoxHeight.refresh();
+            } else {
+              sizedBoxHeight.value = newSize;
+            }
           }
         }
-      }
-    }, time: const Duration(milliseconds: 50));
-    debounce(selectHorario, (callback) async {
-      if (callback != null) {
-        final sizeDatos = (keyDatos.currentContext != null
-            ? keyDatos.currentContext!.size!.height
-            : 0.0);
-        final sizePistas = (keyPistas.currentContext != null
-            ? keyPistas.currentContext!.size!.height
-            : 0.0);
-        final newSize = (100.h -
-            (sizePistas +
-                appBarAndNavBar +
-                keyHorarios.currentContext!.size!.height +
-                sizeDatos));
-        if (newSize < 0) {
-          // sizedBoxHeight.refresh();
-          /*scrollController.animateTo(
-            scrollController.position.maxScrollExtent + newSize,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );*/
-        } else {
-          if (sizedBoxHeight.value == newSize) {
-            sizedBoxHeight.refresh();
+      }, time: const Duration(milliseconds: 50));
+      debounce(selectHorario, (callback) async {
+        if (callback != null) {
+          final sizeDatos = (keyDatos.currentContext != null
+              ? keyDatos.currentContext!.size!.height
+              : 0.0);
+          final sizePistas = (keyPistas.currentContext != null
+              ? keyPistas.currentContext!.size!.height
+              : 0.0);
+          final newSize = (100.h -
+              (sizePistas +
+                  appBarAndNavBar +
+                  keyHorarios.currentContext!.size!.height +
+                  sizeDatos));
+          if (newSize < 0) {
+            // sizedBoxHeight.refresh();
+            scrollController.animateTo(
+              scrollController.position.maxScrollExtent + newSize,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
           } else {
-            sizedBoxHeight.value = newSize;
+            if (sizedBoxHeight.value == newSize) {
+              sizedBoxHeight.refresh();
+            } else {
+              sizedBoxHeight.value = newSize;
+            }
           }
         }
-      }
-    }, time: const Duration(milliseconds: 50));
+      }, time: const Duration(milliseconds: 50));
+    }
     singleDatePickerValueWithDefaultValue = [fechaActual];
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
   }
@@ -422,6 +425,7 @@ class ReservarPistaController extends GetxController
         usuario.value.plazasReservadas = 1;
         cancelarReserva.value = false;
         totalMisReservas = false;
+        plazas_a_reservar.value = 0;
         usuario.refresh();
         print('plazaslibressss $plazasLibres');
         print('reservas_usuarios.valueeee ${reservas_usuarios.value}');

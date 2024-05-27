@@ -1,14 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
-import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
-import 'package:reservatu_pista/app/pages/profesional/mis_pistas/mis_pistas_c.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c copy.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/detalles_reserva.dart';
@@ -21,11 +16,10 @@ import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
-import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
 class MisReservasPage extends GetView<MisReservasController> {
-  MisReservasPage({Key? key}) : super(key: key);
+  const MisReservasPage({super.key});
   MisReservasController get self => controller;
 
   @override
@@ -34,133 +28,133 @@ class MisReservasPage extends GetView<MisReservasController> {
       title: 'Mis Reservas',
       page: TypePage.MisReservas,
       child: Expanded(
-        child: ResponsiveWeb(
-          child: Column(
-            children: [
-              SingleChildScrollView(
+        child: Column(
+          children: [
+            ResponsiveWeb(
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ...buildListDeportes(),
                       ],
                     )),
               ),
-              Obx(() => Text('Pagina actual: ${self.currentPage}')),
-              Expanded(
-                child: Listener(
-                  onPointerSignal: (event) {
-                    //Timer(Duration(milliseconds: 500), () {
-                    print('self.isThrottling.value ${self.isThrottling.value}');
-                    if (event is PointerScrollEvent &&
-                        !self.isThrottling.value) {
-                      self.isThrottling.value = true; // Activar la bandera
+            ),
+            Obx(() => Text('Pagina actual: ${self.currentPage}')),
+            Expanded(
+              child: Listener(
+                onPointerSignal: (event) {
+                  //Timer(Duration(milliseconds: 500), () {
+                  print('self.isThrottling.value ${self.isThrottling.value}');
+                  if (event is PointerScrollEvent && !self.isThrottling.value) {
+                    self.isThrottling.value = true; // Activar la bandera
+                    print(
+                        'self.currentPageself.currentPageee ${self.currentPage}');
+                    if (event.scrollDelta.dy < 0 &&
+                        self.previousScrollPosition == 0 &&
+                        self.currentPage > 1) {
+                      print('Haciendo scroll hacia arriba');
+                      /*if (self.currentPage != self.lastPageSelected) {
+                              self.lastPageSelected = self.currentPage;
+                              return;
+                            } */
+                      self.currentPage -= 1;
+                      self.pageHaschanged.value = true;
                       print(
-                          'self.currentPageself.currentPageee ${self.currentPage}');
-                      if (event.scrollDelta.dy < 0 &&
-                          self.previousScrollPosition == 0 &&
-                          self.currentPage > 1) {
-                        print('Haciendo scroll hacia arriba');
-                        /*if (self.currentPage != self.lastPageSelected) {
-                                self.lastPageSelected = self.currentPage;
-                                return;
-                              } */
-                        self.currentPage -= 1;
-                        self.pageHaschanged.value = true;
-                        print(
-                            'entraaaaaaaaaaaaaaaaaaaaaaaa self.currentPage ${self.currentPage}');
-                        self.previousScrollPosition = 0;
-                        if (self.currentPage < 1) self.currentPage = 1;
-                        self.loadMoreData();
-                      } else if (event.scrollDelta.dy > 0) {
-                        print('Haciendo scroll hacia abajo');
-                      }
+                          'entraaaaaaaaaaaaaaaaaaaaaaaa self.currentPage ${self.currentPage}');
+                      self.previousScrollPosition = 0;
                       if (self.currentPage < 1) self.currentPage = 1;
-                      print('event.position ${event.scrollDelta.dy}');
-                      // Desactivar la bandera después de un corto tiempo
-                      Future.delayed(Duration(milliseconds: 1500), () {
-                        self.isThrottling.value = false;
-                      });
+                      self.loadMoreData();
+                    } else if (event.scrollDelta.dy > 0) {
+                      print('Haciendo scroll hacia abajo');
                     }
-                    //});
-                  },
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (ScrollNotification scrollInfo) {
+                    if (self.currentPage < 1) self.currentPage = 1;
+                    print('event.position ${event.scrollDelta.dy}');
+                    // Desactivar la bandera después de un corto tiempo
+                    Future.delayed(const Duration(milliseconds: 1500), () {
+                      self.isThrottling.value = false;
+                    });
+                  }
+                  //});
+                },
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (ScrollNotification scrollInfo) {
+                    print(
+                        'self.currentPageself.currentPage ${self.currentPage}');
+                    print('self.isLoading.value ${self.isLoading.value}');
+                    print(
+                        'self.currentPage * self.itemsPerPage ${self.currentPage * self.itemsPerPage}');
+                    print(
+                        'self.misReservasUsuario.rx.value.length ${self.misReservasUsuario.rx.value.length}');
+                    bool hacia_abajo = false;
+                    if (scrollInfo.metrics.pixels >
+                        self.previousScrollPosition) {
+                      /*if (scrollInfo.metrics.pixels >= 20) {
+                            hacia_abajo = false;
+                          } else {
+                            hacia_abajo = true;
+                          }*/
+                      hacia_abajo = true;
+                      print("Scrolling Down"); // Scroll hacia abajo
+                    } else if (scrollInfo.metrics.pixels <
+                        self.previousScrollPosition) {
                       print(
-                          'self.currentPageself.currentPage ${self.currentPage}');
-                      print('self.isLoading.value ${self.isLoading.value}');
-                      print(
-                          'self.currentPage * self.itemsPerPage ${self.currentPage * self.itemsPerPage}');
-                      print(
-                          'self.misReservasUsuario.rx.value.length ${self.misReservasUsuario.rx.value.length}');
-                      bool hacia_abajo = false;
-                      if (scrollInfo.metrics.pixels >
-                          self.previousScrollPosition) {
-                        /*if (scrollInfo.metrics.pixels >= 20) {
-                              hacia_abajo = false;
-                            } else {
-                              hacia_abajo = true;
-                            }*/
-                        hacia_abajo = true;
-                        print("Scrolling Down"); // Scroll hacia abajo
-                      } else if (scrollInfo.metrics.pixels <
-                          self.previousScrollPosition) {
-                        print(
-                            "Scrolling Up ${scrollInfo.metrics.pixels}  self.previous ${self.previousScrollPosition}"); // Scroll hacia arriba
-                        hacia_abajo = false;
-                      }
-                      self.previousScrollPosition = scrollInfo.metrics.pixels;
-                      if (!self.isLoading.value &&
-                          scrollInfo.metrics.pixels ==
-                              scrollInfo.metrics.maxScrollExtent &&
-                          hacia_abajo) {
-                        if (self.currentPage * self.itemsPerPage <
-                            (self.initialLength)) {
-                          if (self.debounceTimer?.isActive ?? false)
-                            self.debounceTimer!.cancel();
-                          self.debounceTimer =
-                              Timer(Duration(milliseconds: 500), () {
-                            self.currentPage += 1;
-                            print('entraaaaaaaaaaaa dentro');
-                            print(
-                                'entraaaaaaaaaaaa self.currentPage + ${self.currentPage}');
-                            self.previousScrollPosition = 0;
+                          "Scrolling Up ${scrollInfo.metrics.pixels}  self.previous ${self.previousScrollPosition}"); // Scroll hacia arriba
+                      hacia_abajo = false;
+                    }
+                    self.previousScrollPosition = scrollInfo.metrics.pixels;
+                    if (!self.isLoading.value &&
+                        scrollInfo.metrics.pixels ==
+                            scrollInfo.metrics.maxScrollExtent &&
+                        hacia_abajo) {
+                      if (self.currentPage * self.itemsPerPage <
+                          (self.initialLength)) {
+                        if (self.debounceTimer?.isActive ?? false)
+                          self.debounceTimer!.cancel();
+                        self.debounceTimer =
+                            Timer(const Duration(milliseconds: 500), () {
+                          self.currentPage += 1;
+                          print('entraaaaaaaaaaaa dentro');
+                          print(
+                              'entraaaaaaaaaaaa self.currentPage + ${self.currentPage}');
+                          self.previousScrollPosition = 0;
 
-                            self.loadMoreData();
-                          });
-                        }
-                        return true;
-                      } else if (!self.isLoading.value &&
-                          scrollInfo.metrics.pixels ==
-                              scrollInfo.metrics.minScrollExtent &&
-                          !hacia_abajo) {
-                        print('entraaaaaaaaaaaa inicio');
-                        if (self.currentPage != self.lastPageSelected) {
-                          self.lastPageSelected = self.currentPage;
-                          return false;
-                        }
-                        // Al llegar al inicio del scroll
-                        if (self.currentPage > 1) {
-                          if (self.debounceTimer?.isActive ?? false)
-                            self.debounceTimer!.cancel();
-                          self.debounceTimer =
-                              Timer(Duration(milliseconds: 500), () {
-                            self.currentPage -= 1;
-                            print(
-                                'entraaaaaaaaaaaa self.currentPage ${self.currentPage}');
-                            self.previousScrollPosition = 0;
-                            self.loadMoreData();
-                          });
-                        }
-                        return true;
+                          self.loadMoreData();
+                        });
                       }
-                      return false;
-                    },
-                    child: buildReservas(),
-                  ),
+                      return true;
+                    } else if (!self.isLoading.value &&
+                        scrollInfo.metrics.pixels ==
+                            scrollInfo.metrics.minScrollExtent &&
+                        !hacia_abajo) {
+                      print('entraaaaaaaaaaaa inicio');
+                      if (self.currentPage != self.lastPageSelected) {
+                        self.lastPageSelected = self.currentPage;
+                        return false;
+                      }
+                      // Al llegar al inicio del scroll
+                      if (self.currentPage > 1) {
+                        if (self.debounceTimer?.isActive ?? false)
+                          self.debounceTimer!.cancel();
+                        self.debounceTimer =
+                            Timer(const Duration(milliseconds: 500), () {
+                          self.currentPage -= 1;
+                          print(
+                              'entraaaaaaaaaaaa self.currentPage ${self.currentPage}');
+                          self.previousScrollPosition = 0;
+                          self.loadMoreData();
+                        });
+                      }
+                      return true;
+                    }
+                    return false;
+                  },
+                  child: buildReservas(),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -195,7 +189,7 @@ class MisReservasPage extends GetView<MisReservasController> {
               ),
               Text(
                 e.nombre,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Readex Pro',
                   letterSpacing: 0,
                 ),
@@ -232,22 +226,24 @@ class MisReservasPage extends GetView<MisReservasController> {
         itemBuilder: (context, index) {
           if (index == state.length) {
             // Este es el último elemento, añade un SizedBox para forzar el scroll
-            return SizedBox(
+            return const SizedBox(
                 height: 100); // Ajusta la altura según sea necesario
           } else if (index == state.length - 1) {
-            return Column(
-              children: [
-                buildReserva(state[index]),
-                self.isLoading.value
-                    ? Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: ColorLoader(),
-                      )
-                    : const SizedBox(),
-              ],
+            return ResponsiveWeb(
+              child: Column(
+                children: [
+                  buildReserva(state[index]),
+                  self.isLoading.value
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: ColorLoader(),
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             );
           } else {
-            return buildReserva(state[index]);
+            return ResponsiveWeb(child: buildReserva(state[index]));
           }
         },
       ),
@@ -263,7 +259,7 @@ class MisReservasPage extends GetView<MisReservasController> {
           ),
         ),
       ),
-      onEmpty: Center(
+      onEmpty: const Center(
         child: Text(
           '\nNo se encontraron reservas.',
           style: TextStyle(

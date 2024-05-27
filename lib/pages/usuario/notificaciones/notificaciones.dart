@@ -1,34 +1,29 @@
+import 'package:reservatu_pista/utils/responsive_web.dart';
+
 import '../../../components/navbar_y_appbar_usuario.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'notificaciones_model.dart';
 
 class NotificacionesWidget extends StatefulWidget {
-  const NotificacionesWidget({Key? key}) : super(key: key);
+  const NotificacionesWidget({super.key});
 
   @override
-  _NotificacionesWidgetState createState() => _NotificacionesWidgetState();
+  NotificacionesWidgetState createState() => NotificacionesWidgetState();
 }
 
-class _NotificacionesWidgetState extends State<NotificacionesWidget> {
-  late NotificacionesModel _model;
-
+class NotificacionesWidgetState extends State<NotificacionesWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NotificacionesModel());
   }
 
   @override
   void dispose() {
-    _model.dispose();
-
     super.dispose();
   }
 
@@ -51,11 +46,10 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
         isNavBar: false,
         child: Expanded(
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                  child: Container(
+            child: ResponsiveWeb(
+              child: Column(
+                children: [
+                  Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: LightModeTheme().secondaryBackground,
@@ -84,7 +78,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 'Reserva de Pista',
@@ -95,7 +89,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
@@ -106,7 +100,7 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 0.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -119,80 +113,82 @@ class _NotificacionesWidgetState extends State<NotificacionesWidget> {
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: LightModeTheme().primaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 0.0,
-                          color: Color(0xFFE0E3E7),
-                          offset: Offset(0.0, 1.0),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(0.0),
-                      shape: BoxShape.rectangle,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 4.0,
-                            height: 50.0,
-                            decoration: BoxDecoration(
-                              color: LightModeTheme().alternate,
-                              borderRadius: BorderRadius.circular(2.0),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 1.0),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: LightModeTheme().primaryBackground,
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 0.0,
+                            color: Color(0xFFE0E3E7),
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(0.0),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 4.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: LightModeTheme().alternate,
+                                borderRadius: BorderRadius.circular(2.0),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'Reserva de Pista',
+                                  style: LightModeTheme().labelLarge,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'Reserva de Pista',
-                                style: LightModeTheme().labelLarge,
+                                FFLocalizations.of(context).getText(
+                                  '0lln34us' /* Mar 8, 2023 */,
+                                ),
+                                style: LightModeTheme().labelMedium,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                '0lln34us' /* Mar 8, 2023 */,
-                              ),
-                              style: LightModeTheme().labelMedium,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: LightModeTheme().secondaryBackground,
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 0.0,
-                          color: Color(0xFFE0E3E7),
-                          offset: Offset(0.0, 1.0),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(0.0),
-                      shape: BoxShape.rectangle,
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 1.0),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: LightModeTheme().secondaryBackground,
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 0.0,
+                            color: Color(0xFFE0E3E7),
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(0.0),
+                        shape: BoxShape.rectangle,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

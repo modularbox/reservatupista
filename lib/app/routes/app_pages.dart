@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_b.dart';
@@ -18,14 +26,16 @@ import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_b.
 import 'package:reservatu_pista/pages/profesional/banco_virtual/banco_virtual_p.dart';
 import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_b.dart';
 import 'package:reservatu_pista/pages/profesional/inicio_profesional/inicio_proveedor_p.dart';
-import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional_widget.dart';
+import 'package:reservatu_pista/pages/profesional/notificaciones_profesional/notificaciones_profesional.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_b.dart';
 import 'package:reservatu_pista/pages/profesional/perfil_proveedor/perfil_proveedor_p.dart';
+import 'package:reservatu_pista/pages/usuario/amigos/amigos_b.dart';
+import 'package:reservatu_pista/pages/usuario/amigos/amigos_p.dart';
 import 'package:reservatu_pista/pages/usuario/inicio/inicio_b.dart';
 import 'package:reservatu_pista/pages/usuario/inicio/inicio_p.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_p.dart';
-import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_widget.dart';
+import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones.dart';
 import 'package:reservatu_pista/pages/usuario/perfil/perfil_b.dart';
 import 'package:reservatu_pista/pages/usuario/perfil/perfil_p.dart';
 import '../pages/profesional/anadir_pista/anadir_pista_b.dart';
@@ -97,7 +107,12 @@ enum RoutesType {
   eliminar_cuenta,
   validar_email,
   reserva_compartida,
-  administrador
+  administrador,
+  amigos,
+  mis_bonos,
+  mis_pedidos,
+  mis_clubes,
+  historial_usuario,
 }
 
 class RouteRedirectMiddleware extends GetMiddleware {
@@ -150,6 +165,11 @@ abstract class Routes {
   static final VALIDAR_EMAIL = RoutesType.validar_email.getRoute;
   static final RESERVA_COMPARTIDA = RoutesType.reserva_compartida.getRoute;
   static final ADMINISTRADOR = RoutesType.administrador.getRoute;
+  static final AMIGOS = RoutesType.amigos.getRoute;
+  static final MIS_BONOS = RoutesType.mis_bonos.getRoute;
+  static final MIS_PEDIDOS = RoutesType.mis_pedidos.getRoute;
+  static final MIS_CLUBES = RoutesType.mis_clubes.getRoute;
+  static final HISTORIAL_USUARIO = RoutesType.historial_usuario.getRoute;
 }
 
 /// Get Routes
@@ -301,7 +321,7 @@ class AppPages {
     /// Notificaciones Proveedor
     GetPage(
       name: Routes.NOTIFICACIONES_PROVEEDOR,
-      page: () => const NotificacionesProfesionalWidget(),
+      page: () => const NotificacionesProfesionalPage(),
     ),
 
     /// Resultados Estadisticas
@@ -354,11 +374,41 @@ class AppPages {
       binding: ValidarEmailBinding(),
     ),
 
-    /// Validar email
+    /// Pagina para Administrador
     GetPage(
       name: Routes.ADMINISTRADOR,
       page: () => const AdminPageWidget(),
     ),
+
+    /// Pagina para Amigos
+    GetPage(
+        name: Routes.AMIGOS,
+        page: () => AmigosPage(),
+        binding: AmigosBinding()),
+
+    /// Pagina para Mis Bonos
+    GetPage(
+        name: Routes.MIS_BONOS,
+        page: () => const MisBonosPage(),
+        binding: MisBonosBinding()),
+
+    /// Pagina para Mis Pedidos
+    GetPage(
+        name: Routes.MIS_PEDIDOS,
+        page: () => const MisPedidosPage(),
+        binding: MisPedidosBinding()),
+
+    /// Pagina para Mis Clubes
+    GetPage(
+        name: Routes.MIS_CLUBES,
+        page: () => const MisClubesPage(),
+        binding: MisClubesBinding()),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.HISTORIAL_USUARIO,
+        page: () => const HistorialPage(),
+        binding: HistorialBinding()),
 
     /// Pagina para pruebas
     GetPage(
