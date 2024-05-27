@@ -47,31 +47,33 @@ class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
               end: const AlignmentDirectional(0, 1),
             ),
           ),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppBarLoginWidget(),
-                  SizedBox(
-                    height: 450,
-                    child: PageView(
-                      controller: self.pageViewController,
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        buildForm(),
-                        buildFormOTP(),
-                        buildFormContrasena()
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const NavBarLogin()
-            ],
+          child: ResponsiveWeb(
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppBarLoginWidget(),
+                    SizedBox(
+                      height: 450,
+                      child: PageView(
+                        controller: self.pageViewController,
+                        scrollDirection: Axis.horizontal,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          buildForm(),
+                          buildFormOTP(),
+                          buildFormContrasena()
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const NavBarLogin()
+              ],
+            ),
           ),
         ),
       ),
@@ -79,25 +81,23 @@ class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
   }
 
   Widget buildForm() {
-    return ResponsiveWeb(
-      child: Column(
-        children: [
-          10.0.sh,
-          Text(
-            'Recuperar Contraseña',
-            style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-              'Por favor, ingresa tu correo para iniciar el proceso de restablecimiento. ',
-              style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
-          10.0.sh,
-          Form(key: self.formKey0, child: _buildInput()),
-          10.0.sh,
-          Obx(mostrarText),
-          Obx(buildBotones),
-        ],
-      ),
+    return Column(
+      children: [
+        10.0.sh,
+        Text(
+          'Recuperar Contraseña',
+          style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
+          textAlign: TextAlign.center,
+        ),
+        Text(
+            'Por favor, ingresa tu correo para iniciar el proceso de restablecimiento. ',
+            style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+        10.0.sh,
+        Form(key: self.formKey0, child: _buildInput()),
+        10.0.sh,
+        Obx(mostrarText),
+        Obx(buildBotones),
+      ],
     );
   }
 
@@ -213,49 +213,45 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
   }
 
   Widget buildFormOTP() {
-    return ResponsiveWeb(
-      child: Column(
-        children: [
-          10.0.sh,
-          Text(
-            'Verificar Código',
-            style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          Text('Por favor, ingresa tu código de verificación. ',
-              style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
-          10.0.sh,
-          Form(key: self.formKeyOTP, child: const CodigoOTP()),
-          10.0.sh,
-          Obx(buildMessageError),
-          20.0.sh,
-          buildBotonesOTP(),
-        ],
-      ),
+    return Column(
+      children: [
+        10.0.sh,
+        Text(
+          'Verificar Código',
+          style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
+          textAlign: TextAlign.center,
+        ),
+        Text('Por favor, ingresa tu código de verificación. ',
+            style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+        10.0.sh,
+        Form(key: self.formKeyOTP, child: const CodigoOTP()),
+        10.0.sh,
+        Obx(buildMessageError),
+        20.0.sh,
+        buildBotonesOTP(),
+      ],
     );
   }
 
   Widget buildFormContrasena() {
-    return ResponsiveWeb(
-      child: Form(
-        key: self.formKeyContrasena,
-        child: Column(
-          children: [
-            10.0.sh,
-            Text(
-              'Restablecer Contraseña',
-              style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-                'Por favor, ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento. ',
-                style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
-            10.0.sh,
-            ...buildListContrasena(),
-            20.0.sh,
-            buildBotonesContrasena(),
-          ],
-        ),
+    return Form(
+      key: self.formKeyContrasena,
+      child: Column(
+        children: [
+          10.0.sh,
+          Text(
+            'Restablecer Contraseña',
+            style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+              'Por favor, ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento. ',
+              style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+          10.0.sh,
+          ...buildListContrasena(),
+          20.0.sh,
+          buildBotonesContrasena(),
+        ],
       ),
     );
   }

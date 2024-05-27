@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'alert_versions_widget.dart';
 
 extension SizedBoxExt on double {

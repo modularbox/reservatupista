@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
+import 'package:reservatu_pista/app/pages/profesional/tarifas_proveedor/tarifas_proveedor_b.dart';
+import 'package:reservatu_pista/app/pages/profesional/tarifas_proveedor/tarifas_proveedor_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_b.dart';
@@ -49,10 +51,10 @@ import '../pages/usuario/reservar_pista/reservar_pista.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
 import '../pages/profesional/registro_proveedor/registrar_proveedor_p.dart';
 import '../pages/profesional/registro_proveedor/registrar_proveedor_b.dart';
-import '../pages/Profesional/mis_socios/mis_socios.dart';
-import '../pages/Profesional/mis_socios/mis_socios_b.dart';
-import '../pages/Profesional/datos_proveedor/datos_proveedor_p.dart';
-import '../pages/Profesional/datos_proveedor/datos_proveedor_b.dart';
+import '../pages/profesional/mis_socios/mis_socios_p.dart';
+import '../pages/profesional/mis_socios/mis_socios_b.dart';
+import '../pages/profesional/datos_proveedor/datos_proveedor_p.dart';
+import '../pages/profesional/datos_proveedor/datos_proveedor_b.dart';
 import '../pages/usuario/chat/chat.dart';
 import '../pages/usuario/chat/chat_b.dart';
 import '../pages/usuario/resultados_estadisticas/resultados_estadisticas.dart';
@@ -113,6 +115,7 @@ enum RoutesType {
   mis_pedidos,
   mis_clubes,
   historial_usuario,
+  tarifas_proveedor
 }
 
 class RouteRedirectMiddleware extends GetMiddleware {
@@ -170,6 +173,7 @@ abstract class Routes {
   static final MIS_PEDIDOS = RoutesType.mis_pedidos.getRoute;
   static final MIS_CLUBES = RoutesType.mis_clubes.getRoute;
   static final HISTORIAL_USUARIO = RoutesType.historial_usuario.getRoute;
+  static final TARIFAS_PROVEEDOR = RoutesType.tarifas_proveedor.getRoute;
 }
 
 /// Get Routes
@@ -409,6 +413,13 @@ class AppPages {
         name: Routes.HISTORIAL_USUARIO,
         page: () => const HistorialPage(),
         binding: HistorialBinding()),
+
+    /// Pagina para tarifas del proveedor
+    GetPage(
+      name: Routes.TARIFAS_PROVEEDOR,
+      page: () => const TarifasProveedorPage(),
+      binding: TarifasProveedorBinding(),
+    ),
 
     /// Pagina para pruebas
     GetPage(

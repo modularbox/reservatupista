@@ -355,7 +355,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                       ),
                                     ),
                                     Text(
-                                      'Padel',
+                                      'Pádel',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -823,7 +823,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                     ),
                                   ),
                                   Text(
-                                    'Padel',
+                                    'Pádel',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -949,7 +949,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                     ),
                                   ),
                                   Text(
-                                    'Padel',
+                                    'Pádel',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -1075,7 +1075,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                     ),
                                   ),
                                   Text(
-                                    'Padel',
+                                    'Pádel',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

@@ -51,7 +51,7 @@ class _ListInputsState extends State<ListInputs> {
                       context: context,
                       labelText: 'Deporte',
                       itemsDD: const [
-                        '🎾 Padel',
+                        '🎾 Pádel',
                         '🎾 Tenis',
                         '🏸 Badminton',
                         '🏊‍♀️ P. climatizada',

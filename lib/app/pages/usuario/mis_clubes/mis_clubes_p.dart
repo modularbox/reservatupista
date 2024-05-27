@@ -96,7 +96,9 @@ class _MisClubesPageState extends GetView<MisClubesController> {
             borderRadius: BorderRadius.circular(24),
           ),
           child: GestureDetector(
-            onTap: () => Get.to(const DetalleClubWidget()),
+            onTap: () => Get.to(const DetalleClubWidget(
+              isProveedor: false,
+            )),
             child: Container(
               height: 180,
               decoration: BoxDecoration(

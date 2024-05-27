@@ -55,7 +55,7 @@ class MisPistasController extends GetxController
       : _fechaNextPrevious.value = value;
 
   /// Controlador para cambiar de deporte
-  final _deporte = 'Padel'.obs;
+  final _deporte = 'Pádel'.obs;
   String get deporte => _deporte.value;
   set deporte(String value) => _deporte.value = value;
   // Global key para el cambio del deporte

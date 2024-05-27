@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import '../../../app/routes/app_pages.dart';
@@ -297,7 +298,19 @@ class PerfilProveedorPage extends GetView<DBService> {
               height: height,
               padding: padding,
               onPressed: () async {
-                Get.toNamed(Routes.NOTIFICACIONES_PROVEEDOR);
+                Get.to(const DetalleClubWidget(
+                  isProveedor: true,
+                ));
+              },
+            ),
+            ButtonPerfil(
+              title: 'Tarifas y facturas',
+              icon: Icons.airplane_ticket,
+              top: top,
+              height: height,
+              padding: padding,
+              onPressed: () async {
+                Get.toNamed(Routes.TARIFAS_PROVEEDOR);
               },
             ),
             ButtonPerfil(

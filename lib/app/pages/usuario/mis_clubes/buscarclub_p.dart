@@ -134,7 +134,9 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
       padding: const EdgeInsetsDirectional.fromSTEB(7, 15, 7, 8),
       child: GestureDetector(
         onTap: () {
-          Get.to(const DetalleClubWidget());
+          Get.to(const DetalleClubWidget(
+            isProveedor: false,
+          ));
         },
         child: Material(
           color: Colors.transparent,

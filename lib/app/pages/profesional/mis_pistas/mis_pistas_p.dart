@@ -113,7 +113,7 @@ class MisPistasPage extends GetView<MisPistasController> {
   /// Build LIsta deportes
   List<Widget> buildListDeportes() {
     final listDeportes = [
-      DatosDeporte('Padel', 'U1F3BE'),
+      DatosDeporte('Pádel', 'U1F3BE'),
       DatosDeporte('Tenis', 'U1F3BE'),
       DatosDeporte('Badminton', 'U1F3F8'),
       DatosDeporte('P. climatizada', 'person-swimming_1f3ca'),
