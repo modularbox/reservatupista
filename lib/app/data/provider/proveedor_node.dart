@@ -173,12 +173,12 @@ class ProveedorProvider extends GetConnect {
   <body>
     <div class="container">
       <div class="header">
-        <h1>¡Bienvenido a Reservatupista!</h1>
+        <h1>¡Bienvenido a ReservaTuPista!</h1>
       </div>
       <div class="content">
         <p>Hola $nombre,</p>
         <p>
-          Gracias por registrarte en Reservatupista. Estamos encantados de
+          Gracias por registrarte en ReservaTuPista. Estamos encantados de
           tenerte con nosotros. Ahora puedes reservar tus pistas de deportes
           favoritas de manera rápida y sencilla.
         </p>

@@ -98,19 +98,7 @@ class PerfilPage extends GetView<DBService> {
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(GestureDetector(
-                          onTap: Get.back,
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ImageServer(
-                                  width: 200,
-                                  height: 200,
-                                ),
-                              ])));
-                    },
+                    onPressed: buildDialogImage,
                     borderRadius: 50,
                     padding: const EdgeInsets.all(0),
                     fillColor: Colors.transparent,
@@ -186,23 +174,7 @@ class PerfilPage extends GetView<DBService> {
                     ),
                   ),
                   child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(GestureDetector(
-                          onTap: () => Get.back(),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: ImageServer(
-                                    width: null,
-                                    height: null,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                              ])));
-                    },
+                    onPressed: buildDialogImage,
                     borderRadius: 45,
                     padding: const EdgeInsets.all(0),
                     fillColor: Colors.transparent,
@@ -262,6 +234,41 @@ class PerfilPage extends GetView<DBService> {
             sizeNavBar +
             paddingBottom);
     return sizeTotal.sh;
+  }
+
+  void buildDialogImage() {
+    Get.dialog(
+      GestureDetector(
+        onTap: Get.back,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 400,
+                  height: 400,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: ImageServer(
+                      width: 400,
+                      height: 400,
+                      fit: BoxFit
+                          .contain, // Ajusta la imagen para que se adapte al contenedor
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   SizedBox spaceSizedBoxBtnCerrarRes() {

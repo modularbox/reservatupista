@@ -73,11 +73,12 @@ class DetalleReserva extends GetView<MisReservasController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildCancelarReserva()
-                      .visible(state.fechaReserva >= DateTime.now()),
+                  buildCancelarReserva().visible(
+                      reservasUsuarios!.plazasReservadasTotales != capacidad &&
+                          state.fechaReserva >= DateTime.now()),
                   20.0.sw,
                   buildWhatsappButton(state.idReserva).visible(
-                      (reservasUsuarios!.plazasReservadasTotales != capacidad ||
+                      (reservasUsuarios!.plazasReservadasTotales != capacidad &&
                           state.fechaReserva >= DateTime.now())),
                 ],
               ),

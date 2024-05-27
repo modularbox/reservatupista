@@ -146,13 +146,13 @@ class ReservarPistaController extends GetxController
     fechaActual = DateTime.now();
     animTerminos = animVibrate(vsync: this);
     db.getMoney();
-    debounce(sizedBoxHeight, (callback) {
+    /*debounce(sizedBoxHeight, (callback) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-    }, time: const Duration(milliseconds: 50));
+    }, time: const Duration(milliseconds: 50));*/
     debounce(selectDay, (callback) {
       if (callback != null) {
         final sizeCalendar = (keyCalendar.currentContext != null
@@ -167,11 +167,11 @@ class ReservarPistaController extends GetxController
         final newSize = (100.h -
             (sizeCalendar + sizePistas + appBarAndNavBar + sizeHorarios));
         if (newSize < 0) {
-          scrollController.animateTo(
+          /*scrollController.animateTo(
             scrollController.position.maxScrollExtent + newSize,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-          );
+          );*/
         } else {
           if (sizedBoxHeight.value == newSize) {
             sizedBoxHeight.refresh();
@@ -196,11 +196,11 @@ class ReservarPistaController extends GetxController
                 sizeDatos));
         if (newSize < 0) {
           // sizedBoxHeight.refresh();
-          scrollController.animateTo(
+          /*scrollController.animateTo(
             scrollController.position.maxScrollExtent + newSize,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-          );
+          );*/
         } else {
           if (sizedBoxHeight.value == newSize) {
             sizedBoxHeight.refresh();
