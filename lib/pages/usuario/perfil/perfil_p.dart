@@ -352,7 +352,7 @@ class PerfilPage extends GetView<DBService> {
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.toNamed(Routes.PEDIDOS);
+                  Get.toNamed(Routes.MIS_PEDIDOS);
                 },
               ),
               ButtonPerfil(

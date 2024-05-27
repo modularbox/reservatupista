@@ -322,7 +322,7 @@ extension FFStringExt on String {
 
   /// COnvertir 2024-05-16' - 16-05-2024'
   String get formatDiaMesAnio =>
-      '${substring(length - 2, length)}${substring(4, 8)}${substring(0, 4)}';
+      '${substring(length - 2, length)}/${substring(5, 7)}/${substring(0, 4)}';
 }
 
 extension ListFilterExt<T> on Iterable<T?> {

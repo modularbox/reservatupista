@@ -6,6 +6,8 @@ import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_admini
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_b.dart';
@@ -29,7 +31,7 @@ import 'package:reservatu_pista/pages/usuario/inicio/inicio_b.dart';
 import 'package:reservatu_pista/pages/usuario/inicio/inicio_p.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_b.dart';
 import 'package:reservatu_pista/pages/usuario/monedero_virtual/monedero_p.dart';
-import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones_widget.dart';
+import 'package:reservatu_pista/pages/usuario/notificaciones/notificaciones.dart';
 import 'package:reservatu_pista/pages/usuario/perfil/perfil_b.dart';
 import 'package:reservatu_pista/pages/usuario/perfil/perfil_p.dart';
 import '../pages/profesional/anadir_pista/anadir_pista_b.dart';
@@ -104,7 +106,7 @@ enum RoutesType {
   administrador,
   amigos,
   mis_bonos,
-  pedidos,
+  mis_pedidos,
   mis_clubes,
   historial_usuario,
 }
@@ -161,7 +163,7 @@ abstract class Routes {
   static final ADMINISTRADOR = RoutesType.administrador.getRoute;
   static final AMIGOS = RoutesType.amigos.getRoute;
   static final MIS_BONOS = RoutesType.mis_bonos.getRoute;
-  static final PEDIDOS = RoutesType.pedidos.getRoute;
+  static final MIS_PEDIDOS = RoutesType.mis_pedidos.getRoute;
   static final MIS_CLUBES = RoutesType.mis_clubes.getRoute;
   static final HISTORIAL_USUARIO = RoutesType.historial_usuario.getRoute;
 }
@@ -385,6 +387,12 @@ class AppPages {
         name: Routes.MIS_BONOS,
         page: () => const MisBonosPage(),
         binding: MisBonosBinding()),
+
+    /// Pagina para pruebas
+    GetPage(
+        name: Routes.MIS_PEDIDOS,
+        page: () => const MisPedidosPage(),
+        binding: MisPedidosBinding()),
 
     /// Pagina para pruebas
     GetPage(

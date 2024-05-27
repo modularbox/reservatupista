@@ -1,11 +1,9 @@
 import '../../../components/navbar_y_appbar_usuario.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'notificaciones_model.dart';
 
 class NotificacionesWidget extends StatefulWidget {
   const NotificacionesWidget({Key? key}) : super(key: key);
@@ -15,20 +13,15 @@ class NotificacionesWidget extends StatefulWidget {
 }
 
 class _NotificacionesWidgetState extends State<NotificacionesWidget> {
-  late NotificacionesModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NotificacionesModel());
   }
 
   @override
   void dispose() {
-    _model.dispose();
-
     super.dispose();
   }
 
