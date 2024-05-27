@@ -66,80 +66,6 @@ class PerfilPage extends GetView<DBService> {
     final nivel =
         self.datosUsuario.nivel == '' ? '0.0' : self.datosUsuario.nivel;
     if (responsive) {
-<<<<<<< HEAD
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 3,
-              color: Color(0x33000000),
-              offset: Offset(0, 1),
-            )
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: LightModeTheme().tertiary,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: LightModeTheme().secondary,
-                    width: 3,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: BtnIcon(
-                    onPressed: buildDialogImage,
-                    borderRadius: 50,
-                    padding: const EdgeInsets.all(0),
-                    fillColor: Colors.transparent,
-                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                    icon: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: ImageServer()),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        child: AutoSizeText(
-                      '$nombre $apellidos',
-                      textAlign: TextAlign.center,
-                      style: LightModeTheme().headlineSmall,
-                    )),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 4.0, 0.0, 0.0),
-                      child: SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            datos('Nick', nick),
-                            5.0.sw,
-                            datos('Nivel', nivel),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-=======
       return ResponsiveWeb(
         child: Container(
           width: double.infinity,
@@ -151,7 +77,6 @@ class PerfilPage extends GetView<DBService> {
                 color: Color(0x33000000),
                 offset: Offset(0, 1),
               )
->>>>>>> cc3730f1b2531d946e436d02b4489d8ed7c8393c
             ],
           ),
           child: Padding(
@@ -170,43 +95,6 @@ class PerfilPage extends GetView<DBService> {
                       width: 3,
                     ),
                   ),
-<<<<<<< HEAD
-                  child: BtnIcon(
-                    onPressed: buildDialogImage,
-                    borderRadius: 45,
-                    padding: const EdgeInsets.all(0),
-                    fillColor: Colors.transparent,
-                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                    icon: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: ImageServer(
-                          width: 80,
-                          height: 80,
-                        )),
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AutoSizeText(
-                          '$nombre $apellidos',
-                          textAlign: TextAlign.center,
-                          style: LightModeTheme().headlineSmall,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            datos('Nick', nick),
-                            20.0.sw,
-                            datos('Nivel', nivel),
-                          ],
-                        ),
-                      ],
-=======
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: BtnIcon(
@@ -235,7 +123,6 @@ class PerfilPage extends GetView<DBService> {
                       icon: ClipRRect(
                           borderRadius: BorderRadius.circular(40),
                           child: ImageServer()),
->>>>>>> cc3730f1b2531d946e436d02b4489d8ed7c8393c
                     ),
                   ),
                 ),
