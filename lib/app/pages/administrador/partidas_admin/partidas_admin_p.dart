@@ -96,13 +96,10 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0, 0, 0, 0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        color: LightModeTheme()
+                                                            .primaryText,
                                                         textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                            LightModeTheme()
                                                                 .titleSmall
                                                                 .override(
                                                                   fontFamily:
@@ -159,13 +156,10 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0, 0, 0, 0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        color: LightModeTheme()
+                                                            .primaryText,
                                                         textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                            LightModeTheme()
                                                                 .titleSmall
                                                                 .override(
                                                                   fontFamily:

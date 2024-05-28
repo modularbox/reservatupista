@@ -63,8 +63,7 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                               width: 200,
                               height: 65,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: LightModeTheme().secondaryBackground,
                                 boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
@@ -83,8 +82,7 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                             width: MediaQuery.sizeOf(context).width,
                             height: 28,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              color: LightModeTheme().secondaryBackground,
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
@@ -102,7 +100,7 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                             0, 8, 0, 0),
                                     child: Text(
                                       '1.500,00 €',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: LightModeTheme()
                                           .headlineLarge
                                           .override(
                                             fontFamily: 'Outfit',
@@ -115,12 +113,11 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                   ),
                                   Text(
                                     'Dinero Total',
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineLarge
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          letterSpacing: 0,
-                                        ),
+                                    style:
+                                        LightModeTheme().headlineLarge.override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0,
+                                            ),
                                   ),
                                 ],
                               )),
@@ -262,12 +259,10 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                   const AlignmentDirectional(-0.01, -0.75),
                               child: Text(
                                 'Nombre club',
-                                style: FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
+                                style: LightModeTheme().displaySmall.override(
                                       fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color:
+                                          LightModeTheme().secondaryBackground,
                                       fontSize: 25,
                                       letterSpacing: 0,
                                     ),
@@ -295,7 +290,7 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                         children: [
                                           Text(
                                             'Riolobos',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -308,15 +303,13 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                                 .fromSTEB(0, 0, 10, 0),
                                             child: Text(
                                               'Ayuntamiento',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 20,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 20,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -342,20 +335,17 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                     iconPadding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
+                                    color: LightModeTheme().primaryBackground,
+                                    textStyle: LightModeTheme()
                                         .titleSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                          color: LightModeTheme().primaryText,
                                           letterSpacing: 0,
                                         ),
                                     elevation: 3,
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
@@ -417,12 +407,10 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                   const AlignmentDirectional(-0.01, -0.75),
                               child: Text(
                                 'Nombre club',
-                                style: FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
+                                style: LightModeTheme().displaySmall.override(
                                       fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color:
+                                          LightModeTheme().secondaryBackground,
                                       fontSize: 25,
                                       letterSpacing: 0,
                                     ),
@@ -450,7 +438,7 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                         children: [
                                           Text(
                                             'Holguera',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -463,15 +451,13 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                                 .fromSTEB(0, 0, 10, 0),
                                             child: Text(
                                               'Ayuntamiento',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 20,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 20,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -497,20 +483,17 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                     iconPadding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
+                                    color: LightModeTheme().primaryBackground,
+                                    textStyle: LightModeTheme()
                                         .titleSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                          color: LightModeTheme().primaryText,
                                           letterSpacing: 0,
                                         ),
                                     elevation: 3,
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
@@ -572,12 +555,10 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                   const AlignmentDirectional(-0.01, -0.75),
                               child: Text(
                                 'Nombre club',
-                                style: FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
+                                style: LightModeTheme().displaySmall.override(
                                       fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color:
+                                          LightModeTheme().secondaryBackground,
                                       fontSize: 25,
                                       letterSpacing: 0,
                                     ),
@@ -605,7 +586,7 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                         children: [
                                           Text(
                                             'Galisteo',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -618,15 +599,13 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                                 .fromSTEB(0, 0, 10, 0),
                                             child: Text(
                                               'Ayuntamiento',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        fontSize: 20,
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    fontSize: 20,
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -652,20 +631,17 @@ class _AdminBancoWidgetState extends GetView<AdminBancoController> {
                                     iconPadding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
+                                    color: LightModeTheme().primaryBackground,
+                                    textStyle: LightModeTheme()
                                         .titleSmall
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                          color: LightModeTheme().primaryText,
                                           letterSpacing: 0,
                                         ),
                                     elevation: 3,
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: LightModeTheme().primaryText,
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(8),

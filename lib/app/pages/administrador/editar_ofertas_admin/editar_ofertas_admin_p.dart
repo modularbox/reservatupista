@@ -112,15 +112,13 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .errorGeneral,
+                                                  LightModeTheme().errorGeneral,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -158,16 +156,14 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
                                             width: 120,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .reservaPendiente,
+                                              color: LightModeTheme()
+                                                  .reservaPendiente,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -292,15 +288,13 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .errorGeneral,
+                                                  LightModeTheme().errorGeneral,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -338,16 +332,14 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
                                             width: 120,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .reservaPendiente,
+                                              color: LightModeTheme()
+                                                  .reservaPendiente,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -472,15 +464,13 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .errorGeneral,
+                                                  LightModeTheme().errorGeneral,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
@@ -518,16 +508,14 @@ class _EditarOfertaWidgetState extends GetView<EditarOfertasController> {
                                             width: 120,
                                             height: 40,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .reservaPendiente,
+                                              color: LightModeTheme()
+                                                  .reservaPendiente,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               shape: BoxShape.rectangle,
                                               border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                               ),
                                             ),
                                             child: Row(
