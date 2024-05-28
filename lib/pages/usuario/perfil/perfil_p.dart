@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_p.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../app/routes/app_pages.dart';
@@ -17,11 +18,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
-class PerfilPage extends GetView<DBService> {
-  DBService get self => controller;
+class PerfilPage extends StatefulWidget {
+  const PerfilPage({super.key});
+
+  @override
+  State<PerfilPage> createState() => PerfilPageState();
+}
+
+class PerfilPageState extends State<PerfilPage> {
+  DBService self = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
-  PerfilPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class PerfilPage extends GetView<DBService> {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -133,12 +140,17 @@ class PerfilPage extends GetView<DBService> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                          child: AutoSizeText(
-                        '$nombre $apellidos',
-                        textAlign: TextAlign.center,
-                        style: LightModeTheme().headlineSmall,
-                      )),
+                      Container(
+                          width: ((context.w > 650 ? 630 : context.w) - 120),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              '$nombre $apellidos',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: LightModeTheme().headlineSmall,
+                            ),
+                          )),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 4.0, 0.0, 0.0),
@@ -251,6 +263,25 @@ class PerfilPage extends GetView<DBService> {
         ),
       );
     }
+  }
+
+  Widget datos(String title, String dato) {
+    final double fontSize = context.w < 400 ? 12.0 : 16.0;
+    return RichText(
+        text: TextSpan(children: [
+      TextSpan(
+        text: '$title: ',
+        style: LightModeTheme()
+            .bodyMedium
+            .copyWith(fontWeight: FontWeight.bold, fontSize: fontSize),
+      ),
+      TextSpan(
+        text: dato,
+        style: LightModeTheme()
+            .bodyMedium
+            .copyWith(fontWeight: FontWeight.normal, fontSize: fontSize),
+      ),
+    ]));
   }
 
   SizedBox spaceSizedBoxBtnCerrar() {
@@ -380,7 +411,7 @@ class PerfilPage extends GetView<DBService> {
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.toNamed(Routes.MIS_BONOS);
+                  Get.to(const MisBonosPage(false));
                 },
               ),
               ButtonPerfil(
@@ -614,19 +645,4 @@ class ButtonPerfil extends StatelessWidget {
         );
     }
   }
-}
-
-Widget datos(String title, String dato) {
-  return RichText(
-      text: TextSpan(children: [
-    TextSpan(
-      text: '$title: ',
-      style: LightModeTheme().bodyMedium.copyWith(fontWeight: FontWeight.bold),
-    ),
-    TextSpan(
-      text: dato,
-      style:
-          LightModeTheme().bodyMedium.copyWith(fontWeight: FontWeight.normal),
-    ),
-  ]));
 }

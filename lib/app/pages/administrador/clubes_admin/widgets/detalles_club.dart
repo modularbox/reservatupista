@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/usuario/mis_bonos/widgets/comprar_bonos.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1159,7 +1161,8 @@ class _DetalleClubWidgetState extends StatelessWidget {
                                               10, 0, 10, 0),
                                       child: FFButtonWidget(
                                         onPressed: () {
-                                          // Get.to(const ComprarBonosWidget());
+                                          Get.to(
+                                              const ComprarBonosWidget(true));
                                         },
                                         text: 'Comprar bonos',
                                         icon: const Icon(

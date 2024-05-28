@@ -39,31 +39,37 @@ class NavbarYAppbarUsuario extends GetView<DBService> {
     double paddingTop = padding.top;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              paddingTop.sh,
-              ResponsiveWeb(
-                child: AppbarUsuario(
-                  title: title,
-                  isTitle: isTitle,
-                  isTitleBack: isTitleBack,
-                  isPage: page == TypePage.Perfil,
+      body: SafeArea(
+        top: false,
+        right: false,
+        left: false,
+        bottom: true,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                paddingTop.sh,
+                ResponsiveWeb(
+                  child: AppbarUsuario(
+                    title: title,
+                    isTitle: isTitle,
+                    isTitleBack: isTitleBack,
+                    isPage: page == TypePage.Perfil,
+                  ),
                 ),
-              ),
-              child,
-            ],
-          ),
-          ResponsiveWeb(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: NavBarUsuarioWidget(
-                tipoDePagina: page,
-              ),
-            ).visible(isNavBar),
-          )
-        ],
+                child,
+              ],
+            ),
+            ResponsiveWeb(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: NavBarUsuarioWidget(
+                  tipoDePagina: page,
+                ),
+              ).visible(isNavBar),
+            )
+          ],
+        ),
       ),
     );
   }

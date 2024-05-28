@@ -4,6 +4,7 @@ import 'package:reservatu_pista/app/pages/profesional/facturas/factura_detalle_p
 import 'package:reservatu_pista/app/pages/profesional/tarifas_proveedor/tarifas_proveedor_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1149,472 +1150,479 @@ class _TarifasProveedorPageState extends GetView<TarifasProveedorController> {
                             width: 2,
                           ),
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: LightModeTheme().secondaryBackground,
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(8),
-                                  bottomRight: Radius.circular(0),
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(0),
-                                ),
-                                border: Border.all(
-                                  color: LightModeTheme().secondaryBackground,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Reservas',
-                                    style: LightModeTheme().bodyMedium.override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 20,
-                                          letterSpacing: 0,
-                                        ),
-                                  ),
-                                  SizedBox(
-                                    width: 80,
-                                    child: Divider(
-                                      thickness: 1,
-                                      color: LightModeTheme().primaryText,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Precio',
-                                    style: LightModeTheme().bodyMedium.override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 20,
-                                          letterSpacing: 0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 80,
-                              child: VerticalDivider(
-                                thickness: 1,
-                                color: LightModeTheme().primaryText,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 15, 0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 0.6,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
                                 height: 80,
                                 decoration: BoxDecoration(
                                   color: LightModeTheme().secondaryBackground,
                                   borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(0),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8),
+                                    bottomRight: Radius.circular(0),
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(0),
                                   ),
                                   border: Border.all(
                                     color: LightModeTheme().secondaryBackground,
-                                    width: 2,
                                   ),
                                 ),
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '25',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Reservas',
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
                                               ),
-                                            ),
-                                            Text(
-                                              '0,50€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                    SizedBox(
+                                      width: 80,
+                                      child: Divider(
+                                        thickness: 1,
+                                        color: LightModeTheme().primaryText,
                                       ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '50',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                    ),
+                                    Text(
+                                      'Precio',
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
                                               ),
-                                            ),
-                                            Text(
-                                              '0,40€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: LightModeTheme().aguamarina,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '75',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 80,
+                                child: VerticalDivider(
+                                  thickness: 1,
+                                  color: LightModeTheme().primaryText,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 15, 0),
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.6,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    color: LightModeTheme().secondaryBackground,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(8),
+                                      topLeft: Radius.circular(0),
+                                      topRight: Radius.circular(8),
+                                    ),
+                                    border: Border.all(
+                                      color:
+                                          LightModeTheme().secondaryBackground,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '25',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,35€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '80',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,25€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '200',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              Text(
+                                                '0,50€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,20€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '300',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '50',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,15€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '400',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,10€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '500',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              Text(
+                                                '0,40€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,10€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '600',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: LightModeTheme().aguamarina,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '75',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '0,05€',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,35€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '80',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,25€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '200',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,20€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '300',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,15€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '400',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,10€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '500',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,10€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '600',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '0,05€',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -1631,472 +1639,479 @@ class _TarifasProveedorPageState extends GetView<TarifasProveedorController> {
                             width: 2,
                           ),
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: 80,
-                              decoration: BoxDecoration(
-                                color: LightModeTheme().secondaryBackground,
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(8),
-                                  bottomRight: Radius.circular(0),
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(0),
-                                ),
-                                border: Border.all(
-                                  color: LightModeTheme().secondaryBackground,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Pagos',
-                                    style: LightModeTheme().bodyMedium.override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 20,
-                                          letterSpacing: 0,
-                                        ),
-                                  ),
-                                  SizedBox(
-                                    width: 80,
-                                    child: Divider(
-                                      thickness: 1,
-                                      color: LightModeTheme().primaryText,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Precio',
-                                    style: LightModeTheme().bodyMedium.override(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 20,
-                                          letterSpacing: 0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 80,
-                              child: VerticalDivider(
-                                thickness: 1,
-                                color: LightModeTheme().primaryText,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 15, 0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 0.6,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
                                 height: 80,
                                 decoration: BoxDecoration(
                                   color: LightModeTheme().secondaryBackground,
                                   borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(0),
-                                    bottomRight: Radius.circular(8),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8),
+                                    bottomRight: Radius.circular(0),
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(0),
                                   ),
                                   border: Border.all(
                                     color: LightModeTheme().secondaryBackground,
-                                    width: 2,
                                   ),
                                 ),
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '25',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Pagos',
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
                                               ),
-                                            ),
-                                            Text(
-                                              '3%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                    SizedBox(
+                                      width: 80,
+                                      child: Divider(
+                                        thickness: 1,
+                                        color: LightModeTheme().primaryText,
                                       ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '50',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                    ),
+                                    Text(
+                                      'Precio',
+                                      style:
+                                          LightModeTheme().bodyMedium.override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 20,
+                                                letterSpacing: 0,
                                               ),
-                                            ),
-                                            Text(
-                                              '2,75%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: LightModeTheme().aguamarina,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '75',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 80,
+                                child: VerticalDivider(
+                                  thickness: 1,
+                                  color: LightModeTheme().primaryText,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 15, 0),
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.6,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    color: LightModeTheme().secondaryBackground,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(8),
+                                      topLeft: Radius.circular(0),
+                                      topRight: Radius.circular(8),
+                                    ),
+                                    border: Border.all(
+                                      color:
+                                          LightModeTheme().secondaryBackground,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '25',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '2,5%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '80',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '2,25%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '200',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              Text(
+                                                '3%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '2%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '300',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '50',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '1,75%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '400',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '1,50%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '500',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                              Text(
+                                                '2,75%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '1,25%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 80,
-                                        child: VerticalDivider(
-                                          thickness: 1,
-                                          color: LightModeTheme().primaryText,
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              '600',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 1,
-                                                color: LightModeTheme()
-                                                    .primaryText,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: LightModeTheme().aguamarina,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '75',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
                                               ),
-                                            ),
-                                            Text(
-                                              '1%',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 20,
-                                                    letterSpacing: 0,
-                                                  ),
-                                            ),
-                                          ],
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '2,5%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '80',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '2,25%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '200',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '2%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '300',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '1,75%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '400',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '1,50%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '500',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '1,25%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 80,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: LightModeTheme().primaryText,
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                '600',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                              SizedBox(
+                                                width: 30,
+                                                child: Divider(
+                                                  thickness: 1,
+                                                  color: LightModeTheme()
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              Text(
+                                                '1%',
+                                                style: LightModeTheme()
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      fontSize: 20,
+                                                      letterSpacing: 0,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -2167,8 +2182,7 @@ class _TarifasProveedorPageState extends GetView<TarifasProveedorController> {
                         ),
                       ),
                     ),
-                    200.0.sh,
-                  ],
+                  ].addToEnd(75.0.sh),
                 ),
               ),
             ),

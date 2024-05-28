@@ -25,17 +25,19 @@ class DetalleClubWidget extends StatelessWidget {
       return NavbarYAppbarProfesional(
           title: 'Detalle Club',
           page: TypePage.None,
-          child: Expanded(child: _DetalleClubWidgetState()));
+          child: Expanded(child: _DetalleClubWidgetState(isProveedor)));
     }
     return NavbarYAppbarUsuario(
         title: 'Detalle Club',
         page: TypePage.None,
-        child: Expanded(child: _DetalleClubWidgetState()));
+        child: Expanded(child: _DetalleClubWidgetState(isProveedor)));
   }
 }
 
 class _DetalleClubWidgetState extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  _DetalleClubWidgetState(this.isProveedor);
+  final bool isProveedor;
 
   @override
   Widget build(BuildContext context) {
@@ -1000,7 +1002,7 @@ class _DetalleClubWidgetState extends StatelessWidget {
                                 10, 0, 10, 0),
                             child: FFButtonWidget(
                               onPressed: () {
-                                Get.to(ComprarBonosWidget());
+                                Get.to(ComprarBonosWidget(isProveedor));
                               },
                               text: 'Comprar bonos',
                               icon: const Icon(
@@ -1033,7 +1035,7 @@ class _DetalleClubWidgetState extends StatelessWidget {
                           ),
                           FFButtonWidget(
                             onPressed: () {
-                              Get.to(const HazteSocioWidget());
+                              Get.to(HazteSocioWidget(isProveedor));
                             },
                             text: 'Hacerte socio',
                             icon: const Icon(

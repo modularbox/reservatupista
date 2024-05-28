@@ -11,9 +11,18 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import '../../../utils/sizer.dart';
 
-class AlertRecargarWidget extends GetView<MonederoController> {
+class AlertRecargarWidget extends StatefulWidget {
+  final bool isTransferir;
   const AlertRecargarWidget({super.key, this.isTransferir = false});
-  MonederoController get self => controller;
+
+  @override
+  State<AlertRecargarWidget> createState() =>
+      AlertRecargarWidgetState(isTransferir: isTransferir);
+}
+
+class AlertRecargarWidgetState extends State<AlertRecargarWidget> {
+  AlertRecargarWidgetState({required this.isTransferir});
+  MonederoController self = Get.find();
   final bool isTransferir;
   String get title => isTransferir ? 'Transferir' : 'Recargar';
 
@@ -127,8 +136,7 @@ class AlertRecargarWidget extends GetView<MonederoController> {
         highlightColor: Colors.transparent,
         onTap: () => onTap(buttonDinero),
         child: Container(
-          width: Get.width * 0.12,
-          constraints: const BoxConstraints(minWidth: 200),
+          width: context.w * 0.4,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(

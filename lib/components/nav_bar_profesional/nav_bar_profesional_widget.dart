@@ -6,7 +6,6 @@ import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -75,7 +74,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: isiOS ? 75.0 : 65.0,
+      height: 65.0,
       child: Stack(
         children: [
           Column(
@@ -95,7 +94,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 child: Container(
                   width: double.infinity,
-                  height: isiOS ? 60.0 : 50.0,
+                  height: 50.0,
                   decoration: BoxDecoration(
                     color: LightModeTheme().primaryBackground,
                     boxShadow: const [
@@ -175,7 +174,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: isiOS ? 15.0 : 5.0),
+      padding: EdgeInsets.only(bottom: 5.0),
       child: Column(
         children: [
           isPage
@@ -230,9 +229,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: isiOS
-          ? const EdgeInsets.only(bottom: 8.0)
-          : const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.only(top: 10.0),
       child: BtnIcon(
         onPressed: onPressed,
         hoverColor: Colores.proveedor.primary69,

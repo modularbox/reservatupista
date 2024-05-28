@@ -158,7 +158,8 @@ Descárgate la app
   </body>
 </html>
             ''',
-            "asunto": "Registro Proveedor Reservatupista.com"
+            "asunto":
+                "Registro ${tipoUsuario == '0' ? 'Usuario' : 'Proveedor'} Reservatupista.com"
           },
           contentType: 'application/json');
       print(response.body);

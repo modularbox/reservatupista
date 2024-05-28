@@ -16,6 +16,7 @@ import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
 class MisReservasPage extends GetView<MisReservasController> {
@@ -30,6 +31,7 @@ class MisReservasPage extends GetView<MisReservasController> {
       child: Expanded(
         child: Column(
           children: [
+            10.0.sh,
             ResponsiveWeb(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -233,12 +235,10 @@ class MisReservasPage extends GetView<MisReservasController> {
               child: Column(
                 children: [
                   buildReserva(state[index]),
-                  self.isLoading.value
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: ColorLoader(),
-                        )
-                      : const SizedBox(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: ColorLoader(),
+                  ).visible(self.isLoading.value)
                 ],
               ),
             );

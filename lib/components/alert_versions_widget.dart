@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/utils/responsive_web.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 class DatosVersion {
@@ -18,7 +19,9 @@ class Versions extends StatelessWidget {
   final DBService db = Get.find();
   List<DatosVersion> arrayVersion2() => [
         DatosVersion(
-            v: db.version, info: '''Bugs y errores.''', fecha: '27/05/2024'),
+            v: db.version, info: '''Administrador.''', fecha: '27/05/2024'),
+        DatosVersion(
+            v: '2.2.14', info: '''Bugs y errores.''', fecha: '27/05/2024'),
         DatosVersion(
             v: '2.2.13',
             info: '''Agregar seccion de Administrador.''',
@@ -383,90 +386,92 @@ Ajustes en Reservar Pista, Cancelar, Reservar Todo.''',
 
   Widget buildAlertVersion() {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Column(
-            children: [
-              const Center(
-                child: Text(
-                  "VERSIONES",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff4285d0),
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.normal,
-                      fontFamily: "Roboto",
-                      decoration: TextDecoration.none),
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                    text: "Actual: ",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontFamily: "Roboto",
-                        fontSize: 25,
-                        color: Colors.black),
-                    children: [
-                      TextSpan(
-                        text: db.version,
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            decoration: TextDecoration.none,
-                            fontFamily: "Arial",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
-                      )
-                    ]),
-              ),
-            ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: buildVersions()),
+      body: ResponsiveWeb(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          Center(
-            child: SizedBox(
-              width: Get.width * 0.5,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: ElevatedButton(
-                  onPressed: Get.back,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xff4285d0)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        side: const BorderSide(
-                            width: 3, color: Color(0xff4285d0)),
-                        borderRadius: BorderRadius.circular(
-                            20.0), // Ajusta el radio de los bordes según tus necesidades
+            Column(
+              children: [
+                const Center(
+                  child: Text(
+                    "VERSIONES",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Color(0xff4285d0),
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.normal,
+                        fontFamily: "Roboto",
+                        decoration: TextDecoration.none),
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                      text: "Actual: ",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "Roboto",
+                          fontSize: 25,
+                          color: Colors.black),
+                      children: [
+                        TextSpan(
+                          text: db.version,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              decoration: TextDecoration.none,
+                              fontFamily: "Arial",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25),
+                        )
+                      ]),
+                ),
+              ],
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: buildVersions()),
+              ),
+            ),
+            Center(
+              child: SizedBox(
+                width: Get.width * 0.5,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: ElevatedButton(
+                    onPressed: Get.back,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xff4285d0)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          side: const BorderSide(
+                              width: 3, color: Color(0xff4285d0)),
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Ajusta el radio de los bordes según tus necesidades
+                        ),
+                      ),
+                    ),
+                    child: const FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "Cerrar",
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Color.fromARGB(239, 255, 255, 255),
+                            fontFamily: 'Roboto'),
                       ),
                     ),
                   ),
-                  child: const FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(
-                      "Cerrar",
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Color.fromARGB(239, 255, 255, 255),
-                          fontFamily: 'Roboto'),
-                    ),
-                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

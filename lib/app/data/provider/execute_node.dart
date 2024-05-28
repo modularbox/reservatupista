@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_connect/connect.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reservatu_pista/app/data/models/execute_model.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';

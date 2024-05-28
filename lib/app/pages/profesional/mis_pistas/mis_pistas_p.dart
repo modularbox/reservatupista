@@ -113,22 +113,22 @@ class MisPistasPage extends GetView<MisPistasController> {
   /// Build LIsta deportes
   List<Widget> buildListDeportes() {
     final listDeportes = [
-      DatosDeporte('Pádel', 'U1F3BE'),
-      DatosDeporte('Tenis', 'U1F3BE'),
-      DatosDeporte('Badminton', 'U1F3F8'),
-      DatosDeporte('P. climatizada', 'person-swimming_1f3ca'),
-      DatosDeporte('Piscina', 'person-swimming_1f3ca'),
-      DatosDeporte('Baloncesto', 'U1F3C0'),
-      DatosDeporte('Futbol sala', 'U26BD'),
-      DatosDeporte('Futbol 7', 'U26BD'),
-      DatosDeporte('Futbol 11', 'U26BD'),
-      DatosDeporte('Pickleball', 'U1F94D'),
-      DatosDeporte('Squash', 'U1F3F8'),
-      DatosDeporte('Tenis de mesa', 'U1F3D3'),
-      DatosDeporte('Fronton', 'U1F3BE'),
-      DatosDeporte('Balomano', 'U26BD'),
-      DatosDeporte('Rugby', 'U1F3C8'),
-      DatosDeporte('Multideporte', 'U1F938'),
+      DatosDeporte('Pádel', 'padel'),
+      DatosDeporte('Tenis', 'tenis'),
+      DatosDeporte('Badminton', 'badminton'),
+      DatosDeporte('P. climatizada', 'p.climatizada'),
+      DatosDeporte('Piscina', 'piscina'),
+      DatosDeporte('Baloncesto', 'baloncesto'),
+      DatosDeporte('Futbol sala', 'futbolsala'),
+      DatosDeporte('Futbol 7', 'futbol7'),
+      DatosDeporte('Futbol 11', 'futbol11'),
+      DatosDeporte('Pickleball', 'pickleball'),
+      DatosDeporte('Squash', 'squash'),
+      DatosDeporte('Tenis de mesa', 'tenisdemesa'),
+      DatosDeporte('Fronton', 'fronton'),
+      DatosDeporte('Balomano', 'balomano'),
+      DatosDeporte('Rugby', 'rugby'),
+      DatosDeporte('Multideporte', 'multideporte'),
     ];
     return listDeportes
         .mapIndexed((e, index) => buildDeporte(e, index))
@@ -137,7 +137,6 @@ class MisPistasPage extends GetView<MisPistasController> {
 
   /// Build Deporte
   Widget buildDeporte(DatosDeporte e, int index) {
-    final image = e.nombre.replaceAll(' ', '').toLowerCase();
     return Stack(
       children: [
         Padding(
@@ -150,7 +149,7 @@ class MisPistasPage extends GetView<MisPistasController> {
                 height: 50,
                 width: 50,
                 child: Image.network(
-                  DatosServer.online(image),
+                  DatosServer.online(e.image),
                   fit: BoxFit.cover,
                 ),
               ),

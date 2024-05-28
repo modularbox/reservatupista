@@ -69,7 +69,7 @@ class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: isiOS ? 75.0 : 65.0,
+      height: 65.0,
       child: Stack(
         children: [
           Column(
@@ -89,7 +89,7 @@ class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
                 ),
                 child: Container(
                   width: double.infinity,
-                  height: isiOS ? 60.0 : 50.0,
+                  height: 50.0,
                   decoration: BoxDecoration(
                     color: LightModeTheme().primaryBackground,
                     boxShadow: const [
@@ -173,7 +173,7 @@ class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: isiOS ? 15.0 : 5.0),
+      padding: const EdgeInsets.only(bottom: 5.0),
       child: Column(
         children: [
           isPage
@@ -227,41 +227,36 @@ class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
       required IconData icon,
       required void Function() onPressed,
       isPage = false}) {
-    return Padding(
-      padding: isiOS
-          ? const EdgeInsets.only(bottom: 8.0)
-          : const EdgeInsets.only(top: 10.0),
-      child: BtnIcon(
-        onPressed: onPressed,
-        hoverColor: const Color.fromARGB(69, 43, 120, 220),
-        borderRadius: 12,
-        icon: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            isPage
-                ? Icon(
-                    icon,
-                    color: LightModeTheme().primary,
-                    size: 24.0,
-                  ).animateOnPageLoad(
-                    animationsMap['iconButtonOnPageLoadAnimation1']!)
-                : Icon(
-                    icon,
-                    color: const Color(0xFF9299A1),
-                    size: 24.0,
-                  ),
-            Text(
-              title,
-              style: LightModeTheme().bodyMedium.override(
-                    fontFamily: 'Readex Pro',
-                    color: isPage
-                        ? LightModeTheme().primary
-                        : LightModeTheme().primaryText,
-                    fontSize: 10.0,
-                  ),
-            ),
-          ],
-        ),
+    return BtnIcon(
+      onPressed: onPressed,
+      hoverColor: const Color.fromARGB(69, 43, 120, 220),
+      borderRadius: 12,
+      icon: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          isPage
+              ? Icon(
+                  icon,
+                  color: LightModeTheme().primary,
+                  size: 24.0,
+                ).animateOnPageLoad(
+                  animationsMap['iconButtonOnPageLoadAnimation1']!)
+              : Icon(
+                  icon,
+                  color: const Color(0xFF9299A1),
+                  size: 24.0,
+                ),
+          Text(
+            title,
+            style: LightModeTheme().bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  color: isPage
+                      ? LightModeTheme().primary
+                      : LightModeTheme().primaryText,
+                  fontSize: 10.0,
+                ),
+          ),
+        ],
       ),
     );
   }

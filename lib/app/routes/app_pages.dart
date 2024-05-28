@@ -169,7 +169,7 @@ abstract class Routes {
   static final RESERVA_COMPARTIDA = RoutesType.reserva_compartida.getRoute;
   static final ADMINISTRADOR = RoutesType.administrador.getRoute;
   static final AMIGOS = RoutesType.amigos.getRoute;
-  static final MIS_BONOS = RoutesType.mis_bonos.getRoute;
+  // static final MIS_BONOS = RoutesType.mis_bonos.getRoute;
   static final MIS_PEDIDOS = RoutesType.mis_pedidos.getRoute;
   static final MIS_CLUBES = RoutesType.mis_clubes.getRoute;
   static final HISTORIAL_USUARIO = RoutesType.historial_usuario.getRoute;
@@ -391,10 +391,10 @@ class AppPages {
         binding: AmigosBinding()),
 
     /// Pagina para Mis Bonos
-    GetPage(
-        name: Routes.MIS_BONOS,
-        page: () => const MisBonosPage(),
-        binding: MisBonosBinding()),
+    // GetPage(
+    //     name: Routes.MIS_BONOS,
+    //     page: () => const MisBonosPage(),
+    //     binding: MisBonosBinding()),
 
     /// Pagina para Mis Pedidos
     GetPage(

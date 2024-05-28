@@ -28,7 +28,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
           statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
+          // systemStatusBarContrastEnforced: true,
         ),
       );
     }

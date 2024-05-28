@@ -52,13 +52,11 @@ class NavBarLogin extends StatelessWidget {
                   MediaQuery.sizeOf(context).width > 450)
               ? 53
               : 75,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 68.0),
-            child: Container(
-              height: 50,
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: buildResponsiveText(context),
-            ),
+          child: Container(
+            height: 50,
+            width: MediaQuery.sizeOf(context).width,
+            constraints: const BoxConstraints(maxWidth: 650),
+            child: buildResponsiveText(context),
           ),
         ),
         Positioned(
@@ -189,9 +187,10 @@ class NavBarLogin extends StatelessWidget {
                   '© 2023 MODULARBOX S.L.${MediaQuery.sizeOf(context).width < 500 ? '\n' : ' '}TODOS LOS DERECHOS RESERVADOS',
                   textAlign: TextAlign.center,
                   style: LightModeTheme().bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        fontWeight: FontWeight.w900,
-                      ),
+                      fontFamily: 'Readex Pro',
+                      fontWeight: FontWeight.w900,
+                      fontSize:
+                          MediaQuery.sizeOf(context).width < 500 ? 11 : 14),
                 ),
               ],
             ),
@@ -202,8 +201,8 @@ class NavBarLogin extends StatelessWidget {
   }
 
   Widget buildResponsiveText(BuildContext context) {
-    final double fontSize =
-        MediaQuery.sizeOf(context).width < 450 ? 12.0 : 16.0;
+    double fontSize = MediaQuery.sizeOf(context).width < 450 ? 12.0 : 16.0;
+    fontSize = MediaQuery.sizeOf(context).width < 450 ? 12.0 : 14.0;
     // final double fontSize =
     //     MediaQuery.sizeOf(context).width < 400 ? 12.0 : 16.0;
     if (MediaQuery.sizeOf(context).width < 450) {
@@ -223,7 +222,7 @@ class NavBarLogin extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: AutoSizeText(
-        'Premio a la Creación en la Industria del Software para la Provincia de Cáceres',
+        'Premio a la Creación en la Industria\ndel Software para la Provincia de Cáceres',
         textAlign: TextAlign.center,
         maxLines: 2,
         style: LightModeTheme().labelSmall.copyWith(fontSize: fontSize),
