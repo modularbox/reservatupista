@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/Widgets/popup_datos_usuario.dart';
 import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/usuarios_admin_c.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/Socio.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/widgets/checker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 
 class AdminUsuarioWidget extends GetView<AdminUsuariosController> {
@@ -143,12 +142,8 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  /*
                   controller.socioSeleccionado = socio.id;
-                  socio.isSocio()
-                      ? Get.dialog(const DatosSocio2Widget())
-                      : Get.dialog(const DatosSocioWidgetPendiente());
-                */
+                  Get.dialog(AdminDatosUsuarioWidget());
                 },
                 child: Material(
                   color: Colors.transparent,
