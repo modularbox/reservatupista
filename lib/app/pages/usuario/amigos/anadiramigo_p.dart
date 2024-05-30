@@ -245,7 +245,7 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                .16, 4, 16, 0),
+                                16, 4, 16, 0),
                             child: Container(
                               width: double.infinity,
                               height: 60,
@@ -278,7 +278,7 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(26),
                                       child: Image.network(
-                                        'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
+                                        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
                                         width: 36,
                                         height: 36,
                                         fit: BoxFit.cover,
@@ -319,7 +319,7 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                                                       const EdgeInsetsDirectional
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
-                                                    '3.25',
+                                                    '3.00',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .labelMedium
@@ -342,7 +342,9 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                                       ),
                                     ),
                                     FFButtonWidget(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        print('Button pressed ...');
+                                      },
                                       text: 'Añadir',
                                       options: FFButtonOptions(
                                         width: 70,
@@ -410,7 +412,7 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(26),
                                       child: Image.network(
-                                        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
+                                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
                                         width: 36,
                                         height: 36,
                                         fit: BoxFit.cover,
@@ -451,7 +453,7 @@ class _BuscadorAmigoWidgetState extends GetView<AnadirAmigosController> {
                                                       const EdgeInsetsDirectional
                                                           .fromSTEB(0, 4, 0, 0),
                                                   child: Text(
-                                                    '3.00',
+                                                    '3.25',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .labelMedium

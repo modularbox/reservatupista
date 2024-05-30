@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_c.dart';
 import 'package:reservatu_pista/app/pages/administrador/banco_admin/banco_admin_p.dart';
 import 'package:reservatu_pista/app/pages/administrador/clubes_admin/clubes_admin_p.dart';
