@@ -90,21 +90,9 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                         padding:
                                                             const EdgeInsetsDirectional
                                                                 .fromSTEB(
-<<<<<<< HEAD
-                                                                    0, 0, 0, 0),
+                                                                0, 0, 0, 0),
                                                         color: LightModeTheme()
                                                             .primaryText,
-=======
-                                                                12, 0, 12, 0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                0, 0, 0, 0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
->>>>>>> 0b81c1d332b0f9a5375f83ae0c99fa281aadcbca
                                                         textStyle:
                                                             LightModeTheme()
                                                                 .titleSmall
@@ -159,21 +147,9 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                         padding:
                                                             const EdgeInsetsDirectional
                                                                 .fromSTEB(
-<<<<<<< HEAD
-                                                                    0, 0, 0, 0),
+                                                                0, 0, 0, 0),
                                                         color: LightModeTheme()
                                                             .primaryText,
-=======
-                                                                12, 0, 12, 0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                0, 0, 0, 0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
->>>>>>> 0b81c1d332b0f9a5375f83ae0c99fa281aadcbca
                                                         textStyle:
                                                             LightModeTheme()
                                                                 .titleSmall
