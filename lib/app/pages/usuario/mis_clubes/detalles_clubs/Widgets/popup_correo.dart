@@ -57,34 +57,29 @@ class _CorreoComponenteWidgetState extends State<CorreoComponenteWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 8, 0),
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: LightModeTheme().primaryBackground,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Icon(
-                                      Icons.person,
-                                      color: Color(0xFF4B39EF),
-                                      size: 24,
-                                    ),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  40, 0, 8, 0),
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: LightModeTheme().primaryBackground,
+                                  shape: BoxShape.circle,
                                 ),
-                                Text(
-                                  'Alberto',
-                                  style: LightModeTheme().titleLarge.override(
-                                        fontFamily: 'Outfit',
-                                        letterSpacing: 0,
-                                      ),
+                                child: const Icon(
+                                  Icons.person,
+                                  color: Color(0xFF4B39EF),
+                                  size: 24,
                                 ),
-                              ],
+                              ),
+                            ),
+                            Text(
+                              'Alberto',
+                              style: LightModeTheme().titleLarge.override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0,
+                                  decoration: TextDecoration.none),
                             ),
                           ],
                         ),
@@ -92,33 +87,32 @@ class _CorreoComponenteWidgetState extends State<CorreoComponenteWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 8),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Align(
-                              alignment: const AlignmentDirectional(-1, 0),
-                              child: AutoSizeText(
-                                'Correo electrónico:',
-                                textAlign: TextAlign.center,
-                                style: LightModeTheme().titleLarge.override(
-                                      fontFamily: 'Outfit',
-                                      letterSpacing: 0,
-                                    ),
-                              ),
-                            ),
+                          const EdgeInsetsDirectional.fromSTEB(40, 0, 12, 8),
+                      child: Expanded(
+                        child: Align(
+                          alignment: const AlignmentDirectional(-1, 0),
+                          child: AutoSizeText(
+                            'Correo electrónico:',
+                            textAlign: TextAlign.center,
+                            style: LightModeTheme().titleLarge.override(
+                                fontFamily: 'Outfit',
+                                letterSpacing: 0,
+                                decoration: TextDecoration.none),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                    Text(
-                      'app@reservatupista.com',
-                      style: LightModeTheme().titleMedium.override(
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(30, 0, 12, 8),
+                      child: Text(
+                        'app@reservatupista.com',
+                        style: LightModeTheme().titleMedium.override(
                             fontFamily: 'Readex Pro',
                             color: LightModeTheme().primaryText,
                             letterSpacing: 0,
-                          ),
+                            decoration: TextDecoration.none),
+                      ),
                     ),
                   ],
                 ),

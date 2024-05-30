@@ -29,7 +29,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
       onTap: () {},
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: LightModeTheme().primaryBackground,
         body: SafeArea(
           top: true,
           child: Stack(
@@ -45,7 +45,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -59,9 +59,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                       child: Stack(
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 40),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 40),
                                             child: PageView(
                                               controller: controller
                                                       .pageViewController ??=
@@ -82,22 +81,30 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                             'Button pressed ...');
                                                       },
                                                       text: '',
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.arrow_back,
                                                         size: 15,
                                                       ),
                                                       options: FFButtonOptions(
                                                         height: 40,
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(12, 0,
-                                                                    12, 0),
-                                                        iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
+<<<<<<< HEAD
                                                                     0, 0, 0, 0),
                                                         color: LightModeTheme()
                                                             .primaryText,
+=======
+                                                                12, 0, 12, 0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                0, 0, 0, 0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+>>>>>>> 0b81c1d332b0f9a5375f83ae0c99fa281aadcbca
                                                         textStyle:
                                                             LightModeTheme()
                                                                 .titleSmall
@@ -110,7 +117,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                                       0,
                                                                 ),
                                                         elevation: 3,
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 1,
@@ -142,22 +150,30 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                             'Button pressed ...');
                                                       },
                                                       text: '',
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                         Icons.arrow_forward,
                                                         size: 15,
                                                       ),
                                                       options: FFButtonOptions(
                                                         height: 40,
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(12, 0,
-                                                                    12, 0),
-                                                        iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
+<<<<<<< HEAD
                                                                     0, 0, 0, 0),
                                                         color: LightModeTheme()
                                                             .primaryText,
+=======
+                                                                12, 0, 12, 0),
+                                                        iconPadding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                0, 0, 0, 0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+>>>>>>> 0b81c1d332b0f9a5375f83ae0c99fa281aadcbca
                                                         textStyle:
                                                             LightModeTheme()
                                                                 .titleSmall
@@ -170,7 +186,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                                       0,
                                                                 ),
                                                         elevation: 3,
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 1,
@@ -189,10 +206,12 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(-1, 1),
+                                                const AlignmentDirectional(
+                                                    -1, 1),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(16, 0, 0, 16),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(16, 0, 0, 16),
                                               child: smooth_page_indicator
                                                   .SmoothPageIndicator(
                                                 controller: controller
@@ -206,7 +225,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                       .pageViewController!
                                                       .animateToPage(
                                                     i,
-                                                    duration: Duration(
+                                                    duration: const Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.ease,
                                                   );
@@ -238,15 +257,15 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                 ],
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 20),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16, 12, 8, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 12, 8, 0),
                                         child: TextFormField(
                                           controller: controller
                                               .searchBarTextController,
@@ -285,16 +304,15 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                 ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: LightModeTheme()
+                                                    .primaryText,
                                                 width: 2,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(12),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFF4B39EF),
                                                 width: 2,
                                               ),
@@ -302,7 +320,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                   BorderRadius.circular(12),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFFFF5963),
                                                 width: 2,
                                               ),
@@ -311,7 +329,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             ),
                                             focusedErrorBorder:
                                                 OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFFFF5963),
                                                 width: 2,
                                               ),
@@ -319,21 +337,21 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                                   BorderRadius.circular(12),
                                             ),
                                             filled: true,
-                                            fillColor: Color(0xFFF1F4F8),
+                                            fillColor: const Color(0xFFF1F4F8),
                                             contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24, 24, 20, 24),
-                                            prefixIcon: Icon(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(24, 24, 20, 24),
+                                            prefixIcon: const Icon(
                                               Icons.search,
                                               color: Color(0xFF57636C),
                                               size: 16,
                                             ),
                                           ),
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: Color(0xFF14181B),
+                                                color: const Color(0xFF14181B),
                                                 fontSize: 14,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.normal,
@@ -345,14 +363,15 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 12, 12, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 12, 12, 0),
                                       child: FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
                                         borderRadius: 30,
                                         borderWidth: 1,
                                         buttonSize: 50,
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.search_sharp,
                                           color: Color(0xFF14181B),
                                           size: 30,
@@ -366,8 +385,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 10),
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -381,7 +400,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -391,7 +410,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Padel',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -407,7 +426,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -417,7 +436,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Tenis',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -433,7 +452,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -443,7 +462,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Badminton',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -459,7 +478,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -469,7 +488,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'P.Climatizada',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -485,7 +504,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -495,7 +514,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Piscina',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -511,7 +530,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -521,7 +540,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Baloncesto',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -537,7 +556,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -547,7 +566,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Fútbol sala',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -563,7 +582,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -573,7 +592,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Fútbol 7',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -589,7 +608,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -599,7 +618,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Fútbol 11',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -615,7 +634,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -625,7 +644,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Pickleball',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -641,7 +660,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -651,7 +670,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Squash',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -667,7 +686,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -677,7 +696,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Tenis de mesa',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -693,7 +712,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -703,7 +722,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Frontón',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -719,7 +738,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -729,7 +748,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Balonmano',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -745,7 +764,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -755,7 +774,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Rugby',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -771,7 +790,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             width: 50,
                                             height: 50,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -781,7 +800,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                           Text(
                                             'Multideporte',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: LightModeTheme()
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
@@ -790,7 +809,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                           ),
                                         ],
                                       ),
-                                    ].divide(SizedBox(width: 10)),
+                                    ].divide(const SizedBox(width: 10)),
                                   ),
                                 ),
                               ),
@@ -798,7 +817,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -809,9 +828,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 90,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: [
+                                color: LightModeTheme().secondaryBackground,
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x33000000),
@@ -821,19 +839,19 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                     ),
                                   )
                                 ],
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(10),
                                   bottomRight: Radius.circular(10),
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
                                 border: Border.all(
-                                  color: Color(0xFF46EF98),
+                                  color: const Color(0xFF46EF98),
                                   width: 2,
                                 ),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -841,9 +859,10 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(5),
+                                          padding: const EdgeInsets.all(5),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft: Radius.circular(12),
                                               bottomRight: Radius.circular(0),
                                               topLeft: Radius.circular(12),
@@ -859,7 +878,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                         ),
                                         Text(
                                           'Padel',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -874,18 +893,17 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 10, 0, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                10, 0, 0, 0),
+                                                            10, 0, 0, 0),
                                                     child: Text(
                                                       'Partidas libres',
                                                       textAlign:
@@ -906,19 +924,16 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 15, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 15, 0, 0),
                                             child: Text(
                                               '10 Partidas encontradas',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -931,7 +946,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -942,9 +957,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 90,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: [
+                                color: LightModeTheme().secondaryBackground,
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x33000000),
@@ -954,19 +968,19 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                     ),
                                   )
                                 ],
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(10),
                                   bottomRight: Radius.circular(10),
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
                                 border: Border.all(
-                                  color: Color(0xFFF77066),
+                                  color: const Color(0xFFF77066),
                                   width: 2,
                                 ),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -974,9 +988,10 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(5),
+                                          padding: const EdgeInsets.all(5),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft: Radius.circular(12),
                                               bottomRight: Radius.circular(0),
                                               topLeft: Radius.circular(12),
@@ -992,7 +1007,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                         ),
                                         Text(
                                           'Padel',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -1007,18 +1022,17 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 10, 0, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                10, 0, 0, 0),
+                                                            10, 0, 0, 0),
                                                     child: Text(
                                                       'Partidas cerradas',
                                                       textAlign:
@@ -1039,19 +1053,16 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 15, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 15, 0, 0),
                                             child: Text(
                                               '4 Partidas encontradas',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],
@@ -1064,7 +1075,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -1075,9 +1086,8 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 90,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: [
+                                color: LightModeTheme().secondaryBackground,
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4,
                                     color: Color(0x33000000),
@@ -1087,19 +1097,19 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                     ),
                                   )
                                 ],
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(10),
                                   bottomRight: Radius.circular(10),
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
                                 border: Border.all(
-                                  color: Color(0xFFFFA500),
+                                  color: const Color(0xFFFFA500),
                                   width: 2,
                                 ),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -1107,9 +1117,10 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(5),
+                                          padding: const EdgeInsets.all(5),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft: Radius.circular(12),
                                               bottomRight: Radius.circular(0),
                                               topLeft: Radius.circular(12),
@@ -1125,7 +1136,7 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                         ),
                                         Text(
                                           'Padel',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: LightModeTheme()
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Readex Pro',
@@ -1140,18 +1151,17 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 10, 0, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                10, 0, 0, 0),
+                                                            10, 0, 0, 0),
                                                     child: Text(
                                                       'Partidas abiertas',
                                                       textAlign:
@@ -1172,19 +1182,16 @@ class _AdminPartidasWidgetState extends GetView<AdminPartidasController> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 15, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 15, 0, 0),
                                             child: Text(
                                               '6 Partidas encontradas',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0,
-                                                      ),
+                                              style: LightModeTheme()
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    letterSpacing: 0,
+                                                  ),
                                             ),
                                           ),
                                         ],

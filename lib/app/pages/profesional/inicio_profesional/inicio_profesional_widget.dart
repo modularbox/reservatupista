@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_pistas/horas_pistas/horas_pistas_p.dart';
 import '../../../../backend/schema/enums/enums.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -68,6 +71,51 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //
+              //
+              //
+              GestureDetector(
+                onTap: () {
+                  Get.to(HorasPistasWidget());
+                },
+                child: Container(
+                  width: 120,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).errorGeneral,
+                    borderRadius: BorderRadius.circular(8),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Eliminar',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 16,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                        child: Icon(
+                          Icons.remove_circle,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 24,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //
+              //
+              //
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Container(

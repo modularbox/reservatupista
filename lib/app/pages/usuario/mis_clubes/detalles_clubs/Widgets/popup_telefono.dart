@@ -81,9 +81,9 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      fontFamily: 'Outfit',
-                                      letterSpacing: 0,
-                                    ),
+                                        fontFamily: 'Outfit',
+                                        letterSpacing: 0,
+                                        decoration: TextDecoration.none),
                               ),
                             ],
                           ),
@@ -98,26 +98,26 @@ class _TelefonoComponenteWidgetState extends State<TelefonoComponenteWidget> {
                         children: [
                           Expanded(
                             child: AutoSizeText(
-                              'Correo electrónico:',
+                              'Teléfono:',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .titleLarge
                                   .override(
-                                    fontFamily: 'Outfit',
-                                    letterSpacing: 0,
-                                  ),
+                                      fontFamily: 'Outfit',
+                                      letterSpacing: 0,
+                                      decoration: TextDecoration.none),
                             ),
                           ),
                         ],
                       ),
                     ),
                     Text(
-                      'app@reservatupista.com',
+                      '654987321',
                       style: FlutterFlowTheme.of(context).titleMedium.override(
-                            fontFamily: 'Readex Pro',
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            letterSpacing: 0,
-                          ),
+                          fontFamily: 'Readex Pro',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          letterSpacing: 0,
+                          decoration: TextDecoration.none),
                     ),
                   ],
                 ),

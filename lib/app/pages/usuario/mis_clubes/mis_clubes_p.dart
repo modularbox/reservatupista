@@ -42,8 +42,8 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
                           children: [
                             ...List.generate(
                                 controller.clubes.length,
-                                (i) =>
-                                    buildClub(context, controller.clubes[i])),
+                                (i) => buildClub(
+                                    context, controller.clubes[i], i)),
                             Flexible(
                               child: Align(
                                 alignment: const AlignmentDirectional(1, 1),
@@ -84,7 +84,7 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
     );
   }
 
-  Padding buildClub(BuildContext context, Club club) {
+  Padding buildClub(BuildContext context, Club club, int i) {
     if (club.esFavorito.value) {
       String miembroDesde = 'Miembro desde hace ${club.antiguedad} años';
       return Padding(
@@ -96,7 +96,11 @@ class _MisClubesWidgetState extends GetView<MisClubesController> {
             borderRadius: BorderRadius.circular(24),
           ),
           child: GestureDetector(
-            onTap: () => Get.to(const DetalleClubWidget()),
+            onTap: () {
+              //Para pasar datos a detalles club
+              controller.socioSeleccionado = i;
+              Get.to(const DetalleClubWidget());
+            },
             child: Container(
               height: 180,
               decoration: BoxDecoration(
