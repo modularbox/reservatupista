@@ -33,7 +33,7 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
     super.initState();
     _model = createModel(context, () => InicioModel());
 
-    timerCarousel = Timer.periodic(new Duration(seconds: 3), (timer) {
+    timerCarousel = Timer.periodic(Duration(seconds: 3), (timer) {
       _model.carouselController.nextPage();
     });
     timerCarouselOfertas = Timer.periodic(new Duration(seconds: 3), (timer) {
@@ -72,10 +72,10 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Container(
                   width: double.infinity,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 570,
                   ),
                   decoration: BoxDecoration(
@@ -83,20 +83,22 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                           child: Text(
                             'Partidas Abiertas',
                             style: FlutterFlowTheme.of(context).headlineSmall,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Text(
                             'Martes, Enero 18th  ||  12:30pm',
                             style: FlutterFlowTheme.of(context)
@@ -108,7 +110,8 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
                           child: Text(
                             'Partido de Padel',
                             style: FlutterFlowTheme.of(context).labelMedium,
@@ -116,14 +119,15 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                         ),
 
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Ofertas',
                             style: FlutterFlowTheme.of(context).headlineMedium,
                           ),
                         ),
                         // Generated code for this Carousel Widget...
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           height: 180,
                           child: CarouselSlider(
@@ -173,14 +177,15 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                           child: Text(
                             'Noticias',
                             style: FlutterFlowTheme.of(context).headlineMedium,
                           ),
                         ),
                         // Generated code for this Carousel Widget...
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           height: 180,
                           child: CarouselSlider(
@@ -242,13 +247,14 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                           style: FlutterFlowTheme.of(context).labelLarge,
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 32),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0, 12, 0, 32),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -260,8 +266,8 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -273,8 +279,8 @@ class _InicioProfesionalWidgetState extends State<InicioProfesionalWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 12, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 12, 2),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(

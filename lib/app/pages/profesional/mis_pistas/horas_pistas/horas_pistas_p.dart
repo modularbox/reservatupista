@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_pistas/horas_pistas/horas_pistas_c.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_widgets.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +14,7 @@ class HorasPistasWidget extends GetView<HorasPistasController> {
   Widget build(BuildContext context) {
     return NavbarYAppbarProfesional(
         title: 'Horas Pistas',
-        page: TypePage.None,
+        page: TypePage.MisReservas,
         child: Expanded(child: _HorasPistasWidgetState()));
   }
 }
@@ -50,9 +45,7 @@ class _HorasPistasWidgetState extends GetView<HorasPistasController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
+                            onPressed: () {},
                             text: '',
                             icon: const Icon(
                               Icons.arrow_back,
@@ -89,9 +82,7 @@ class _HorasPistasWidgetState extends GetView<HorasPistasController> {
                                 ),
                           ),
                           FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
+                            onPressed: () {},
                             text: '',
                             icon: const Icon(
                               Icons.arrow_forward,
