@@ -1,5 +1,4 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
-
 import '../../../../components/alert_recargar/alert_recargar_widget.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '../../../../utils/format_number.dart';
@@ -8,7 +7,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -44,8 +42,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 50.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -63,8 +61,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(40.0, 0.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(40.0, 0.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -112,13 +110,14 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Container(
                 width: double.infinity,
                 height: 120.0,
                 decoration: BoxDecoration(
                   color: LightModeTheme().secondary,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 4.0,
                       color: Color(0x33000000),
@@ -130,13 +129,13 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.0, -1.0),
+                      alignment: const AlignmentDirectional(0.0, -1.0),
                       child: Container(
                         width: 250.0,
                         height: 65.0,
                         decoration: BoxDecoration(
                           color: LightModeTheme().secondaryBackground,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4.0,
                               color: Color(0x33000000),
@@ -156,20 +155,20 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: Text(
                               '${FormatNumber.formatNumberWithTwoDecimals(FFAppState().moneyBancoVirtual).toString()} €',
                               style: LightModeTheme().headlineLarge.override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF14181B),
+                                    color: const Color(0xFF14181B),
                                     fontSize: 30.0,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -181,10 +180,12 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                                 context: context,
                                 isGlobal: true,
                                 avoidOverflow: false,
-                                targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
+                                targetAnchor:
+                                    const AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                followerAnchor:
+                                    const AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
                                 builder: (dialogContext) {
                                   return Material(
                                     color: Colors.transparent,
@@ -199,9 +200,9 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                             ),
                             options: FFButtonOptions(
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: LightModeTheme().successGeneral,
                               textStyle: LightModeTheme().titleSmall.override(
@@ -209,7 +210,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                                     color: LightModeTheme().primaryText,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -226,7 +227,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                   animationsMap['containerOnPageLoadAnimation']!),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 10.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 10.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -241,24 +243,24 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                     text: FFLocalizations.of(context).getText(
                       'ixj01blz' /* Filtrar */,
                     ),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.line_weight_rounded,
                       size: 15.0,
                     ),
                     options: FFButtonOptions(
                       width: 106.0,
                       height: 30.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: LightModeTheme().successGeneral,
                       textStyle: LightModeTheme().titleSmall.override(
                             fontFamily: 'Readex Pro',
                             color: LightModeTheme().primaryText,
                           ),
                       elevation: 3.0,
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
@@ -288,7 +290,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
             _model.isFiltrar
                 ? Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       FFButtonWidget(
@@ -327,22 +329,23 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                                   ? LightModeTheme().accent3
                                   : LightModeTheme().successGeneral,
                               borderRadius: BorderRadius.circular(30))),
-                    ].divide(SizedBox(width: 5.0)),
+                    ].divide(const SizedBox(width: 5.0)),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       _model.type != TypeHistorial.reserva
                           ? buildTransferencia()
-                          : SizedBox(),
+                          : const SizedBox(),
                       _model.type != TypeHistorial.tranferencia
                           ? buildReserva()
-                          : SizedBox(),
+                          : const SizedBox(),
                       // buildTransferencia(),
                     ],
                   ),
@@ -357,10 +360,10 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
 
   Widget buildReserva() {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
       child: Container(
         width: double.infinity,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 570.0,
         ),
         decoration: BoxDecoration(
@@ -369,11 +372,11 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           border: Border.all(
             width: 2.0,
             // color: Color(0xFF00BC13),
-            color: Color(0xFF00BC13),
+            color: const Color(0xFF00BC13),
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -387,8 +390,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            2.0, 0.0, 2.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
@@ -414,7 +417,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                               text: FFLocalizations.of(context).getText(
                                 '79goxc5l' /* Reserva de pista */,
                               ),
-                              style: TextStyle(),
+                              style: const TextStyle(),
                             ),
                             TextSpan(
                               text: '',
@@ -431,8 +434,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 4.0, 0.0, 0.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
                             '25j5609z' /* Lunes 3 Enero 2024 */,
@@ -459,7 +462,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                     textAlign: TextAlign.end,
                     style: LightModeTheme().headlineSmall.override(
                           fontFamily: 'Outfit',
-                          color: Color(0xFF00BC13),
+                          color: const Color(0xFF00BC13),
                           fontSize: 18.0,
                         ),
                   ),
@@ -492,10 +495,10 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
 
   Widget buildTransferencia() {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
       child: Container(
         width: double.infinity,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 570.0,
         ),
         decoration: BoxDecoration(
@@ -503,12 +506,12 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             // color: Color(0xFF00BC13),
-            color: Color(0xFFE74C3C),
+            color: const Color(0xFFE74C3C),
             width: 2.0,
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -522,8 +525,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 2.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            2.0, 0.0, 2.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
@@ -545,7 +548,7 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                         textScaleFactor: MediaQuery.of(context).textScaleFactor,
                         text: TextSpan(
                           children: [
-                            TextSpan(
+                            const TextSpan(
                               text: 'Transferencia',
                               style: TextStyle(),
                             ),
@@ -564,8 +567,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 4.0, 0.0, 0.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
                             'hqviv308' /* Lunes 8 Enero 2024 */,
@@ -588,20 +591,20 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 12.0),
                     child: Text(
                       '- 100,00 €',
                       textAlign: TextAlign.end,
                       style: LightModeTheme().headlineSmall.override(
                             fontFamily: 'Outfit',
-                            color: Color(0xFFE74C3C),
+                            color: const Color(0xFFE74C3C),
                             fontSize: 18.0,
                           ),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Text(
                       'Transferencia',
                       style: LightModeTheme().bodyMedium.override(
