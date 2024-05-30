@@ -233,7 +233,8 @@ class _BancoVirtualWidgetState extends State<BancoVirtualWidget>
                 children: [
                   FFButtonWidget(
                     onPressed: () {
-                      setState(() {
+                      setState(() {});
+                      (() {
                         _model.isFiltrar = !_model.isFiltrar;
                       });
                     },
