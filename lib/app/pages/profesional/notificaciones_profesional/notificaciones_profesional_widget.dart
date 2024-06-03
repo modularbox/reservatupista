@@ -329,14 +329,14 @@ class _NotificacionesWidgetState
                           ),
                         ),
                       ),
+                      // Generated code for this Container Widget...
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
                                 blurRadius: 3,
                                 color: Color(0x33000000),
@@ -348,12 +348,12 @@ class _NotificacionesWidgetState
                             ],
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: LightModeTheme().usuario,
+                              color: FlutterFlowTheme.of(context).usuario,
                               width: 2,
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(12),
+                            padding: EdgeInsets.all(12),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,14 +362,16 @@ class _NotificacionesWidgetState
                                   width: 32,
                                   height: 32,
                                   decoration: BoxDecoration(
-                                    color: LightModeTheme().secondaryBackground,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: LightModeTheme().primaryText,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       width: 2,
                                     ),
                                   ),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.insert_invitation,
                                     color: Color(0xFF15161E),
                                     size: 16,
@@ -377,9 +379,8 @@ class _NotificacionesWidgetState
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 4, 0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 0, 4, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -390,58 +391,169 @@ class _NotificacionesWidgetState
                                         Text(
                                           'Invitación a partida',
                                           maxLines: 1,
-                                          style: LightModeTheme()
+                                          style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
                                                 fontFamily: 'Plus Jakarta Sans',
-                                                color: const Color(0xFF15161E),
+                                                color: Color(0xFF15161E),
                                                 fontSize: 16,
                                                 letterSpacing: 0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 4, 0, 0),
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
                                           child: Text(
                                             'Has sido invitado por Andrés a una partida',
                                             maxLines: 2,
-                                            style: LightModeTheme()
+                                            style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color:
-                                                      const Color(0xFF15161E),
+                                                  color: Color(0xFF15161E),
                                                   fontSize: 14,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.normal,
                                                 ),
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 8, 0, 4),
-                                              child: buildTextoTiempo("2"),
-                                            ),
-                                            Text(
-                                              'Ver más',
-                                              style: LightModeTheme()
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    letterSpacing: 0,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 10, 0, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 8, 0, 4),
+                                                child: Text(
+                                                  'Hace 2 horas',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            Color(0xFF606A85),
+                                                        fontSize: 12,
+                                                        letterSpacing: 0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 5, 0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () {
+                                                        print(
+                                                            'Button pressed ...');
+                                                      },
+                                                      text: 'Aceptar',
+                                                      options: FFButtonOptions(
+                                                        height: 30,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    3, 0, 3, 0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 0, 0, 0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .successGeneral,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize: 13,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                ),
+                                                        elevation: 3,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                    ),
                                                   ),
-                                            ),
-                                          ],
+                                                  FFButtonWidget(
+                                                    onPressed: () {
+                                                      print(
+                                                          'Button pressed ...');
+                                                    },
+                                                    text: 'Rechazar',
+                                                    options: FFButtonOptions(
+                                                      height: 30,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  3, 0, 3, 0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 0),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .errorGeneral,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontSize: 13,
+                                                                letterSpacing:
+                                                                    0,
+                                                              ),
+                                                      elevation: 3,
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -452,6 +564,7 @@ class _NotificacionesWidgetState
                           ),
                         ),
                       ),
+
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),

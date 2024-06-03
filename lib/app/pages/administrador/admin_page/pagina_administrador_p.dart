@@ -145,7 +145,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.class_,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -168,7 +168,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: LightModeTheme().secondaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -214,7 +214,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.person,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -234,7 +234,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                     ),
                                     Icon(
                                       Icons.arrow_forward_ios,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 18,
                                     ),
                                   ],
@@ -279,7 +279,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.sports_baseball_sharp,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -302,7 +302,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: LightModeTheme().secondaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -348,7 +348,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.wallet,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -371,7 +371,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: LightModeTheme().secondaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -417,7 +417,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.newspaper_sharp,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -440,7 +440,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: LightModeTheme().secondaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -486,7 +486,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.local_offer_sharp,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -509,7 +509,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: LightModeTheme().secondaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 18,
                                       ),
                                     ),
@@ -555,7 +555,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                   children: [
                                     Icon(
                                       Icons.euro,
-                                      color: LightModeTheme().secondaryText,
+                                      color: LightModeTheme().primaryText,
                                       size: 24,
                                     ),
                                     Expanded(
@@ -578,7 +578,7 @@ class _AdminPageWidgetState extends GetView<AdminPageController> {
                                           const AlignmentDirectional(0.9, 0),
                                       child: Icon(
                                         Icons.arrow_forward_ios,
-                                        color: LightModeTheme().secondaryText,
+                                        color: LightModeTheme().primaryText,
                                         size: 18,
                                       ),
                                     ),
