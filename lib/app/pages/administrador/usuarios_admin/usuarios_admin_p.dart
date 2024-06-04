@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/Widgets/popup_datos_usuario.dart';
 import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/usuarios_admin_c.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/Socio.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/chip_data.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/widgets/checker.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -20,10 +21,8 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  final controller = AdminUsuariosController();
-
-  @override
   Widget build(BuildContext context) {
+    Get.put(AdminUsuariosController());
     return GestureDetector(
       onTap: () => controller.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(controller.unfocusNode)
@@ -113,8 +112,90 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                         ),
                       ),
                     ),
-                    ...List.generate(controller.socios.length,
-                        ((i) => buildSocio(controller.socios[i]))),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FFButtonWidget(
+                          onPressed: () {},
+                          text: 'Correo',
+                          icon: const Icon(
+                            Icons.mail,
+                            size: 15,
+                          ),
+                          options: FFButtonOptions(
+                            height: 40,
+                            width: 120,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 10, 0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 0),
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                  letterSpacing: 0,
+                                ),
+                            elevation: 3,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        FFButtonWidget(
+                          onPressed: () {},
+                          text: 'Mensaje',
+                          icon: const Icon(
+                            Icons.message_sharp,
+                            size: 15,
+                          ),
+                          options: FFButtonOptions(
+                            height: 40,
+                            width: 120,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 10, 0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 0),
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                  letterSpacing: 0,
+                                ),
+                            elevation: 3,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        )
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Obx(() => Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              ...List.generate(
+                                  controller.chips.length,
+                                  (index) => buildChips(
+                                      controller.chips[index], index))
+                            ],
+                          )),
+                    ),
+                    Obx(() => Column(
+                          children: [
+                            ...List.generate(controller.socios.length,
+                                ((i) => buildSocio(controller.socios[i])))
+                          ],
+                        )),
                     Container(
                       width: 0,
                       height: 70,
@@ -141,7 +222,7 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onTap: () async {
+                onTap: () {
                   controller.socioSeleccionado = socio.id;
                   Get.dialog(AdminDatosUsuarioWidget());
                 },
@@ -279,5 +360,39 @@ class _AdminUsuarioWidgetState extends GetView<AdminUsuariosController> {
                 ),
               ),
             ));
+  }
+
+  Widget buildChips(ChipData chip, int i) {
+    return Padding(
+      padding: const EdgeInsets.all(7.0),
+      child: ChipTheme(
+          data: (const ChipThemeData(selectedColor: Colors.amber)),
+          child: FilterChip(
+              onDeleted: () {
+                controller.borrarChip();
+              },
+              showCheckmark: false,
+              avatar: CircleAvatar(
+                backgroundColor: controller.selectChip == i
+                    ? LightModeTheme().primaryBackground
+                    : LightModeTheme().secondaryBackground,
+                child: Icon(controller.selectChip == i
+                    ? Icons.expand_more_outlined
+                    : Icons.expand_less_outlined),
+              ),
+              padding: const EdgeInsets.all(4),
+              backgroundColor: controller.selectChip == i
+                  ? LightModeTheme().proveedor
+                  : LightModeTheme().secondaryBackground,
+              label: Text(chip.label),
+              deleteIcon:
+                  Icon(controller.selectChip == i ? Icons.cancel : null),
+              deleteIconColor: Colors.red,
+              selectedColor: LightModeTheme().proveedor,
+              onSelected: (value) {
+                controller.selectChip = i;
+                controller.cambiarChip();
+              })),
+    );
   }
 }

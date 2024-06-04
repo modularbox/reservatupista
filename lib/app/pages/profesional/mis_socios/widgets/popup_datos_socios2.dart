@@ -219,7 +219,7 @@ class _DatosSocio2WidgetState extends GetView<MisSociosController> {
                                   child: getTextoCabecera("Le quedan: "),
                                 ),
                                 Text(
-                                  socio!.tiempoRestante.toString(),
+                                  '${socio!.tiempoRestante.toString()} días',
                                   style: LightModeTheme().bodyMedium.override(
                                       fontFamily: 'Readex Pro',
                                       color: socio!.tiempoRestante < 30

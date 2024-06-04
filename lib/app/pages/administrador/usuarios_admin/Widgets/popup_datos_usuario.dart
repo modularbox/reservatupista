@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/pages/administrador/usuarios_admin/usuarios_admin_c.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/Socio.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -72,8 +71,11 @@ class _AdminDatosUsuarioWidgetState extends GetView<AdminUsuariosController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(AdminUsuariosController());
-    socio = controller.socios[controller.socioSeleccionado];
+    for (var i = 0; i < controller.socios.length; i++) {
+      if (controller.socios[i].id == controller.socioSeleccionado) {
+        socio = controller.socios[i];
+      }
+    }
     final datosSubtitulos = cargarDatos();
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
@@ -221,7 +223,7 @@ class _AdminDatosUsuarioWidgetState extends GetView<AdminUsuariosController> {
                                   child: getTextoCabecera("Le quedan: "),
                                 ),
                                 Text(
-                                  socio!.tiempoRestante.toString(),
+                                  '${socio!.tiempoRestante.toString()} días',
                                   style: LightModeTheme().bodyMedium.override(
                                       fontFamily: 'Readex Pro',
                                       color: socio!.tiempoRestante < 30

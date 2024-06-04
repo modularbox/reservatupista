@@ -223,17 +223,6 @@ class _ClubesAdminState extends GetView<BuscarClubController> {
                     ),
                   ),
                 ),
-                Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                        onPressed: () {
-                          club.esFavorito.value = !club.esFavorito.value;
-                        },
-                        iconSize: 50,
-                        color: Colors.amber,
-                        icon: club.esFavorito.value
-                            ? const Icon(Icons.star)
-                            : const Icon(Icons.star_border))),
               ],
             ),
           ),

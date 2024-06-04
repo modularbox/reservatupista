@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/pages/profesional/mis_socios/Socio.dart';
+import 'package:reservatu_pista/app/pages/profesional/mis_socios/chip_data.dart';
 
-class AdminUsuariosController extends GetxController {
+class AdminUsuariosController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  final unfocusNode = FocusNode();
   int socioSeleccionado = -1;
-
-  final List socios = [
+  final List chips = [
+    ChipData(label: 'Nombre'),
+    ChipData(label: 'Nivel'),
+    ChipData(label: 'Localidad')
+  ];
+  List socios = [
     Socio(
         0,
         "José Martinez Durán",
@@ -27,7 +34,7 @@ class AdminUsuariosController extends GetxController {
         "Nuria Garcia Robledo",
         "NickDos",
         "123456789A",
-        "4.00",
+        "2.00",
         "Calle Falsa nº1",
         43,
         "Revés",
@@ -43,7 +50,7 @@ class AdminUsuariosController extends GetxController {
         "Manolo Martinez Soria",
         "NickTres",
         "123456789A",
-        "4.00",
+        "3.00",
         "Calle Falsa nº1",
         7,
         "Revés",
@@ -59,7 +66,7 @@ class AdminUsuariosController extends GetxController {
         "Isabel García García",
         "NickCuatro",
         "123456789B",
-        "4.25",
+        "5.50",
         "Calle Falsa nº6",
         24,
         "Revés",
@@ -70,40 +77,7 @@ class AdminUsuariosController extends GetxController {
         "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxfHxmYWNlJTIwY2xvc2UlMjB1cHxlbnwwfHx8fDE3MTE0Njk1NzZ8MA&ixlib=rb-4.0.3&q=80&w=400",
         true,
         22),
-    Socio(
-        4,
-        "Mariano Rodriguez Durán",
-        "NickCinco",
-        "123456789A",
-        "2.00",
-        "Calle Falsa nº1",
-        6,
-        "Revés",
-        "Mañana",
-        "jose@reservatupista.com",
-        "678123456",
-        "15/04/2024",
-        "https://images.unsplash.com/photo-1600364768707-1385e68a48f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzEzNDI5NzIzfDA&ixlib=rb-4.0.3&q=80&w=400",
-        false,
-        -1),
-    Socio(
-        5,
-        "Encarni Bosco Martin",
-        "NickSeis",
-        "123456789A",
-        "3.50",
-        "Calle Falsa nº1",
-        2,
-        "Revés",
-        "Mañana",
-        "jose@reservatupista.com",
-        "678123456",
-        "15/04/2024",
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8ZmFjZSUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzExNDY5NTc2fDA&ixlib=rb-4.0.3&q=80&w=400",
-        false,
-        -1)
-  ];
-  final unfocusNode = FocusNode();
+  ].obs;
   // State field(s) for searchBar widget.
   FocusNode? searchBarFocusNode;
   TextEditingController? searchBarTextController;
@@ -117,13 +91,25 @@ class AdminUsuariosController extends GetxController {
   // State field(s) for Checkbox widget.
   bool? checkboxValue4;
 
-  @override
-  void initState(BuildContext context) {}
+  final _selectChip = (-1).obs;
+  int get selectChip => _selectChip.value;
+  set selectChip(int value) => _selectChip.value = value;
 
-  @override
-  void dispose() {
-    unfocusNode.dispose();
-    searchBarFocusNode?.dispose();
-    searchBarTextController?.dispose();
+  void cambiarChip() {
+    switch (selectChip) {
+      case 0:
+        socios.sort((a, b) => a.nombre.compareTo(b.nombre));
+      case 1:
+        socios.sort((a, b) => a.nivel.compareTo(b.nivel));
+      default:
+        socios.sort((a, b) => a.id.compareTo(b.id));
+    }
+  }
+
+  void borrarChip() {
+    if (selectChip != -1) {
+      selectChip = -1;
+      socios.sort((a, b) => a.id.compareTo(b.id));
+    }
   }
 }
