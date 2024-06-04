@@ -78,17 +78,13 @@ class AdminUsuariosController extends GetxController
         true,
         22),
   ].obs;
-  // State field(s) for searchBar widget.
+
   FocusNode? searchBarFocusNode;
   TextEditingController? searchBarTextController;
   String? Function(BuildContext, String?)? searchBarTextControllerValidator;
-  // State field(s) for Checkbox widget.
   bool? checkboxValue1;
-  // State field(s) for Checkbox widget.
   bool? checkboxValue2;
-  // State field(s) for Checkbox widget.
   bool? checkboxValue3;
-  // State field(s) for Checkbox widget.
   bool? checkboxValue4;
 
   final _selectChip = (-1).obs;
@@ -101,6 +97,8 @@ class AdminUsuariosController extends GetxController
         socios.sort((a, b) => a.nombre.compareTo(b.nombre));
       case 1:
         socios.sort((a, b) => a.nivel.compareTo(b.nivel));
+      case 2:
+      //Implementar por localidad
       default:
         socios.sort((a, b) => a.id.compareTo(b.id));
     }
