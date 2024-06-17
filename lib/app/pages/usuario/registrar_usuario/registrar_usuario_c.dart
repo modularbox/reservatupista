@@ -6,7 +6,7 @@ import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
-import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
@@ -235,24 +235,26 @@ class RegistrarUsuarioController extends GetxController
         if (registrar) {
           await EmailProvider()
               .enviarEmailRegistro(tc.email.text, tc.nombre.text, '0');
-          Get.dialog(ChangeDialogGeneral(
-            alertTitle: richTitle("Registro usuario"),
-            alertSubtitle:
-                richSubtitle("Compruebe su correo para finalizar el registro."),
-            textButton: "Confirmar",
-            alertType: TypeGeneralDialog.SUCCESS,
+
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: success,
+            title: 'Registro usuario',
+            subtitle: 'Compruebe su correo para finalizar el registro.',
             onPressed: () {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
             },
-          ));
+          ).dialog();
         } else {
-          Get.dialog(ChangeDialogGeneral(
-            alertTitle: richTitle("Registro usuario"),
-            alertSubtitle: richSubtitle("Error al registrar al usuario."),
-            textButton: "Cerrar",
-            alertType: TypeGeneralDialog.WARNING,
-            onPressed: Get.back,
-          ));
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: warning,
+            title: 'Registro usuario',
+            subtitle: 'Error al registrar al usuario.',
+            onPressed: () {
+              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
+            },
+          ).dialog();
         }
       } catch (e) {
         Get.back();

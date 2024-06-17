@@ -85,34 +85,37 @@ class CIFNIFFormatter extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.isNotEmpty) {
-      TextEditingValue dniValue = TextEditingValue(
-          text: newValue.text.toUpperCase(),
+      final val = newValue.text.toUpperCase();
+      final newVal = TextEditingValue(
+          text: val,
           selection: newValue.selection,
           composing: newValue.composing);
-      final RegExp regexNumero = RegExp(r'^[0-9]+$');
-      final RegExp regexLetra = RegExp(r'^[A-Z]+$');
-      final bool isNumber = regexNumero.hasMatch(dniValue.text[0]);
-      final bool isLetra = regexLetra.hasMatch(dniValue.text[0]);
-      if (isNumber || isLetra) {
-        final lengthDNI = dniValue.text.length;
-        if (lengthDNI > 1) {
-          final RegExp regexNumero = RegExp(r'^[0-9]+$');
-          final bool isNumber =
-              regexNumero.hasMatch(dniValue.text.substring(1, lengthDNI));
-          if (isNumber && lengthDNI < 9) {
-            return dniValue;
-          } else {
-            if (lengthDNI == 9) {
-              final RegExp regexLetra = RegExp(r'^[A-Z]+$');
-              final bool isLetra = regexLetra.hasMatch(dniValue.text[8]);
-              if (isLetra) {
-                return dniValue;
-              }
-            }
-            return oldValue;
-          }
+      final regexNumero = RegExp(r'^[0-9]+$');
+      final regexLetra = RegExp(r'^[A-Z]+$');
+      final isNumber = regexNumero.hasMatch(val);
+      final isLetra = regexLetra.hasMatch(val);
+      final lengthDNI = val.length;
+      if (lengthDNI > 1 && lengthDNI < 9) {
+        final isNumber = regexNumero.hasMatch(val.substring(1, lengthDNI));
+        if (isNumber) {
+          return newVal;
         }
-        return dniValue;
+      }
+      if (lengthDNI == 1) {
+        if (isNumber || isLetra) {
+          return newVal;
+        }
+      }
+      if (lengthDNI == 9) {
+        if (isNumber) {
+          return oldValue;
+        }
+        final val9 = val.substring(8);
+        final isNumber9 = regexNumero.hasMatch(val9);
+        final isLetra9 = regexLetra.hasMatch(val9);
+        if (isNumber9 || isLetra9) {
+          return newVal;
+        }
       }
       return oldValue;
     }

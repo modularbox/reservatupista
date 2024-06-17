@@ -29,7 +29,6 @@ class PerfilPageState extends State<PerfilPage> {
   DBService self = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -40,29 +39,28 @@ class PerfilPageState extends State<PerfilPage> {
         ),
       );
     }
-
+    // return NavbarYAppbarUsuario(
+    //     title: 'Perfil Usuario',
+    //     page: TypePage.Perfil,
+    //     child: Expanded(child: Container(color: Colors.red)));
     return NavbarYAppbarUsuario(
-        title: 'Perfil',
+        title: 'Perfil Usuario',
         page: TypePage.Perfil,
-        isTitle: true,
         child: Expanded(
-          child: Stack(
-            children: [
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: 100.h <= 745
-                      ? datosPerfil(
-                          space: spaceSizedBoxBtnCerrarRes(),
-                          subAppBar: subAppBar(true),
-                          height: 50,
-                          top: 10,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2))
-                      : datosPerfil(
-                          space: spaceSizedBoxBtnCerrar(),
-                          subAppBar: subAppBar(false))),
-            ],
-          ),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: 100.h <= 745
+                  ? datosPerfil(
+                      space: spaceSizedBoxBtnCerrarRes(),
+                      subAppBar: subAppBar(true),
+                      height: 50,
+                      top: 10,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2))
+                  : datosPerfil(
+                      space: spaceSizedBoxBtnCerrar(),
+                      subAppBar: subAppBar(false))),
         ));
   }
 
@@ -72,197 +70,111 @@ class PerfilPageState extends State<PerfilPage> {
     final nick = self.nick;
     final nivel =
         self.datosUsuario.nivel == '' ? '0.0' : self.datosUsuario.nivel;
-    if (responsive) {
-      return ResponsiveWeb(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 3,
-                color: Color(0x33000000),
-                offset: Offset(0, 1),
-              )
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: LightModeTheme().tertiary,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: LightModeTheme().secondary,
-                      width: 3,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: BtnIcon(
-                      onPressed: () {
-                        Get.dialog(Scaffold(
-                          body: GestureDetector(
-                              onTap: Get.back,
-                              child: SizedBox(
-                                height: 30,
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ImageServer(
-                                        width: 200,
-                                        height: 200,
-                                      ),
-                                    ]),
-                              )),
-                        ));
-                      },
-                      borderRadius: 50,
-                      padding: const EdgeInsets.all(0),
-                      fillColor: Colors.transparent,
-                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                      icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: ImageServer()),
-                    ),
+    return ResponsiveWeb(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: LightModeTheme().secondaryBackground,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 3,
+              color: Color(0x33000000),
+              offset: Offset(0, 1),
+            )
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: LightModeTheme().tertiary,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: LightModeTheme().secondary,
+                    width: 3,
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          width: ((context.w > 650 ? 630 : context.w) - 120),
-                          child: FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(
-                              '$nombre $apellidos',
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              style: LightModeTheme().headlineSmall,
-                            ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 4.0, 0.0, 0.0),
-                        child: SizedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              datos('Nick', nick),
-                              5.0.sw,
-                              datos('Nivel', nivel),
-                            ],
-                          ),
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: BtnIcon(
+                    onPressed: () {
+                      Get.dialog(Scaffold(
+                        body: GestureDetector(
+                            onTap: Get.back,
+                            child: SizedBox(
+                              height: 30,
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ImageServer(
+                                      width: 200,
+                                      height: 200,
+                                    ),
+                                  ]),
+                            )),
+                      ));
+                    },
+                    borderRadius: 50,
+                    padding: const EdgeInsets.all(0),
+                    fillColor: Colors.transparent,
+                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                    icon: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: ImageServer()),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: ((context.w) - 120),
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: AutoSizeText(
+                        '$nombre $apellidos',
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: LightModeTheme().headlineSmall,
+                        minFontSize:
+                            12, // Establece aquí tu tamaño mínimo de fuente
+                        stepGranularity:
+                            1, // Ajuste granular para el tamaño de la fuente
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 4.0, 0.0, 0.0),
+                      child: SizedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            datos('Nick', nick),
+                            5.0.sw,
+                            datos('Nivel', nivel),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ),
-      );
-    } else {
-      return ResponsiveWeb(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 3,
-                color: Color(0x33000000),
-                offset: Offset(0, 1),
-              )
+              ),
             ],
           ),
-          child: ResponsiveWeb(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: 90,
-                    decoration: BoxDecoration(
-                      color: LightModeTheme().tertiary,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: LightModeTheme().secondary,
-                        width: 3,
-                      ),
-                    ),
-                    child: BtnIcon(
-                      onPressed: () {
-                        Get.dialog(GestureDetector(
-                            onTap: () => Get.back(),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 300,
-                                    child: ImageServer(
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  ),
-                                ])));
-                      },
-                      borderRadius: 45,
-                      padding: const EdgeInsets.all(0),
-                      fillColor: Colors.transparent,
-                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                      icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: ImageServer(
-                            width: 80,
-                            height: 80,
-                          )),
-                    ),
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AutoSizeText(
-                            '$nombre $apellidos',
-                            textAlign: TextAlign.center,
-                            style: LightModeTheme().headlineSmall,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              datos('Nick', nick),
-                              20.0.sw,
-                              datos('Nivel', nivel),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ),
-      );
-    }
+      ),
+    );
   }
 
   Widget datos(String title, String dato) {
@@ -486,8 +398,9 @@ class PerfilPageState extends State<PerfilPage> {
                   );
                 },
               ),
+              20.0.sh,
               buildBtnCerrar(),
-              100.0.sh
+              context.paddingBottom.sh
             ],
           ),
         ),
@@ -502,9 +415,7 @@ class PerfilPageState extends State<PerfilPage> {
       child: Container(
         width: 200,
         height: 50,
-        margin: EdgeInsets.only(
-            top: 10.0,
-            bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
+        margin: const EdgeInsets.only(top: 10.0),
         decoration: BoxDecoration(
           color: const Color(0xFFF77066),
           boxShadow: const [

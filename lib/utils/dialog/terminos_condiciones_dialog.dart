@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/constants.dart';
+import 'package:reservatu_pista/utils/auto_size_text/auto_size_text.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../flutter_flow/flutter_flow_animations.dart';
@@ -77,19 +79,49 @@ class TerminosCondicionesDialog extends StatelessWidget {
                           launchUrl(urlPoliticaPrivacidad);
                         }
                       },
+                      width: (context.w > maxWidth ? maxWidth : context.w) - 65,
                       borderRadius: 12,
                       padding: const EdgeInsets.all(0),
-                      icon: Text(
-                        MediaQuery.of(context).size.width <= 600
-                            ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
-                            : 'He leído y acepto los Términos y Condiciones de Servicio.',
-                        textAlign: TextAlign.start,
-                        style: LightModeTheme().bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              color: LightModeTheme().primary,
-                            ),
+                      icon: Align(
+                        alignment: Alignment.centerLeft,
+                        child: AutoSizeText(
+                          'He leído y acepto los Términos y Condiciones de Servicio.',
+                          maxLines: 2,
+                          style: LightModeTheme().bodyMedium.override(
+                                fontFamily: 'Readex Pro',
+                                color: LightModeTheme().primary,
+                              ),
+                          minFontSize:
+                              12, // Establece aquí tu tamaño mínimo de fuente
+                          stepGranularity:
+                              1, // Ajuste granular para el tamaño de la fuente
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
+                    // BtnIcon(
+                    //   onPressed: () async {
+                    //     final urlPoliticaPrivacidad = Uri.parse(
+                    //         'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                    //     final canLaunch =
+                    //         await canLaunchUrl(urlPoliticaPrivacidad);
+                    //     if (canLaunch) {
+                    //       launchUrl(urlPoliticaPrivacidad);
+                    //     }
+                    //   },
+                    //   borderRadius: 12,
+                    //   padding: const EdgeInsets.all(0),
+                    //   icon: Text(
+                    //     context.w <= 600
+                    //         ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
+                    //         : 'He leído y acepto los Términos y Condiciones de Servicio.',
+                    //     textAlign: TextAlign.start,
+                    //     style: LightModeTheme().bodyMedium.override(
+                    //         fontFamily: 'Readex Pro',
+                    //         color: LightModeTheme().primary,
+                    //         fontSize: context.w < 330 ? 11 : 14),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -100,7 +132,7 @@ class TerminosCondicionesDialog extends StatelessWidget {
 
   Widget buildCheckbox() {
     return Checkbox(
-      value: checkboxTerminos.value,
+      value: value ?? checkboxTerminos.value,
       onChanged: (val) async {
         checkboxTerminos.toggle();
         if (validateTerminos.value) {

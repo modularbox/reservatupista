@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
-
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 
 class MisReservasUsuarioModel {

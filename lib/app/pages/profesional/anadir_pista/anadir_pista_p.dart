@@ -28,8 +28,9 @@ class AnadirPistaPage extends GetView<AnadirPistaController> {
     }
 
     return NavbarYAppbarProfesional(
-      title: 'Crear Pista',
+      title: '${self.isModificar ? 'Editar' : 'Crear'} Pista',
       page: TypePage.ReservarPista,
+      isTitleBack: true,
       child: Expanded(
         child: SingleChildScrollView(
           controller: self.scrollController,
@@ -54,8 +55,9 @@ class AnadirPistaPage extends GetView<AnadirPistaController> {
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         0.0, 10.0, 0.0, 0.0),
                     child: FFButtonWidget(
-                      onPressed: self.crearPista,
-                      text: 'Crear Pista',
+                      onPressed:
+                          self.isModificar ? self.editarPista : self.crearPista,
+                      text: '${self.isModificar ? 'Editar' : 'Crear'} Pista',
                       options: FFButtonOptions(
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(

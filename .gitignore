@@ -45,3 +45,5 @@ app.*.map.json
 
 push.sh
 push_web.sh
+push_movil.sh
+/modificaciones

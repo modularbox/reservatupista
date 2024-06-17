@@ -186,13 +186,16 @@ class BuildInput extends GetView<RegistrarUsuarioController> {
                         validator ?? (isRequired ? validateTextField : null),
                   )),
       ),
-      const Positioned(
-          right: 10,
-          top: 10,
-          child: Text(
-            "*",
-            style: TextStyle(fontSize: 20, color: Colores.rojo),
-          )).visible(isRequired),
+      Visible(
+        isVisible: isRequired,
+        child: const Positioned(
+            right: 10,
+            top: 10,
+            child: Text(
+              "*",
+              style: TextStyle(fontSize: 20, color: Colores.rojo),
+            )),
+      ),
     ]);
   }
 

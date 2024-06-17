@@ -126,7 +126,7 @@ class InputsDatosRegistroProveedor
                 color: Colores.proveedor.primary, size: 40)),
         suffixIcon: Obx(buildImageCertificado),
         enableInteractiveSelection: false,
-        onTap: self.imageCertificado.dialogSeleccionarImage,
+        onTap: () => self.imageCertificado.dialogSeleccionarImage(Get.context!),
       ),
     ];
   }
@@ -389,7 +389,7 @@ class InputsDatosRegistroProveedor
           animTerminos: anim,
           focusedColor: Colores.usuario.primary,
           palomita: Colors.white,
-          paddingTop: 0.0,
+          paddingTop: 5.0,
         ),
       ],
     );

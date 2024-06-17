@@ -124,7 +124,7 @@ class AppbarGeneral extends StatelessWidget {
                     iconSize: 24,
                     icon: badges.Badge(
                       badgeContent: Text(
-                        '1',
+                        '',
                         style: LightModeTheme().bodyMedium.override(
                               fontFamily: 'Readex Pro',
                               color: Colors.white,

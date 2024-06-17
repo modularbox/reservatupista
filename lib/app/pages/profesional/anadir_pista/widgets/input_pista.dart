@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 import '../../../../../utils/colores.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -74,12 +74,13 @@ class InputPista extends FormField<String> {
                         ? LightModeTheme().labelMedium
                         : enableInput
                             ? LightModeTheme().labelMedium
-                            : GoogleFonts.getFont(
-                                'Readex Pro',
-                                color: const Color.fromARGB(165, 117, 117, 117),
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14.0,
-                              ),
+                            : LightModeTheme().labelMedium.copyWith(
+                                  fontFamily: 'Readex Pro',
+                                  color:
+                                      const Color.fromARGB(165, 117, 117, 117),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14.0,
+                                ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colores.proveedor.primary69,
@@ -150,7 +151,6 @@ class InputPista extends FormField<String> {
   final TypeInputPista typeInputPista;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
-
   final Widget? icon;
 
   final bool changeIcon;

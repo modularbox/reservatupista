@@ -8,7 +8,8 @@ import '../provider/datos_server.dart';
 
 class DBService extends GetxService {
   // Version de la app
-  final version = '2.2.15';
+  final version = '2.2.26';
+  // final version = '%Version';
   // Base de datos en web
   late SharedPreferences storage;
   // Verificar si es proveedor
@@ -101,6 +102,8 @@ class DBService extends GetxService {
       final result = await UsuarioProvider().getUsuarioDatos(listTypes);
       if (result is UsuarioModel) {
         dineroTotal = result.dineroTotal;
+        print(
+            '$dineroTotal -------------------------------------------------------------------====================');
       }
     } catch (e, stack) {
       print('e  $e');

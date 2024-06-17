@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:http/http.dart' as http;
+import 'package:reservatu_pista/app/data/models/execute_model.dart';
 import 'package:reservatu_pista/app/data/models/message_error.dart';
 import 'package:reservatu_pista/app/data/models/mis_pistas_model.dart';
+import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/models/usuario_model.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +20,58 @@ class PistaProvider extends GetConnect {
     final storage = await SharedPreferences.getInstance();
     token = storage.tokenProveedor.read();
     idClub = storage.idClub.read();
+  }
+
+  Future<dynamic> reservasProveedor(
+      int idPista, String fecha, String deporte) async {
+    try {
+      await initialize();
+      final response = await get(
+        '$url/reservas/proveedor',
+        query: {"id_pista": '$idPista', "fecha": fecha, "deporte": deporte},
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+        contentType: 'application/json',
+      );
+      print('reservas22 ${response.body}');
+      if (response.statusCode == 200) {
+        return ExecuteModel<
+                MisReservasUsuarioModel>.fromJsonMisReservasUsuarioModel(
+            {'datos': response.body, 'success': true}).datos;
+      } else {
+        print(response.body);
+        throw MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      throw MessageError(
+          message: 'Error al Modificar la Contraseña', code: 501);
+    }
+  }
+
+  Future<MessageError> editarPista(
+      int idPista, Map<String, dynamic> body) async {
+    try {
+      await initialize();
+      final response = await put(
+        '$url/$idPista',
+        body,
+        headers: {"Authorization": "Bearer $token"},
+        contentType: 'application/json',
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print('Error editarPista: $error');
+      print(stack);
+      return MessageError(message: 'Error al Editar la Pista', code: 501);
+    }
   }
 
   // Get request
@@ -60,10 +115,106 @@ class PistaProvider extends GetConnect {
           headers: {"Authorization": "Bearer $token", 'id$user': id});
 
   // Get Mis Pistas
-  Future<Response> getMisPista(
-          String deporte, String diaSemana, String fecha) =>
-      get('$url/$idClub/?deporte=$deporte&dia_semana=$diaSemana&fecha=$fecha',
+  Future<dynamic> getMisPista({
+    required String deporte,
+    String? diaSemana,
+    String? fecha,
+  }) async {
+    /// Seleccionar una opcion en caso de que sean null
+    Future<Response> selectOption() {
+      if (diaSemana == null || fecha == null) {
+        return get('$url/$idClub/?deporte=$deporte',
+            headers: {"Authorization": "Bearer $token"});
+      }
+      return get(
+          '$url/$idClub/?deporte=$deporte&dia_semana=$diaSemana&fecha=$fecha',
           headers: {"Authorization": "Bearer $token"});
+    }
+
+    try {
+      await initialize();
+      final response = await selectOption();
+      if (response.statusCode == 200) {
+        return MisPistas.fromList(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+      return MessageError(message: 'Error al obtener mis pistas', code: 501);
+    }
+  }
+
+  // Obtener los datos de una  pista mediante id_pista
+  Future<dynamic> getPista({
+    required int idPista,
+  }) async {
+    await initialize();
+    print("Entro en get mi pista id_pista ");
+
+    try {
+      await initialize();
+      final response = await get('$url/pista/$idPista',
+          headers: {"Authorization": "Bearer $token"});
+      print(jsonEncode(response.body));
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+      return MessageError(message: 'Error al obtener mis pistas', code: 501);
+    }
+  }
+
+  // Obtener los datos de una  pista mediante id_pista
+  Future<dynamic> getTarifas({
+    required String idPista,
+  }) async {
+    await initialize();
+    print("Entro en get mi tarifa ");
+
+    try {
+      await initialize();
+      final response = await get('$url/tarifa/$idPista',
+          headers: {"Authorization": "Bearer $token"});
+      print(response.body);
+      final json = jsonEncode(response.body[0]);
+      print(json);
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al obtener tarifa: $error');
+      return MessageError(message: 'Error al obtener mis pistas', code: 501);
+    }
+  }
+
+  /// Obtener el total de pistas
+  Future<dynamic> getMisDeportes() async {
+    print("Entro en get mis deportes");
+    try {
+      await initialize();
+      final response = await get('$url/$idClub/deportes',
+          headers: {"Authorization": "Bearer $token"});
+      print(response.body);
+      if (response.statusCode == 200) {
+        return List<String>.from(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      print(stack);
+      print('Error al usuario kjj: $error');
+      return MessageError(message: 'Error al obtener mis pistas', code: 501);
+    }
+  }
 }
 
 class PistaNode {
@@ -103,8 +254,6 @@ class PistaNode {
 
   /// Obtener el total de pistas
   Future<int?> getCountPistas(String deporte) async {
-    print("ENTEJBFJ");
-    print(deporte);
     try {
       await provider.initialize();
       final response = await provider.getCountPistas(deporte);
@@ -117,26 +266,6 @@ class PistaNode {
       print('Error al usuario kjj: $error');
     }
     return null;
-  }
-
-  /// Obtener el total de pistas
-  Future<dynamic> getMisPista(
-      String deporte, String diaSemana, String fecha) async {
-    print("Entro en get mis pistas");
-    try {
-      await provider.initialize();
-      final response = await provider.getMisPista(deporte, diaSemana, fecha);
-      print(response.body);
-      if (response.statusCode == 200) {
-        return MisPistas.fromList(response.body);
-      } else {
-        return MessageError.fromJson(response.body);
-      }
-    } catch (error, stack) {
-      print(stack);
-      print('Error al usuario kjj: $error');
-      return MessageError(message: 'Error al obtener mis pistas', code: 501);
-    }
   }
 
   Future<dynamic> delete(String id, String token, String user) async {

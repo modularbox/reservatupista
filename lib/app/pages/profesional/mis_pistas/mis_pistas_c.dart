@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/data/provider/pista_node.dart';
+import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
+import 'package:reservatu_pista/app/mixin/reservas_mixin.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
-import 'package:reservatu_pista/utils/format_date.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../data/models/mis_pistas_model.dart';
 
 class MisPistasController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, ReservasMixin {
+  int idPista = 0;
+
+  ///Guardar datos para mandarlos
+  String _idReserva = '';
+  int _idReservaPistaUsuario = 0;
+  bool cancelarReserva = false;
+
   /// Obtencion de los datos de la api
   final misPistas = StateRx(Rx<List<MiPista>>([]));
+  final misDeportes = <String>[].obs;
 
   /// Controlador para las animaciones
   final animationPistaDeporte = AnimationInfo(
@@ -42,11 +51,6 @@ class MisPistasController extends GetxController
       ? pageViewController!.page!.round()
       : 0;
 
-  /// Controladores para el manejo de los dias de la fecha
-  final Rx<DateTime> _fecha = Rx<DateTime>(DateTime.now());
-  DateTime get fecha => _fecha.value;
-  set fecha(DateTime value) => _fecha.value = value;
-
   /// Declaramos una variable booleana donde false sera previous fecha y true sera next fecha
   final _fechaNextPrevious = false.obs;
   bool get fechaNextPrevious => _fechaNextPrevious.value;
@@ -54,10 +58,6 @@ class MisPistasController extends GetxController
       ? _fechaNextPrevious.refresh()
       : _fechaNextPrevious.value = value;
 
-  /// Controlador para cambiar de deporte
-  final _deporte = 'Pádel'.obs;
-  String get deporte => _deporte.value;
-  set deporte(String value) => _deporte.value = value;
   // Global key para el cambio del deporte
   List<GlobalKey> deporteKey = List.generate(16, (index) => GlobalKey());
   // Mostrar el width una vez que cargue la pantalla
@@ -67,46 +67,82 @@ class MisPistasController extends GetxController
   @override
   void onReady() {
     super.onReady();
-    cargarDatos();
+    cargarDeportes();
   }
 
   /// Initialization and disposal methods.
   @override
   void onInit() async {
     super.onInit();
-    // Actualizar: Actualizar el tamano de los deportes al tamano de la imagen y del texto
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Verifica si el contexto de la GlobalKey es nulo
-      final List<double> newDeportesWidth = [];
-      for (var i = 0; i < deporteKey.length; i++) {
-        if (deporteKey[i].currentContext != null) {
-          // Obtiene el ancho del widget utilizando el contexto de la GlobalKey
-          double width = deporteKey[i].currentContext!.size!.width;
-          newDeportesWidth.add(width);
-        }
-      }
-      deportesWidth.value = newDeportesWidth;
-    });
     // Cambiar la fecha cuando se actualice y mover el pageview
     debounce(_fechaNextPrevious, (val) => val ? nextPage() : previousPage(),
         time: const Duration(milliseconds: 200));
     // Mandar llamar a la api cargar datos cada vez que se cambie el estado del deporte
-    debounce(_deporte, (val) => cargarDatos(),
+    debounce(rxdeporte, (val) => {cargarDatos(), print("cambiar")},
         time: const Duration(milliseconds: 100));
+  }
+
+  Future<bool> onCancelarReservaProveedor(
+      String idReserva, int idReservaPistaUsuario) async {
+    _idReserva = idReserva;
+    _idReservaPistaUsuario = idReservaPistaUsuario;
+    pageIndexNotifier.value = 1;
+    print('pageIndezNotifier: ${pageIndexNotifier.value}');
+    return true;
+  }
+
+  void onPresedCancelarReserva(int idPista) async {
+    final result = await ReservasProvider()
+        .cancelarReservaProveedor(_idReserva, _idReservaPistaUsuario);
+    final subtitle = result
+        ? 'Reservada Eliminada Correctamente'
+        : 'Error al Eliminar la Reserva';
+    final alertType = result ? success : warning;
+    MessageServerDialog(
+      isProveedor: true,
+      context: Get.context!,
+      title: 'Eliminar Reserva',
+      alertType: alertType,
+      subtitle: subtitle,
+      onPressed: () => {
+        // Get.forceAppUpdate(),
+        cargarDatosReservas(idPista),
+        Navigator.of(Get.context!).pop()
+      },
+    ).dialog();
+    // cancelarReserva = result;
+    // pageIndexNotifier.value = 2;
+    print('idReserva = $_idReserva');
+    print('idReservaPistaUsuario = $_idReservaPistaUsuario');
+    print('cancelarReserva = $cancelarReserva');
+  }
+
+  void cargarDeportes() async {
+    final result = await provider.getMisDeportes();
+    if (result is List<String>) {
+      if (result.isEmpty) {
+        return;
+      }
+      misDeportes.value = result;
+      deporte = result[0];
+    }
   }
 
   /// Método para cargar datos
   void cargarDatos() async {
     misPistas.loading();
     try {
-      final result = await PistaNode()
-          .getMisPista(deporte, fecha.letraDia, fecha.formatReserva);
+      final result = await provider.getMisPista(
+          deporte: deporte,
+          diaSemana: fecha.letraDia,
+          fecha: fecha.formatFechaDB);
       if (result is MisPistas) {
         if (result.misPistas.isEmpty) {
           misPistas.empty();
         } else {
           misPistas.success(result.misPistas);
         }
+        changeReservas.value = false;
       }
     } catch (error) {
       misPistas.error('Error al cargar datos de las pistas.');

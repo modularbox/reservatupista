@@ -137,7 +137,7 @@ class BancoVirtualPage extends GetView<BancoVirtualController> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: Text(
-                                '${FormatNumber.formatNumberWithTwoDecimals(FFAppState().moneyBancoVirtual).toString()} €',
+                                0.euro,
                                 style: LightModeTheme().headlineLarge.override(
                                       fontFamily: 'Outfit',
                                       color: const Color(0xFF14181B),
@@ -148,24 +148,24 @@ class BancoVirtualPage extends GetView<BancoVirtualController> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                await showAlignedDialog(
-                                  context: context,
-                                  isGlobal: true,
-                                  avoidOverflow: false,
-                                  targetAnchor:
-                                      const AlignmentDirectional(0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                  followerAnchor:
-                                      const AlignmentDirectional(0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                  builder: (dialogContext) {
-                                    return const Material(
-                                      color: Colors.transparent,
-                                      child: AlertRecargarWidget(
-                                          isTransferir: true),
-                                    );
-                                  },
-                                );
+                                // await showAlignedDialog(
+                                //   context: context,
+                                //   isGlobal: true,
+                                //   avoidOverflow: false,
+                                //   targetAnchor:
+                                //       const AlignmentDirectional(0.0, 0.0)
+                                //           .resolve(Directionality.of(context)),
+                                //   followerAnchor:
+                                //       const AlignmentDirectional(0.0, 0.0)
+                                //           .resolve(Directionality.of(context)),
+                                //   builder: (dialogContext) {
+                                //     return const Material(
+                                //       color: Colors.transparent,
+                                //       child: AlertRecargarWidget(
+                                //           isTransferir: true),
+                                //     );
+                                //   },
+                                // );
                               },
                               text: FFLocalizations.of(context).getText(
                                 'yigsy672' /* Transferir */,
@@ -254,65 +254,67 @@ class BancoVirtualPage extends GetView<BancoVirtualController> {
                   ],
                 ),
               ),
-              self.isFiltrar.value
-                  ? Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        FFButtonWidget(
-                            text: 'Reservas',
-                            onPressed: () {
-                              self.typeFiltro = TypeHistorial.reserva;
-                            },
-                            options: FFButtonOptions(
-                                color: self.typeFiltro != TypeHistorial.reserva
-                                    ? const Color.fromARGB(255, 50, 50, 50)
-                                    : Colors.green,
-                                borderRadius: BorderRadius.circular(30))),
-                        FFButtonWidget(
-                            text: 'Transferencia',
-                            onPressed: () =>
-                                self.typeFiltro = TypeHistorial.tranferencia,
-                            options: FFButtonOptions(
-                                color: self.typeFiltro !=
-                                        TypeHistorial.tranferencia
-                                    ? const Color.fromARGB(255, 50, 50, 50)
-                                    : Colors.green,
-                                borderRadius: BorderRadius.circular(30))),
-                        FFButtonWidget(
-                            text: 'Todo',
-                            onPressed: () {
-                              self.typeFiltro = TypeHistorial.all;
-                            },
-                            options: FFButtonOptions(
-                                color: self.typeFiltro != TypeHistorial.all
-                                    ? const Color.fromARGB(255, 50, 50, 50)
-                                    : Colors.green,
-                                borderRadius: BorderRadius.circular(30))),
-                      ].divide(const SizedBox(width: 5.0)),
-                    )
+              // self.isFiltrar.value
+              //     ? Row(
+              //         children: [
+              //           const SizedBox(
+              //             width: 10,
+              //           ),
+              //           FFButtonWidget(
+              //               text: 'Reservas',
+              //               onPressed: () {
+              //                 self.typeFiltro = TypeHistorial.reserva;
+              //               },
+              //               options: FFButtonOptions(
+              //                   color: self.typeFiltro != TypeHistorial.reserva
+              //                       ? const Color.fromARGB(255, 50, 50, 50)
+              //                       : Colors.green,
+              //                   borderRadius: BorderRadius.circular(30))),
+              //           FFButtonWidget(
+              //               text: 'Transferencia',
+              //               onPressed: () =>
+              //                   self.typeFiltro = TypeHistorial.tranferencia,
+              //               options: FFButtonOptions(
+              //                   color: self.typeFiltro !=
+              //                           TypeHistorial.tranferencia
+              //                       ? const Color.fromARGB(255, 50, 50, 50)
+              //                       : Colors.green,
+              //                   borderRadius: BorderRadius.circular(30))),
+              //           FFButtonWidget(
+              //               text: 'Todo',
+              //               onPressed: () {
+              //                 self.typeFiltro = TypeHistorial.all;
+              //               },
+              //               options: FFButtonOptions(
+              //                   color: self.typeFiltro != TypeHistorial.all
+              //                       ? const Color.fromARGB(255, 50, 50, 50)
+              //                       : Colors.green,
+              //                   borderRadius: BorderRadius.circular(30))),
+              //         ].divide(const SizedBox(width: 5.0)),
+              //       )
+              //     : const SizedBox(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTodasTransferencias() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              self.typeFiltro != TypeHistorial.reserva
+                  ? buildTransferencia()
                   : const SizedBox(),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      0.0, 12.0, 0.0, 12.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        self.typeFiltro != TypeHistorial.reserva
-                            ? buildTransferencia()
-                            : const SizedBox(),
-                        self.typeFiltro != TypeHistorial.tranferencia
-                            ? buildReserva()
-                            : const SizedBox(),
-                        // buildTransferencia(),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              self.typeFiltro != TypeHistorial.tranferencia
+                  ? buildReserva()
+                  : const SizedBox(),
+              // buildTransferencia(),
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
@@ -127,7 +126,7 @@ class InputClubFavorito extends FormField<String> {
                                 )
                               : const SizedBox(),
                           const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
                             child: Icon(
                               Icons.arrow_drop_down,
                               size: 30,
@@ -306,7 +305,7 @@ const double _kMenuItemHeight = 48.0;
 
 /// *[_kMenuItemHeight] which is dropdown item's default height
 
-const EdgeInsets _kMenuItemPadding = EdgeInsets.symmetric(horizontal: 16.0);
+const EdgeInsets _kMenuItemPadding = EdgeInsets.symmetric(horizontal: 10.0);
 
 /// *[_kMenuItemPadding] which is dropdown item's default padding.
 
@@ -461,26 +460,23 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: InkWell(
-                child: !star[itemIndex]
-                    ? const Icon(
-                        Icons.star_border,
-                        size: 30,
-                      )
-                    : Icon(
-                        Icons.star,
-                        color: Colors.yellow.shade400,
-                        size: 30,
-                      ),
-                onTap: () => {
-                  setState(() {
-                    star[itemIndex] = !star[itemIndex];
-                  }),
-                  widget.onChanged(null, star),
-                },
-              ),
+            InkWell(
+              child: !star[itemIndex]
+                  ? const Icon(
+                      Icons.star_border,
+                      size: 30,
+                    )
+                  : Icon(
+                      Icons.star,
+                      color: Colors.yellow.shade400,
+                      size: 30,
+                    ),
+              onTap: () => {
+                setState(() {
+                  star[itemIndex] = !star[itemIndex];
+                }),
+                widget.onChanged(null, star),
+              },
             ),
           ],
         ),
@@ -694,7 +690,8 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
       removeLeft: true,
       removeRight: true,
       child: Padding(
-        padding: const EdgeInsets.only(left: 0.0),
+        //// Padding mostrar panel de abajo importante
+        padding: const EdgeInsets.only(left: 2.0),
         child: Builder(
           builder: (BuildContext context) {
             return CustomSingleChildLayout(

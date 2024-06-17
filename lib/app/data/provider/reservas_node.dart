@@ -72,6 +72,26 @@ class ReservasProvider extends GetConnect {
     }
   }
 
+  Future<bool> cancelarReservaProveedor(
+      String idReserva, int idReservaPistaUsuario) async {
+    try {
+      final response = await delete('$url/reserva', headers: {
+        'idreserva': idReserva,
+        'idreservapistausuario': '$idReservaPistaUsuario'
+      });
+      print('cancelarReservaProveedor ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error, stack) {
+      print('Error eliminar la reserva: $error');
+      print(stack);
+      return false;
+    }
+  }
+
   Future<bool> cancelarReserva(String idReserva) async {
     try {
       final response = await delete('$url/usuario/eliminar_reserva',

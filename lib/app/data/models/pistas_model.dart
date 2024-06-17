@@ -16,7 +16,7 @@ class PistasModel {
   int? capacidad;
   int? numPista;
   bool? techada;
-  bool? iluminacion;
+  String? iluminacion;
   String? tipo;
   String? cesped;
   bool? automatizada;

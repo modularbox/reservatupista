@@ -38,7 +38,9 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                       ResponsiveWeb(child: Obx(buildListaDeDiasSemana)),
                       10.0.sh,
                       ResponsiveWeb(child: buildTableTarifas(context)),
-                      buildTableDatos(context)
+                      Visible(
+                          isVisible: self.listTarifas.isNotEmpty,
+                          child: buildTableDatos(context))
                     ],
                   ),
                 );

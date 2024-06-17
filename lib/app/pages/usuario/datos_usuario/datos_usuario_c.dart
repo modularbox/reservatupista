@@ -6,11 +6,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/format_number.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../backend/apis/direccion_nominatim.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/dialog/rich_alert.dart';
@@ -149,14 +153,12 @@ class DatosUsuarioController extends GetxController
     final storage = await SharedPreferences.getInstance();
     final String parametros =
         '?id=${storage.idUsuario.read()}&user=0&token=${storage.tokenUsuario.read()}&email=${emailController.text}';
-    Get.dialog(LinkDialog(
-      alertTitle: richTitleLink(
-          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
-          fontSize: 20.0),
-      alertSubtitle: richSubtitleLink(
-          'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
-      urlLink: '${DatosServer.urlPruebas}/eliminar_cuenta/$parametros',
-    ));
+    MessageServerDialog(
+      context: Get.context!,
+      title: 'Eliminar cuenta',
+      subtitle:
+          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?\n\nPara eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.',
+    ).buildIrALink('${DatosServer.urlWeb}/eliminar_cuenta/$parametros');
   }
 
   void getDatosUsuario() async {

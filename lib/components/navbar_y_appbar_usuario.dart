@@ -1,6 +1,6 @@
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
-import 'package:reservatu_pista/components/nav_bar_usuario/nav_bar_usuario_widget.dart';
+import 'package:reservatu_pista/components/nav_bar_usuario/nav_bar_usuario.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '/backend/schema/enums/enums.dart';
@@ -35,41 +35,39 @@ class NavbarYAppbarUsuario extends GetView<DBService> {
         ),
       );
     }
-    EdgeInsets padding = MediaQuery.of(context).padding;
-    double paddingTop = padding.top;
+    final padding = MediaQuery.of(context).padding;
+    final paddingTop =
+        isiOS ? (padding.top > 28.0 ? 28.0 : padding.top) : padding.top;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        top: false,
-        right: false,
-        left: false,
-        bottom: true,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                paddingTop.sh,
-                ResponsiveWeb(
-                  child: AppbarUsuario(
-                    title: title,
-                    isTitle: isTitle,
-                    isTitleBack: isTitleBack,
-                    isPage: page == TypePage.Perfil,
-                  ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              paddingTop.sh,
+              ResponsiveWeb(
+                child: AppbarUsuario(
+                  title: title,
+                  isTitle: isTitle,
+                  isTitleBack: isTitleBack,
+                  isPage: page == TypePage.Perfil,
                 ),
-                child,
-              ],
-            ),
-            ResponsiveWeb(
+              ),
+              child,
+            ],
+          ),
+          Visible(
+            isVisible: isNavBar,
+            child: ResponsiveWeb(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: NavBarUsuarioWidget(
                   tipoDePagina: page,
                 ),
-              ).visible(isNavBar),
-            )
-          ],
-        ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

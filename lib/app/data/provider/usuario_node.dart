@@ -189,43 +189,6 @@ class UsuarioProvider extends GetConnect {
     }
   }
 
-// Enviar Email usuario
-  Future<bool> enviarEmail(String email, String nombre) async {
-    try {
-      final response = await post(
-          '$urlMail/reservatupista_alta',
-          {
-            "esProveedor": 'false',
-            "correo": email,
-            "link": "$urlWeb/#/validar_email?email=$email&user=0",
-            "message": '''
-            <p style="font-size: 1.25rem;font-weight:600">
-            Bienvenido a reservatupista.com <strong>$nombre</strong>, para finalizar el registro por favor pulsa sobre este botón: 
-            </p>
-            <p>
-            <a href="$urlWeb/#/validar_email?email=$email&user=0" style="text-decoration:none; background-color: green;padding:10px 20px;border-radius:15px;color:white;">
-            CONFIRMAR
-            </a>
-            ''',
-            "asunto": "Registro Usuario ReservaTupista.com"
-          },
-          contentType: 'application/json');
-      print(response.body);
-      // Enviar la solicitud
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario anadida. Código de estado: ${response.statusCode}');
-        throw '';
-      }
-    } catch (error) {
-      print('Error al usuario anadida: $error');
-      return false;
-    }
-  }
-
   Future<bool> getUsuarioExisteNick(String nick) async {
     try {
       final response =
@@ -299,6 +262,7 @@ class UsuarioProvider extends GetConnect {
         "idusuario": idUser.toString(),
         "datos": listTypes.join(', ')
       });
+      print(response.body);
       if (response.statusCode == 200) {
         return UsuarioModel.fromJson(response.body);
       } else {

@@ -5,7 +5,7 @@ import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
-import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/storage/storage.dart';
 import '../../../../utils/animations/list_animations.dart';
@@ -161,30 +161,32 @@ class LoginUsuarioController extends GetxController
         await db.getDB();
         Get.toNamed(Routes.INICIO);
       } else if (result is MessageError) {
-        Get.dialog(ChangeDialogGeneral(
-          alertTitle: richTitle("Login Usuario"),
-          alertSubtitle: richSubtitle(result.messageError()),
-          textButton: "Cerrar",
-          alertType: TypeGeneralDialog.WARNING,
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: warning,
+          title: 'Login Usuario',
+          subtitle: result.messageError(),
           onPressed: Get.back,
-        ));
+        ).dialog();
       }
       isValidateForms = true;
     }
   }
 
+  void onPressedAdministrador() {
+    // if (emailProveedorController.text == 'admin@reservatupista.com' &&
+    //     passwordProveedorController.text == '55301903') {
+    Get.offAllNamed(Routes.LOGIN_ADMINISTRADOR);
+    // }
+  }
+
   // Iniciar sesion Proveedor
   void onPressedProveedor() async {
-    if (emailUsuarioController.text == 'juliofreno@modularbox.com' &&
-        passwordProveedorController.text == '123456789') {
-      Get.offAllNamed(Routes.ADMINISTRADOR);
-    }
     if (formProveedorKey.currentState!.validate()) {
       bool isUserPrueba =
           (emailUsuarioController.text == 'app@reservatupista.com' ||
                   emailUsuarioController.text == 'email@ficticio.com') &&
               passwordProveedorController.text == '12345678';
-
       List<int> bytes = utf8.encode(passwordProveedorController.text);
       String hashConstrasena = sha1.convert(bytes).toString();
       final result = await ProveedorProvider()
@@ -213,13 +215,13 @@ class LoginUsuarioController extends GetxController
         await db.getDB();
         Get.toNamed(Routes.INICIO_PROVEEDOR);
       } else if (result is MessageError) {
-        Get.dialog(ChangeDialogGeneral(
-          alertTitle: richTitle("Login Proveedor"),
-          alertSubtitle: richSubtitle(result.messageError()),
-          textButton: "Cerrar",
-          alertType: TypeGeneralDialog.WARNING,
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: warning,
+          title: 'Login Proveedor',
+          subtitle: result.messageError(),
           onPressed: Get.back,
-        ));
+        ).dialog();
       }
       isValidateForms = true;
     }

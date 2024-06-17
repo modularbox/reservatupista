@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../utils/btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 
@@ -31,7 +32,6 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
   late Color? _currentColor;
   late Color? _currentColorTextUsuario;
   late Color? _currentColorTextProveedor;
-  final double sizeText = 24;
   late BorderRadius _getBorder;
 
   @override
@@ -93,6 +93,7 @@ class _PageViewSlidingIndicatorState extends State<PageViewSlidingIndicator> {
 
   @override
   Widget build(BuildContext context) {
+    final sizeText = context.w < 330 ? 20.0 : 24.0;
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 5),
       child: Container(

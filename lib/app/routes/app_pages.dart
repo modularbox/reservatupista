@@ -1,23 +1,25 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_b.dart';
 import 'package:reservatu_pista/app/pages/administrador/admin_page/pagina_administrador_p.dart';
+import 'package:reservatu_pista/app/pages/administrador/login_administrador/login_administrador_b.dart';
+import 'package:reservatu_pista/app/pages/administrador/login_administrador/login_administrador_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_p.dart';
+import 'package:reservatu_pista/app/pages/profesional/pistas_proveedor/pistas_proveedor_b.dart';
+import 'package:reservatu_pista/app/pages/profesional/pistas_proveedor/pistas_proveedor_p.dart';
 import 'package:reservatu_pista/app/pages/profesional/tarifas_proveedor/tarifas_proveedor_b.dart';
 import 'package:reservatu_pista/app/pages/profesional/tarifas_proveedor/tarifas_proveedor_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/historial/historial_p.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_b.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_bonos/mis_bonos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/mis_clubes_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_pedidos/mis_pedidos_p.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_b.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_p.dart';
-import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_b.dart';
-import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_p.dart';
+import 'package:reservatu_pista/app/pages/usuario/reserva_compartida/reserva_compartida_b.dart';
+import 'package:reservatu_pista/app/pages/usuario/reserva_compartida/reserva_compartida_p.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_b.dart';
 import 'package:reservatu_pista/app/ui/pages/eliminar_cuenta_page/eliminar_cuenta_p.dart';
 import 'package:reservatu_pista/app/ui/pages/pruebas_page/pruebas_b.dart';
@@ -47,7 +49,7 @@ import '../pages/usuario/registrar_usuario/registrar_usuario_p.dart';
 import '../pages/usuario/registrar_usuario/registrar_usuario_b.dart';
 import '../ui/pages/pagotpv_page/pagotpv_b.dart';
 import '../ui/pages/pagotpv_page/pagotpv_p.dart';
-import '../pages/usuario/reservar_pista/reservar_pista.dart';
+import '../pages/usuario/reservar_pista/reservar_pista_p.dart';
 import '../pages/usuario/reservar_pista/reservar_pista_b.dart';
 import '../pages/profesional/registro_proveedor/registrar_proveedor_p.dart';
 import '../pages/profesional/registro_proveedor/registrar_proveedor_b.dart';
@@ -67,7 +69,7 @@ import '../pages/usuario/datos_usuario/datos_usuario_p.dart';
 import '../pages/usuario/datos_usuario/datos_usuario_b.dart';
 import '../ui/pages/olvide_contrasena/olvide_contrasena_p.dart';
 import '../ui/pages/olvide_contrasena/olvide_contrasena_b.dart';
-import '../pages/profesional/tarifas_pista/tarifas_pista.dart';
+import '../pages/profesional/tarifas_pista/tarifas_pista_p.dart';
 import '../pages/profesional/tarifas_pista/tarifas_pista_b.dart';
 
 extension ExtRoutesType on RoutesType {
@@ -115,7 +117,9 @@ enum RoutesType {
   mis_pedidos,
   mis_clubes,
   historial_usuario,
-  tarifas_proveedor
+  tarifas_proveedor,
+  pistas_proveedor,
+  login_administrador
 }
 
 class RouteRedirectMiddleware extends GetMiddleware {
@@ -174,6 +178,8 @@ abstract class Routes {
   static final MIS_CLUBES = RoutesType.mis_clubes.getRoute;
   static final HISTORIAL_USUARIO = RoutesType.historial_usuario.getRoute;
   static final TARIFAS_PROVEEDOR = RoutesType.tarifas_proveedor.getRoute;
+  static final PISTAS_PROVEEDOR = RoutesType.pistas_proveedor.getRoute;
+  static final LOGIN_ADMINISTRADOR = RoutesType.login_administrador.getRoute;
 }
 
 /// Get Routes
@@ -190,7 +196,7 @@ class AppPages {
     /// Registrar Usuario
     GetPage(
       name: Routes.REGISTRAR_USUARIO,
-      page: () => RegistrarUsuarioPage(),
+      page: () => const RegistrarUsuarioPage(),
       binding: RegistrarUsuarioBinding(),
     ),
 
@@ -212,7 +218,7 @@ class AppPages {
     /// Mis Reservas
     GetPage(
       name: Routes.MIS_RESERVAS,
-      page: () => MisReservasPage(),
+      page: () => const MisReservasPage(),
       binding: MisReservasBinding(),
       transition: Transition.noTransition,
     ),
@@ -237,7 +243,7 @@ class AppPages {
     GetPage(
       name: Routes.PERFIL,
       binding: PerfilBinding(),
-      page: () => PerfilPage(),
+      page: () => const PerfilPage(),
       transition: Transition.noTransition,
     ),
 
@@ -251,7 +257,7 @@ class AppPages {
     /// Reserva Compartida por Usuario
     GetPage(
       name: Routes.RESERVA_COMPARTIDA,
-      page: () => ReservaCompartidaPage(),
+      page: () => const ReservaCompartidaPage(),
       binding: ReservaCompartidaBinding(),
     ),
 
@@ -295,7 +301,7 @@ class AppPages {
     /// Mis Socios
     GetPage(
       name: Routes.MIS_SOCIOS,
-      page: () => MisSociosPage(),
+      page: () => const MisSociosPage(),
       binding: MisSociosBinding(),
       transition: Transition.noTransition,
     ),
@@ -304,7 +310,7 @@ class AppPages {
     GetPage(
       name: Routes.PERFIL_PROVEEDOR,
       binding: PerfilProveedorBinding(),
-      page: () => PerfilProveedorPage(),
+      page: () => const PerfilProveedorPage(),
       transition: Transition.noTransition,
     ),
 
@@ -345,7 +351,7 @@ class AppPages {
     /// Olvide Contrasena
     GetPage(
       name: Routes.OLVIDE_CONTRASENA,
-      page: () => OlvideContrasenaPage(),
+      page: () => const OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
       middlewares: [RouteRedirectMiddleware()],
     ),
@@ -382,6 +388,7 @@ class AppPages {
     GetPage(
       name: Routes.ADMINISTRADOR,
       page: () => const AdminPageWidget(),
+      binding: AdminPageBinding(),
     ),
 
     /// Pagina para Amigos
@@ -420,6 +427,20 @@ class AppPages {
       page: () => const TarifasProveedorPage(),
       binding: TarifasProveedorBinding(),
     ),
+
+    /// Pagina para pistas del proveedor
+    GetPage(
+      name: Routes.PISTAS_PROVEEDOR,
+      page: () => PistasProveedorPage(),
+      binding: PistasProveedorBinding(),
+      transition: Transition.noTransition,
+    ),
+
+    /// Pagina para login administrador
+    GetPage(
+        name: Routes.LOGIN_ADMINISTRADOR,
+        page: () => LoginAdministradorPage(),
+        binding: LoginAdministradorBinding()),
 
     /// Pagina para pruebas
     GetPage(

@@ -1,10 +1,13 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/constants.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
+import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../flutter_flow/flutter_flow_animations.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NoticiasCheckbox extends StatefulWidget {
   final AnimationController animTerminos;
@@ -44,71 +47,77 @@ class NoticiasCheckboxState extends State<NoticiasCheckbox> {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       TextFormField(
-        enabled: false,
-        validator: (value) {
-          if (!checkboxTerminos.value) {
-            validateTerminos.value = true;
-            widget.animTerminos.forward();
-          }
-          return null;
-        },
-        decoration: const InputDecoration(
-          border: InputBorder.none, // Quitar el borde del TextFormField
-          contentPadding: EdgeInsets.zero, // Eliminar el padding
-        ),
-        style: const TextStyle(height: 0), // Hacer el texto invisible
-      ),
+          enabled: false,
+          validator: (value) {
+            if (!checkboxTerminos.value && isiOS == false) {
+              validateTerminos.value = true;
+              widget.animTerminos.forward();
+              return '';
+            }
+            return null;
+          },
+          decoration: const InputDecoration(
+              border: InputBorder.none, contentPadding: EdgeInsets.zero),
+          style: const TextStyle(height: 0)),
       Padding(
           padding: EdgeInsets.only(
-              left: 5.0, top: widget.paddingTop ?? 0.0, right: 5),
+              left: 5.0, top: widget.paddingTop ?? 0.0, right: 5, bottom: 10.0),
           child: VibratingWidget(
             controller: widget.animTerminos,
-            child: Obx(
-              () => Container(
-                decoration: validateTerminos.value
-                    ? BoxDecoration(
-                        border:
-                            Border.all(width: 2, color: widget.focusedColor),
-                        borderRadius: BorderRadius.circular(10.0))
-                    : null,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Theme(
-                      data: ThemeData(
-                        checkboxTheme: CheckboxThemeData(
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        unselectedWidgetColor: LightModeTheme().secondaryText,
-                      ),
-                      child: Obx(buildCheckbox),
-                    ),
-                    10.0.sw,
-                    BtnIcon(
-                      borderRadius: 12,
-                      padding: const EdgeInsets.all(0),
-                      icon: Text(
-                        'Deseo recibir nuestras noticias y actualizaciones por correo.',
-                        maxLines: 4,
-                        textAlign: TextAlign.start,
-                        style: LightModeTheme().bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              color: LightModeTheme().primary,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: Obx(buildNoticia),
           ))
     ]);
+  }
+
+  // Construir la noticia
+  Widget buildNoticia() {
+    return Container(
+      decoration: validateTerminos.value
+          ? BoxDecoration(
+              border: Border.all(width: 2, color: Colores.rojo),
+              borderRadius: BorderRadius.circular(10.0))
+          : null,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Theme(
+            data: ThemeData(
+              checkboxTheme: CheckboxThemeData(
+                visualDensity: VisualDensity.compact,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+              unselectedWidgetColor: LightModeTheme().secondaryText,
+            ),
+            child: Obx(buildCheckbox),
+          ),
+          10.0.sw,
+          BtnIcon(
+            width: (context.w > maxWidth ? maxWidth : context.w) - 65,
+            borderRadius: 12,
+            padding: const EdgeInsets.all(0),
+            icon: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                'Deseo recibir nuestras noticias y actualizaciones por correo.',
+                maxLines: 2,
+                style: LightModeTheme().bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: LightModeTheme().primary,
+                    ),
+                minFontSize: 12, // Establece aquí tu tamaño mínimo de fuente
+                stepGranularity:
+                    1, // Ajuste granular para el tamaño de la fuente
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget buildCheckbox() {
@@ -122,9 +131,8 @@ class NoticiasCheckboxState extends State<NoticiasCheckbox> {
         widget.onChanged(val);
       },
       activeColor: widget.focusedColor,
-      side: validateTerminos.value
-          ? BorderSide(color: widget.focusedColor)
-          : null,
+      side:
+          validateTerminos.value ? const BorderSide(color: Colores.rojo) : null,
       checkColor: widget.palomita,
     );
   }

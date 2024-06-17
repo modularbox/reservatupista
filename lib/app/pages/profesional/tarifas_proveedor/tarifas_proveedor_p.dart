@@ -28,6 +28,9 @@ class _TarifasProveedorPageState extends GetView<TarifasProveedorController> {
 
   @override
   Widget build(BuildContext context) {
+    return Text('\nNo se encontraron Tarifas.',
+        style: LightModeTheme().bodyMedium.copyWith(
+            color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16));
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: LightModeTheme().primaryBackground,

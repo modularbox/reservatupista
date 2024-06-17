@@ -11,13 +11,6 @@ class ExecuteProvider extends GetConnect {
   Future<dynamic> misReservas(String deporte,
       {int page = 1, int itemsPerPage = 10}) async {
     try {
-      print({
-        'id_usuario': db.idUsuario.toString(),
-        'deporte': deporte,
-        'page': page.toString(),
-        'itemsPerPage': itemsPerPage.toString(),
-      });
-      print('misReservasResponse');
       final response = await get(
         '$url/reserva',
         query: {
@@ -27,10 +20,6 @@ class ExecuteProvider extends GetConnect {
         },
         contentType: 'application/json',
       );
-      print('misReservasResponse2');
-      print('misReservasResponse ${response.body}');
-      print('misReservasResponse response.statusCode  ${response.statusCode}');
-
       if (response.statusCode == 200) {
         final result = ExecuteModel<
                 MisReservasUsuarioModel>.fromJsonMisReservasUsuarioModel(

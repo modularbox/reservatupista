@@ -2,10 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:reservatu_pista/app/data/models/detalles_pista_model.dart';
 import 'package:reservatu_pista/app/data/models/pistas_model.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/pista_node.dart';
+import 'package:reservatu_pista/app/pages/profesional/anadir_pista/widgets/pista_editar_model.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
-import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:image/image.dart' as img;
@@ -14,6 +17,29 @@ import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
 import '../../../data/models/tarifas_model.dart';
 import '../tarifas_pista/tarifas_pista_c.dart';
+
+const deportes = {
+  'Pádel': '🎾',
+  'Tenis': '🎾',
+  'Badminton': '🏸',
+  'P. climatizada': '🏊‍♀️',
+  'Piscina': '🏊‍♀️',
+  'Baloncesto': '🏀',
+  'Futbol sala': '⚽',
+  'Futbol 7': '⚽',
+  'Futbol 11': '⚽',
+  'Pickleball': '🥍',
+  'Squash': '🏸',
+  'Tenis de mesa': '🏓',
+  'Fronton': '🏓',
+  'Balomano': '⚽',
+  'Rugby': '🏉',
+  'Multideporte': '🥅',
+};
+
+extension ExtDeporteIcon on String {
+  String get icon => '${deportes[this]} $this';
+}
 
 String getDeporte(String val) {
   final split = val.split(' ');
@@ -24,12 +50,16 @@ String getDeporte(String val) {
 extension ExtConvertTextField on String {
   bool get sn => this == 'Si' ? true : false;
   String get de => getDeporte(this);
-
   int get dp => this == '60 Minutos' ? 60 : 90;
   String get tm => '$this:00';
   int get trOtc => int.parse(split(' ')[0]);
   int get pc =>
-      int.parse('${split(' ')[0].split('.')[0]}${split(' ')[0].split('.')[1]}');
+      int.parse('${split(' ')[0].split(',')[0]}${split(' ')[0].split(',')[1]}');
+}
+
+extension ExtEditarPista on int {
+  String get sn => this == 0 ? 'No' : 'Si';
+  bool get snb => this != 0;
 }
 
 class InputController {
@@ -43,6 +73,15 @@ class InputController {
 
 class AnadirPistaController extends GetxController
     with GetTickerProviderStateMixin {
+  /// Verificar si los datos han cambiado
+  late PistaEditarModel pem;
+
+  /// Verificar si la pista se va a editar o se va a crear
+  int idPista = 0;
+  bool isModificar = false;
+  bool isMultiplesImagenesModificada = false;
+
+  /// Termina el cmanio entre pantallas
   RxBool isValidBtnTarifas = false.obs;
   TarifasPistaController selfTarifas = Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -123,6 +162,9 @@ class AnadirPistaController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    final paramIdPista = Get.parameters['id_pista'];
+    idPista = paramIdPista != null ? int.parse(paramIdPista) : 0;
+    isModificar = idPista != 0;
     imagesPista.change([], RxStatusDemo.success());
     ever(isValidBtnTarifas, (callback) {
       if (!callback) {
@@ -177,11 +219,95 @@ class AnadirPistaController extends GetxController
     bono = InputController(animVibrate(vsync: this));
     reservatupista = InputController(animVibrate(vsync: this));
     animTerminos = animVibrate(vsync: this);
-    // onInitForm();
+    if (isModificar) {
+      _datosPistaEditar();
+    }
+  }
+
+  void _datosPistaEditar() async {
+    try {
+      imagesPista.loading();
+      final result = await PistaProvider().getPista(idPista: idPista);
+      if (result is List<dynamic>) {
+        if (result.isEmpty) {
+          return;
+        }
+        final detallesPista = DetallesPistaModel.fromJson(result[0]);
+        rellenarDatosPista(detallesPista);
+      }
+      print((jsonEncode(result)));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void rellenarDatosPista(DetallesPistaModel _) {
+    deporte.controller.text = _.deporte.icon;
+    nPistaController.text = _.numPista.toString();
+    capacidad.controller.text = _.capacidad.toString();
+    techada.controller.text = _.techada.sn;
+    iluminacion.controller.text = _.iluminacion;
+    tipo.controller.text = _.tipo;
+    cesped.controller.text = _.cesped;
+    automatizada.controller.text = _.automatizada.sn;
+    duracionPartida.controller.text = '${_.duracionPartida} Minutos';
+    horaInicio.controller.text = _.horaInicio.formatHora.substring(0, 5);
+    horaFin.controller.text = _.horaFin.formatHora.substring(0, 5);
+    socioTiempoReserva.controller.text = '${_.tiempoReservaSocio} Día';
+    socioTiempoCancelacion.controller.text =
+        '${_.tiempoCancelacionSocio} Horas';
+    socioPrecioConLuz.controller.text = _.precioLuzSocio.euro;
+    socioPrecioSinLuz.controller.text = _.precioSinLuzSocio.euro;
+    noSocioTiempoReserva.controller.text = '${_.tiempoReservaNoSocio} Día';
+    noSocioTiempoCancelacion.controller.text =
+        '${_.tiempoCancelacionNoSocio} Horas';
+    noSocioPrecioConLuz.controller.text = _.precioLuzNoSocio.euro;
+    noSocioPrecioSinLuz.controller.text = _.precioSinLuzNoSocio.euro;
+    descripcion.controller.text = _.descripcion;
+    nombrePatrocinador.controller.text = _.nombrePatrocinador;
+    vestuario.controller.text = _.vestuario.sn;
+    duchas.controller.text = _.duchas.sn;
+    efectivo.controller.text = 'No';
+    tarjeta.controller.text = 'No';
+    bono.controller.text = 'No';
+    reservatupista.controller.text = 'Si';
+    selfTarifas.datosGuardados.value = true;
+    imagePatrocinador.imageNetwork.value =
+        DatosServer.pista(_.imagenPatrocinador);
+    imagesPista.success(_.imagenesPista.split(', '));
+
+    pem = PistaEditarModel(
+      techada: IsEdit(_.techada.snb),
+      iluminacion: IsEdit(_.iluminacion),
+      tipo: IsEdit(_.tipo),
+      cesped: IsEdit(_.cesped),
+      automatizada: IsEdit(_.automatizada.snb),
+      duracionPartida: IsEdit(_.duracionPartida),
+      horaInicio: IsEdit(_.horaInicio.substring(0, 5)),
+      horaFin: IsEdit(_.horaFin.substring(0, 5)),
+      socioTiempoReserva: IsEdit(_.tiempoReservaSocio),
+      socioTiempoCancelacion: IsEdit(_.tiempoCancelacionSocio),
+      socioPrecioConLuz: IsEdit(_.precioLuzSocio),
+      socioPrecioSinLuz: IsEdit(_.precioSinLuzSocio),
+      noSocioTiempoReserva: IsEdit(_.tiempoReservaNoSocio),
+      noSocioTiempoCancelacion: IsEdit(_.tiempoCancelacionNoSocio),
+      noSocioPrecioConLuz: IsEdit(_.precioLuzNoSocio),
+      noSocioPrecioSinLuz: IsEdit(_.precioSinLuzNoSocio),
+      descripcion: IsEdit(_.descripcion),
+      nombrePatrocinador: IsEdit(_.nombrePatrocinador),
+      vestuario: IsEdit(_.vestuario.snb),
+      duchas: IsEdit(_.duchas.snb),
+    );
+    //efectivo: IsEdit('_.efectivo'),
+    // tarjeta: IsEdit('_.tarjeta'),
+    // bono: IsEdit('_.bono'),
+    // reservatupista: IsEdit(_.reservatupista)
+    isValidBtnTarifas.refresh();
+    setDuration(duracionPartida.controller.text);
   }
 
   void onInitForm() {
-    deporte.controller.text = '🎾 Padel';
+    deporte.controller.text = '🎾 Pádel';
     nPistaController.text = '1';
     techada.controller.text = 'Si';
     iluminacion.controller.text = 'Si';
@@ -212,10 +338,10 @@ class AnadirPistaController extends GetxController
   /// Crear la pista y subirla al servidor
   Future<void> crearPista() async {
     bool validarAnterior = true;
-    if (imagesPista.rx.value.isEmpty) {
-      validarAnterior = false;
-      imagesPista.changeActions('validate');
-    }
+    // if (imagesPista.rx.value.isEmpty) {
+    //   validarAnterior = false;
+    //   imagesPista.changeActions('validate');
+    // }
     if (!selfTarifas.datosGuardados.value) {
       validarAnterior = false;
       validarTarifas.value = true;
@@ -243,7 +369,7 @@ class AnadirPistaController extends GetxController
           numPista: int.parse(nPistaController.text),
           techada: techada.controller.text.sn,
           capacidad: int.parse(capacidad.controller.text),
-          iluminacion: iluminacion.controller.text.sn,
+          iluminacion: iluminacion.controller.text,
           tipo: tipo.controller.text,
           cesped: cesped.controller.text,
           automatizada: automatizada.controller.text.sn,
@@ -289,29 +415,115 @@ class AnadirPistaController extends GetxController
 
         // Regresar la respuesta
         if (result.code == 2000) {
-          await Get.dialog(ChangeDialogGeneral(
-            alertTitle: richTitle('Crear Pista'),
-            alertSubtitle: richSubtitle(result.messageError()),
-            textButton: 'Aceptar',
-            alertType: TypeGeneralDialog.SUCCESS,
-            onPressed: () => Get.offAllNamed(Routes.MIS_PISTAS),
-          ));
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: success,
+            title: 'Crear Pista',
+            subtitle: result.message,
+            onPressed: () => Get.offAllNamed(Routes.PISTAS_PROVEEDOR),
+          ).dialog();
         } else {
-          await Get.dialog(ChangeDialogGeneral(
-            alertTitle: richTitle('Crear Pista'),
-            alertSubtitle: richSubtitle(result.messageError()),
-            textButton: 'Aceptar',
-            alertType: TypeGeneralDialog.WARNING,
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: warning,
+            title: 'Crear Pista',
+            subtitle: result.message,
+            code: result.code,
             onPressed: Get.back,
-          ));
+          ).dialog();
         }
-
-        print(result);
       } catch (e, stack) {
         Get.back();
         print(stack);
         print(e);
       }
+    }
+  }
+
+  /// Crear la pista y subirla al servidor
+  Future<void> editarPista() async {
+    try {
+      Get.dialog(ColorLoader3());
+      // verificar si la imagen se cambio si si la subimos
+      String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
+      if (isMultiplesImagenesModificada) {
+        final imagenesPista = await imagePatrocinador.subirMultiplesImagenes(
+            'pistas', nameFoto, imagesPista.rx.value);
+        pem.imagenesPista.isModificado(imagenesPista);
+      }
+
+      if (imagePatrocinador.isImagenModificada) {
+        final imagenSubida =
+            await imagePatrocinador.convertirSubirImagen('pistas', nameFoto);
+        if (imagenSubida) {
+          print("Se subio la imagen");
+          pem.imagenPatrocinador.isModificado(nameFoto);
+        } else {
+          print("No se subio la imagen :/");
+          // throw "Error al subir imagen";
+        }
+      }
+
+      pem.techada.isModificado(techada.controller.text.sn);
+      pem.iluminacion.isModificado(iluminacion.controller.text);
+      pem.tipo.isModificado(tipo.controller.text);
+      pem.cesped.isModificado(cesped.controller.text);
+      pem.automatizada.isModificado(automatizada.controller.text.sn);
+      pem.duracionPartida.isModificado(duracionPartida.controller.text.dp);
+      pem.horaInicio.isModificado(horaInicio.controller.text);
+      pem.horaFin.isModificado(horaFin.controller.text);
+      pem.socioTiempoReserva
+          .isModificado(socioTiempoReserva.controller.text.trOtc);
+      pem.socioTiempoCancelacion
+          .isModificado(socioTiempoCancelacion.controller.text.trOtc);
+      pem.socioPrecioConLuz.isModificado(socioPrecioConLuz.controller.text.pc);
+      pem.socioPrecioSinLuz.isModificado(socioPrecioSinLuz.controller.text.pc);
+      pem.noSocioTiempoReserva
+          .isModificado(noSocioTiempoReserva.controller.text.trOtc);
+      pem.noSocioTiempoCancelacion
+          .isModificado(noSocioTiempoCancelacion.controller.text.trOtc);
+      pem.noSocioPrecioConLuz
+          .isModificado(noSocioPrecioConLuz.controller.text.pc);
+      pem.noSocioPrecioSinLuz
+          .isModificado(noSocioPrecioSinLuz.controller.text.pc);
+      pem.descripcion.isModificado(descripcion.controller.text);
+      pem.nombrePatrocinador.isModificado(nombrePatrocinador.controller.text);
+      // pem.imagenPatrocinador.isModificado(nameFoto);
+      pem.vestuario.isModificado(vestuario.controller.text.sn);
+      pem.duchas.isModificado(duchas.controller.text.sn);
+      // pem.imagenesPista.isModificado(imagenesPista);
+      // pem.efectivo.isModificado(efectivo.controller.text.sn);
+      // pem.tarjeta.isModificado(tarjeta.controller.text.sn);
+      // pem.bono.isModificado(bono.controller.text.sn);
+      // pem.reservatupista.isModificado(reservatupista.controller.text.sn);
+      print(pem.toJson());
+      // return;
+
+      /// Llamar a la api
+      final result = await PistaProvider().editarPista(idPista, pem.toJson());
+      Get.back();
+      // Regresar la respuesta
+      if (result.code == 2000) {
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: success,
+          title: 'Editar Pista',
+          subtitle: result.message,
+        ).dialog();
+      } else {
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: warning,
+          title: 'Crear Pista',
+          subtitle: result.message,
+          code: result.code,
+          onPressed: Get.back,
+        ).dialog();
+      }
+    } catch (e, stack) {
+      Get.back();
+      print(stack);
+      print(e);
     }
   }
 
@@ -323,7 +535,7 @@ class AnadirPistaController extends GetxController
     if (val.isNotEmpty) {
       int getSportCapacity(String sport) {
         switch (sport.de) {
-          case 'Padel':
+          case 'Pádel':
             // '4 jugadores (2 por equipo)';
             return 4;
           case 'Tenis':
@@ -331,24 +543,24 @@ class AnadirPistaController extends GetxController
             return 2;
           case 'Badminton':
             // '2 jugadores (individual) o 4 jugadores (dobles)';
-            return 4;
+            return 2;
           case 'P. climatizada':
-            return 1;
+            return 8;
           case 'Piscina':
             // 'Capacidad variable, dependiendo del evento o uso';
-            return 1;
+            return 8;
           case 'Baloncesto':
             // '10 jugadores (5 por equipo)';
-            return 10;
+            return 1;
           case 'Futbol sala':
             // '10 jugadores (5 por equipo)';
-            return 5;
+            return 1;
           case 'Futbol 7':
             // '14 jugadores (7 por equipo)';
-            return 7;
+            return 1;
           case 'Futbol 11':
             // '22 jugadores (11 por equipo)';
-            return 11;
+            return 1;
           case 'Pickleball':
             // '4 jugadores (2 por equipo)';
             return 2;
@@ -363,10 +575,10 @@ class AnadirPistaController extends GetxController
             return 2;
           case 'Balomano':
             // '14 jugadores (7 por equipo)';
-            return 7;
+            return 1;
           case 'Rugby':
             // '30 jugadores (15 por equipo) o 14 jugadores (7 por equipo) para rugby 7';
-            return 7;
+            return 1;
           case 'Multideporte':
             // 'Capacidad variable, dependiendo del deporte específico';
             return 2;
@@ -441,6 +653,11 @@ class AnadirPistaController extends GetxController
 
   /// Todo para crear las tarifas
   void generarListaTarifas() {
+    if (isModificar) {
+      Get.toNamed(Routes.TARIFAS_PISTA,
+          parameters: {'id_pista': idPista.toString()});
+      return;
+    }
     if (selfTarifas.datosGuardados.value) {
       selfTarifas.changeDia(0);
       Get.toNamed(Routes.TARIFAS_PISTA);
@@ -598,15 +815,13 @@ class AnadirPistaController extends GetxController
         final maxImages = images.length > 5;
         if (maxImages) {
           /// Si el limite es mayor, mensaje de error
-          await Get.dialog(ChangeDialogGeneral(
-            //uses the custom alert dialog
-            alertTitle: richTitle("Imagenes pista"),
-            alertSubtitle: richSubtitle(
-                "Solo puedes seleccionar 5\nimagenes de la pista."),
-            textButton: "Cerrar",
-            alertType: TypeGeneralDialog.WARNING,
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: warning,
+            title: 'Imagenes pista',
+            subtitle: 'Solo puedes seleccionar 5\nimagenes de la pista.',
             onPressed: Get.back,
-          ));
+          ).dialog();
         } else {
           List<File> imagesResizeFile = [];
           List<Uint8List> imagesResizeBytes = [];
@@ -625,6 +840,7 @@ class AnadirPistaController extends GetxController
             imagesPista.change(imagesResizeFile, RxStatusDemo.success(),
                 newAction: '');
           }
+          isMultiplesImagenesModificada = true;
         }
       }
       Get.back();
@@ -653,6 +869,32 @@ class AnadirPistaController extends GetxController
   @override
   void dispose() {
     super.dispose();
+    deporte.controller.dispose();
+    nPistaController.dispose();
+    techada.controller.dispose();
+    iluminacion.controller.dispose();
+    tipo.controller.dispose();
+    cesped.controller.dispose();
+    automatizada.controller.dispose();
+    duracionPartida.controller.dispose();
+    horaInicio.controller.dispose();
+    horaFin.controller.dispose();
+    socioTiempoReserva.controller.dispose();
+    socioTiempoCancelacion.controller.dispose();
+    socioPrecioConLuz.controller.dispose();
+    socioPrecioSinLuz.controller.dispose();
+    noSocioTiempoReserva.controller.dispose();
+    noSocioTiempoCancelacion.controller.dispose();
+    noSocioPrecioConLuz.controller.dispose();
+    noSocioPrecioSinLuz.controller.dispose();
+    descripcion.controller.dispose();
+    nombrePatrocinador.controller.dispose();
+    vestuario.controller.dispose();
+    duchas.controller.dispose();
+    efectivo.controller.dispose();
+    tarjeta.controller.dispose();
+    bono.controller.dispose();
+    reservatupista.controller.dispose();
     // deporteController!.dispose();
     // deporteFocusNode!.dispose();
     // nPistaController!.dispose();

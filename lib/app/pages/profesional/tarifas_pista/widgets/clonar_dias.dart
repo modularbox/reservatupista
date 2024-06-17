@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
+import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../tarifas_pista_c.dart';
@@ -15,15 +17,12 @@ class ClonarDias extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: InkWell(
-        onTap: () => Navigator.pop(context),
-        child: SizedBox(
-            height: MediaQuery.sizeOf(context).height - 190,
-            width: MediaQuery.sizeOf(context).width,
-            child: Stack(
-              children: [Positioned(bottom: 0, child: buildClonarDias())],
-            )),
-      ),
+      child: SizedBox(
+          height: MediaQuery.sizeOf(context).height - 190,
+          width: MediaQuery.sizeOf(context).width,
+          child: Stack(
+            children: [Positioned(bottom: 0, child: buildClonarDias())],
+          )),
     );
   }
 
@@ -41,20 +40,24 @@ class ClonarDias extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FFButtonWidget(
-                      onPressed: self.onChangeCopiarDatos,
-                      text: '  Copiar  ',
-                      options: FFButtonOptions(
-                        color: Colors.green,
-                        textStyle: LightModeTheme().bodyMedium,
-                      )),
-                  FFButtonWidget(
-                      onPressed: self.onChangeClonarBorrar,
-                      text: '  Borrar  ',
-                      options: FFButtonOptions(
-                        color: Colors.red,
-                        textStyle: LightModeTheme().bodyMedium,
-                      )),
+                  ButtonGeneral(
+                    onPressed: self.onChangeCopiarDatos,
+                    text: '  Copiar  ',
+                    isProveedor: true,
+                    // options: FFButtonOptions(
+                    //   color: Colors.green,
+                    //   textStyle: LightModeTheme().bodyMedium,
+                    // )
+                  ),
+                  ButtonGeneral(
+                    onPressed: self.onChangeClonarBorrar,
+                    text: '  Borrar  ',
+                    fillColor: Colores.rojo,
+                    // options: FFButtonOptions(
+                    //   color: Colors.red,
+                    //   textStyle: LightModeTheme().bodyMedium,
+                    // )
+                  ),
                 ],
               ),
             ),
@@ -66,37 +69,48 @@ class ClonarDias extends StatelessWidget {
   }
 
   Widget buildListDias() {
-    final List<String> diasSelect = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-    diasSelect.removeAt(self.indexDias.value);
+    final Map<int, String> diasSelect = {
+      0: 'L',
+      1: 'M',
+      2: 'X',
+      3: 'J',
+      4: 'V',
+      5: 'S',
+      6: 'D'
+    };
+    final keys = diasSelect.keys.toList();
+    keys.removeAt(self.indexDias.value);
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(
-        diasSelect.length,
-        (index) => Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: BtnIcon(
-            onPressed: () => self.onChangeClonarDia(index),
-            icon: Text(diasSelect[index],
-                style: LightModeTheme().titleSmall.override(
-                      fontFamily: 'Readex Pro',
-                      color: self.selectedDias.value[index]
-                          ? Colors.black
-                          : Colors.white,
-                      fontSize: 12.0,
-                    )),
-            width: 40.0,
-            height: 40.0,
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-            fillColor: self.selectedDias.value[index]
-                ? const Color(0xFF46EF98)
-                : LightModeTheme().primary,
-            borderColor: Colors.transparent,
-            borderWidth: 1.0,
-            borderRadius: 24.0,
-          ),
-        ),
-      ),
+      children: keys
+          .map(
+            (e) => Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: BtnIcon(
+                onPressed: () => self.onChangeClonarDia(e),
+                icon: Text(diasSelect[e]!,
+                    style: LightModeTheme().titleSmall.override(
+                          fontFamily: 'Readex Pro',
+                          color: self.selectedDias.value[e]
+                              ? Colors.black
+                              : Colors.white,
+                          fontSize: 12.0,
+                        )),
+                width: 40.0,
+                height: 40.0,
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                fillColor: self.selectedDias.value[e]
+                    ? const Color(0xFF46EF98)
+                    : LightModeTheme().primary,
+                borderColor: Colors.transparent,
+                borderWidth: 1.0,
+                borderRadius: 24.0,
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

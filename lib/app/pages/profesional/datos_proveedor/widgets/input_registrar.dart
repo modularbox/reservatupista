@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:math' as math;
 import '../../../../../utils/colores.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -25,7 +24,7 @@ class SelectInputRegistrar {
             ? _kAlignedMenuMargin
             : _kUnalignedMenuMargin;
 
-    var _dropdownRoute = _DropdownRoute<String>(
+    var dropdownRoute = _DropdownRoute<String>(
       itemWidth: itemBox.size.width,
       paddingDialogLeft: paddingDialogLeft ?? 16,
       onChanged: onChanged,
@@ -41,11 +40,11 @@ class SelectInputRegistrar {
       selectedIndex: -1,
       // elevation: widget.elevation,
       // dropdownColor: widget.dropdownColor,
-      style: TextStyle(),
+      style: const TextStyle(),
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
 
-    Navigator.push(context, _dropdownRoute);
+    Navigator.push(context, dropdownRoute);
   }
 }
 
@@ -135,13 +134,13 @@ class _DropdownMenuPainter extends CustomPainter {
 
 class _DropdownMenu<T> extends StatefulWidget {
   const _DropdownMenu({
-    Key? key,
+    super.key,
     this.padding,
     this.dropdownColor,
     this.route,
     this.isScroll = false,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   final ValueChanged<T> onChanged;
   final _DropdownRoute<T>? route;
@@ -162,13 +161,13 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     super.initState();
     _fadeOpacity = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.0, 0.25),
-      reverseCurve: Interval(0.75, 1.0),
+      curve: const Interval(0.0, 0.25),
+      reverseCurve: const Interval(0.75, 1.0),
     );
     _resize = CurvedAnimation(
       parent: widget.route!.animation!,
-      curve: Interval(0.25, 0.5),
-      reverseCurve: Threshold(0.0),
+      curve: const Interval(0.25, 0.5),
+      reverseCurve: const Threshold(0.0),
     );
   }
 
@@ -180,8 +179,8 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
     for (int itemIndex = 0; itemIndex < route.items!.length; ++itemIndex) {
       CurvedAnimation opacity;
       if (itemIndex == route.selectedIndex) {
-        opacity =
-            CurvedAnimation(parent: route.animation!, curve: Threshold(0.0));
+        opacity = CurvedAnimation(
+            parent: route.animation!, curve: const Threshold(0.0));
       } else {
         final double start = (0.5 + (itemIndex + 1) * unit).clamp(0.0, 1.0);
         final double end = (start + 1.5 * unit).clamp(0.0, 1.0);
@@ -196,7 +195,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             child: route.items![itemIndex],
           ),
           onTap: () => {
-            widget.onChanged(route.items![itemIndex].value!),
+            widget.onChanged(route.items![itemIndex].value as T),
             Navigator.pop(
               context,
             )
@@ -209,10 +208,11 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(color: Colores.proveedor.primary, width: 2),
-            borderRadius: BorderRadius.all(Radius.circular(5))),
+            borderRadius: const BorderRadius.all(Radius.circular(5))),
         child: CustomPaint(
           painter: _DropdownMenuPainter(
-            color: widget.dropdownColor ?? Color.fromARGB(255, 255, 255, 255),
+            color: widget.dropdownColor ??
+                const Color.fromARGB(255, 255, 255, 255),
             elevation: 2,
             selectedIndex: route.selectedIndex,
             resize: _resize,
@@ -306,6 +306,7 @@ class _DropdownRouteResult<T> {
   final T result;
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (other is! _DropdownRouteResult<T>) return false;
     final _DropdownRouteResult<T> typedOther = other;
@@ -432,9 +433,5 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
         ),
       ),
     );
-  }
-
-  void _dismiss() {
-    navigator?.removeRoute(this);
   }
 }

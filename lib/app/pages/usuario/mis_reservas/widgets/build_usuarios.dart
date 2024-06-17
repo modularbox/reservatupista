@@ -1,41 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
-import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 
-class BuildUsuarios extends GetView<MisReservasController> {
-  const BuildUsuarios(
+class BuildUsuarios extends StatelessWidget {
+  BuildUsuarios(
       {super.key,
       required this.capacidad,
       required this.reservasUsuarios,
+      this.idUsuario,
+      this.fotoUsuario,
       this.divide = 7.0});
   final int capacidad;
   final ReservasUsuarios? reservasUsuarios;
   final double divide;
   final MainAxisAlignment mainAxisAlignment = MainAxisAlignment.spaceAround;
-  MisReservasController get self => controller;
+  final int? idUsuario;
+  final String? fotoUsuario;
+  // Definir la lista de enteros
+  List<int> idUsuarioList = [];
 
   @override
   Widget build(BuildContext context) {
     if (reservasUsuarios == null) {
       return const SizedBox.shrink();
     }
-    return Row(mainAxisAlignment: mainAxisAlignment, children: [
-      Padding(
-        padding: const EdgeInsets.only(top: 4.0),
-        child: Row(
-          mainAxisAlignment: mainAxisAlignment,
-          children: [buildReservasAbiertas(reservasUsuarios!), buildReservas()]
-              .divide(divide.sw),
+    return Visible(
+      isVisible: reservasUsuarios != null,
+      child: Row(mainAxisAlignment: mainAxisAlignment, children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Row(
+            mainAxisAlignment: mainAxisAlignment,
+            children: [
+              buildReservasAbiertas(reservasUsuarios!),
+              buildReservas()
+            ].divide(divide.sw),
+          ),
         ),
-      ),
-    ]).visible(reservasUsuarios != null);
+      ]),
+    );
   }
 
   Widget buildButton(
@@ -72,11 +80,20 @@ class BuildUsuarios extends GetView<MisReservasController> {
   Widget buildUsuario(ReservaUsuario user, bool isPlazaReservada) {
     // Verificar si la partida esta cerrada
     final isCerrada = capacidad == reservasUsuarios!.plazasReservadasTotales;
+
+    // Función para verificar si un número está en la lista
+    bool exitsIdUsuario(int idUsuario) {
+      final exists = idUsuarioList.any((element) => element == idUsuario);
+      if (!exists) {
+        idUsuarioList.add(user.idUsuario);
+      }
+      return exists;
+    }
+
     return Row(
         mainAxisAlignment: mainAxisAlignment,
-        children: List.generate(
-          user.plazasReservadas,
-          (index) => Column(
+        children: List.generate(user.plazasReservadas, (index) {
+          return Column(
             children: [
               BtnIcon(
                 onPressed: null,
@@ -93,16 +110,20 @@ class BuildUsuarios extends GetView<MisReservasController> {
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                     child: buildImagen(user.imagen)),
               ),
-              Text(user.nick),
+              Text(exitsIdUsuario(user.idUsuario) ? 'Invitado' : user.nick),
               Text(user.nivel),
-              Text(self.db.idUsuario == user.idUsuario ? user.precio.euro : ''),
+              Text(getDinero(user)),
             ],
-          ),
-        ).divide(divide.sw));
+          );
+        }).divide(divide.sw));
   }
 
+  String getDinero(ReservaUsuario user) => idUsuario == null
+      ? user.precio.euro
+      : (idUsuario == user.idUsuario ? user.precio.euro : '');
+
   Widget buildImagen(imageName) {
-    if (imageName == self.db.fotoUsuario) {
+    if (imageName == fotoUsuario) {
       return ImageServer(
         width: 50,
         height: 50,

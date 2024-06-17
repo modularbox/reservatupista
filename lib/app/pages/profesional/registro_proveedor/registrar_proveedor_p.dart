@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/app/pages/profesional/registro_proveedor/widgets/inputs_datos_registro_proveedor.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
@@ -8,7 +9,6 @@ import '../../../../utils/btn_icon.dart';
 import '../../../widgets/appbar_general.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
 
 class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
@@ -56,34 +56,10 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                                 ? buildSelectImage()
                                 : const SizedBox.shrink(),
                             const InputsDatosRegistroProveedor(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 10.0),
-                              child: FFButtonWidget(
-                                onPressed: self.onPressedRegistrar,
-                                text: 'Registrate',
-                                options: FFButtonOptions(
-                                  width: MediaQuery.sizeOf(context).width * 0.4,
-                                  height: 40,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 0),
-                                  iconPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 0),
-                                  color: LightModeTheme().primary,
-                                  textStyle:
-                                      LightModeTheme().bodyMedium.override(
-                                            fontFamily: 'Readex Pro',
-                                            color: LightModeTheme().tertiary,
-                                          ),
-                                  elevation: 2,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
+                            ButtonGeneral(
+                              onPressed: self.onPressedRegistrar,
+                              fillColor: Colores.proveedor.primary,
+                              isProveedor: true,
                             ),
                           ],
                         ),
@@ -161,7 +137,8 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
                         shape: BoxShape.circle,
                       ),
                       child: BtnIcon(
-                        onPressed: self.imageProveedor.dialogSeleccionarImage,
+                        onPressed: () => self.imageProveedor
+                            .dialogSeleccionarImage(Get.context!),
                         borderRadius: 50,
                         padding: const EdgeInsets.all(0),
                         fillColor: Colors.transparent,

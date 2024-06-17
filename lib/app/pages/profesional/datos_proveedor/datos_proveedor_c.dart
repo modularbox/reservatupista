@@ -10,7 +10,7 @@ import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/subir_image_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
-import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../backend/schema/enums/tipo_imagen.dart';
@@ -108,15 +108,15 @@ class DatosProveedorController extends GetxController
   void onOpenDialogEliminarCuenta() async {
     final storage = await SharedPreferences.getInstance();
     final String parametros =
-        '?id=${storage.idProveedor.read()}&user=0&token=${storage.tokenProveedor.read()}&email=${emailController.text}';
-    Get.dialog(LinkDialog(
-      alertTitle: richTitleLink(
-          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?',
-          fontSize: 20.0),
-      alertSubtitle: richSubtitleLink(
-          'Para eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.'),
-      urlLink: 'https://app.reservatupista.com/eliminar_cuenta/$parametros',
-    ));
+        '?id=${storage.idProveedor.read()}&user=1&token=${storage.tokenProveedor.read()}&email=${emailController.text}';
+
+    MessageServerDialog(
+      isProveedor: true,
+      context: Get.context!,
+      title: 'Eliminar cuenta',
+      subtitle:
+          '¿Estás seguro de que deseas proceder con la eliminación de tu cuenta?\n\nPara eliminar tu cuenta, te redireccionaremos a una página externa donde podrás completar el proceso de eliminación.',
+    ).buildIrALink('${DatosServer.urlWeb}/eliminar_cuenta/$parametros');
   }
 
   getDatosProveedor() async {

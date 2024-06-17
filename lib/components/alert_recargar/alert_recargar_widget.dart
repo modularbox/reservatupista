@@ -41,6 +41,7 @@ class AlertRecargarWidgetState extends State<AlertRecargarWidget> {
       child: Container(
         width: double.infinity,
         height: 510,
+        constraints: const BoxConstraints(maxWidth: 600),
         decoration: BoxDecoration(
           color: LightModeTheme().secondaryBackground,
           boxShadow: const [
@@ -137,6 +138,7 @@ class AlertRecargarWidgetState extends State<AlertRecargarWidget> {
         onTap: () => onTap(buttonDinero),
         child: Container(
           width: context.w * 0.4,
+          constraints: const BoxConstraints(maxWidth: 180),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(

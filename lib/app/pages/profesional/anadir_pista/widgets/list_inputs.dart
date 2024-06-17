@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../../utils/colores.dart';
 import '../../../../../utils/dialog/terminos_condiciones_dialog.dart';
@@ -31,6 +32,10 @@ class _ListInputsState extends State<ListInputs> {
     super.initState();
   }
 
+  List<String> _listaDeportes(List<String> deportes) {
+    return deportes.map((e) => e.icon).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,26 +53,27 @@ class _ListInputsState extends State<ListInputs> {
                       key: self.deporte.key,
                       controller: self.deporte.controller,
                       focusNode: self.deporte.focus,
+                      enableInput: !self.isModificar,
                       context: context,
                       labelText: 'Deporte',
-                      itemsDD: const [
-                        '🎾 Pádel',
-                        '🎾 Tenis',
-                        '🏸 Badminton',
-                        '🏊‍♀️ P. climatizada',
-                        '🏊‍♀️ Piscina',
-                        '🏀 Baloncesto',
-                        '⚽ Futbol sala',
-                        '⚽ Futbol 7',
-                        '⚽ Futbol 11',
-                        '🥍 Pickleball',
-                        '🏸 Squash',
-                        '🏓 Tenis de mesa',
-                        '🏓 Fronton',
-                        '⚽ Balomano',
-                        '🏉 Rugby',
-                        '🥅 Multideporte',
-                      ],
+                      itemsDD: _listaDeportes([
+                        'Pádel',
+                        'Tenis',
+                        'Badminton',
+                        'P. climatizada',
+                        'Piscina',
+                        'Baloncesto',
+                        'Futbol sala',
+                        'Futbol 7',
+                        'Futbol 11',
+                        'Pickleball',
+                        'Squash',
+                        'Tenis de mesa',
+                        'Fronton',
+                        'Balomano',
+                        'Rugby',
+                        'Multideporte',
+                      ]),
                       isValidate: self.deporte.isValidate.value,
                       onChanged: self.onChangeDeporte,
                       onValidator: (val) => self.validarInputController(
@@ -211,7 +217,7 @@ class _ListInputsState extends State<ListInputs> {
                       focusNode: self.iluminacion.focus,
                       context: context,
                       labelText: 'Iluminación',
-                      itemsDD: const ['Leds', 'Halogeno'],
+                      itemsDD: const ['Leds', 'Halógeno'],
                       onChanged: (val) =>
                           self.iluminacion.isValidate.value = false,
                       isValidate: self.iluminacion.isValidate.value,
@@ -318,6 +324,7 @@ class _ListInputsState extends State<ListInputs> {
                       controller: self.duracionPartida.controller,
                       focusNode: self.duracionPartida.focus,
                       context: context,
+                      enableInput: !self.isModificar,
                       labelText: 'Duración partida',
                       onChanged: (val) => {
                         self.setDuration(val),
@@ -421,10 +428,20 @@ class _ListInputsState extends State<ListInputs> {
                 onPressed: !self.isValidBtnTarifas.value
                     ? null
                     : () async {
-                        self.generarListaTarifas();
+                        if (self.isModificar) {
+                          MessageServerDialog(
+                                  context: context,
+                                  alertType: error,
+                                  title: 'Editar Tarifas',
+                                  subtitle:
+                                      'Lo sentimos esta opción aun no esta incorporada.')
+                              .dialog();
+                        } else {
+                          self.generarListaTarifas();
+                        }
                       },
                 text: self.selfTarifas.datosGuardados.value
-                    ? 'Modificar Tarifas'
+                    ? 'Editar Tarifas'
                     : 'Crear Tarifas',
                 options: FFButtonOptions(
                   height: 40.0,
@@ -468,11 +485,12 @@ class _ListInputsState extends State<ListInputs> {
                       isValidate: self.nombrePatrocinador.isValidate.value,
                       onChanged: (val) =>
                           self.nombrePatrocinador.isValidate.value = false,
-                      onValidator: (val) => self.validarInputController(
-                          val,
-                          self.nombrePatrocinador.isValidate,
-                          self.nombrePatrocinador.anim,
-                          self.nombrePatrocinador.key),
+                      // onValidator: (val) => self.validarInputController(
+                      //     val,
+                      //     self.nombrePatrocinador.isValidate,
+                      //     self.nombrePatrocinador.anim,
+                      //     self.nombrePatrocinador.key
+                      //     ),
                     ),
                   ),
                 ),
@@ -500,11 +518,11 @@ class _ListInputsState extends State<ListInputs> {
                       isValidate: self.vestuario.isValidate.value,
                       onChanged: (val) =>
                           self.vestuario.isValidate.value = false,
-                      onValidator: (val) => self.validarInputController(
-                          val,
-                          self.vestuario.isValidate,
-                          self.vestuario.anim,
-                          self.vestuario.key),
+                      // onValidator: (val) => self.validarInputController(
+                      //     val,
+                      //     self.vestuario.isValidate,
+                      //     self.vestuario.anim,
+                      //     self.vestuario.key),
                     ),
                   ),
                 ),
@@ -523,11 +541,11 @@ class _ListInputsState extends State<ListInputs> {
                       itemsDD: const ['Si', 'No'],
                       onChanged: (val) => self.duchas.isValidate.value = false,
                       isValidate: self.duchas.isValidate.value,
-                      onValidator: (val) => self.validarInputController(
-                          val,
-                          self.duchas.isValidate,
-                          self.duchas.anim,
-                          self.duchas.key),
+                      // onValidator: (val) => self.validarInputController(
+                      //     val,
+                      //     self.duchas.isValidate,
+                      //     self.duchas.anim,
+                      //     self.duchas.key),
                     ),
                   ),
                 ),
@@ -588,17 +606,21 @@ class _ListInputsState extends State<ListInputs> {
                 maxLines: 4,
                 inputFormatters: [MaxLinesTextInputFormatter(4)],
                 onChanged: (val) => self.descripcion.isValidate.value = false,
-                validator: (val) => self.validarInputController(
-                    val,
-                    self.descripcion.isValidate,
-                    self.descripcion.anim,
-                    self.descripcion.key),
+                // validator: (val) => self.validarInputController(
+                //     val,
+                //     self.descripcion.isValidate,
+                //     self.descripcion.anim,
+                //     self.descripcion.key),
               ),
             ),
           ),
-          TerminosCondicionesDialog(self.animTerminos,
-              Colores.proveedor.primary, LightModeTheme().primaryText),
-        ].divide(const SizedBox(height: 10.0)),
+          TerminosCondicionesDialog(
+            self.animTerminos,
+            Colores.proveedor.primary,
+            LightModeTheme().primaryText,
+            value: self.idPista == 0 ? null : true,
+          ),
+        ].divide(10.0.sh),
       ),
     );
   }
@@ -668,10 +690,11 @@ class _ListInputsState extends State<ListInputs> {
               ),
               style: LightModeTheme().bodyMedium,
               readOnly: true,
-              onTap: self.imagePatrocinador.dialogSeleccionarImage,
+              onTap: () =>
+                  self.imagePatrocinador.dialogSeleccionarImage(Get.context!),
               enableInteractiveSelection: false,
-              validator: (val) => self.validarImage(
-                  val, self.foto.isValidate, self.foto.anim, self.foto.key),
+              // validator: (val) => self.validarImage(
+              //     val, self.foto.isValidate, self.foto.anim, self.foto.key),
             )));
   }
 
@@ -786,12 +809,7 @@ class _ListInputsState extends State<ListInputs> {
                           focusNode: tiempoCancelacion.focus,
                           context: context,
                           labelText: 'Tiempo cancelación',
-                          itemsDD: const [
-                            '12 Horas',
-                            '24 Horas',
-                            '48 Horas',
-                            '72 Horas'
-                          ],
+                          itemsDD: const ['24 Horas', '48 Horas', '72 Horas'],
                           onChanged: (val) =>
                               tiempoCancelacion.isValidate.value = false,
                           isValidate: tiempoCancelacion.isValidate.value,
@@ -1036,23 +1054,29 @@ class PrecioInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    String newText = newValue.text.replaceAll('.', ''); // Eliminar puntos
+    String textCambiar = '';
+    print(oldValue.text.length);
+    print(newValue.text.length);
+    if (oldValue.text.length > newValue.text.length) {
+      textCambiar = oldValue.text.substring(0, oldValue.text.length - 4);
+    } else {
+      textCambiar = newValue.text;
+    }
+    String newText = textCambiar.replaceAll(',', ''); // Eliminar puntos
     newText = newText.replaceAll('€', ''); // Eliminar Euro
     int newTextLength = newText.length; // Tamano del texto
     if (newTextLength == 0) {
       // Si no hay ningún número ingresado, devolver un valor vacío
       return const TextEditingValue();
     }
-    if (double.tryParse(newText) == null) {
+    if (int.tryParse(newText) == null) {
       return oldValue;
     } else {
-      double amount =
-          double.parse(newText) / 100; // Convertir a número y dividir por 100
-      String formattedText =
-          amount.toStringAsFixed(2); // Formatear con dos decimales
+      int amount = int.parse(newText); // Convertir a número y dividir por 100
+      final amountEuro = amount.euro;
       return TextEditingValue(
-        text: '$formattedText €',
-        selection: TextSelection.collapsed(offset: formattedText.length),
+        text: amountEuro,
+        selection: TextSelection.collapsed(offset: amountEuro.length - 2),
       );
     }
   }

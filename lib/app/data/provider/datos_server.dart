@@ -1,8 +1,9 @@
 // ignore_for_file: constant_identifier_names
 abstract final class DatosServer {
   static const String urlPruebas = 'http://localhost:3000';
-  // static const String urlServer = 'http://localhost:3000';
-  static const String urlServer = 'https://api.reservatupista.com';
+  static const String urlServer = 'http://localhost:3000';
+  // static const String urlServer = 'http://192.168.1.1';
+  // static const String urlServer = 'https://api.reservatupista.com';
   static const String urlWeb = 'https://app.reservatupista.com';
   static const String urlMail = 'https://mail.modularbox.com';
   static const String urlImageUsuario = '$urlServer/images_usuario';

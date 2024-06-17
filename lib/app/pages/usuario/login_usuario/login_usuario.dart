@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/auto_size_text/auto_size_text.dart';
 import '../../../../utils/btn_icon.dart';
@@ -64,6 +65,21 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // MaterialButton(
+                    //   color: Colors.blue,
+                    //   // onPressed: () => Get.toNamed(Routes.PRUEBAS),
+                    //   onPressed: () {
+                    //     debugPrint('print debug');
+                    //   },
+                    //   splashColor: Colors.blueGrey,
+                    //   child: Text(
+                    //     'pRUEBA IMAGEN',
+                    //     style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 16,
+                    //     ),
+                    //   ),
+                    // ),
                     Align(
                       alignment: const AlignmentDirectional(0, 0),
                       child: AppBarLoginWidget(
@@ -98,7 +114,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                               self.passwordUsuarioFocusNode,
                               self.passwordVisibility,
                               'Usuario',
-                              'Disfruta de todos tus\ndeportes con un click.',
+                              'Disfruta de todos tus deportes con un click.',
                               self.checkboxValueRecordarUsuario,
                               Routes.INICIO,
                               Routes.REGISTRAR_USUARIO,
@@ -118,7 +134,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                               self.passwordProveedorFocusNode,
                               self.passwordProveedorVisibility,
                               'Proveedor',
-                              'Clubs, Ayuntamiento, \nComunidad, Asociación.',
+                              'Clubs, Ayuntamiento, Comunidad, Asociación.',
                               self.checkboxValueRecordarProveedor,
                               Routes.INICIO_PROVEEDOR,
                               Routes.REGISTRAR_PROVEEDOR,
@@ -163,22 +179,23 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
       required dynamic Function()? onPressed,
       required Key formKey,
       required isProveedor}) {
+    final fontSize = context.w < 355 ? 12.0 : 16.0;
     return Form(
       key: formKey,
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: movilPequeno ? 0 : 10),
+          FittedBox(
             child: AutoSizeText(
               subtitle,
               textAlign: TextAlign.center,
               style: LightModeTheme().bodyMedium.override(
                     fontFamily: 'Readex Pro',
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
               minFontSize: 10,
             ),
           ),
+          5.0.sh,
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
                 20, movilPequeno ? 5 : 10, 20, 0),
@@ -355,8 +372,10 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     ),
                     10.0.sw,
                     Text(
-                      'Recordar\nclaves',
-                      style: LightModeTheme().bodyMedium,
+                      'Recordar contraseña',
+                      style: LightModeTheme()
+                          .bodyMedium
+                          .copyWith(fontSize: fontSize),
                     ),
                   ],
                 ),
@@ -371,9 +390,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     icon: Text(
                       '¿Has olvidado\nla contraseña?',
                       style: LightModeTheme().bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            color: LightModeTheme().primary,
-                          ),
+                          fontFamily: 'Readex Pro',
+                          color: LightModeTheme().primary,
+                          fontSize: fontSize),
                     ),
                   ),
                 ),
@@ -442,23 +461,25 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
           const SizedBox(
             height: 5.0,
           ),
-          FFButtonWidget(
-            onPressed: () => Get.toNamed(Routes.ADMINISTRADOR),
-            text: 'Administrador',
-            options: FFButtonOptions(
-              height: 40,
-              width: 200,
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-              iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-              color: focusedColor,
-              textStyle: LightModeTheme().bodyMedium.override(
-                    fontFamily: 'Readex Pro',
-                    color: LightModeTheme().tertiary,
-                  ),
-              elevation: 2,
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ).visible(isProveedor),
+          Visible(
+              isVisible: isProveedor,
+              child: FFButtonWidget(
+                onPressed: self.onPressedAdministrador,
+                text: 'Administrador',
+                options: FFButtonOptions(
+                  height: 40,
+                  width: 200,
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  color: focusedColor,
+                  textStyle: LightModeTheme().bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        color: LightModeTheme().tertiary,
+                      ),
+                  elevation: 2,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              )),
           const SizedBox(
             height: 5.0,
           ),

@@ -48,7 +48,7 @@ class FormatDate {
       final split = mesAndYear.split(" ");
       // Esto si el idioma esta en ingles
       if (split.length == 2) {
-        return "${mesesES[split[0]]} ${split[1]}";
+        return "${mesesES[split[0]]!.toUpperCase()} ${split[1]}";
       }
       // Esto si el idioma esta en ingles
       if (split.length == 3) {

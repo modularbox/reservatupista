@@ -1,18 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'alert_versions_widget.dart';
 
-extension SizedBoxExt on double {
-  SizedBox get sh => SizedBox(height: this);
-  SizedBox get sw => SizedBox(width: this);
-}
-
-class NavBarLogin extends StatelessWidget {
+class NavBarLogin extends StatefulWidget {
   const NavBarLogin({super.key});
 
+  @override
+  State<NavBarLogin> createState() => _NavBarLoginState();
+}
+
+class _NavBarLoginState extends State<NavBarLogin> {
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
       url,
@@ -45,43 +46,31 @@ class NavBarLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Align(alignment: Alignment.bottomCenter, child: buildNavBar());
+  }
+
+  Widget buildLogosText() {
+    return Row(
       children: [
-        Positioned(
-          bottom: (MediaQuery.sizeOf(context).height < 600 ||
-                  MediaQuery.sizeOf(context).width > 450)
-              ? 53
-              : 75,
+        Container(
+          width: 60.0,
+          height: 60.0,
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(),
+          child: Image.asset(
+            'assets/images/logo_diputacion_caseres.png',
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        Expanded(
           child: Container(
             height: 50,
-            width: MediaQuery.sizeOf(context).width,
             constraints: const BoxConstraints(maxWidth: 650),
             child: buildResponsiveText(context),
           ),
         ),
-        Positioned(
-          bottom: (MediaQuery.sizeOf(context).height < 600 ||
-                  MediaQuery.sizeOf(context).width > 450)
-              ? 53
-              : 75,
-          left: 5,
-          child: Container(
-            width: 60.0,
-            height: 60.0,
-            clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(),
-            child: Image.asset(
-              'assets/images/logo_diputacion_caseres.png',
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: (MediaQuery.sizeOf(context).height < 600 ||
-                  MediaQuery.sizeOf(context).width > 450)
-              ? 53
-              : 75,
-          right: 5,
+        Padding(
+          padding: const EdgeInsets.all(4.0),
           child: Container(
             width: 60.0,
             height: 60.0,
@@ -109,103 +98,109 @@ class NavBarLogin extends StatelessWidget {
             ),
           ),
         ),
-        Align(
-          alignment: const AlignmentDirectional(0.0, 1.0),
-          child: Container(
-            width: MediaQuery.sizeOf(context).width * 1.0,
-            height: (MediaQuery.sizeOf(context).height < 600 ||
-                    MediaQuery.sizeOf(context).width > 450)
-                ? 50
-                : 70.0,
+      ],
+    );
+  }
+
+  Widget buildNavBar() {
+    return SizedBox(
+      width: context.w,
+      height: context.w < 500 ? 130 : 120,
+      child: Column(
+        children: [
+          buildLogosText(),
+          Container(
+            width: context.w,
             decoration: BoxDecoration(
               color: LightModeTheme().secondaryBackground,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 30.0,
-                  decoration: BoxDecoration(
-                    color: LightModeTheme().primaryText,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Versions(),
-                      BtnIcon(
-                        hoverColor: const Color.fromARGB(144, 255, 255, 255),
-                        padding: const EdgeInsets.all(0),
-                        onPressed: _sendEmail,
-                        icon: Row(
-                          children: [
-                            Icon(
-                              Icons.email,
-                              color: LightModeTheme().bottomBarLoginText,
-                              size: 20.0,
-                            ),
-                            Text(
-                              'info@reservatupista.com',
-                              style: LightModeTheme().bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 12,
-                                    color: LightModeTheme().bottomBarLoginText,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      BtnIcon(
-                        hoverColor: const Color.fromARGB(144, 255, 255, 255),
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () =>
-                            _launchInBrowser(Uri.parse("tel:34653483483")),
-                        icon: Row(
-                          children: [
-                            Icon(
-                              Icons.phone,
-                              color: LightModeTheme().bottomBarLoginText,
-                              size: 20.0,
-                            ),
-                            1.0.sw,
-                            Text(
-                              '653483483',
-                              style: LightModeTheme().bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 12,
-                                    color: LightModeTheme().bottomBarLoginText,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                buildVersionCorreoMovil(),
                 Text(
-                  '© 2023 MODULARBOX S.L.${MediaQuery.sizeOf(context).width < 500 ? '\n' : ' '}TODOS LOS DERECHOS RESERVADOS',
+                  '© 2023 MODULARBOX S.L.${context.w < 500 ? '\n' : ' '}TODOS LOS DERECHOS RESERVADOS',
                   textAlign: TextAlign.center,
                   style: LightModeTheme().bodyMedium.override(
                       fontFamily: 'Readex Pro',
                       fontWeight: FontWeight.w900,
-                      fontSize:
-                          MediaQuery.sizeOf(context).width < 500 ? 11 : 14),
+                      fontSize: context.w < 500 ? 11 : 14),
                 ),
               ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+
+  Widget buildVersionCorreoMovil() {
+    final fontSize = context.w < 330 ? 10.0 : 12.0;
+    return Container(
+      width: context.w,
+      height: 30.0,
+      decoration: BoxDecoration(
+        color: LightModeTheme().primaryText,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Versions(),
+          BtnIcon(
+            hoverColor: const Color.fromARGB(144, 255, 255, 255),
+            padding: const EdgeInsets.all(0),
+            onPressed: _sendEmail,
+            icon: Row(
+              children: [
+                Icon(
+                  Icons.email,
+                  color: LightModeTheme().bottomBarLoginText,
+                  size: 20.0,
+                ),
+                Text(
+                  'info@reservatupista.com',
+                  style: LightModeTheme().bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        fontSize: fontSize,
+                        color: LightModeTheme().bottomBarLoginText,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          BtnIcon(
+            hoverColor: const Color.fromARGB(144, 255, 255, 255),
+            padding: const EdgeInsets.all(0),
+            onPressed: () => _launchInBrowser(Uri.parse("tel:34653483483")),
+            icon: Row(
+              children: [
+                Icon(
+                  Icons.phone,
+                  color: LightModeTheme().bottomBarLoginText,
+                  size: 20.0,
+                ),
+                1.0.sw,
+                Text(
+                  '653483483',
+                  style: LightModeTheme().bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        fontSize: fontSize,
+                        color: LightModeTheme().bottomBarLoginText,
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget buildResponsiveText(BuildContext context) {
-    double fontSize = MediaQuery.sizeOf(context).width < 450 ? 12.0 : 16.0;
-    fontSize = MediaQuery.sizeOf(context).width < 450 ? 12.0 : 14.0;
-    // final double fontSize =
-    //     MediaQuery.sizeOf(context).width < 400 ? 12.0 : 16.0;
-    if (MediaQuery.sizeOf(context).width < 450) {
+    double fontSize = context.w < 450 ? 12.0 : 16.0;
+    fontSize = context.w < 450 ? 12.0 : 14.0;
+    if (context.w < 450) {
       return Align(
         alignment: Alignment.center,
         child: FittedBox(

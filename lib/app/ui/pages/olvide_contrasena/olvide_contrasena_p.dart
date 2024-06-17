@@ -7,20 +7,27 @@ import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../components/app_bar_login_widget.dart';
 import '../../../../components/navbar_login.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../flutter_flow/flutter_flow_util.dart';
 import 'olvide_contrasena_c.dart';
 
-class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
+class OlvideContrasenaPage extends StatefulWidget {
+  const OlvideContrasenaPage({super.key});
+
+  @override
+  State<OlvideContrasenaPage> createState() => _OlvideContrasenaPageState();
+}
+
+class _OlvideContrasenaPageState extends State<OlvideContrasenaPage> {
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = Colores.usuario.primary;
-  OlvideContrasenaController get self => controller;
+  OlvideContrasenaController self = Get.find();
   // Definimos la animacion que viene directamente del controllador
   get anim => animVibrate(vsync: self);
 
-  OlvideContrasenaPage({super.key});
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -89,9 +96,12 @@ class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
           style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
           textAlign: TextAlign.center,
         ),
-        Text(
-            'Por favor, ingresa tu correo para iniciar el proceso de restablecimiento. ',
-            style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+              'Por favor, ingresa tu correo para iniciar el proceso de restablecimiento. ',
+              style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+        ),
         10.0.sh,
         Form(key: self.formKey0, child: _buildInput()),
         10.0.sh,
@@ -102,18 +112,21 @@ class OlvideContrasenaPage extends GetView<OlvideContrasenaController> {
   }
 
   Widget mostrarText() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: Text(
-        '''Le enviaremos un email para restablecer la contraseña.
-Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su correo.
+    return Visible(
+      isVisible: self.stateEmail.value,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Text(
+          '''Le enviaremos un email para restablecer la contraseña.
+    Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su correo.
               ''',
-        textAlign: TextAlign.center,
-        style: LightModeTheme()
-            .bodyMedium
-            .copyWith(fontStyle: FontStyle.italic, fontSize: 20),
+          textAlign: TextAlign.center,
+          style: LightModeTheme()
+              .bodyMedium
+              .copyWith(fontStyle: FontStyle.italic, fontSize: 20),
+        ),
       ),
-    ).visible(controller.stateEmail.value);
+    );
   }
 
   Widget _buildInput() {
@@ -135,14 +148,14 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
               ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: controller.lineColor,
+              color: self.lineColor,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: controller.focusedColor,
+              color: self.focusedColor,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -167,7 +180,7 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
           prefixIcon: const Icon(
             Icons.person,
           ),
-          prefixIconColor: controller.lineColor,
+          prefixIconColor: self.lineColor,
         ),
         style: LightModeTheme().bodyMedium,
         validator: self.validatorEmail,
@@ -180,35 +193,36 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BtnAccederRegistrar(
-          onPressed: controller.resendSendEmail,
-          color: controller.lineColor,
+          onPressed: self.resendSendEmail,
+          color: self.lineColor,
           borderColor: self.stateEmail.value ? Colors.black : self.lineColor,
           textButton: self.stateEmail.value ? 'Siguiente' : 'Recuperar',
         ),
         BtnAccederRegistrar(
           onPressed: Get.back,
-          color: controller.lineColor,
+          color: self.lineColor,
           borderColor: Colors.transparent,
           textButton: 'Cancelar',
         )
-      ]
-          .map<Widget>(
-            (e) => BtnIcon(
-              onPressed: e.onPressed,
-              icon: Text(e.textButton,
-                  style: LightModeTheme().bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: LightModeTheme().tertiary,
-                      fontSize: 16)),
-              height: 45,
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              fillColor: e.color,
-              borderColor: e.borderColor,
-              borderWidth: 3,
-              borderRadius: 12.0,
-            ),
-          )
-          .toList(),
+      ].map<Widget>((e) => buildBtn(e)).toList(),
+    );
+  }
+
+  Widget buildBtn(BtnAccederRegistrar e) {
+    return BtnIcon(
+      onPressed: e.onPressed,
+      icon: Text(e.textButton,
+          style: LightModeTheme().bodyMedium.override(
+              fontFamily: 'Readex Pro',
+              color: LightModeTheme().tertiary,
+              fontSize: 16)),
+      height: 45,
+      padding:
+          EdgeInsets.symmetric(horizontal: context.w < 350.0 ? 20.0 : 40.0),
+      fillColor: e.color,
+      borderColor: e.borderColor,
+      borderWidth: 3,
+      borderRadius: 12.0,
     );
   }
 
@@ -221,8 +235,11 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
           style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
           textAlign: TextAlign.center,
         ),
-        Text('Por favor, ingresa tu código de verificación. ',
-            style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text('Por favor, ingresa tu código de verificación. ',
+              style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+        ),
         10.0.sh,
         Form(key: self.formKeyOTP, child: const CodigoOTP()),
         10.0.sh,
@@ -244,9 +261,12 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
             style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
             textAlign: TextAlign.center,
           ),
-          Text(
-              'Por favor, ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento. ',
-              style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Text(
+                'Por favor, ingresa tu nueva contraseña a continuación para completar el proceso de restablecimiento. ',
+                style: LightModeTheme().bodyLarge.copyWith(fontSize: 15)),
+          ),
           10.0.sh,
           ...buildListContrasena(),
           20.0.sh,
@@ -257,12 +277,18 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
   }
 
   Widget buildMessageError() {
-    return Text(
-      'Lo siento, el código de verificación que ingresaste no es válido. Por favor, verifica que has introducido el código correctamente',
-      style: LightModeTheme()
-          .bodyLarge
-          .copyWith(color: Colores.rojo, fontSize: 18),
-    ).visible(self.validateOTP);
+    return Visible(
+      isVisible: self.validateOTP,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Text(
+          'Lo siento, el código de verificación que ingresaste no es válido. Por favor, verifica que has introducido el código correctamente',
+          style: LightModeTheme()
+              .bodyLarge
+              .copyWith(color: Colores.rojo, fontSize: 18),
+        ),
+      ),
+    );
   }
 
   /// Contruir los inputs de contrasena
@@ -289,7 +315,7 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
       required RxBool visibility,
       required TextEditingController textEditingController,
       required String? Function(AnimationController, FocusNode) validator}) {
-    return Padding(
+    return Obx(() => Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
         child: VibratingWidget(
           controller: anim,
@@ -321,14 +347,14 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: controller.lineColor,
+                    color: self.lineColor,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: controller.focusedColor,
+                    color: self.focusedColor,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -351,11 +377,11 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
                 fillColor: LightModeTheme().secondaryBackground,
                 contentPadding:
                     const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
-                prefixIconColor: controller.lineColor,
+                prefixIconColor: self.lineColor,
               ),
               style: LightModeTheme().bodyMedium,
               validator: (val) => validator(anim, FocusNode())),
-        ));
+        )));
   }
 
   Widget buildBotonesOTP() {
@@ -363,35 +389,12 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BtnAccederRegistrar(
-          onPressed: self.validarOTP,
-          color: self.lineColor,
-          borderColor: Colors.transparent,
-          textButton: 'Verificar',
-        ),
-        BtnAccederRegistrar(
           onPressed: Get.back,
-          color: controller.lineColor,
+          color: self.lineColor,
           borderColor: Colors.transparent,
           textButton: 'Cancelar',
         )
-      ]
-          .map<Widget>(
-            (e) => BtnIcon(
-              onPressed: e.onPressed,
-              icon: Text(e.textButton,
-                  style: LightModeTheme().bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: LightModeTheme().tertiary,
-                      fontSize: 16)),
-              height: 45,
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              fillColor: e.color,
-              borderColor: e.borderColor,
-              borderWidth: 3,
-              borderRadius: 12.0,
-            ),
-          )
-          .toList(),
+      ].map<Widget>((e) => buildBtn(e)).toList(),
     );
   }
 
@@ -407,28 +410,11 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
         ),
         BtnAccederRegistrar(
           onPressed: Get.back,
-          color: controller.lineColor,
+          color: self.lineColor,
           borderColor: Colors.transparent,
           textButton: 'Cancelar',
         )
-      ]
-          .map<Widget>(
-            (e) => BtnIcon(
-              onPressed: e.onPressed,
-              icon: Text(e.textButton,
-                  style: LightModeTheme().bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: LightModeTheme().tertiary,
-                      fontSize: 16)),
-              height: 45,
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              fillColor: e.color,
-              borderColor: e.borderColor,
-              borderWidth: 3,
-              borderRadius: 12.0,
-            ),
-          )
-          .toList(),
+      ].map<Widget>((e) => buildBtn(e)).toList(),
     );
   }
 
@@ -444,28 +430,11 @@ Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su c
         ),
         BtnAccederRegistrar(
           onPressed: Get.back,
-          color: controller.lineColor,
+          color: self.lineColor,
           borderColor: Colors.transparent,
           textButton: 'Cancelar',
         )
-      ]
-          .map<Widget>(
-            (e) => BtnIcon(
-              onPressed: e.onPressed,
-              icon: Text(e.textButton,
-                  style: LightModeTheme().bodyMedium.override(
-                      fontFamily: 'Readex Pro',
-                      color: LightModeTheme().tertiary,
-                      fontSize: 16)),
-              height: 45,
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              fillColor: e.color,
-              borderColor: e.borderColor,
-              borderWidth: 3,
-              borderRadius: 12.0,
-            ),
-          )
-          .toList(),
+      ].map<Widget>((e) => buildBtn(e)).toList(),
     );
   }
 }

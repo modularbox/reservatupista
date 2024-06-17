@@ -6,15 +6,10 @@ import '../../../../app_state.dart';
 import '../../../../flutter_flow/flutter_flow_icon_button.dart';
 import '../../../../utils/dialog/rich_alert_flutterflow.dart';
 import '../../../../utils/format_number.dart';
-import './pagos_tarjeta_c.dart';
-import 'dart:async';
-import 'dart:io';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 
-import 'package:flutter/cupertino.dart';
 // import 'package:flutter_paystack/flutter_paystack.dart';
-
 class MethodItem {
   final String text;
   final IconData icon;

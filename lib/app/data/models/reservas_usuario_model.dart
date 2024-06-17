@@ -18,7 +18,7 @@ class ReservasUsuarios {
 
   factory ReservasUsuarios.fromJson(Map<String, dynamic> json) =>
       ReservasUsuarios(
-        plazasReservadasTotales: json["plazas_reservadas_totales"],
+        plazasReservadasTotales: json["plazas_reservadas_totales"] ?? 0,
         usuarios: json["plazas_reservadas_totales"] == 0
             ? []
             : List<ReservaUsuario>.from(
@@ -40,15 +40,18 @@ class ReservaUsuario {
   int precio;
   String imagen;
   int plazasReservadas;
+  int idReservaPistaUsuario;
+  String tipoReserva;
 
-  ReservaUsuario({
-    required this.idUsuario,
-    required this.nick,
-    this.nivel = '',
-    this.precio = 0,
-    required this.imagen,
-    required this.plazasReservadas,
-  });
+  ReservaUsuario(
+      {required this.idUsuario,
+      required this.nick,
+      this.nivel = '',
+      this.precio = 0,
+      required this.imagen,
+      required this.plazasReservadas,
+      this.idReservaPistaUsuario = 0,
+      this.tipoReserva = ''});
 
   factory ReservaUsuario.fromRawJson(String str) =>
       ReservaUsuario.fromJson(json.decode(str));
@@ -56,15 +59,16 @@ class ReservaUsuario {
   String toRawJson() => json.encode(toJson());
 
   factory ReservaUsuario.fromJson(Map<String, dynamic> json) => ReservaUsuario(
-        idUsuario: json["id_usuario"],
-        nick: json["nick"],
-        precio: json["precio"] ?? 0,
-        nivel: json["nivel"] == null
-            ? '0.0'
-            : (json["nivel"] == '' ? '0.0' : json["nivel"]),
-        imagen: json["foto"] == null ? "" : json['foto'],
-        plazasReservadas: json["plazas_reservadas"],
-      );
+      idUsuario: json["id_usuario"],
+      nick: json["nick"],
+      precio: json["precio"] ?? 0,
+      nivel: json["nivel"] == null
+          ? '0.0'
+          : (json["nivel"] == '' ? '0.0' : json["nivel"]),
+      imagen: json["foto"] == null ? "" : json['foto'],
+      plazasReservadas: json["plazas_reservadas"],
+      idReservaPistaUsuario: json["id_reserva_pista_usuario"],
+      tipoReserva: json["tipo_reserva"]);
 
   Map<String, dynamic> toJson() => {
         "id_usuario": idUsuario,

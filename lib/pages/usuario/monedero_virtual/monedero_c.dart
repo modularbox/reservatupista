@@ -9,19 +9,19 @@ import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
-import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
 import 'dart:math';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
+import 'package:reservatu_pista/web/web.dart';
 
 enum TypeHistorial { reserva, recarga, tranferencia, all }
 
 class MonederoController extends GetxController
     with GetTickerProviderStateMixin {
   // Conexion a la base de datos local
-  DBService db = Get.find();
-  DBAlvaroController db2 = Get.find();
+  final DBService db = Get.find();
+  final DBAlvaroController db2 = Get.find();
   final historial_reservas = StateRx(Rx<List<dynamic>>([]));
   final historial_recargas = StateRx(Rx<List<dynamic>>([]));
   final historial_todo = StateRx(Rx<List<dynamic>>([]));
@@ -111,7 +111,6 @@ class MonederoController extends GetxController
       element.value.animation.controller = newController;
     }
     debounce(peticiones, (val) async {
-      print(val);
       if (val > 0) {
         await db.getMoney();
         if (copiaDineroTotal != db.dineroTotal) {
@@ -130,13 +129,7 @@ class MonederoController extends GetxController
     if (money > 0) {
       ReservarPistaController reservarPistaController =
           Get.find(tag: 'reserva');
-      Get.dialog(RichAlertFlutterFlow(
-          alertType: TypeAlert.NONE,
-          alertTitle: 'Recargar',
-          alertSubtitle: '¿Estás seguro de recargar el Monedero Virtual?',
-          textButton: 'Recargar',
-          precio: money.euro,
-          onPressed: () => recargarMonedero(money, reservarPistaController)));
+      recargarMonedero(money, reservarPistaController);
     }
   }
 
@@ -144,7 +137,6 @@ class MonederoController extends GetxController
       int dinero, ReservarPistaController reservarPistaController) async {
     try {
       String numOperacion = generarNumeroOperacionUnico();
-
       await guardarUsuarioOperacion(
         numOperacion,
         dinero,
@@ -156,9 +148,13 @@ class MonederoController extends GetxController
       );
       // Iniciar peticiones
       peticiones.value = 1;
-      await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-      Get.back();
+      if (isSafari()) {
+        await openUrlInSafari(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
+      } else {
+        launchURL(
+            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
+      }
       Get.back();
     } catch (e, stack) {
       print("recargarMOndedor");
@@ -169,7 +165,6 @@ class MonederoController extends GetxController
   }
 
   Future<void> mostrarHistorialTodo() async {
-    print('Mostrar historial mostrarHistorialReservasRecargas');
     try {
       historial_todo.loading();
       dynamic response = await db2.obtenerHistorialTodo(db.idUsuario);
@@ -178,7 +173,6 @@ class MonederoController extends GetxController
       } else {
         historial_todo.success(response);
       }
-      print('Future historial_reservas_y_recargas ${historial_todo}');
     } catch (e, stack) {
       print(e);
       print(stack);
@@ -187,7 +181,6 @@ class MonederoController extends GetxController
   }
 
   Future<void> mostrarHistorialReservas() async {
-    print('Mostrar historial reservas');
     try {
       historial_reservas.loading();
       dynamic response = await db2.obtenerHistorialReservas(db.idUsuario);
@@ -196,7 +189,6 @@ class MonederoController extends GetxController
       } else {
         historial_reservas.success(response);
       }
-      print('Future ${response}');
     } catch (e, stack) {
       print(e);
       print(stack);
@@ -205,7 +197,6 @@ class MonederoController extends GetxController
   }
 
   Future<void> mostrarHistorialRecargas() async {
-    print('Mostrar historial recagas');
     try {
       historial_recargas.loading();
       dynamic response = await db2.obtenerHistorialRecargas(db.idUsuario);
@@ -214,7 +205,6 @@ class MonederoController extends GetxController
       } else {
         historial_recargas.success(response);
       }
-      print('Future ${response}');
     } catch (e, stack) {
       print(e);
       print(stack);
@@ -227,12 +217,10 @@ class MonederoController extends GetxController
     DateTime now = DateTime.now();
     Random random = Random();
     int aleatorio = random.nextInt(999999);
-
     String formattedString =
         '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
     if (esReservaConTarjeta) formattedString += '_reservaConTarjeta';
     if (pisarReserva) formattedString += '_pisarReserva';
-    print('formattedString $formattedString');
     return formattedString;
   }
 
@@ -247,14 +235,6 @@ class MonederoController extends GetxController
       {bool reservaConTarjeta = false}) async {
     http.Response response;
 
-    print('id_usuario.toString() ${idUsuario.toString()}');
-    print('num_operacion $numOperacion');
-    print('cantidad $cantidad');
-    print('fecha $fecha');
-    print('hora_inicio $horaInicio');
-    print('hora_fin $horaFin');
-    print('id_pista $idPista');
-    print('reservaConTarjeta $reservaConTarjeta');
     if (reservaConTarjeta) {
       response = await http.post(
           Uri.parse('${DatosServer.urlServer}/usuario/guardar_operacion'),
@@ -287,10 +267,8 @@ class MonederoController extends GetxController
             'hora_fin': horaFin,
             'reserva_con_tarjeta': 'false',
             'id_pista': idPista.toString()
-            //estado es null al principio
           }));
     }
-    print('responseeeeeeeeeeeeeeeeeeee ${response.body}');
     return response;
   }
 

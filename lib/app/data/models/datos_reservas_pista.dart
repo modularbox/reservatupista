@@ -209,10 +209,6 @@ class Horario {
     precio_con_luz_no_socio = json["precio_con_luz_no_socio"] ?? 2;
     precio_sin_luz_socio = json["precio_sin_luz_socio"] ?? 2;
     precio_sin_luz_no_socio = json["precio_sin_luz_no_socio"] ?? 2;
-    print('precio_con_luz_sociooo $precio_con_luz_socio');
-    print(22343242342);
-    print(11111111);
-    print('json["horario"] ${json["horario"]}');
     return Horario(
         horario: json["horario"],
         estatus: typeEstado,

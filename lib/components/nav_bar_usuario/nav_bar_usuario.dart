@@ -1,7 +1,7 @@
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/services/db_s.dart';
 import '../../app/routes/app_pages.dart';
 import '../../utils/btn_icon.dart';
-import '../../utils/colores.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -9,22 +9,21 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class NavBarProfesionalWidget extends StatefulWidget {
-  const NavBarProfesionalWidget({
+class NavBarUsuarioWidget extends StatefulWidget {
+  const NavBarUsuarioWidget({
     super.key,
-    this.tipoDePagina,
+    required this.tipoDePagina,
   });
 
   final TypePage? tipoDePagina;
 
   @override
-  // ignore: library_private_types_in_public_api
-  _NavBarProfesionalWidgetState createState() =>
-      _NavBarProfesionalWidgetState();
+  NavBarUsuarioWidgetState createState() => NavBarUsuarioWidgetState();
 }
 
-class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
+class NavBarUsuarioWidgetState extends State<NavBarUsuarioWidget>
     with TickerProviderStateMixin {
+  DBService db = Get.find();
   final animationsMap = {
     'iconButtonOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -49,8 +48,8 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
   };
 
   @override
-  void setState(VoidCallback callback) {
-    super.setState(callback);
+  void setState(VoidCallback fn) {
+    super.setState(fn);
   }
 
   @override
@@ -66,15 +65,12 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    EdgeInsets padding = MediaQuery.of(context).padding;
+    final paddingBottom = padding.bottom > 10.0 ? 10.0 : padding.bottom;
     return SizedBox(
       width: double.infinity,
-      height: 65.0,
+      height: 65.0 + paddingBottom,
       child: Stack(
         children: [
           Column(
@@ -94,7 +90,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 child: Container(
                   width: double.infinity,
-                  height: 50.0,
+                  height: 50.0 + paddingBottom,
                   decoration: BoxDecoration(
                     color: LightModeTheme().primaryBackground,
                     boxShadow: const [
@@ -116,52 +112,59 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
               ),
             ],
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              buildIconButtonMin(
-                onPressed: () async {
-                  Get.offNamed(Routes.INICIO_PROVEEDOR);
-                },
-                isPage: widget.tipoDePagina == TypePage.Inicio,
-                icon: Icons.home_rounded,
-                title: 'Inicio',
-              ),
-              buildIconButtonMin(
-                onPressed: () async {
-                  Get.offNamed(Routes.MIS_PISTAS);
-                },
-                isPage: widget.tipoDePagina == TypePage.MisReservas,
-                icon: Icons.calendar_month,
-                title: 'Mis Pistas',
-              ),
-              buildIconCenter(
-                onPressed: () async {
-                  Get.offAllNamed(Routes.ANADIR_PISTA);
-                },
-                isPage: widget.tipoDePagina == TypePage.ReservarPista,
-                icon: Icons.add,
-                title: 'Crear Pista',
-              ),
-              buildIconButtonMin(
-                onPressed: () async {
-                  Get.offNamed(Routes.MIS_SOCIOS);
-                },
-                isPage: widget.tipoDePagina == TypePage.Monedero,
-                icon: Icons.safety_divider,
-                title: 'Mis Socios',
-              ),
-              buildIconButtonMin(
-                onPressed: () async {
-                  Get.offNamed(Routes.PERFIL_PROVEEDOR);
-                },
-                isPage: widget.tipoDePagina == TypePage.Perfil,
-                icon: Icons.person,
-                title: 'Perfil',
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(bottom: paddingBottom),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                buildIconButtonMin(
+                  onPressed: () async {
+                    Get.offNamed(Routes.INICIO);
+                  },
+                  isPage: widget.tipoDePagina == TypePage.Inicio,
+                  icon: Icons.home_rounded,
+                  title: 'Inicio',
+                ),
+                buildIconButtonMin(
+                  onPressed: () async {
+                    Get.offNamed(Routes.MIS_RESERVAS);
+                  },
+                  isPage: widget.tipoDePagina == TypePage.MisReservas,
+                  icon: Icons.calendar_month,
+                  title: 'Reservas',
+                ),
+                buildIconCenter(
+                  onPressed: () async {
+                    if (db.idReserva != '') {
+                      Get.offAllNamed(Routes.RESERVA_COMPARTIDA);
+                    } else {
+                      Get.offNamed(Routes.RESERVAR_PISTA);
+                    }
+                  },
+                  isPage: widget.tipoDePagina == TypePage.ReservarPista,
+                  icon: Icons.add,
+                  title: 'Reservar',
+                ),
+                buildIconButtonMin(
+                  onPressed: () async {
+                    Get.offNamed(Routes.MONEDERO);
+                  },
+                  isPage: widget.tipoDePagina == TypePage.Monedero,
+                  icon: Icons.credit_card,
+                  title: 'Monedero',
+                ),
+                buildIconButtonMin(
+                  onPressed: () async {
+                    Get.offNamed(Routes.PERFIL);
+                  },
+                  isPage: widget.tipoDePagina == TypePage.Perfil,
+                  icon: Icons.person,
+                  title: 'Perfil',
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -174,7 +177,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
       required void Function() onPressed,
       isPage = false}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 5.0),
+      padding: const EdgeInsets.only(bottom: 5.0),
       child: Column(
         children: [
           isPage
@@ -183,8 +186,8 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                   borderRadius: 25.0,
                   borderWidth: 1.0,
                   buttonSize: 45.0,
-                  fillColor: Colores.proveedor.primary,
-                  hoverColor: Colores.proveedor.primary69,
+                  fillColor: LightModeTheme().primary,
+                  hoverColor: LightModeTheme().primary,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
@@ -193,13 +196,13 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                   onPressed: onPressed,
                 ).animateOnPageLoad(
                   animationsMap['iconButtonOnPageLoadAnimation1']!)
-              : BtnIcon(
+              : FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 25.0,
-                  hoverColor: Colores.proveedor.primary69,
                   borderWidth: 1.0,
                   buttonSize: 45.0,
                   fillColor: const Color(0xFF9299A1),
+                  hoverColor: LightModeTheme().primary,
                   icon: const Icon(
                     Icons.add,
                     color: Colors.white,
@@ -213,7 +216,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
             style: LightModeTheme().bodyMedium.override(
                   fontFamily: 'Readex Pro',
                   color: isPage
-                      ? Colores.proveedor.primary
+                      ? LightModeTheme().primary
                       : LightModeTheme().primaryText,
                   fontSize: 10.0,
                 ),
@@ -228,39 +231,36 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
       required IconData icon,
       required void Function() onPressed,
       isPage = false}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: BtnIcon(
-        onPressed: onPressed,
-        hoverColor: Colores.proveedor.primary69,
-        borderRadius: 12,
-        icon: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            isPage
-                ? Icon(
-                    icon,
-                    color: Colores.proveedor.primary,
-                    size: 24.0,
-                  ).animateOnPageLoad(
-                    animationsMap['iconButtonOnPageLoadAnimation1']!)
-                : Icon(
-                    icon,
-                    color: const Color(0xFF9299A1),
-                    size: 24.0,
-                  ),
-            Text(
-              title,
-              style: LightModeTheme().bodyMedium.override(
-                    fontFamily: 'Readex Pro',
-                    color: isPage
-                        ? Colores.proveedor.primary
-                        : LightModeTheme().primaryText,
-                    fontSize: 10.0,
-                  ),
-            ),
-          ],
-        ),
+    return BtnIcon(
+      onPressed: onPressed,
+      hoverColor: const Color.fromARGB(69, 43, 120, 220),
+      borderRadius: 12,
+      icon: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          isPage
+              ? Icon(
+                  icon,
+                  color: LightModeTheme().primary,
+                  size: 24.0,
+                ).animateOnPageLoad(
+                  animationsMap['iconButtonOnPageLoadAnimation1']!)
+              : Icon(
+                  icon,
+                  color: const Color(0xFF9299A1),
+                  size: 24.0,
+                ),
+          Text(
+            title,
+            style: LightModeTheme().bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  color: isPage
+                      ? LightModeTheme().primary
+                      : LightModeTheme().primaryText,
+                  fontSize: 10.0,
+                ),
+          ),
+        ],
       ),
     );
   }

@@ -32,15 +32,18 @@ class ReservaCompartidaPage extends GetView<ReservaCompartidaController> {
   }
 
   Widget buildReservaCompartida() {
-    return ResponsiveWeb(
-      child: Column(
-        children: [
-          buildTodosDatos(),
-          Obx(() => self.sizedBoxHeight.value.sh),
-          50.0.sh,
-        ],
+    return Visible(
+      isVisible: self.usuario.value != null,
+      child: ResponsiveWeb(
+        child: Column(
+          children: [
+            buildTodosDatos(),
+            Obx(() => self.sizedBoxHeight.value.sh),
+            50.0.sh,
+          ],
+        ),
       ),
-    ).visible(self.usuario.value != null);
+    );
   }
 
   Widget buildTodosDatos() {
@@ -449,13 +452,16 @@ class SelectionWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(
-                  self.db.dineroTotal.euro,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: isSelected ? Colors.white : Colors.black,
+                Visible(
+                  isVisible: value == 'monedero',
+                  child: Text(
+                    self.db.dineroTotal.euro,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: isSelected ? Colors.white : Colors.black,
+                    ),
                   ),
-                ).visible(value == 'monedero')
+                )
               ],
             ),
           ),

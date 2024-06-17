@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_clubes/detalles_clubs/detalles_club.dart';
-import 'package:reservatu_pista/utils/dialog/link_dialog.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../backend/schema/enums/enums.dart';
 import '../../../components/navbar_y_appbar_profesional.dart';
@@ -18,11 +18,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
-class PerfilProveedorPage extends GetView<DBService> {
-  DBService get self => controller;
+class PerfilProveedorPage extends StatefulWidget {
+  const PerfilProveedorPage({super.key});
+
+  @override
+  State<PerfilProveedorPage> createState() => _PerfilProveedorPageState();
+}
+
+class _PerfilProveedorPageState extends State<PerfilProveedorPage> {
+  final DBService self = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final keyColumn = GlobalKey<ScaffoldState>();
-  PerfilProveedorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class PerfilProveedorPage extends GetView<DBService> {
     }
 
     return NavbarYAppbarProfesional(
-        title: 'Perfil',
+        title: 'Perfil Proveedor',
         page: TypePage.Perfil,
         isTitle: true,
         child: Expanded(
@@ -60,161 +66,85 @@ class PerfilProveedorPage extends GetView<DBService> {
         ));
   }
 
+  Widget buildTitle(String text) {
+    return Container(
+      width: ((context.w) - 140),
+      constraints: const BoxConstraints(maxWidth: 500),
+      margin: const EdgeInsets.only(left: 20.0),
+      child: AutoSizeText(
+        text,
+        maxLines: 2,
+        textAlign: TextAlign.center,
+        style: LightModeTheme().headlineSmall,
+        minFontSize: 12, // Establece aquí tu tamaño mínimo de fuente
+        stepGranularity: 1, // Ajuste granular para el tamaño de la fuente
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
   Widget subAppBar(bool responsive, String nombreClub) {
-    if (responsive) {
-      return ResponsiveWeb(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 3,
-                color: Color(0x33000000),
-                offset: Offset(0, 1),
-              )
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: LightModeTheme().tertiary,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: LightModeTheme().secondary,
-                      width: 3,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: BtnIcon(
-                      onPressed: () {
-                        Get.dialog(GestureDetector(
-                            onTap: () => Get.back(),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ImageServer(
-                                    width: 200,
-                                    height: 400,
-                                  ),
-                                ])));
-                      },
-                      borderRadius: 50,
-                      padding: const EdgeInsets.all(0),
-                      fillColor: Colors.transparent,
-                      hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                      icon: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: ImageServer()),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                  child: Center(
-                    child: SizedBox(
-                        width: 100.w - 138,
-                        child: AutoSizeText(
-                          nombreClub,
-                          textAlign: TextAlign.center,
-                          style: LightModeTheme().headlineSmall,
-                        )),
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return ResponsiveWeb(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: LightModeTheme().secondaryBackground,
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 3,
+              color: Color(0x33000000),
+              offset: Offset(0, 1),
+            )
+          ],
         ),
-      );
-    } else {
-      return ResponsiveWeb(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 3,
-                color: Color(0x33000000),
-                offset: Offset(0, 1),
-              )
-            ],
-          ),
-          child: ResponsiveWeb(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: 90,
-                    height: 90,
-                    decoration: BoxDecoration(
-                      color: LightModeTheme().tertiary,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: LightModeTheme().secondary,
-                        width: 3,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: BtnIcon(
-                        onPressed: () {
-                          Get.dialog(GestureDetector(
-                              onTap: () => Get.back(),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 200,
-                                      child: ImageServer(
-                                        width: null,
-                                        height: null,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
-                                  ])));
-                        },
-                        borderRadius: 50,
-                        padding: const EdgeInsets.all(0),
-                        fillColor: Colors.transparent,
-                        hoverColor: const Color.fromARGB(68, 255, 255, 255),
-                        icon: ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: ImageServer()),
-                      ),
-                    ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: LightModeTheme().tertiary,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colores.proveedor.primary,
+                    width: 3,
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        16.0, 0.0, 0.0, 0.0),
-                    child: Center(
-                      child: SizedBox(
-                          child: AutoSizeText(
-                        nombreClub,
-                        textAlign: TextAlign.center,
-                        style: LightModeTheme().headlineSmall,
-                      )),
-                    ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: BtnIcon(
+                    onPressed: () {
+                      Get.dialog(GestureDetector(
+                          onTap: () => Get.back(),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ImageServer(
+                                  width: 200,
+                                  height: 400,
+                                ),
+                              ])));
+                    },
+                    borderRadius: 50,
+                    padding: const EdgeInsets.all(0),
+                    fillColor: Colors.transparent,
+                    hoverColor: const Color.fromARGB(68, 255, 255, 255),
+                    icon: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: ImageServer()),
                   ),
-                ],
+                ),
               ),
-            ),
+              buildTitle(nombreClub),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
   }
 
   SizedBox spaceSizedBoxBtnCerrar() {
@@ -320,12 +250,12 @@ class PerfilProveedorPage extends GetView<DBService> {
               height: height,
               padding: padding,
               onPressed: () async {
-                Get.dialog(LinkDialog(
-                  alertTitle: richTitleLink('¿Deseas ir al enlace externo?',
-                      fontSize: 20.0),
-                  alertSubtitle: richSubtitleLink(
-                      'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies'),
-                ));
+                final urlPoliticaPrivacidad = Uri.parse(
+                    'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
+                final canLaunch = await canLaunchUrl(urlPoliticaPrivacidad);
+                if (canLaunch) {
+                  launchUrl(urlPoliticaPrivacidad);
+                }
               },
             ),
             ButtonPerfil(
@@ -340,8 +270,9 @@ class PerfilProveedorPage extends GetView<DBService> {
                 );
               },
             ),
+            20.0.sh,
             buildBtnCerrar(),
-            100.0.sh
+            context.paddingBottom.sh
           ]),
         ),
       ),
@@ -357,9 +288,7 @@ class PerfilProveedorPage extends GetView<DBService> {
         child: Container(
           width: 200,
           height: 50,
-          margin: EdgeInsets.only(
-              top: 10.0,
-              bottom: 60.0 + (isiOS ? 15.0 : 0.0) + (isWeb ? 10.0 : 0.0)),
+          margin: const EdgeInsets.only(top: 10.0),
           decoration: BoxDecoration(
             color: const Color(0xFFF77066),
             boxShadow: const [
@@ -376,7 +305,7 @@ class PerfilProveedorPage extends GetView<DBService> {
             onPressed: () async {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
             },
-            hoverColor: Colores.usuario.primary69,
+            hoverColor: Colores.proveedor.primary69,
             borderRadius: 12,
             icon: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -418,8 +347,8 @@ class ButtonPerfil extends StatelessWidget {
       this.height,
       this.icon});
   final void Function() onPressed;
-  final Color hoverColor = Colores.usuario.primary69;
-  final Color iconColor = Colores.usuario.primary;
+  final Color hoverColor = Colores.proveedor.primary69;
+  final Color iconColor = Colores.proveedor.primary;
   final String title;
   final IconData? icon;
   final TypeIcon? typeIcon;
@@ -451,14 +380,14 @@ class ButtonPerfil extends StatelessWidget {
           hoverColor: hoverColor,
           borderRadius: 12,
           icon: Padding(
-            padding: padding ?? EdgeInsets.all(8),
+            padding: padding ?? const EdgeInsets.all(8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 buildIcon(context),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
                       title,
                       style: LightModeTheme().bodyLarge,
@@ -466,7 +395,7 @@ class ButtonPerfil extends StatelessWidget {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.9, 0),
+                  alignment: const AlignmentDirectional(0.9, 0),
                   child: Icon(
                     Icons.arrow_forward_ios,
                     color: LightModeTheme().secondaryText,

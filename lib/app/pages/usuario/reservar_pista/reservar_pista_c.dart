@@ -1,9 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
+import 'package:reservatu_pista/app/data/models/detalles_pista_reserva_model.dart';
 import 'package:reservatu_pista/app/data/models/localidad_model.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
@@ -12,11 +11,12 @@ import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/dialogs_messages.dart';
+import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/size_move.dart';
+import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/buttons_sounds.dart';
-import 'package:reservatu_pista/utils/dialog/rich_alert_flutterflow.dart';
-import '../../../../utils/sizer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -45,6 +45,20 @@ class ReservarPistaController extends GetxController
     with GetTickerProviderStateMixin {
   /// Reservas Usuario
 
+  // Tamano de cada widget
+  SizeMove sm = SizeMove();
+
+  /// Todos los dialogos al reservar la pista
+  late DialogsMessages dm;
+
+  // Global key para el form de los inputs
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  /// Tiempo de reserva para el calendario
+  final _tiempoReserva = 0.obs;
+  int get tiempoReserva => _tiempoReserva.value;
+  set tiempoReserva(int value) => _tiempoReserva.value = value;
+
   /// Datos usuarios a reservar
   late Rx<ReservaUsuario> usuario;
   DBAlvaroController db2 = Get.find();
@@ -60,7 +74,9 @@ class ReservarPistaController extends GetxController
   Map<String, String> mapDeportes = {};
   Rx<String> deporte_seleccionado = Rx<String>('');
 
-  Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
+  // Rx<List<dynamic>> pistas = Rx<List<dynamic>>([]);
+
+  final pistas = Rx<List<DetallesPistaReservaModel>>([]);
   Rx<int> id_pista_seleccionada = Rx<int>(0);
   Rx<bool> pista_automatizada = Rx<bool>(false);
   Rx<bool> pista_con_luces = Rx<bool>(false);
@@ -80,8 +96,7 @@ class ReservarPistaController extends GetxController
   Rx<int?> selectClub = Rx<int?>(null);
   Rx<int?> selectDeporte = Rx<int?>(null);
   // Rx<int?> selectedDay = Rx<int?>(null);
-  Rx<int?> selectPista = Rx<int?>(null);
-  Rx<int?> selectDay = Rx<int?>(null);
+  Rx<int?> selectPista = Rx<int?>(0);
   Rx<String?> selectedItemDeporte = Rx<String?>(null);
   Rx<int> precio_con_luz_socio = Rx<int>(0);
   Rx<int> precio_con_luz_no_socio = Rx<int>(0);
@@ -94,8 +109,7 @@ class ReservarPistaController extends GetxController
   // Cancelar la reserva
   final cancelarReserva = false.obs;
 
-  Rx<HorarioFinInicio?> selectHorario = Rx<HorarioFinInicio?>(null);
-  final ScrollController scrollController = ScrollController();
+  final selectHorario = Rxn<HorarioFinInicio>();
   Rx<DateTime?> selectDateDay = Rx<DateTime?>(null);
   late List<DateTime?> singleDatePickerValueWithDefaultValue;
   RxList<bool> listReservas = [false, false, false, false].obs;
@@ -122,12 +136,8 @@ class ReservarPistaController extends GetxController
   late AnimationController animTerminos;
 
   RxDouble totalHeight = 0.0.obs;
-  RxDouble sizedBoxHeight = 0.0.obs;
   late DateTime fechaActual;
-  // late List<DateTime> tiempoReservaListaCalendar;
-
   final appBarAndNavBar = 120;
-  PageController pageViewController = PageController();
 
   /// Obtener los usuarios con reservas
   final reservas_usuarios = Rxn<ReservasUsuarios>();
@@ -138,7 +148,6 @@ class ReservarPistaController extends GetxController
   late DatosReservaPista datosReserva;
   // Selection controller
   final SelectionController selectionController = SelectionController();
-  // Anim
 
   @override
   void onInit() async {
@@ -147,207 +156,56 @@ class ReservarPistaController extends GetxController
     fechaActual = DateTime.now();
     animTerminos = animVibrate(vsync: this);
     db.getMoney();
-    if (!isWeb) {
-      debounce(sizedBoxHeight, (callback) {
-        scrollController.animateTo(
-          scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }, time: const Duration(milliseconds: 50));
-      debounce(selectDay, (callback) {
-        if (callback != null) {
-          final sizeCalendar = (keyCalendar.currentContext != null
-              ? keyCalendar.currentContext!.size!.height
-              : 0.0);
-          final sizeHorarios = (keyHorarios.currentContext != null
-              ? keyHorarios.currentContext!.size!.height
-              : 0.0);
-          final sizePistas = (keyPistas.currentContext != null
-              ? keyPistas.currentContext!.size!.height
-              : 0.0);
-          final newSize = (100.h -
-              (sizeCalendar + sizePistas + appBarAndNavBar + sizeHorarios));
-          if (newSize < 0) {
-            scrollController.animateTo(
-              scrollController.position.maxScrollExtent + newSize,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          } else {
-            if (sizedBoxHeight.value == newSize) {
-              sizedBoxHeight.refresh();
-            } else {
-              sizedBoxHeight.value = newSize;
-            }
-          }
-        }
-      }, time: const Duration(milliseconds: 50));
-      debounce(selectHorario, (callback) async {
-        if (callback != null) {
-          final sizeDatos = (keyDatos.currentContext != null
-              ? keyDatos.currentContext!.size!.height
-              : 0.0);
-          final sizePistas = (keyPistas.currentContext != null
-              ? keyPistas.currentContext!.size!.height
-              : 0.0);
-          final newSize = (100.h -
-              (sizePistas +
-                  appBarAndNavBar +
-                  keyHorarios.currentContext!.size!.height +
-                  sizeDatos));
-          if (newSize < 0) {
-            // sizedBoxHeight.refresh();
-            scrollController.animateTo(
-              scrollController.position.maxScrollExtent + newSize,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          } else {
-            if (sizedBoxHeight.value == newSize) {
-              sizedBoxHeight.refresh();
-            } else {
-              sizedBoxHeight.value = newSize;
-            }
-          }
-        }
-      }, time: const Duration(milliseconds: 50));
-    }
+    // if (!isWeb) {
+    sm.insertDebounce();
+    // }
     singleDatePickerValueWithDefaultValue = [fechaActual];
     diaHoy = singleDatePickerValueWithDefaultValue[0]!.day;
   }
 
+  void onChangedDay(DateTime dayDate) {
+    fecha_seleccionada.value =
+        DateTime(dayDate.year, dayDate.month, dayDate.day);
+    selectHorario.value = null;
+    selectDateDay.value = dayDate;
+    selectDateDay.refresh();
+    sm.moveCalendar();
+    if (selectPista.value == 0) {
+      selectPista.refresh();
+    } else {
+      selectPista.value = 0;
+    }
+  }
+
   void onConfirmar() {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
     if (selectHorario.value == null) {
       return;
     }
-    double precioReserva = precio_a_mostrar.value / 100; //euros
     if (selectionController.selectedOption.value != '' &&
         selectionController.selectedOption.value != 'rellenar') {
       final precio = db.dineroTotal - (precio_a_mostrar.value);
-      print('preciooooooooooo ${precio}'); //(0 - 4.0);
       if (precio < 0) {
         if (selectionController.selectedOption.value == 'tarjeta') {
-          print('preciooooooooooo tarjeta');
-          Get.dialog(RichAlertFlutterFlow(
-            alertType: TypeAlert.NONE,
-            alertTitle: 'Reservar Pista',
-            alertSubtitle: '¿Desea reservar la pista directamente con tarjeta?',
-            textButton: '',
-            acceptButton: MaterialButton(
-              color: Colors.green,
-              onPressed: () =>
-                  db2.reservarPistaConTarjeta(precio_a_mostrar.value, this),
-              splashColor: Colors.lightGreen,
-              child: const Text(
-                'Aceptar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            cancelButton: MaterialButton(
-              color: Colors.red,
-              onPressed: () => Get.back(),
-              splashColor: Colors.redAccent,
-              child: const Text(
-                'Cancelar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            precio: '${precioReserva.toStringAsFixed(2)} €',
-            onPressed: () {
-              Get.back();
-            },
-          ));
+          dm.reservarTarjeta(
+              precio: precio_a_mostrar.value.euro,
+              onPressedButton: () => db2.reservarPistaConTarjeta(
+                  precio_a_mostrar.value, this, dm.reservarProceso));
         } else {
-          Get.dialog(RichAlertFlutterFlow(
-            alertType: TypeAlert.NONE,
-            alertTitle: 'Reservar Pista',
-            alertSubtitle:
-                'No tienes saldo suficiente, debes recargar para poder reservar.',
-            textButton: 'Aceptar',
-            precio: '${precioReserva.toStringAsFixed(2)} €',
-            onPressed: () {
-              Get.back();
-            },
-          ));
+          dm.reservaNoMoney();
         }
       } else {
         if (selectionController.selectedOption.value == 'tarjeta') {
-          print('preciooooooooooo tarjeta');
-          Get.dialog(RichAlertFlutterFlow(
-            alertType: TypeAlert.NONE,
-            alertTitle: 'Reservar Pista',
-            alertSubtitle: '¿Desea reservar la pista directamente con tarjeta?',
-            textButton: '',
-            acceptButton: MaterialButton(
-              color: Colors.green,
-              onPressed: () =>
-                  db2.reservarPistaConTarjeta(precio_a_mostrar.value, this),
-              splashColor: Colors.lightGreen,
-              child: const Text(
-                'Aceptar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            cancelButton: MaterialButton(
-              color: Colors.red,
-              onPressed: () => Get.back(),
-              splashColor: Colors.redAccent,
-              child: const Text(
-                'Cancelar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            precio: '${precioReserva.toStringAsFixed(2)} €',
-            onPressed: () {
-              Get.back();
-            },
-          ));
+          dm.reservarTarjeta(
+              precio: precio_a_mostrar.value.euro,
+              onPressedButton: () => db2.reservarPistaConTarjeta(
+                  precio_a_mostrar.value, this, dm.reservarProceso));
         } else {
-          Get.dialog(RichAlertFlutterFlow(
-            alertType: TypeAlert.NONE,
-            alertTitle: 'Reservar Pista',
-            alertSubtitle: '¿Desea reservar la pista?',
-            textButton: '',
-            acceptButton: MaterialButton(
-              color: Colors.green,
-              onPressed: reservarPistaF,
-              splashColor: Colors.lightGreen,
-              child: const Text(
-                'Aceptar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            cancelButton: MaterialButton(
-              color: Colors.red,
-              onPressed: () => Get.back(),
-              splashColor: Colors.redAccent,
-              child: const Text(
-                'Cancelar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            precio: '${precioReserva.toStringAsFixed(2)} €',
-            onPressed: Get.back,
-          ));
+          dm.reservarMonedero(
+              precio: precio_a_mostrar.value.euro,
+              onPressedButton: reservarPistaF);
         }
       }
     }
@@ -375,33 +233,10 @@ class ReservarPistaController extends GetxController
           'monedero',
           db.nombre,
           plazas_a_reservar.value.toString());
-      Get.defaultDialog(
-        title: "Reserva exitosa",
-        middleText: "La pista se ha reservado correctamente.",
-        actions: [
-          TextButton(
-            onPressed: () {
-              // Get.toNamed(Routes.MIS_RESERVAS);
-              Get.back();
-              Get.back();
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      );
+      dm.reservarSuccess(
+          onPressed: () => {Get.back(), Get.offNamed(Routes.MIS_RESERVAS)});
     } else {
-      Get.defaultDialog(
-        title: "Error al reservar pista",
-        middleText: "La pista no se ha podido reservar.",
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back(); // Cierra la alerta
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      );
+      dm.reservaError();
     }
   }
 
@@ -427,8 +262,7 @@ class ReservarPistaController extends GetxController
         totalMisReservas = false;
         plazas_a_reservar.value = 0;
         usuario.refresh();
-        print('plazaslibressss $plazasLibres');
-        print('reservas_usuarios.valueeee ${reservas_usuarios.value}');
+        sm.moveHorarios();
       }
     } catch (e) {
       print(e);
@@ -438,10 +272,8 @@ class ReservarPistaController extends GetxController
   Future<void> generarListaLocalidades() async {
     try {
       dynamic localidadesJson = await obtenerLocalidades();
-      print('localidadesJson $localidadesJson');
       // Convertir la cadena JSON en una lista de mapas
       listLocalidades = LocalidadModel.fromRawJson(localidadesJson);
-      print(listLocalidades.toJson());
       List<String> listaLocalidades = listLocalidades.localidades
           .map<String>((localidad) => localidad.localidad)
           .toList();
@@ -476,7 +308,6 @@ class ReservarPistaController extends GetxController
 
       List<dynamic> clubesCodPostal =
           await ProveedorProvider().obtenerClubes(codigos_postales);
-      print('clubesCodPostal $clubesCodPostal');
 
       for (var i = 0; i < clubesCodPostal.length; i++) {
         mapClubes[clubesCodPostal[i]['nombre']] =
@@ -486,7 +317,6 @@ class ReservarPistaController extends GetxController
       List<String> listaClubes = clubesCodPostal
           .map<String>((club) => club['nombre'] as String)
           .toList();
-      print('listaClubes$listaClubes');
       clubes.value = listaClubes;
       return;
     } catch (error, stack) {
@@ -502,20 +332,15 @@ class ReservarPistaController extends GetxController
     deporte_seleccionado.value = '';
     try {
       String deportesJson = await db2.obtenerDeportes(id_club);
-      print('deportesJson $deportesJson');
       if (deportesJson == '{}') {
         deportes.value = [];
         return;
       }
       List<dynamic> deportesData = json.decode(deportesJson);
 
-      //print('deportesData $deportesData');
-      //print('deportesData[0] ${deportesData[0]['deporte']}');
-
       List<String> listaDeportes = deportesData
           .map<String>((deporte) => deporte['deporte'] as String)
           .toList();
-      print('listaDeportes $listaDeportes');
       deportes.value = listaDeportes;
       return;
     } catch (error, stack) {
@@ -525,34 +350,34 @@ class ReservarPistaController extends GetxController
     }
   }
 
+  void onPressedBuildChip(int index) {
+    selectHorario.value = null;
+    selectPista.value = index;
+    tiempoReserva = pistas.value[index].tiempoReservaNoSocio;
+    _tiempoReserva.refresh();
+    selectDateDay.refresh();
+    sm.movePista();
+  }
+
 //funcion para obtener las pistas que hay en cada club
   Future<void> generarListaPistas(String id_club, String deporte) async {
     //deporteController.text = '';
     try {
       String pistasJson = await db2.obtenerPistas(id_club, deporte);
-      print('pistasJson $pistasJson');
       if (pistasJson.isEmpty) {
         pistas.value = [];
         return;
       }
-      print('llega akiiii');
 
-      // List<dynamic> pistasData = json.decode(pistasJson);
-      pistas.value = json.decode(pistasJson);
-      print('llega akiiii22');
+      pistas.value =
+          detallesPistaReservaModelFromJsonList(json.decode(pistasJson));
       //POR DEFECTO SIEMPRE COGE COMO SELECCIONADA LA PRIMERA QUE DEVUELVE LA BASE DE DATOS
-      id_pista_seleccionada.value = pistas.value[0]['id_pista'];
-      print('id_pista_seleccionada ${id_pista_seleccionada.value}');
-      duracion_partida.value = pistas.value[0]['duracion_partida'];
-      print('duracion_partida.value ${duracion_partida.value}');
+      id_pista_seleccionada.value = pistas.value[0].idPista;
+      duracion_partida.value = pistas.value[0].duracionPartida;
       pista_automatizada.value =
-          (pistas.value[0]['automatizada'] == 1) ? true : false;
-      capacidad_pista = pistas.value[0]['capacidad'];
-      print('capacidad_pistaaaaa ${capacidad_pista}');
-      print('pista_automatizadaaa ${pista_automatizada.value}');
-      /* List<String> listaPistas = pistasData
-          .map<String>((pista) => pista['id_pista'].toString())
-          .toList();*/
+          (pistas.value[0].automatizada == 1) ? true : false;
+      capacidad_pista = pistas.value[0].capacidad;
+
       return;
     } catch (error, stack) {
       print('stack: ${stack}');
@@ -564,25 +389,16 @@ class ReservarPistaController extends GetxController
   Future<List<dynamic>> generarListaHorarios(
       int idPista, DateTime dia_seleccionado) async {
     try {
-      print('responseeeeeeeeeeee00');
       String response =
           await db2.obtenerHorariosPistas(idPista, dia_seleccionado);
-      print('responseeeeeeeeeeee11 ${response}');
       if (response.length <= 0) return [];
-      print('responseeeeeeeeeeee22 ${response}');
       List<dynamic> datosPista2 = json.decode(response);
-      print('datosPista22 ${datosPista2}');
       return datosPista2;
     } catch (error, stack) {
       print('stack: ${stack}');
       print('errorrrrr $error');
       rethrow;
     }
-  }
-
-  List<DateTime> getListaHorarios() {
-    return List.generate(
-        db2.datosReserva.tiempoReserva, (index) => getAddDia(index));
   }
 
   DateTime fechaAnterior() {
@@ -599,17 +415,6 @@ class ReservarPistaController extends GetxController
   DateTime getAddDia(int days) {
     final addDia = Duration(days: days);
     return fechaActual.add(addDia);
-  }
-
-  SvgPicture _buildSvgIcon(String asset) {
-    return SvgPicture.asset(
-      asset,
-      height: 5,
-      width: 5,
-      fit: BoxFit.fill,
-      colorFilter: const ColorFilter.mode(
-          Color.fromARGB(255, 145, 145, 145), BlendMode.srcIn),
-    );
   }
 }
 

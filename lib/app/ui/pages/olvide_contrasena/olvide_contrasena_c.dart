@@ -112,29 +112,37 @@ class OlvideContrasenaController extends GetxController
     }
   }
 
-  Future<void> validarOTP() async {
-    if (formKeyOTP.currentState!.validate()) {
-      try {
-        final getOTP = controllersCodigo.map((e) => e.text).toList().join();
-        final result = await provider.validarOTP(
-            emailController.text, getOTP, typeUser != 0);
-        if (result is! MessageError) {
-          if (typeUser != 0) {
-            id = result['id_proveedor'];
-          } else {
-            id = result['id_usuario'];
-          }
-          token = result['token'];
-          validateOTP = false;
-          pageViewController.nextPage(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.linear);
-        } else {
-          validateOTP = true;
-        }
-      } catch (e) {
-        print(e.toString());
+  void codigoOTPComplete() {
+    for (final element in controllersCodigo) {
+      if (element.text.isEmpty) {
+        return;
       }
+    }
+    validarOTP();
+  }
+
+  Future<void> validarOTP() async {
+    try {
+      final getOTP = controllersCodigo.map((e) => e.text).toList().join();
+      // final result = await provider.validarOTP(
+      //     emailController.text, getOTP, typeUser != 0);
+      final result = await provider.validarOTP(
+          'miguel@modularbox.com', getOTP, typeUser != 0);
+      if (result is! MessageError) {
+        if (typeUser != 0) {
+          id = result['id_proveedor'];
+        } else {
+          id = result['id_usuario'];
+        }
+        token = result['token'];
+        validateOTP = false;
+        pageViewController.nextPage(
+            duration: const Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        validateOTP = true;
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 

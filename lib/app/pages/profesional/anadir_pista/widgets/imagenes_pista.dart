@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/anadir_pista_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
@@ -74,18 +76,33 @@ class ImagenesPista extends GetView<AnadirPistaController> {
   }
 
   Widget buildListaImagenes(List<dynamic>? state) {
-    final generarListaImagenes = state!
-        .map((e) => e is File
-            ? buildBtnImagen(
-                Image.file(e, width: 200, height: 400, fit: BoxFit.fitWidth),
-                FileImage(e))
-            : buildBtnImagen(
-                Image.memory(e, width: 200, height: 400, fit: BoxFit.fitWidth),
-                MemoryImage(e)))
-        .toList();
-    return state.isEmpty
-        ? const SizedBox.shrink()
-        : Row(children: generarListaImagenes);
+    final generarListaImagenes = state!.map(_buildMostrarImagen).toList();
+    return Visible(
+        isVisible: state.isNotEmpty,
+        child: Row(children: generarListaImagenes));
+  }
+
+  Widget _buildMostrarImagen(dynamic e) {
+    print('eeeeee: $e');
+    if (e is File) {
+      return buildBtnImagen(
+          Image.file(e, width: 200, height: 400, fit: BoxFit.fitWidth),
+          FileImage(e));
+    }
+    if (e is Uint8List) {
+      return buildBtnImagen(
+          Image.memory(e, width: 200, height: 400, fit: BoxFit.fitWidth),
+          MemoryImage(e));
+    }
+    if (e is String) {
+      print("siiiiiiiii");
+      final getImagePista = DatosServer.pista(e);
+      return buildBtnImagen(
+          Image.network(getImagePista,
+              width: 200, height: 400, fit: BoxFit.fitWidth),
+          NetworkImage(getImagePista));
+    }
+    return const SizedBox.shrink();
   }
 
   Widget buildBtnImagen(

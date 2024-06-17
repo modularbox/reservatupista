@@ -447,11 +447,6 @@ class ReservaCompartidaController extends GetxController
     }
   }
 
-  List<DateTime> getListaHorarios() {
-    return List.generate(
-        db2.datosReserva.tiempoReserva, (index) => getAddDia(index));
-  }
-
   DateTime fechaAnterior() {
     // Obtén la fecha y hora actual
     DateTime fechaActual = DateTime.now();

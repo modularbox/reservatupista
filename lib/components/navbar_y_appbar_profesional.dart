@@ -2,7 +2,7 @@ import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../components/appbar_profesional.dart';
 import '/backend/schema/enums/enums.dart';
-import '/components/nav_bar_profesional/nav_bar_profesional_widget.dart';
+import 'nav_bar_profesional/nav_bar_profesional.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,38 +32,36 @@ class NavbarYAppbarProfesional extends StatelessWidget {
         ),
       );
     }
-    EdgeInsets padding = MediaQuery.of(context).padding;
-    double paddingTop = padding.top;
+    final padding = MediaQuery.of(context).padding;
+    final paddingTop =
+        isiOS ? (padding.top > 28.0 ? 28.0 : padding.top) : padding.top;
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        right: false,
-        left: false,
-        bottom: true,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                paddingTop.sh,
-                ResponsiveWeb(
-                  child: AppbarProfesional(
-                    title: title,
-                    isTitle: isTitle,
-                    isTitleBack: isTitleBack,
-                  ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              paddingTop.sh,
+              ResponsiveWeb(
+                child: AppbarProfesional(
+                  title: title,
+                  isTitle: isTitle,
+                  isTitleBack: isTitleBack,
                 ),
-                child,
-              ],
-            ),
-            ResponsiveWeb(
+              ),
+              child,
+            ],
+          ),
+          Visible(
+            isVisible: isNavBar,
+            child: ResponsiveWeb(
                 child: Align(
               alignment: Alignment.bottomCenter,
               child: NavBarProfesionalWidget(
                 tipoDePagina: page,
               ),
-            )).visible(isNavBar),
-          ],
-        ),
+            )),
+          ),
+        ],
       ),
     );
   }

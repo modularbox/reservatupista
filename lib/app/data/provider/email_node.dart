@@ -13,7 +13,6 @@ class EmailProvider extends GetConnect {
   Future<bool> enviarEmailRegistro(
       String email, String nombre, String tipoUsuario) async {
     try {
-      print('Send Email');
       final response = await post(
           '$urlMail/reservatupista_alta',
           {
@@ -26,7 +25,7 @@ class EmailProvider extends GetConnect {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bienvenido a ReservaTuPista</title>
+    <title>Bienvenido a Reservatupista</title>
     <style>
       body {
           font-family: monospace, Helvetica, Arial, sans-serif;
@@ -85,12 +84,12 @@ class EmailProvider extends GetConnect {
   <body>
     <div class="container">
       <div class="header">
-        <h1>¡Bienvenido a ReservaTuPista!</h1>
+        <h1>¡Bienvenido a Reservatupista!</h1>
       </div>
       <div class="content">
         <p>Hola $nombre,</p>
         <p>
-          Gracias por registrarte en ReservaTuPista. Estamos encantados de
+          Gracias por registrarte en Reservatupista. Estamos encantados de
           tenerte con nosotros. Ahora puedes reservar tus pistas de deportes
           favoritas de manera rápida y sencilla.
         </p>
@@ -100,60 +99,49 @@ class EmailProvider extends GetConnect {
         </p>
         <a href="$urlWeb/#/validar_email?email=$email&user=$tipoUsuario" class="button">Verificar Cuenta</a>
         <p>
-          Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.
+            <strong>Contacto:</strong><br>
+            Si tiene alguna pregunta o necesita asistencia adicional, no dude en contactarnos a través de:
+            <br>Email: <a href="mailto:info@reservatupista.com">info@reservatupista.com</a>
+            <br>WhatsApp: <a href="https://wa.me/34653483483">653 483 483</a>
+            <br>Horario: L-V 09:00 - 14:00 | 17:00 - 20:00</a>
+            <!--Si tiene alguna pregunta o necesita asistencia adicional, no dude en contactarnos a través de <a
+            href="mailto:gym@modularbox.com">gym@modularbox.com</a>, enviándonos un mensaje al <a
+            href="https://wa.me/34607373372">607 373 372</a> o a través de la web dónde se dió de alta.-->
         </p>
-        <p>¡Nos vemos en la pista!</p>
-        <p>Saludos,<br />El equipo de ReservaTuPista</p>
+        <p>
+            Agradecemos su confianza y esperamos que disfrute de las instalaciones.
+        </p>
+        <p>Atentamente,<br />El equipo de <a href="https://www.reservatupista.com">ReservatuPista.com</a>.</p>
       </div>
 
-      <p style="font-weight: 900;"> Este es un mensaje automático, por favor no responda a este correo.</p>
-      <p
-        style="
-          color: #708c91;
-          text-decoration: none;
-          font-size: 16px;
-          text-align: center;
-        "
-      >
-        <a
-          href="https://web.reservatupista.com/#descarga"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-auth="NotApplicable"
-          title="
-Descárgate la app
-"
-          style="text-decoration: none !important; color: #2dbeff"
-          data-linkindex="7"
-          >Descárgate la app </a
-        >
-     
-      </p>
-      <p
-        style="
-          color: #708c91;
-          text-decoration: none;
-          font-size: 12px;
-        "
-      >
-       Te informamos de que seguirás recibiendo mensajes relacionados
-        con tus reservas de pistas o cuando tengas notificaciones de la app. Para saber más sobre la forma
-        en la que usamos tu información, puedes consultar nuestra política de
-        protección de datos personales
-        <a
-          href="https://web.reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies/"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-auth="NotApplicable"
-          title="date de baja aquí"
-          style="text-decoration: none !important; color: #2dbeff"
-          data-linkindex="11"
-          >aquí</a
-        >. <br style="" /><br style="" />
-      </p>
-      <div class="footer">
-        <p>&copy; 2024 Reservatupista. Todos los derechos reservados.</p>
-      </div>
+      <p style="font-weight: 900;">Este es un mensaje automático, por favor no responda a este correo.</p>
+        <p style="
+                  color: #708c91;
+                  text-decoration: none;
+                  font-size: 16px;
+                  text-align: center;
+                ">
+            <a href="https://reservatupista.com/#descarga" target="_blank" rel="noopener noreferrer"
+                data-auth="NotApplicable" title="
+        Descárgate la app
+        " style="text-decoration: none !important; color: #2dbeff" data-linkindex="7">Descárgate la app </a>
+        </p>
+        <p style="
+                  color: #708c91;
+                  text-decoration: none;
+                  font-size: 12px;
+                ">
+            Te informamos de que seguirás recibiendo mensajes relacionados
+            con tus reservas de pistas o cuando tengas notificaciones de la app. Para saber más sobre la forma
+            en la que usamos tu información, puedes consultar nuestra política de
+            protección de datos personales
+            <a href="https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies/"
+                target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" title="date de baja aquí"
+                style="text-decoration: none !important; color: #2dbeff" data-linkindex="11">aquí</a>. <br /><br />
+        </p>
+        <div class="footer">
+            <p>&copy; 2024 Reservatupista. Todos los derechos reservados.</p>
+        </div>
     </div>
   </body>
 </html>
@@ -162,18 +150,19 @@ Descárgate la app
                 "Registro ${tipoUsuario == '0' ? 'Usuario' : 'Proveedor'} Reservatupista.com"
           },
           contentType: 'application/json');
-      print(response.body);
+      printInfo(info: response.body);
       // Enviar la solicitud
       if (response.statusCode == 200) {
         return true;
       } else {
         // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario anadida. Código de estado: ${response.statusCode}');
+        printInfo(
+            info:
+                'Error al usuario anadida. Código de estado: ${response.statusCode}');
         throw '';
       }
     } catch (error) {
-      print('Error al usuario anadida: $error');
+      printInfo(info: 'Error al usuario anadida: $error');
       return false;
     }
   }
@@ -198,8 +187,8 @@ Descárgate la app
         // return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      printInfo(info: error.toString());
+      printInfo(info: stack.toString());
       return MessageError(message: 'Error al Validar el Email.', code: 501);
     }
   }
@@ -218,24 +207,12 @@ Descárgate la app
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      printInfo(info: error.toString());
+      printInfo(info: stack.toString());
       return MessageError(message: 'Error al Validar el OTP.', code: 501);
     }
   }
 
-/*
- req.body.correo && 
- req.body.num_referencia && 
- req.body.fecha_inicio && 
- req.body.fecha_fin && 
- req.body.ubicacion && 
- req.body.deporte && 
- req.body.metodo_pago && 
- req.body.nombre && 
- req.body.num_participantes
-
- */
   // Enviar email reservas
   Future<dynamic> emailReservas(
     String correo,
@@ -255,16 +232,24 @@ Descárgate la app
           '$url/email/reserva_monedero',
           {
             'correo': correo,
+            'nick': '',
+            'club': '',
+            'array_participantes': '',
+            'tipo_pista': '',
+            'fecha_inicio': fechaInicio,
+            'fecha_fin': fechaFin,
             'num_referencia': numReferencia,
-            'fecha': fecha,
-            'hora_inicio': fechaInicio,
-            'hora_fin': fechaFin,
             'ubicacion': ubicacion,
             'deporte': deporte,
             'num_pista': numPista,
             'metodo_pago': 'Monedero',
             'nombre': nombre,
             'num_participantes': numParticipantes,
+            'luz': 'Si - no',
+            'automatizada': 'si- no',
+            'coste_total_reserva': numParticipantes,
+            'pin': 'SECURITY_CODE',
+            'patrocinador': numParticipantes,
           },
           contentType: 'application/json');
       printError(info: response.body.toString());
@@ -274,8 +259,8 @@ Descárgate la app
         // return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      printInfo(info: error.toString());
+      printInfo(info: stack.toString());
       return MessageError(message: 'Error al Validar el OTP.', code: 501);
     }
   }
@@ -297,38 +282,11 @@ Descárgate la app
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      printInfo(info: error.toString());
+      printInfo(info: stack.toString());
       return MessageError(message: 'Error al Validar el Email.', code: 501);
     }
   }
-
-// // Enviar Email usuario
-//   Future<bool> enviarEmail(String email, String nombre) async {
-//     try {
-//       final response = await post(
-//           '${DatosServer.urlPruebas}/email',
-//           {
-//             "nombre": nombre,
-//             "correo": email,
-//             "link": "$urlWeb/#/validar_email?email=$email&user=0"
-//           },
-//           contentType: 'application/json');
-//       print(response.body);
-//       // Enviar la solicitud
-//       if (response.statusCode == 200) {
-//         return true;
-//       } else {
-//         // Manejar el caso en el que la carga no fue exitosa
-//         print(
-//             'Error al usuario anadida. Código de estado: ${response.statusCode}');
-//         throw '';
-//       }
-//     } catch (error) {
-//       print('Error al usuario anadida: $error');
-//       return false;
-//     }
-//   }
 
   Future<bool> getUsuarioExisteNick(String nick) async {
     try {
@@ -340,8 +298,8 @@ Descárgate la app
         return false;
       }
     } catch (error, stack) {
-      print('Error al saber si el usuario existe: $error');
-      print(stack);
+      printInfo(info: 'Error al saber si el usuario existe: $error');
+      printInfo(info: stack.toString());
       return false;
     }
   }
@@ -361,15 +319,15 @@ Descárgate la app
         contentType: 'application/json',
       );
       if (response.statusCode == 200) {
-        print(response.body);
+        printInfo(info: response.body);
         return UsuarioModel.fromJson(response.body);
       } else {
-        print(response.body);
+        printInfo(info: response.body);
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      printInfo(info: error.toString());
+      printInfo(info: stack.toString());
       return MessageError(message: 'Error al Iniciar Sesion', code: 501);
     }
   }

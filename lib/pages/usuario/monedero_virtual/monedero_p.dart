@@ -1,14 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
-
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
-import 'package:reservatu_pista/components/alert_recargar/alert_recargar_widget.dart';
-import 'package:reservatu_pista/components/navbar_login.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+import 'package:reservatu_pista/constants.dart';
+import 'package:reservatu_pista/utils/auto_size_text/auto_size_text.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -17,13 +15,18 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dialog/recargar_dialog.dart';
 import 'monedero_c.dart';
 
-class MonederoPage extends GetView<MonederoController> {
-  MonederoPage({super.key});
-  MonederoController get self => controller;
-  DBAlvaroController db2 = Get.find();
+class MonederoPage extends StatefulWidget {
+  const MonederoPage({super.key});
 
+  @override
+  State<MonederoPage> createState() => _MonederoPageState();
+}
+
+class _MonederoPageState extends State<MonederoPage> {
+  MonederoController self = Get.find();
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -34,13 +37,9 @@ class MonederoPage extends GetView<MonederoController> {
         ),
       );
     }
-    Widget buildBtnOption(String title, TypeHistorial typeHistorial) {
-      Color isType = (title == 'Recargas')
-          ? Colors.green
-          : (title == 'Reservas')
-              ? Colors.red
-              : Colors.blue;
-      bool isTypeHistorial = controller.type != typeHistorial;
+    Widget buildBtnOption(
+        String title, TypeHistorial typeHistorial, Color color) {
+      bool isTypeHistorial = self.type != typeHistorial;
       return FFButtonWidget(
           text: title,
           onPressed: () {
@@ -51,7 +50,7 @@ class MonederoPage extends GetView<MonederoController> {
             } else if (typeHistorial == TypeHistorial.all) {
               self.mostrarHistorialTodo();
             }
-            controller.type = typeHistorial;
+            self.type = typeHistorial;
           },
           options: FFButtonOptions(
               textStyle: TextStyle(
@@ -59,7 +58,7 @@ class MonederoPage extends GetView<MonederoController> {
               borderSide: isTypeHistorial
                   ? const BorderSide(color: Colors.blue, width: 2)
                   : null,
-              color: isTypeHistorial ? Colors.white : isType,
+              color: isTypeHistorial ? Colors.white : color,
               borderRadius: BorderRadius.circular(30)));
     }
 
@@ -67,14 +66,13 @@ class MonederoPage extends GetView<MonederoController> {
       title: 'Monedero Virtual',
       page: TypePage.Monedero,
       child: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ResponsiveWeb(
-              child: Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(16.0, 5.0, 16.0, 0.0),
+        child: Padding(
+          padding: paddingHorizontal,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ResponsiveWeb(
                 child: Container(
                   height: 120.0,
                   decoration: BoxDecoration(
@@ -128,7 +126,7 @@ class MonederoPage extends GetView<MonederoController> {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: Obx(() => Text(
-                                    controller.db.dineroTotal.euro,
+                                    self.db.dineroTotal.euro,
                                     style:
                                         LightModeTheme().headlineLarge.override(
                                               fontFamily: 'Outfit',
@@ -141,18 +139,11 @@ class MonederoPage extends GetView<MonederoController> {
                             FFButtonWidget(
                               onPressed: () async {
                                 self.money = 0;
-                                await showAlignedDialog(
-                                  context: context,
-                                  // isGlobal: true,
-                                  isGlobal: true,
-                                  avoidOverflow: false,
-                                  builder: (dialogContext) {
-                                    return const Material(
-                                      color: Color.fromARGB(0, 163, 0, 0),
-                                      child: AlertRecargarWidget(),
-                                    );
-                                  },
-                                ).then((value) => {});
+                                RecargaDialog(
+                                        context: context,
+                                        page: 0,
+                                        title: 'Recargar')
+                                    .dialog();
                               },
                               text: 'Recargar', //alvaro
                               options: FFButtonOptions(
@@ -176,56 +167,54 @@ class MonederoPage extends GetView<MonederoController> {
                               ),
                             ),
                           ],
-                        ).animateOnPageLoad(controller
-                            .animationsMap['columnOnPageLoadAnimation']!),
+                        ).animateOnPageLoad(
+                            self.animationsMap['columnOnPageLoadAnimation']!),
                       ),
                     ],
                   ),
                 ).animateOnPageLoad(
-                    controller.animationsMap['containerOnPageLoadAnimation']!),
+                    self.animationsMap['containerOnPageLoadAnimation']!),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 25, 8, 10),
-              child: Obx(() => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      buildBtnOption('Reservas', TypeHistorial.reserva),
-                      buildBtnOption('Recargas', TypeHistorial.recarga),
-                      buildBtnOption('Todo', TypeHistorial.all),
-                    ].divide(const SizedBox(width: 10.0)),
-                  )),
-            ),
-            Expanded(
-                child: Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
+              Padding(
+                padding: paddingVertical,
+                child: Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        buildBtnOption(
+                            'Reservas', TypeHistorial.reserva, Colores.rojo),
+                        buildBtnOption(
+                            'Recargas', TypeHistorial.recarga, Colores.verde),
+                        buildBtnOption('Todo', TypeHistorial.all, Colores.azul),
+                      ].divide(paddingSize.sw),
+                    )),
+              ),
+              Expanded(
+                  child: Align(
+                alignment: Alignment.topCenter,
                 child: SingleChildScrollView(
                   child: Obx(() => ResponsiveWeb(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            (controller.type == TypeHistorial.reserva)
+                            (self.type == TypeHistorial.reserva)
                                 ? buildReservas()
                                 : const SizedBox(),
-                            (controller.type == TypeHistorial.recarga)
+                            (self.type == TypeHistorial.recarga)
                                 ? buildRecargas()
                                 : const SizedBox(),
-                            (controller.type == TypeHistorial.all)
+                            (self.type == TypeHistorial.all)
                                 ? buildReservasRegargas()
                                 : const SizedBox(),
                           ],
                         ),
                       )),
                 ),
-              ),
-            )),
-          ],
+              )),
+            ].addToStart(paddingSize.sh),
+          ),
         ),
       ),
     );
@@ -239,8 +228,8 @@ class MonederoPage extends GetView<MonederoController> {
                   state!.length,
                   (i) => state[i]['id_reserva'] != null
                       ? buildReserva(state[i])
-                      : buildRecarga(state[i]),
-                ).divide(10.0.sh).addToEnd(65.0.sh),
+                      : _buildRecarga(state[i]),
+                ).divide(paddingSize.sh).addToEnd((context.paddingBottom).sh),
               ),
             ),
         onLoading: Padding(
@@ -270,7 +259,7 @@ class MonederoPage extends GetView<MonederoController> {
                 children: List.generate(
                   state!.length,
                   (i) => buildReserva(state[i]),
-                ).divide(10.0.sh).addToEnd(65.0.sh),
+                ).divide(paddingSize.sh).addToEnd(context.paddingBottom.sh),
               ),
             ),
         onLoading: Padding(
@@ -294,132 +283,22 @@ class MonederoPage extends GetView<MonederoController> {
   }
 
   Widget buildReserva(Map<String, dynamic> state) {
-    final int dinero_pagado = state['dinero_pagado'];
-    final String fecha = state['fecha_reserva'];
-    final String hora_inicio = state['hora_inicio'];
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
-      child: Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        constraints: const BoxConstraints(
-          maxWidth: 570.0,
-        ),
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
+    print('STATE: $state');
+    return Card(
+      shadowColor: Colores.rojo,
+      elevation: 1.5,
+      shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: const Color(0xFFE74C3C),
+          side: const BorderSide(
+            color: Colores.rojo,
             width: 2.0,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            2.0, 0.0, 2.0, 0.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/icon_recarga.png',
-                            width: 38.0,
-                            height: 38.0,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            const TextSpan(
-                              text: 'Reserva',
-                              style: TextStyle(),
-                            ),
-                            TextSpan(
-                              text: '',
-                              style: TextStyle(
-                                color: LightModeTheme().primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                          style: LightModeTheme().bodyLarge.override(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18.0,
-                              ),
-                        ),
-                      ),
-                      Text(
-                        'Deporte: ${state['deporte']}',
-                        style: LightModeTheme().labelMedium,
-                      ),
-                      Text(
-                        'Fecha: ${DateTime.parse(fecha).formatReserva}',
-                        style: LightModeTheme().labelMedium,
-                      ),
-                      Text(
-                        'Hora: ${hora_inicio.formatHora}',
-                        style: LightModeTheme().labelMedium,
-                      ),
-                      Text(
-                        '#${state['referencia']}',
-                        style: LightModeTheme().labelMedium,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        0.0, 0.0, 0.0, 12.0),
-                    child: Text(
-                      '- ${dinero_pagado.euro}',
-                      textAlign: TextAlign.end,
-                      style: LightModeTheme().headlineSmall.override(
-                            fontFamily: 'Outfit',
-                            color: const Color(0xFFE74C3C),
-                            fontSize: 18.0,
-                          ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Text(
-                      '${state['tipo_reserva']}',
-                      style: LightModeTheme().bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            color: LightModeTheme().primary,
-                          ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+          )),
+      margin: const EdgeInsets.all(0),
+      color: LightModeTheme().secondaryBackground,
+      surfaceTintColor: Colors.white,
+      child: Padding(
+        padding: paddingAll,
+        child: _buildContentReservas(state),
       ),
     );
   }
@@ -430,8 +309,8 @@ class MonederoPage extends GetView<MonederoController> {
               child: Column(
                 children: List.generate(
                   state!.length,
-                  (i) => buildRecarga(state[i]),
-                ).divide(10.0.sh).addToEnd(65.0.sh),
+                  (i) => _buildRecarga(state[i]),
+                ).divide(paddingSize.sh).addToEnd(context.paddingBottom.sh),
               ),
             ),
         onLoading: Padding(
@@ -454,67 +333,177 @@ class MonederoPage extends GetView<MonederoController> {
         ));
   }
 
-  Widget buildRecarga(Map<String, dynamic> state) {
-    final int dinero_pagado = state['cantidad'];
-    final String fecha = state['fecha_reserva'];
-    print('$fecha');
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 0.0),
-      child: Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        constraints: const BoxConstraints(
-          maxWidth: 570.0,
+  Widget _buildRecarga(Map<String, dynamic> state) {
+    return Card(
+        shadowColor: Colores.verde,
+        elevation: 1.5,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            side: const BorderSide(
+              color: Colores.verde,
+              width: 2.0,
+            )),
+        margin: const EdgeInsets.all(0),
+        color: LightModeTheme().secondaryBackground,
+        surfaceTintColor: Colors.white,
+        child:
+            Padding(padding: paddingAll, child: _buildContentRecarga(state)));
+  }
+
+  Widget _buildContentReservas(Map<String, dynamic> state) {
+    // final int dinero_pagado = state['dinero_pagado'];
+    final String fecha = state['timestamp'];
+    final String tipoOperacion = state['tipo_reserva'];
+    final String deporte = state['deporte'];
+    final String localidad = state['localidad'];
+    final String nombreClub = state['nombre'];
+    final int costeTotalReserva = state['coste_inicial_reserva'];
+    final String referencia = state['referencia'];
+    final String? canceladaPor = state['cancelada_por'] ?? 'usuario';
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Image.asset(
+          'assets/images/icon_recarga.png',
+          width: 30.0,
+          height: 30.0,
+          fit: BoxFit.cover,
         ),
-        decoration: BoxDecoration(
-          color: LightModeTheme().secondaryBackground,
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: Colores.sucessGeneral,
-            width: 2.0,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 5.0, 12.0),
-          child: Row(
+        3.0.sw,
+        Expanded(
+          child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Reserva',
+                    style: LightModeTheme().bodyLarge.override(
+                          fontFamily: 'Readex Pro',
+                          fontSize: 18.0,
+                        ),
+                  ),
+                  Text(
+                    '- ${costeTotalReserva.euro}',
+                    textAlign: TextAlign.end,
+                    style: LightModeTheme().headlineSmall.override(
+                          fontFamily: 'Outfit',
+                          color: Colores.rojo,
+                          fontSize: 18.0,
+                        ),
+                  ),
+                ],
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            2.0, 0.0, 2.0, 0.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/icon_recarga.png',
-                            width: 38.0,
-                            height: 38.0,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      _buildTextReserva('Deporte: $deporte'),
+                      _buildTextReserva('Nombre Club: $nombreClub'),
+                      _buildTextReserva('Localidad: $localidad'),
+                      _buildTextReserva(
+                          'Fecha: ${DateTime.parse(fecha).formatReserva}'),
+                      _buildTextReserva(
+                        'Hora: ${fecha.formatHoraTimestamp}',
                       ),
+                      _buildTextReserva('#$referencia'),
                     ],
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Recarga',
-                        style: LightModeTheme().bodyLarge.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 18.0,
-                            ),
+                  Expanded(
+                    child: Container(
+                      height: 40,
+                      alignment: Alignment.bottomRight,
+                      constraints: const BoxConstraints(maxWidth: 100),
+                      child: AutoSizeText(
+                        tipoOperacion.formatTipoOperacion,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: LightModeTheme()
+                            .headlineSmall
+                            .copyWith(color: Colores.azul),
+                        minFontSize: 12,
+                        maxFontSize: 14,
+                        stepGranularity: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Text _buildTextReserva(String text) {
+    return Text(
+      text,
+      style: LightModeTheme().labelMedium,
+    );
+  }
+
+  Widget _buildContentRecarga(Map<String, dynamic> state) {
+    final int dinero_pagado = state['cantidad'];
+    final String fecha = state['fecha_reserva'];
+    final String tipoOperacion = state['tipo_recarga'];
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Image.asset(
+          'assets/images/icon_recarga.png',
+          width: 30.0,
+          height: 30.0,
+          fit: BoxFit.cover,
+        ),
+        3.0.sw,
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    tipoOperacion == 'recarga_por_cancelacion'
+                        ? 'Abono'
+                        : 'Recarga',
+                    style: LightModeTheme().bodyLarge.override(
+                          fontFamily: 'Readex Pro',
+                          fontSize: 18.0,
+                        ),
+                  ),
+                  Text(
+                    '+ ${dinero_pagado.euro}',
+                    textAlign: TextAlign.end,
+                    style: LightModeTheme().headlineSmall.override(
+                          fontFamily: 'Outfit',
+                          color: Colores.sucessGeneral,
+                          fontSize: 18.0,
+                        ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                       Text(
                         'Fecha: ${DateTime.parse(fecha).formatReserva}',
                         style: LightModeTheme().labelMedium,
@@ -525,41 +514,38 @@ class MonederoPage extends GetView<MonederoController> {
                       ),
                     ],
                   ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        0.0, 0.0, 0.0, 12.0),
-                    child: Text(
-                      dinero_pagado.euro,
-                      textAlign: TextAlign.end,
-                      style: LightModeTheme().headlineSmall.override(
-                            fontFamily: 'Outfit',
-                            color: Colores.sucessGeneral,
-                            fontSize: 18.0,
-                          ),
+                  Expanded(
+                    child: Container(
+                      height: 40,
+                      alignment: Alignment.bottomRight,
+                      constraints: const BoxConstraints(maxWidth: 100),
+                      child: AutoSizeText(
+                        tipoOperacion.formatTipoOperacion,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: LightModeTheme()
+                            .headlineSmall
+                            .copyWith(color: Colores.azul),
+                        minFontSize: 12,
+                        maxFontSize: 14,
+                        stepGranularity: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
-                    child: Text(
-                      '${state['tipo_recarga']}',
-                      style: LightModeTheme().bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            color: LightModeTheme().primary,
-                          ),
-                    ),
-                  ),
+                  // Text(
+                  //   tipoOperacion.formatTipoOperacion,
+                  //   style: LightModeTheme().bodyMedium.override(
+                  //       fontFamily: 'Readex Pro',
+                  //       color: LightModeTheme().primary,
+                  //       fontSize: 10.0),
+                  // ),
                 ],
               ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reservatu_pista/app/data/models/datos_reservas_pista.dart';
 import 'package:reservatu_pista/app/data/models/proveedor_model.dart';
 import 'package:reservatu_pista/app/data/models/usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
@@ -12,6 +11,7 @@ import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/reservar_pista_c.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +21,6 @@ class DBAlvaroController extends GetxController {
   late SharedPreferences storage;
   String version = '2.1.6';
   Rx<String> imageServer = ''.obs;
-  late DatosReservaPista datosReserva;
   UsuarioModel? datosUsuario;
   ProveedorModel? datosProveedor;
   RxDouble money = 0.0.obs;
@@ -206,7 +205,6 @@ class DBAlvaroController extends GetxController {
             //estado es null al principio
           }));
     }
-    print('responseeeeeeeeeeeeeeeeeeee ${response.body}');
     return response;
   }
 
@@ -244,8 +242,6 @@ class DBAlvaroController extends GetxController {
           '${DatosServer.urlServer}/usuario/comprobar_existencia_reservas?id_pista=$idPista&fecha=$fecha&hora_inicio=$horaInicio';
       var jsonData = await http.get(Uri.parse(url));
       var response = json.decode(jsonData.body.toString());
-      print('response2 ${response}');
-      print('response2 ${response['existeReserva']}');
       return response;
     } catch (error) {
       print('eeeeeeeeerrrror: $error');
@@ -266,8 +262,6 @@ class DBAlvaroController extends GetxController {
           '${DatosServer.urlServer}/usuario/pisar_reserva?id_pista=$idPista&fecha_reserva=$fechaReserva&hora_inicio=$horaInicio&hora_fin=$horaFin&id_usuario=$idUsuario&plazas_a_reservar=$plazasAReservar, coste_total_reserva=$costeTotalReserva';
       var jsonData = await http.get(Uri.parse(url));
       var response = json.decode(jsonData.body.toString());
-      print('response2 ${response}');
-      print('response2 ${response['existeReserva']}');
       return response;
     } catch (error) {
       print('eeeeeeeeerrrror: $error');
@@ -275,21 +269,11 @@ class DBAlvaroController extends GetxController {
     }
   }
 
-  void mostrarAlerta(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const AlertDialog(
-          title: Text("Título de la Alerta"),
-          content: Text("Contenido de la alerta."),
-        );
-      },
-    );
-  }
-
   //es igual que recargarMonedero
   Future<void> reservarPistaConTarjeta(
-      int dinero, ReservarPistaController reservarPistaController) async {
+      int dinero,
+      ReservarPistaController reservarPistaController,
+      void Function() onPressed) async {
     try {
       var numOperacion = '';
       var response = await comprobarExistenciaReservas(
@@ -297,27 +281,15 @@ class DBAlvaroController extends GetxController {
           reservarPistaController.fecha_seleccionada.value,
           reservarPistaController.hora_inicio_reserva_seleccionada.value);
       if (response['existeReserva'] && response['esReservaEnProceso']) {
-        Get.dialog(const AlertDialog(
-          title: Text("Alguien está en proceso de reservar esta pista."),
-          content: Text("Intente reservar en 10 minutos."),
-        ));
-        // Get.dialog(AlertDialog(
-        //   title: Text("Error. Ya existe una reserva para esta pista."),
-        //   content: Text("Elija otra hora, fecha o pista."),
-        // ));
+        onPressed();
       } else {
         if (reservarPistaController.plazasLibres ==
             reservarPistaController.capacidad_pista) {
           numOperacion = generarNumeroOperacionUnico(esReservaConTarjeta: true);
-          print('NOOOOOO PISAAAAAA ');
         } else {
-          print('SIIIIII PISAAAAAA ');
           numOperacion = generarNumeroOperacionUnico(
               esReservaConTarjeta: true, pisarReserva: true);
         }
-
-        print(
-            'reservarPistaController.hora_fin_reserva_seleccionada.value ${reservarPistaController.hora_fin_reserva_seleccionada.value}');
         guardarUsuarioOperacion(
             numOperacion,
             dinero,
@@ -329,7 +301,6 @@ class DBAlvaroController extends GetxController {
             reservaConTarjeta: true);
         await launchURL(
             'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-        Get.back();
         Get.back();
       }
     } catch (e) {
@@ -351,26 +322,21 @@ class DBAlvaroController extends GetxController {
       var response = await comprobarExistenciaReservas(id_pista_seleccionada,
           fecha_seleccionada, hora_inicio_reserva_seleccionada);
       if (response['existeReserva'] && response['esReservaEnProceso']) {
-        Get.dialog(const AlertDialog(
-          title: Text("Alguien está en proceso de reservar esta pista."),
-          content: Text("Intente reservar en 10 minutos."),
-        ));
-        // Get.dialog(AlertDialog(
-        //   title: Text("Error. Ya existe una reserva para esta pista."),
-        //   content: Text("Elija otra hora, fecha o pista."),
-        // ));
+        MessageServerDialog(
+          isProveedor: false,
+          context: Get.context!,
+          alertType: warning,
+          title: 'Reserva Compartida',
+          subtitle:
+              'Alguien está en proceso de reservar esta pista.\nIntente reservar en 10 minutos.',
+        ).dialog();
       } else {
         if (plazasLibres == capacidad_pista) {
           numOperacion = generarNumeroOperacionUnico(esReservaConTarjeta: true);
-          print('NOOOOOO PISAAAAAA ');
         } else {
-          print('SIIIIII PISAAAAAA ');
           numOperacion = generarNumeroOperacionUnico(
               esReservaConTarjeta: true, pisarReserva: true);
         }
-
-        print(
-            'reservarPistaController.hora_fin_reserva_seleccionada.value ${hora_fin_reserva_seleccionada}');
         guardarUsuarioOperacion(
             numOperacion,
             dinero,
@@ -400,7 +366,6 @@ class DBAlvaroController extends GetxController {
         '${now.year}${_padNumber(now.month)}${_padNumber(now.day)}_${_padNumber(now.hour)}${_padNumber(now.minute)}${_padNumber(now.second)}_$aleatorio';
     if (esReservaConTarjeta) formattedString += '_reservaConTarjeta';
     if (pisarReserva) formattedString += '_pisarReserva';
-    print('formattedString $formattedString');
     return formattedString;
   }
 
@@ -436,10 +401,6 @@ class DBAlvaroController extends GetxController {
             'hora_inicio': horaInicio,
             'plazas_a_reservar': plazasAReservar
           }));
-      print('moooney ${money}');
-      print('fecha.toString() ${fecha.toString()}');
-      print('hora_iniciohora_inicio ${horaInicio}');
-      print('response.bodyresponse.body ${response.body}');
       if (response.statusCode == 200) {
         return response.body;
       }
@@ -454,7 +415,6 @@ class DBAlvaroController extends GetxController {
       int idUsuario, DateTime fecha, String horaInicio, int idPista) async {
     try {
       var url = '${DatosServer.urlServer}/usuario/obtener_plazas_libres';
-      print('hora_inicio ${horaInicio}');
       http.Response response = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
@@ -463,7 +423,6 @@ class DBAlvaroController extends GetxController {
             'fecha': fecha.toString(),
             'hora_inicio': horaInicio,
           }));
-      print('responseeee $response');
       return response;
     } catch (error) {
       print('eeeeeeeeerrror: $error');
@@ -521,8 +480,6 @@ class DBAlvaroController extends GetxController {
 
   Future<String> obtenerPistas(String idClub, String deporte) async {
     try {
-      print('id_club $idClub');
-      print('deporte $deporte');
       var url =
           '${DatosServer.urlServer}/usuario/obtener_pistas?id_club=$idClub&deporte=$deporte';
       var response = await http.get(Uri.parse(url));
@@ -535,11 +492,9 @@ class DBAlvaroController extends GetxController {
 
   Future<String> obtenerDatosPista(String idPista) async {
     try {
-      print('iddddd_pista ${idPista}');
       var url =
           '${DatosServer.urlServer}/usuario/obtener_datos_pista?id_pista=$idPista';
       var response = await http.get(Uri.parse(url));
-      print('responseeeeeeeeeeeeeeeeeei ${response.body}');
       return response.body.toString();
     } catch (error) {
       print('eeeeerrorrrrr: $error');
@@ -549,11 +504,6 @@ class DBAlvaroController extends GetxController {
 
   Future<String> obtenerHorariosPistas(int idPista, DateTime fecha) async {
     try {
-      // Generar la lista de nombres cortos de los días de la semana
-      // String nuevaFecha = DateFormat('yyyy-MM-dd').format(dia);
-      // print('nuevaFecha $nuevaFecha');
-      print('idd_pista $idPista');
-      print('fecha.diaSemana ${fecha.diaSemana}');
       var url =
           '${DatosServer.urlServer}/usuario/obtener_horarios_pistas/$idPista/?dia_semana=${fecha.diaSemana}&fecha=${fecha}';
       var response = await http.get(Uri.parse(url));
@@ -585,7 +535,6 @@ class DBAlvaroController extends GetxController {
       var result = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({'id_usuario': idUsuario}));
-      print('resultttttt response ${json.decode(result.body)}');
       return json.decode(result.body);
     } catch (error) {
       print('errorrrrr: $error');
@@ -599,7 +548,6 @@ class DBAlvaroController extends GetxController {
       var result = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({'id_usuario': idUsuario}));
-      print('resultttttt response recargas ${json.decode(result.body)}');
       return json.decode(result.body);
     } catch (error) {
       print('errorrrrr: $error');
@@ -613,7 +561,6 @@ class DBAlvaroController extends GetxController {
       var result = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({'id_usuario': idUsuario}));
-      print('resultttttt response recargas ${json.decode(result.body)}');
       return json.decode(result.body);
     } catch (error) {
       print('errorrrrr: $error');

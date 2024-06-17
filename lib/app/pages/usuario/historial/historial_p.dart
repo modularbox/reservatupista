@@ -89,295 +89,257 @@ class _HistorialUsuarioWidgetState extends GetView<HistorialController> {
                           fontFamily: 'Outfit', letterSpacing: 0, fontSize: 20),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: LightModeTheme().secondaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  width: 2,
-                                  color: LightModeTheme().usuario,
-                                )),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16, 12, 16, 12),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 12, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Partida 1',
-                                          style: LightModeTheme()
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Text(
-                                            'Fecha: 2024-04-15',
-                                            style: LightModeTheme()
-                                                .labelMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    '15.00€',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        LightModeTheme().headlineSmall.override(
-                                              fontFamily: 'Outfit',
-                                              letterSpacing: 0,
-                                            ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: LightModeTheme().secondaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: LightModeTheme().usuario,
-                                  width: 2,
-                                )),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16, 12, 16, 12),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 12, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Partida 2',
-                                          style: LightModeTheme()
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Text(
-                                            'Fecha: 2024-04-10',
-                                            style: LightModeTheme()
-                                                .labelMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    '20.00€',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        LightModeTheme().headlineSmall.override(
-                                              fontFamily: 'Outfit',
-                                              letterSpacing: 0,
-                                            ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: LightModeTheme().secondaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: LightModeTheme().usuario,
-                                  width: 2,
-                                )),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16, 12, 16, 12),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 12, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Partida 3',
-                                          style: LightModeTheme()
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Text(
-                                            'Fecha: 2024-04-05',
-                                            style: LightModeTheme()
-                                                .labelMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    '30.00€',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        LightModeTheme().headlineSmall.override(
-                                              fontFamily: 'Outfit',
-                                              letterSpacing: 0,
-                                            ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: LightModeTheme().secondaryBackground,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: LightModeTheme().usuario,
-                                  width: 2,
-                                )),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16, 12, 16, 12),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 12, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Partida 4',
-                                          style: LightModeTheme()
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 4, 0, 0),
-                                          child: Text(
-                                            'Fecha: 2024-03-30',
-                                            style: LightModeTheme()
-                                                .labelMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    '25.00€',
-                                    textAlign: TextAlign.end,
-                                    style:
-                                        LightModeTheme().headlineSmall.override(
-                                              fontFamily: 'Outfit',
-                                              letterSpacing: 0,
-                                            ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  Center(
+                    child: Text('\nNo se encontraron Partidas.',
+                        style: LightModeTheme().bodyMedium.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16)),
                   ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPartidas() {
+    return Container(
+      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: LightModeTheme().secondaryBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    width: 2,
+                    color: LightModeTheme().usuario,
+                  )),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Partida 1',
+                            style: LightModeTheme().bodyLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            child: Text(
+                              'Fecha: 2024-04-15',
+                              style: LightModeTheme().labelMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '15.00€',
+                      textAlign: TextAlign.end,
+                      style: LightModeTheme().headlineSmall.override(
+                            fontFamily: 'Outfit',
+                            letterSpacing: 0,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: LightModeTheme().secondaryBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: LightModeTheme().usuario,
+                    width: 2,
+                  )),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Partida 2',
+                            style: LightModeTheme().bodyLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            child: Text(
+                              'Fecha: 2024-04-10',
+                              style: LightModeTheme().labelMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '20.00€',
+                      textAlign: TextAlign.end,
+                      style: LightModeTheme().headlineSmall.override(
+                            fontFamily: 'Outfit',
+                            letterSpacing: 0,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: LightModeTheme().secondaryBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: LightModeTheme().usuario,
+                    width: 2,
+                  )),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Partida 3',
+                            style: LightModeTheme().bodyLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            child: Text(
+                              'Fecha: 2024-04-05',
+                              style: LightModeTheme().labelMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '30.00€',
+                      textAlign: TextAlign.end,
+                      style: LightModeTheme().headlineSmall.override(
+                            fontFamily: 'Outfit',
+                            letterSpacing: 0,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 10),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: LightModeTheme().secondaryBackground,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: LightModeTheme().usuario,
+                    width: 2,
+                  )),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Partida 4',
+                            style: LightModeTheme().bodyLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            child: Text(
+                              'Fecha: 2024-03-30',
+                              style: LightModeTheme().labelMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    letterSpacing: 0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '25.00€',
+                      textAlign: TextAlign.end,
+                      style: LightModeTheme().headlineSmall.override(
+                            fontFamily: 'Outfit',
+                            letterSpacing: 0,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/data/provider/image_node.dart';
 import 'package:reservatu_pista/utils/colores.dart';
-import 'package:reservatu_pista/utils/image/seleccionar_imagen.dart';
+import 'package:reservatu_pista/utils/image/seleccionar_imagen_dialog.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 
 class FuncionesImage {
@@ -24,6 +24,8 @@ class FuncionesImage {
   final bool isProveedor;
   // Obtener la imagen del servidor
   final imageNetwork = Rxn<String>();
+  // Verificar si la imagen se modifico
+  bool isImagenModificada = false;
 
   /// Reducir imagen
   Future<File> imageResize(String path) async {
@@ -129,6 +131,7 @@ class FuncionesImage {
     } else {
       final pickedFile = await ImagePicker().pickImage(source: source);
       if (pickedFile != null) {
+        isImagenModificada = true;
         if (isWeb) {
           imageBytes.value = await pickedFile.readAsBytes();
         } else {
@@ -210,8 +213,10 @@ class FuncionesImage {
     }
   }
 
-  void dialogSeleccionarImage() => Get.dialog(
-      SeleccionarImagen(pickImage: pickImage, isProveedor: isProveedor));
+  /// Mostrar la seleccion de la imagen
+  void dialogSeleccionarImage(BuildContext context) => SeleccionarImagenDialog(
+          context: context, pickImage: pickImage, isProveedor: isProveedor)
+      .dialog();
 
   /// Validator para TextEditingController
   String? validatorImage(String? val) {

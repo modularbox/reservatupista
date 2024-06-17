@@ -16,6 +16,7 @@ class MisPistas {
         misPistas: List<MiPista>.from(
             json["mis_pistas"].map((x) => MiPista.fromJson(x))),
       );
+
   factory MisPistas.fromList(List<dynamic> list) => MisPistas(
         misPistas: List<MiPista>.from(list.map((x) => MiPista.fromJson(x))),
       );
@@ -58,7 +59,7 @@ class MiPista {
         numPista: json["num_pista"],
         deporte: json["deporte"],
         imagenPatrocinador: json["imagen_patrocinador"],
-        total: json["total"],
+        total: json["total"] ?? 0,
         totalLibre: json['total_libres'] ?? 0,
         totalAbierta: json['total_abiertas'] ?? 0,
         totalCerrada: json['total_cerradas'] ?? 0,

@@ -355,7 +355,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           animTerminos: anim,
           focusedColor: Colores.usuario.primary,
           palomita: Colors.white,
-          paddingTop: 0.0,
+          paddingTop: 5.0,
         ),
       ],
     );

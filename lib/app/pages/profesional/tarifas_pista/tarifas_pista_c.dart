@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/data/provider/pista_node.dart';
 import '../../../data/models/tarifas_model.dart';
 
 class TarifasPistaController extends GetxController {
+  // Saber si obtener los datos de la tarifa son del servidor
+  final idPista = Get.parameters['id_pista'] ?? '';
+  // Lista de todas las tarifas
   List<List<Tarifa>> listTarifas = [];
+  // Indice de todos los dias
   RxInt indexDias = 0.obs;
   // Actualizar toda la tabla los campos de activado y desactivado
   Rx<List<bool>> listActive = Rx<List<bool>>([]);
@@ -28,6 +33,16 @@ class TarifasPistaController extends GetxController {
   final listDiaSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
   // Verificar si los datos estan guardados
   RxBool datosGuardados = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    if (idPista != '') {
+      PistaProvider().getTarifas(idPista: idPista);
+      final List<List<Tarifa>> newListTarifas = [];
+      newListTarifas.add([]);
+    }
+  }
 
   // init al momento de precionar crear pistas
   onCrearPistas(List<List<Tarifa>> newListTarifas) {

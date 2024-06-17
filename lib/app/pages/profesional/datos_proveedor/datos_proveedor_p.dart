@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
-import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../utils/loader/color_loader_3.dart';
 import '../../../../utils/server/image_server.dart';
@@ -184,28 +184,12 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                     child: ColorLoader3(),
                   )),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: FFButtonWidget(
-                  onPressed: self.onOpenDialogEliminarCuenta,
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ButtonGeneral(
                   text: 'Eliminar Cuenta',
-                  options: FFButtonOptions(
-                    width: 40.0.w,
-                    height: 40,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    color: Colores.rojo,
-                    textStyle: LightModeTheme().bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: LightModeTheme().tertiary,
-                        ),
-                    elevation: 2,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                  hoverColor: Colores.proveedor.primary69,
+                  fillColor: Colores.rojo,
+                  onPressed: self.onOpenDialogEliminarCuenta,
                 ),
               ),
             ],
@@ -289,7 +273,8 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: FFButtonWidget(
-                  onPressed: self.imageProveedor.dialogSeleccionarImage,
+                  onPressed: () =>
+                      self.imageProveedor.dialogSeleccionarImage(Get.context!),
                   text: 'Editar foto',
                   icon: const Icon(
                     Icons.edit,

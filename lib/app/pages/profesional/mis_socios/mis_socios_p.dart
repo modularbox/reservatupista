@@ -40,7 +40,12 @@ class ListaSociosWidget extends GetView<MisSociosController> {
         children: [
           buildBuscador(),
           Obx(buildFiltros),
-          buildListSocios(),
+          Text('\nNo se encontraron Socios.',
+              style: LightModeTheme().bodyMedium.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16))
+          // buildListSocios(),
         ],
       ),
     );
@@ -81,6 +86,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
             },
             suggestionsBuilder:
                 (BuildContext context, SearchController suggestcontroller) {
+              return [];
               return List.generate(
                   controller.socios.length,
                   (i) => Padding(
@@ -115,7 +121,7 @@ class ListaSociosWidget extends GetView<MisSociosController> {
     );
   }
 
-  Widget buildListSocios() {
+  Widget _buildListSocios() {
     return Expanded(
         child: SingleChildScrollView(
       child: ResponsiveWeb(

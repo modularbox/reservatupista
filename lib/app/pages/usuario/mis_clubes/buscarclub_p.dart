@@ -120,8 +120,15 @@ class _BuscarClubWidgetState extends GetView<BuscarClubController> {
                         ],
                       ),
                     ),
-                    ...List.generate(controller.clubes.length,
-                        (i) => buildClub(context, controller.clubes[i])),
+                    Center(
+                      child: Text('\nNo se encontraron Clubs.',
+                          style: LightModeTheme().bodyMedium.copyWith(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16)),
+                    ),
+                    // ...List.generate(controller.clubes.length,
+                    //     (i) => buildClub(context, controller.clubes[i])),
                     Container(
                       height: 70,
                     )

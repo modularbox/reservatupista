@@ -650,7 +650,8 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
       removeLeft: true,
       removeRight: true,
       child: Padding(
-        padding: const EdgeInsets.only(left: 0.0),
+        //// Padding mostrar panel de abajo importante
+        padding: const EdgeInsets.only(left: 2.0),
         child: Builder(
           builder: (BuildContext context) {
             return CustomSingleChildLayout(

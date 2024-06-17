@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/app/pages/usuario/datos_usuario/widgets/select_datos.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
@@ -50,76 +51,40 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: ColorLoader3(),
                   )),
-            ],
-          )),
-      bottomNavigationBar: SizedBox(
-        height: 80,
-        width: 640,
-        child: ResponsiveWeb(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: isiOS ? 20.0 : 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Obx(() => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: FFButtonWidget(
-                        onPressed: () {
-                          if (self.modificarDatos.value) {
-                            self.onPressedGuardarCambios();
-                          }
-                          self.modificarDatos.toggle();
-                          self.apidatosUsuario.rx.refresh();
-                        },
-                        text: self.modificarDatos.value
-                            ? 'Guardar Cambios'
-                            : 'Modificar Datos',
-                        options: FFButtonOptions(
-                          height: 40,
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          iconPadding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                          color: LightModeTheme().primary,
-                          textStyle: LightModeTheme().bodyMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: LightModeTheme().tertiary,
-                              ),
-                          elevation: 2,
-                          borderSide: const BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+              ResponsiveWeb(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Obx(buildBtnModificarGuardar),
+                      ButtonGeneral(
+                        text: 'Eliminar Cuenta',
+                        hoverColor: Colores.usuario.primary69,
+                        fillColor: Colores.rojo,
+                        onPressed: self.onOpenDialogEliminarCuenta,
                       ),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: FFButtonWidget(
-                    onPressed: self.onOpenDialogEliminarCuenta,
-                    text: 'Eliminar Cuenta',
-                    options: FFButtonOptions(
-                      height: 40,
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      color: Colores.rojo,
-                      textStyle: LightModeTheme().bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            color: LightModeTheme().tertiary,
-                          ),
-                      elevation: 2,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
+              )
+            ],
+          )),
+    );
+  }
+
+  Widget buildBtnModificarGuardar() {
+    return ButtonGeneral(
+      text: self.modificarDatos.value ? 'Guardar Cambios' : 'Modificar Datos',
+      hoverColor: Colores.usuario.primary69,
+      fillColor: Colores.usuario.primary,
+      onPressed: () {
+        if (self.modificarDatos.value) {
+          self.onPressedGuardarCambios();
+        }
+        self.modificarDatos.toggle();
+        self.apidatosUsuario.rx.refresh();
+      },
     );
   }
 
@@ -341,7 +306,8 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: FFButtonWidget(
-                  onPressed: self.image.dialogSeleccionarImage,
+                  onPressed: () =>
+                      self.image.dialogSeleccionarImage(Get.context!),
                   text: 'Editar foto',
                   icon: const Icon(
                     Icons.edit,

@@ -9,6 +9,7 @@ import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/build_usu
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/detalles_reserva.dart';
 import 'package:reservatu_pista/backend/schema/enums/enums.dart';
 import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
+import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
@@ -19,161 +20,164 @@ import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
-class MisReservasPage extends GetView<MisReservasController> {
+class MisReservasPage extends StatefulWidget {
   const MisReservasPage({super.key});
-  MisReservasController get self => controller;
 
+  @override
+  State<MisReservasPage> createState() => _MisReservasPageState();
+}
+
+class _MisReservasPageState extends State<MisReservasPage> {
+  MisReservasController self = Get.find();
   @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
-      title: 'Mis Reservas',
+      title: 'Reservas',
       page: TypePage.MisReservas,
       child: Expanded(
-        child: Column(
-          children: [
-            10.0.sh,
-            ResponsiveWeb(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Obx(() => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ...buildListDeportes(),
-                      ],
-                    )),
-              ),
-            ),
-            Obx(() => Text('Pagina actual: ${self.currentPage}')),
-            Expanded(
-              child: Listener(
-                onPointerSignal: (event) {
-                  //Timer(Duration(milliseconds: 500), () {
-                  print('self.isThrottling.value ${self.isThrottling.value}');
-                  if (event is PointerScrollEvent && !self.isThrottling.value) {
-                    self.isThrottling.value = true; // Activar la bandera
-                    print(
-                        'self.currentPageself.currentPageee ${self.currentPage}');
-                    if (event.scrollDelta.dy < 0 &&
-                        self.previousScrollPosition == 0 &&
-                        self.currentPage > 1) {
-                      print('Haciendo scroll hacia arriba');
-                      /*if (self.currentPage != self.lastPageSelected) {
-                              self.lastPageSelected = self.currentPage;
-                              return;
-                            } */
-                      self.currentPage -= 1;
-                      self.pageHaschanged.value = true;
-                      print(
-                          'entraaaaaaaaaaaaaaaaaaaaaaaa self.currentPage ${self.currentPage}');
-                      self.previousScrollPosition = 0;
-                      if (self.currentPage < 1) self.currentPage = 1;
-                      self.loadMoreData();
-                    } else if (event.scrollDelta.dy > 0) {
-                      print('Haciendo scroll hacia abajo');
-                    }
-                    if (self.currentPage < 1) self.currentPage = 1;
-                    print('event.position ${event.scrollDelta.dy}');
-                    // Desactivar la bandera después de un corto tiempo
-                    Future.delayed(const Duration(milliseconds: 1500), () {
-                      self.isThrottling.value = false;
-                    });
-                  }
-                  //});
-                },
-                child: NotificationListener<ScrollNotification>(
-                  onNotification: (ScrollNotification scrollInfo) {
-                    print(
-                        'self.currentPageself.currentPage ${self.currentPage}');
-                    print('self.isLoading.value ${self.isLoading.value}');
-                    print(
-                        'self.currentPage * self.itemsPerPage ${self.currentPage * self.itemsPerPage}');
-                    print(
-                        'self.misReservasUsuario.rx.value.length ${self.misReservasUsuario.rx.value.length}');
-                    bool hacia_abajo = false;
-                    if (scrollInfo.metrics.pixels >
-                        self.previousScrollPosition) {
-                      /*if (scrollInfo.metrics.pixels >= 20) {
-                            hacia_abajo = false;
-                          } else {
-                            hacia_abajo = true;
-                          }*/
-                      hacia_abajo = true;
-                      print("Scrolling Down"); // Scroll hacia abajo
-                    } else if (scrollInfo.metrics.pixels <
-                        self.previousScrollPosition) {
-                      print(
-                          "Scrolling Up ${scrollInfo.metrics.pixels}  self.previous ${self.previousScrollPosition}"); // Scroll hacia arriba
-                      hacia_abajo = false;
-                    }
-                    self.previousScrollPosition = scrollInfo.metrics.pixels;
-                    if (!self.isLoading.value &&
-                        scrollInfo.metrics.pixels ==
-                            scrollInfo.metrics.maxScrollExtent &&
-                        hacia_abajo) {
-                      if (self.currentPage * self.itemsPerPage <
-                          (self.initialLength)) {
-                        if (self.debounceTimer?.isActive ?? false)
-                          self.debounceTimer!.cancel();
-                        self.debounceTimer =
-                            Timer(const Duration(milliseconds: 500), () {
-                          self.currentPage += 1;
-                          print('entraaaaaaaaaaaa dentro');
-                          print(
-                              'entraaaaaaaaaaaa self.currentPage + ${self.currentPage}');
-                          self.previousScrollPosition = 0;
-
-                          self.loadMoreData();
-                        });
-                      }
-                      return true;
-                    } else if (!self.isLoading.value &&
-                        scrollInfo.metrics.pixels ==
-                            scrollInfo.metrics.minScrollExtent &&
-                        !hacia_abajo) {
-                      print('entraaaaaaaaaaaa inicio');
-                      if (self.currentPage != self.lastPageSelected) {
-                        self.lastPageSelected = self.currentPage;
-                        return false;
-                      }
-                      // Al llegar al inicio del scroll
-                      if (self.currentPage > 1) {
-                        if (self.debounceTimer?.isActive ?? false)
-                          self.debounceTimer!.cancel();
-                        self.debounceTimer =
-                            Timer(const Duration(milliseconds: 500), () {
-                          self.currentPage -= 1;
-                          print(
-                              'entraaaaaaaaaaaa self.currentPage ${self.currentPage}');
-                          self.previousScrollPosition = 0;
-                          self.loadMoreData();
-                        });
-                      }
-                      return true;
-                    }
-                    return false;
-                  },
-                  child: buildReservas(),
+        child: Padding(
+          padding: paddingHorizontal,
+          child: Column(
+            children: [
+              5.0.sh,
+              ResponsiveWeb(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    width: Get.width,
+                    child: Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ...buildListDeportes(),
+                          ],
+                        )),
+                  ),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Listener(
+                  onPointerSignal: (event) {
+                    if (event is PointerScrollEvent &&
+                        !self.isThrottling.value) {
+                      self.isThrottling.value = true; // Activar la bandera
+                      if (event.scrollDelta.dy < 0 &&
+                          self.previousScrollPosition == 0 &&
+                          self.currentPage > 1) {
+                        self.currentPage -= 1;
+                        self.pageHaschanged.value = true;
+                        self.previousScrollPosition = 0;
+                        if (self.currentPage < 1) self.currentPage = 1;
+                        self.loadMoreData();
+                      } else if (event.scrollDelta.dy > 0) {}
+                      if (self.currentPage < 1) self.currentPage = 1;
+                      // Desactivar la bandera después de un corto tiempo
+                      Future.delayed(const Duration(milliseconds: 1500), () {
+                        self.isThrottling.value = false;
+                      });
+                    }
+                    //});
+                  },
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (ScrollNotification scrollInfo) {
+                      bool hacia_abajo = false;
+                      if (scrollInfo.metrics.pixels >
+                          self.previousScrollPosition) {
+                        /*if (scrollInfo.metrics.pixels >= 20) {
+                              hacia_abajo = false;
+                            } else {
+                              hacia_abajo = true;
+                            }*/
+                        hacia_abajo = true;
+                      } else if (scrollInfo.metrics.pixels <
+                          self.previousScrollPosition) {
+                        hacia_abajo = false;
+                      }
+                      self.previousScrollPosition = scrollInfo.metrics.pixels;
+                      if (!self.isLoading.value &&
+                          scrollInfo.metrics.pixels ==
+                              scrollInfo.metrics.maxScrollExtent &&
+                          hacia_abajo) {
+                        if (self.currentPage * self.itemsPerPage <
+                            (self.initialLength)) {
+                          if (self.debounceTimer?.isActive ?? false)
+                            self.debounceTimer!.cancel();
+                          self.debounceTimer =
+                              Timer(const Duration(milliseconds: 500), () {
+                            self.currentPage += 1;
+                            self.previousScrollPosition = 0;
+
+                            self.loadMoreData();
+                          });
+                        }
+                        return true;
+                      } else if (!self.isLoading.value &&
+                          scrollInfo.metrics.pixels ==
+                              scrollInfo.metrics.minScrollExtent &&
+                          !hacia_abajo) {
+                        if (self.currentPage != self.lastPageSelected) {
+                          self.lastPageSelected = self.currentPage;
+                          return false;
+                        }
+                        // Al llegar al inicio del scroll
+                        if (self.currentPage > 1) {
+                          if (self.debounceTimer?.isActive ?? false)
+                            self.debounceTimer!.cancel();
+                          self.debounceTimer =
+                              Timer(const Duration(milliseconds: 500), () {
+                            self.currentPage -= 1;
+                            self.previousScrollPosition = 0;
+                            self.loadMoreData();
+                          });
+                        }
+                        return true;
+                      }
+                      return false;
+                    },
+                    child: buildReservas(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   List<Widget> buildListDeportes() {
-    List<DatosDeporte> listDeportes = [];
-    for (int i = 0; i < self.listaDeportes.length; i++) {
-      final foto = self.listaDeportes[i].replaceAll(' ', '').toLowerCase();
-      listDeportes.add(DatosDeporte(self.listaDeportes[i], foto));
-      print('self.listaDeportes[i] ${self.listaDeportes[i]}');
-    }
-    print('listDeportes ${listDeportes}');
-    return listDeportes.map((e) => buildDeporte(e)).toList();
+    final imagenes = {
+      'Pádel': 'padel',
+      'Tenis': 'tenis',
+      'Badminton': 'badminton',
+      'P. climatizada': 'p.climatizada',
+      'Piscina': 'piscina',
+      'Baloncesto': 'baloncesto',
+      'Futbol sala': 'futbolsala',
+      'Futbol 7': 'futbol7',
+      'Futbol 11': 'futbol11',
+      'Pickleball': 'pickleball',
+      'Squash': 'squash',
+      'Tenis de mesa': 'tenisdemesa',
+      'Fronton': 'fronton',
+      'Balomano': 'balomano',
+      'Rugby': 'rugby',
+      'Multideporte': 'multideporte'
+    };
+    return self.listaDeportes.map((e) {
+      String texto = e;
+      final style = LightModeTheme().bodyMedium.override(
+            fontFamily: 'Readex Pro',
+            letterSpacing: 0,
+          );
+      final width = calcularAnchoTexto(texto, style);
+      return buildDeporte(
+          DatosDeporte(e, imagenes[e]!, width < 60.0 ? 60.0 : (width + 10)),
+          style);
+    }).toList();
   }
 
-  Widget buildDeporte(DatosDeporte e) {
+  /// Build Deporte
+  Widget buildDeporte(DatosDeporte e, TextStyle style) {
     return Stack(
       children: [
         Padding(
@@ -191,10 +195,7 @@ class MisReservasPage extends GetView<MisReservasController> {
               ),
               Text(
                 e.nombre,
-                style: const TextStyle(
-                  fontFamily: 'Readex Pro',
-                  letterSpacing: 0,
-                ),
+                style: style,
               ),
             ],
           ),
@@ -209,7 +210,7 @@ class MisReservasPage extends GetView<MisReservasController> {
               self.deporte == e.nombre ? Colores.proveedor.primary : null,
           icon: Container(
             height: 70,
-            width: 70,
+            width: e.width,
             clipBehavior: Clip.antiAlias,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -224,21 +225,25 @@ class MisReservasPage extends GetView<MisReservasController> {
     print('self.misReservasUsuario ${self.misReservasUsuario}');
     return self.misReservasUsuario.obx(
       (state) => ListView.builder(
-        itemCount: state!.length + 1, // Aumenta el itemCount en 1
+        itemCount: state!.length + 1,
+        padding: const EdgeInsets.all(0.0),
         itemBuilder: (context, index) {
           if (index == state.length) {
             // Este es el último elemento, añade un SizedBox para forzar el scroll
-            return const SizedBox(
-                height: 100); // Ajusta la altura según sea necesario
+            return SizedBox(
+                height: context
+                    .paddingBottom); // Ajusta la altura según sea necesario
           } else if (index == state.length - 1) {
             return ResponsiveWeb(
               child: Column(
                 children: [
                   buildReserva(state[index]),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: ColorLoader(),
-                  ).visible(self.isLoading.value)
+                  Visible(
+                      isVisible: self.isLoading.value,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: ColorLoader(),
+                      ))
                 ],
               ),
             );
@@ -279,201 +284,209 @@ class MisReservasPage extends GetView<MisReservasController> {
 
     final isCerrada = state.reservasUsuarios != null &&
         state.reservasUsuarios!.plazasReservadasTotales == state.capacidad;
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 3,
-              color: LightModeTheme().primaryText,
-              offset: const Offset(
-                0,
-                2,
-              ),
-            )
-          ],
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(
-            color: isCerrada ? Colores.rojo : Colores.orange,
-            width: 2,
-          ),
+    return Container(
+      margin: paddingVertical,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 3,
+            color: LightModeTheme().primaryText,
+            offset: const Offset(
+              0,
+              2,
+            ),
+          )
+        ],
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        border: Border.all(
+          color: isCerrada ? Colores.rojo : Colores.orange,
+          width: 2,
         ),
-        child: BtnIcon(
-          hoverColor: Colores.usuario.primary69,
-          borderRadius: 10,
-          onPressed: () async {
-            int tiempoRestante = 0;
-            try {
-              DateTime fechaInicioPartida =
-                  self.construirDatetime(state.fechaReserva, state.horaInicio);
-              DateTime fechaActual = DateTime.now();
-              DateTime fechaTiempoCancelacion = fechaInicioPartida
-                  .subtract(Duration(hours: state.tiempo_cancelacion));
-              print('tiempoCancelacion ${state.tiempo_cancelacion}');
-              print('fechaInicioPartida $fechaInicioPartida');
-              print('fechaActual $fechaActual');
-              print('fechaTiempoCancelacion $fechaTiempoCancelacion');
+      ),
+      child: BtnIcon(
+        hoverColor: Colores.usuario.primary69,
+        borderRadius: 10,
+        onPressed: () async {
+          int tiempoRestante = 0;
+          try {
+            DateTime fechaInicioPartida =
+                self.construirDatetime(state.fechaReserva, state.horaInicio);
+            DateTime fechaActual = DateTime.now();
+            DateTime fechaTiempoCancelacion = fechaInicioPartida
+                .subtract(Duration(hours: state.tiempo_cancelacion));
+            print('tiempoCancelacion ${state.tiempo_cancelacion}');
+            print('fechaInicioPartida $fechaInicioPartida');
+            print('fechaActual $fechaActual');
+            print('fechaTiempoCancelacion $fechaTiempoCancelacion');
 
-              print(
-                  ' fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch ${fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch}');
-              if (fechaActual < fechaTiempoCancelacion) {
-                tiempoRestante = fechaTiempoCancelacion.millisecondsSinceEpoch -
-                    fechaActual.millisecondsSinceEpoch;
-                print('tiempoRestante $tiempoRestante');
+            print(
+                ' fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch ${fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch}');
+            if (fechaActual < fechaTiempoCancelacion) {
+              tiempoRestante = fechaTiempoCancelacion.millisecondsSinceEpoch -
+                  fechaActual.millisecondsSinceEpoch;
+              print('tiempoRestante $tiempoRestante');
 
-                int horasRestantes = (tiempoRestante / 1000 / 60 / 60).floor();
-                int minutosRestantes =
-                    ((tiempoRestante / 1000 / 60) % 60).floor();
-                int segundosRestantes = ((tiempoRestante / 1000) % 60).floor();
+              int horasRestantes = (tiempoRestante / 1000 / 60 / 60).floor();
+              int minutosRestantes =
+                  ((tiempoRestante / 1000 / 60) % 60).floor();
+              int segundosRestantes = ((tiempoRestante / 1000) % 60).floor();
 
-                print('horasRestantes $horasRestantes');
-                print('minutosRestantes $minutosRestantes');
-                print('segundosRestantes $segundosRestantes');
-                self.empezarFechaRestante(tiempoRestante);
-              }
-            } catch (e, st) {
-              print('eeeeeee $e');
-              print('eeeeeee stack $st');
+              print('horasRestantes $horasRestantes');
+              print('minutosRestantes $minutosRestantes');
+              print('segundosRestantes $segundosRestantes');
+              self.empezarFechaRestante(tiempoRestante);
             }
-            Get.dialog(ResponsiveWeb(
-                child: DetalleReserva(
-              idReserva: state.idReserva.toString(),
-              capacidad: state.capacidad,
-              state: state,
-              reservasUsuarios: state.reservasUsuarios,
-              tiempoRestante: tiempoRestante,
-            )));
-          },
-          icon: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(0),
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(0),
-                          ),
-                          child: ImageProveedor(
-                            foto: state.foto,
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
+          } catch (e, st) {
+            print('eeeeeee $e');
+            print('eeeeeee stack $st');
+          }
+          // Get.dialog(ResponsiveWeb(
+          //     child: DetalleReserva(
+          //   idReserva: state.idReserva.toString(),
+          //   capacidad: state.capacidad,
+          //   state: state,
+          //   reservasUsuarios: state.reservasUsuarios,
+          //   tiempoRestante: tiempoRestante,
+          // )));
+          DetalleReservaDialog(
+            context: Get.context!,
+            idReserva: state.idReserva.toString(),
+            capacidad: state.capacidad,
+            state: state,
+            reservasUsuarios: state.reservasUsuarios,
+            tiempoRestante: tiempoRestante,
+          ).dialog();
+        },
+        icon: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(0),
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(0),
+                        ),
+                        child: ImageProveedor(
+                          foto: state.foto,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'Pista ${state.numPista} - ${state.nombrePatrocinador}',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 16,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 5, 0),
-                                child: Text(
-                                  '#${state.referencia}',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '${state.fechaReserva.formatReserva} - ${state.horaInicio.formatHora}',
-                              style: LightModeTheme().bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    letterSpacing: 0,
-                                  ),
+                            Expanded(
+                              child: Text(
+                                'Pista ${state.numPista} - ${state.nombrePatrocinador}',
+                                style: LightModeTheme().bodyMedium.override(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 16,
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 5, 0),
                               child: Text(
-                                state.dineroPagado.euro,
+                                '#${state.referencia}',
                                 style: LightModeTheme().bodyMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      fontSize: 18,
+                                      fontSize: 14,
                                       letterSpacing: 0,
                                     ),
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BuildUsuarios(
-                        capacidad: state.capacidad,
-                        reservasUsuarios: state.reservasUsuarios),
-                    Expanded(
-                      child: Row(
+                      ),
+                      Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Text(
+                            '${state.fechaReserva.formatReserva} - ${state.horaInicio.formatHora}',
+                            style: LightModeTheme().bodyMedium.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 5, 0),
                             child: Text(
-                              state.tipoReserva,
+                              state.dineroPagado.euro,
                               style: LightModeTheme().bodyMedium.override(
                                     fontFamily: 'Readex Pro',
+                                    fontSize: 18,
                                     letterSpacing: 0,
                                   ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ].divide(const SizedBox(width: 3)),
+                    ],
+                  ),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BuildUsuarios(
+                      capacidad: state.capacidad,
+                      reservasUsuarios: state.reservasUsuarios,
+                      fotoUsuario: self.db.fotoUsuario,
+                      idUsuario: self.db.idUsuario),
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                          child: Text(
+                            state.tipoReserva,
+                            style: LightModeTheme().bodyMedium.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ].divide(const SizedBox(width: 3)),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -483,5 +496,6 @@ class MisReservasPage extends GetView<MisReservasController> {
 class DatosDeporte {
   final String nombre;
   final String image;
-  DatosDeporte(this.nombre, this.image);
+  final double width;
+  DatosDeporte(this.nombre, this.image, this.width);
 }

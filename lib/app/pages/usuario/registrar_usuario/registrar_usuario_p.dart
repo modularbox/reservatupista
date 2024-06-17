@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
@@ -7,16 +8,21 @@ import '../../../widgets/appbar_general.dart';
 import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/services.dart';
 import 'widgets/inputs_datos_registro_usuario.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 
-class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
-  RegistrarUsuarioPage({super.key});
-  RegistrarUsuarioController get self => controller;
+class RegistrarUsuarioPage extends StatefulWidget {
+  const RegistrarUsuarioPage({super.key});
 
+  @override
+  State<RegistrarUsuarioPage> createState() => _RegistrarUsuarioPageState();
+}
+
+class _RegistrarUsuarioPageState extends State<RegistrarUsuarioPage> {
+  RegistrarUsuarioController self = Get.find();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final pageIndexNotifier = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -50,36 +56,9 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                             children: [
                               Get.width <= 640 ? buildSelectImage() : 0.0.empty,
                               const InputsDatosRegistroUsuario(),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: FFButtonWidget(
-                                  onPressed: self.onPressedRegistrar,
-                                  text: 'Registrate',
-                                  options: FFButtonOptions(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.4,
-                                    height: 40,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    iconPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    color: LightModeTheme().primary,
-                                    textStyle:
-                                        LightModeTheme().bodyMedium.override(
-                                              fontFamily: 'Readex Pro',
-                                              color: LightModeTheme().tertiary,
-                                            ),
-                                    elevation: 2,
-                                    borderSide: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
+                              ButtonGeneral(
+                                onPressed: self.onPressedRegistrar,
+                                fillColor: Colores.usuario.primary,
                               ),
                             ],
                           ),
@@ -152,7 +131,8 @@ class RegistrarUsuarioPage extends GetView<RegistrarUsuarioController> {
                         shape: BoxShape.circle,
                       ),
                       child: BtnIcon(
-                        onPressed: self.image.dialogSeleccionarImage,
+                        onPressed: () =>
+                            self.image.dialogSeleccionarImage(context),
                         borderRadius: 50,
                         padding: const EdgeInsets.all(0),
                         fillColor: Colors.transparent,

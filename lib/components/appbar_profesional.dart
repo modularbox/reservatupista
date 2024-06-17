@@ -100,13 +100,13 @@ class AppbarProfesional extends StatelessWidget {
                   iconSize: 24,
                   icon: badges.Badge(
                     badgeContent: Text(
-                      '1',
+                      '',
                       style: LightModeTheme().bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           color: Colors.white,
                           fontSize: 10),
                     ),
-                    showBadge: true,
+                    showBadge: false,
                     shape: badges.BadgeShape.circle,
                     badgeColor: Colores.proveedor.primary,
                     elevation: 4,
@@ -136,11 +136,11 @@ class AppbarProfesional extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 10),
                     ),
-                    showBadge: true,
+                    showBadge: false,
                     shape: badges.BadgeShape.circle,
                     badgeColor: Colores.proveedor.primary,
                     elevation: 4,
-                    padding: EdgeInsets.all(6),
+                    padding: const EdgeInsets.all(6),
                     position: badges.BadgePosition.topEnd(),
                     animationType: badges.BadgeAnimationType.scale,
                     toAnimate: false,
@@ -157,7 +157,7 @@ class AppbarProfesional extends StatelessWidget {
                   buttonSize: 55,
                   iconColor: LightModeTheme().secondaryText,
                   iconSize: 24,
-                  hoverColor: Colores.usuario.primary69,
+                  hoverColor: Colores.proveedor.primary69,
                   icon: Container(
                       width: 40,
                       height: 40,

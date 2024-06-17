@@ -44,6 +44,18 @@ class Tarifa {
       this.precioSinLuzNoSocio = '',
       this.fecha = ''});
 
+  factory Tarifa.fromJson(Map<String, dynamic> json) => Tarifa(
+        disponible: json["activado"] == 1,
+        clases: json["clases"] == 1,
+        luz: json["luz"] == 1,
+        diaSemana: json["dia_semana"],
+        horaInicio: json["hora_inicio"],
+        precioConLuzSocio: json["precio_con_luz_socio"],
+        precioSinLuzSocio: json["precio_sin_luz_socio"],
+        precioConLuzNoSocio: json["precio_con_luz_no_socio"],
+        precioSinLuzNoSocio: json["precio_sin_luz_no_socio"],
+      );
+
   Map<String, dynamic> toJson() {
     return {
       'disponible': disponible,
@@ -77,5 +89,5 @@ class Tarifa {
 // Convertir el precio en euros a int
 extension ExtConvertPrecio on String {
   int get convertPrecio =>
-      int.parse('${split(' ')[0].split('.')[0]}${split(' ')[0].split('.')[1]}');
+      int.parse('${split(' ')[0].split(',')[0]}${split(' ')[0].split(',')[1]}');
 }

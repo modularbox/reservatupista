@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
@@ -367,7 +368,7 @@ class EliminarCuentaPage extends GetView<EliminarCuentaController> {
             animTerminos,
             focusedColor,
             palomita,
-            paddingTop: 20,
+            paddingTop: 20.0,
           ),
           Divider(
             height: 2,

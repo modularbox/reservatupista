@@ -22,15 +22,27 @@ export 'dart:convert' show jsonEncode, jsonDecode;
 export 'package:intl/intl.dart';
 export 'package:page_transition/page_transition.dart';
 export 'internationalization.dart' show FFLocalizations;
+import 'dart:ui' as ui;
 
 extension FechaExt on DateTime {
   String get formatFecha => FormatDate.dateToString(this);
   String get formatReserva => DateFormat.yMMMMd('es').format(this);
   String get letraDia => ['L', 'M', 'X', 'J', 'V', 'S', 'D'][weekday - 1];
+  String get formatFechaDB => toString().substring(0, 10);
 }
 
-extension WidgetExt on Widget {
-  Widget visible(bool isVisible) => isVisible ? this : const SizedBox.shrink();
+extension PaddingTopExt on double {
+  // double get topNavBar => (isiOS ? (this > 28.0 ? 28.0 : this) : this) + 55.0;
+}
+
+class Visible extends StatelessWidget {
+  const Visible({super.key, required this.isVisible, required this.child});
+  final bool isVisible;
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return isVisible ? child : const SizedBox.shrink();
+  }
 }
 
 extension IterableExtension<E> on List<E> {
@@ -40,6 +52,16 @@ extension IterableExtension<E> on List<E> {
       yield f(element, index++);
     }
   }
+}
+
+double calcularAnchoTexto(String texto, TextStyle estilo) {
+  final TextPainter textPainter = TextPainter(
+    text: TextSpan(text: texto, style: estilo),
+    maxLines: 1,
+    textDirection: ui.TextDirection.ltr,
+  )..layout(minWidth: 0, maxWidth: double.infinity);
+
+  return textPainter.size.width;
 }
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
@@ -319,6 +341,15 @@ extension FFStringExt on String {
   String get formatHora => '${substring(0, 5)}h';
   String get formatHoraTimestamp => '${substring(11, 16)}h';
   String get formatFechaTimestamp => substring(0, 10);
+
+  String get formatTipoOperacion {
+    if (this == 'recarga_monedero') return 'Recarga Monedero';
+    if (this == 'recarga_por_cancelacion') return 'Reserva Cancelada';
+    if (this == 'monedero') return 'Monedero';
+    if (this == 'pago_tarjeta') return 'Tarjeta';
+    if (this == 'tarjeta') return 'Tarjeta';
+    return '';
+  }
 
   /// COnvertir 2024-05-16' - 16-05-2024'
   String get formatDiaMesAnio =>

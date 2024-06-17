@@ -17,12 +17,10 @@ class AdminPartidasController extends GetxController {
   String? Function(BuildContext, String?)? searchBarTextControllerValidator;
 
   @override
-  void initState(BuildContext context) {}
-
-  @override
   void dispose() {
     unfocusNode.dispose();
     searchBarFocusNode?.dispose();
     searchBarTextController?.dispose();
+    super.dispose();
   }
 }

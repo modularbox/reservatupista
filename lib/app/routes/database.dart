@@ -185,7 +185,7 @@ List generate() {
 
 List getDeportesPiscina(int index) {
   final deportes = [
-    '🎾 Padel',
+    '🎾 Pádel',
     '🎾 Tenis',
     '🏊‍♀️ P. Climatizada',
   ];
@@ -253,7 +253,7 @@ Map getSemanaPiscina(int index, int pistasLengts) {
 
 List getDeportes(int index) {
   final deportes = [
-    '🎾 Padel',
+    '🎾 Pádel',
     '🎾 Tenis',
     '🏸 Badminton',
     '🏊‍♀️ P. Climatizada',
@@ -271,7 +271,7 @@ List getDeportes(int index) {
     '🥅 Multideporte',
   ];
   final deportesPiscina = [
-    '🎾 Padel',
+    '🎾 Pádel',
     '🎾 Tenis',
     '🏸 Badminton',
     '🏊‍♀️ P. Climatizada',

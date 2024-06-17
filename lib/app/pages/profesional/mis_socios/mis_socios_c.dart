@@ -219,5 +219,6 @@ class MisSociosController extends GetxController
     unfocusNode.dispose();
     searchBarFocusNode?.dispose();
     searchBarController?.dispose();
+    super.dispose();
   }
 }

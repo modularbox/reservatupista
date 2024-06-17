@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
-import 'package:reservatu_pista/app/pages/usuario/reserva_compartida_page/reserva_compartida_c.dart';
+import 'package:reservatu_pista/app/pages/usuario/reserva_compartida/reserva_compartida_c.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
