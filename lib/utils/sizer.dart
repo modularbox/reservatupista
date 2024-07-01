@@ -108,6 +108,7 @@ class Sizer extends StatelessWidget {
 extension ExtContextResponsive on BuildContext {
   double get h => MediaQuery.sizeOf(this).height;
   double get w => MediaQuery.sizeOf(this).width;
+  double get wMaxHorizontal => w > 640 ? 640 : MediaQuery.sizeOf(this).width;
   double get paddingBottom {
     final pb = MediaQuery.of(this).padding.bottom;
     return (isiOS ? (pb > 10.0 ? 10.0 : pb) : pb) + 70.0;
