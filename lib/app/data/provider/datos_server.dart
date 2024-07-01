@@ -6,7 +6,7 @@ abstract final class DatosServer {
   static const int testing = 0;
   static const String urlPruebas = 'http://localhost:3000';
   static const String urlServer =
-      false ? 'https://api.reservatupista.com' : 'http://localhost:3000';
+      !false ? 'https://api.reservatupista.com' : 'http://localhost:3000';
   // static const String urlServer = 'https://api.reservatupista.com';
   static const String urlWeb = 'https://app.reservatupista.com';
   // static const String urlMail = 'https://mail.modularbox.com';

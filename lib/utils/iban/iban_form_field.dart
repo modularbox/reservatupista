@@ -161,7 +161,7 @@ class _IbanFormFieldState extends State<IbanFormFieldBuilder> {
   @override
   Widget build(BuildContext context) {
     var constraints = BoxConstraints.tightFor(
-      width: Theme.of(widget.state.context).textTheme.bodyText2!.fontSize! *
+      width: Theme.of(widget.state.context).textTheme.bodyMedium!.fontSize! *
           1.1 *
           3.5,
     );
@@ -298,11 +298,7 @@ class _IbanFormFieldState extends State<IbanFormFieldBuilder> {
             padding: EdgeInsets.only(top: 5),
             child: Text(
               widget.state.errorText!,
-              style: Theme.of(context).inputDecorationTheme.errorStyle ??
-                  Theme.of(context)
-                      .textTheme
-                      .caption!
-                      .copyWith(color: Theme.of(context).errorColor),
+              style: Theme.of(context).inputDecorationTheme.errorStyle,
             ),
           ),
       ],
