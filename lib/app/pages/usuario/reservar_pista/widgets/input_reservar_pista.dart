@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math' as math;
@@ -6,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 
 class InputReservarPista extends FormField<String> {
   InputReservarPista({
-    Key? key,
+    super.key,
     this.controller,
     this.icon,
     this.changeIcon = false,
@@ -43,7 +42,6 @@ class InputReservarPista extends FormField<String> {
     String? Function(String?)? validator,
     this.onChanged,
   }) : super(
-          key: key,
           initialValue: controller!.text,
           builder: (FormFieldState<String> field) {
             final _InputReservarPistaState state =

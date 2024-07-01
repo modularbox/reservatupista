@@ -103,24 +103,7 @@ class PerfilPageState extends State<PerfilPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(Scaffold(
-                        body: GestureDetector(
-                            onTap: Get.back,
-                            child: SizedBox(
-                              height: 30,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ImageServer(
-                                      width: 200,
-                                      height: 200,
-                                    ),
-                                  ]),
-                            )),
-                      ));
-                    },
+                    onPressed: dialogImage,
                     borderRadius: 50,
                     padding: const EdgeInsets.all(0),
                     fillColor: Colors.transparent,
@@ -214,33 +197,22 @@ class PerfilPageState extends State<PerfilPage> {
   }
 
   void buildDialogImage() {
+    print('---------------------');
     Get.dialog(
       GestureDetector(
         onTap: Get.back,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 400,
-                  height: 400,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: ImageServer(
-                      width: 400,
-                      height: 400,
-                      fit: BoxFit
-                          .contain, // Ajusta la imagen para que se adapte al contenedor
-                    ),
-                  ),
-                ),
-              ],
+        child: Container(
+          width: Get.width,
+          height: Get.height,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: ImageServer(
+              fit: BoxFit
+                  .contain, // Ajusta la imagen para que se adapte al contenedor
             ),
           ),
         ),
@@ -293,7 +265,8 @@ class PerfilPageState extends State<PerfilPage> {
                 height: height,
                 padding: padding,
                 onPressed: () async {
-                  Get.toNamed(Routes.DATOS_USUARIO);
+                  Get.toNamed(Routes.DATOS_USUARIO,
+                      parameters: {'sdk': 'ksdm'});
                 },
               ),
               ButtonPerfil(
@@ -455,6 +428,24 @@ class PerfilPageState extends State<PerfilPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void dialogImage() {
+    Get.dialog(
+      GestureDetector(
+          onTap: Get.back,
+          child: SizedBox(
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ImageServer(
+                    width: null,
+                    height: null,
+                  ),
+                ]),
+          )),
     );
   }
 }

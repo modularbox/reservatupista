@@ -3,6 +3,7 @@ import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../btn_icon.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import '../sizer.dart';
@@ -72,7 +73,6 @@ class MessageServerDialog {
         topBarTitle: buildTitle(),
         isTopBarLayerAlwaysVisible: true,
         enableDrag: false,
-        leadingNavBarWidget: alertType == null ? null : _defaultIcon(),
         trailingNavBarWidget: buildCerrar(modalSheetContext),
         resizeToAvoidBottomInset: false,
         hasSabGradient: true,
@@ -95,7 +95,10 @@ class MessageServerDialog {
                         fontSize: 23,
                       ),
                 ),
-              )
+              ),
+              10.0.sh,
+              _defaultIcon(),
+              20.0.sh,
             ],
           ),
         ));
@@ -109,10 +112,14 @@ class MessageServerDialog {
   }
 
   Widget _defaultIcon() {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Image(
+    return BtnIcon(
+      onPressed: onPressed,
+      hoverColor:
+          isProveedor ? Colores.proveedor.primary69 : Colores.usuario.primary69,
+      icon: Image(
         image: _typeAsset[alertType]!,
+        width: 70,
+        height: 70,
       ),
     );
   }
@@ -145,10 +152,8 @@ class MessageServerDialog {
 
   Widget buildSubtitle(double fontSize) {
     return Padding(
-      padding: isPrecio
-          ? const EdgeInsets.only(
-              top: 30.0, left: 10.0, right: 10.0, bottom: 5.0)
-          : const EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
+      padding: const EdgeInsets.only(
+          top: 30.0, left: 10.0, right: 10.0, bottom: 5.0),
       child: Text(
         subtitle,
         textAlign: TextAlign.center,

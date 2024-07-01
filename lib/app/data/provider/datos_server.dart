@@ -1,11 +1,17 @@
 // ignore_for_file: constant_identifier_names
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+import 'package:reservatu_pista/web/web.dart';
+
 abstract final class DatosServer {
+  static const int testing = 0;
   static const String urlPruebas = 'http://localhost:3000';
-  static const String urlServer = 'http://localhost:3000';
-  // static const String urlServer = 'http://192.168.1.1';
+  static const String urlServer =
+      false ? 'https://api.reservatupista.com' : 'http://localhost:3000';
   // static const String urlServer = 'https://api.reservatupista.com';
   static const String urlWeb = 'https://app.reservatupista.com';
-  static const String urlMail = 'https://mail.modularbox.com';
+  // static const String urlMail = 'https://mail.modularbox.com';
+  static const String urlMail =
+      true ? 'https://mail.modularbox.com' : 'http://localhost:4000';
   static const String urlImageUsuario = '$urlServer/images_usuario';
   static const String urlImageProveedor = '$urlServer/images_proveedor';
   static const String urlImagePistas = '$urlServer/images_pista';
@@ -36,6 +42,16 @@ abstract final class DatosServer {
 
   static String online(String imageName) {
     return '$urlImageOnline/$imageName.png';
+  }
+
+  static void openTpv(int dinero, String numOperacion) async {
+    if (isSafari()) {
+      await openUrlInSafari(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion&testing=$testing');
+    } else {
+      launchURL(
+          'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion&testing=$testing');
+    }
   }
 }
 

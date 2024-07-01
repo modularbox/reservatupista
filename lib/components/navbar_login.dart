@@ -7,7 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'alert_versions_widget.dart';
 
 class NavBarLogin extends StatefulWidget {
-  const NavBarLogin({super.key});
+  const NavBarLogin({super.key, required this.isMin});
+  final bool isMin;
 
   @override
   State<NavBarLogin> createState() => _NavBarLoginState();
@@ -50,11 +51,12 @@ class _NavBarLoginState extends State<NavBarLogin> {
   }
 
   Widget buildLogosText() {
+    final sizeLogos = widget.isMin ? 45.0 : 60.0;
     return Row(
       children: [
         Container(
-          width: 60.0,
-          height: 60.0,
+          width: sizeLogos,
+          height: sizeLogos,
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(),
           child: Image.asset(
@@ -72,8 +74,8 @@ class _NavBarLoginState extends State<NavBarLogin> {
         Padding(
           padding: const EdgeInsets.all(4.0),
           child: Container(
-            width: 60.0,
-            height: 60.0,
+            width: sizeLogos,
+            height: sizeLogos,
             decoration: BoxDecoration(
               color: const Color(0xFF00E676),
               borderRadius: BorderRadius.circular(50.0),
@@ -105,7 +107,11 @@ class _NavBarLoginState extends State<NavBarLogin> {
   Widget buildNavBar() {
     return SizedBox(
       width: context.w,
-      height: context.w < 500 ? 130 : 120,
+      height: widget.isMin
+          ? 115.0
+          : context.w < 500
+              ? 130
+              : 120,
       child: Column(
         children: [
           buildLogosText(),

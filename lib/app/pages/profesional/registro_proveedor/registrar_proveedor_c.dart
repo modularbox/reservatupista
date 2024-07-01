@@ -6,6 +6,7 @@ import 'package:reservatu_pista/app/data/models/geonames_model.dart';
 import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/geonames_node.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import '../../../../utils/animations/list_animations.dart';
@@ -167,35 +168,36 @@ class RegistrarProveedorController extends GetxController
         final result = await ProveedorProvider().registrarProveedor(
             datosSQLProveedor, datosSQLClub, datosSQLocalidades);
         Get.back();
-
         if (result.code == 2000) {
-          await EmailProvider()
-              .enviarEmailRegistro(tc.email.text, tc.nombre.text, '1');
-
-          /// Regresar al inicio y enviar el email.
-          Get.dialog(ChangeDialogGeneral(
-            //uses the custom alert dialog
-            alertTitle: richTitle("Registro proveedor"),
-            alertSubtitle: richSubtitle(result.message),
-            textButton: "Confirmar",
-            alertType: TypeGeneralDialog.SUCCESS,
+          await EmailProvider().enviarEmailRegistro(
+              tc.email.text, tc.nombre.text, tc.apellidos.text, true);
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: success,
+            title: 'Registro Proveedor',
+            subtitle: 'Compruebe su correo para finalizar el registro.',
             onPressed: () {
-              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 1);
+              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
             },
-          ));
+          ).dialog();
         } else {
-          /// Regresar al inicio y enviar el email.
-          Get.dialog(ChangeDialogGeneral(
-              //uses the custom alert dialog
-              alertTitle: richTitle("Registro proveedor"),
-              alertSubtitle: richSubtitle(result.messageError()),
-              textButton: "Aceptar",
-              alertType: TypeGeneralDialog.WARNING,
-              onPressed: Get.back));
+          return MessageServerDialog(
+            context: Get.context!,
+            alertType: warning,
+            title: 'Registro Proveedor',
+            subtitle: result.message,
+            onPressed: Get.back,
+          ).dialog();
         }
       } catch (e) {
-        Get.back();
-        print(e);
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: error,
+          title: 'Registro Proveedor',
+          subtitle:
+              'Ocurrio un error interno, lo sentimos vuelvelo a intentar mas tarde.',
+          onPressed: Get.back,
+        ).dialog();
       }
     }
   }

@@ -23,6 +23,7 @@ class PistaEditarModel {
   final IsEdit? tarjeta;
   final IsEdit? bono;
   final IsEdit? reservatupista;
+  final IsEdit tarifas = IsEdit('');
   final imagenesPista = IsEdit('');
   final imagenPatrocinador = IsEdit('');
 
@@ -76,7 +77,17 @@ class PistaEditarModel {
       ...duchas.jsonNewJson('duchas'),
       ...imagenPatrocinador.jsonNewJson('imagen_patrocinador'),
       ...imagenesPista.jsonNewJson('imagenes_pista'),
+      ...tarifas.jsonNewJson('tarifas'),
     };
+  }
+
+  bool isModificacionesTarifa() {
+    return horaInicio.modificar ||
+        horaFin.modificar ||
+        socioPrecioConLuz.modificar ||
+        socioPrecioSinLuz.modificar ||
+        noSocioPrecioConLuz.modificar ||
+        noSocioPrecioSinLuz.modificar;
   }
 }
 

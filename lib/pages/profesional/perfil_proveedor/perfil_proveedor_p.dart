@@ -116,19 +116,7 @@ class _PerfilProveedorPageState extends State<PerfilProveedorPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(2),
                   child: BtnIcon(
-                    onPressed: () {
-                      Get.dialog(GestureDetector(
-                          onTap: () => Get.back(),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ImageServer(
-                                  width: 200,
-                                  height: 400,
-                                ),
-                              ])));
-                    },
+                    onPressed: dialogImage,
                     borderRadius: 50,
                     padding: const EdgeInsets.all(0),
                     fillColor: Colors.transparent,
@@ -329,6 +317,25 @@ class _PerfilProveedorPageState extends State<PerfilProveedorPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void dialogImage() {
+    Get.dialog(
+      GestureDetector(
+          onTap: Get.back,
+          child: SizedBox(
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ImageServer(
+                    width: null,
+                    height: null,
+                    fit: BoxFit.fill,
+                  ),
+                ]),
+          )),
     );
   }
 }

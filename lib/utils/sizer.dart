@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 
 class SizerUtil {
@@ -108,9 +109,15 @@ class Sizer extends StatelessWidget {
 extension ExtContextResponsive on BuildContext {
   double get h => MediaQuery.sizeOf(this).height;
   double get w => MediaQuery.sizeOf(this).width;
-  double get wMaxHorizontal => w > 640 ? 640 : MediaQuery.sizeOf(this).width;
+  double get wMaxHorizontal => w < maxWidth
+      ? (w - (paddingSize * 2.0))
+      : (maxWidth - (paddingSize * 2.0));
   double get paddingBottom {
     final pb = MediaQuery.of(this).padding.bottom;
-    return (isiOS ? (pb > 10.0 ? 10.0 : pb) : pb) + 70.0;
+    return !isNotKeyboardVisible
+        ? 0.0
+        : (isiOS ? (pb > 10.0 ? 10.0 : pb) : pb) + 70.0;
   }
+
+  bool get isNotKeyboardVisible => MediaQuery.of(this).viewInsets.bottom <= 0;
 }

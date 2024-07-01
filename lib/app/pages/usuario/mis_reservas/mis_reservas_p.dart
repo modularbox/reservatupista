@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
+import 'package:reservatu_pista/app/global_widgets/build_reservas.dart';
+import 'package:reservatu_pista/app/global_widgets/imagenes_pista.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/mis_reservas_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/build_usuarios.dart';
 import 'package:reservatu_pista/app/pages/usuario/mis_reservas/widgets/detalles_reserva.dart';
@@ -16,7 +19,6 @@ import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
-import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
@@ -28,7 +30,7 @@ class MisReservasPage extends StatefulWidget {
 }
 
 class _MisReservasPageState extends State<MisReservasPage> {
-  MisReservasController self = Get.find();
+  final MisReservasController self = Get.find();
   @override
   Widget build(BuildContext context) {
     return NavbarYAppbarUsuario(
@@ -54,94 +56,131 @@ class _MisReservasPageState extends State<MisReservasPage> {
                   ),
                 ),
               ),
-              Expanded(
-                child: Listener(
-                  onPointerSignal: (event) {
-                    if (event is PointerScrollEvent &&
-                        !self.isThrottling.value) {
-                      self.isThrottling.value = true; // Activar la bandera
-                      if (event.scrollDelta.dy < 0 &&
-                          self.previousScrollPosition == 0 &&
-                          self.currentPage > 1) {
-                        self.currentPage -= 1;
-                        self.pageHaschanged.value = true;
-                        self.previousScrollPosition = 0;
-                        if (self.currentPage < 1) self.currentPage = 1;
-                        self.loadMoreData();
-                      } else if (event.scrollDelta.dy > 0) {}
-                      if (self.currentPage < 1) self.currentPage = 1;
-                      // Desactivar la bandera después de un corto tiempo
-                      Future.delayed(const Duration(milliseconds: 1500), () {
-                        self.isThrottling.value = false;
-                      });
-                    }
-                    //});
-                  },
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (ScrollNotification scrollInfo) {
-                      bool hacia_abajo = false;
-                      if (scrollInfo.metrics.pixels >
-                          self.previousScrollPosition) {
-                        /*if (scrollInfo.metrics.pixels >= 20) {
-                              hacia_abajo = false;
-                            } else {
-                              hacia_abajo = true;
-                            }*/
-                        hacia_abajo = true;
-                      } else if (scrollInfo.metrics.pixels <
-                          self.previousScrollPosition) {
-                        hacia_abajo = false;
-                      }
-                      self.previousScrollPosition = scrollInfo.metrics.pixels;
-                      if (!self.isLoading.value &&
-                          scrollInfo.metrics.pixels ==
-                              scrollInfo.metrics.maxScrollExtent &&
-                          hacia_abajo) {
-                        if (self.currentPage * self.itemsPerPage <
-                            (self.initialLength)) {
-                          if (self.debounceTimer?.isActive ?? false)
-                            self.debounceTimer!.cancel();
-                          self.debounceTimer =
-                              Timer(const Duration(milliseconds: 500), () {
-                            self.currentPage += 1;
-                            self.previousScrollPosition = 0;
-
-                            self.loadMoreData();
-                          });
-                        }
-                        return true;
-                      } else if (!self.isLoading.value &&
-                          scrollInfo.metrics.pixels ==
-                              scrollInfo.metrics.minScrollExtent &&
-                          !hacia_abajo) {
-                        if (self.currentPage != self.lastPageSelected) {
-                          self.lastPageSelected = self.currentPage;
-                          return false;
-                        }
-                        // Al llegar al inicio del scroll
-                        if (self.currentPage > 1) {
-                          if (self.debounceTimer?.isActive ?? false)
-                            self.debounceTimer!.cancel();
-                          self.debounceTimer =
-                              Timer(const Duration(milliseconds: 500), () {
-                            self.currentPage -= 1;
-                            self.previousScrollPosition = 0;
-                            self.loadMoreData();
-                          });
-                        }
-                        return true;
-                      }
-                      return false;
-                    },
-                    child: buildReservas(),
-                  ),
-                ),
-              ),
+              BuildReservas(
+                  context: context,
+                  onPressedContainerReserva: onPressedContainerReserva,
+                  onNotification: onNotification,
+                  onPointerSignal: onPointerSignal,
+                  misReservasUsuario: self.misReservasUsuario,
+                  isLoading: self.isLoading.value,
+                  fotoUsuario: self.db.fotoUsuario,
+                  idUsuario: self.db.idUsuario)
             ],
           ),
         ),
       ),
     );
+  }
+
+  void onPointerSignal(event) {
+    if (event is PointerScrollEvent && !self.isThrottling.value) {
+      self.isThrottling.value = true; // Activar la bandera
+      if (event.scrollDelta.dy < 0 &&
+          self.previousScrollPosition == 0 &&
+          self.currentPage > 1) {
+        self.currentPage -= 1;
+        self.pageHaschanged.value = true;
+        self.previousScrollPosition = 0;
+        if (self.currentPage < 1) self.currentPage = 1;
+        self.loadMoreData();
+      } else if (event.scrollDelta.dy > 0) {}
+      if (self.currentPage < 1) self.currentPage = 1;
+      // Desactivar la bandera después de un corto tiempo
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        self.isThrottling.value = false;
+      });
+    }
+    //});
+  }
+
+  bool onNotification(ScrollNotification scrollInfo) {
+    bool hacia_abajo = false;
+    if (scrollInfo.metrics.pixels > self.previousScrollPosition) {
+      hacia_abajo = true;
+    } else if (scrollInfo.metrics.pixels < self.previousScrollPosition) {
+      hacia_abajo = false;
+    }
+    self.previousScrollPosition = scrollInfo.metrics.pixels;
+    if (!self.isLoading.value &&
+        scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+        hacia_abajo) {
+      if (self.currentPage * self.itemsPerPage < (self.initialLength)) {
+        if (self.debounceTimer?.isActive ?? false) self.debounceTimer!.cancel();
+
+        self.debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          self.currentPage += 1;
+          self.previousScrollPosition = 0;
+
+          self.loadMoreData();
+        });
+      }
+      return true;
+    } else if (!self.isLoading.value &&
+        scrollInfo.metrics.pixels == scrollInfo.metrics.minScrollExtent &&
+        !hacia_abajo) {
+      if (self.currentPage != self.lastPageSelected) {
+        self.lastPageSelected = self.currentPage;
+        return false;
+      }
+      // Al llegar al inicio del scroll
+      if (self.currentPage > 1) {
+        if (self.debounceTimer?.isActive ?? false) self.debounceTimer!.cancel();
+        self.debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          self.currentPage -= 1;
+          self.previousScrollPosition = 0;
+          self.loadMoreData();
+        });
+      }
+      return true;
+    }
+    return false;
+  }
+
+  void onPressedContainerReserva(MisReservasUsuarioModel state) async {
+    int tiempoRestante = 0;
+    try {
+      DateTime fechaInicioPartida =
+          self.construirDatetime(state.fechaReserva, state.horaInicio);
+      DateTime fechaActual = DateTime.now();
+      DateTime fechaTiempoCancelacion = fechaInicioPartida
+          .subtract(Duration(hours: state.tiempo_cancelacion));
+
+      print(
+          ' fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch ${fechaTiempoCancelacion.millisecondsSinceEpoch - fechaActual.millisecondsSinceEpoch}');
+      if (fechaActual < fechaTiempoCancelacion) {
+        tiempoRestante = fechaTiempoCancelacion.millisecondsSinceEpoch -
+            fechaActual.millisecondsSinceEpoch;
+        print('tiempoRestante $tiempoRestante');
+
+        int horasRestantes = (tiempoRestante / 1000 / 60 / 60).floor();
+        int minutosRestantes = ((tiempoRestante / 1000 / 60) % 60).floor();
+        int segundosRestantes = ((tiempoRestante / 1000) % 60).floor();
+
+        print('horasRestantes $horasRestantes');
+        print('minutosRestantes $minutosRestantes');
+        print('segundosRestantes $segundosRestantes');
+        self.empezarFechaRestante(tiempoRestante);
+      }
+    } catch (e, st) {
+      print('eeeeeee $e');
+      print('eeeeeee stack $st');
+    }
+    // Get.dialog(ResponsiveWeb(
+    //     child: DetalleReserva(
+    //   idReserva: state.idReserva.toString(),
+    //   capacidad: state.capacidad,
+    //   state: state,
+    //   reservasUsuarios: state.reservasUsuarios,
+    //   tiempoRestante: tiempoRestante,
+    // )));
+    DetalleReservaDialog(
+      context: Get.context!,
+      idReserva: state.idReserva.toString(),
+      capacidad: state.capacidad,
+      state: state,
+      reservasUsuarios: state.reservasUsuarios,
+      tiempoRestante: tiempoRestante,
+    ).dialog();
   }
 
   List<Widget> buildListDeportes() {
@@ -226,7 +265,7 @@ class _MisReservasPageState extends State<MisReservasPage> {
     return self.misReservasUsuario.obx(
       (state) => ListView.builder(
         itemCount: state!.length + 1,
-        padding: const EdgeInsets.all(0.0),
+        padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
           if (index == state.length) {
             // Este es el último elemento, añade un SizedBox para forzar el scroll
@@ -241,7 +280,7 @@ class _MisReservasPageState extends State<MisReservasPage> {
                   Visible(
                       isVisible: self.isLoading.value,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: paddingVertical,
                         child: ColorLoader(),
                       ))
                 ],
@@ -363,71 +402,49 @@ class _MisReservasPageState extends State<MisReservasPage> {
             Row(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(12),
-                          bottomRight: Radius.circular(0),
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(0),
-                        ),
-                        child: ImageProveedor(
-                          foto: state.foto,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
+                ImagenPistaEnReservas(
+                  image: state.foto,
                 ),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'Pista ${state.numPista} - ${state.nombrePatrocinador}',
-                                style: LightModeTheme().bodyMedium.override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 16,
-                                      letterSpacing: 0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Pista ${state.numPista} - ${state.nombrePatrocinador}',
+                              style: LightModeTheme().bodyMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 16,
+                                    letterSpacing: 0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 5, 0),
-                              child: Text(
-                                '#${state.referencia}',
-                                style: LightModeTheme().bodyMedium.override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 14,
-                                      letterSpacing: 0,
-                                    ),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 5, 0),
+                            child: Text(
+                              '#${state.referencia}',
+                              style: LightModeTheme().bodyMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 14,
+                                    letterSpacing: 0,
+                                  ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${state.fechaReserva.formatReserva} - ${state.horaInicio.formatHora}',
+                            '${state.fechaReserva.formatFecha} - ${state.horaInicio.formatHora}',
                             style: LightModeTheme().bodyMedium.override(
                                   fontFamily: 'Readex Pro',
                                   letterSpacing: 0,

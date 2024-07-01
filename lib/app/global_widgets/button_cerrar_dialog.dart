@@ -12,9 +12,10 @@ class ButtonCerrarDialog extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: context.w < 450 ? 20.0 : 10.0),
       child: BtnIcon(
-        borderColor: Colors.black87,
+        borderColor: Colors.black45,
+        elevation: 5.0,
         borderRadius: 10,
-        borderWidth: 2,
+        borderWidth: 1,
         fillColor: const Color(0xFFF77066),
         hoverColor: const Color.fromARGB(62, 0, 0, 0),
         buttonSize: context.w < 450 ? 45 : 55,

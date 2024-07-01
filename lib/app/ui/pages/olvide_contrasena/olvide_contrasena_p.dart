@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/ui/pages/olvide_contrasena/widgets/codigo_otp.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import '../../../../components/app_bar_login_widget.dart';
-import '../../../../components/navbar_login.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import '../../../../flutter_flow/flutter_flow_util.dart';
 import 'olvide_contrasena_c.dart';
@@ -38,64 +38,40 @@ class _OlvideContrasenaPageState extends State<OlvideContrasenaPage> {
         ),
       );
     }
-    return Scaffold(
-      backgroundColor: LightModeTheme().primaryText,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        top: true,
-        child: Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [LightModeTheme().tertiary, LightModeTheme().accent4],
-              stops: const [0, 1],
-              begin: const AlignmentDirectional(0, -1),
-              end: const AlignmentDirectional(0, 1),
-            ),
-          ),
-          child: ResponsiveWeb(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AppBarLoginWidget(),
-                    SizedBox(
-                      height: 450,
-                      child: PageView(
-                        controller: self.pageViewController,
-                        scrollDirection: Axis.horizontal,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          buildForm(),
-                          buildFormOTP(),
-                          buildFormContrasena()
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                const NavBarLogin()
-              ],
-            ),
-          ),
+    self.settearDatosUser();
+    if (self.typeUser == 0) {
+      return NavbarYAppbarUsuario(
+          title: 'Recuperar Contraseña',
+          isTitleBack: true,
+          isNavBar: false,
+          child: _buildRecuperContrasena());
+    } else {
+      return NavbarYAppbarProfesional(
+          title: 'Recuperar Contraseña',
+          isTitleBack: true,
+          isNavBar: false,
+          child: _buildRecuperContrasena());
+    }
+  }
+
+  Widget _buildRecuperContrasena() {
+    return Expanded(
+      child: ResponsiveWeb(
+          child: SizedBox(
+        height: 450,
+        child: PageView(
+          controller: self.pageViewController,
+          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [buildForm(), buildFormOTP(), buildFormContrasena()],
         ),
-      ),
+      )),
     );
   }
 
   Widget buildForm() {
     return Column(
       children: [
-        10.0.sh,
-        Text(
-          'Recuperar Contraseña',
-          style: LightModeTheme().headlineLarge.copyWith(fontSize: 25),
-          textAlign: TextAlign.center,
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
@@ -113,13 +89,11 @@ class _OlvideContrasenaPageState extends State<OlvideContrasenaPage> {
 
   Widget mostrarText() {
     return Visible(
-      isVisible: self.stateEmail.value,
+      isVisible: self.messageEmail.value != '',
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         child: Text(
-          '''Le enviaremos un email para restablecer la contraseña.
-    Por favor si pasado unos minutos no lo recibe, revise la carpeta de spam de su correo.
-              ''',
+          self.messageEmail.value,
           textAlign: TextAlign.center,
           style: LightModeTheme()
               .bodyMedium
@@ -198,12 +172,12 @@ class _OlvideContrasenaPageState extends State<OlvideContrasenaPage> {
           borderColor: self.stateEmail.value ? Colors.black : self.lineColor,
           textButton: self.stateEmail.value ? 'Siguiente' : 'Recuperar',
         ),
-        BtnAccederRegistrar(
-          onPressed: Get.back,
-          color: self.lineColor,
-          borderColor: Colors.transparent,
-          textButton: 'Cancelar',
-        )
+        // BtnAccederRegistrar(
+        //   onPressed: Get.back,
+        //   color: self.lineColor,
+        //   borderColor: Colors.transparent,
+        //   textButton: 'Cancelar',
+        // )
       ].map<Widget>((e) => buildBtn(e)).toList(),
     );
   }
@@ -389,30 +363,12 @@ class _OlvideContrasenaPageState extends State<OlvideContrasenaPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BtnAccederRegistrar(
-          onPressed: Get.back,
+          onPressed: () => self.pageViewController.previousPage(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.bounceIn),
           color: self.lineColor,
           borderColor: Colors.transparent,
-          textButton: 'Cancelar',
-        )
-      ].map<Widget>((e) => buildBtn(e)).toList(),
-    );
-  }
-
-  Widget buildBotonesCambiarContrasena() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        BtnAccederRegistrar(
-          onPressed: self.cambiarContrasena,
-          color: self.lineColor,
-          borderColor: Colors.transparent,
-          textButton: 'Verificar',
-        ),
-        BtnAccederRegistrar(
-          onPressed: Get.back,
-          color: self.lineColor,
-          borderColor: Colors.transparent,
-          textButton: 'Cancelar',
+          textButton: 'Regresar',
         )
       ].map<Widget>((e) => buildBtn(e)).toList(),
     );
@@ -428,12 +384,12 @@ class _OlvideContrasenaPageState extends State<OlvideContrasenaPage> {
           borderColor: Colors.transparent,
           textButton: 'Confirmar',
         ),
-        BtnAccederRegistrar(
-          onPressed: Get.back,
-          color: self.lineColor,
-          borderColor: Colors.transparent,
-          textButton: 'Cancelar',
-        )
+        // BtnAccederRegistrar(
+        //   onPressed: Get.back,
+        //   color: self.lineColor,
+        //   borderColor: Colors.transparent,
+        //   textButton: 'Cancelar',
+        // )
       ].map<Widget>((e) => buildBtn(e)).toList(),
     );
   }

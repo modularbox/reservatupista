@@ -23,4 +23,5 @@ class ColoresUsuario {
   final Color primary160 = const Color.fromARGB(160, 43, 120, 220);
   final Color primary200 = const Color.fromARGB(200, 43, 120, 220);
   final Color primary69 = const Color.fromARGB(69, 43, 120, 220);
+  final Color background = const Color(0xFFF1F4F8);
 }

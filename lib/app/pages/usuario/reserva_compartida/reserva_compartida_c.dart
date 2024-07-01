@@ -317,9 +317,11 @@ class ReservaCompartidaController extends GetxController
         fecha_seleccionada.value,
         hora_inicio_reserva_seleccionada.value,
         id_pista_seleccionada.value.toString(),
-        usuario.value!.plazasReservadas);
+        usuario.value!.plazasReservadas,
+        2);
     if (referencia is String) {
       await EmailProvider().emailReservas(
+          id_pista_seleccionada.value.toString(),
           db.email,
           referencia,
           fecha_seleccionada.value.toString().substring(0, 10),

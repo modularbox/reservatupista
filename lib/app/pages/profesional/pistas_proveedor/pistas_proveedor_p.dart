@@ -297,8 +297,8 @@ class PistasProveedorPage extends GetView<PistasProveedorController> {
                                   10, 0, 0, 0),
                               child: Text(
                                 pista.nombrePatrocinador == ''
-                                    ? 'Pista ${pista.numPista}'
-                                    : 'Pista ${pista.numPista} - ${pista.nombrePatrocinador}',
+                                    ? 'Pista ${pista.numeroPista}'
+                                    : 'Pista ${pista.numeroPista} - ${pista.nombrePatrocinador}',
                                 style: LightModeTheme().bodyMedium.override(
                                       fontFamily: 'Readex Pro',
                                       fontSize: 16,

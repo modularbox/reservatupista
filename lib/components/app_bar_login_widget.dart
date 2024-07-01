@@ -1,39 +1,15 @@
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'app_bar_login_model.dart';
-export 'app_bar_login_model.dart';
 
 class AppBarLoginWidget extends StatefulWidget {
-  bool movilPequeno;
-  AppBarLoginWidget({super.key, this.movilPequeno = false});
+  final bool movilPequeno;
+  const AppBarLoginWidget({super.key, this.movilPequeno = false});
 
   @override
   _AppBarLoginWidgetState createState() => _AppBarLoginWidgetState();
 }
 
 class _AppBarLoginWidgetState extends State<AppBarLoginWidget> {
-  late AppBarLoginModel _model;
-
-  @override
-  void setState(VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, () => AppBarLoginModel());
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return widget.movilPequeno
@@ -154,27 +130,6 @@ class AppBarLoginWidget2 extends StatefulWidget {
 }
 
 class _AppBarLoginWidget2State extends State<AppBarLoginWidget2> {
-  late AppBarLoginModel _model;
-
-  @override
-  void setState(VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, () => AppBarLoginModel());
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Align(

@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/utils/sizer.dart';
 import '../../app/routes/app_pages.dart';
 import '../../utils/btn_icon.dart';
 import '../../utils/colores.dart';
@@ -76,6 +77,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
   Widget build(BuildContext context) {
     EdgeInsets padding = MediaQuery.of(context).padding;
     final paddingBottom = padding.bottom > 10 ? 10.0 : padding.bottom;
+
     return SizedBox(
       width: double.infinity,
       height: 65.0 + paddingBottom,
@@ -129,7 +131,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
               children: [
                 buildIconButtonMin(
                   onPressed: () async {
-                    Get.offNamed(Routes.INICIO_PROVEEDOR);
+                    Get.offAllNamed(Routes.INICIO_PROVEEDOR);
                   },
                   isPage: widget.tipoDePagina == TypePage.Inicio,
                   icon: Icons.home_rounded,
@@ -137,7 +139,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 buildIconButtonMin(
                   onPressed: () async {
-                    Get.offNamed(Routes.MIS_PISTAS);
+                    Get.offAllNamed(Routes.MIS_PISTAS);
                   },
                   isPage: widget.tipoDePagina == TypePage.MisReservas,
                   icon: Icons.calendar_month,
@@ -145,7 +147,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 buildIconCenter(
                   onPressed: () async {
-                    Get.offNamed(Routes.PISTAS_PROVEEDOR);
+                    Get.offAllNamed(Routes.PISTAS_PROVEEDOR);
                   },
                   isPage: widget.tipoDePagina == TypePage.ReservarPista,
                   icon: Icons.add,
@@ -153,7 +155,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 buildIconButtonMin(
                   onPressed: () async {
-                    Get.offNamed(Routes.MIS_SOCIOS);
+                    Get.offAllNamed(Routes.MIS_SOCIOS);
                   },
                   isPage: widget.tipoDePagina == TypePage.Monedero,
                   icon: Icons.safety_divider,
@@ -161,7 +163,7 @@ class _NavBarProfesionalWidgetState extends State<NavBarProfesionalWidget>
                 ),
                 buildIconButtonMin(
                   onPressed: () async {
-                    Get.offNamed(Routes.PERFIL_PROVEEDOR);
+                    Get.offAllNamed(Routes.PERFIL_PROVEEDOR);
                   },
                   isPage: widget.tipoDePagina == TypePage.Perfil,
                   icon: Icons.person,

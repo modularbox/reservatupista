@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/global_widgets/button_general.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
-import '../../../widgets/appbar_general.dart';
 import './registrar_usuario_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -34,19 +34,16 @@ class _RegistrarUsuarioPageState extends State<RegistrarUsuarioPage> {
         ),
       );
     }
-    return Scaffold(
-        key: scaffoldKey,
-        body: SafeArea(
-            top: true,
+    return NavbarYAppbarUsuario(
+        title: 'Registro Usuario',
+        isTitleBack: true,
+        isNavBar: false,
+        child: Expanded(
             child: Form(
                 key: self.formKey,
                 child: Column(
                   children: [
-                    const AppbarGeneral(
-                      isTitleBack: true,
-                      title: 'Registro Usuario',
-                    ),
-                    Get.width > 640 ? buildSelectImage() : 0.0.empty,
+                    buildSelectImage(),
                     Expanded(
                       child: SingleChildScrollView(
                         child: ResponsiveWeb(
@@ -54,12 +51,12 @@ class _RegistrarUsuarioPageState extends State<RegistrarUsuarioPage> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Get.width <= 640 ? buildSelectImage() : 0.0.empty,
                               const InputsDatosRegistroUsuario(),
                               ButtonGeneral(
                                 onPressed: self.onPressedRegistrar,
                                 fillColor: Colores.usuario.primary,
                               ),
+                              10.0.sh
                             ],
                           ),
                         ),

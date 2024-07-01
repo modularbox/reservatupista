@@ -9,14 +9,21 @@ class ExecuteProvider extends GetConnect {
   final url = DatosServer.urlServer;
 
   Future<dynamic> misReservas(String deporte,
-      {int page = 1, int itemsPerPage = 10}) async {
+      {int page = 1,
+      int itemsPerPage = 10,
+      bool isHistorial = true,
+      bool isReservasAbiertas = false}) async {
     try {
+      final queryIsHistorial = isHistorial ? '1' : '0';
+      final queryIsReservasAbiertas = isReservasAbiertas ? '1' : '0';
       final response = await get(
         '$url/reserva',
         query: {
           'id_usuario': db.idUsuario.toString(),
           'itemsPerPage': itemsPerPage.toString(),
-          'page': page.toString()
+          'page': page.toString(),
+          'isHistorial': queryIsHistorial,
+          'isReservasAbiertas': queryIsReservasAbiertas,
         },
         contentType: 'application/json',
       );
@@ -37,12 +44,16 @@ class ExecuteProvider extends GetConnect {
     }
   }
 
-  Future<dynamic> obtenerTotalReservas() async {
+  Future<dynamic> obtenerTotalReservas({bool isHistorial = true}) async {
     try {
+      final queryIsHistorial = isHistorial ? '1' : '0';
       print('obtenerTotalReservas');
       final response = await get(
         '$url/reserva/obtener_reservas_totales',
-        query: {'id_usuario': db.idUsuario.toString()},
+        query: {
+          'id_usuario': db.idUsuario.toString(),
+          'isHistorial': queryIsHistorial
+        },
         contentType: 'application/json',
       );
       print('misReservasResponse2');

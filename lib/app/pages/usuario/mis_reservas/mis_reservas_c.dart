@@ -11,7 +11,7 @@ import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 
 class MisReservasController extends GetxController
     with GetSingleTickerProviderStateMixin, ReservasMixin {
-  DBService db = Get.find();
+  final DBService db = Get.find();
   final List<ReservasUsuarios> listReservasUsuarios = [];
 
   List<GlobalKey> deporteKey = List.generate(
@@ -19,21 +19,6 @@ class MisReservasController extends GetxController
   Rx<List<double>> deportesWidth =
       Rx<List<double>>(List.generate(16, (index) => 30.0));
 
-  final _currentPage = 1.obs;
-  int get currentPage => _currentPage.value;
-  set currentPage(int value) => _currentPage.value = value;
-  final pageHaschanged = false.obs;
-  final isThrottling = false.obs;
-  int lastPageSelected = 1;
-  final int itemsPerPage = 10;
-  //bool hasMoreItems = true;
-  bool isLoadingData = false;
-  late int initialLength;
-  Timer? debounceTimer;
-  double previousScrollPosition = 0.0;
-  final ScrollController scrollController = ScrollController();
-  List<String> listaDeportes = RxList([]);
-  late List<MisReservasUsuarioModel> globalResult;
   @override
   void onReady() async {
     try {
@@ -72,17 +57,14 @@ class MisReservasController extends GetxController
     print('entra cargar datos');
     //if (isLoading.value || !hasMoreItems) return;
     if (isLoading.value) return;
-    print('entra cargar datos2');
-    print('pagee $currentPage');
-    print('itemsPerPagee $itemsPerPage');
-
     try {
       isLoading.value = true;
       misReservasUsuario.loading();
-      final result = await ExecuteProvider()
-          .misReservas(deporte, page: currentPage, itemsPerPage: itemsPerPage);
+      final result = await ExecuteProvider().misReservas(deporte,
+          page: currentPage, itemsPerPage: itemsPerPage, isHistorial: false);
       print('entra cargar datos3');
       if (result is List<MisReservasUsuarioModel>) {
+        isLoading.value = false;
         print('entra cargar datos3.2');
         if (result.isEmpty) {
           print('entra cargar datos4');

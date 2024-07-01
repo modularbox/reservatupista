@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/app/global_widgets/dialog/answer_dialog.dart';
+import 'package:reservatu_pista/app/routes/app_pages.dart';
 import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 
 class DialogsMessages {
@@ -14,7 +17,7 @@ class DialogsMessages {
             isProveedor: false,
             context: context,
             title: title,
-            subtitle: '¿Desea Reservar la Pista directamente con Tarjeta?',
+            subtitle: '¿Desea Reservar la Pista\ncon Tarjeta?',
             textButton: 'Aceptar',
             precio: precio,
             onPressedButton: onPressedButton,
@@ -30,7 +33,7 @@ class DialogsMessages {
             isProveedor: false,
             context: context,
             title: title,
-            subtitle: '¿Desea Reservar la Pista con Monedero?',
+            subtitle: '¿Desea Reservar la Pista\ncon Monedero Virtual?',
             textButton: 'Aceptar',
             precio: precio,
             onPressedButton: onPressedButton,
@@ -62,13 +65,16 @@ class DialogsMessages {
 
   void reservaNoMoney() {
     MessageServerDialog(
-            isProveedor: false,
-            context: context,
-            alertType: warning,
-            title: title,
-            subtitle:
-                'No tienes saldo suficiente, debes recargar para poder reservar.')
-        .dialog();
+        isProveedor: false,
+        context: context,
+        alertType: warning,
+        title: title,
+        subtitle:
+            'No tienes saldo suficiente, debes recargar para poder reservar.',
+        navBar: ButtonGeneral(
+          text: 'Recargar',
+          onPressed: () => Get.offAllNamed(Routes.MONEDERO),
+        )).dialog();
   }
 
   void reservaError() {

@@ -6,12 +6,14 @@ import 'package:reservatu_pista/app/data/models/detalles_pista_model.dart';
 import 'package:reservatu_pista/app/data/models/pistas_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/provider/pista_node.dart';
+import 'package:reservatu_pista/app/global_widgets/dialog/answer_dialog.dart';
 import 'package:reservatu_pista/app/pages/profesional/anadir_pista/widgets/pista_editar_model.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/image/funciones_image.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
 import 'package:image/image.dart' as img;
+import 'package:reservatu_pista/utils/logs_developer.dart';
 import '../../../../utils/animations/list_animations.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
 import '../../../routes/app_pages.dart';
@@ -155,10 +157,10 @@ class AnadirPistaController extends GetxController
   final imagesPista = StateRx(Rx<List<dynamic>>([]));
   // Lista de los horarios para crear las tarifas
   Rx<List<String>> listaHorarios = Rx<List<String>>([]);
-  // Lista de las tarifas
-  List<List<Tarifa>> listaTarifas = [];
   // Imagen del patrocinador
   final imagePatrocinador = FuncionesImage(isProveedor: true);
+  // Provider para las peticiones de la pista
+  final provider = PistaProvider();
   @override
   void onInit() {
     super.onInit();
@@ -227,7 +229,7 @@ class AnadirPistaController extends GetxController
   void _datosPistaEditar() async {
     try {
       imagesPista.loading();
-      final result = await PistaProvider().getPista(idPista: idPista);
+      final result = await provider.getPista(idPista: idPista);
       if (result is List<dynamic>) {
         if (result.isEmpty) {
           return;
@@ -235,9 +237,9 @@ class AnadirPistaController extends GetxController
         final detallesPista = DetallesPistaModel.fromJson(result[0]);
         rellenarDatosPista(detallesPista);
       }
-      print((jsonEncode(result)));
+      log(('_datosPistaEditar ${jsonEncode(result)}'));
     } catch (e) {
-      print(e);
+      log(e);
     }
   }
 
@@ -271,7 +273,7 @@ class AnadirPistaController extends GetxController
     tarjeta.controller.text = 'No';
     bono.controller.text = 'No';
     reservatupista.controller.text = 'Si';
-    selfTarifas.datosGuardados.value = true;
+    // selfTarifas.datosGuardados.value = true;
     imagePatrocinador.imageNetwork.value =
         DatosServer.pista(_.imagenPatrocinador);
     imagesPista.success(_.imagenesPista.split(', '));
@@ -347,7 +349,7 @@ class AnadirPistaController extends GetxController
       validarTarifas.value = true;
     }
     if (formKey.currentState!.validate() && validarAnterior) {
-      print("Todos los campos estan completos");
+      log("Todos los campos estan completos");
 
       try {
         Get.dialog(ColorLoader3());
@@ -359,9 +361,9 @@ class AnadirPistaController extends GetxController
         final imagenSubida =
             await imagePatrocinador.convertirSubirImagen('pistas', nameFoto);
         if (imagenSubida) {
-          print("Se subio la imagen");
+          log("Se subio la imagen");
         } else {
-          print("No se subio la imagen :/");
+          log("No se subio la imagen :/");
           // throw "Error al subir imagen";
         }
         final pistaDatos = PistasModel(
@@ -397,9 +399,9 @@ class AnadirPistaController extends GetxController
           reservatupista: reservatupista.controller.text.sn,
         );
         final datosTarifas = [];
-        for (final diasTarifas in listaTarifas) {
+        for (final diasTarifas in selfTarifas.listTarifas) {
           for (final tarifa in diasTarifas) {
-            datosTarifas.add(tarifa.toList());
+            datosTarifas.add(tarifa.toList(false));
           }
         }
         const datosTarifasKeys =
@@ -434,8 +436,8 @@ class AnadirPistaController extends GetxController
         }
       } catch (e, stack) {
         Get.back();
-        print(stack);
-        print(e);
+        log(stack);
+        log(e);
       }
     }
   }
@@ -443,6 +445,22 @@ class AnadirPistaController extends GetxController
   /// Crear la pista y subirla al servidor
   Future<void> editarPista() async {
     try {
+      // Modificaciones en las tarifas
+      pem.horaInicio.isModificado(horaInicio.controller.text);
+      pem.horaFin.isModificado(horaFin.controller.text);
+      pem.socioPrecioConLuz.isModificado(socioPrecioConLuz.controller.text.pc);
+      pem.socioPrecioSinLuz.isModificado(socioPrecioSinLuz.controller.text.pc);
+      pem.noSocioPrecioConLuz
+          .isModificado(noSocioPrecioConLuz.controller.text.pc);
+      pem.noSocioPrecioSinLuz
+          .isModificado(noSocioPrecioSinLuz.controller.text.pc);
+
+      if (pem.isModificacionesTarifa() && !selfTarifas.datosGuardados.value) {
+        validarTarifas.value = true;
+        print('fdskmksdfm');
+        return;
+      }
+
       Get.dialog(ColorLoader3());
       // verificar si la imagen se cambio si si la subimos
       String nameFoto = DateTime.now().millisecondsSinceEpoch.toString();
@@ -456,10 +474,10 @@ class AnadirPistaController extends GetxController
         final imagenSubida =
             await imagePatrocinador.convertirSubirImagen('pistas', nameFoto);
         if (imagenSubida) {
-          print("Se subio la imagen");
+          log("Se subio la imagen");
           pem.imagenPatrocinador.isModificado(nameFoto);
         } else {
-          print("No se subio la imagen :/");
+          log("No se subio la imagen :/");
           // throw "Error al subir imagen";
         }
       }
@@ -470,37 +488,51 @@ class AnadirPistaController extends GetxController
       pem.cesped.isModificado(cesped.controller.text);
       pem.automatizada.isModificado(automatizada.controller.text.sn);
       pem.duracionPartida.isModificado(duracionPartida.controller.text.dp);
-      pem.horaInicio.isModificado(horaInicio.controller.text);
-      pem.horaFin.isModificado(horaFin.controller.text);
       pem.socioTiempoReserva
           .isModificado(socioTiempoReserva.controller.text.trOtc);
       pem.socioTiempoCancelacion
           .isModificado(socioTiempoCancelacion.controller.text.trOtc);
-      pem.socioPrecioConLuz.isModificado(socioPrecioConLuz.controller.text.pc);
-      pem.socioPrecioSinLuz.isModificado(socioPrecioSinLuz.controller.text.pc);
       pem.noSocioTiempoReserva
           .isModificado(noSocioTiempoReserva.controller.text.trOtc);
       pem.noSocioTiempoCancelacion
           .isModificado(noSocioTiempoCancelacion.controller.text.trOtc);
-      pem.noSocioPrecioConLuz
-          .isModificado(noSocioPrecioConLuz.controller.text.pc);
-      pem.noSocioPrecioSinLuz
-          .isModificado(noSocioPrecioSinLuz.controller.text.pc);
       pem.descripcion.isModificado(descripcion.controller.text);
       pem.nombrePatrocinador.isModificado(nombrePatrocinador.controller.text);
       // pem.imagenPatrocinador.isModificado(nameFoto);
       pem.vestuario.isModificado(vestuario.controller.text.sn);
       pem.duchas.isModificado(duchas.controller.text.sn);
+
+      final Map<String, dynamic> jsonEditar = {};
+      if (selfTarifas.datosGuardados.value) {
+        print(pem.horaFin.textModificado);
+        print(pem.horaInicio.textModificado);
+        print("dknfks");
+        final datosTarifas = [];
+        for (final diasTarifas in selfTarifas.listTarifas) {
+          for (final tarifa in diasTarifas) {
+            print(tarifa.changeTarifa);
+            if (tarifa.changeTarifa) {
+              datosTarifas.add(tarifa.toList(true));
+            }
+          }
+        }
+        if (datosTarifas.isNotEmpty) {
+          jsonEditar['tarifas'] = datosTarifas;
+          print('datosTarifas: $datosTarifas');
+        }
+      }
+      final datosPista = pem.toJson();
+      if (datosPista.keys.isNotEmpty) {
+        jsonEditar['pista'] = datosPista;
+      }
+      // return;
       // pem.imagenesPista.isModificado(imagenesPista);
       // pem.efectivo.isModificado(efectivo.controller.text.sn);
       // pem.tarjeta.isModificado(tarjeta.controller.text.sn);
       // pem.bono.isModificado(bono.controller.text.sn);
       // pem.reservatupista.isModificado(reservatupista.controller.text.sn);
-      print(pem.toJson());
-      // return;
-
-      /// Llamar a la api
-      final result = await PistaProvider().editarPista(idPista, pem.toJson());
+      log(jsonEditar);
+      final result = await provider.editarPista(idPista, jsonEditar);
       Get.back();
       // Regresar la respuesta
       if (result.code == 2000) {
@@ -514,7 +546,7 @@ class AnadirPistaController extends GetxController
         return MessageServerDialog(
           context: Get.context!,
           alertType: warning,
-          title: 'Crear Pista',
+          title: 'Editar Pista',
           subtitle: result.message,
           code: result.code,
           onPressed: Get.back,
@@ -522,8 +554,47 @@ class AnadirPistaController extends GetxController
       }
     } catch (e, stack) {
       Get.back();
-      print(stack);
+      log(stack);
+      log(e);
+    }
+  }
+
+  ///Eliminar la pista
+  Future<void> answerPista() async {
+    AnswerDialog(
+            context: Get.context!,
+            title: 'Eliminar Pista',
+            subtitle:
+                '¿Estás seguro de que deseas proceder con la eliminación de la pista?')
+        .dialog();
+  }
+
+  Future<void> eliminarPista() async {
+    try {
+      Get.dialog(ColorLoader3());
+      final result = await provider.eliminarPista(idPista);
+      Get.back();
+      // Regresar la respuesta
+      if (result.code == 2000) {
+        return MessageServerDialog(
+            context: Get.context!,
+            alertType: success,
+            title: 'Eliminar Pista',
+            subtitle: result.message,
+            onPressed: () => Get.offAllNamed(Routes.PISTAS_PROVEEDOR)).dialog();
+      } else {
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: warning,
+          title: 'Eliminar Pista',
+          subtitle: result.message,
+          code: result.code,
+          onPressed: Get.back,
+        ).dialog();
+      }
+    } catch (e, st) {
       print(e);
+      print(st);
     }
   }
 
@@ -652,46 +723,78 @@ class AnadirPistaController extends GetxController
   }
 
   /// Todo para crear las tarifas
-  void generarListaTarifas() {
-    if (isModificar) {
-      Get.toNamed(Routes.TARIFAS_PISTA,
-          parameters: {'id_pista': idPista.toString()});
-      return;
-    }
-    if (selfTarifas.datosGuardados.value) {
+  void generarListaTarifas() async {
+    final horariosTarifas = getListHorarios();
+    if (selfTarifas.datosGuardados.value && !isModificar) {
       selfTarifas.changeDia(0);
       Get.toNamed(Routes.TARIFAS_PISTA);
-    } else {
-      final newListString = [];
-      bool startList = false;
-      for (var element in listaHorarios.value) {
-        if (element == horaInicio.controller.text) {
-          startList = true;
-        }
-        if (startList) {
-          newListString.add(element);
-          if (element == horaFin.controller.text) {
-            break;
-          }
-        }
+    } else if (isModificar) {
+      try {
+        print('generarListaTarifas');
+        Get.dialog(ColorLoader3());
+
+        pem.socioPrecioConLuz
+            .isModificado(socioPrecioConLuz.controller.text.pc);
+        pem.socioPrecioSinLuz
+            .isModificado(socioPrecioSinLuz.controller.text.pc);
+        pem.noSocioPrecioConLuz
+            .isModificado(noSocioPrecioConLuz.controller.text.pc);
+        pem.noSocioPrecioSinLuz
+            .isModificado(noSocioPrecioSinLuz.controller.text.pc);
+        await selfTarifas.onEditarTarifas(
+          horaInicio: horaInicio.controller.text,
+          horaFin: horaFin.controller.text,
+          horariosTarifas: horariosTarifas,
+          socioPrecioConLuz: socioPrecioConLuz.controller.text,
+          socioPrecioSinLuz: socioPrecioSinLuz.controller.text,
+          noSocioPrecioConLuz: noSocioPrecioConLuz.controller.text,
+          noSocioPrecioSinLuz: noSocioPrecioSinLuz.controller.text,
+          isSocioPrecioConLuz: pem.socioPrecioConLuz.modificar,
+          isSocioPrecioSinLuz: pem.socioPrecioSinLuz.modificar,
+          isNoSocioPrecioConLuz: pem.noSocioPrecioConLuz.modificar,
+          isNoSocioPrecioSinLuz: pem.noSocioPrecioSinLuz.modificar,
+        );
+        Get.back();
+        Get.toNamed(Routes.TARIFAS_PISTA);
+      } catch (e, st) {
+        print(e);
+        print(st);
       }
+      return;
+    } else {
       final listDiaSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-      listaTarifas = List<List<Tarifa>>.generate(
+      final listaTarifas = List<List<Tarifa>>.generate(
           7,
           (indexDia) => List.generate(
-              newListString.length,
+              horariosTarifas.length,
               (index) => Tarifa(
-                  horaInicio: newListString[index],
+                  horaInicio: horariosTarifas[index],
                   diaSemana: listDiaSemana[indexDia],
                   precioConLuzSocio: socioPrecioConLuz.controller.text,
                   precioSinLuzSocio: socioPrecioSinLuz.controller.text,
                   precioConLuzNoSocio: noSocioPrecioConLuz.controller.text,
                   precioSinLuzNoSocio: noSocioPrecioSinLuz.controller.text)));
-
       selfTarifas.onCrearPistas(listaTarifas);
       selfTarifas.indexDias.value = 0;
       Get.toNamed(Routes.TARIFAS_PISTA);
     }
+  }
+
+  List<String> getListHorarios() {
+    final List<String> newListString = [];
+    bool startList = false;
+    for (final element in listaHorarios.value) {
+      if (element == horaInicio.controller.text) {
+        startList = true;
+      }
+      if (startList) {
+        newListString.add(element);
+        if (element == horaFin.controller.text) {
+          break;
+        }
+      }
+    }
+    return newListString;
   }
 
   // Duracion si son 60mminutos o 90 minutos
@@ -741,48 +844,6 @@ class AnadirPistaController extends GetxController
       }
     }
     return horariosFinal;
-  }
-
-  /// Generar las tarifas esto es para generar la tabla del dia se tiene que cambiar
-  List generateTarifasSemana(DateTime lunesInicio, int dayOfWeek) {
-    DateTime fechaWeek = lunesInicio;
-    final trns = socioTiempoReserva.controller.text.trOtc;
-    final trs = noSocioTiempoReserva.controller.text.trOtc;
-    int maxTr = trs + dayOfWeek;
-    maxTr = maxTr <= 6 ? 6 : maxTr;
-    if (trns >= trs) {
-      maxTr = trns;
-    }
-
-    int contDias = 0;
-    List tarifasDate = [];
-    for (var i = 0; i < maxTr; i++) {
-      // Utiliza el formato deseado
-      final formatoFecha = DateFormat('yyyy-MM-dd');
-      // Formatea la fecha
-      final fecha = formatoFecha.format(fechaWeek);
-      tarifasDate.add(FFAppState()
-          .listaTarifas[contDias]
-          .map((e) => [
-                e.disponible,
-                e.clases,
-                e.luz,
-                e.horaInicio,
-                e.fecha = fecha,
-                e.precioConLuzSocio,
-                e.precioSinLuzSocio,
-                e.precioConLuzNoSocio,
-                e.precioSinLuzNoSocio
-              ])
-          .toList());
-      if (contDias == 6) {
-        contDias = 0;
-      } else {
-        contDias++;
-      }
-      fechaWeek = fechaWeek.add(const Duration(days: 1));
-    }
-    return tarifasDate;
   }
 
   /// Reducir imagen en bytes
@@ -847,7 +908,7 @@ class AnadirPistaController extends GetxController
     } catch (e) {
       imagesPista.success([]);
       Get.back();
-      print(e);
+      log(e);
     }
   }
 

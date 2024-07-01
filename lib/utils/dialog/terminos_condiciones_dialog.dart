@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/utils/auto_size_text/auto_size_text.dart';
+// import 'package:reservatu_pista/utils/auto_size_text/auto_size_text.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../flutter_flow/flutter_flow_animations.dart';
@@ -99,29 +100,6 @@ class TerminosCondicionesDialog extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // BtnIcon(
-                    //   onPressed: () async {
-                    //     final urlPoliticaPrivacidad = Uri.parse(
-                    //         'https://reservatupista.com/politica-de-privacidad-proteccion-de-datos-y-politica-de-cookies');
-                    //     final canLaunch =
-                    //         await canLaunchUrl(urlPoliticaPrivacidad);
-                    //     if (canLaunch) {
-                    //       launchUrl(urlPoliticaPrivacidad);
-                    //     }
-                    //   },
-                    //   borderRadius: 12,
-                    //   padding: const EdgeInsets.all(0),
-                    //   icon: Text(
-                    //     context.w <= 600
-                    //         ? 'He leído y acepto los\nTérminos y Condiciones de Servicio.'
-                    //         : 'He leído y acepto los Términos y Condiciones de Servicio.',
-                    //     textAlign: TextAlign.start,
-                    //     style: LightModeTheme().bodyMedium.override(
-                    //         fontFamily: 'Readex Pro',
-                    //         color: LightModeTheme().primary,
-                    //         fontSize: context.w < 330 ? 11 : 14),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

@@ -27,15 +27,17 @@ class MisPistas {
 }
 
 class MiPista {
-  int idPista;
-  String nombrePatrocinador;
-  int numPista;
-  String deporte;
-  String imagenPatrocinador;
-  int total;
-  int totalLibre;
-  int totalAbierta;
-  int totalCerrada;
+  final int idPista;
+  final String nombrePatrocinador;
+  final int numPista;
+  final String deporte;
+  final String imagenPatrocinador;
+  final int total;
+  final int totalLibre;
+  final int totalAbierta;
+  final int totalCerrada;
+  final bool eliminada;
+  final int numeroPista;
 
   MiPista({
     required this.idPista,
@@ -47,6 +49,8 @@ class MiPista {
     required this.totalLibre,
     required this.totalAbierta,
     required this.totalCerrada,
+    required this.eliminada,
+    required this.numeroPista,
   });
 
   factory MiPista.fromRawJson(String str) => MiPista.fromJson(json.decode(str));
@@ -63,6 +67,8 @@ class MiPista {
         totalLibre: json['total_libres'] ?? 0,
         totalAbierta: json['total_abiertas'] ?? 0,
         totalCerrada: json['total_cerradas'] ?? 0,
+        eliminada: json['eliminada'] == 1,
+        numeroPista: json['numero_pista'] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

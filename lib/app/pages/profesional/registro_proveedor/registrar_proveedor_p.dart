@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/app/pages/profesional/registro_proveedor/widgets/inputs_datos_registro_proveedor.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'registrar_proveedor_c.dart';
@@ -27,52 +28,39 @@ class RegistrarProveedorPage extends GetView<RegistrarProveedorController> {
       );
     }
 
-    return Scaffold(
-      key: scaffoldKey,
-      body: Builder(
-        builder: (context) {
-          return SafeArea(
-            top: true,
-            child: Form(
-              key: self.formKey,
-              child: Column(
-                children: [
-                  const AppbarGeneral(
-                    isTitleBack: true,
-                    title: 'Registro Proveedor',
-                  ),
-                  Get.width > 640
-                      ? buildSelectImage()
-                      : const SizedBox.shrink(),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      controller: self.scrollController,
-                      child: ResponsiveWeb(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Get.width <= 640
-                                ? buildSelectImage()
-                                : const SizedBox.shrink(),
-                            const InputsDatosRegistroProveedor(),
-                            ButtonGeneral(
-                              onPressed: self.onPressedRegistrar,
-                              fillColor: Colores.proveedor.primary,
-                              isProveedor: true,
-                            ),
-                          ],
-                        ),
+    return NavbarYAppbarProfesional(
+        title: 'Registro Proveedor',
+        isTitleBack: true,
+        isNavBar: false,
+        child: Expanded(
+          child: Form(
+            key: self.formKey,
+            child: Column(
+              children: [
+                buildSelectImage(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    controller: self.scrollController,
+                    child: ResponsiveWeb(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const InputsDatosRegistroProveedor(),
+                          ButtonGeneral(
+                            onPressed: self.onPressedRegistrar,
+                            fillColor: Colores.proveedor.primary,
+                            isProveedor: true,
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        },
-      ),
-    );
+          ),
+        ));
   }
 
   Widget buildSelectImage() {

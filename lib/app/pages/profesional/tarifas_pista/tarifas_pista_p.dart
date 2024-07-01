@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
+import 'package:reservatu_pista/constants.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
-import '../../../../components/appbar_profesional.dart';
 import '../../../../flutter_flow/flutter_flow_theme.dart';
 import './tarifas_pista_c.dart';
 import 'widgets/clonar_dias.dart';
@@ -19,46 +21,40 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
   TarifasPistaController get self => controller;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: LightModeTheme().secondaryBackground,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const ResponsiveWeb(
-              child: AppbarProfesional(
-                  title: 'Tarifas', isTitle: false, isTitleBack: true),
+    return NavbarYAppbarProfesional(
+        title: 'Tarifas',
+        isTitleBack: true,
+        isNavBar: false,
+        bottomNavigatorBar: Padding(
+          padding: EdgeInsets.symmetric(vertical: isiOS ? 10.0 : 5.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            _buildBotonNavBar(
+              context,
+              'Clonar Día',
+              Icons.copy,
+              false,
+              const Color(0xff2196F3),
             ),
-            10.0.sh,
-            Builder(
-              builder: (context) {
-                return Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ResponsiveWeb(child: Obx(buildListaDeDiasSemana)),
-                      10.0.sh,
-                      ResponsiveWeb(child: buildTableTarifas(context)),
-                      Visible(
-                          isVisible: self.listTarifas.isNotEmpty,
-                          child: buildTableDatos(context))
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
+            20.0.sw,
+            _buildBotonNavBar(
+                context, 'Guardar', Icons.save, true, Colores.verde)
+          ]),
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 10.0, vertical: isiOS ? 15.0 : 5.0),
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          buildButton(context, 'Clonar Día', Icons.copy, false),
-          20.0.sw,
-          buildButton(context, 'Guardar', Icons.save, true)
-        ]),
-      ),
-    );
+        child: Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: paddingVertical,
+                child: ResponsiveWeb(child: Obx(buildListaDeDiasSemana)),
+              ),
+              ResponsiveWeb(child: buildTableTarifas(context)),
+              Visible(
+                  isVisible: self.listTarifas.isNotEmpty,
+                  child: buildTableDatos(context))
+            ],
+          ),
+        ));
   }
 
   /// Construir la lista para seleccionar el dia de la semana
@@ -92,6 +88,39 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
     );
   }
 
+  Widget _buildBotonTitleTable(
+      String titleTable, dynamic Function()? onPressed) {
+    return TableCell(
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFFF1F4F8),
+          boxShadow: [
+            const BoxShadow(
+              color: Colors.white,
+              offset: Offset(-2, -2),
+              blurRadius: 2,
+            ),
+            BoxShadow(
+              color: Colors.grey.shade600,
+              offset: const Offset(1, 1.8),
+              blurRadius: 2,
+            ),
+          ],
+        ),
+        child: BtnIcon(
+          padding: const EdgeInsets.all(0),
+          hoverColor: Colores.proveedor.primary69,
+          onPressed: onPressed,
+          icon: Text(
+            titleTable,
+            textAlign: TextAlign.center,
+            style: LightModeTheme().bodyMedium,
+          ),
+        ),
+      ),
+    );
+  }
+
   /// Construir la tabla con el titulo de cada fila
   Widget buildTableTarifas(BuildContext context) {
     final Map<int, FlexColumnWidth> columnWidth = {
@@ -120,50 +149,20 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                 ...List.generate(titleTable.length, (index) {
                   /// Activar y desactivar
                   if (titleTable[index] == 'Activado') {
-                    return TableCell(
-                      child: BtnIcon(
-                        padding: const EdgeInsets.all(0),
-                        hoverColor: Colores.proveedor.primary69,
-                        onPressed: self.onChangeAllActive,
-                        icon: Text(
-                          titleTable[index],
-                          textAlign: TextAlign.center,
-                          style: LightModeTheme().bodyMedium,
-                        ),
-                      ),
-                    );
+                    return _buildBotonTitleTable(
+                        titleTable[index], self.onChangeAllActive);
                   }
 
                   /// Clases
                   if (index == 1) {
-                    return TableCell(
-                      child: BtnIcon(
-                        padding: const EdgeInsets.all(0),
-                        hoverColor: Colores.proveedor.primary69,
-                        onPressed: self.onChangeAllClase,
-                        icon: Text(
-                          titleTable[index],
-                          textAlign: TextAlign.center,
-                          style: LightModeTheme().bodyMedium,
-                        ),
-                      ),
-                    );
+                    return _buildBotonTitleTable(
+                        titleTable[index], self.onChangeAllClase);
                   }
 
                   /// Luz
                   if (index == 2) {
-                    return TableCell(
-                      child: BtnIcon(
-                        padding: const EdgeInsets.all(0),
-                        hoverColor: Colores.proveedor.primary69,
-                        onPressed: self.onChangeAllLuz,
-                        icon: Text(
-                          titleTable[index],
-                          textAlign: TextAlign.center,
-                          style: LightModeTheme().bodyMedium,
-                        ),
-                      ),
-                    );
+                    return _buildBotonTitleTable(
+                        titleTable[index], self.onChangeAllLuz);
                   }
                   return TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
@@ -188,6 +187,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
       4: const FlexColumnWidth(0.9),
       5: const FlexColumnWidth(0.9),
     };
+    print(self.listTarifas);
     return Expanded(
       child: SingleChildScrollView(
         child: ResponsiveWeb(
@@ -286,7 +286,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                               maxLength: 7,
                               controller: TextEditingController(
                                   text: self.listClase[index].value
-                                      ? '0.00 €'
+                                      ? '0,00 €'
                                       : self.listLuz[index].value
                                           ? val.precioConLuzSocio
                                           : val.precioSinLuzSocio),
@@ -315,7 +315,7 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
                               maxLength: 7,
                               controller: TextEditingController(
                                   text: self.listClase[index].value
-                                      ? '0.00 €'
+                                      ? '0,00 €'
                                       : self.listLuz[index].value
                                           ? val.precioConLuzNoSocio
                                           : val.precioSinLuzNoSocio),
@@ -348,6 +348,39 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
     );
   }
 
+  Widget _buildBotonNavBar(BuildContext context, String text, IconData icon,
+      bool isGuardar, Color color) {
+    return ButtonGeneral(
+      onPressed: () async {
+        if (isGuardar) {
+          self.onGuardar();
+        } else {
+          self.selectedDias.value =
+              List.generate(self.selectedDias.value.length, (e) => false);
+          await showAlignedDialog(
+            context: context,
+            isGlobal: true,
+            avoidOverflow: false,
+            targetAnchor: const AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            followerAnchor: const AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            builder: (dialogContext) {
+              return ClonarDias();
+            },
+          );
+        }
+      },
+      height: 40,
+      text: text,
+      prefixIcon: Icon(
+        icon,
+        color: Colors.white,
+      ),
+      fillColor: color,
+    );
+  }
+
   // Contruir los botones
   Widget buildButton(
       BuildContext context, String text, IconData icon, bool isGuardar) {
@@ -373,8 +406,8 @@ class TarifasPistaPage extends GetView<TarifasPistaController> {
         }
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-            const Color.fromARGB(192, 0, 255, 123)),
+        backgroundColor:
+            MaterialStateProperty.all<Color>(const Color(0xff2196F3)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(150, 20)),
       ),
       child: Center(
@@ -408,22 +441,56 @@ class PrecioInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    String newText = newValue.text.replaceAll('.', ''); // Eliminar puntos
-    int newTextLength = newText.length;
-
+    String textCambiar = '';
+    print(oldValue.text.length);
+    print(newValue.text.length);
+    if (oldValue.text.length > newValue.text.length) {
+      textCambiar = oldValue.text.substring(0, oldValue.text.length - 4);
+    } else {
+      textCambiar = newValue.text;
+    }
+    String newText = textCambiar.replaceAll(',', ''); // Eliminar puntos
+    newText = newText.replaceAll('€', ''); // Eliminar Euro
+    int newTextLength = newText.length; // Tamano del texto
     if (newTextLength == 0) {
       // Si no hay ningún número ingresado, devolver un valor vacío
       return const TextEditingValue();
     }
-
-    double amount = double.parse(newText.substring(0, newText.length - 2)) /
-        100; // Convertir a número y dividir por 100
-    String formattedText =
-        amount.toStringAsFixed(2); // Formatear con dos decimales
-
-    return TextEditingValue(
-      text: '$formattedText €',
-      selection: TextSelection.collapsed(offset: formattedText.length),
-    );
+    if (int.tryParse(newText) == null) {
+      return oldValue;
+    } else {
+      int amount = int.parse(newText); // Convertir a número y dividir por 100
+      final amountEuro = amount.euro;
+      return TextEditingValue(
+        text: amountEuro,
+        selection: TextSelection.collapsed(offset: amountEuro.length - 2),
+      );
+    }
   }
 }
+
+// class PrecioInputFormatter extends TextInputFormatter {
+//   @override
+//   TextEditingValue formatEditUpdate(
+//     TextEditingValue oldValue,
+//     TextEditingValue newValue,
+//   ) {
+//     String newText = newValue.text.replaceAll('.', ''); // Eliminar puntos
+//     int newTextLength = newText.length;
+
+//     if (newTextLength == 0) {
+//       // Si no hay ningún número ingresado, devolver un valor vacío
+//       return const TextEditingValue();
+//     }
+
+//     double amount = double.parse(newText.substring(0, newText.length - 2)) /
+//         100; // Convertir a número y dividir por 100
+//     String formattedText =
+//         amount.toStringAsFixed(2); // Formatear con dos decimales
+
+//     return TextEditingValue(
+//       text: '$formattedText €',
+//       selection: TextSelection.collapsed(offset: formattedText.length),
+//     );
+//   }
+// }

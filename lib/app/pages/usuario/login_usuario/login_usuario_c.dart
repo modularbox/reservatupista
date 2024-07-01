@@ -19,34 +19,34 @@ class LoginUsuarioController extends GetxController
     with GetTickerProviderStateMixin {
   /// Obtener la pagina 0 Usuario, 1 Proveedor
   int? initialPage = Get.arguments;
-  PageController pageViewController = PageController(
+  final pageViewController = PageController(
       initialPage: Get.arguments == null ? 0 : Get.arguments as int);
   final unfocusNode = FocusNode();
   // State field(s) for email widget.
-  FocusNode emailUsuarioFocusNode = FocusNode();
-  TextEditingController emailUsuarioController = TextEditingController();
+  final emailUsuarioFocusNode = FocusNode();
+  final emailUsuarioController = TextEditingController();
   // State field(s) for password widget.
-  FocusNode passwordUsuarioFocusNode = FocusNode();
-  TextEditingController passwordUsuarioController = TextEditingController();
+  final passwordUsuarioFocusNode = FocusNode();
+  final passwordUsuarioController = TextEditingController();
   // State field(s) for email widget.
-  FocusNode emailProveedorFocusNode = FocusNode();
-  TextEditingController emailProveedorController = TextEditingController();
+  final emailProveedorFocusNode = FocusNode();
+  final emailProveedorController = TextEditingController();
   // State field(s) for password widget.
-  FocusNode passwordProveedorFocusNode = FocusNode();
-  TextEditingController passwordProveedorController = TextEditingController();
+  final passwordProveedorFocusNode = FocusNode();
+  final passwordProveedorController = TextEditingController();
   // Keys para el formulario de usuario y de proveedor
-  GlobalKey<FormState> formUsuarioKey = GlobalKey<FormState>();
-  GlobalKey<FormState> formProveedorKey = GlobalKey<FormState>();
+  final formUsuarioKey = GlobalKey<FormState>();
+  final formProveedorKey = GlobalKey<FormState>();
 
   // Controlador para ver el password
-  RxBool passwordProveedorVisibility = false.obs;
-  RxBool passwordVisibility = false.obs;
+  final passwordProveedorVisibility = false.obs;
+  final passwordVisibility = false.obs;
   String? Function(BuildContext, String?)? passwordProveedorControllerValidator;
   // State field(s) for Checkbox widget.
-  RxBool checkboxValueRecordarUsuario = false.obs;
+  final checkboxValueRecordarUsuario = false.obs;
   // State field(s) for Checkbox widget.
-  RxBool checkboxValueRecordarProveedor = false.obs;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final checkboxValueRecordarProveedor = false.obs;
+  final formKey = GlobalKey<FormState>();
   bool isValidateForms = false;
 
   /// Animations
@@ -56,7 +56,7 @@ class LoginUsuarioController extends GetxController
   late AnimationController animTerminosProveedor;
 
   // Controller datos locales
-  DBService db = Get.find();
+  final DBService db = Get.find();
 
   // Iniciar Los datos guardados
   late SharedPreferences storage;
@@ -64,7 +64,6 @@ class LoginUsuarioController extends GetxController
   @override
   void onInit() async {
     super.onInit();
-    print('Get.previousRoute login ${Get.previousRoute}');
     // onInitForm();
     animUsuario = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);
@@ -145,6 +144,7 @@ class LoginUsuarioController extends GetxController
         // Guardamos el dinero total del usuario
         storage.dineroTotal.write(result.dineroTotal);
         storage.nick.write(result.nick);
+        storage.nivel.write(result.nivel);
         storage.nombre.write(result.nombre);
         storage.apellidos.write(result.apellidos);
         storage.email.write(result.email);
@@ -253,6 +253,11 @@ class LoginUsuarioController extends GetxController
     emailProveedorController.dispose();
     passwordProveedorFocusNode.dispose();
     passwordProveedorController.dispose();
+    pageViewController.dispose();
+    animUsuario.dispose();
+    animContrasena.dispose();
+    animTerminosUsuario.dispose();
+    animTerminosProveedor.dispose();
     super.dispose();
   }
 }

@@ -135,7 +135,9 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
                   ),
                 ],
               ),
-              const NavBarLogin()
+              const NavBarLogin(
+                isMin: false,
+              )
             ],
           ),
         ),

@@ -8,18 +8,23 @@ import 'package:reservatu_pista/app/data/models/mis_pistas_model.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/models/usuario_model.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
+import 'package:reservatu_pista/utils/logs_developer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'datos_server.dart';
 
 class PistaProvider extends GetConnect {
   late String token;
   late int idClub;
+  bool isInitialize = false;
   final url = '${DatosServer.urlServer}/pista';
 
   Future<void> initialize() async {
-    final storage = await SharedPreferences.getInstance();
-    token = storage.tokenProveedor.read();
-    idClub = storage.idClub.read();
+    if (!isInitialize) {
+      final storage = await SharedPreferences.getInstance();
+      token = storage.tokenProveedor.read();
+      idClub = storage.idClub.read();
+      isInitialize = true;
+    }
   }
 
   Future<dynamic> reservasProveedor(
@@ -34,18 +39,18 @@ class PistaProvider extends GetConnect {
         },
         contentType: 'application/json',
       );
-      print('reservas22 ${response.body}');
+      log('reservas22 ${response.body}');
       if (response.statusCode == 200) {
         return ExecuteModel<
                 MisReservasUsuarioModel>.fromJsonMisReservasUsuarioModel(
             {'datos': response.body, 'success': true}).datos;
       } else {
-        print(response.body);
+        log(response.body);
         throw MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      log(error);
+      log(stack);
       throw MessageError(
           message: 'Error al Modificar la Contraseña', code: 501);
     }
@@ -61,16 +66,36 @@ class PistaProvider extends GetConnect {
         headers: {"Authorization": "Bearer $token"},
         contentType: 'application/json',
       );
-      print(response.body);
+      log('editarPista: ${response.body}');
       if (response.statusCode == 200) {
         return MessageError.fromJson(response.body);
       } else {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print('Error editarPista: $error');
-      print(stack);
+      log('Error editarPista: $error');
+      log(stack);
       return MessageError(message: 'Error al Editar la Pista', code: 501);
+    }
+  }
+
+  Future<MessageError> eliminarPista(int idPista) async {
+    try {
+      await initialize();
+      final response = await delete(
+        '$url/$idPista',
+        headers: {"Authorization": "Bearer $token"},
+      );
+      log('eliminarPista: ${response.body}');
+      if (response.statusCode == 200) {
+        return MessageError.fromJson(response.body);
+      } else {
+        return MessageError.fromJson(response.body);
+      }
+    } catch (error, stack) {
+      log('Error eliminarPisr: $error');
+      log(stack);
+      return MessageError(message: 'Error al eliminar la Pista', code: 501);
     }
   }
 
@@ -140,8 +165,8 @@ class PistaProvider extends GetConnect {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(stack);
-      print('Error al usuario kjj: $error');
+      log(stack);
+      log('Error al usuario kjj: $error');
       return MessageError(message: 'Error al obtener mis pistas', code: 501);
     }
   }
@@ -151,21 +176,21 @@ class PistaProvider extends GetConnect {
     required int idPista,
   }) async {
     await initialize();
-    print("Entro en get mi pista id_pista ");
+    log("Entro en get mi pista id_pista ");
 
     try {
       await initialize();
       final response = await get('$url/pista/$idPista',
           headers: {"Authorization": "Bearer $token"});
-      print(jsonEncode(response.body));
+      log('get Pista> ${jsonEncode(response.body)}');
       if (response.statusCode == 200) {
         return response.body;
       } else {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(stack);
-      print('Error al usuario kjj: $error');
+      log(stack);
+      log('Error al usuario kjj: $error');
       return MessageError(message: 'Error al obtener mis pistas', code: 501);
     }
   }
@@ -175,43 +200,43 @@ class PistaProvider extends GetConnect {
     required String idPista,
   }) async {
     await initialize();
-    print("Entro en get mi tarifa ");
+    log("Entro en get mi tarifa ");
 
     try {
       await initialize();
       final response = await get('$url/tarifa/$idPista',
           headers: {"Authorization": "Bearer $token"});
-      print(response.body);
+      // log(response.body);
       final json = jsonEncode(response.body[0]);
-      print(json);
+      // log('getTarifas> $json');
       if (response.statusCode == 200) {
-        return response.body;
+        return response.body as List<dynamic>;
       } else {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(stack);
-      print('Error al obtener tarifa: $error');
+      log(stack);
+      log('Error al obtener tarifa: $error');
       return MessageError(message: 'Error al obtener mis pistas', code: 501);
     }
   }
 
   /// Obtener el total de pistas
   Future<dynamic> getMisDeportes() async {
-    print("Entro en get mis deportes");
+    log("Entro en get mis deportes");
     try {
       await initialize();
       final response = await get('$url/$idClub/deportes',
           headers: {"Authorization": "Bearer $token"});
-      print(response.body);
+      log(response.body);
       if (response.statusCode == 200) {
         return List<String>.from(response.body);
       } else {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(stack);
-      print('Error al usuario kjj: $error');
+      log(stack);
+      log('Error al usuario kjj: $error');
       return MessageError(message: 'Error al obtener mis pistas', code: 501);
     }
   }
@@ -224,15 +249,15 @@ class PistaNode {
     try {
       await provider.initialize();
       final response = await provider.crearPista(body);
-      print(response.body);
+      log(response.body);
       if (response.statusCode == 200) {
         return MessageError.fromJson(response.body);
       } else {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print('Error al saber si el usuario existe: $error');
-      print(stack);
+      log('Error al saber si el usuario existe: $error');
+      log(stack);
       return MessageError(message: 'Error al Agregar la Pista', code: 501);
     }
   }
@@ -246,8 +271,8 @@ class PistaNode {
         return false;
       }
     } catch (error, stack) {
-      print('Error al saber si el usuario existe: $error');
-      print(stack);
+      log('Error al saber si el usuario existe: $error');
+      log(stack);
       return false;
     }
   }
@@ -257,13 +282,13 @@ class PistaNode {
     try {
       await provider.initialize();
       final response = await provider.getCountPistas(deporte);
-      print(response.body);
+      log(response.body);
       if (response.statusCode == 200) {
         return response.body['total'];
       }
     } catch (error, stack) {
-      print(stack);
-      print('Error al usuario kjj: $error');
+      log(stack);
+      log('Error al usuario kjj: $error');
     }
     return null;
   }
@@ -290,8 +315,8 @@ class PistaNode {
         return MessageError.fromJson(response.body);
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      log(error);
+      log(stack);
       return MessageError(message: 'Error al Iniciar Sesion', code: 501);
     }
   }
@@ -304,7 +329,7 @@ class PistaNode {
     try {
       final url = Uri.parse('${DatosServer.urlServer}/usuario');
       // Crear una solicitud multipart
-      print(usuario.toString());
+      log(usuario.toString());
       var request = http.post(url,
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
@@ -314,14 +339,13 @@ class PistaNode {
       // Enviar la solicitud
       var response = await request;
       if (response.statusCode == 200) {
-        print('usuario anadida correctamente');
+        log('usuario anadida correctamente');
       } else {
         // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario anadida. Código de estado: ${response.statusCode}');
+        log('Error al usuario anadida. Código de estado: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error al usuario anadida: $error');
+      log('Error al usuario anadida: $error');
     }
   }
 
@@ -334,14 +358,14 @@ class PistaNode {
       if (response.statusCode == 200) {
         return MessageError.fromJson(response.body);
       } else {
-        print(response.body);
+        log(response.body);
         return MessageError(
             code: response.body.code,
             message: 'Ocurrio un error al actualizar el Usuario');
       }
     } catch (error, stack) {
-      print(error);
-      print(stack);
+      log(error);
+      log(stack);
       return MessageError(message: 'Error al Modificar Usuario', code: 501);
     }
   }
@@ -355,17 +379,16 @@ class PistaNode {
       // Enviar la solicitud
       var response = await request;
       if (response.statusCode == 200) {
-        print(response.body == '{}');
-        print('get datos usuario correctamente');
+        log(response.body == '{}');
+        log('get datos usuario correctamente');
         return UsuarioModel.fromRawJson(response.body);
       } else {
         // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario hgvh. Código de estado: ${response.statusCode}');
+        log('Error al usuario hgvh. Código de estado: ${response.statusCode}');
       }
     } catch (error, stack) {
-      print(stack);
-      print('Error al usuario kjj: $error');
+      log(stack);
+      log('Error al usuario kjj: $error');
     }
     return null;
   }

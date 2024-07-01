@@ -148,13 +148,8 @@ class MonederoController extends GetxController
       );
       // Iniciar peticiones
       peticiones.value = 1;
-      if (isSafari()) {
-        await openUrlInSafari(
-            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-      } else {
-        launchURL(
-            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-      }
+
+      DatosServer.openTpv(dinero, numOperacion);
       Get.back();
     } catch (e, stack) {
       print("recargarMOndedor");

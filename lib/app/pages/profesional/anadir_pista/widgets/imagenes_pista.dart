@@ -83,7 +83,6 @@ class ImagenesPista extends GetView<AnadirPistaController> {
   }
 
   Widget _buildMostrarImagen(dynamic e) {
-    print('eeeeee: $e');
     if (e is File) {
       return buildBtnImagen(
           Image.file(e, width: 200, height: 400, fit: BoxFit.fitWidth),
@@ -95,7 +94,6 @@ class ImagenesPista extends GetView<AnadirPistaController> {
           MemoryImage(e));
     }
     if (e is String) {
-      print("siiiiiiiii");
       final getImagePista = DatosServer.pista(e);
       return buildBtnImagen(
           Image.network(getImagePista,

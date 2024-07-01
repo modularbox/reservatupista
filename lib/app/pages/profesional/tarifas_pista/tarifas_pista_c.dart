@@ -34,18 +34,131 @@ class TarifasPistaController extends GetxController {
   // Verificar si los datos estan guardados
   RxBool datosGuardados = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    if (idPista != '') {
-      PistaProvider().getTarifas(idPista: idPista);
-      final List<List<Tarifa>> newListTarifas = [];
-      newListTarifas.add([]);
+  bool exiteHorario(List<String> lh, String h) {
+    for (final element in lh) {
+      if (element == h) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<void> onEditarTarifas({
+    required final String horaInicio,
+    required final String horaFin,
+    required final List<String> horariosTarifas,
+    required final String socioPrecioConLuz,
+    required final String socioPrecioSinLuz,
+    required final String noSocioPrecioConLuz,
+    required final String noSocioPrecioSinLuz,
+    required final bool isSocioPrecioConLuz,
+    required final bool isSocioPrecioSinLuz,
+    required final bool isNoSocioPrecioConLuz,
+    required final bool isNoSocioPrecioSinLuz,
+  }) async {
+    List<List<Tarifa>> newListTarifas = [];
+    final result = await PistaProvider().getTarifas(idPista: idPista);
+
+    // Si es true es mayor, y si lo niegas en menor
+    bool esMayorOrMenorDuration(String horario1, String horario2) {
+      if (horario1 == '' || horario2 == '') {
+        return false;
+      }
+      // Convertimos los horarios a listas de enteros [hora, minuto]
+      List<int> tiempo1 = horario1.split(':').map(int.parse).toList();
+      List<int> tiempo2 = horario2.split(':').map(int.parse).toList();
+      print('esMayorOrMenor $horario1 > $horario2');
+      // Comparar primero las horas
+      if (tiempo1[0] > tiempo2[0]) {
+        return true;
+      } else if (tiempo1[0] < tiempo2[0]) {
+        return false;
+      } else {
+        // Si las horas son iguales, comparar los minutos
+        return tiempo1[1] > tiempo2[1];
+      }
+    }
+
+    if (result is List<dynamic>) {
+      /// Estos son los dias ordenados de Lunes a Domingo
+      for (var i = 0; i < result.length; i++) {
+        const listDiasSemana = ["L", "M", "X", "J", "V", "S", "D"];
+        final diaSemana = listDiasSemana[i];
+        final tarifa = result[i];
+
+        if (tarifa is List<dynamic>) {
+          final horaInicioApi = tarifa.length > 1
+              ? tarifa[0]['hora_inicio'].toString().substring(0, 5)
+              : '';
+          final horaFinApi = tarifa.length > 1
+              ? tarifa[tarifa.length - 1]['hora_inicio']
+                  .toString()
+                  .substring(0, 5)
+              : '';
+
+          /// Agregar si hay nuevas tarifas ponemos los nuevos datos
+          final List<Tarifa> tarifasInicio = [];
+          final List<Tarifa> tarifasFin = [];
+          if (!esMayorOrMenorDuration(horaInicio, horaInicioApi)) {
+            print('Si es menor la hora de inicio');
+            for (final elht in horariosTarifas) {
+              if (elht != horaInicioApi) {
+                tarifasInicio.add(Tarifa(
+                    changeTarifa: true,
+                    horaInicio: elht,
+                    diaSemana: diaSemana,
+                    precioConLuzSocio: socioPrecioConLuz,
+                    precioSinLuzSocio: socioPrecioSinLuz,
+                    precioConLuzNoSocio: noSocioPrecioConLuz,
+                    precioSinLuzNoSocio: noSocioPrecioSinLuz));
+              } else {
+                break;
+              }
+            }
+          }
+          if (esMayorOrMenorDuration(horaFin, horaFinApi)) {
+            bool agregarTarifasFinal = false;
+            for (final elht in horariosTarifas) {
+              if (agregarTarifasFinal) {
+                print('finesmayor la hora de fin $horaFin > $horaFinApi');
+                tarifasFin.add(Tarifa(
+                    changeTarifa: true,
+                    horaInicio: elht,
+                    diaSemana: diaSemana,
+                    precioConLuzSocio: socioPrecioConLuz,
+                    precioSinLuzSocio: socioPrecioSinLuz,
+                    precioConLuzNoSocio: noSocioPrecioConLuz,
+                    precioSinLuzNoSocio: noSocioPrecioSinLuz));
+              } else if (elht == horaFinApi) {
+                agregarTarifasFinal = true;
+              }
+            }
+          }
+
+          print('tarifa---- $tarifa');
+          final modelTarifa = tarifa
+              .map((e) => Tarifa.fromJson(
+                    e,
+                    socioPrecioConLuz,
+                    socioPrecioSinLuz,
+                    noSocioPrecioConLuz,
+                    noSocioPrecioSinLuz,
+                    isSocioPrecioConLuz,
+                    isSocioPrecioSinLuz,
+                    isNoSocioPrecioConLuz,
+                    isNoSocioPrecioSinLuz,
+                  ))
+              .toList();
+          newListTarifas.add([...tarifasInicio, ...modelTarifa, ...tarifasFin]);
+        }
+      }
+      indexDias.value = 0;
+      onCrearPistas(newListTarifas);
     }
   }
 
   // init al momento de precionar crear pistas
-  onCrearPistas(List<List<Tarifa>> newListTarifas) {
+  void onCrearPistas(List<List<Tarifa>> newListTarifas) {
     listTarifas = newListTarifas;
     listActive.value =
         newListTarifas[indexDias.value].map((e) => e.disponible).toList();
@@ -55,7 +168,7 @@ class TarifasPistaController extends GetxController {
   }
 
   // Cambiar el dia
-  changeDia(int index) {
+  void changeDia(int index) {
     indexDias.value = index;
     listActive.value =
         listTarifas[indexDias.value].map((e) => e.disponible).toList();
@@ -65,7 +178,7 @@ class TarifasPistaController extends GetxController {
   }
 
   // Cambiar de disponible de todo activado a desactivado
-  onChangeAllActive() {
+  void onChangeAllActive() {
     changeAllActive.value = !changeAllActive.value;
     listActive.value =
         listActive.value.map((e) => changeAllActive.value).toList();
@@ -79,17 +192,19 @@ class TarifasPistaController extends GetxController {
       // Cambiar los datos y guardarlos
       for (var i = 0; i < listActive.value.length; i++) {
         listTarifas[indexDias.value][i].disponible = false;
+        listTarifas[indexDias.value][i].changeTarifa = true;
       }
     } else {
       // Cambiar los datos y guardarlos
       for (var i = 0; i < listActive.value.length; i++) {
         listTarifas[indexDias.value][i].disponible = true;
+        listTarifas[indexDias.value][i].changeTarifa = true;
       }
     }
   }
 
   // Cambiar de disponible activado a desactivado
-  onChangeActive(bool activeOrDesactive, int index) {
+  void onChangeActive(bool activeOrDesactive, int index) {
     if (activeOrDesactive) {
       listTarifas[indexDias.value][index].clases = false;
       listTarifas[indexDias.value][index].luz = false;
@@ -97,6 +212,7 @@ class TarifasPistaController extends GetxController {
       listLuz[index].value = false;
     }
     listTarifas[indexDias.value][index].disponible = !activeOrDesactive;
+    listTarifas[indexDias.value][index].changeTarifa = true;
     listActive.value[index] = !listActive.value[index];
     listActive.refresh();
   }
@@ -109,6 +225,7 @@ class TarifasPistaController extends GetxController {
         isChanges = true;
         listClase[i].value = changeAllClase.value;
         listTarifas[indexDias.value][i].clases = changeAllClase.value;
+        listTarifas[indexDias.value][i].changeTarifa = true;
       }
     }
     if (isChanges) {
@@ -121,6 +238,7 @@ class TarifasPistaController extends GetxController {
     if (activeOrDesactive) {
       listClase[index].value = !listClase[index].value;
       listTarifas[indexDias.value][index].clases = listClase[index].value;
+      listTarifas[indexDias.value][index].changeTarifa = true;
     }
   }
 
@@ -132,6 +250,7 @@ class TarifasPistaController extends GetxController {
         isChanges = true;
         listLuz[i].value = changeAllLuz.value;
         listTarifas[indexDias.value][i].luz = changeAllLuz.value;
+        listTarifas[indexDias.value][i].changeTarifa = true;
       }
     }
     if (isChanges) {
@@ -144,6 +263,7 @@ class TarifasPistaController extends GetxController {
     if (activeOrDesactive) {
       listLuz[index].value = !listLuz[index].value;
       listTarifas[indexDias.value][index].luz = listLuz[index].value;
+      listTarifas[indexDias.value][index].changeTarifa = true;
     }
   }
 
@@ -154,6 +274,7 @@ class TarifasPistaController extends GetxController {
     } else {
       listTarifas[indexDias.value][index].precioSinLuzSocio = precio;
     }
+    listTarifas[indexDias.value][index].changeTarifa = true;
   }
 
   // Cambiar el precio de la tarifa no socio
@@ -163,6 +284,7 @@ class TarifasPistaController extends GetxController {
     } else {
       listTarifas[indexDias.value][index].precioSinLuzNoSocio = precio;
     }
+    listTarifas[indexDias.value][index].changeTarifa = true;
   }
 
   // Cambiar los dias al clonar el dia
@@ -185,6 +307,7 @@ class TarifasPistaController extends GetxController {
         for (Tarifa element in listTarifas[indexDias.value]) {
           if (element.disponible) {
             newListTarifas.add(Tarifa(
+                changeTarifa: true,
                 disponible: true,
                 clases: element.clases,
                 diaSemana: listDiaSemana[i],
@@ -196,6 +319,7 @@ class TarifasPistaController extends GetxController {
                 precioSinLuzSocio: element.precioSinLuzSocio));
           } else {
             newListTarifas.add(Tarifa(
+                changeTarifa: true,
                 horaInicio: element.horaInicio,
                 diaSemana: listDiaSemana[i],
                 precioConLuzSocio: element.precioConLuzSocio,
@@ -214,5 +338,18 @@ class TarifasPistaController extends GetxController {
   onGuardar() {
     datosGuardados.value = true;
     Get.back();
+  }
+}
+
+class VerificarTarifaExiste {
+  final String horario;
+  bool existe = false;
+  VerificarTarifaExiste(this.horario);
+  List<VerificarTarifaExiste> getVerificarTarifaExiste(List<String> lh) {
+    final List<VerificarTarifaExiste> listVerificarTarifaExiste = [];
+    for (final element in lh) {
+      listVerificarTarifaExiste.add(VerificarTarifaExiste(element));
+    }
+    return listVerificarTarifaExiste;
   }
 }

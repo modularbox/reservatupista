@@ -232,14 +232,13 @@ class RegistrarUsuarioController extends GetxController
         /// Registrar al registrar al usuario
         final registrar = await UsuarioProvider().registrarUsuario(datosSQL);
         Get.back();
-        if (registrar) {
-          await EmailProvider()
-              .enviarEmailRegistro(tc.email.text, tc.nombre.text, '0');
-
+        if (registrar.code == 2000) {
+          await EmailProvider().enviarEmailRegistro(
+              tc.email.text, tc.nombre.text, tc.apellidos.text, false);
           return MessageServerDialog(
             context: Get.context!,
             alertType: success,
-            title: 'Registro usuario',
+            title: 'Registro Usuario',
             subtitle: 'Compruebe su correo para finalizar el registro.',
             onPressed: () {
               Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
@@ -249,16 +248,20 @@ class RegistrarUsuarioController extends GetxController
           return MessageServerDialog(
             context: Get.context!,
             alertType: warning,
-            title: 'Registro usuario',
-            subtitle: 'Error al registrar al usuario.',
-            onPressed: () {
-              Get.offAllNamed(Routes.LOGIN_USUARIO, arguments: 0);
-            },
+            title: 'Registro Usuario',
+            subtitle: registrar.message,
+            onPressed: Get.back,
           ).dialog();
         }
       } catch (e) {
-        Get.back();
-        print(e);
+        return MessageServerDialog(
+          context: Get.context!,
+          alertType: error,
+          title: 'Registro Usuario',
+          subtitle:
+              'Ocurrio un error interno, lo sentimos vuelvelo a intentar mas tarde.',
+          onPressed: Get.back,
+        ).dialog();
       }
     }
   }
@@ -313,7 +316,7 @@ class RegistrarUsuarioController extends GetxController
   }
 
   @override
-  void onClose() {
+  void dispose() {
     tc.unfocusNode.dispose();
     tc.nickFocusNode.dispose();
     tc.nick.dispose();
@@ -333,6 +336,6 @@ class RegistrarUsuarioController extends GetxController
     tc.empadronamiento.dispose();
     tc.contrasena.dispose();
     tc.contrasenaComprobar.dispose();
-    super.onClose();
+    super.dispose();
   }
 }

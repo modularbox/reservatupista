@@ -132,7 +132,9 @@ class EliminarCuentaPage extends GetView<EliminarCuentaController> {
                   ),
                 ],
               ),
-              const NavBarLogin()
+              const NavBarLogin(
+                isMin: false,
+              )
             ],
           ),
         ),

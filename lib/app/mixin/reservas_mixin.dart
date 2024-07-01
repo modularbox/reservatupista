@@ -31,6 +31,22 @@ mixin ReservasMixin {
   /// Clase para las peticiones a node
   final provider = PistaProvider();
 
+  /// para cambiare de pantalla
+
+  final _currentPage = 1.obs;
+  int get currentPage => _currentPage.value;
+  set currentPage(int value) => _currentPage.value = value;
+  final pageHaschanged = false.obs;
+  final isThrottling = false.obs;
+  int lastPageSelected = 1;
+  final int itemsPerPage = 10;
+  late int initialLength;
+  Timer? debounceTimer;
+  double previousScrollPosition = 0.0;
+  final ScrollController scrollController = ScrollController();
+  List<String> listaDeportes = RxList([]);
+  late List<MisReservasUsuarioModel> globalResult;
+
   /// Cosas compartidas
   void empezarFechaRestante(int tiempoRestante) {
     try {
@@ -70,7 +86,10 @@ mixin ReservasMixin {
       isLoading.value = true;
       misReservasUsuario.loading();
       final result = await provider.reservasProveedor(
-          idPista, fecha.formatFechaDB, deporte);
+        idPista,
+        fecha.formatFechaDB,
+        deporte,
+      );
       if (result is List<MisReservasUsuarioModel>) {
         if (result.isEmpty) {
           misReservasUsuario.empty();

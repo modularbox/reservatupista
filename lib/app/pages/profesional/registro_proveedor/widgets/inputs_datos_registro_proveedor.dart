@@ -379,7 +379,7 @@ class InputsDatosRegistroProveedor
         TerminosCondicionesDialog(
           self.animTerminos,
           Colores.proveedor.primary,
-          LightModeTheme().primaryText,
+          Colors.white,
           paddingTop: 10.0,
         ),
         NoticiasCheckbox(
@@ -387,7 +387,7 @@ class InputsDatosRegistroProveedor
             self.noticia = val!;
           },
           animTerminos: anim,
-          focusedColor: Colores.usuario.primary,
+          focusedColor: Colores.proveedor.primary,
           palomita: Colors.white,
           paddingTop: 5.0,
         ),

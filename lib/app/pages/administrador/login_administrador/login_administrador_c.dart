@@ -42,7 +42,6 @@ class LoginAdministradorController extends GetxController
   @override
   void onInit() async {
     super.onInit();
-    print('Get.previousRoute login ${Get.previousRoute}');
     // onInitForm();
     anim = animVibrate(vsync: this);
     animContrasena = animVibrate(vsync: this);

@@ -15,13 +15,15 @@ class NavbarYAppbarProfesional extends StatelessWidget {
       this.page,
       this.isTitle = false,
       this.isTitleBack = false,
-      this.isNavBar = true});
+      this.isNavBar = true,
+      this.bottomNavigatorBar});
   final String title;
   final bool isTitle;
   final bool isTitleBack;
   final Widget child;
   final TypePage? page;
   final bool isNavBar;
+  final Widget? bottomNavigatorBar;
   @override
   Widget build(BuildContext context) {
     if (isiOS) {
@@ -52,7 +54,7 @@ class NavbarYAppbarProfesional extends StatelessWidget {
             ],
           ),
           Visible(
-            isVisible: isNavBar,
+            isVisible: isNavBar && context.isNotKeyboardVisible,
             child: ResponsiveWeb(
                 child: Align(
               alignment: Alignment.bottomCenter,
@@ -63,6 +65,7 @@ class NavbarYAppbarProfesional extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: bottomNavigatorBar,
     );
   }
 }

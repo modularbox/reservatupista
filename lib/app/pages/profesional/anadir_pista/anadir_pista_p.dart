@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
+import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../components/navbar_y_appbar_profesional.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './widgets/list_inputs.dart';
@@ -44,38 +45,37 @@ class AnadirPistaPage extends GetView<AnadirPistaController> {
                   autovalidateMode: AutovalidateMode.disabled,
                   child: const Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: SingleChildScrollView(child: ListInputs()),
                   ),
                 ),
                 10.0.sh,
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        0.0, 10.0, 0.0, 0.0),
-                    child: FFButtonWidget(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonGeneral(
                       onPressed:
                           self.isModificar ? self.editarPista : self.crearPista,
                       text: '${self.isModificar ? 'Editar' : 'Crear'} Pista',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 0.0, 0.0),
-                        color: LightModeTheme().successGeneral,
-                        textStyle: LightModeTheme().titleSmall.override(
-                              fontFamily: 'Readex Pro',
-                              color: LightModeTheme().primaryText,
-                            ),
-                        elevation: 3.0,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                      height: 45.0,
+                      fillColor: LightModeTheme().successGeneral,
                     ),
-                  ),
+                    Visible(
+                      isVisible: self.isModificar,
+                      child: 20.0.sw,
+                    ),
+                    Visible(
+                      isVisible: self.isModificar,
+                      child: ButtonGeneral(
+                        onPressed: self.eliminarPista,
+                        text: 'Eliminar Pista',
+                        height: 45.0,
+                        fillColor: Colores.rojo,
+                      ),
+                    )
+                  ],
                 ),
-                80.0.sh
+                context.paddingBottom.sh
               ],
             ),
           ),

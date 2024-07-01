@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:reservatu_pista/web/web.dart';
 import '../app/routes/app_pages.dart';
 import '../utils/btn_icon.dart';
 import '../utils/colores.dart';
@@ -34,8 +35,8 @@ class AppbarProfesional extends StatelessWidget {
           child: Container(
             width: MediaQuery.sizeOf(context).width,
             height: 1,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(67, 0, 0, 0),
+            decoration: BoxDecoration(
+              color: Colores.proveedor.primary,
             ),
           ),
         ),
@@ -59,9 +60,7 @@ class AppbarProfesional extends StatelessWidget {
             color: LightModeTheme().primaryText,
             size: 30.0,
           ),
-          onPressed: () async {
-            Navigator.pop(context);
-          },
+          onPressed: moverRoutes,
         ),
         SizedBox(
           height: 55,

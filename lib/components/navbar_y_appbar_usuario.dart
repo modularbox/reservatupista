@@ -57,7 +57,7 @@ class NavbarYAppbarUsuario extends GetView<DBService> {
             ],
           ),
           Visible(
-            isVisible: isNavBar,
+            isVisible: isNavBar && context.isNotKeyboardVisible,
             child: ResponsiveWeb(
               child: Align(
                 alignment: Alignment.bottomCenter,

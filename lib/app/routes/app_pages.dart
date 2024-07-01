@@ -91,7 +91,7 @@ enum RoutesType {
   mis_pistas,
   notificaciones,
   notificaciones_proveedor,
-  inicio_profesional,
+  inicio_proveedor,
   inicio,
   reservar_pista,
   pagos_tarjeta,
@@ -134,6 +134,52 @@ class RouteRedirectMiddleware extends GetMiddleware {
   }
 }
 
+/// Titulos Routes
+abstract class Titulos {
+  static const LOGIN_USUARIO = 'Login Usuario o Proveedor';
+  static const REGISTRAR_USUARIO = 'Registrar Usuario';
+  static const PERFIL = 'Perfil';
+  static const MIS_RESERVAS = 'Mis Reservas';
+  static const DATOS = 'Datos Usuario';
+  static const PERFIL_PROVEEDOR = 'Perfil Proveedor';
+  static const MONEDERO = 'Monedero';
+  static const CAJA = 'Caja';
+  static const ANADIR_PISTA = 'Crear Pista';
+  static const TARIFAS = 'Tarifas';
+  static const MIS_PISTAS = 'Mis Pistas';
+  static const NOTIFICACIONES = 'Notificaciones Usuario';
+  static const NOTIFICACIONES_PROVEEDOR = 'Notificaciones Proveedor';
+  static const INICIO_PROVEEDOR = 'Inicio Proveedor';
+  static const INICIO = 'Inicio Usuario';
+  static const RESERVAR_PISTA = 'Reservar Pista';
+  static const PAGOS_TARJETA = 'Pagos Tarjeta';
+  static const REGISTRAR_PROVEEDOR = 'Registrar Proveedor';
+  static const MIS_SOCIOS = 'Mis Socios';
+  static const DATOS_PROVEEDOR = 'Datos Proveedor';
+  static const PRUEBA_PROVEEDOR = 'prueba_proveedor';
+  static const CHAT = 'Chat Usuario';
+  static const RESULTADOS_ESTADISTICAS = 'Resultados Estadísticas';
+  static const CHAT_PROVEEDOR = 'Chat Proveedor';
+  static const RESERVA_TU_PISTA = 'Reserva tu Pista';
+  static const DATOS_USUARIO = 'Datos Usuario';
+  static const OLVIDE_CONTRASENA = 'Recuperar Contraseña';
+  static const TARIFAS_PISTA = 'Tarifas Pista';
+  static const PAGO_TPV = 'pago_tpv';
+  static const PRUEBAS = 'pruebas';
+  static const ELIMINAR_CUENTA = 'Eliminar Cuenta';
+  static const VALIDAR_EMAIL = 'Validar Email';
+  static const RESERVA_COMPARTIDA = 'Reserva Compartida';
+  static const ADMINISTRADOR = 'Administrador';
+  static const AMIGOS = 'Amigos';
+  // static const MIS_BONOS = 'mis_bonos';
+  static const MIS_PEDIDOS = 'Mis Pedidos';
+  static const MIS_CLUBES = 'Mis Clubs';
+  static const HISTORIAL_USUARIO = 'Historial Usuario';
+  static const TARIFAS_PROVEEDOR = 'Tarifas Proveedor';
+  static const PISTAS_PROVEEDOR = 'Pistas Proveedor';
+  static const LOGIN_ADMINISTRADOR = 'Login Administrador';
+}
+
 /// Names Routes
 abstract class Routes {
   static final LOGIN_USUARIO = RoutesType.login_usuario.getRoute;
@@ -150,7 +196,7 @@ abstract class Routes {
   static final NOTIFICACIONES = RoutesType.notificaciones.getRoute;
   static final NOTIFICACIONES_PROVEEDOR =
       RoutesType.notificaciones_proveedor.getRoute;
-  static final INICIO_PROVEEDOR = RoutesType.inicio_profesional.getRoute;
+  static final INICIO_PROVEEDOR = RoutesType.inicio_proveedor.getRoute;
   static final INICIO = RoutesType.inicio.getRoute;
   static final RESERVAR_PISTA = RoutesType.reservar_pista.getRoute;
   static final PAGOS_TARJETA = RoutesType.pagos_tarjeta.getRoute;
@@ -191,6 +237,7 @@ class AppPages {
       name: Routes.LOGIN_USUARIO,
       page: () => LoginUsuarioPage(),
       binding: LoginUsuarioBinding(),
+      title: Titulos.LOGIN_USUARIO,
     ),
 
     /// Registrar Usuario
@@ -198,6 +245,7 @@ class AppPages {
       name: Routes.REGISTRAR_USUARIO,
       page: () => const RegistrarUsuarioPage(),
       binding: RegistrarUsuarioBinding(),
+      title: Titulos.REGISTRAR_USUARIO,
     ),
 
     /// Registrar Proveedor
@@ -205,6 +253,7 @@ class AppPages {
       name: Routes.REGISTRAR_PROVEEDOR,
       page: () => RegistrarProveedorPage(),
       binding: RegistrarProveedorBinding(),
+      title: Titulos.REGISTRAR_PROVEEDOR,
     ),
 
     /// Inicio Usuario
@@ -213,6 +262,7 @@ class AppPages {
       binding: InicioBinding(),
       page: () => InicioPage(),
       transition: Transition.noTransition,
+      title: Titulos.INICIO,
     ),
 
     /// Mis Reservas
@@ -221,6 +271,7 @@ class AppPages {
       page: () => const MisReservasPage(),
       binding: MisReservasBinding(),
       transition: Transition.noTransition,
+      title: Titulos.MIS_RESERVAS,
     ),
 
     /// Reservar pista
@@ -229,6 +280,7 @@ class AppPages {
       page: () => ReservarPistaPage(),
       binding: ReservarPistaBinding(),
       transition: Transition.noTransition,
+      title: Titulos.RESERVAR_PISTA,
     ),
 
     /// Monedero
@@ -237,6 +289,7 @@ class AppPages {
       page: () => MonederoPage(),
       binding: MonederoBinding(),
       transition: Transition.noTransition,
+      title: Titulos.MONEDERO,
     ),
 
     /// Perfil Usuario
@@ -245,6 +298,7 @@ class AppPages {
       binding: PerfilBinding(),
       page: () => const PerfilPage(),
       transition: Transition.noTransition,
+      title: Titulos.PERFIL,
     ),
 
     /// Datos Usuario
@@ -252,6 +306,7 @@ class AppPages {
       name: Routes.DATOS_USUARIO,
       page: () => DatosUsuarioPage(),
       binding: DatosUsuarioBinding(),
+      title: Titulos.DATOS_USUARIO,
     ),
 
     /// Reserva Compartida por Usuario
@@ -259,19 +314,23 @@ class AppPages {
       name: Routes.RESERVA_COMPARTIDA,
       page: () => const ReservaCompartidaPage(),
       binding: ReservaCompartidaBinding(),
+      title: Titulos.RESERVA_COMPARTIDA,
     ),
 
     /// Notificaciones Usuario
     GetPage(
-        name: Routes.NOTIFICACIONES,
-        page: () => const NotificacionesWidget(),
-        transition: Transition.zoom),
+      name: Routes.NOTIFICACIONES,
+      page: () => const NotificacionesWidget(),
+      transition: Transition.zoom,
+      title: Titulos.NOTIFICACIONES,
+    ),
 
     /// Chat Usuario
     GetPage(
       name: Routes.CHAT,
       page: () => ChatPage(),
       binding: ChatBinding(),
+      title: Titulos.CHAT,
     ),
 
     /// Inicio Proveedor
@@ -280,6 +339,7 @@ class AppPages {
       binding: InicioProveedorBinding(),
       page: () => InicioProveedorPage(),
       transition: Transition.noTransition,
+      title: Titulos.INICIO_PROVEEDOR,
     ),
 
     /// Mis Pistas
@@ -288,6 +348,7 @@ class AppPages {
       page: () => MisPistasPage(),
       binding: MisPistasBinding(),
       transition: Transition.noTransition,
+      title: Titulos.MIS_PISTAS,
     ),
 
     /// Anadir Pista
@@ -296,6 +357,7 @@ class AppPages {
       page: () => AnadirPistaPage(),
       binding: AnadirPistaBinding(),
       transition: Transition.noTransition,
+      title: Titulos.ANADIR_PISTA,
     ),
 
     /// Mis Socios
@@ -304,6 +366,7 @@ class AppPages {
       page: () => const MisSociosPage(),
       binding: MisSociosBinding(),
       transition: Transition.noTransition,
+      title: Titulos.MIS_SOCIOS,
     ),
 
     /// Perfil Proveedor
@@ -312,13 +375,16 @@ class AppPages {
       binding: PerfilProveedorBinding(),
       page: () => const PerfilProveedorPage(),
       transition: Transition.noTransition,
+      title: Titulos.PERFIL_PROVEEDOR,
     ),
 
     /// Datos Proveedor
     GetPage(
-        name: Routes.DATOS_PROVEEDOR,
-        binding: DatosProveedorBinding(),
-        page: () => DatosProveedorPage()),
+      name: Routes.DATOS_PROVEEDOR,
+      binding: DatosProveedorBinding(),
+      page: () => DatosProveedorPage(),
+      title: Titulos.DATOS_PROVEEDOR,
+    ),
 
     /// Caja
     GetPage(
@@ -326,12 +392,14 @@ class AppPages {
       binding: BancoVirtualBinding(),
       page: () => BancoVirtualPage(),
       transition: Transition.noTransition,
+      title: Titulos.CAJA,
     ),
 
     /// Notificaciones Proveedor
     GetPage(
       name: Routes.NOTIFICACIONES_PROVEEDOR,
       page: () => const NotificacionesProfesionalPage(),
+      title: Titulos.NOTIFICACIONES_PROVEEDOR,
     ),
 
     /// Resultados Estadisticas
@@ -339,6 +407,7 @@ class AppPages {
       name: Routes.RESULTADOS_ESTADISTICAS,
       page: () => ResultadosEstadisticasPage(),
       binding: ResultadosEstadisticasBinding(),
+      title: Titulos.RESULTADOS_ESTADISTICAS,
     ),
 
     /// Chat Proveedor
@@ -346,6 +415,7 @@ class AppPages {
       name: Routes.CHAT_PROVEEDOR,
       page: () => ChatProveedorPage(),
       binding: ChatProveedorBinding(),
+      title: Titulos.CHAT_PROVEEDOR,
     ),
 
     /// Olvide Contrasena
@@ -354,6 +424,7 @@ class AppPages {
       page: () => const OlvideContrasenaPage(),
       binding: OlvideContrasenaBinding(),
       middlewares: [RouteRedirectMiddleware()],
+      title: Titulos.OLVIDE_CONTRASENA,
     ),
 
     /// Tarifas pista
@@ -361,6 +432,7 @@ class AppPages {
       name: Routes.TARIFAS_PISTA,
       page: () => const TarifasPistaPage(),
       binding: TarifasPistaBinding(),
+      title: Titulos.TARIFAS_PISTA,
     ),
 
     /// Pago TPV
@@ -368,6 +440,7 @@ class AppPages {
       name: Routes.PAGO_TPV,
       page: () => PagoTpvPage(),
       binding: PagoTpvBinding(),
+      title: Titulos.PAGO_TPV,
     ),
 
     /// Eliminar cuenta, ya sea de usuario o proveedor
@@ -375,6 +448,7 @@ class AppPages {
       name: Routes.ELIMINAR_CUENTA,
       page: () => const EliminarCuentaPage(),
       binding: EliminarCuentaBinding(),
+      title: Titulos.ELIMINAR_CUENTA,
     ),
 
     /// Validar email
@@ -382,6 +456,7 @@ class AppPages {
       name: Routes.VALIDAR_EMAIL,
       page: () => ValidarEmailPage(),
       binding: ValidarEmailBinding(),
+      title: Titulos.VALIDAR_EMAIL,
     ),
 
     /// Pagina para Administrador
@@ -389,43 +464,54 @@ class AppPages {
       name: Routes.ADMINISTRADOR,
       page: () => const AdminPageWidget(),
       binding: AdminPageBinding(),
+      title: Titulos.ADMINISTRADOR,
     ),
 
     /// Pagina para Amigos
     GetPage(
-        name: Routes.AMIGOS,
-        page: () => AmigosPage(),
-        binding: AmigosBinding()),
+      name: Routes.AMIGOS,
+      page: () => AmigosPage(),
+      binding: AmigosBinding(),
+      title: Titulos.AMIGOS,
+    ),
 
     /// Pagina para Mis Bonos
     // GetPage(
     //     name: Routes.MIS_BONOS,
     //     page: () => const MisBonosPage(),
-    //     binding: MisBonosBinding()),
+    //     binding: MisBonosBinding(),
+    // ),
 
     /// Pagina para Mis Pedidos
     GetPage(
-        name: Routes.MIS_PEDIDOS,
-        page: () => const MisPedidosPage(),
-        binding: MisPedidosBinding()),
+      name: Routes.MIS_PEDIDOS,
+      page: () => const MisPedidosPage(),
+      binding: MisPedidosBinding(),
+      title: Titulos.MIS_PEDIDOS,
+    ),
 
     /// Pagina para Mis Clubes
     GetPage(
-        name: Routes.MIS_CLUBES,
-        page: () => const MisClubesPage(),
-        binding: MisClubesBinding()),
+      name: Routes.MIS_CLUBES,
+      page: () => const MisClubesPage(),
+      binding: MisClubesBinding(),
+      title: Titulos.MIS_CLUBES,
+    ),
 
     /// Pagina para pruebas
     GetPage(
-        name: Routes.HISTORIAL_USUARIO,
-        page: () => const HistorialPage(),
-        binding: HistorialBinding()),
+      name: Routes.HISTORIAL_USUARIO,
+      page: () => const HistorialPage(),
+      binding: HistorialBinding(),
+      title: Titulos.HISTORIAL_USUARIO,
+    ),
 
     /// Pagina para tarifas del proveedor
     GetPage(
       name: Routes.TARIFAS_PROVEEDOR,
       page: () => const TarifasProveedorPage(),
       binding: TarifasProveedorBinding(),
+      title: Titulos.TARIFAS_PROVEEDOR,
     ),
 
     /// Pagina para pistas del proveedor
@@ -434,18 +520,23 @@ class AppPages {
       page: () => PistasProveedorPage(),
       binding: PistasProveedorBinding(),
       transition: Transition.noTransition,
+      title: Titulos.PISTAS_PROVEEDOR,
     ),
 
     /// Pagina para login administrador
     GetPage(
-        name: Routes.LOGIN_ADMINISTRADOR,
-        page: () => LoginAdministradorPage(),
-        binding: LoginAdministradorBinding()),
+      name: Routes.LOGIN_ADMINISTRADOR,
+      page: () => LoginAdministradorPage(),
+      binding: LoginAdministradorBinding(),
+      title: Titulos.LOGIN_ADMINISTRADOR,
+    ),
 
     /// Pagina para pruebas
     GetPage(
-        name: Routes.PRUEBAS,
-        page: () => PruebasPage(),
-        binding: PruebasBinding()),
+      name: Routes.PRUEBAS,
+      page: () => PruebasPage(),
+      binding: PruebasBinding(),
+      title: Titulos.PRUEBAS,
+    ),
   ];
 }

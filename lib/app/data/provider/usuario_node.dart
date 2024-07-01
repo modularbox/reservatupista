@@ -114,6 +114,25 @@ class UsuarioProvider extends GetConnect {
     }
   }
 
+  Future<String> existeUsuario(String email) async {
+    try {
+      await initialize();
+      final response = await get(
+        '$url/usuario/existe_usuario',
+        query: {'email': email},
+      );
+      if (response.statusCode == 200) {
+        return response.body['nombre'];
+      } else {
+        return response.body['nombre'];
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return '';
+    }
+  }
+
   /// Modificar los datos del usuario
   Future<MessageError> modificarUsuario(
       List datos, List<String> idsDatos) async {
@@ -165,7 +184,7 @@ class UsuarioProvider extends GetConnect {
   }
 
 // Registrar usuario
-  Future<bool> registrarUsuario(List usuario) async {
+  Future<MessageError> registrarUsuario(List usuario) async {
     try {
       final response = await post(
         '$url/usuario',
@@ -174,18 +193,16 @@ class UsuarioProvider extends GetConnect {
         },
         contentType: 'application/json',
       );
+      print('response.body ${response.body}');
       // Enviar la solicitud
       if (response.statusCode == 200) {
-        return true;
+        return MessageError.fromJson(response.body);
       } else {
-        // Manejar el caso en el que la carga no fue exitosa
-        print(
-            'Error al usuario anadida. Código de estado: ${response.statusCode}');
-        throw '';
+        return MessageError.fromJson(response.body);
       }
     } catch (error) {
-      print('Error al usuario anadida: $error');
-      return false;
+      return MessageError(
+          message: 'Ocurrio un error al registrar usuario', code: 501);
     }
   }
 

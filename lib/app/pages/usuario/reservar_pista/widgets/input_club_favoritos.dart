@@ -6,7 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 
 class InputClubFavorito extends FormField<String> {
   InputClubFavorito({
-    Key? key,
+    super.key,
     this.controller,
     this.icon,
     this.changeIcon = false,
@@ -44,7 +44,6 @@ class InputClubFavorito extends FormField<String> {
     String? Function(String?)? validator,
     required this.onChanged,
   }) : super(
-          key: key,
           initialValue: controller!.text,
           builder: (FormFieldState<String> field) {
             final _InputClubFavoritoState state =
@@ -66,7 +65,7 @@ class InputClubFavorito extends FormField<String> {
             }
 
             Widget buildField(lfOnTap) {
-              return Container(
+              return SizedBox(
                 height: 45,
                 child: TextFormField(
                   controller: controller,

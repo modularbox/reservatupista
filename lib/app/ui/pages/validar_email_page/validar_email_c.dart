@@ -5,7 +5,7 @@ import 'package:reservatu_pista/app/data/models/message_error.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/app/routes/app_pages.dart';
-import 'package:reservatu_pista/utils/dialog/change_dialog_general.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 
 class ValidarEmailController extends GetxController
     with GetTickerProviderStateMixin {
@@ -30,21 +30,19 @@ class ValidarEmailController extends GetxController
       result = await ProveedorProvider().validarEmail(email);
     }
     if (result.code == 2000 || email.isNotEmpty) {
-      Get.dialog(ChangeDialogGeneral(
-        alertTitle: richTitle("Validar Email"),
-        alertSubtitle: richSubtitle(result.messageError()),
-        textButton: "Cerrar",
-        alertType: TypeGeneralDialog.SUCCESS,
-        onPressed: () => {Get.offAllNamed(Routes.LOGIN_USUARIO)},
-      ));
+      MessageServerDialog(
+          context: Get.context!,
+          alertType: success,
+          title: 'Registro Proveedor',
+          subtitle: 'Validar Email',
+          onPressed: () => {Get.offAllNamed(Routes.LOGIN_USUARIO)});
     } else {
-      Get.dialog(ChangeDialogGeneral(
-        alertTitle: richTitle("Validar Email"),
-        alertSubtitle: richSubtitle(result.messageError()),
-        textButton: "Cerrar",
-        alertType: TypeGeneralDialog.WARNING,
-        onPressed: Get.back,
-      ));
+      MessageServerDialog(
+          context: Get.context!,
+          alertType: success,
+          title: 'Registro Proveedor',
+          subtitle: 'Validar Email',
+          onPressed: Get.back);
     }
   }
 

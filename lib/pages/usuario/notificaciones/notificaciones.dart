@@ -1,6 +1,5 @@
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
-
 import '../../../components/navbar_y_appbar_usuario.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -38,8 +37,6 @@ class NotificacionesWidgetState extends State<NotificacionesWidget> {
         ),
       );
     }
-
-    context.watch<FFAppState>();
 
     return NavbarYAppbarUsuario(
         title: 'Notificaciones',

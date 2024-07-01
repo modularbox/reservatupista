@@ -44,6 +44,25 @@ class ProveedorProvider extends GetConnect {
     }
   }
 
+  Future<String> existeProveedor(String email) async {
+    try {
+      await initialize();
+      final response = await get(
+        '$url/proveedor/existe_proveedor',
+        query: {'email': email},
+      );
+      if (response.statusCode == 200) {
+        return response.body['nombre'];
+      } else {
+        return response.body['nombre'];
+      }
+    } catch (error, stack) {
+      print(error);
+      print(stack);
+      return '';
+    }
+  }
+
   Future<MessageError> modificarContrasena(
       int id, String tokenUser, List datos, List<String> idsDatos) async {
     try {

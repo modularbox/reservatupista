@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
@@ -22,9 +23,11 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = const Color(0xFF2B78DC);
   bool movilPequeno = false;
+  late bool isMin;
 
   @override
   Widget build(BuildContext context) {
+    isMin = context.h < 655.0;
     if (isiOS) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
@@ -37,9 +40,8 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
     final focusedColorUsuario = LightModeTheme().primary;
     const lineColorProfesional = Color.fromARGB(160, 70, 239, 152);
     final focusedColorProfesional = LightModeTheme().successGeneral;
-    // Declarar si el movil es pequeno
-    final height = MediaQuery.sizeOf(context).height;
-    movilPequeno = height <= 688;
+    movilPequeno = context.h <= 720;
+    // movilPequeno = true;
 
     return Scaffold(
       backgroundColor: LightModeTheme().primaryText,
@@ -48,7 +50,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
         top: true,
         child: Container(
           width: MediaQuery.sizeOf(context).width,
-          height: height,
+          height: context.h,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [LightModeTheme().tertiary, LightModeTheme().accent4],
@@ -65,21 +67,6 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // MaterialButton(
-                    //   color: Colors.blue,
-                    //   // onPressed: () => Get.toNamed(Routes.PRUEBAS),
-                    //   onPressed: () {
-                    //     debugPrint('print debug');
-                    //   },
-                    //   splashColor: Colors.blueGrey,
-                    //   child: Text(
-                    //     'pRUEBA IMAGEN',
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 16,
-                    //     ),
-                    //   ),
-                    // ),
                     Align(
                       alignment: const AlignmentDirectional(0, 0),
                       child: AppBarLoginWidget(
@@ -150,7 +137,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                     ),
                   ],
                 ),
-                const NavBarLogin()
+                NavBarLogin(isMin: isMin)
               ],
             ),
           ),
@@ -195,7 +182,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
               minFontSize: 10,
             ),
           ),
-          5.0.sh,
+          isMin ? 0.0.sh : 5.0.sh,
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
                 20, movilPequeno ? 5 : 10, 20, 0),
@@ -340,8 +327,10 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                 )),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(
-                5, movilPequeno ? 0 : 5, movilPequeno ? 0 : 5, 10),
+            padding: isMin
+                ? EdgeInsets.zero
+                : EdgeInsetsDirectional.fromSTEB(
+                    5, movilPequeno ? 0 : 5, movilPequeno ? 0 : 5, 10),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -400,7 +389,9 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 5),
+            padding: isMin
+                ? const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0)
+                : const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -456,7 +447,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
             animTerminos,
             focusedColor,
             palomita,
-            paddingTop: movilPequeno ? 10 : 20,
+            paddingTop: isMin ? 5.0 : (movilPequeno ? 10 : 20),
           ),
           const SizedBox(
             height: 5.0,
@@ -471,7 +462,7 @@ class LoginUsuarioPage extends GetView<LoginUsuarioController> {
                   width: 200,
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                  color: focusedColor,
+                  color: Colores.rojo,
                   textStyle: LightModeTheme().bodyMedium.override(
                         fontFamily: 'Readex Pro',
                         color: LightModeTheme().tertiary,

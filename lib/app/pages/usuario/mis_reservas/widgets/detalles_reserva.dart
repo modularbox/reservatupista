@@ -246,7 +246,7 @@ class DetalleReserva extends GetView<MisReservasController> {
       ['Comienza', state.horaInicio.formatHora],
       ['Finaliza', state.horaFin.formatHora],
       ['Duración', '${state.duracionPartida} Minutos'],
-      ['Para cancelar con antelacion', '24 horas'],
+      ['Tiempo Cancelación', '24 horas'],
     ];
     List<Widget> titles = [];
     List<Widget> descripcion = [];
@@ -283,7 +283,7 @@ class DetalleReserva extends GetView<MisReservasController> {
       /// Agregar tiempo de cancelacion
       titles.add(
         Text(
-          'Tiempo cancelación:',
+          'Cancelación:',
           style: LightModeTheme().bodyMedium.override(
                 fontFamily: 'Readex Pro',
                 letterSpacing: 0,
@@ -330,7 +330,7 @@ class DetalleReserva extends GetView<MisReservasController> {
     print('second $second');
     return Text(
       self.tiempoRestante == 0
-          ? 'Ya no se puede cancelar'
+          ? 'No se puede cancelar'
           : 'Quedan $days Días, $hour horas, $minute minutos, $second segundos',
       style: LightModeTheme().displayMedium.override(
             fontFamily: 'Outfit',
@@ -559,7 +559,7 @@ class DetalleReservaDialog {
       ['Comienza', state.horaInicio.formatHora],
       ['Finaliza', state.horaFin.formatHora],
       ['Duración', '${state.duracionPartida} Minutos'],
-      ['Para cancelar\ncon antelación', '24 horas'],
+      ['Tiempo Cancelación', '24 horas'],
     ];
     List<Widget> titles = [];
     List<Widget> descripcion = [];
@@ -598,14 +598,14 @@ class DetalleReservaDialog {
             letterSpacing: 0,
             fontWeight: FontWeight.w800,
           );
-      final width = calcularAnchoTexto('Tiempo cancelación:', styleTitle);
+      final width = calcularAnchoTexto('Cancelación:', styleTitle);
       if (width > widthTitle) {
         widthTitle = width;
       }
 
       /// Agregar tiempo de cancelacion
       titles.add(
-        Text('Tiempo cancelación:', style: styleTitle),
+        Text('Cancelación:', style: styleTitle),
       );
       titles.add(5.0.sh);
       descripcion.add(
@@ -649,7 +649,7 @@ class DetalleReservaDialog {
     print('second $second');
     return Text(
       self.tiempoRestante == 0
-          ? 'Ya no se\npuede cancelar'
+          ? 'No se puede cancelar'
           : 'Quedan $days Días, $hour horas, $minute minutos, $second segundos',
       style: LightModeTheme().bodyMedium.override(
             fontFamily: 'Outfit',

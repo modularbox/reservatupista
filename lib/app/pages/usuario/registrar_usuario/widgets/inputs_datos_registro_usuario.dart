@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/widgets/text_inputters/inputter_registro.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_theme.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
@@ -49,7 +50,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
                 isSelect: true,
                 anim: anim,
                 listSelect: const ['Hombre', 'Mujer'],
-                isRequired: false,
+                isRequired: isWeb,
                 maxLength: 10,
                 padding: const EdgeInsets.all(0),
               ),
@@ -61,7 +62,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
                   textEditingController: self.tc.dni,
                   anim: anim,
                   maxLength: 9,
-                  isRequired: false,
+                  isRequired: isWeb,
                   inputFormatters: [
                     SinEspaciosInputFormatter(),
                     DNI8digitos1Letra()
@@ -88,6 +89,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
                   '🇲🇫 +33',
                   '🇲🇽 +52'
                 ],
+                isRequired: false,
                 anim: anim,
                 maxLength: 8,
                 padding: const EdgeInsets.all(0),
@@ -205,7 +207,7 @@ class InputsDatosRegistroUsuario extends GetView<RegistrarUsuarioController> {
           labelText: 'Nick',
           textEditingController: self.tc.nick,
           anim: anim,
-          maxLength: 20,
+          maxLength: 8,
           inputFormatters: [SinEspaciosInputFormatter()],
           suffixIcon: self.apiExisteNick.obx(
               (state) => state!

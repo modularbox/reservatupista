@@ -4,6 +4,8 @@
 
 // String ListaTartifasToJson(ListaTartifas data) => json.encode(data.toJson());
 
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
+
 class ListaTartifas {
   List<Tarifa> tarifas;
 
@@ -21,6 +23,7 @@ class ListaTartifas {
 }
 
 class Tarifa {
+  final int idTarifa;
   bool disponible;
   bool luz;
   bool clases;
@@ -31,9 +34,11 @@ class Tarifa {
   String precioConLuzNoSocio;
   String precioSinLuzNoSocio;
   String fecha;
+  bool changeTarifa;
 
   Tarifa(
-      {this.disponible = false,
+      {this.idTarifa = 0,
+      this.disponible = false,
       this.luz = false,
       this.clases = false,
       this.horaInicio,
@@ -42,19 +47,42 @@ class Tarifa {
       this.precioSinLuzSocio = '',
       this.precioConLuzNoSocio = '',
       this.precioSinLuzNoSocio = '',
+      this.changeTarifa = false,
       this.fecha = ''});
 
-  factory Tarifa.fromJson(Map<String, dynamic> json) => Tarifa(
-        disponible: json["activado"] == 1,
-        clases: json["clases"] == 1,
-        luz: json["luz"] == 1,
-        diaSemana: json["dia_semana"],
-        horaInicio: json["hora_inicio"],
-        precioConLuzSocio: json["precio_con_luz_socio"],
-        precioSinLuzSocio: json["precio_sin_luz_socio"],
-        precioConLuzNoSocio: json["precio_con_luz_no_socio"],
-        precioSinLuzNoSocio: json["precio_sin_luz_no_socio"],
-      );
+  factory Tarifa.fromJson(
+          Map<String, dynamic> json,
+          String socioPrecioConLuz,
+          String socioPrecioSinLuz,
+          String noSocioPrecioConLuz,
+          String noSocioPrecioSinLuz,
+          bool isSocioPrecioConLuz,
+          bool isSocioPrecioSinLuz,
+          bool isNoSocioPrecioConLuz,
+          bool isNoSocioPrecioSinLuz) =>
+      Tarifa(
+          changeTarifa: isSocioPrecioConLuz ||
+              isSocioPrecioSinLuz ||
+              isNoSocioPrecioConLuz ||
+              isNoSocioPrecioSinLuz,
+          idTarifa: json["id_tarifa"] ?? 0,
+          disponible: json["activado"] == 1,
+          clases: json["clases"] == 1,
+          luz: json["luz"] == 1,
+          diaSemana: json["dia_semana"],
+          horaInicio: json["hora_inicio"].toString().substring(0, 5),
+          precioConLuzSocio: isSocioPrecioConLuz
+              ? socioPrecioConLuz
+              : (json['precio_con_luz_socio'] as int).euro,
+          precioSinLuzSocio: isSocioPrecioSinLuz
+              ? socioPrecioSinLuz
+              : (json['precio_sin_luz_socio'] as int).euro,
+          precioConLuzNoSocio: isNoSocioPrecioConLuz
+              ? noSocioPrecioConLuz
+              : (json['precio_con_luz_no_socio'] as int).euro,
+          precioSinLuzNoSocio: isNoSocioPrecioSinLuz
+              ? noSocioPrecioSinLuz
+              : (json['precio_sin_luz_no_socio'] as int).euro);
 
   Map<String, dynamic> toJson() {
     return {
@@ -70,19 +98,23 @@ class Tarifa {
     };
   }
 
-  List<dynamic> toList() {
-    return [
+  List<dynamic> toList(bool isEditar) {
+    final listEditar = [
       disponible,
       clases,
       luz,
       diaSemana,
       horaInicio,
-      '',
+      '00:00:00',
       precioConLuzSocio.convertPrecio,
       precioSinLuzSocio.convertPrecio,
       precioConLuzNoSocio.convertPrecio,
-      precioSinLuzNoSocio.convertPrecio
+      precioSinLuzNoSocio.convertPrecio,
     ];
+    if (isEditar) {
+      listEditar.add(idTarifa);
+    }
+    return listEditar;
   }
 }
 

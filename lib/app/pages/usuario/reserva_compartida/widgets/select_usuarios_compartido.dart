@@ -229,7 +229,6 @@ class SelectedUsuariosCompartido extends GetView<ReservaCompartidaController> {
   /// Verificar si todas las reservas son del usuario y si tiene alguna pendiente
   bool todasMisReservas2() {
     if (self.usuario.value!.plazasReservadas == capacidad) {
-      print("tisdinkdfmldmfldfd");
       return true;
     }
     if (self.reservas_usuarios.value!.plazasReservadasTotales == 0) {

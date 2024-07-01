@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/global_widgets/button_general.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_profesional.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/colores.dart';
@@ -39,162 +41,149 @@ class DatosProveedorPage extends GetView<DatosProveedorController> {
     final datosPago = self.datosPago().listProperty();
     final datosContacto = self.datosContacto();
     final datosUbicacion = self.datosUbicacion();
-    return Scaffold(
-        key: scaffoldKey,
-        body: SafeArea(
-          top: true,
-          child: Column(
-            children: [
-              const AppbarGeneral(
-                isTitleBack: true,
-                title: 'Datos Proveedor',
-              ),
-              self.apiDatosProveedor.obx(
-                  (state) => Form(
-                        key: self.formKey,
-                        child: Expanded(
-                          child: SingleChildScrollView(
-                            child: ResponsiveWeb(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  seleccionarImage(),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Datos de facturación',
-                                      style: LightModeTheme()
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
+    return NavbarYAppbarProfesional(
+        title: 'Datos Proveedor',
+        isTitleBack: true,
+        isNavBar: false,
+        child: Expanded(
+            child: Column(
+          children: [
+            self.apiDatosProveedor.obx(
+                (state) => Form(
+                      key: self.formKey,
+                      child: Expanded(
+                        child: SingleChildScrollView(
+                          child: ResponsiveWeb(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                seleccionarImage(),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Datos de facturación',
+                                    style: LightModeTheme()
+                                        .labelLarge
+                                        .copyWith(color: Colors.black),
                                   ),
-                                  ...List<Widget>.generate(
-                                      datosFacturacion.length,
-                                      (index) => buildInput(
-                                          context: context,
-                                          propertiesTextField:
-                                              datosFacturacion[index])),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Datos de pago/cobro',
-                                      style: LightModeTheme()
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
+                                ),
+                                ...List<Widget>.generate(
+                                    datosFacturacion.length,
+                                    (index) => buildInput(
+                                        context: context,
+                                        propertiesTextField:
+                                            datosFacturacion[index])),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Datos de pago/cobro',
+                                    style: LightModeTheme()
+                                        .labelLarge
+                                        .copyWith(color: Colors.black),
                                   ),
-                                  ...List<Widget>.generate(
-                                      datosPago.length,
-                                      (index) => buildInput(
-                                          context: context,
-                                          propertiesTextField:
-                                              datosPago[index])),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Datos de contacto',
-                                      style: LightModeTheme()
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
+                                ),
+                                ...List<Widget>.generate(
+                                    datosPago.length,
+                                    (index) => buildInput(
+                                        context: context,
+                                        propertiesTextField: datosPago[index])),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Datos de contacto',
+                                    style: LightModeTheme()
+                                        .labelLarge
+                                        .copyWith(color: Colors.black),
                                   ),
-                                  ...List<Widget>.generate(
-                                      datosContacto.listProperty().length,
-                                      (index) => buildInput(
-                                          context: context,
-                                          propertiesTextField: datosContacto
-                                              .listProperty()[index])),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 12.0, 5.0, 0.0),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                            width: 80,
-                                            child: buildInput(
-                                                context: context,
-                                                padding:
-                                                    const EdgeInsets.all(0),
-                                                propertiesTextField:
-                                                    datosContacto.lada)),
-                                        Flexible(
-                                            child: buildInput(
-                                                context: context,
-                                                padding:
-                                                    const EdgeInsets.all(0),
-                                                propertiesTextField:
-                                                    datosContacto.movil))
-                                      ],
-                                    ),
+                                ),
+                                ...List<Widget>.generate(
+                                    datosContacto.listProperty().length,
+                                    (index) => buildInput(
+                                        context: context,
+                                        propertiesTextField: datosContacto
+                                            .listProperty()[index])),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      5.0, 12.0, 5.0, 0.0),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                          width: 80,
+                                          child: buildInput(
+                                              context: context,
+                                              padding: const EdgeInsets.all(0),
+                                              propertiesTextField:
+                                                  datosContacto.lada)),
+                                      Flexible(
+                                          child: buildInput(
+                                              context: context,
+                                              padding: const EdgeInsets.all(0),
+                                              propertiesTextField:
+                                                  datosContacto.movil))
+                                    ],
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Datos ubicación',
-                                      style: LightModeTheme()
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Datos ubicación',
+                                    style: LightModeTheme()
+                                        .labelLarge
+                                        .copyWith(color: Colors.black),
                                   ),
-                                  ...List<Widget>.generate(
-                                      datosUbicacion.length,
-                                      (index) => buildInput(
-                                          context: context,
-                                          propertiesTextField:
-                                              datosUbicacion[index])),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Email',
-                                      style: LightModeTheme()
-                                          .labelLarge
-                                          .copyWith(color: Colors.black),
-                                    ),
+                                ),
+                                ...List<Widget>.generate(
+                                    datosUbicacion.length,
+                                    (index) => buildInput(
+                                        context: context,
+                                        propertiesTextField:
+                                            datosUbicacion[index])),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Email',
+                                    style: LightModeTheme()
+                                        .labelLarge
+                                        .copyWith(color: Colors.black),
                                   ),
-                                  NoticiasCheckbox(
-                                    initialValue: self.noticia,
-                                    onChanged: (val) {
-                                      self.noticia = val!;
-                                    },
-                                    animTerminos: animVibrate(vsync: self),
-                                    focusedColor: Colores.usuario.primary,
-                                    palomita: Colors.white,
-                                    paddingTop: 0.0,
-                                  ),
-                                ],
-                              ),
+                                ),
+                                NoticiasCheckbox(
+                                  initialValue: self.noticia,
+                                  onChanged: (val) {
+                                    self.noticia = val!;
+                                  },
+                                  animTerminos: animVibrate(vsync: self),
+                                  focusedColor: Colores.usuario.primary,
+                                  palomita: Colors.white,
+                                  paddingTop: 0.0,
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                  onLoading: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ColorLoader3(),
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: ButtonGeneral(
-                  text: 'Eliminar Cuenta',
-                  hoverColor: Colores.proveedor.primary69,
-                  fillColor: Colores.rojo,
-                  onPressed: self.onOpenDialogEliminarCuenta,
-                ),
+                    ),
+                onLoading: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ColorLoader3(),
+                )),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: ButtonGeneral(
+                text: 'Eliminar Cuenta',
+                hoverColor: Colores.proveedor.primary69,
+                fillColor: Colores.rojo,
+                onPressed: self.onOpenDialogEliminarCuenta,
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        )));
   }
 
   Widget seleccionarImage() {

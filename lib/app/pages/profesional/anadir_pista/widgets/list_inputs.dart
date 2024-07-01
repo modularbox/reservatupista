@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
-import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../../utils/colores.dart';
 import '../../../../../utils/dialog/terminos_condiciones_dialog.dart';
@@ -9,7 +9,6 @@ import '../../../../widgets/text_inputters/inputter_registro.dart';
 import '../anadir_pista_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -424,47 +423,27 @@ class _ListInputsState extends State<ListInputs> {
             precioSinLuz: self.noSocioPrecioSinLuz,
           ),
           buildContainerMetodoPago(),
-          Obx(() => FFButtonWidget(
+          Obx(() => ButtonGeneral(
                 onPressed: !self.isValidBtnTarifas.value
                     ? null
-                    : () async {
-                        if (self.isModificar) {
-                          MessageServerDialog(
-                                  context: context,
-                                  alertType: error,
-                                  title: 'Editar Tarifas',
-                                  subtitle:
-                                      'Lo sentimos esta opción aun no esta incorporada.')
-                              .dialog();
-                        } else {
-                          self.generarListaTarifas();
-                        }
-                      },
-                text: self.selfTarifas.datosGuardados.value
+                    : self.generarListaTarifas,
+                height: 45,
+                text: self.selfTarifas.datosGuardados.value || self.isModificar
                     ? 'Editar Tarifas'
                     : 'Crear Tarifas',
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      24.0, 0.0, 24.0, 0.0),
-                  iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: !self.isValidBtnTarifas.value
-                      ? Colores.grisClaro
-                      : LightModeTheme().alternate,
-                  textStyle: LightModeTheme().titleSmall.override(
-                        fontFamily: 'Readex Pro',
-                        color: !self.isValidBtnTarifas.value
-                            ? Colors.black
-                            : Colors.white,
-                      ),
-                  borderSide: self.validarTarifas.value &&
-                          !self.selfTarifas.datosGuardados.value
-                      ? const BorderSide(color: Colors.red, width: 2)
-                      : null,
-                  elevation: 3.0,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+                margin: EdgeInsets.zero,
+                fillColor: !self.isValidBtnTarifas.value
+                    ? const Color.fromARGB(130, 43, 120, 220)
+                    : LightModeTheme().alternate,
+                textColor: Colors.white,
+                borderColor: self.validarTarifas.value &&
+                        !self.selfTarifas.datosGuardados.value
+                    ? Colors.red
+                    : null,
+                borderWidth: self.validarTarifas.value &&
+                        !self.selfTarifas.datosGuardados.value
+                    ? 2.0
+                    : null,
               )),
           Row(
             mainAxisSize: MainAxisSize.max,
@@ -1016,11 +995,11 @@ class _ListInputsState extends State<ListInputs> {
           ],
           onChanged: (val) => inputController.isValidate.value = false,
           isValidate: inputController.isValidate.value,
-          onValidator: (val) => self.validarInputController(
-              val,
-              inputController.isValidate,
-              inputController.anim,
-              inputController.key),
+          // onValidator: (val) => self.validarInputController(
+          //     val,
+          //     inputController.isValidate,
+          //     inputController.anim,
+          //     inputController.key),
         ),
       ),
     );

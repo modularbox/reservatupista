@@ -104,14 +104,9 @@ class MisPistasController extends GetxController
       title: 'Eliminar Reserva',
       alertType: alertType,
       subtitle: subtitle,
-      onPressed: () => {
-        // Get.forceAppUpdate(),
-        cargarDatosReservas(idPista),
-        Navigator.of(Get.context!).pop()
-      },
+      onPressed: () =>
+          {cargarDatosReservas(idPista), Navigator.of(Get.context!).pop()},
     ).dialog();
-    // cancelarReserva = result;
-    // pageIndexNotifier.value = 2;
     print('idReserva = $_idReserva');
     print('idReservaPistaUsuario = $_idReservaPistaUsuario');
     print('cancelarReserva = $cancelarReserva');

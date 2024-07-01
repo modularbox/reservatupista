@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/global_widgets/button_general.dart';
 import 'package:reservatu_pista/app/pages/usuario/datos_usuario/widgets/select_datos.dart';
+import 'package:reservatu_pista/components/navbar_y_appbar_usuario.dart';
 import 'package:reservatu_pista/utils/animations/list_animations.dart';
 import 'package:reservatu_pista/utils/ckeck/noticias_checkbox.dart';
 import 'package:reservatu_pista/utils/loader/color_loader_3.dart';
@@ -13,7 +14,6 @@ import '../../../../utils/btn_icon.dart';
 import '../../../../utils/colores.dart';
 import '../../../../utils/loader/color_loader.dart';
 import '../../../../utils/state_getx/state_mixin_demo.dart';
-import '../../../widgets/appbar_general.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -35,41 +35,38 @@ class DatosUsuarioPage extends GetView<DatosUsuarioController> {
         ),
       );
     }
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Colors.white,
-      body: SafeArea(
-          top: true,
-          child: Column(
-            children: [
-              const AppbarGeneral(
-                isTitleBack: true,
-                title: 'Datos Usuario',
-              ),
-              self.apidatosUsuario.obx((state) => getFomData(),
-                  onLoading: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ColorLoader3(),
-                  )),
-              ResponsiveWeb(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Obx(buildBtnModificarGuardar),
-                      ButtonGeneral(
-                        text: 'Eliminar Cuenta',
-                        hoverColor: Colores.usuario.primary69,
-                        fillColor: Colores.rojo,
-                        onPressed: self.onOpenDialogEliminarCuenta,
-                      ),
-                    ],
-                  ),
+    return NavbarYAppbarUsuario(
+      title: 'Datos Usuario',
+      isTitleBack: true,
+      isNavBar: false,
+      child: Expanded(
+        child: Column(
+          children: [
+            self.apidatosUsuario.obx((state) => getFomData(),
+                onLoading: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ColorLoader3(),
+                )),
+            ResponsiveWeb(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Obx(buildBtnModificarGuardar),
+                    ButtonGeneral(
+                      text: 'Eliminar Cuenta',
+                      hoverColor: Colores.usuario.primary69,
+                      fillColor: Colores.rojo,
+                      onPressed: self.onOpenDialogEliminarCuenta,
+                    ),
+                  ],
                 ),
-              )
-            ],
-          )),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 

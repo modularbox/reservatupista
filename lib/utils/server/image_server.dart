@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 
 class ImageServer extends StatelessWidget {
   ImageServer({
@@ -14,16 +15,47 @@ class ImageServer extends StatelessWidget {
   final double? height;
   final BoxFit? fit;
   final DBService db = Get.find();
+  final _imageInfo = Rxn<ImageInfo>();
 
   @override
   Widget build(BuildContext context) {
-    printError(info: "Image server ${db.fotoServer}");
-    return Obx(() => Image.network(
-          db.fotoServer,
-          width: width,
-          height: height,
-          fit: fit,
+    if (isWeb) {
+      return Image.network(
+        db.fotoServer,
+        width: 200,
+        height: 200,
+        fit: fit,
+      );
+    }
+    final ImageStream newStream = Image.network(
+      db.fotoServer, // Reemplaza con la URL de tu imagen
+    ).image.resolve(ImageConfiguration.empty);
+
+    newStream.addListener(ImageStreamListener((info, _) {
+      _imageInfo.value = info;
+    }));
+    return Obx(() => Visible(
+          isVisible: db.fotoServer != '' && _imageInfo.value != null,
+          child: mostrarImage(),
         ));
+  }
+
+  Widget mostrarImage() {
+    if (_imageInfo.value!.image.width < 200) {
+      return Image.network(
+        db.fotoServer,
+        width: 200,
+        height: 200,
+        fit: fit,
+      );
+    } else {
+      return Image.network(
+        db.fotoServer,
+        width: width,
+        height: height,
+        fit: fit,
+      );
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:reservatu_pista/web/web.dart';
 import '../app/routes/app_pages.dart';
 import '../utils/btn_icon.dart';
 import '../utils/colores.dart';
@@ -25,8 +26,8 @@ class AppbarUsuario extends StatelessWidget {
         Container(
           width: MediaQuery.sizeOf(context).width,
           height: 55,
-          decoration: BoxDecoration(
-            color: LightModeTheme().secondaryBackground,
+          decoration: const BoxDecoration(
+            color: Colors.white,
           ),
         ),
         ...buildRow(context),
@@ -35,8 +36,8 @@ class AppbarUsuario extends StatelessWidget {
           child: Container(
             width: MediaQuery.sizeOf(context).width,
             height: 1,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(67, 0, 0, 0),
+            decoration: BoxDecoration(
+              color: Colores.usuario.primary,
             ),
           ),
         ),
@@ -48,20 +49,17 @@ class AppbarUsuario extends StatelessWidget {
     if (isTitleBack) {
       return [
         BtnIcon(
-          borderColor: Colors.transparent,
-          hoverColor: Colores.usuario.primary69,
-          borderRadius: 30.0,
-          borderWidth: 1.0,
-          buttonSize: 55.0,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: LightModeTheme().primaryText,
-            size: 30.0,
-          ),
-          onPressed: () async {
-            Navigator.pop(context);
-          },
-        ),
+            borderColor: Colors.transparent,
+            hoverColor: Colores.usuario.primary69,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 55.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: LightModeTheme().primaryText,
+              size: 30.0,
+            ),
+            onPressed: moverRoutes),
         SizedBox(
           height: 55,
           child: Align(

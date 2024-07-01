@@ -21,6 +21,7 @@ class BtnIcon extends StatefulWidget {
     this.iconColor,
     this.size,
     this.showLoadingIndicator = false,
+    this.elevation
   });
 
   final Widget icon;
@@ -40,6 +41,7 @@ class BtnIcon extends StatefulWidget {
   final Color? iconColor;
   final EdgeInsetsGeometry? padding;
   final Size? size;
+  final double? elevation;
   final Function()? onPressed;
 
   @override
@@ -73,6 +75,9 @@ class _BtnIconState extends State<BtnIcon> {
   @override
   Widget build(BuildContext context) {
     ButtonStyle style = ButtonStyle(
+        elevation: MaterialStatePropertyAll(widget.elevation),
+        shadowColor: MaterialStatePropertyAll(
+            widget.elevation != null ? Colors.black : null),
         padding: MaterialStatePropertyAll(widget.padding),
         // MaterialStatePropertyAll(padding),
         shape: MaterialStateProperty.resolveWith<OutlinedBorder>(

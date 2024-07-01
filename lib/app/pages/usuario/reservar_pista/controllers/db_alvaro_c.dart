@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/models/proveedor_model.dart';
 import 'package:reservatu_pista/app/data/models/usuario_model.dart';
@@ -17,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class DBAlvaroController extends GetxController {
+  /// Versi el tpv es de pruebas?
+  final testing = DatosServer.testing;
   // Iniciarlizar la db
   late SharedPreferences storage;
   String version = '2.1.6';
@@ -224,10 +225,9 @@ class DBAlvaroController extends GetxController {
         storage.idUsuario.read(),
         reservarPistaController.id_pista_seleccionada.value,
       );
-      await launchURL(
-          'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-      Get.back();
-      Get.back();
+      DatosServer.openTpv(dinero, numOperacion);
+      // Get.back();
+      // Get.back();
     } catch (e, stack) {
       print("recargarMOndedor");
       print(e);
@@ -273,6 +273,7 @@ class DBAlvaroController extends GetxController {
   Future<void> reservarPistaConTarjeta(
       int dinero,
       ReservarPistaController reservarPistaController,
+      // String nivel,
       void Function() onPressed) async {
     try {
       var numOperacion = '';
@@ -299,9 +300,9 @@ class DBAlvaroController extends GetxController {
             storage.idUsuario.read(),
             reservarPistaController.id_pista_seleccionada.value,
             reservaConTarjeta: true);
-        await launchURL(
-            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-        Get.back();
+
+        DatosServer.openTpv(dinero, numOperacion);
+        // Get.back();
       }
     } catch (e) {
       rethrow;
@@ -346,10 +347,10 @@ class DBAlvaroController extends GetxController {
             storage.idUsuario.read(),
             id_pista_seleccionada,
             reservaConTarjeta: true);
-        await launchURL(
-            'https://tpv.modularbox.com/pago_tpv?cantidad=$dinero&num_operacion=$numOperacion');
-        Get.back();
-        Get.back();
+
+        DatosServer.openTpv(dinero, numOperacion);
+        // Get.back();
+        // Get.back();
       }
     } catch (e) {
       rethrow;
@@ -387,8 +388,16 @@ class DBAlvaroController extends GetxController {
     }
   }
 
-  Future<String?> reservarPista(int idUsuario, double money, DateTime fecha,
-      String horaInicio, String idPista, int plazasAReservar) async {
+  Future<String?> reservarPista(
+      int idUsuario,
+      double money,
+      DateTime fecha,
+      String horaInicio,
+      String idPista,
+      int plazasAReservar,
+      int nivelPartida) async {
+    final obtenerNivel =
+        nivelPartida == 0 ? '0.25' : (nivelPartida == 1 ? '0.50' : '');
     try {
       var url = '${DatosServer.urlServer}/usuario/reservar_pista';
       var response = await http.post(Uri.parse(url),
@@ -399,7 +408,8 @@ class DBAlvaroController extends GetxController {
             'cantidad': money * 100,
             'fecha': fecha.toString(),
             'hora_inicio': horaInicio,
-            'plazas_a_reservar': plazasAReservar
+            'plazas_a_reservar': plazasAReservar,
+            'nivel': obtenerNivel,
           }));
       if (response.statusCode == 200) {
         return response.body;

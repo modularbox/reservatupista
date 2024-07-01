@@ -15,4 +15,4 @@ const EdgeInsets paddingHorizontalTop =
 const EdgeInsets paddingVertical = EdgeInsets.symmetric(vertical: paddingSize);
 
 /// Width maximo para hacer resposivo en web
-const maxWidth = 640;
+const maxWidth = 640.0;

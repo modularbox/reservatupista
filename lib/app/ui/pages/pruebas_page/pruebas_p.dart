@@ -30,26 +30,50 @@ class PruebasPage extends GetView<PruebasController> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData query = MediaQuery.of(context);
-    return HomePage(title: 'fdsjhfjs');
+    // return HomePage(title: 'fdsjhfjs');
+    return Scaffold(
+      body: Obx(() => SafeArea(
+            child: controller.imageElegir.imageFile.value != null
+                ? mostrarImagen()
+                : Column(
+                    children: [
+                      MaterialButton(
+                        color: Colors.blue,
+                        onPressed: () => controller.imageElegir
+                            .dialogSeleccionarImage(context),
+                        splashColor: Colors.blueGrey,
+                        child: const Text(
+                          'Seleccionar Imagen',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+          )),
+    );
   }
-}
 
-class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-    required this.title,
-  });
-  final String title;
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+  Widget mostrarImagen() {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        height: 500,
+        width: 400,
+        color: Colors.black,
+        child: Container(
+            height: 500,
+            width: 400,
+            decoration: BoxDecoration(
+                color: Colors.red,
+                border: Border.all(width: 1, color: Colors.white)),
+            child: Image.file(
+              File(controller.imageElegir.imageFile.value!),
+            )),
+      ),
+    );
   }
 }
 
@@ -269,6 +293,54 @@ class _HomePageState extends State<HomePage> {
 //   }
 
 //   Future<void> _cropImage() async {
+//     print('_cropImage');
+//     if (_pickedFile != null) {
+//       final croppedFile = await ImageCropper().cropImage(
+//         sourcePath: _pickedFile!.path,
+//         compressFormat: ImageCompressFormat.png,
+//         compressQuality: 100,
+//         uiSettings: [
+//           AndroidUiSettings(
+//             toolbarTitle: 'Cropper',
+//             toolbarColor: Colors.deepOrange,
+//             toolbarWidgetColor: Colors.white,
+//             initAspectRatio: CropAspectRatioPreset.square,
+//             lockAspectRatio: true,
+//             aspectRatioPresets: [
+//               CropAspectRatioPreset.square,
+//               CropAspectRatioPresetCustom(),
+//             ],
+//           ),
+//           IOSUiSettings(
+//             title: 'Cropper',
+//             aspectRatioPresets: [
+//               CropAspectRatioPreset.square,
+//               CropAspectRatioPresetCustom(),
+//             ],
+//           ),
+//           WebUiSettings(
+//             context: context,
+//             presentStyle: WebPresentStyle.dialog,
+//             size: const CropperSize(
+//               width: 520,
+//               height: 520,
+//             ),
+//           ),
+//         ],
+//       );
+
+//       if (croppedFile != null) {
+//         // Aquí puedes mostrar la imagen recortada o hacer más acciones con ella
+//         showDialog(
+//           context: context,
+//           builder: (context) => Dialog(
+//             child: Image.file(File(croppedFile.path)),
+//           ),
+//         );
+//       }
+//     }
+
+//     return;
 //     if (_pickedFile != null) {
 //       final croppedFile = await ImageCropper().cropImage(
 //         sourcePath: _pickedFile!.path,

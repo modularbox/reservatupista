@@ -6,7 +6,6 @@ import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../tarifas_pista_c.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -15,14 +14,8 @@ class ClonarDias extends StatelessWidget {
   TarifasPistaController self = Get.find();
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: SizedBox(
-          height: MediaQuery.sizeOf(context).height - 190,
-          width: MediaQuery.sizeOf(context).width,
-          child: Stack(
-            children: [Positioned(bottom: 0, child: buildClonarDias())],
-          )),
+    return Stack(
+      children: [Positioned(bottom: 0, child: buildClonarDias())],
     );
   }
 
@@ -44,24 +37,18 @@ class ClonarDias extends StatelessWidget {
                     onPressed: self.onChangeCopiarDatos,
                     text: '  Copiar  ',
                     isProveedor: true,
-                    // options: FFButtonOptions(
-                    //   color: Colors.green,
-                    //   textStyle: LightModeTheme().bodyMedium,
-                    // )
+                    height: 40,
                   ),
                   ButtonGeneral(
                     onPressed: self.onChangeClonarBorrar,
                     text: '  Borrar  ',
                     fillColor: Colores.rojo,
-                    // options: FFButtonOptions(
-                    //   color: Colors.red,
-                    //   textStyle: LightModeTheme().bodyMedium,
-                    // )
+                    height: 40,
                   ),
                 ],
               ),
             ),
-            20.0.sh,
+            30.0.sh,
           ],
         ),
       ),
@@ -97,8 +84,8 @@ class ClonarDias extends StatelessWidget {
                               : Colors.white,
                           fontSize: 12.0,
                         )),
-                width: 40.0,
-                height: 40.0,
+                width: 46.0,
+                height: 46.0,
                 padding:
                     const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 fillColor: self.selectedDias.value[e]

@@ -1,7 +1,9 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/image/funciones_image.dart';
 
 class PruebasController extends GetxController {
+  final imageElegir = FuncionesImage(isProveedor: true);
   void pruebas() async {
     // final String locationPurposeString =
     //     await rootBundle.loadString('Info.plist');

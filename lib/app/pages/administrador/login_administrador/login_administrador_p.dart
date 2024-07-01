@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reservatu_pista/utils/auto_size_text/auto_size_text.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import '../../../../flutter_flow/flutter_flow_animations.dart';
-import '../../../../utils/auto_size_text/auto_size_text.dart';
 import '../../../../utils/btn_icon.dart';
 import '../../../../utils/dialog/terminos_condiciones_dialog.dart';
 import '../../../routes/app_pages.dart';
@@ -22,9 +22,11 @@ class LoginAdministradorPage extends GetView<LoginAdministradorController> {
   final Color colorProfesional = const Color(0xFF46EF98);
   final Color colorUsuario = const Color(0xFF2B78DC);
   bool movilPequeno = false;
+  late bool isMin;
 
   @override
   Widget build(BuildContext context) {
+    isMin = context.h < 655.0;
     if (isiOS) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
@@ -131,7 +133,9 @@ class LoginAdministradorPage extends GetView<LoginAdministradorController> {
                     ),
                   ],
                 ),
-                const NavBarLogin()
+                NavBarLogin(
+                  isMin: isMin,
+                )
               ],
             ),
           ),
@@ -176,7 +180,7 @@ class LoginAdministradorPage extends GetView<LoginAdministradorController> {
               minFontSize: 10,
             ),
           ),
-          5.0.sh,
+          isMin ? 0.0.sh : 5.0.sh,
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
                 20, movilPequeno ? 5 : 10, 20, 0),
@@ -321,8 +325,10 @@ class LoginAdministradorPage extends GetView<LoginAdministradorController> {
                 )),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(
-                5, movilPequeno ? 0 : 5, movilPequeno ? 0 : 5, 10),
+            padding: isMin
+                ? EdgeInsets.zero
+                : EdgeInsetsDirectional.fromSTEB(
+                    5, movilPequeno ? 0 : 5, movilPequeno ? 0 : 5, 10),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -381,7 +387,9 @@ class LoginAdministradorPage extends GetView<LoginAdministradorController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 5),
+            padding: isMin
+                ? const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0)
+                : const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 5),
             child: FFButtonWidget(
               onPressed: onPressed,
               text: 'Acceder',
@@ -404,7 +412,7 @@ class LoginAdministradorPage extends GetView<LoginAdministradorController> {
             animTerminos,
             focusedColor,
             palomita,
-            paddingTop: movilPequeno ? 10 : 20,
+            paddingTop: isMin ? 5.0 : (movilPequeno ? 10 : 20),
           ),
           const SizedBox(
             height: 5.0,

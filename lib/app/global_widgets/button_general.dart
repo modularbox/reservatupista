@@ -24,10 +24,13 @@ class ButtonGeneral extends StatefulWidget {
       this.hoverIconColor,
       this.onPressed,
       this.padding,
+      this.margin,
       this.iconSize,
       this.iconColor,
+      this.textColor,
       this.size,
       this.showLoadingIndicator = false,
+      this.fontSize,
       this.isProveedor = false});
 
   final Widget? child;
@@ -44,14 +47,17 @@ class ButtonGeneral extends StatefulWidget {
   final Color? hoverColor;
   final Color? hoverIconColor;
   final Color? borderColor;
+  final Color? textColor;
   final double? borderWidth;
   final bool showLoadingIndicator;
   final double? iconSize;
   final Color? iconColor;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
   final Size? size;
   final Function()? onPressed;
   final bool isProveedor;
+  final double? fontSize;
 
   @override
   State<ButtonGeneral> createState() => _ButtonGeneralState();
@@ -61,11 +67,11 @@ class _ButtonGeneralState extends State<ButtonGeneral> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: widget.margin ?? const EdgeInsets.only(bottom: 10.0),
       child: Card(
           elevation: 5.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 16),
           ),
           color: widget.fillColor ??
               (widget.isProveedor
@@ -78,14 +84,9 @@ class _ButtonGeneralState extends State<ButtonGeneral> {
               hoverColor: widget.hoverColor ?? (Colors.black26),
               padding: widget.padding ??
                   const EdgeInsets.symmetric(horizontal: 20.0),
-              // fillColor: widget.fillColor ??
-              //     (widget.isProveedor
-              //         ? Colores.proveedor.primary
-              //         : Colores.usuario.primary),
-              fillColor: Colors.transparent,
-              borderColor: Colors.transparent,
-              borderWidth: 1,
-              borderRadius: 12,
+              borderColor: widget.borderColor,
+              borderWidth: widget.borderWidth,
+              borderRadius: widget.borderRadius ?? 16,
               icon: buildWidget())),
     );
   }
@@ -118,7 +119,8 @@ class _ButtonGeneralState extends State<ButtonGeneral> {
       widget.text ?? 'Registrate',
       style: LightModeTheme().bodyLarge.copyWith(
         fontFamily: 'Readex Pro',
-        color: LightModeTheme().tertiary,
+        color: widget.textColor ?? LightModeTheme().tertiary,
+        fontSize: widget.fontSize,
         shadows: [
           const Shadow(
             blurRadius: 5.0,

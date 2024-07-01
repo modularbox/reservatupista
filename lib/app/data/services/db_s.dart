@@ -2,13 +2,12 @@ import 'package:get/get.dart';
 import 'package:reservatu_pista/app/data/provider/usuario_node.dart';
 import 'package:reservatu_pista/backend/storage/storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/usuario_model.dart';
 import '../provider/datos_server.dart';
 
 class DBService extends GetxService {
   // Version de la app
-  final version = '2.2.26';
+  final version = '2.2.32';
   // final version = '%Version';
   // Base de datos en web
   late SharedPreferences storage;
@@ -23,6 +22,7 @@ class DBService extends GetxService {
   String nombre = '';
   String email = '';
   String apellidos = '';
+  String nivel = '';
 
   /// Datos del Proveedor
   int idProveedor = 0;
@@ -75,6 +75,7 @@ class DBService extends GetxService {
         nick = storage.nick.read() ?? nick;
         email = storage.email.read() ?? email;
         idReserva = storage.idReserva.read() ?? idReserva;
+        nivel = storage.nivel.read() ?? nivel;
         if (fotoUsuario != '') {
           fotoServer = fotoUsuario;
         }

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reservatu_pista/app/data/provider/image_node.dart';
 import 'package:reservatu_pista/utils/colores.dart';
+import 'package:reservatu_pista/utils/dialog/message_server_dialog.dart';
 import 'package:reservatu_pista/utils/image/seleccionar_imagen_dialog.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_util.dart';
 
@@ -32,14 +33,13 @@ class FuncionesImage {
     // Imagen decoded
     img.Image image = img.decodeImage(File(path).readAsBytesSync())!;
     // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
-    img.Image compressedImage = img.copyResize(
-      image,
-      width: 150,
-      height: 300,
-    );
+    // img.Image compressedImage = img.copyResize(
+    //   image,
+    // );
     // Regresar la imagen comprimida
-    return File(path)
-      ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 60));
+    // return File(path)
+    //   ..writeAsBytesSync(img.encodeJpg(compressedImage, quality: 80));
+    return File(path)..writeAsBytesSync(img.encodeJpg(image, quality: 80));
   }
 
   /// Reducir imagen en bytes
@@ -48,15 +48,13 @@ class FuncionesImage {
     img.Image image = img.decodeImage(imageData)!;
 
     // Reducir la calidad de la imagen (ajusta el valor 70 según tus necesidades)
-    img.Image compressedImage = img.copyResize(
-      image,
-      width: 150,
-      height: 300,
-    );
+    // img.Image compressedImage = img.copyResize(
+    //   image,
+    // );
 
     // Codificar la imagen como Uint8List
     Uint8List compressedImageData =
-        Uint8List.fromList(img.encodeJpg(compressedImage, quality: 60));
+        Uint8List.fromList(img.encodeJpg(image, quality: 80));
 
     // Devolver la imagen comprimida
     return compressedImageData;
@@ -125,19 +123,29 @@ class FuncionesImage {
   }
 
   Future<void> pickImage(ImageSource source, {String? path}) async {
-    if (path != null) {
-      imageAsset.value = path;
-      imageFile.value = '@$path';
-    } else {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile != null) {
-        isImagenModificada = true;
-        if (isWeb) {
-          imageBytes.value = await pickedFile.readAsBytes();
-        } else {
-          imageFile.value = pickedFile.path;
+    try {
+      if (path != null) {
+        imageAsset.value = path;
+        imageFile.value = '@$path';
+      } else {
+        final pickedFile = await ImagePicker().pickImage(source: source);
+        if (pickedFile != null) {
+          isImagenModificada = true;
+          if (isWeb) {
+            imageBytes.value = await pickedFile.readAsBytes();
+          } else {
+            imageFile.value = pickedFile.path;
+          }
         }
       }
+    } catch (e) {
+      return MessageServerDialog(
+              context: Get.context!,
+              alertType: error,
+              title: 'Imagen',
+              subtitle: '$e',
+              onPressed: Get.back)
+          .dialog();
     }
     Get.back();
   }

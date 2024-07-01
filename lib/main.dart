@@ -1,6 +1,5 @@
-// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:reservatu_pista/web/web.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
@@ -9,22 +8,25 @@ import 'package:reservatu_pista/app/ui/pages/not_found_page/not_found_p.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'app/routes/app_pages.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 
 void main() async {
+  print('------------------ Version 11 ------------------');
   WidgetsFlutterBinding.ensureInitialized();
   await FFLocalizations.initialize();
-  final appState = FFAppState(); // Initialize FFAppState
-  await appState.initializePersistedState();
-
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: MyApp(),
-  ));
+  // final appState = FFAppState(); // Initialize FFAppState
+  // await appState.initializePersistedState();
+  quitarAlmohadilla();
+  // runApp(ChangeNotifierProvider(
+  //   create: (context) => appState,
+  //   child: const MyApp(),
+  // ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
@@ -36,8 +38,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
   ThemeMode _themeMode = ThemeMode.light;
-
-  // late AppStateNotifier _appStateNotifier;
 
   bool displaySplashImage = true;
 

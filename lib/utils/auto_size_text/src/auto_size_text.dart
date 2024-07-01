@@ -255,7 +255,6 @@ class _AutoSizeTextState extends State<AutoSizeText> {
       _validateProperties(style, maxLines);
 
       final result = _calculateFontSize(size, style, maxLines);
-      print(result);
       final fontSize = result[0] as double;
       final textFits = result[1] as bool;
 

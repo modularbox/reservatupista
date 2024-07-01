@@ -4,13 +4,14 @@ import 'package:reservatu_pista/app/data/models/mis_pistas_model.dart';
 import 'package:reservatu_pista/app/data/models/mis_reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/models/reservas_usuario_model.dart';
 import 'package:reservatu_pista/app/data/provider/datos_server.dart';
+import 'package:reservatu_pista/app/global_widgets/imagenes_pista.dart';
+import 'package:reservatu_pista/constants.dart';
 import './widgets/detalles_reserva.dart';
 import 'package:reservatu_pista/flutter_flow/flutter_flow_animations.dart';
 import 'package:reservatu_pista/utils/btn_icon.dart';
 import 'package:reservatu_pista/utils/colores.dart';
 import 'package:reservatu_pista/utils/loader/color_loader.dart';
 import 'package:reservatu_pista/utils/responsive_web.dart';
-import 'package:reservatu_pista/utils/server/image_server.dart';
 import 'package:reservatu_pista/utils/sizer.dart';
 import 'package:reservatu_pista/utils/state_getx/state_mixin_demo.dart';
 import '../../../../backend/schema/enums/enums.dart';
@@ -263,7 +264,9 @@ class MisPistasPage extends GetView<MisPistasController> {
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
-          border: Border.all(width: 1, color: Colores.grisClaro),
+          border: pista.eliminada
+              ? Border.all(width: 1, color: Colores.rojo)
+              : Border.all(width: 1, color: Colores.grisClaro),
         ),
         child: Align(
           alignment: const AlignmentDirectional(0, 0),
@@ -315,28 +318,43 @@ class MisPistasPage extends GetView<MisPistasController> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10, 0, 0, 0),
-                              child: Text(
-                                'Pista ${pista.numPista} ${pista.nombrePatrocinador.isEmpty ? '' : '- ${pista.nombrePatrocinador}'}',
-                                style: LightModeTheme().bodyMedium.override(
-                                      fontFamily: 'Readex Pro',
-                                      fontSize: 16,
-                                      letterSpacing: 0,
-                                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
+                                child: Text(
+                                  'Pista ${pista.numPista} ${pista.nombrePatrocinador.isEmpty ? '' : '- ${pista.nombrePatrocinador}'}',
+                                  style: LightModeTheme().bodyMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        fontSize: 16,
+                                        letterSpacing: 0,
+                                      ),
+                                ),
                               ),
-                            ),
+                              Visible(
+                                isVisible: pista.eliminada,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Text(
+                                    'Eliminada',
+                                    style: LightModeTheme().bodyMedium.override(
+                                        fontFamily: 'Readex Pro',
+                                        fontSize: 12,
+                                        letterSpacing: 0,
+                                        color: Colores.rojo),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:
@@ -424,7 +442,7 @@ class MisPistasPage extends GetView<MisPistasController> {
             children: List.generate(
               state!.length,
               (i) => buildReserva(state[i]),
-            ).divide(10.0.sh).addToEnd(65.0.sh),
+            ).divide(paddingSize.sh).addToEnd(Get.context!.paddingBottom.sh),
           ),
         ),
       ),
@@ -457,163 +475,139 @@ class MisPistasPage extends GetView<MisPistasController> {
   Widget buildReserva(MisReservasUsuarioModel state) {
     final isCerrada = state.reservasUsuarios != null &&
         state.reservasUsuarios!.plazasReservadasTotales == state.capacidad;
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 3,
-              color: LightModeTheme().primaryText,
-              offset: const Offset(
-                0,
-                2,
-              ),
-            )
-          ],
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(
-            color: isCerrada ? Colores.rojo : Colores.orange,
-            width: 2,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 3,
+            color: LightModeTheme().primaryText,
+            offset: const Offset(
+              0,
+              2,
+            ),
+          )
+        ],
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        border: Border.all(
+          color: isCerrada ? Colores.rojo : Colores.orange,
+          width: 2,
         ),
-        child: BtnIcon(
-          hoverColor: Colores.usuario.primary69,
-          borderRadius: 10,
-          onPressed: () async {
-            int tiempoRestante = 0;
-            try {
-              DateTime fechaInicioPartida =
-                  self.construirDatetime(state.fechaReserva, state.horaInicio);
-              DateTime fechaActual = DateTime.now();
-              DateTime fechaTiempoCancelacion = fechaInicioPartida
-                  .subtract(Duration(hours: state.tiempo_cancelacion));
-              if (fechaActual < fechaTiempoCancelacion) {
-                tiempoRestante = fechaTiempoCancelacion.millisecondsSinceEpoch -
-                    fechaActual.millisecondsSinceEpoch;
-                self.empezarFechaRestante(tiempoRestante);
-              }
-            } catch (e, st) {
-              print('eeeeeee $e');
-              print('eeeeeee stack $st');
-              return;
+      ),
+      child: BtnIcon(
+        hoverColor: Colores.usuario.primary69,
+        borderRadius: 10,
+        onPressed: () async {
+          int tiempoRestante = 0;
+          try {
+            DateTime fechaInicioPartida =
+                self.construirDatetime(state.fechaReserva, state.horaInicio);
+            DateTime fechaActual = DateTime.now();
+            DateTime fechaTiempoCancelacion = fechaInicioPartida
+                .subtract(Duration(hours: state.tiempo_cancelacion));
+            if (fechaActual < fechaTiempoCancelacion) {
+              tiempoRestante = fechaTiempoCancelacion.millisecondsSinceEpoch -
+                  fechaActual.millisecondsSinceEpoch;
+              self.empezarFechaRestante(tiempoRestante);
             }
-            self.pageIndexNotifier.value = 0;
-            DetalleReservaDialog(
-              context: Get.context!,
-              idReserva: state.idReserva.toString(),
-              capacidad: state.capacidad,
-              state: state,
-              reservasUsuarios: state.reservasUsuarios,
-              tiempoRestante: tiempoRestante,
-            ).dialog();
-          },
-          icon: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
+          } catch (e, st) {
+            print('eeeeeee $e');
+            print('eeeeeee stack $st');
+            return;
+          }
+          self.pageIndexNotifier.value = 0;
+          DetalleReservaDialog(
+            context: Get.context!,
+            idReserva: state.idReserva.toString(),
+            capacidad: state.capacidad,
+            state: state,
+            reservasUsuarios: state.reservasUsuarios,
+            tiempoRestante: tiempoRestante,
+          ).dialog();
+        },
+        icon: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                ImagenPistaEnReservas(image: state.foto),
+                Expanded(
+                  child: Column(
                     mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(0),
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(0),
-                          ),
-                          child: ImageProveedor(
-                            foto: state.foto,
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'Pista ${state.numPista} - ${state.nombrePatrocinador}',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 16,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 5, 0),
-                                child: Text(
-                                  '#${state.referencia}',
-                                  style: LightModeTheme().bodyMedium.override(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '${state.fechaReserva.formatReserva} - ${state.horaInicio.formatHora}',
-                              style: LightModeTheme().bodyMedium.override(
-                                    fontFamily: 'Readex Pro',
-                                    letterSpacing: 0,
-                                  ),
+                            Expanded(
+                              child: Text(
+                                'Pista ${state.numPista} - ${state.nombrePatrocinador}',
+                                style: LightModeTheme().bodyMedium.override(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 16,
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 0, 5, 0),
                               child: Text(
-                                _getDineroPagado(
-                                        state.usuarios, state.dineroPagado)
-                                    .euro,
-                                // '${state.dineroPagado.euro}',
+                                '#${state.referencia}',
                                 style: LightModeTheme().bodyMedium.override(
                                       fontFamily: 'Readex Pro',
-                                      fontSize: 18,
+                                      fontSize: 14,
                                       letterSpacing: 0,
                                     ),
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${state.fechaReserva.formatReserva} - ${state.horaInicio.formatHora}',
+                            style: LightModeTheme().bodyMedium.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0,
+                                ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 5, 0),
+                            child: Text(
+                              _getDineroPagado(
+                                      state.usuarios, state.dineroPagado)
+                                  .euro,
+                              // '${state.dineroPagado.euro}',
+                              style: LightModeTheme().bodyMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 18,
+                                    letterSpacing: 0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              BuildUsuarios(
-                  capacidad: state.capacidad,
-                  idReserva: state.idReserva.toString(),
-                  idPista: state.idPista,
-                  eliminar: false,
-                  reservasUsuarios: state.reservasUsuarios),
-            ],
-          ),
+                ),
+              ],
+            ),
+            BuildUsuarios(
+                capacidad: state.capacidad,
+                idReserva: state.idReserva.toString(),
+                idPista: state.idPista,
+                eliminar: false,
+                reservasUsuarios: state.reservasUsuarios),
+          ],
         ),
       ),
     );

@@ -10,6 +10,7 @@ import 'package:reservatu_pista/app/data/provider/email_node.dart';
 import 'package:reservatu_pista/app/data/provider/proveedor_node.dart';
 import 'package:reservatu_pista/app/data/provider/reservas_node.dart';
 import 'package:reservatu_pista/app/data/services/db_s.dart';
+import 'package:reservatu_pista/app/mixin/reservar_pista_mixin.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/controllers/db_alvaro_c.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/dialogs_messages.dart';
 import 'package:reservatu_pista/app/pages/usuario/reservar_pista/widgets/size_move.dart';
@@ -42,9 +43,10 @@ class HorarioFinInicio {
 }
 
 class ReservarPistaController extends GetxController
-    with GetTickerProviderStateMixin {
-  /// Reservas Usuario
-
+    with GetTickerProviderStateMixin, ReservarPistaMixin {
+  /// Codigo de descuento ficticio
+  final codigoFicticio = false.obs;
+  final validarCodigoFicticio = false.obs;
   // Tamano de cada widget
   SizeMove sm = SizeMove();
 
@@ -60,9 +62,9 @@ class ReservarPistaController extends GetxController
   set tiempoReserva(int value) => _tiempoReserva.value = value;
 
   /// Datos usuarios a reservar
-  late Rx<ReservaUsuario> usuario;
-  DBAlvaroController db2 = Get.find();
-  DBService db = Get.find();
+  final usuario = Rx<ReservaUsuario>(ReservaUsuario());
+  final DBAlvaroController db2 = Get.find();
+  final DBService db = Get.find();
   //variable que almacena todas las localidades existentes.
   Rx<List<String>> localidades = Rx<List<String>>([]);
   LocalidadModel listLocalidades = LocalidadModel(localidades: []);
@@ -149,6 +151,21 @@ class ReservarPistaController extends GetxController
   // Selection controller
   final SelectionController selectionController = SelectionController();
 
+// Empieza del 0 al 3
+  void visibilidadWidget(int indexVisibility) {
+    List<Rx> rxDatos = [
+      deporte_seleccionado,
+      selectDateDay,
+      _tiempoReserva,
+      selectHorario,
+    ];
+    List<dynamic> change = ['', null, 0, null];
+    for (var i = indexVisibility; i < 4; i++) {
+      rxDatos[i].value = change[i];
+      print('visibilidadWidget');
+    }
+  }
+
   @override
   void onInit() async {
     super.onInit();
@@ -166,15 +183,9 @@ class ReservarPistaController extends GetxController
   void onChangedDay(DateTime dayDate) {
     fecha_seleccionada.value =
         DateTime(dayDate.year, dayDate.month, dayDate.day);
-    selectHorario.value = null;
     selectDateDay.value = dayDate;
     selectDateDay.refresh();
     sm.moveCalendar();
-    if (selectPista.value == 0) {
-      selectPista.refresh();
-    } else {
-      selectPista.value = 0;
-    }
   }
 
   void onConfirmar() {
@@ -186,8 +197,9 @@ class ReservarPistaController extends GetxController
     }
     if (selectionController.selectedOption.value != '' &&
         selectionController.selectedOption.value != 'rellenar') {
+      print('precio_a_mostrar.value ${precio_a_mostrar.value}');
       final precio = db.dineroTotal - (precio_a_mostrar.value);
-      if (precio < 0) {
+      if (precio < 0 && codigoFicticio.isFalse) {
         if (selectionController.selectedOption.value == 'tarjeta') {
           dm.reservarTarjeta(
               precio: precio_a_mostrar.value.euro,
@@ -199,12 +211,14 @@ class ReservarPistaController extends GetxController
       } else {
         if (selectionController.selectedOption.value == 'tarjeta') {
           dm.reservarTarjeta(
-              precio: precio_a_mostrar.value.euro,
+              precio:
+                  codigoFicticio.isTrue ? 0.euro : precio_a_mostrar.value.euro,
               onPressedButton: () => db2.reservarPistaConTarjeta(
                   precio_a_mostrar.value, this, dm.reservarProceso));
         } else {
           dm.reservarMonedero(
-              precio: precio_a_mostrar.value.euro,
+              precio:
+                  codigoFicticio.isTrue ? 0.euro : precio_a_mostrar.value.euro,
               onPressedButton: reservarPistaF);
         }
       }
@@ -213,26 +227,30 @@ class ReservarPistaController extends GetxController
   }
 
   void reservarPistaF() async {
+    print(
+        'usuario.value.plazasReservadas,===${usuario.value.plazasReservadas}');
     String? referencia = await db2.reservarPista(
         db.idUsuario,
         precio_a_mostrar.value / 100,
         fecha_seleccionada.value,
         hora_inicio_reserva_seleccionada.value,
         id_pista_seleccionada.value.toString(),
-        usuario.value.plazasReservadas);
+        usuario.value.plazasReservadas,
+        selectedRadio.value);
     if (referencia is String) {
-      await EmailProvider().emailReservas(
-          db.email,
-          referencia,
-          fecha_seleccionada.value.toString().substring(0, 10),
-          hora_inicio_reserva_seleccionada.value,
-          hora_fin_reserva_seleccionada.value,
-          localidad_seleccionada.value,
-          deporteController.text,
-          (selectPista.value! + 1).toString(),
-          'monedero',
-          db.nombre,
-          plazas_a_reservar.value.toString());
+      // await EmailProvider().emailReservas(
+      //     id_pista_seleccionada.value.toString(),
+      //     db.email,
+      //     referencia,
+      //     fecha_seleccionada.value.toString().substring(0, 10),
+      //     hora_inicio_reserva_seleccionada.value,
+      //     hora_fin_reserva_seleccionada.value,
+      //     localidad_seleccionada.value,
+      //     deporteController.text,
+      //     (selectPista.value! + 1).toString(),
+      //     'monedero',
+      //     db.nombre,
+      //     plazas_a_reservar.value.toString());
       dm.reservarSuccess(
           onPressed: () => {Get.back(), Get.offNamed(Routes.MIS_RESERVAS)});
     } else {
@@ -243,11 +261,12 @@ class ReservarPistaController extends GetxController
   Future<void> obtenerPlazasLibres() async {
     try {
       // Iniciarlizar el usuario con los datos guardados
-      usuario = Rx<ReservaUsuario>(ReservaUsuario(
+      usuario.value = ReservaUsuario(
           idUsuario: db.idUsuario,
           nick: db.nick,
+          nivel: db.nivel == '' ? '0.0' : db.nivel,
           imagen: db.fotoUsuario,
-          plazasReservadas: 1));
+          plazasReservadas: 1);
       final idPista = id_pista_seleccionada.value.toString();
       final fecha = fecha_seleccionada.value.formatDate;
       final horaInicio = hora_inicio_reserva_seleccionada.value;

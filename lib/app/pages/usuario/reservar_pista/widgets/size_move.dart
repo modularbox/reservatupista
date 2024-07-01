@@ -6,7 +6,7 @@ class SizeMove {
   double calendar = 0.0;
   final pistas = 100.0;
   double horarios = 0.0;
-  final datos = 475.0;
+  final datos = 530.0;
   RxDouble heightEnd = 0.0.obs;
   double _scrollChange = 0.0;
   double _heightEndChange = 0.0;
@@ -71,7 +71,8 @@ class SizeMove {
     final endSize = heightAll - (_heightEndChange + newHorarios);
     print('endSize: ${endSize}');
     heightEnd.value = heightAll < 0 ? 0.0 : (endSize < 0 ? 0.0 : endSize);
-    if (scrollHeight == _scrollChange) {
+    print('heightEnd ${heightEnd.value}');
+    if (scrollHeight == _scrollChange && heightEnd.value != 0.0) {
       _scrollHeight.refresh();
     } else {
       scrollHeight = _scrollChange;
